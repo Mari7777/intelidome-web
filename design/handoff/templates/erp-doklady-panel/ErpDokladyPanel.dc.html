@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<!-- @template name="ERP — Doklady (dělený panel)" description="Seznamy vlevo, vystavení dokladu jako přilepený panel vpravo" -->
+<helmet>
+<script src="./ds-base.js"></script>
+<style>*{box-sizing:border-box}body{margin:0;background:#f5f5f7;-webkit-font-smoothing:antialiased}a{color:#0071e3;text-decoration:none}a:hover{text-decoration:underline}</style>
+</helmet>
+<div style="min-height:100vh;font-family:var(--id-f-body,-apple-system,BlinkMacSystemFont,'Helvetica Neue',Arial,sans-serif);color:#1d1d1f">
+<header data-screen-label="Hlavička" style="position:sticky;top:0;z-index:10;background:rgba(255,255,255,.85);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border-bottom:1px solid rgba(0,0,0,.07)">
+<div style="max-width:1440px;margin:0 auto;padding:10px 28px;display:flex;align-items:center;gap:20px;flex-wrap:wrap">
+<div style="font-size:17px;font-weight:700;letter-spacing:-0.022em">IntelliDome <span style="color:#0071e3">ERP</span></div>
+<nav style="display:flex;gap:2px;flex-wrap:wrap">
+<a href="#" style="font-size:13px;color:#6e6e73;padding:6px 11px;border-radius:980px" style-hover="background:#f5f5f7;color:#1d1d1f;text-decoration:none">Dokumenty</a>
+<a href="#" style="font-size:13px;font-weight:600;color:#0071e3;background:rgba(0,113,227,.08);padding:6px 11px;border-radius:980px" style-hover="text-decoration:none">Vydané</a>
+<a href="#" style="font-size:13px;color:#6e6e73;padding:6px 11px;border-radius:980px" style-hover="background:#f5f5f7;color:#1d1d1f;text-decoration:none">Návrhy</a>
+<a href="#" style="font-size:13px;color:#6e6e73;padding:6px 11px;border-radius:980px" style-hover="background:#f5f5f7;color:#1d1d1f;text-decoration:none">Produkty</a>
+<a href="#" style="font-size:13px;color:#6e6e73;padding:6px 11px;border-radius:980px" style-hover="background:#f5f5f7;color:#1d1d1f;text-decoration:none">Sklad</a>
+<a href="#" style="font-size:13px;color:#6e6e73;padding:6px 11px;border-radius:980px" style-hover="background:#f5f5f7;color:#1d1d1f;text-decoration:none">Objednávky</a>
+<a href="#" style="font-size:13px;color:#6e6e73;padding:6px 11px;border-radius:980px" style-hover="background:#f5f5f7;color:#1d1d1f;text-decoration:none">Banka</a>
+<a href="#" style="font-size:13px;color:#6e6e73;padding:6px 11px;border-radius:980px" style-hover="background:#f5f5f7;color:#1d1d1f;text-decoration:none">DPH</a>
+<a href="#" style="font-size:13px;color:#6e6e73;padding:6px 11px;border-radius:980px;white-space:nowrap" style-hover="background:#f5f5f7;color:#1d1d1f;text-decoration:none">Daň z příjmů</a>
+<a href="#" style="font-size:13px;color:#6e6e73;padding:6px 11px;border-radius:980px" style-hover="background:#f5f5f7;color:#1d1d1f;text-decoration:none">Události</a>
+<a href="#" style="font-size:13px;color:#6e6e73;padding:6px 11px;border-radius:980px" style-hover="background:#f5f5f7;color:#1d1d1f;text-decoration:none">Nastavení</a>
+</nav>
+</div>
+</header>
+<main style="max-width:1440px;margin:0 auto;padding:22px 28px 80px;display:grid;grid-template-columns:minmax(0,1fr) 440px;gap:24px;align-items:start">
+<div style="display:grid;gap:28px;min-width:0">
+<section data-screen-label="Vydané doklady">
+<h2 style="font-family:var(--id-f-display,inherit);font-size:22px;font-weight:600;letter-spacing:-0.02em;margin:0 0 12px">Vydané doklady</h2>
+<div class="id-card" style="padding:4px 20px 8px;overflow-x:auto">
+<table style="width:100%;border-collapse:collapse">
+<thead><tr>
+<th style="text-align:left;font-size:12px;font-weight:600;color:#86868b;padding:14px 8px 10px;border-bottom:1px solid rgba(0,0,0,.1)">číslo</th>
+<th style="text-align:left;font-size:12px;font-weight:600;color:#86868b;padding:14px 8px 10px;border-bottom:1px solid rgba(0,0,0,.1)">typ</th>
+<th style="text-align:left;font-size:12px;font-weight:600;color:#86868b;padding:14px 8px 10px;border-bottom:1px solid rgba(0,0,0,.1)">odběratel</th>
+<th style="text-align:left;font-size:12px;font-weight:600;color:#86868b;padding:14px 8px 10px;border-bottom:1px solid rgba(0,0,0,.1)">DUZP</th>
+<th style="text-align:right;font-size:12px;font-weight:600;color:#86868b;padding:14px 8px 10px;border-bottom:1px solid rgba(0,0,0,.1)">celkem</th>
+<th style="text-align:left;font-size:12px;font-weight:600;color:#86868b;padding:14px 8px 10px;border-bottom:1px solid rgba(0,0,0,.1)">PDF</th>
+</tr></thead>
+<tbody><tr>
+<td style="padding:13px 8px;font-family:var(--id-f-mono,Menlo,monospace);font-size:13px">20260001</td>
+<td style="padding:13px 8px"><span class="id-badge id-badge--info">faktura</span></td>
+<td style="padding:13px 8px;font-size:14px;font-weight:500">BIKEMAX s.r.o.</td>
+<td style="padding:13px 8px;font-size:14px;color:#6e6e73">2026-08-08</td>
+<td style="padding:13px 8px;font-family:var(--id-f-mono,Menlo,monospace);font-size:13px;font-weight:600;text-align:right;white-space:nowrap">100000.00 CZK</td>
+<td style="padding:13px 8px"><a href="#" style="font-weight:600;font-size:14px">PDF</a></td>
+</tr>
+<tr><td colspan="6" style="padding:0 8px 14px"><div style="display:flex;gap:8px;align-items:center"><input class="id-field__input" placeholder="důvod (vratka...)" style="width:220px;padding:8px 12px;font-size:13px;border-radius:10px"><button class="id-btn id-btn--ghost id-btn--sm" style="padding:8px 14px;font-size:13px">dobropis</button></div></td></tr>
+</tbody>
+</table>
+</div>
+</section>
+<section data-screen-label="Kniha pohledávek">
+<h2 style="font-family:var(--id-f-display,inherit);font-size:22px;font-weight:600;letter-spacing:-0.02em;margin:0 0 12px">Kniha pohledávek</h2>
+<div class="id-card" style="padding:4px 20px 8px;overflow-x:auto">
+<table style="width:100%;border-collapse:collapse">
+<thead><tr>
+<th style="text-align:left;font-size:12px;font-weight:600;color:#86868b;padding:14px 8px 10px;border-bottom:1px solid rgba(0,0,0,.1)">doklad</th>
+<th style="text-align:left;font-size:12px;font-weight:600;color:#86868b;padding:14px 8px 10px;border-bottom:1px solid rgba(0,0,0,.1)">odběratel</th>
+<th style="text-align:left;font-size:12px;font-weight:600;color:#86868b;padding:14px 8px 10px;border-bottom:1px solid rgba(0,0,0,.1)">splatnost</th>
+<th style="text-align:right;font-size:12px;font-weight:600;color:#86868b;padding:14px 8px 10px;border-bottom:1px solid rgba(0,0,0,.1)">celkem</th>
+<th style="text-align:right;font-size:12px;font-weight:600;color:#86868b;padding:14px 8px 10px;border-bottom:1px solid rgba(0,0,0,.1)">uhrazeno</th>
+<th style="text-align:left;font-size:12px;font-weight:600;color:#86868b;padding:14px 8px 10px;border-bottom:1px solid rgba(0,0,0,.1)">stav</th>
+</tr></thead>
+<tbody><tr>
+<td style="padding:13px 8px;font-family:var(--id-f-mono,Menlo,monospace);font-size:13px">20260001</td>
+<td style="padding:13px 8px;font-size:14px;font-weight:500">BIKEMAX s.r.o.</td>
+<td style="padding:13px 8px;font-size:14px;color:#6e6e73">2026-08-08</td>
+<td style="padding:13px 8px;font-family:var(--id-f-mono,Menlo,monospace);font-size:13px;font-weight:600;text-align:right;white-space:nowrap">100000.00 CZK</td>
+<td style="padding:13px 8px;font-family:var(--id-f-mono,Menlo,monospace);font-size:13px;text-align:right;color:#6e6e73">0.00</td>
+<td style="padding:13px 8px"><span class="id-badge id-badge--warn">open</span></td>
+</tr></tbody>
+</table>
+</div>
+</section>
+</div>
+<aside data-screen-label="Vystavit doklad" style="position:sticky;top:76px">
+<div class="id-card" style="padding:22px;display:grid;gap:12px">
+<h2 style="font-family:var(--id-f-display,inherit);font-size:20px;font-weight:600;letter-spacing:-0.02em;margin:0 0 2px">Vystavit doklad</h2>
+<select class="id-field__input" style="padding:10px 12px;font-size:14px;max-width:none"><option>faktura</option></select>
+<input class="id-field__input" placeholder="odběratel — jméno/název" style="padding:10px 12px;font-size:14px;max-width:none">
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+<input class="id-field__input" placeholder="IČO" style="padding:10px 12px;font-size:14px;max-width:none">
+<input class="id-field__input" placeholder="DIČ" style="padding:10px 12px;font-size:14px;max-width:none">
+</div>
+<input class="id-field__input" placeholder="adresa (ulice, město, PSČ)" style="padding:10px 12px;font-size:14px;max-width:none">
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+<select class="id-field__input" style="padding:10px 12px;font-size:14px;max-width:none"><option>česky</option></select>
+<select class="id-field__input" style="padding:10px 12px;font-size:14px;max-width:none"><option>CZK</option></select>
+</div>
+<select class="id-field__input" style="padding:10px 12px;font-size:14px;max-width:none"><option>tuzemské plnění</option></select>
+<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;padding-top:4px;border-top:1px solid rgba(0,0,0,.07);margin-top:2px">
+<label style="display:flex;flex-direction:column;gap:6px;font-size:12px;font-weight:600;color:#6e6e73">vystaveno<input class="id-field__input" value="08.08.2026" style="width:100%;padding:9px 10px;font-size:13px;color:#1d1d1f;max-width:none"></label>
+<label style="display:flex;flex-direction:column;gap:6px;font-size:12px;font-weight:600;color:#6e6e73">DUZP<input class="id-field__input" value="08.08.2026" style="width:100%;padding:9px 10px;font-size:13px;color:#1d1d1f;max-width:none"></label>
+<label style="display:flex;flex-direction:column;gap:6px;font-size:12px;font-weight:600;color:#6e6e73">splatnost<input class="id-field__input" value="08.08.2026" style="width:100%;padding:9px 10px;font-size:13px;color:#1d1d1f;max-width:none"></label>
+</div>
+<div style="padding-top:10px;border-top:1px solid rgba(0,0,0,.07);display:grid;gap:10px">
+<label style="display:flex;flex-direction:column;gap:6px;font-size:12px;font-weight:600;color:#6e6e73">položka<input class="id-field__input" style="width:100%;padding:9px 12px;font-size:14px;color:#1d1d1f;max-width:none"></label>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+<label style="display:flex;flex-direction:column;gap:6px;font-size:12px;font-weight:600;color:#6e6e73">množství<input class="id-field__input" value="1" style="width:100%;padding:9px 12px;font-size:14px;color:#1d1d1f;max-width:none;text-align:right"></label>
+<label style="display:flex;flex-direction:column;gap:6px;font-size:12px;font-weight:600;color:#6e6e73">jedn.<input class="id-field__input" value="ks" style="width:100%;padding:9px 12px;font-size:14px;color:#1d1d1f;max-width:none"></label>
+</div>
+<div style="display:grid;grid-template-columns:1fr 1fr 76px;gap:10px">
+<label style="display:flex;flex-direction:column;gap:6px;font-size:12px;font-weight:600;color:#6e6e73">cena/j. bez DPH<input class="id-field__input" value="82644.63" style="width:100%;padding:9px 10px;font-size:13px;color:#1d1d1f;max-width:none;text-align:right;font-family:var(--id-f-mono,Menlo,monospace)"></label>
+<label style="display:flex;flex-direction:column;gap:6px;font-size:12px;font-weight:600;color:#6e6e73">cena/j. s DPH<input class="id-field__input" value="100000" style="width:100%;padding:9px 10px;font-size:13px;color:#1d1d1f;max-width:none;text-align:right;font-family:var(--id-f-mono,Menlo,monospace)"></label>
+<label style="display:flex;flex-direction:column;gap:6px;font-size:12px;font-weight:600;color:#6e6e73">DPH %<input class="id-field__input" value="21" style="width:100%;padding:9px 10px;font-size:13px;color:#1d1d1f;max-width:none;text-align:right"></label>
+</div>
+</div>
+<div style="display:flex;gap:10px;margin-top:4px">
+<button class="id-btn id-btn--secondary id-btn--sm">+ Přidat</button>
+<button class="id-btn id-btn--primary id-btn--sm" style="flex:1">Vystavit</button>
+</div>
+</div>
+</aside>
+</main>
+</div>
+</x-dc>
+</body>
+</html>

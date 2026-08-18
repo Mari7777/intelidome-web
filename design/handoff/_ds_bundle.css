@@ -1,0 +1,298 @@
+/* ============================================================
+   InteliDome design system — tokens + component styles.
+   Distilled from the InteliDome shop pages (radce-zavlazovani):
+   Apple-light look, accent #0071e3, SF Pro system stack,
+   pill buttons (980px), soft-shadow 20px cards.
+   ============================================================ */
+
+:root {
+  /* surfaces & ink */
+  --id-bg: #ffffff;
+  --id-bg-2: #f5f5f7;
+  --id-bg-3: #fbfbfd;
+  --id-surface: #ffffff;
+  --id-ink: #1d1d1f;
+  --id-ink-2: #6e6e73;
+  --id-ink-3: #86868b;
+
+  /* brand */
+  --id-accent: #0071e3;
+  --id-accent-deep: #0058b8;
+  --id-accent-soft: rgba(0, 113, 227, 0.08);
+  --id-green: #1d8a4e;
+  --id-green-soft: #f3f8f5;
+  --id-warn: #b76a00;
+  --id-warn-soft: rgba(183, 106, 0, 0.09);
+  --id-danger: #c0392b;
+  --id-danger-soft: rgba(192, 57, 43, 0.08);
+
+  /* lines & shadows */
+  --id-line: rgba(0, 0, 0, 0.12);
+  --id-line-soft: rgba(0, 0, 0, 0.07);
+  --id-shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
+  --id-shadow-lg: 0 12px 48px rgba(0, 0, 0, 0.1);
+
+  /* typography */
+  --id-f-display: -apple-system, BlinkMacSystemFont, "SF Pro Display",
+    "SF Pro Text", "Helvetica Neue", Helvetica, Arial, sans-serif; /* @kind font */
+  --id-f-body: -apple-system, BlinkMacSystemFont, "SF Pro Text",
+    "Helvetica Neue", Helvetica, Arial, sans-serif; /* @kind font */
+  --id-f-mono: "SF Mono", ui-monospace, SFMono-Regular, Menlo, monospace; /* @kind font */
+
+  /* geometry */
+  --id-r-card: 20px;
+  --id-r-md: 14px;
+  --id-r-sm: 10px;
+  --id-r-pill: 980px;
+  --id-maxw: 1120px;
+  --id-ease: cubic-bezier(0.22, 0.61, 0.36, 1); /* @kind other */
+}
+
+/* ── Button ──────────────────────────────────────────────── */
+.id-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 13px 24px;
+  border-radius: var(--id-r-pill);
+  font-family: var(--id-f-body);
+  font-size: 17px;
+  letter-spacing: -0.01em;
+  line-height: 1.2;
+  cursor: pointer;
+  border: 1px solid transparent;
+  text-decoration: none;
+  transition: background 0.2s, color 0.2s, border-color 0.2s;
+}
+.id-btn--primary {
+  background: var(--id-accent);
+  color: #fff;
+}
+.id-btn--primary:hover {
+  background: var(--id-accent-deep);
+}
+.id-btn--ghost {
+  background: transparent;
+  color: var(--id-accent);
+}
+.id-btn--ghost:hover {
+  background: var(--id-accent-soft);
+}
+.id-btn--secondary {
+  background: var(--id-bg-2);
+  color: var(--id-ink);
+}
+.id-btn--secondary:hover {
+  background: #ebebf0;
+}
+.id-btn--sm {
+  padding: 9px 18px;
+  font-size: 15px;
+}
+.id-btn:disabled {
+  opacity: 0.45;
+  cursor: default;
+  pointer-events: none;
+}
+.id-btn svg {
+  width: 16px;
+  height: 16px;
+}
+
+/* ── Chip ────────────────────────────────────────────────── */
+.id-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--id-f-body);
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--id-ink-2);
+  background: var(--id-bg-2);
+  border: 1px solid var(--id-line-soft);
+  padding: 7px 14px;
+  border-radius: var(--id-r-pill);
+}
+
+/* ── Eyebrow ─────────────────────────────────────────────── */
+.id-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--id-f-body);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--id-accent);
+}
+.id-eyebrow::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--id-accent);
+}
+
+/* ── Card ────────────────────────────────────────────────── */
+.id-card {
+  background: var(--id-surface);
+  border: 1px solid var(--id-line-soft);
+  border-radius: var(--id-r-card);
+  padding: clamp(20px, 2.4vw, 28px);
+  box-shadow: var(--id-shadow);
+  font-family: var(--id-f-body);
+  color: var(--id-ink);
+  transition: transform 0.25s var(--id-ease), box-shadow 0.25s var(--id-ease);
+}
+.id-card--hover:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--id-shadow-lg);
+}
+.id-card--tinted {
+  background: var(--id-bg-3);
+}
+
+/* ── SectionHeading ──────────────────────────────────────── */
+.id-section-heading {
+  font-family: var(--id-f-body);
+  max-width: 640px;
+}
+.id-section-heading .id-eyebrow {
+  margin-bottom: 12px;
+}
+.id-section-heading__title {
+  font-family: var(--id-f-display);
+  font-weight: 600;
+  margin: 0;
+  color: var(--id-ink);
+  text-wrap: balance;
+  letter-spacing: -0.025em;
+  line-height: 1.07;
+  font-size: clamp(28px, 4vw, 40px);
+}
+.id-section-heading__lead {
+  margin: 14px 0 0;
+  font-size: 17px;
+  line-height: 1.5;
+  color: var(--id-ink-2);
+  letter-spacing: -0.01em;
+}
+
+/* ── Badge ───────────────────────────────────────────────── */
+.id-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--id-f-body);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  padding: 5px 12px;
+  border-radius: var(--id-r-pill);
+}
+.id-badge--success {
+  color: var(--id-green);
+  background: var(--id-green-soft);
+}
+.id-badge--warn {
+  color: var(--id-warn);
+  background: var(--id-warn-soft);
+}
+.id-badge--danger {
+  color: var(--id-danger);
+  background: var(--id-danger-soft);
+}
+.id-badge--info {
+  color: var(--id-accent);
+  background: var(--id-accent-soft);
+}
+
+/* ── Input ───────────────────────────────────────────────── */
+.id-field {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  font-family: var(--id-f-body);
+  max-width: 360px;
+}
+.id-field__label {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--id-ink);
+  letter-spacing: -0.01em;
+}
+.id-field__input {
+  font-family: var(--id-f-body);
+  font-size: 16px;
+  color: var(--id-ink);
+  background: var(--id-surface);
+  border: 1px solid var(--id-line);
+  border-radius: var(--id-r-md);
+  padding: 12px 14px;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.id-field__input::placeholder {
+  color: var(--id-ink-3);
+}
+.id-field__input:focus {
+  outline: none;
+  border-color: var(--id-accent);
+  box-shadow: 0 0 0 3px var(--id-accent-soft);
+}
+.id-field__hint {
+  font-size: 12px;
+  color: var(--id-ink-3);
+}
+.id-field--error .id-field__input {
+  border-color: var(--id-danger);
+}
+.id-field--error .id-field__hint {
+  color: var(--id-danger);
+}
+
+/* ── Callout ─────────────────────────────────────────────── */
+.id-callout {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  font-family: var(--id-f-body);
+  border-radius: var(--id-r-md);
+  padding: 16px 18px;
+  font-size: 15px;
+  line-height: 1.5;
+  letter-spacing: -0.01em;
+}
+.id-callout--info {
+  background: var(--id-accent-soft);
+  color: var(--id-ink);
+}
+.id-callout--success {
+  background: var(--id-green-soft);
+  color: var(--id-ink);
+}
+.id-callout--warn {
+  background: var(--id-warn-soft);
+  color: var(--id-ink);
+}
+.id-callout__title {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 2px;
+}
+.id-callout__dot {
+  flex: none;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  margin-top: 7px;
+}
+.id-callout--info .id-callout__dot {
+  background: var(--id-accent);
+}
+.id-callout--success .id-callout__dot {
+  background: var(--id-green);
+}
+.id-callout--warn .id-callout__dot {
+  background: var(--id-warn);
+}

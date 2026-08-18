@@ -1,31 +1,21 @@
-version: '3'
-
+# Lokální vývoj: jen PostgreSQL pro Payload (port 5433 — 5432 drží ERP dev).
+# Produkce běží na Vercelu s Neon Postgres — viz docs/adr/ADR-001.
 services:
-  payload:
-    image: node:18-alpine
+  postgres:
+    image: postgres:16
+    environment:
+      POSTGRES_USER: web
+      POSTGRES_PASSWORD: web
+      POSTGRES_DB: intelidome_web
     ports:
-      - '3000:3000'
+      - "5433:5432"
     volumes:
-      - .:/home/node/app
-      - node_modules:/home/node/app/node_modules
-    working_dir: /home/node/app/
-    command: sh -c "yarn install && yarn dev"
-    depends_on:
-      - mongo
-    env_file:
-      - .env
-
-  mongo:
-    image: mongo:latest
-    ports:
-      - '27017:27017'
-    command:
-      - --storageEngine=wiredTiger
-    volumes:
-      - data:/data/db
-    logging:
-      driver: none
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U web -d intelidome_web"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
 
 volumes:
-  data:
-  node_modules:
+  pgdata:

@@ -1,0 +1,211 @@
+{
+  "plugins": [
+    "react",
+    "import"
+  ],
+  "rules": {
+    "react/forbid-elements": [
+      "warn",
+      {
+        "forbid": [
+          {
+            "element": "button",
+            "message": "Use <Button> from the design system instead of <button>."
+          },
+          {
+            "element": "input",
+            "message": "Use <Input> from the design system instead of <input>."
+          }
+        ]
+      }
+    ],
+    "no-restricted-imports": [
+      "warn",
+      {
+        "patterns": [
+          {
+            "group": [
+              "components/general/Badge/**",
+              "components/general/Button/**",
+              "components/general/Callout/**",
+              "components/general/Card/**",
+              "components/general/Chip/**",
+              "components/general/Eyebrow/**",
+              "components/general/Input/**",
+              "components/general/SectionHeading/**"
+            ],
+            "message": "Import design-system components from 'index.js', not component internals."
+          }
+        ]
+      }
+    ],
+    "no-restricted-syntax": [
+      "warn",
+      {
+        "selector": "Literal[value=/#[0-9a-fA-F]{3,8}\\b/]",
+        "message": "Raw hex color — use a design-system color token via var()."
+      },
+      {
+        "selector": "Literal[value=/\\b\\d+px\\b/]",
+        "message": "Raw px value — use a design-system spacing token via var()."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Badge'] > JSXAttribute > JSXIdentifier[name!=/^(?:tone|children|className|id|style|key|ref|className|style|children)$/]",
+        "message": "<Badge> doesn't accept that prop. Declared props: tone, children, className, id, style."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Badge'] > JSXAttribute[name.name='tone'] > Literal[value!=/^(?:success|warn|danger|info)$/]",
+        "message": "<Badge> tone must be one of 'success' | 'warn' | 'danger' | 'info'."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Button'] > JSXAttribute > JSXIdentifier[name!=/^(?:variant|size|children|className|id|style|key|ref|className|style|children)$/]",
+        "message": "<Button> doesn't accept that prop. Declared props: variant, size, children, className, id, style."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Button'] > JSXAttribute[name.name='variant'] > Literal[value!=/^(?:primary|secondary|ghost)$/]",
+        "message": "<Button> variant must be one of 'primary' | 'secondary' | 'ghost'."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Button'] > JSXAttribute[name.name='size'] > Literal[value!=/^(?:md|sm)$/]",
+        "message": "<Button> size must be one of 'md' | 'sm'."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Callout'] > JSXAttribute > JSXIdentifier[name!=/^(?:tone|title|children|className|id|style|key|ref|className|style|children)$/]",
+        "message": "<Callout> doesn't accept that prop. Declared props: tone, title, children, className, id, style."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Callout'] > JSXAttribute[name.name='tone'] > Literal[value!=/^(?:success|warn|info)$/]",
+        "message": "<Callout> tone must be one of 'success' | 'warn' | 'info'."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Card'] > JSXAttribute > JSXIdentifier[name!=/^(?:hover|tinted|children|className|id|style|key|ref|className|style|children)$/]",
+        "message": "<Card> doesn't accept that prop. Declared props: hover, tinted, children, className, id, style."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Eyebrow'] > JSXAttribute > JSXIdentifier[name!=/^(?:children|className|id|style|key|ref|className|style|children)$/]",
+        "message": "<Eyebrow> doesn't accept that prop. Declared props: children, className, id, style."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Chip'] > JSXAttribute > JSXIdentifier[name!=/^(?:children|className|id|style|key|ref|className|style|children)$/]",
+        "message": "<Chip> doesn't accept that prop. Declared props: children, className, id, style."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Input'] > JSXAttribute > JSXIdentifier[name!=/^(?:label|hint|error|className|id|style|children|key|ref|className|style|children)$/]",
+        "message": "<Input> doesn't accept that prop. Declared props: label, hint, error, className, id, style, children."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='SectionHeading'] > JSXAttribute > JSXIdentifier[name!=/^(?:eyebrow|title|lead|as|className|id|style|children|key|ref|className|style|children)$/]",
+        "message": "<SectionHeading> doesn't accept that prop. Declared props: eyebrow, title, lead, as, className, id, style, children."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='SectionHeading'] > JSXAttribute[name.name='as'] > Literal[value!=/^(?:h1|h2|h3)$/]",
+        "message": "<SectionHeading> as must be one of 'h1' | 'h2' | 'h3'."
+      }
+    ]
+  },
+  "overrides": [
+    {
+      "files": [
+        "**/index.js"
+      ],
+      "rules": {
+        "no-restricted-imports": "off"
+      }
+    }
+  ],
+  "x-omelette": {
+    "components": {
+      "Badge": {
+        "replaces": []
+      },
+      "Button": {
+        "replaces": [
+          "button"
+        ]
+      },
+      "Callout": {
+        "replaces": []
+      },
+      "Card": {
+        "replaces": []
+      },
+      "Eyebrow": {
+        "replaces": []
+      },
+      "Chip": {
+        "replaces": []
+      },
+      "Input": {
+        "replaces": [
+          "input"
+        ]
+      },
+      "SectionHeading": {
+        "replaces": []
+      }
+    },
+    "tokens": [
+      "--id-accent",
+      "--id-accent-deep",
+      "--id-accent-soft",
+      "--id-bg",
+      "--id-bg-2",
+      "--id-bg-3",
+      "--id-danger",
+      "--id-danger-soft",
+      "--id-ease",
+      "--id-f-body",
+      "--id-f-display",
+      "--id-f-mono",
+      "--id-green",
+      "--id-green-soft",
+      "--id-ink",
+      "--id-ink-2",
+      "--id-ink-3",
+      "--id-line",
+      "--id-line-soft",
+      "--id-maxw",
+      "--id-r-card",
+      "--id-r-md",
+      "--id-r-pill",
+      "--id-r-sm",
+      "--id-shadow",
+      "--id-shadow-lg",
+      "--id-surface",
+      "--id-warn",
+      "--id-warn-soft"
+    ],
+    "tokenKinds": {
+      "--id-bg": "color",
+      "--id-bg-2": "color",
+      "--id-bg-3": "color",
+      "--id-surface": "color",
+      "--id-ink": "color",
+      "--id-ink-2": "color",
+      "--id-ink-3": "color",
+      "--id-accent": "color",
+      "--id-accent-deep": "color",
+      "--id-accent-soft": "color",
+      "--id-green": "color",
+      "--id-green-soft": "color",
+      "--id-warn": "color",
+      "--id-warn-soft": "color",
+      "--id-danger": "color",
+      "--id-danger-soft": "color",
+      "--id-line": "color",
+      "--id-line-soft": "color",
+      "--id-shadow": "shadow",
+      "--id-shadow-lg": "shadow",
+      "--id-f-display": "font",
+      "--id-f-body": "font",
+      "--id-f-mono": "font",
+      "--id-r-card": "spacing",
+      "--id-r-md": "spacing",
+      "--id-r-sm": "spacing",
+      "--id-r-pill": "spacing",
+      "--id-maxw": "spacing",
+      "--id-ease": "other"
+    },
+    "fontFamilies": []
+  }
+}
