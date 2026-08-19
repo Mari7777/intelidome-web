@@ -3,6 +3,7 @@ import { nestedDocsPlugin } from '@payloadcms/plugin-nested-docs'
 import { redirectsPlugin } from '@payloadcms/plugin-redirects'
 import { seoPlugin } from '@payloadcms/plugin-seo'
 import { searchPlugin } from '@payloadcms/plugin-search'
+import { vercelBlobStorage } from '@payloadcms/storage-vercel-blob'
 import { Plugin } from 'payload'
 import { revalidateRedirects } from '@/hooks/revalidateRedirects'
 import { GenerateTitle, GenerateURL } from '@payloadcms/plugin-seo/types'
@@ -14,7 +15,7 @@ import { Page, Post } from '@/payload-types'
 import { getServerSideURL } from '@/utilities/getURL'
 
 const generateTitle: GenerateTitle<Post | Page> = ({ doc }) => {
-  return doc?.title ? `${doc.title} | Payload Website Template` : 'Payload Website Template'
+  return doc?.title ? `${doc.title} | InteliDome` : 'InteliDome'
 }
 
 const generateURL: GenerateURL<Post | Page> = ({ doc }) => {
@@ -88,5 +89,15 @@ export const plugins: Plugin[] = [
         return [...defaultFields, ...searchFields]
       },
     },
+  }),
+  // Production media storage (Vercel's filesystem is ephemeral) — see ADR-002.
+  // Without BLOB_READ_WRITE_TOKEN (local dev) uploads stay on local disk.
+  vercelBlobStorage({
+    enabled: Boolean(process.env.BLOB_READ_WRITE_TOKEN),
+    collections: {
+      media: true,
+    },
+    clientUploads: true,
+    token: process.env.BLOB_READ_WRITE_TOKEN,
   }),
 ]
