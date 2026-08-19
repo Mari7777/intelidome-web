@@ -19,6 +19,24 @@ const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
 
 export default buildConfig({
+  // Lokální vývoj nemá poštovní server — e-maily (obnova hesla) se místo
+  // odeslání vypíšou do logu i s odkazem. V produkci sem přijde skutečný
+  // adaptér (Resend/SMTP).
+  email: () => ({
+    name: 'dev-console',
+    defaultFromName: 'InteliDome (dev)',
+    defaultFromAddress: 'dev@intelidome.cz',
+    sendEmail: async (message: { to?: unknown; subject?: unknown; html?: unknown }) => {
+      const html = typeof message.html === 'string' ? message.html : ''
+      const link = html.match(/https?:\/\/[^"'\s<>]*reset[^"'\s<>]*/)?.[0]
+      console.log(
+        `\n=== E-MAIL (dev) → ${String(message.to)}\n${String(message.subject)}` +
+          (link ? `\nODKAZ: ${link}` : `\n${html}`) +
+          `\n===\n`,
+      )
+      return { messageId: 'dev-console' }
+    },
+  }),
   admin: {
     components: {
       // The `BeforeLogin` component renders a message that you see while logging into your admin panel.
