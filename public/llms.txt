@@ -1,0 +1,18 @@
+# InteliDome
+
+> InteliDome je česká značka pro chytrou závlahu a automatizaci zahrady.
+> Web www.intelidome.com nabízí návody a praktické rady: návrh závlahového
+> systému, kapková závlaha, zazimování, automatizace a úspora vody.
+
+InteliDome is a Czech brand for smart garden irrigation and automation.
+The site publishes practical guides in Czech: irrigation system design,
+drip irrigation, winterizing, automation and water saving.
+
+## Obsah
+
+- Blog: https://www.intelidome.com/posts
+- RSS: https://www.intelidome.com/feed.xml
+
+## Kontakt
+
+- Web: https://www.intelidome.com

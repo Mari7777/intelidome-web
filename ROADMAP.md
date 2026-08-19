@@ -12,12 +12,14 @@
 
 ## F1 — Blog naživo
 
-- [ ] Design system z `design/handoff` (tokeny `--id-*`) do Tailwind/CSS webu
-- [ ] Šablona webu v češtině (navigace, patička, metadata, sitemap)
+- [x] Design system z `design/handoff` (tokeny `--id-*`) do Tailwind/CSS webu
+- [x] Šablona webu v češtině (navigace, patička, metadata, sitemap)
+      — navíc: lokalizace obsahu cs/en/de v Payloadu od 1. dne (frontend jen cs)
 - [ ] Nasazení: Vercel projekt + Neon Postgres + env proměnné
 - [ ] DNS: www.intelidome.com → Vercel (Active24)
 - [ ] Payload admin: účet majitele, první skutečný článek publikovaný
-- [ ] Základ SEO: OG obrázky, RSS, analytika (jednoduchá, bez cookies lišty)
+- [x] Základ SEO: OG obrázky, RSS, analytika (jednoduchá, bez cookies lišty)
+      — robots.txt povoluje AI crawlery, `llms.txt`, favicon InteliDome
 
 **Hotovo znamená:** majitel napíše a publikuje článek v produkční
 administraci a článek je veřejně na doméně.
