@@ -109,6 +109,9 @@ export const link: LinkType = ({ appearances, disableLabel = false, overrides = 
             width: '50%',
           },
           label: 'Label',
+          // Visible to visitors (nav items, buttons) — translated per locale.
+          // Inside already-localized parents (e.g. pages.layout) Payload strips this flag.
+          localized: true,
           required: true,
         },
       ],

@@ -8,7 +8,7 @@ import { getServerSideURL } from './getURL'
 const getImageURL = (image?: Media | Config['db']['defaultIDType'] | null) => {
   const serverUrl = getServerSideURL()
 
-  let url = serverUrl + '/website-template-OG.webp'
+  let url = serverUrl + '/og-default.webp'
 
   if (image && typeof image === 'object' && 'url' in image) {
     const ogUrl = image.sizes?.og?.url
@@ -26,9 +26,12 @@ export const generateMeta = async (args: {
 
   const ogImage = getImageURL(doc?.meta?.image)
 
+  // meta.title may already carry the suffix (SEO plugin's generateTitle) — don't double it
   const title = doc?.meta?.title
-    ? doc?.meta?.title + ' | Payload Website Template'
-    : 'Payload Website Template'
+    ? doc.meta.title.endsWith('| InteliDome')
+      ? doc.meta.title
+      : `${doc.meta.title} | InteliDome`
+    : 'InteliDome — chytrá závlaha a automatizace zahrady'
 
   return {
     description: doc?.meta?.description,

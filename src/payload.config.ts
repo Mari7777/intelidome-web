@@ -1,4 +1,6 @@
 import { postgresAdapter } from '@payloadcms/db-postgres'
+import { cs } from '@payloadcms/translations/languages/cs'
+import { en } from '@payloadcms/translations/languages/en'
 import sharp from 'sharp'
 import path from 'path'
 import { buildConfig, PayloadRequest } from 'payload'
@@ -26,7 +28,7 @@ export default buildConfig({
     name: 'dev-console',
     defaultFromName: 'InteliDome (dev)',
     defaultFromAddress: 'dev@intelidome.cz',
-    sendEmail: async (message: { to?: unknown; subject?: unknown; html?: unknown }) => {
+    sendEmail: async (message) => {
       const html = typeof message.html === 'string' ? message.html : ''
       const link = html.match(/https?:\/\/[^"'\s<>]*reset[^"'\s<>]*/)?.[0]
       console.log(
@@ -38,14 +40,6 @@ export default buildConfig({
     },
   }),
   admin: {
-    components: {
-      // The `BeforeLogin` component renders a message that you see while logging into your admin panel.
-      // Feel free to delete this at any time. Simply remove the line below.
-      beforeLogin: ['@/components/BeforeLogin'],
-      // The `BeforeDashboard` component renders the 'welcome' block that you see after logging into your admin panel.
-      // Feel free to delete this at any time. Simply remove the line below.
-      beforeDashboard: ['@/components/BeforeDashboard'],
-    },
     importMap: {
       baseDir: path.resolve(dirname),
     },
@@ -72,6 +66,18 @@ export default buildConfig({
         },
       ],
     },
+  },
+  // Content localization: schema is trilingual from day one (F1 publishes Czech only).
+  // Frontend queries without an explicit locale resolve to the default 'cs'.
+  localization: {
+    locales: ['cs', 'en', 'de'],
+    defaultLocale: 'cs',
+    fallback: true,
+  },
+  // Admin UI language (owner works in Czech).
+  i18n: {
+    supportedLanguages: { cs, en },
+    fallbackLanguage: 'cs',
   },
   // This config helps us configure global or default features that the other editors can inherit
   editor: defaultLexical,

@@ -1,6 +1,7 @@
 import type { RequiredDataFromCollectionSlug } from 'payload'
 
-// Used for pre-seeded content so that the homepage is not empty
+// Fallback rendered when no 'home' page exists in the CMS yet,
+// so a fresh deployment shows a placeholder instead of a 404.
 export const homeStatic: RequiredDataFromCollectionSlug<'pages'> = {
   slug: 'home',
   _status: 'published',
@@ -19,7 +20,7 @@ export const homeStatic: RequiredDataFromCollectionSlug<'pages'> = {
                 format: 0,
                 mode: 'normal',
                 style: '',
-                text: 'Payload Website Template',
+                text: 'InteliDome',
                 version: 1,
               },
             ],
@@ -33,35 +34,12 @@ export const homeStatic: RequiredDataFromCollectionSlug<'pages'> = {
             type: 'paragraph',
             children: [
               {
-                type: 'link',
-                children: [
-                  {
-                    type: 'text',
-                    detail: 0,
-                    format: 0,
-                    mode: 'normal',
-                    style: '',
-                    text: 'Visit the admin dashboard',
-                    version: 1,
-                  },
-                ],
-                direction: 'ltr',
-                fields: {
-                  linkType: 'custom',
-                  newTab: false,
-                  url: '/admin',
-                },
-                format: '',
-                indent: 0,
-                version: 2,
-              },
-              {
                 type: 'text',
                 detail: 0,
                 format: 0,
                 mode: 'normal',
                 style: '',
-                text: ' to make your account and seed content for your website.',
+                text: 'Chytrá závlaha a automatizace zahrady. Web se připravuje.',
                 version: 1,
               },
             ],
@@ -80,9 +58,9 @@ export const homeStatic: RequiredDataFromCollectionSlug<'pages'> = {
     },
   },
   meta: {
-    description: 'An open-source website built with Payload and Next.js.',
-    title: 'Payload Website Template',
+    description: 'Chytrá závlaha a automatizace zahrady — návody, plánování a praxe.',
+    title: 'InteliDome — chytrá závlaha a automatizace zahrady',
   },
-  title: 'Home',
+  title: 'Úvod',
   layout: [],
 }
