@@ -1,8 +1,10 @@
 'use client'
 
-import type { Theme } from '@/providers/Theme/types'
-
 import React, { createContext, useCallback, use, useState } from 'react'
+
+// Header appearance over hero media ('dark' = light text on imagery).
+// The site itself is light-only.
+export type Theme = 'dark' | 'light'
 
 import canUseDOM from '@/utilities/canUseDOM'
 

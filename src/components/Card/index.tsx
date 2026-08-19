@@ -2,7 +2,7 @@
 import { cn } from '@/utilities/ui'
 import useClickableCard from '@/utilities/useClickableCard'
 import Link from 'next/link'
-import React, { Fragment } from 'react'
+import React from 'react'
 
 import type { Post } from '@/payload-types'
 
@@ -32,31 +32,29 @@ export const Card: React.FC<{
   return (
     <article
       className={cn(
-        'border border-border rounded-lg overflow-hidden bg-card hover:cursor-pointer',
+        'overflow-hidden rounded-[var(--id-r-card)] border border-[var(--id-line-soft)] bg-card shadow-[var(--id-shadow)]',
+        'transition-[transform,box-shadow] duration-250 ease-[var(--id-ease)] hover:-translate-y-[3px] hover:cursor-pointer hover:shadow-[var(--id-shadow-lg)] motion-reduce:transition-none motion-reduce:hover:translate-y-0',
         className,
       )}
       ref={card.ref}
     >
-      <div className="relative w-full ">
-        {!metaImage && <div className="">No image</div>}
+      <div className="relative w-full">
+        {!metaImage && <div className="aspect-video w-full bg-[var(--id-bg-2)]" />}
         {metaImage && typeof metaImage !== 'string' && <Media resource={metaImage} size="33vw" />}
       </div>
-      <div className="p-4">
+      <div className="p-5">
         {showCategories && hasCategories && (
-          <div className="uppercase text-sm mb-4">
+          <div className="mb-3 flex flex-wrap gap-2">
             {categories?.map((category, index) => {
               if (typeof category === 'object') {
                 const { title: titleFromCategory } = category
 
-                const categoryTitle = titleFromCategory || 'Untitled category'
-
-                const isLast = index === categories.length - 1
+                const categoryTitle = titleFromCategory || 'Bez kategorie'
 
                 return (
-                  <Fragment key={index}>
+                  <span className="id-chip" key={index}>
                     {categoryTitle}
-                    {!isLast && <Fragment>, &nbsp;</Fragment>}
-                  </Fragment>
+                  </span>
                 )
               }
 
@@ -65,15 +63,17 @@ export const Card: React.FC<{
           </div>
         )}
         {titleToUse && (
-          <div className="prose">
-            <h3>
-              <Link className="not-prose" href={href} ref={link.ref}>
-                {titleToUse}
-              </Link>
-            </h3>
+          <h3 className="font-display text-lg font-semibold tracking-tight text-[var(--id-ink)]">
+            <Link className="no-underline" href={href} ref={link.ref}>
+              {titleToUse}
+            </Link>
+          </h3>
+        )}
+        {description && (
+          <div className="mt-2 text-[15px] leading-normal text-[var(--id-ink-2)]">
+            {description && <p>{sanitizedDescription}</p>}
           </div>
         )}
-        {description && <div className="mt-2">{description && <p>{sanitizedDescription}</p>}</div>}
       </div>
     </article>
   )

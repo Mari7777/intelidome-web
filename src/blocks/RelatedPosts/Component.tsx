@@ -18,7 +18,13 @@ export const RelatedPosts: React.FC<RelatedPostsProps> = (props) => {
 
   return (
     <div className={clsx('lg:container', className)}>
-      {introContent && <RichText data={introContent} enableGutter={false} />}
+      {introContent ? (
+        <RichText data={introContent} enableGutter={false} />
+      ) : (
+        <h2 className="font-display mb-6 text-2xl font-semibold tracking-tight text-[var(--id-ink)]">
+          Související články
+        </h2>
+      )}
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8 items-stretch">
         {docs?.map((doc, index) => {
