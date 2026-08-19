@@ -1,5 +1,7 @@
 # Lokální vývoj: jen PostgreSQL pro Payload (port 5433 — 5432 drží ERP dev).
 # Produkce běží na Vercelu s Neon Postgres — viz docs/adr/ADR-001.
+# Pevné jméno projektu: volume pgdata nesmí záviset na názvu adresáře.
+name: intelidome-web
 services:
   postgres:
     image: postgres:16
