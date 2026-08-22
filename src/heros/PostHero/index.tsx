@@ -6,6 +6,9 @@ import type { Post } from '@/payload-types'
 import { Media } from '@/components/Media'
 import { formatAuthors } from '@/utilities/formatAuthors'
 
+// Light editorial article header (InteliDome DS): eyebrow with categories,
+// display title, meta line, then the hero image as a rounded card — never
+// text over a dark image overlay. Works with and without a hero image.
 export const PostHero: React.FC<{
   post: Post
 }> = ({ post }) => {
@@ -14,60 +17,35 @@ export const PostHero: React.FC<{
   const hasAuthors =
     populatedAuthors && populatedAuthors.length > 0 && formatAuthors(populatedAuthors) !== ''
 
+  const categoryTitles = (categories ?? [])
+    .filter((category): category is Exclude<typeof category, number> => typeof category === 'object')
+    .map((category) => category?.title || 'Bez kategorie')
+
   return (
-    <div className="relative -mt-[10.4rem] flex items-end">
-      <div className="container z-10 relative lg:grid lg:grid-cols-[1fr_48rem_1fr] text-white pb-8">
-        <div className="col-start-1 col-span-1 md:col-start-2 md:col-span-2">
-          <div className="uppercase text-sm mb-6">
-            {categories?.map((category, index) => {
-              if (typeof category === 'object' && category !== null) {
-                const { title: categoryTitle } = category
+    <header className="container pt-12 pb-4 md:pt-16">
+      <div className="mx-auto max-w-[var(--id-measure)]">
+        <p className="id-eyebrow mb-4">{categoryTitles.length ? categoryTitles.join(' · ') : 'Blog'}</p>
 
-                const titleToUse = categoryTitle || 'Bez kategorie'
+        <h1 className="font-display text-[clamp(2rem,5vw,3rem)] leading-[1.07] font-semibold tracking-[-0.025em] text-[var(--id-ink)] text-balance">
+          {title}
+        </h1>
 
-                const isLast = index === categories.length - 1
-
-                return (
-                  <React.Fragment key={index}>
-                    {titleToUse}
-                    {!isLast && <React.Fragment>, &nbsp;</React.Fragment>}
-                  </React.Fragment>
-                )
-              }
-              return null
-            })}
-          </div>
-
-          <div className="">
-            <h1 className="mb-6 text-3xl md:text-5xl lg:text-6xl">{title}</h1>
-          </div>
-
-          <div className="flex flex-col md:flex-row gap-4 md:gap-16">
-            {hasAuthors && (
-              <div className="flex flex-col gap-4">
-                <div className="flex flex-col gap-1">
-                  <p className="text-sm">Autor</p>
-
-                  <p>{formatAuthors(populatedAuthors)}</p>
-                </div>
-              </div>
-            )}
-            {publishedAt && (
-              <div className="flex flex-col gap-1">
-                <p className="text-sm">Publikováno</p>
-
-                <time dateTime={publishedAt}>{formatDateTime(publishedAt)}</time>
-              </div>
-            )}
-          </div>
+        <div className="mt-5 flex flex-wrap items-center gap-x-2 text-[15px] text-[var(--id-ink-2)]">
+          {hasAuthors && <span>{formatAuthors(populatedAuthors)}</span>}
+          {hasAuthors && publishedAt && <span aria-hidden="true">·</span>}
+          {publishedAt && <time dateTime={publishedAt}>{formatDateTime(publishedAt)}</time>}
         </div>
       </div>
-      <div className="min-h-[80vh] select-none">
-        {heroImage && typeof heroImage !== 'string' && (
-          <Media fill priority imgClassName="-z-10 object-cover" resource={heroImage} />
-        )}
-        <div className="absolute pointer-events-none left-0 bottom-0 w-full h-1/2 bg-linear-to-t from-black to-transparent" />
-      </div>
-    </div>
+
+      {heroImage && typeof heroImage !== 'string' && (
+        <div className="mx-auto mt-10 max-w-[880px]">
+          <Media
+            imgClassName="w-full rounded-[var(--id-r-card)] shadow-[var(--id-shadow)]"
+            priority
+            resource={heroImage}
+          />
+        </div>
+      )}
+    </header>
   )
 }
