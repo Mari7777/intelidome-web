@@ -19,7 +19,10 @@ export const Users: CollectionConfig = {
     defaultColumns: ['name', 'email'],
     useAsTitle: 'name',
   },
-  auth: true,
+  // API keys let trusted tooling create content via REST (see intellidome-content workflow)
+  auth: {
+    useAPIKey: true,
+  },
   fields: [
     {
       name: 'name',
