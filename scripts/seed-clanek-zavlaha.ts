@@ -10,7 +10,8 @@ import config from '@payload-config'
 
 /* ── Lexical stavebnice ─────────────────────────────────────────── */
 
-type Node = Record<string, unknown>
+/** Lexical uzel — Payload vyžaduje aspoň `type` a `version`. */
+type Node = { type: string; version: number; [k: string]: unknown }
 
 const text = (value: string, format = 0): Node => ({
   type: 'text',

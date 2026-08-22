@@ -335,3 +335,118 @@
     scroll-behavior: auto !important;
   }
 }
+
+/* ── Hero článku (DESIGN.md 8.2 ř. 1, prompt 1) ──────────────────────
+   Filmový obsidiánový pás. Orchestrace nástupu má TŘI různé prostředky
+   podle role prvku — ne jeden fade na všem (anti-vzor „fade-in zespodu
+   na všem stejně"): titulek stoupá z masky po řádcích, eyebrow a meta
+   se jen prolnou, obraz se sotva znatelně přiblíží. */
+
+.id-hero__scrim {
+  /* Scrim jen ve spodní části, kde leží text — obraz zůstane obrazem. */
+  /* Dvě vrstvy: spodní scrim pod textový blok (ten je vysoký — titulek má
+     tři řádky po 112 px) a jemný boční přechod zleva, protože text je
+     zarovnaný doleva. Obraz vpravo zůstane čistý. */
+  background:
+    linear-gradient(
+      to right,
+      rgba(11, 13, 16, 0.62) 0%,
+      rgba(11, 13, 16, 0.34) 38%,
+      rgba(11, 13, 16, 0) 68%
+    ),
+    linear-gradient(
+      to top,
+      rgba(11, 13, 16, 0.9) 0%,
+      rgba(11, 13, 16, 0.78) 34%,
+      rgba(11, 13, 16, 0.42) 62%,
+      rgba(11, 13, 16, 0.12) 82%,
+      rgba(11, 13, 16, 0) 100%
+    );
+}
+
+.id-hero__title {
+  font-family: var(--id-f-display);
+  font-size: var(--id-t-display-xl);
+  font-weight: 600;
+  line-height: 0.98;
+  letter-spacing: -0.035em;
+  text-wrap: balance;
+}
+
+/* Kvalifikátor za dvojtečkou je vedlejší hlas — menší a tišší. */
+.id-hero__qualifier {
+  font-size: 0.46em;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  color: var(--id-ink-dark-2);
+}
+
+.id-hero .id-eyebrow {
+  /* Na fotografii nelze spoléhat na scrim — tint je světlejší a jistější. */
+  color: var(--id-accent-tint);
+}
+
+.id-hero__meta {
+  font-family: var(--id-f-display);
+  font-size: var(--id-t-label);
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--id-ink-dark-2);
+}
+
+/* Titulek: maskovaný rise po řádcích (6.3.3). */
+.id-hline {
+  display: block;
+  overflow: hidden;
+}
+.id-hline > span {
+  display: block;
+  transform: translateY(110%);
+  animation: id-hline-rise 1s var(--id-ease-reveal, cubic-bezier(0.22, 0.61, 0.21, 1)) forwards;
+}
+.id-hline--2 > span {
+  animation-delay: 0.12s;
+}
+@keyframes id-hline-rise {
+  to {
+    transform: none;
+  }
+}
+
+/* Eyebrow a meta: čistý fade, žádný posun — jiný prostředek než titulek. */
+.id-hero__fade {
+  opacity: 0;
+  animation: id-hero-fade 1s ease 0.55s forwards;
+}
+.id-hero__meta.id-hero__fade {
+  animation-delay: 0.75s;
+}
+@keyframes id-hero-fade {
+  to {
+    opacity: 1;
+  }
+}
+
+/* Obraz: pomalé přiblížení, aby pás dýchal, ne aby poutal pozornost. */
+.id-hero img {
+  animation: id-hero-settle 1.6s var(--id-ease) both;
+}
+@keyframes id-hero-settle {
+  from {
+    transform: scale(1.04);
+  }
+  to {
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .id-hline > span,
+  .id-hero__fade,
+  .id-hero img {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+}

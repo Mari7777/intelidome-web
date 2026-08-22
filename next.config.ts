@@ -25,7 +25,9 @@ const nextConfig: NextConfig = {
         pathname: '/api/media/file/**',
       },
     ],
-    qualities: [100],
+    // 72 je pracovní kvalita webu (DESIGN.md 9.1: hero ≤ 260 kB);
+    // 100 zůstává povolená pro výjimky, ale nepoužívá se jako výchozí.
+    qualities: [72, 100],
     remotePatterns: [
       ...[NEXT_PUBLIC_SERVER_URL /* 'https://example.com' */].map((item) => {
         const url = new URL(item)
