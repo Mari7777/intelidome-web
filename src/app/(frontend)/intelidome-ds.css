@@ -26,7 +26,19 @@
   transition:
     background 0.2s,
     color 0.2s,
-    border-color 0.2s;
+    border-color 0.2s,
+    transform 0.2s;
+}
+/* DESIGN.md 10/Do 10 — tlačítko se při najetí zvedne o 2 px, nic víc. */
+@media (hover: hover) {
+  .id-btn:hover {
+    transform: translateY(-2px);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .id-btn:hover {
+    transform: none;
+  }
 }
 .id-btn--primary {
   background: var(--id-accent);
@@ -624,4 +636,146 @@ html {
   html {
     scroll-behavior: auto;
   }
+}
+
+/* ══ Partitura pásů článku (DESIGN.md 8.1 + 8.2) ══════════════════════
+   Článek je jedna mřížka se třemi dorazy: `content` (prose 700px),
+   `wide` (960px pro souhrn a figury) a `full` (pás přes celou šířku).
+   Full-bleed se dělá pojmenovaným sloupcem, ne trikem se 100vw —
+   ten by na desktopu s viditelným posuvníkem přidal vodorovný přetok. */
+.id-article {
+  --id-gutter: clamp(20px, 5vw, 40px);
+  display: grid;
+  grid-template-columns:
+    [full-start] minmax(var(--id-gutter), 1fr)
+    [wide-start] minmax(0, calc((var(--id-maxw-summary) - var(--id-maxw-prose)) / 2))
+    [content-start] min(var(--id-maxw-prose), 100% - 2 * var(--id-gutter)) [content-end]
+    minmax(0, calc((var(--id-maxw-summary) - var(--id-maxw-prose)) / 2)) [wide-end]
+    minmax(var(--id-gutter), 1fr) [full-end];
+}
+.id-article > * {
+  grid-column: content;
+  min-width: 0;
+}
+.id-article > .id-wide {
+  grid-column: wide;
+}
+.id-article > .id-band {
+  grid-column: full;
+}
+
+/* Pás = celá šířka, vlastní povrch, vlastní vertikální dech. Oddělení
+   sekcí je posun povrchu, nikdy čára mezi povrchy (8.1 p. 1). */
+.id-band {
+  padding-block: var(--id-sect-y);
+}
+.id-band--cream {
+  background: var(--id-cream);
+}
+.id-band--obsidian {
+  background: var(--id-obsidian);
+  color: var(--id-ink-dark);
+}
+.id-band--sm {
+  padding-block: var(--id-sect-y-sm);
+}
+/* Vnitřek pásu se vrací k obsahové šířce stránky. */
+.id-band__inner {
+  max-width: var(--id-maxw);
+  margin-inline: auto;
+  padding-inline: var(--id-gutter);
+}
+.id-band__inner--prose {
+  max-width: calc(var(--id-maxw-prose) + 2 * var(--id-gutter));
+}
+.id-band__inner--summary {
+  max-width: calc(var(--id-maxw-summary) + 2 * var(--id-gutter));
+}
+
+/* ── Souhrn: vlastní typografický hlas druhé obrazovky (8.2 ř. 2) ──
+   Není to tělo textu ani titulek — je to lead na subtitle škále,
+   s jedinou klíčovou frází v akcentu (na krému 4,74:1 = AA). */
+.id-summary-lead {
+  font-family: var(--id-f-display);
+  font-size: var(--id-t-subtitle);
+  font-weight: 500;
+  line-height: 1.38;
+  letter-spacing: -0.015em;
+  max-width: var(--id-maxw-summary);
+  text-wrap: pretty;
+  color: var(--id-ink);
+}
+.id-summary-lead em {
+  font-style: normal;
+  color: var(--id-accent);
+}
+
+/* ── Produktový pás (8.2 ř. N+1) ─────────────────────────────────── */
+.id-productband__prose {
+  color: var(--id-ink-dark-2);
+  font-size: var(--id-t-body);
+  line-height: 1.65;
+  text-wrap: pretty;
+}
+.id-productband__prose strong {
+  color: var(--id-ink-dark);
+  font-weight: 600;
+}
+.id-feature {
+  border-top: 1px solid var(--id-line-dark);
+  padding-top: 18px;
+}
+.id-feature__title {
+  font-family: var(--id-f-display);
+  font-size: 17px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--id-ink-dark);
+}
+.id-feature__text {
+  margin-top: 6px;
+  font-size: var(--id-t-body-sm);
+  line-height: 1.55;
+  color: var(--id-ink-dark-2);
+}
+
+/* ── Závěrečné CTA (8.2 ř. N+2) — jediná centrovaná sekce článku ─── */
+.id-cta {
+  text-align: center;
+}
+.id-cta__logo {
+  margin-inline: auto;
+  color: var(--id-ink);
+}
+.id-cta__title {
+  margin-top: 26px;
+  font-family: var(--id-f-display);
+  font-size: var(--id-t-title);
+  font-weight: 600;
+  line-height: 1.05;
+  letter-spacing: -0.025em;
+  text-wrap: balance;
+  color: var(--id-ink);
+}
+.id-cta__sub {
+  margin: 16px auto 0;
+  max-width: 56ch;
+  font-size: var(--id-t-body);
+  line-height: 1.65;
+  color: var(--id-ink-2);
+  text-wrap: pretty;
+}
+.id-cta__ask {
+  margin: 26px auto 0;
+  max-width: 52ch;
+  font-size: var(--id-t-body-sm);
+  line-height: 1.55;
+  color: var(--id-ink-3);
+  text-wrap: pretty;
+}
+
+/* Šířku v článku řídí mřížka, ne obal — proto `prose` svou 700px mez
+   uvolní; sloupec `content` ji drží sám a pásy potřebují celou šířku. */
+.prose.id-article {
+  max-width: none;
 }

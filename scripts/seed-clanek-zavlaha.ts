@@ -75,13 +75,12 @@ const figure = (filename: string, number: string, caption: string): Node =>
 const SLUG = 'jak-navrhnout-automatickou-zavlahu'
 
 const body = root([
-  p(
-    'Základem spolehlivé automatické závlahy je pochopení toho, co váš trávník skutečně potřebuje, a přesné změření dynamického tlaku zdroje. Jakmile znáte kapacitu vody, musíte dodržet stoprocentní překrytí trysek — pravidlo „hlava na hlavu". Protože samotné sčítání vylitých litrů na povrch nestačí, chytré řízení propojí závlahu přímo s čidly vlhkosti a retenční nádrží. Tento přístup dodá rostlinám vláhu přesně tehdy, kdy to jejich kořeny opravdu potřebují, čímž maximalizuje úsporu vody i kondici celé zahrady.',
-  ),
-
+  /* Šablona 8.2 ř. 2: po obsidianovém hero vždy krém. Souhrn i čísla
+     bydlí uvnitř pásu, aby druhá obrazovka měla vlastní povrch i hlas. */
   block({
-    blockType: 'statTiles',
-    blockName: 'Čísla návrhu',
+    blockType: 'summaryBand',
+    blockName: 'Souhrn',
+    lead: 'Základem spolehlivé automatické závlahy je pochopení toho, co váš trávník skutečně potřebuje, a *přesné změření dynamického tlaku zdroje*. Jakmile znáte kapacitu vody, musíte dodržet stoprocentní překrytí trysek — pravidlo „hlava na hlavu“. Protože samotné sčítání vylitých litrů na povrch nestačí, chytré řízení propojí závlahu přímo s čidly vlhkosti a retenční nádrží.',
     tiles: [
       { value: '10–15', unit: 'l/m²', label: 'orientační dávka na jednu zálivku' },
       { value: '3', unit: 'dny', label: 'obvyklý interval v teplém období' },
@@ -178,18 +177,30 @@ const body = root([
     'Využíváme přesná čidla vlhkosti (senzory půdní vlhkosti), díky kterým systém pozná, kdy mají kořeny rostlin opravdu žízeň. InteliDome navíc dokáže logicky řídit spínače, takže přednostně odčerpává dešťovou vodu z vaší retenční nádrže dříve, než sáhnete po placené vodě z řadu. Spolu se závlahou pak snadno zautomatizujete i večerní zahradní osvětlení, takže získáte plnou kontrolu nad celou zahradou pohodlně z jednoho místa.',
   ),
 
+  /* Šablona 8.2 ř. N+1: jediný vnitřní obsidian článku. Tady se z výkladu
+     o zahradě stává řeč o systému — proto je to jediný předěl povrchem. */
   block({
-    blockType: 'chapter',
-    blockName: 'Závěr',
-    eyebrow: 'Co dál',
-    title: 'Zahrada, která si sama řekne o vodu',
+    blockType: 'productBand',
+    blockName: 'Systém InteliDome',
+    eyebrow: 'Systém InteliDome',
+    title: 'Když závlahu neřídí kalendář, ale půda',
+    body:
+      'Objevte, jak dokáže systém InteliDome propojit chytrou závlahu závislou na **skutečné vlhkosti půdy**, vaši retenční nádrž i venkovní osvětlení do jednoho spolehlivě fungujícího celku.\n\nRozdíl proti obyčejnému časovači je jediný, ale zásadní: **systém se ptá půdy, ne hodin.** Voda teče tehdy, kdy mají kořeny žízeň — a tehdy, kdy je v nádrži dešťová voda zadarmo.',
+    features: [
+      {
+        title: 'Čidla vlhkosti',
+        text: 'Měří stav půdy v kořenové zóně, takže sektor se spustí podle skutečné potřeby, ne podle kalendáře.',
+      },
+      {
+        title: 'Retenční nádrž',
+        text: 'Systém čerpá přednostně dešťovou vodu a po vodě z řadu sáhne až tehdy, když je nádrž prázdná.',
+      },
+      {
+        title: 'Zahradní osvětlení',
+        text: 'Stejné spínače, stejná aplikace — večerní osvětlení se automatizuje ze stejného místa jako závlaha.',
+      },
+    ],
   }),
-  p(
-    'Chcete mít jistotu, že vaše zahrada dostane přesně to, co potřebuje, a zároveň nebudete plýtvat vodou ani energií? Objevte, jak dokáže systém InteliDome propojit chytrou závlahu závislou na skutečné vlhkosti půdy, vaši retenční nádrž i venkovní osvětlení do jednoho spolehlivě fungujícího celku.',
-  ),
-  p(
-    'A otázka na závěr: máte už představu, jak hluboké kořeny má váš trávník, nebo zálivku zatím řídíte jen odhadem?',
-  ),
 
   block({
     blockType: 'faq',
@@ -234,6 +245,18 @@ const body = root([
       },
     ],
   }),
+
+  /* Šablona 8.2 ř. N+2: jediné tlačítko článku a jediná centrovaná sekce.
+     Otázka na závěr schválně nemá tvar odkazu — není to druhá výzva. */
+  block({
+    blockType: 'ctaBand',
+    blockName: 'Závěrečná výzva',
+    title: 'Zahrada, která si sama řekne o vodu',
+    sub: 'Chcete mít jistotu, že vaše zahrada dostane přesně to, co potřebuje, a zároveň nebudete plýtvat vodou ani energií?',
+    buttonLabel: 'Objevit systém InteliDome',
+    buttonHref: '/',
+    ask: 'A otázka na závěr: máte už představu, jak hluboké kořeny má váš trávník, nebo zálivku zatím řídíte jen odhadem?',
+  }),
 ])
 
 /* ── Zápis ──────────────────────────────────────────────────────── */
@@ -271,7 +294,9 @@ const run = async () => {
   const data = {
     title: 'Jak navrhnout automatickou závlahu: průvodce krok za krokem',
     slug: SLUG,
-    _status: 'draft' as const,
+    // Lokální databáze — článek publikujeme, aby ho šlo prohlédnout na dev
+    // serveru. Ostrý web se plní vlastním nasazením, ne tímhle skriptem.
+    _status: 'published' as const,
     content: body,
     meta: {
       title: 'Jak navrhnout automatickou závlahu: průvodce krok za krokem',
@@ -294,18 +319,18 @@ const run = async () => {
       collection: 'posts',
       id,
       data,
-      draft: true,
+      draft: false,
       context: { disableRevalidate: true },
     })
-    payload.logger.info(`Článek aktualizován jako koncept (id ${id}) — /posts/${SLUG}`)
+    payload.logger.info(`Článek aktualizován a publikován (id ${id}) — /posts/${SLUG}`)
   } else {
     const created = await payload.create({
       collection: 'posts',
       data,
-      draft: true,
+      draft: false,
       context: { disableRevalidate: true },
     })
-    payload.logger.info(`Článek vytvořen jako koncept (id ${created.id}) — /posts/${SLUG}`)
+    payload.logger.info(`Článek vytvořen a publikován (id ${created.id}) — /posts/${SLUG}`)
   }
 
   process.exit(0)

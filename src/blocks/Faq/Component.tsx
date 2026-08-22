@@ -100,11 +100,16 @@ export const FaqBlock: React.FC<FaqBlockProps> = ({ className, heading, id, item
   return (
     <section
       aria-labelledby={headingId}
-      className={cn('mx-auto my-10 w-full', className)}
+      className={cn('not-prose mt-[var(--id-sect-y-sm)] mb-0 w-full', className)}
       data-block="faq"
     >
+      <span className="mb-[14px] flex w-fit items-center gap-[10px] font-[family-name:var(--id-f-display)] text-[12px] leading-[1.2] font-semibold tracking-[0.14em] text-[var(--id-accent)] uppercase">
+        <span aria-hidden="true" className="h-[1.5px] w-[22px] shrink-0 bg-[var(--id-accent)]" />
+        Otázky a odpovědi
+      </span>
+
       <h2
-        className="m-0 font-[family-name:var(--id-f-display)] text-[clamp(21px,2.6vw,31px)] font-semibold leading-[1.15] tracking-[-0.02em] text-balance text-[var(--id-ink)]"
+        className="m-0 font-[family-name:var(--id-f-display)] text-[length:var(--id-t-title-sm)] font-semibold leading-[1.12] tracking-[-0.02em] text-balance text-[var(--id-ink)]"
         id={headingId}
       >
         {headingText}
@@ -113,7 +118,7 @@ export const FaqBlock: React.FC<FaqBlockProps> = ({ className, heading, id, item
       <div className="mt-6 border-b border-[var(--id-line-soft)]">
         {entries.map((item, index) => (
           <details className="group" key={item.id ?? `${index}`}>
-            <summary className="flex cursor-pointer list-none items-start justify-between gap-6 border-t border-[var(--id-line-soft)] py-[18px] font-[family-name:var(--id-f-display)] text-[17px] font-semibold leading-[1.4] tracking-[-0.01em] text-[var(--id-ink)] focus-visible:outline-[3px] focus-visible:outline-offset-[3px] focus-visible:outline-[color:var(--id-accent)] [&::-webkit-details-marker]:hidden">
+            <summary className="flex cursor-pointer list-none items-start justify-between gap-6 border-t border-[var(--id-line-soft)] py-[18px] font-[family-name:var(--id-f-display)] text-[17px] font-semibold leading-[1.4] tracking-[-0.01em] text-[var(--id-ink)] transition-colors duration-[250ms] hover:text-[var(--id-accent)] focus-visible:outline-[3px] focus-visible:outline-offset-[3px] focus-visible:outline-[color:var(--id-accent)] [&::-webkit-details-marker]:hidden">
               <span className="text-balance">{item.question}</span>
               <span
                 aria-hidden="true"

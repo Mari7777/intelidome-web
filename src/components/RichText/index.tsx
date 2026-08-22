@@ -17,17 +17,23 @@ import type {
   BannerBlock as BannerBlockProps,
   CallToActionBlock as CTABlockProps,
   ChapterBlock as ChapterBlockProps,
+  CtaBandBlock as CtaBandBlockProps,
   FaqBlock as FaqBlockProps,
   FigureBlock as FigureBlockProps,
   MediaBlock as MediaBlockProps,
+  ProductBandBlock as ProductBandBlockProps,
   StatTilesBlock as StatTilesBlockProps,
+  SummaryBandBlock as SummaryBandBlockProps,
 } from '@/payload-types'
 import { BannerBlock } from '@/blocks/Banner/Component'
 import { CallToActionBlock } from '@/blocks/CallToAction/Component'
 import { ChapterBlock } from '@/blocks/Chapter/Component'
+import { CtaBandBlock } from '@/blocks/CtaBand/Component'
 import { FaqBlock } from '@/blocks/Faq/Component'
 import { FigureBlock } from '@/blocks/Figure/Component'
+import { ProductBandBlock } from '@/blocks/ProductBand/Component'
 import { StatTilesBlock } from '@/blocks/StatTiles/Component'
+import { SummaryBandBlock } from '@/blocks/SummaryBand/Component'
 import { cn } from '@/utilities/ui'
 
 type NodeTypes =
@@ -40,6 +46,9 @@ type NodeTypes =
       | ChapterBlockProps
       | FigureBlockProps
       | StatTilesBlockProps
+      | SummaryBandBlockProps
+      | ProductBandBlockProps
+      | CtaBandBlockProps
       | FaqBlockProps
     >
 
@@ -56,14 +65,17 @@ const jsxConverters: JSXConvertersFunction<NodeTypes> = ({ defaultConverters }) 
   ...defaultConverters,
   ...LinkJSXConverter({ internalDocToHref }),
   blocks: {
-    banner: ({ node }) => <BannerBlock className="col-start-2 mb-4" {...node.fields} />,
-    chapter: ({ node }) => <ChapterBlock className="col-start-2" {...node.fields} />,
-    figure: ({ node }) => <FigureBlock className="col-start-1 col-span-3" {...node.fields} />,
-    statTiles: ({ node }) => <StatTilesBlock className="col-start-1 col-span-3" {...node.fields} />,
-    faq: ({ node }) => <FaqBlock className="col-start-2" {...node.fields} />,
+    banner: ({ node }) => <BannerBlock className="mb-4" {...node.fields} />,
+    chapter: ({ node }) => <ChapterBlock {...node.fields} />,
+    figure: ({ node }) => <FigureBlock className="id-wide" {...node.fields} />,
+    statTiles: ({ node }) => <StatTilesBlock {...node.fields} />,
+    summaryBand: ({ node }) => <SummaryBandBlock {...node.fields} />,
+    productBand: ({ node }) => <ProductBandBlock {...node.fields} />,
+    ctaBand: ({ node }) => <CtaBandBlock {...node.fields} />,
+    faq: ({ node }) => <FaqBlock {...node.fields} />,
     mediaBlock: ({ node }) => (
       <MediaBlock
-        className="col-start-1 col-span-3"
+        className="id-wide"
         imgClassName="m-0"
         {...node.fields}
         captionClassName="mx-auto max-w-[48rem]"
@@ -71,7 +83,7 @@ const jsxConverters: JSXConvertersFunction<NodeTypes> = ({ defaultConverters }) 
         disableInnerContainer={true}
       />
     ),
-    code: ({ node }) => <CodeBlock className="col-start-2" {...node.fields} />,
+    code: ({ node }) => <CodeBlock {...node.fields} />,
     cta: ({ node }) => <CallToActionBlock {...node.fields} />,
   },
 })

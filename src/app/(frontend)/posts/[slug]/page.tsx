@@ -52,32 +52,40 @@ export default async function Post({ params: paramsPromise }: Args) {
   if (!post) return <PayloadRedirects url={url} />
 
   return (
-    <article className="pb-16">
-      <PageClient />
+    <main>
+      <article>
+        <PageClient />
 
-      {/* Allows redirects for valid pages too */}
-      <PayloadRedirects disableNotFound url={url} />
+        {/* Allows redirects for valid pages too */}
+        <PayloadRedirects disableNotFound url={url} />
 
-      {draft && <LivePreviewListener />}
+        {draft && <LivePreviewListener />}
 
-      <PostHero post={post} />
+        <PostHero post={post} />
 
-      <div className="flex scroll-mt-8 flex-col items-center gap-4 pt-8" id="obsah">
-        <div className="container">
-          <RichText
-            className="mx-auto max-w-[var(--id-maxw-prose)]"
-            data={post.content}
-            enableGutter={false}
-          />
-          {post.relatedPosts && post.relatedPosts.length > 0 && (
+        {/*
+          Tělo článku je jedna mřížka (DESIGN.md 8.1): sloupec `content` drží
+          prose na 700 px, `wide` pouští figury na 960 px a `full` nechá pásy
+          přes celou šířku. Proto tu není žádný `container` ani `max-width` —
+          šířku řídí mřížka, ne obal.
+        */}
+        <RichText
+          className="id-article scroll-mt-8"
+          data={post.content}
+          enableGutter={false}
+          id="obsah"
+        />
+
+        {post.relatedPosts && post.relatedPosts.length > 0 && (
+          <div className="container pb-16">
             <RelatedPosts
-              className="mt-12 max-w-[52rem] lg:grid lg:grid-cols-subgrid col-start-1 col-span-3 grid-rows-[2fr]"
+              className="mt-12 max-w-[52rem]"
               docs={post.relatedPosts.filter((post) => typeof post === 'object')}
             />
-          )}
-        </div>
-      </div>
-    </article>
+          </div>
+        )}
+      </article>
+    </main>
   )
 }
 

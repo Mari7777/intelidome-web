@@ -297,15 +297,38 @@
   line-height: 1.65;
   text-wrap: pretty;
 }
-.prose h1,
-.prose h2,
-.prose h3,
-.prose h4 {
+/*
+  Nadpisy psané v editoru dostávají škálu 4.2 podle své hodnosti — jedno
+  plošné `line-height: 1.15` porušovalo strop 1.05 u role `title`.
+  `:not(:where(.not-prose, .not-prose *))` je táž výjimka, jakou používá
+  @tailwindcss/typography, takže vlastní komponenty (Kapitola, FAQ, pásy)
+  si svou typografii uřídí samy a prose je nepřebíjí.
+*/
+.prose :is(h1, h2, h3, h4):not(:where(.not-prose, .not-prose *)) {
   font-family: var(--id-f-display);
   font-weight: 600;
-  letter-spacing: -0.025em;
-  line-height: 1.15;
   text-wrap: balance;
+}
+.prose h1:not(:where(.not-prose, .not-prose *)) {
+  font-size: var(--id-t-display);
+  line-height: 1.02;
+  letter-spacing: -0.03em;
+}
+.prose h2:not(:where(.not-prose, .not-prose *)) {
+  font-size: var(--id-t-title);
+  line-height: 1.05;
+  letter-spacing: -0.025em;
+}
+.prose h3:not(:where(.not-prose, .not-prose *)) {
+  font-size: var(--id-t-title-sm);
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+}
+.prose h4:not(:where(.not-prose, .not-prose *)) {
+  font-size: var(--id-t-subtitle);
+  font-weight: 500;
+  line-height: 1.25;
+  letter-spacing: -0.015em;
 }
 .prose a {
   text-decoration-color: var(--id-line);

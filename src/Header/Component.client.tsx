@@ -43,8 +43,12 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
       {...(theme ? { 'data-theme': theme } : {})}
     >
       <div className="id-capsule pointer-events-auto">
-        <Link className="id-capsule__mark" href="/">
-          <Logo loading="eager" priority="high" />
+        <Link
+          aria-label="InteliDome — domovská stránka"
+          className="id-capsule__mark"
+          href="/"
+        >
+          <Logo decorative height={21} />
         </Link>
         <HeaderNav data={data} />
       </div>

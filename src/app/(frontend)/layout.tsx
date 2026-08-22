@@ -7,6 +7,7 @@ import { Analytics } from '@vercel/analytics/next'
 import { AdminBar } from '@/components/AdminBar'
 import { Footer } from '@/Footer/Component'
 import { Header } from '@/Header/Component'
+import { LogoMaskDefs } from '@/components/Logo/LogoMaskDefs'
 import { Providers } from '@/providers'
 import { mergeOpenGraph } from '@/utilities/mergeOpenGraph'
 import { draftMode } from 'next/headers'
@@ -35,6 +36,9 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         <link href="/apple-touch-icon.png" rel="apple-touch-icon" sizes="180x180" />
       </head>
       <body>
+        {/* Kresba wordmarku leží na stránce jednou; logo v hlavičce, patičce
+            i závěrečné výzvě je jen obdélník maskovaný touto kresbou (9.4). */}
+        <LogoMaskDefs />
         <Providers>
           <AdminBar
             adminBarProps={{

@@ -13,6 +13,9 @@ import { authenticated } from '../../access/authenticated'
 import { authenticatedOrPublished } from '../../access/authenticatedOrPublished'
 import { Banner } from '../../blocks/Banner/config'
 import { Chapter } from '../../blocks/Chapter/config'
+import { SummaryBand } from '../../blocks/SummaryBand/config'
+import { ProductBand } from '../../blocks/ProductBand/config'
+import { CtaBand } from '../../blocks/CtaBand/config'
 import { Code } from '../../blocks/Code/config'
 import { Faq } from '../../blocks/Faq/config'
 import { Figure } from '../../blocks/Figure/config'
@@ -101,7 +104,18 @@ export const Posts: CollectionConfig<'posts'> = {
                     ...rootFeatures,
                     HeadingFeature({ enabledHeadingSizes: ['h1', 'h2', 'h3', 'h4'] }),
                     BlocksFeature({
-                      blocks: [Chapter, Figure, StatTiles, Banner, Faq, Code, MediaBlock],
+                      blocks: [
+                        SummaryBand,
+                        Chapter,
+                        Figure,
+                        StatTiles,
+                        Banner,
+                        ProductBand,
+                        CtaBand,
+                        Faq,
+                        Code,
+                        MediaBlock,
+                      ],
                     }),
                     FixedToolbarFeature(),
                     InlineToolbarFeature(),

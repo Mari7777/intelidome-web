@@ -1613,6 +1613,30 @@ export interface CollectionsWidget {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "SummaryBandBlock".
+ */
+export interface SummaryBandBlock {
+  /**
+   * Slib článku jednou nebo dvěma větami. Klíčovou frázi obalte hvězdičkami (*takto*) — vysadí se akcentem.
+   */
+  lead: string;
+  /**
+   * Řada hodnot pod souhrnem. Každé číslo musí mít oporu v textu článku.
+   */
+  tiles?:
+    | {
+        value: string;
+        unit?: string | null;
+        label: string;
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'summaryBand';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "ChapterBlock".
  */
 export interface ChapterBlock {
@@ -1706,6 +1730,45 @@ export interface BannerBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'banner';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ProductBandBlock".
+ */
+export interface ProductBandBlock {
+  eyebrow?: string | null;
+  title: string;
+  /**
+   * Odstavce oddělte prázdným řádkem. **Tučně** takto.
+   */
+  body: string;
+  features?:
+    | {
+        title: string;
+        text: string;
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'productBand';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "CtaBandBlock".
+ */
+export interface CtaBandBlock {
+  title: string;
+  sub: string;
+  buttonLabel: string;
+  buttonHref: string;
+  /**
+   * Poslední řádek článku — otevřená otázka, ne další výzva.
+   */
+  ask?: string | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'ctaBand';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
