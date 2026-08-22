@@ -58,6 +58,17 @@ const root = (children: Node[]) => ({
 /** Krátký richText do pole uvnitř bloku (Banner, FAQ odpověď). */
 const mini = (...paragraphs: string[]) => root(paragraphs.map((t) => p(t)))
 
+/** Figura; `image` se doplní až za běhu podle názvu souboru v Media. */
+const figure = (filename: string, number: string, caption: string): Node =>
+  block({
+    blockType: 'figure',
+    blockName: `Obr. ${number}`,
+    __filename: filename, // dočasné, nahradí se ID média
+    number,
+    caption,
+    panel: true,
+  })
+
 /* ── Obsah článku ───────────────────────────────────────────────── */
 
 const SLUG = 'jak-navrhnout-automatickou-zavlahu'
@@ -111,6 +122,12 @@ const body = root([
   ),
   p(
     'Následně vložte pod vytékající proud vody kbelík a pečlivě stopněte čas, za který se naplní po okraj. Z naměřených vteřin a objemu snadno vypočítáte váš reálný minutový průtok. Nezapomeňte ale z tohoto výsledku vždy odečíst 20 %. Tato nezbytná bezpečnostní rezerva pokryje přirozené ztráty na potrubí i nevyhnutelné stárnutí čerpadla.',
+  ),
+
+  figure(
+    'fig-kbelikovy-test.avif',
+    '01',
+    'Kbelíkový test: manometr ustálený na 3,5 baru, desetilitrový kbelík a stopky. Z času naplnění vypočítáte průtok — a odečtete 20 % rezervy.',
   ),
 
   block({
@@ -217,6 +234,33 @@ const body = root([
 const run = async () => {
   const payload = await getPayload({ config })
 
+  /* Figury odkazují na média názvem souboru — přeložíme na ID.
+     Chybějící soubor blok vypustí, aby článek nikdy nespadl na null. */
+  const nodes = body.root.children as Node[]
+  const resolved: Node[] = []
+  for (const node of nodes) {
+    const fields = (node as { fields?: Record<string, unknown> }).fields
+    const filename = fields?.__filename as string | undefined
+    if (!filename) {
+      resolved.push(node)
+      continue
+    }
+    const found = await payload.find({
+      collection: 'media',
+      where: { filename: { equals: filename } },
+      limit: 1,
+      pagination: false,
+    })
+    if (found.docs.length === 0) {
+      payload.logger.warn(`médium "${filename}" nenalezeno — figura vynechána`)
+      continue
+    }
+    delete fields!.__filename
+    fields!.image = found.docs[0].id
+    resolved.push(node)
+  }
+  body.root.children = resolved
+
   const data = {
     title: 'Jak navrhnout automatickou závlahu: průvodce krok za krokem',
     slug: SLUG,
@@ -239,10 +283,21 @@ const run = async () => {
 
   if (existing.docs.length > 0) {
     const id = existing.docs[0].id
-    await payload.update({ collection: 'posts', id, data, draft: true })
+    await payload.update({
+      collection: 'posts',
+      id,
+      data,
+      draft: true,
+      context: { disableRevalidate: true },
+    })
     payload.logger.info(`Článek aktualizován jako koncept (id ${id}) — /posts/${SLUG}`)
   } else {
-    const created = await payload.create({ collection: 'posts', data, draft: true })
+    const created = await payload.create({
+      collection: 'posts',
+      data,
+      draft: true,
+      context: { disableRevalidate: true },
+    })
     payload.logger.info(`Článek vytvořen jako koncept (id ${created.id}) — /posts/${SLUG}`)
   }
 
