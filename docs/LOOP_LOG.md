@@ -176,3 +176,72 @@ jsem dvakrát obcházel**: pod textem je příliš světlá fotografie.
    splývaly v „jeden šedý ocas".
 7. **Ořez přizpůsoben novému masteru**: předmět je vpravo, text vlevo;
    mobil drží v záběru trysku.
+
+### Kolo 04 — NEPROŠEL (4 · 4 · 3 · 3 · 4 · 3), kritických 3 → **1**
+
+Jediný kritický nález: na mobilu ležel eyebrow na prosvíceném vodním vějíři
+(**2,14:1**). Tři porotci nezávisle navrhli tentýž zásah — dostat vějíř
+**nad** textový blok, ne do něj.
+
+**Opraveno:** ořez mobil `70 % 36 %` (vějíř nad text) a desktop `62 % 48 %`
+(vrátil do rámu západ slunce a dům — styl vytýkal, že fotka je pod textem
+„prakticky černá plocha"); meta překlopena na roli caption bez verzálek
+a trackingu (obě rubriky našly, že **můj vlastní CSS komentář sliboval
+pravý opak, než co kód dělal**); Ken-Burns na fotce smazán jako animace
+bez úkolu (6.1.1); titulek konečně **po řádcích** s vlastními maskami
+a staggerem 0,12 s (do té doby jel celý blok v jedné masce); kapsle
+zapojena do orchestrace; `formats: AVIF + WebP`, `fetchPriority="high"`,
+`aria-hidden` sejmut z informačního obrazu.
+
+---
+
+## Kolo 05 — ✅ **PROŠEL**
+
+**Skóre: 4 · 4 · 4 · 4 · 4 · 4 · nula kritických nálezů.**
+Práh z nastavení smyčky (každý ≥ 4 a 0 kritických) splněn.
+
+| Porotce | 01 | 02 | 03 | 04 | **05** |
+|---|---|---|---|---|---|
+| Hierarchie | 2 | 4 | 3 | 4 | **4** |
+| Typografie | 2 | 4 | 4 | 4 | **4** |
+| Pohyb | 2 | 3 | 3 | 3 | **4** |
+| Grafický styl | 2 | 2 | 3 | 3 | **4** |
+| Slop | 2 | 4 | 4 | 4 | **4** |
+| Výkon | 2 | 3 | 2 | 3 | **4** |
+| **Kritických** | **8** | **3** | **3** | **1** | **0** |
+
+Zlatý standard byl **trenér, ne šablona** — nepřevzali jsme ze Sonosu
+jediný asset ani text, jen principy: fotografie nese emoci, autoritu dělá
+velikost, sekce se dělí posunem povrchu.
+
+### Co zbývá (žádný nález není kritický — backlog, ne blokátor)
+
+**Patří do stránky:**
+1. **Obrácená hierarchie výzev** — jediné plné tlačítko („Objevit systém")
+   vede pryč od článku, zatímco „číst dál" je nepopsaná šipka. Na
+   článkových stránkách CTA ztlumit, nebo cue povýšit na „Začít číst · 4 min".
+2. **Mobilní kolize** — scroll-cue prochází přes slovo „Journal" v metě;
+   klepnutí do textu spustí skok. Oddělit vertikálně nebo sloučit
+   v jeden prvek „4 min čtení ↓".
+3. **Nudge šipky startuje v čase 0** a soupeří s nástupem titulku —
+   `animation-delay: 2s`, ať cue promluví až hero domluví (6.1.2).
+4. **`sizes` je syntakticky neplatné** ve všech šesti položkách, prohlížeč
+   je zahodí a spadne na `100vw` — plýtvání pásmem na LCP obrázku.
+5. **Meta má `line-height: 1.5`** místo tokenových 1,45 (caption).
+
+**Patří do DESIGN.md (koš B):**
+6. **Prose 700 px ≠ 65 znaků** — změřeno 82–97. Vada tabulky 4.3
+   (z kola 01, stále neopraveno — jeden balík na kolo).
+7. **Globální `reduced-motion` blok je v1 vzor** (zkrácení na 0,01 ms),
+   zatímco 6.7 v2 předepisuje `animation: none`.
+8. **Textová náhrada loga** s obarvenou druhou slabikou — porotce slopu
+   ji označil za generický startup vzor. Nasadit skutečné logo
+   (maskované SVG existuje).
+9. **Tonalita hera je modrá hodina**, 9.1 žádá 3200–5000 K. Buď dotáhnout
+   teplotu, nebo si v systému připustit i studenou variantu.
+
+### Předání
+
+Hero pilot je hotový. Podle skillu následuje **`copy-polish`** na texty —
+porotce slopu upozornil, že lead sklouzává do AI kadence („X, ne Y" +
+„Zjistěte, proč"). Porota texty nehodnotí, jen je označila.
