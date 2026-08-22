@@ -10,15 +10,25 @@ import { Header } from '@/Header/Component'
 import { Providers } from '@/providers'
 import { mergeOpenGraph } from '@/utilities/mergeOpenGraph'
 import { draftMode } from 'next/headers'
+import { Archivo } from 'next/font/google'
 
 import './globals.css'
 import { getServerSideURL } from '@/utilities/getURL'
+
+// Display písmo DS v2 (ADR-004, DESIGN.md 4.1) — jediný webfont webu.
+// Self-hostuje ho next/font; --id-f-archivo pak plní --id-f-display.
+const archivo = Archivo({
+  subsets: ['latin', 'latin-ext'],
+  weight: 'variable',
+  display: 'swap',
+  variable: '--id-f-archivo',
+})
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   const { isEnabled } = await draftMode()
 
   return (
-    <html data-theme="light" lang="cs" suppressHydrationWarning>
+    <html className={archivo.variable} data-theme="light" lang="cs" suppressHydrationWarning>
       <head>
         <link href="/favicon.svg" rel="icon" type="image/svg+xml" />
         <link href="/favicon.png" rel="icon" type="image/png" sizes="32x32" />

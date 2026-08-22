@@ -1,0 +1,117 @@
+/* InteliDome Web design tokens v2.0 (2026-08-22) — generated from DESIGN.md.
+   Zdroj pravdy je DESIGN.md; tento soubor needitovat ručně. */
+
+:root {
+  /* ---- surfaces ---- */
+  --id-bg: #ffffff;
+  --id-cream: #f6f5f2;
+  --id-bg-2: var(--id-cream);          /* alias v1 */
+  --id-surface: #ffffff;
+  --id-mist: #e8e7e3;                  /* hover secondary, hairline figcaption */
+  --id-obsidian: #0b0d10;
+  --id-obsidian-2: #14171c;
+  --id-bg-2-legacy: #f5f5f7;           /* jen admin; na webu zakázán */
+  --id-bg-3: #fbfbfd;                  /* deprecated; jen admin/legacy */
+
+  /* ---- ink ---- */
+  --id-ink: #1d1d1f;
+  --id-ink-2: #5b5e63;
+  --id-ink-3: #86868b;
+  --id-ink-dark: #ffffff;
+  --id-ink-dark-2: #9ba1a8;
+  --id-ink-dark-3: #6c737b;
+
+  /* ---- brand ---- */
+  --id-accent: #2563eb;
+  --id-accent-deep: #1d4ed8;
+  --id-accent-soft: rgba(37, 99, 235, 0.10);
+  --id-accent-dark: #60a5fa;           /* odkazy a akcentový text < 30px na obsidianu (3.4) */
+  --id-accent-tint: #93c5fd;           /* eyebrow, uppercase tagy a hover odkazů na obsidianu (3.4) */
+  --id-green: #047857;                 /* stavový text OK na světlém (AA) */
+  --id-emerald: #10b981;               /* výplně, grafy, ikony — nikdy text (3.4) */
+  --id-green-soft: #ecfdf5;
+  --id-green-bright: #34d399;
+  --id-green-tint: #6ee7b7;
+  --id-warn: #b76a00;
+  --id-warn-soft: rgba(183, 106, 0, 0.09);
+  --id-warn-bright: #e8a13d;
+  --id-warn-tint: #f2b96b;
+  --id-danger: #c0392b;
+  --id-danger-soft: rgba(192, 57, 43, 0.08);
+  --id-danger-bright: #e6604f;
+  /* zemité tóny — výhradně SVG ilustrace (9.2) */
+  --id-soil: #6b5138;
+  --id-soil-deep: #54402c;
+  --id-grass: #3f7d4e;
+  --id-grass-dry: #c2a052;
+
+  /* ---- lines ---- */
+  --id-line: rgba(0, 0, 0, 0.12);
+  --id-line-soft: rgba(0, 0, 0, 0.07);
+  --id-line-cream: #dcdad4;
+  --id-line-cream-strong: #d5d3cc;
+  --id-line-dark: rgba(255, 255, 255, 0.14);
+  --id-line-dark-soft: rgba(255, 255, 255, 0.08);
+
+  /* ---- shadows ---- */
+  --id-shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
+  --id-shadow-lg: 0 12px 48px rgba(0, 0, 0, 0.10);
+  --id-shadow-cta: 0 12px 32px rgba(37, 99, 235, 0.35);
+
+  /* ---- type ---- */
+  /* --id-f-archivo se v :root NEdefinuje — dodává ho výhradně next/font třída na <html> (13.3).
+     Definice zde by měla stejnou specificitu (0,1,0) a podle pořadí stylesheetů by mohla
+     self-host řez potichu vyřadit → Arial fallback. Statické stránky s <link> pokryje
+     fallback hodnota ve var(). */
+  --id-f-display: var(--id-f-archivo, "Archivo"), "Archivo Fallback", -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  --id-f-body: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  --id-f-mono: "SF Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+  --id-t-display-xl: clamp(48px, 8.4vw, 112px);
+  --id-t-display: clamp(36px, 6vw, 76px);
+  --id-t-title: clamp(30px, 4.2vw, 52px);
+  --id-t-title-sm: clamp(24px, 3.2vw, 36px);
+  --id-t-subtitle: clamp(21px, 2.6vw, 28px);
+  --id-t-lead: clamp(18px, 2vw, 21px);
+  --id-t-body: 17px;
+  --id-t-body-sm: 14.5px;
+  --id-t-caption: 13.5px;
+  --id-t-label: 12px;
+  --id-t-btn: 15.5px;
+  --id-t-btn-sm: 13.5px;
+  --id-t-stat: clamp(26px, 3vw, 40px);
+  --id-t-stat-xl: clamp(40px, 5.4vw, 64px);
+
+  /* ---- geometry ---- */
+  --id-maxw: 1200px;
+  --id-maxw-prose: 700px;
+  --id-maxw-summary: 960px;
+  --id-s-4: 4px; --id-s-8: 8px; --id-s-12: 12px; --id-s-16: 16px;
+  --id-s-24: 24px; --id-s-32: 32px; --id-s-40: 40px; --id-s-48: 48px;
+  --id-s-64: 64px; --id-s-80: 80px; --id-s-96: 96px; --id-s-120: 120px;
+  --id-sect-y: clamp(72px, 10vw, 120px);
+  --id-sect-y-sm: clamp(64px, 8vw, 96px);
+  --id-gap-grid: 16px;                 /* ≤768px: 14px */
+  --id-pad-card: clamp(20px, 2.4vw, 28px);
+  --id-pad-panel: clamp(24px, 3.4vw, 40px);
+  --id-pad-x: clamp(24px, 4.5vw, 40px);
+  --id-r-card: 20px;
+  --id-r-md: 14px;
+  --id-r-sm: 10px;
+  --id-r-pill: 980px;
+
+  /* ---- motion ---- */
+  --id-ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+  --id-ease-reveal: cubic-bezier(0.22, 0.61, 0.21, 1);
+  --id-ease-draw: cubic-bezier(0.3, 0.1, 0.3, 1);
+  --id-ease-fill: cubic-bezier(0.3, 0.1, 0.4, 1);
+  --id-ease-ripple: cubic-bezier(0.16, 0.6, 0.4, 1);
+  --id-ease-soft: cubic-bezier(0.25, 0.1, 0.25, 1);
+  --id-dur-micro: 250ms;
+  --id-dur-hover: 350ms;
+  --id-dur-reveal: 800ms;
+  --id-dur-rise: 1000ms;
+  --id-dur-draw: 1600ms;
+  --id-stagger-reveal: 80ms;
+  --id-stagger-rise: 120ms;
+  --id-delay-herosub: 550ms;
+}
