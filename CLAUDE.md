@@ -46,9 +46,20 @@ DNS spravuje Active24. GitHub účet: `Mari7777` (repa privátní).
   aplikace na tomto stroji.
 - **Média:** storage adapter (viz ADR-002) — souborový systém Vercelu
   je efemérní, bez adapteru se obrázky ztratí.
-- **Design:** design system InteliDome v `design/handoff` —
-  `_ds_bundle.css` s tokeny `--id-*` (akcent #0071e3, Apple-light
-  vzhled, pill buttony, karty s rádiusem 20 px). Jediný zdroj vzhledu.
+- **Design (v2.0, ADR-004):** zdroj vzhledu webu je **`docs/DESIGN.md`**.
+  Akcent `#2563eb` (hover `#1d4ed8`), stavová zelená `#047857` pro text
+  a `#10b981` (`--id-emerald`) jen pro výplně, grafy a ikony — **text
+  v emeraldu je zakázaný** (2,54:1 na bílé). Krém `#f6f5f2`, obsidian
+  `#0b0d10`, display písmo **Archivo** (`next/font`, jediný webfont),
+  tělo systémový SF stack; maxw 1200 px / prose 700 px, radiusy
+  20/14/10/pill. Implementace: tokeny v
+  `src/app/(frontend)/intelidome-tokens.css` (generováno z DESIGN.md
+  kap. 13.1, **needitovat ručně**), mapování v `@theme inline`
+  v `globals.css`, komponentní třídy v `intelidome-ds.css`.
+  `design/handoff/**` = archiv v1, read-only.
+  **Hex natvrdo v komponentě je chyba** (jen tokeny) a akcent nesmí
+  pokrýt víc než ~5 % plochy viewportu. Pozor: `bg-accent` je plný
+  akcent — jako světlý podklad se používá `bg-accent-soft`.
 
 ## Konvence a proces (stejné jako v ERP, osvědčily se)
 
@@ -83,8 +94,8 @@ jinak, řeší se to novým ADR po dohodě v obou projektech.
 
 ## Začátek nové session
 
-1. Přečti `VISION.md`, `ROADMAP.md` (aktuální fáze a checklist)
-   a `docs/adr/`.
+1. Přečti `VISION.md`, `ROADMAP.md` (aktuální fáze a checklist),
+   `docs/adr/` a `docs/DESIGN.md` (závazný vzhled webu).
 2. Dev prostředí: `docker compose up -d` (Postgres 5433),
    `npm run dev` (port 3100, `NEXT_PUBLIC_SERVER_URL=http://localhost:3100`).
 
