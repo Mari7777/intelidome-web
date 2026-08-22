@@ -28,9 +28,10 @@ export const PostHero: React.FC<{ post: Post }> = ({ post }) => {
 
   const eyebrow = categoryTitles.length ? categoryTitles.join(' · ') : 'Návody · Závlaha'
 
-  // Titulek po řádcích: každý má vlastní masku, aby mohl stoupat zvlášť.
-  // Kvalifikátor za dvojtečkou není součást titulku — je to druhý hlas.
+  // Titulek po řádcích: každý má VLASTNÍ masku, aby mohl stoupat zvlášť
+  // se staggerem (6.3.3). Kvalifikátor za dvojtečkou je druhý hlas.
   const [headline, qualifier] = splitTitle(title)
+  const lines = splitLines(headline, 14)
 
   // Lead nese slib. Použijeme meta description (už je napsaná a je to
   // přesně slib článku); kvalifikátor je nouzová varianta.
@@ -50,7 +51,7 @@ export const PostHero: React.FC<{ post: Post }> = ({ post }) => {
       data-surface="dark"
     >
       {heroImage && typeof heroImage !== 'string' && (
-        <div className="absolute inset-0" aria-hidden="true">
+        <div className="absolute inset-0">
           <Media
             fill
             imgClassName="id-hero__img h-full w-full object-cover"
@@ -66,9 +67,11 @@ export const PostHero: React.FC<{ post: Post }> = ({ post }) => {
         <p className="id-hero__eyebrow id-hero__fade">{eyebrow}</p>
 
         <h1 className="id-hero__title mt-5 max-w-[13ch] text-ink-dark">
-          <span className="id-hline">
-            <span>{headline}</span>
-          </span>
+          {lines.map((line, index) => (
+            <span className="id-hline" key={line}>
+              <span style={{ animationDelay: `${index * 0.12}s` }}>{line}</span>
+            </span>
+          ))}
         </h1>
 
         {lead && <p className="id-hero__lead id-hero__fade">{lead}</p>}
@@ -103,4 +106,22 @@ function splitTitle(title: string): [string, string | null] {
   const at = title.indexOf(':')
   if (at === -1) return [title, null]
   return [title.slice(0, at).trim(), title.slice(at + 1).trim() || null]
+}
+
+/** Rozdělí titulek na řádky o max. `maxChars` znacích — každý dostane
+ *  vlastní masku, takže mohou stoupat se staggerem (DESIGN.md 6.3.3). */
+function splitLines(text: string, maxChars: number): string[] {
+  const lines: string[] = []
+  let current = ''
+  for (const word of text.split(/\s+/)) {
+    const candidate = current ? `${current} ${word}` : word
+    if (candidate.length > maxChars && current) {
+      lines.push(current)
+      current = word
+    } else {
+      current = candidate
+    }
+  }
+  if (current) lines.push(current)
+  return lines
 }

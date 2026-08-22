@@ -27,6 +27,8 @@ const nextConfig: NextConfig = {
     ],
     // 72 je pracovní kvalita webu (DESIGN.md 9.1: hero ≤ 260 kB);
     // 100 zůstává povolená pro výjimky, ale nepoužívá se jako výchozí.
+    // DESIGN.md 9.1: hero jako AVIF s WebP fallbackem.
+    formats: ['image/avif', 'image/webp'],
     qualities: [72, 100],
     remotePatterns: [
       ...[NEXT_PUBLIC_SERVER_URL /* 'https://example.com' */].map((item) => {

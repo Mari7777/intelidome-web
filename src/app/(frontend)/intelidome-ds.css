@@ -361,12 +361,16 @@
    Na mobilu navíc drží v záběru trysku a vějíř (9.1: předmět musí být
    vidět, ne rozostřené pozadí). */
 .id-hero__img {
-  object-position: 50% 55%;
+  /* Desktop: rám posunut doprava a nahoru, aby se do záběru vrátil teplý
+     blok scény (dům s rozsvícenými okny, západ) — vlevo pod textem zůstává
+     tráva ve stínu, kde má bílý text rezervu ~20:1. */
+  object-position: 62% 48%;
 }
 @media (max-width: 640px) {
-  /* Na výšku drží v záběru trysku s vějířem, ne prázdnou trávu. */
+  /* Mobil: vějíř patří NAD textový blok, ne do něj — jinak si obraz
+     a titulek konkurují o tytéž pixely a eyebrow padá na 2:1. */
   .id-hero__img {
-    object-position: 78% 58%;
+    object-position: 70% 36%;
   }
 }
 
@@ -423,13 +427,18 @@
 
 /* Meta je administrativa — jiný prostředek než eyebrow: bez verzálek,
    bez trackingu, menší, aby druhá a třetí fixace oka nebyly zaměnitelné. */
+/* Administrativa — odlišená PROSTŘEDKEM, ne odstínem šedi: bez verzálek,
+   bez trackingu, tělový řez. Eyebrow tak zůstává jediným verzálkovým
+   prvkem hera (role caption ze 4.2, ne hodnota mimo škálu). */
 .id-hero__meta {
+  display: flex;
+  flex-wrap: wrap;
+  row-gap: 6px;
   margin-top: 26px;
-  font-family: var(--id-f-display);
-  font-size: 12.5px;
-  font-weight: 600;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
+  font-family: var(--id-f-body);
+  font-size: var(--id-t-caption);
+  font-weight: 400;
+  letter-spacing: 0;
   line-height: 1.5;
   color: var(--id-ink-dark-2);
 }
@@ -474,18 +483,8 @@
   }
 }
 
-/* Obraz: pomalé usazení, aby pás dýchal, ne aby poutal pozornost. */
-.id-hero__img {
-  animation: id-hero-settle 1.6s var(--id-ease) both;
-}
-@keyframes id-hero-settle {
-  from {
-    transform: scale(1.04);
-  }
-  to {
-    transform: none;
-  }
-}
+/* Obraz se NEanimuje. Ken-Burns neodpovídal na otázku „kam se dívat teď"
+   a 6.1.1 takovou animaci maže; Sonos hero je nehybná fotografie. */
 
 /* Jediná nabídnutá akce na obrazovce — kam pokračovat. */
 .id-hero__cue {
@@ -523,15 +522,19 @@
   }
 }
 @media (max-width: 640px) {
+  /* Na mobilu zmenšená a na střed — „kam dál" musí být i tady. */
   .id-hero__cue {
-    display: none;
+    right: 50%;
+    width: 40px;
+    height: 40px;
+    transform: translateX(50%);
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .id-hline > span,
   .id-hero__fade,
-  .id-hero__img,
+  .id-capsule,
   .id-hero__cue svg {
     animation: none;
     opacity: 1;
@@ -543,6 +546,7 @@
    Není to lišta přes celou šířku — ta je v anti-vzorech a ukrajovala by
    z hera, který má mít přesně 100svh. Stránka pod kapslí protéká. */
 .id-capsule {
+  animation: id-capsule-in 0.8s var(--id-ease) 0.95s both;
   display: flex;
   align-items: center;
   gap: 24px;
@@ -598,4 +602,26 @@
 }
 .id-capsule__go:hover {
   background: var(--id-accent);
+}
+
+@keyframes id-capsule-in {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Programový scroll ze scroll-cue má být plynulý (6.5) — deklarativně,
+   bez JS; při reduced-motion se vypne spolu se vším ostatním. */
+html {
+  scroll-behavior: smooth;
+}
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
 }
