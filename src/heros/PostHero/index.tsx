@@ -23,7 +23,7 @@ export const PostHero: React.FC<{
 
   return (
     <header className="container pt-12 pb-4 md:pt-16">
-      <div className="mx-auto max-w-[var(--id-measure)]">
+      <div className="mx-auto max-w-[var(--id-maxw-prose)]">
         <p className="id-eyebrow id-rise mb-4">
           {categoryTitles.length ? categoryTitles.join(' · ') : 'Blog'}
         </p>

@@ -1,56 +1,11 @@
 /* ============================================================
    InteliDome design system — tokens + component styles.
-   Source of truth: design/handoff/_ds_bundle.css (copied verbatim).
-   Repo additions are marked "repo addition" — keep the handoff file
-   untouched and extend here.
+   Source of truth: docs/DESIGN.md v2.0 (ADR-004).
+   Tokeny žijí v intelidome-tokens.css (generováno) — zde jsou jen
+   komponentní třídy. Hex natvrdo = chyba, používej --id-* tokeny.
    ============================================================ */
 
-:root {
-  /* surfaces & ink */
-  --id-bg: #ffffff;
-  --id-bg-2: #f5f5f7;
-  --id-bg-3: #fbfbfd;
-  --id-surface: #ffffff;
-  --id-ink: #1d1d1f;
-  --id-ink-2: #6e6e73;
-  --id-ink-3: #86868b;
 
-  /* brand */
-  --id-accent: #0071e3;
-  --id-accent-deep: #0058b8;
-  --id-accent-soft: rgba(0, 113, 227, 0.08);
-  --id-green: #1d8a4e;
-  --id-green-soft: #f3f8f5;
-  --id-warn: #b76a00;
-  --id-warn-soft: rgba(183, 106, 0, 0.09);
-  --id-danger: #c0392b;
-  --id-danger-soft: rgba(192, 57, 43, 0.08);
-
-  /* lines & shadows */
-  --id-line: rgba(0, 0, 0, 0.12);
-  --id-line-soft: rgba(0, 0, 0, 0.07);
-  --id-shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
-  --id-shadow-lg: 0 12px 48px rgba(0, 0, 0, 0.1);
-
-  /* typography */
-  --id-f-display: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text',
-    'Helvetica Neue', Helvetica, Arial, sans-serif;
-  --id-f-body: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Helvetica Neue', Helvetica,
-    Arial, sans-serif;
-  --id-f-mono: 'SF Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
-
-  /* geometry */
-  --id-r-card: 20px;
-  --id-r-md: 14px;
-  --id-r-sm: 10px;
-  --id-r-pill: 980px;
-  --id-maxw: 1120px;
-  --id-ease: cubic-bezier(0.22, 0.61, 0.36, 1);
-
-  /* repo addition: reading measure for long-form article text
-     (the handoff has no prose typography; --id-maxw is a layout width) */
-  --id-measure: 680px;
-}
 
 /* ── Button ──────────────────────────────────────────────── */
 .id-btn {
@@ -58,11 +13,12 @@
   align-items: center;
   justify-content: center;
   gap: 8px;
-  padding: 13px 24px;
+  padding: 16px 30px;
   border-radius: var(--id-r-pill);
-  font-family: var(--id-f-body);
-  font-size: 17px;
-  letter-spacing: -0.01em;
+  font-family: var(--id-f-display);
+  font-size: var(--id-t-btn);
+  font-weight: 600;
+  letter-spacing: 0.01em;
   line-height: 1.2;
   cursor: pointer;
   border: 1px solid transparent;
@@ -74,7 +30,7 @@
 }
 .id-btn--primary {
   background: var(--id-accent);
-  color: #fff;
+  color: var(--id-ink-dark);
 }
 .id-btn--primary:hover {
   background: var(--id-accent-deep);
@@ -91,11 +47,11 @@
   color: var(--id-ink);
 }
 .id-btn--secondary:hover {
-  background: #ebebf0;
+  background: var(--id-mist);
 }
 .id-btn--sm {
-  padding: 9px 18px;
-  font-size: 15px;
+  padding: 11px 22px;
+  font-size: var(--id-t-btn-sm);
 }
 .id-btn:disabled {
   opacity: 0.45;
@@ -126,19 +82,25 @@
 .id-eyebrow {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
-  font-family: var(--id-f-body);
-  font-size: 13px;
+  gap: 10px;
+  font-family: var(--id-f-display);
+  font-size: var(--id-t-label);
   font-weight: 600;
-  letter-spacing: -0.01em;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
   color: var(--id-accent);
 }
+/* DS v2: čárka místo tečky (DESIGN.md 7.3) */
 .id-eyebrow::before {
   content: '';
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: var(--id-accent);
+  width: 22px;
+  height: 1.5px;
+  border-radius: 0;
+  background: currentColor;
+}
+/* Na obsidianu má plný akcent na 12px text jen 3,8:1 — tint je povinný (11.1). */
+[data-surface='dark'] .id-eyebrow {
+  color: var(--id-accent-tint);
 }
 
 /* ── Card ────────────────────────────────────────────────── */
@@ -159,13 +121,13 @@
   box-shadow: var(--id-shadow-lg);
 }
 .id-card--tinted {
-  background: var(--id-bg-3);
+  background: var(--id-cream);
 }
 
 /* ── SectionHeading ──────────────────────────────────────── */
 .id-section-heading {
   font-family: var(--id-f-body);
-  max-width: 640px;
+  max-width: var(--id-maxw-prose);
 }
 .id-section-heading .id-eyebrow {
   margin-bottom: 12px;
@@ -177,12 +139,12 @@
   color: var(--id-ink);
   text-wrap: balance;
   letter-spacing: -0.025em;
-  line-height: 1.07;
-  font-size: clamp(28px, 4vw, 40px);
+  line-height: 1.05;
+  font-size: var(--id-t-title);
 }
 .id-section-heading__lead {
   margin: 14px 0 0;
-  font-size: 17px;
+  font-size: var(--id-t-lead);
   line-height: 1.5;
   color: var(--id-ink-2);
   letter-spacing: -0.01em;
@@ -194,7 +156,7 @@
   align-items: center;
   gap: 6px;
   font-family: var(--id-f-body);
-  font-size: 12px;
+  font-size: var(--id-t-caption);
   font-weight: 600;
   letter-spacing: 0.01em;
   padding: 5px 12px;
@@ -358,5 +320,18 @@
   .id-rise--3,
   .id-rise--4 {
     animation: none;
+  }
+}
+
+/* ── Pohyb: globální kontrakt reduced-motion (DESIGN.md 6.7) ─────────
+   Vypíná animace a přechody, obsah zůstává kompletní a viditelný. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
 }
