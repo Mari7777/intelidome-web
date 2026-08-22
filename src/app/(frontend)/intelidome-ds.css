@@ -361,11 +361,12 @@
    Na mobilu navíc drží v záběru trysku a vějíř (9.1: předmět musí být
    vidět, ne rozostřené pozadí). */
 .id-hero__img {
-  object-position: 50% 78%;
+  object-position: 50% 55%;
 }
 @media (max-width: 640px) {
+  /* Na výšku drží v záběru trysku s vějířem, ne prázdnou trávu. */
   .id-hero__img {
-    object-position: 74% 64%;
+    object-position: 78% 58%;
   }
 }
 
@@ -381,19 +382,13 @@
 /* Eyebrow leží na FOTOGRAFII, ne na plochém obsidiánu — modrý tint tam
    má jen ~4:1. Bílá dává proti témuž podkladu ~11:1 (11.1). Akcentní
    modrá zůstává eyebrow na plochých tmavých pásech. */
-/* Text leží na fotografii, jejíž jas se místo od místa liší (obloha vs.
-   tráva ve stínu). Scrim ho podle 9.1 ztmavit nesmí, tak si čitelnost
-   nese text sám — jemný stín jako v tištěném magazínu. Nezasahuje do
-   obrazu a funguje i tam, kde je pod textem světlá obloha. */
-.id-hero__eyebrow,
-.id-hero__title,
-.id-hero__lead,
-.id-hero__meta {
-  text-shadow: 0 1px 2px rgba(11, 13, 16, 0.55), 0 2px 14px rgba(11, 13, 16, 0.4);
-}
+/* Žádný text-shadow. Kontrast řeší systém dvěma cestami (9.1): dost tmavý
+   podklad, nebo scrim — stín mezi nimi není a porota ho právem označila
+   za berličku. Master hera je proto art-directovaný: levá polovina je
+   tráva ve stínu (naměřený jas 19/255), takže bílý text stojí na klidné
+   ploše sám o sobě. */
 
 .id-hero__eyebrow {
-  text-shadow: 0 1px 3px rgba(11, 13, 16, 0.85), 0 2px 10px rgba(11, 13, 16, 0.6);
   display: inline-flex;
   align-items: center;
   gap: 10px;
@@ -422,7 +417,7 @@
   font-weight: 400;
   line-height: 1.5;
   letter-spacing: -0.012em;
-  color: var(--id-ink-dark-2);
+  color: rgba(255, 255, 255, 0.84);
   text-wrap: pretty;
 }
 
@@ -430,10 +425,13 @@
    bez trackingu, menší, aby druhá a třetí fixace oka nebyly zaměnitelné. */
 .id-hero__meta {
   margin-top: 26px;
-  font-family: var(--id-f-body);
-  font-size: var(--id-t-caption);
+  font-family: var(--id-f-display);
+  font-size: 12.5px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
   line-height: 1.5;
-  color: var(--id-ink-dark-3);
+  color: var(--id-ink-dark-2);
 }
 /* Oddělovač patří k údaji za sebou, aby nikdy nevisel na konci řádku. */
 .id-hero__meta-item {
@@ -539,4 +537,65 @@
     opacity: 1;
     transform: none;
   }
+}
+
+/* ── Plovoucí kapsle hlavičky (DESIGN.md 7.1) ────────────────────────
+   Není to lišta přes celou šířku — ta je v anti-vzorech a ukrajovala by
+   z hera, který má mít přesně 100svh. Stránka pod kapslí protéká. */
+.id-capsule {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  padding: 10px 12px 10px 24px;
+  border: 1px solid var(--id-line-soft);
+  border-radius: var(--id-r-pill);
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  box-shadow: 0 8px 30px rgba(10, 12, 15, 0.1);
+}
+.id-capsule__mark {
+  display: flex;
+  align-items: center;
+  border-radius: 6px;
+}
+.id-capsule__mark:focus-visible,
+.id-capsule__icon:focus-visible,
+.id-capsule__go:focus-visible,
+.id-capsule__link:focus-visible {
+  outline: 2.5px solid var(--id-accent);
+  outline-offset: 4px;
+}
+.id-capsule__link {
+  font-size: 14px;
+  color: var(--id-ink-2);
+  text-decoration: none;
+  transition: color 0.25s;
+}
+.id-capsule__link:hover {
+  color: var(--id-ink);
+}
+.id-capsule__icon {
+  display: flex;
+  color: var(--id-ink-2);
+  transition: color 0.25s;
+}
+.id-capsule__icon:hover {
+  color: var(--id-ink);
+}
+/* Jediné mini-CTA v kapsli — modrá dostane funkční cíl. */
+.id-capsule__go {
+  font-family: var(--id-f-display);
+  font-size: 13.5px;
+  font-weight: 600;
+  padding: 9px 18px;
+  border-radius: var(--id-r-pill);
+  background: var(--id-ink);
+  color: var(--id-ink-dark);
+  text-decoration: none;
+  white-space: nowrap;
+  transition: background 0.25s;
+}
+.id-capsule__go:hover {
+  background: var(--id-accent);
 }

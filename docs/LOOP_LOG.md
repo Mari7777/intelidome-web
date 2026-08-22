@@ -136,3 +136,43 @@ mez 9.1 a eyebrow bílý** místo modrého.
 - **Frosted full-width lišta headeru** (porotce hierarchie ji označil
   za nejjasnější prvek tmavé obrazovky, který nese nejmíň informace).
   Je to jiná komponenta než hero — na řadě po dokončení pilotu.
+
+### Kolo 03 — NEPROŠEL (3 · 4 · 3 · 3 · 4 · 2)
+
+Hierarchie a výkon klesly. Porota se poprvé shodla na **kořeni, který
+jsem dvakrát obcházel**: pod textem je příliš světlá fotografie.
+
+| Porotce | 02 → 03 | Klíčové měření |
+|---|---|---|
+| Hierarchie | 4 → 3 | hero měří 100svh **plus** 61 px lepivé hlavičky → nevejde se do foldu; scroll-cue přeříznutý, meta na mobilu pod hranou |
+| Typografie | 4 → 4 | eyebrow **1,05:1** — „nejvyšší patro hierarchie fakticky chybí"; meta odchýlená na třech osách od 8.2 |
+| Pohyb | 3 → 3 | — |
+| Grafický styl | 2 → 3 | — |
+| Slop | 4 → 4 | — |
+| Výkon | 3 → 2 | H1 medián 4,17:1, nejhorší percentil **1,62:1** |
+
+**Verdikt porotce typografie o mém řešení z kola 02:** text-shadow je
+*„berlička místo řízeného kontrastu"* — DESIGN.md 9.1 zná jen dvě cesty
+(bílá při ≥ 4,5:1, jinak scrim), stín mezi nimi není. Měl pravdu.
+
+#### Opraveno — balík „fold sedí a text stojí na klidné ploše"
+
+1. **Nový master hera, art-directovaný pro text.** Původní snímek měl
+   přesvícenou oblohu přesně tam, kde začíná textový blok. Nový prompt
+   žádal tmavou trávu ve stínu v levé polovině a slunce jen v pravé
+   třetině. **Naměřený jas v zóně textu: 19/255** (bílý text ≈ 18:1).
+   Soumrak navíc odpovídá „teplému přirozenému světlu" z 9.1 líp než
+   zlatá hodina s protisvětlem.
+2. **Text-shadow úplně odstraněn.** Kontrast dělá snímek, ne efekt.
+3. **Hlavička → plovoucí frosted kapsle dle 7.1.** Jedním zásahem padly
+   čtyři nálezy: hero má konečně přesně 100svh (stránka protéká pod
+   `fixed` kapslí), scroll-cue je celý nad foldem, mobilní meta se vešla,
+   a zmizel anti-vzor „frosted lišta přes celou šířku" z kola 01.
+4. **Mini-CTA „Objevit systém"** v kapsli — modrá dostala funkční cíl
+   místo loga.
+5. **Meta dle 8.2**: 12,5 px, Archivo 600, verzálky, tracking .12em,
+   `--id-ink-dark-2` (porota naměřila, že `--id-ink-dark-3` padá pod AA).
+6. **Lead posílen** na bílou s krytím 0,84 — dva šedé bloky pod sebou
+   splývaly v „jeden šedý ocas".
+7. **Ořez přizpůsoben novému masteru**: předmět je vpravo, text vlevo;
+   mobil drží v záběru trysku.

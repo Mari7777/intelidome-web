@@ -13,6 +13,14 @@ interface HeaderClientProps {
   data: Header
 }
 
+/**
+ * Plovoucí frosted kapsle (DESIGN.md 7.1).
+ *
+ * Není to lišta přes celou šířku — ta je v anti-vzorech („frosted smí být
+ * jedině plovoucí kapsle") a zároveň by ukrajovala z hera, který má mít
+ * přesně 100svh. Kapsle je `fixed` 18 px pod hranou, stránka pod ní
+ * protéká; obal nechytá kliky, jen samotná pilulka.
+ */
 export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
   /* Storing the value in a useState to avoid hydration errors */
   const [theme, setTheme] = useState<string | null>(null)
@@ -31,11 +39,11 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
 
   return (
     <header
-      className="sticky top-0 z-20 border-b border-[var(--id-line-soft)] bg-[rgba(255,255,255,0.85)] backdrop-blur-xl"
+      className="id-capsule-wrap pointer-events-none fixed inset-x-0 top-[18px] z-30 flex justify-center px-4"
       {...(theme ? { 'data-theme': theme } : {})}
     >
-      <div className="container flex items-center justify-between py-4">
-        <Link href="/">
+      <div className="id-capsule pointer-events-auto">
+        <Link className="id-capsule__mark" href="/">
           <Logo loading="eager" priority="high" />
         </Link>
         <HeaderNav data={data} />
