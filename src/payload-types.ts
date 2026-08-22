@@ -1613,6 +1613,77 @@ export interface CollectionsWidget {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ChapterBlock".
+ */
+export interface ChapterBlock {
+  /**
+   * Vysází se jako nadpis druhé úrovně a slouží jako kotva v článku.
+   */
+  title: string;
+  /**
+   * Nepovinný kicker nad nadpisem, například „Kapitola 01“. Číslo se nedoplňuje samo — napište ho ručně. Když pole necháte prázdné, nadtitulek se nezobrazí.
+   */
+  eyebrow?: string | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'chapter';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "FigureBlock".
+ */
+export interface FigureBlock {
+  /**
+   * Fotografie nebo schéma. Alt text se bere z knihovny médií.
+   */
+  image: number | Media;
+  /**
+   * Dvouciferně, průběžně v rámci článku (01, 02, 03 …). Blok nezná svou pozici, číslo se píše ručně. Prázdné = popisek bez štítku.
+   */
+  number?: string | null;
+  /**
+   * Jedna věta: co je na obrázku a co si z toho čtenář má odnést.
+   */
+  caption: string;
+  /**
+   * Zapnuté pro schémata a ilustrace (obraz dýchá na krému). Vypnout u fotografií přes celou šířku.
+   */
+  panel?: boolean | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'figure';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "StatTilesBlock".
+ */
+export interface StatTilesBlock {
+  /**
+   * Pásek 2 až 4 klíčových čísel. Nejlépe funguje hned pod souhrnem článku.
+   */
+  tiles?:
+    | {
+        /**
+         * Samotné číslo, bez jednotky. Např. „10–15" nebo „92".
+         */
+        value: string;
+        /**
+         * Nepovinné. Např. „l/m²", „min", „%".
+         */
+        unit?: string | null;
+        /**
+         * Krátká věta, která číslo vysvětluje. Ideálně do 60 znaků.
+         */
+        label: string;
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'statTiles';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "BannerBlock".
  */
 export interface BannerBlock {
@@ -1635,6 +1706,38 @@ export interface BannerBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'banner';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "FaqBlock".
+ */
+export interface FaqBlock {
+  heading?: string | null;
+  /**
+   * Tři až šest skutečných otázek čtenáře. Vkládá se i do strukturovaných dat.
+   */
+  items: {
+    question: string;
+    answer: {
+      root: {
+        type: string;
+        children: {
+          type: any;
+          version: number;
+          [k: string]: unknown;
+        }[];
+        direction: ('ltr' | 'rtl') | null;
+        format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+        indent: number;
+        version: number;
+      };
+      [k: string]: unknown;
+    };
+    id?: string | null;
+  }[];
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'faq';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

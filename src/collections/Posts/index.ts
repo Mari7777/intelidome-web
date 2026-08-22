@@ -12,8 +12,12 @@ import {
 import { authenticated } from '../../access/authenticated'
 import { authenticatedOrPublished } from '../../access/authenticatedOrPublished'
 import { Banner } from '../../blocks/Banner/config'
+import { Chapter } from '../../blocks/Chapter/config'
 import { Code } from '../../blocks/Code/config'
+import { Faq } from '../../blocks/Faq/config'
+import { Figure } from '../../blocks/Figure/config'
 import { MediaBlock } from '../../blocks/MediaBlock/config'
+import { StatTiles } from '../../blocks/StatTiles/config'
 import { generatePreviewPath } from '../../utilities/generatePreviewPath'
 import { populateAuthors } from './hooks/populateAuthors'
 import { revalidateDelete, revalidatePost } from './hooks/revalidatePost'
@@ -96,7 +100,9 @@ export const Posts: CollectionConfig<'posts'> = {
                   return [
                     ...rootFeatures,
                     HeadingFeature({ enabledHeadingSizes: ['h1', 'h2', 'h3', 'h4'] }),
-                    BlocksFeature({ blocks: [Banner, Code, MediaBlock] }),
+                    BlocksFeature({
+                      blocks: [Chapter, Figure, StatTiles, Banner, Faq, Code, MediaBlock],
+                    }),
                     FixedToolbarFeature(),
                     InlineToolbarFeature(),
                     HorizontalRuleFeature(),

@@ -16,15 +16,32 @@ import { CodeBlock, CodeBlockProps } from '@/blocks/Code/Component'
 import type {
   BannerBlock as BannerBlockProps,
   CallToActionBlock as CTABlockProps,
+  ChapterBlock as ChapterBlockProps,
+  FaqBlock as FaqBlockProps,
+  FigureBlock as FigureBlockProps,
   MediaBlock as MediaBlockProps,
+  StatTilesBlock as StatTilesBlockProps,
 } from '@/payload-types'
 import { BannerBlock } from '@/blocks/Banner/Component'
 import { CallToActionBlock } from '@/blocks/CallToAction/Component'
+import { ChapterBlock } from '@/blocks/Chapter/Component'
+import { FaqBlock } from '@/blocks/Faq/Component'
+import { FigureBlock } from '@/blocks/Figure/Component'
+import { StatTilesBlock } from '@/blocks/StatTiles/Component'
 import { cn } from '@/utilities/ui'
 
 type NodeTypes =
   | DefaultNodeTypes
-  | SerializedBlockNode<CTABlockProps | MediaBlockProps | BannerBlockProps | CodeBlockProps>
+  | SerializedBlockNode<
+      | CTABlockProps
+      | MediaBlockProps
+      | BannerBlockProps
+      | CodeBlockProps
+      | ChapterBlockProps
+      | FigureBlockProps
+      | StatTilesBlockProps
+      | FaqBlockProps
+    >
 
 const internalDocToHref = ({ linkNode }: { linkNode: SerializedLinkNode }) => {
   const { value, relationTo } = linkNode.fields.doc!
@@ -40,6 +57,10 @@ const jsxConverters: JSXConvertersFunction<NodeTypes> = ({ defaultConverters }) 
   ...LinkJSXConverter({ internalDocToHref }),
   blocks: {
     banner: ({ node }) => <BannerBlock className="col-start-2 mb-4" {...node.fields} />,
+    chapter: ({ node }) => <ChapterBlock className="col-start-2" {...node.fields} />,
+    figure: ({ node }) => <FigureBlock className="col-start-1 col-span-3" {...node.fields} />,
+    statTiles: ({ node }) => <StatTilesBlock className="col-start-1 col-span-3" {...node.fields} />,
+    faq: ({ node }) => <FaqBlock className="col-start-2" {...node.fields} />,
     mediaBlock: ({ node }) => (
       <MediaBlock
         className="col-start-1 col-span-3"
