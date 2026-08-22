@@ -26,9 +26,14 @@ import {
   PreviewField,
 } from '@payloadcms/plugin-seo/fields'
 import { slugField } from 'payload'
+import { slugify } from '@/utilities/slugify'
 
 export const Posts: CollectionConfig<'posts'> = {
   slug: 'posts',
+  labels: {
+    singular: 'Článek',
+    plural: 'Články',
+  },
   access: {
     create: authenticated,
     delete: authenticated,
@@ -219,7 +224,7 @@ export const Posts: CollectionConfig<'posts'> = {
         },
       ],
     },
-    slugField(),
+    slugField({ slugify: ({ valueToSlugify }) => slugify(valueToSlugify) }),
   ],
   hooks: {
     afterChange: [revalidatePost],

@@ -14,8 +14,10 @@ import { beforeSyncWithSearch } from '@/search/beforeSync'
 import { Page, Post } from '@/payload-types'
 import { getServerSideURL } from '@/utilities/getURL'
 
+// The "| InteliDome" suffix is applied globally by the metadata title template
+// in (frontend)/layout.tsx — the SEO field holds the bare title.
 const generateTitle: GenerateTitle<Post | Page> = ({ doc }) => {
-  return doc?.title ? `${doc.title} | InteliDome` : 'InteliDome'
+  return doc?.title?.trim() || 'InteliDome'
 }
 
 const generateURL: GenerateURL<Post | Page> = ({ doc }) => {

@@ -26,17 +26,19 @@ export const generateMeta = async (args: {
 
   const ogImage = getImageURL(doc?.meta?.image)
 
-  // meta.title may already carry the suffix (SEO plugin's generateTitle) — don't double it
-  const title = doc?.meta?.title
-    ? doc.meta.title.endsWith('| InteliDome')
-      ? doc.meta.title
-      : `${doc.meta.title} | InteliDome`
-    : 'InteliDome — chytrá závlaha a automatizace zahrady'
+  // The layout's title template appends "| InteliDome"; strip it from stored
+  // values (older docs were saved with the suffix baked in) so it appears once.
+  const docTitle =
+    doc?.meta?.title?.replace(/\s*\|\s*InteliDome\s*$/, '').trim() || doc?.title?.trim()
+
+  const siteTitle = 'InteliDome — chytrá závlaha a automatizace zahrady'
+  const description = doc?.meta?.description?.trim()
 
   return {
-    description: doc?.meta?.description,
+    description,
     openGraph: mergeOpenGraph({
-      description: doc?.meta?.description || '',
+      // omit when empty so the site-wide default description applies
+      ...(description ? { description } : {}),
       images: ogImage
         ? [
             {
@@ -44,9 +46,10 @@ export const generateMeta = async (args: {
             },
           ]
         : undefined,
-      title,
+      title: docTitle || siteTitle,
       url: Array.isArray(doc?.slug) ? doc?.slug.join('/') : '/',
     }),
-    title,
+    // `absolute` skips the template — the fallback already carries the brand
+    title: docTitle ?? { absolute: siteTitle },
   }
 }
