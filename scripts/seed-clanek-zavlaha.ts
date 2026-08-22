@@ -156,6 +156,12 @@ const body = root([
     'Tomuto nekompromisnímu pravidlu se v inženýrské praxi říká „hlava na hlavu". Jakmile se pokusíte ušetřit a postřikovače od sebe oddálíte, vytvoříte hluchá místa s nedostatkem vláhy. V horkých letních měsících se pak na trávníku velmi rychle objeví suché a nažloutlé pruhy. Ke správnému vsakování do hlubších vrstev půdy doporučujeme používat moderní paprskové trysky, které vodu dávkují pomalu a šetrně.',
   ),
 
+  figure(
+    'fig-hlava-na-hlavu.avif',
+    '02',
+    'Pravidlo „hlava na hlavu“ v praxi: vějíře dvou sousedních postřikovačů se protínají, takže mezi nimi nezůstane pruh bez vody.',
+  ),
+
   block({
     blockType: 'chapter',
     blockName: 'Kapitola 04',
