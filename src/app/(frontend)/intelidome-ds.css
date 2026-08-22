@@ -319,3 +319,44 @@
     transform: none;
   }
 }
+
+/* ── Callout danger variant (repo addition) ──────────────── */
+.id-callout--danger {
+  background: var(--id-danger-soft);
+  color: var(--id-ink);
+}
+.id-callout--danger .id-callout__dot {
+  background: var(--id-danger);
+}
+
+/* ── Entrance motion (repo addition) ─────────────────────── */
+@keyframes id-rise {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.id-rise {
+  animation: id-rise 0.55s var(--id-ease) both;
+}
+.id-rise--2 {
+  animation-delay: 0.08s;
+}
+.id-rise--3 {
+  animation-delay: 0.16s;
+}
+.id-rise--4 {
+  animation-delay: 0.24s;
+}
+@media (prefers-reduced-motion: reduce) {
+  .id-rise,
+  .id-rise--2,
+  .id-rise--3,
+  .id-rise--4 {
+    animation: none;
+  }
+}

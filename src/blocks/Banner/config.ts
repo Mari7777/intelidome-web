@@ -8,16 +8,20 @@ import {
 
 export const Banner: Block = {
   slug: 'banner',
+  labels: {
+    singular: 'Barevný box',
+    plural: 'Barevné boxy',
+  },
   fields: [
     {
       name: 'style',
       type: 'select',
       defaultValue: 'info',
       options: [
-        { label: 'Info', value: 'info' },
-        { label: 'Warning', value: 'warning' },
-        { label: 'Error', value: 'error' },
-        { label: 'Success', value: 'success' },
+        { label: 'Tip (modrý)', value: 'info' },
+        { label: 'Upozornění (oranžové)', value: 'warning' },
+        { label: 'Varování (červené)', value: 'error' },
+        { label: 'Úspěch (zelený)', value: 'success' },
       ],
       required: true,
     },

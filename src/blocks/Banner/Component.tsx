@@ -8,17 +8,19 @@ type Props = {
   className?: string
 } & BannerBlockProps
 
+// Rendered as an InteliDome DS callout — tinted box with a tone dot.
 export const BannerBlock: React.FC<Props> = ({ className, content, style }) => {
   return (
     <div className={cn('mx-auto my-8 w-full', className)}>
       <div
-        className={cn('border py-3 px-6 flex items-center rounded', {
-          'border-border bg-card': style === 'info',
-          'border-error bg-error/30': style === 'error',
-          'border-success bg-success/30': style === 'success',
-          'border-warning bg-warning/30': style === 'warning',
+        className={cn('id-callout', {
+          'id-callout--info': style === 'info',
+          'id-callout--danger': style === 'error',
+          'id-callout--success': style === 'success',
+          'id-callout--warn': style === 'warning',
         })}
       >
+        <span className="id-callout__dot" aria-hidden="true" />
         <RichText data={content} enableGutter={false} enableProse={false} />
       </div>
     </div>
