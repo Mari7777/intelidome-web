@@ -89,3 +89,50 @@ kole záměrně** (pravidlo „jeden balík na kolo").
   (frosted smí být jedině plovoucí kapsle 7.1). Je to jiná komponenta než
   hero, i když se v jeho viewportu objevuje.
 - Chybějící mini-CTA „Objevit systém" v headeru.
+
+### Kolo 02 — NEPROŠEL, ale velký posun
+
+**Skóre: 4 · 4 · 3 · 2 · 4 · 3 (bylo 2× šest) · kritických 8 → 3.**
+Hierarchie, typografie i slop překlopily na „prošel"; drží je grafický styl.
+
+| Porotce | 01 → 02 | Co zbývá |
+|---|---|---|
+| Hierarchie | 2 → **4** | chybí lead a jediná nabídnutá akce; full-width lišta bere první fixaci |
+| Typografie | 2 → **4** | kvalifikátor běžel na 51,5 px (2,7× nad specifikací 17–19 px) a lepil se na titulek |
+| Pohyb | 2 → 3 | — |
+| Grafický styl | 2 → **2** | scrim šel do 100 % výšky místo 45 %; na mobilu byl v záběru jen rozostřený bokeh |
+| Slop | 2 → **4** | — |
+| Výkon | 2 → 3 | modrý eyebrow měl na fotce 3,7–4,3:1 (pod AA) |
+
+**Dva kritické nálezy si protiřečily:** styl chtěl slabší scrim, výkon
+čitelnější eyebrow. Řešení, na kterém se oba shodli: **scrim zpět na
+mez 9.1 a eyebrow bílý** místo modrého.
+
+#### Opraveno — balík „fotografie zpět jako nositel emoce"
+
+1. **Scrim dle 9.1**: jediná svislá vrstva `.72 → 0` do 45 % výšky;
+   boční vrstva zrušena. Fotka přestala být tmavou texturou.
+2. **Eyebrow bílý** (modrá zůstala jen na čárce před textem) — na fotce
+   dává ~11:1 místo 4:1.
+3. **Čitelnost z textu, ne z tmavení**: jemný `text-shadow` jako
+   v tištěném magazínu; eyebrow má silnější, protože je nejmenší.
+4. **Art direction ořezu**: `object-position` posunut dolů (desktop
+   50 %/78 %, mobil 74 %/64 %), takže pod textem leží tráva ve stínu
+   a na mobilu zůstává v záběru tryska s vějířem, ne bokeh stěny.
+5. **Kvalifikátor ven z `<h1>`** → samostatný lead v roli `--id-t-lead`
+   (18–21 px, lh 1,5, max 600 px) s vlastním odstupem. Poměr titulek :
+   lead vyskočil z 2,2 : 1 na ~5,5 : 1.
+6. **Lead nese slib** — použita `meta.description` článku, která už byla
+   napsaná; nevymýšlel se nový text (texty patří do `copy-polish`).
+7. **Meta odlišena jiným prostředkem než barvou**: bez verzálek, bez
+   trackingu, `--id-t-caption`; oddělovač svázán s údajem za sebou
+   (`white-space: nowrap`), aby nikdy nevisel na konci řádku.
+8. **`min-height` 88svh → 100svh** dle 8.2 a přibyl **scroll-cue** —
+   jediná nabídnutá akce; kotví na `#obsah`. Zmizel useknutý odstavec
+   ve foldu.
+
+#### Stále odloženo
+
+- **Frosted full-width lišta headeru** (porotce hierarchie ji označil
+  za nejjasnější prvek tmavé obrazovky, který nese nejmíň informace).
+  Je to jiná komponenta než hero — na řadě po dokončení pilotu.

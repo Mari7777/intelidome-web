@@ -339,29 +339,34 @@
 /* ── Hero článku (DESIGN.md 8.2 ř. 1, prompt 1) ──────────────────────
    Filmový obsidiánový pás. Orchestrace nástupu má TŘI různé prostředky
    podle role prvku — ne jeden fade na všem (anti-vzor „fade-in zespodu
-   na všem stejně"): titulek stoupá z masky po řádcích, eyebrow a meta
-   se jen prolnou, obraz se sotva znatelně přiblíží. */
+   na všem stejně"): titulek stoupá z masky po řádcích, ostatní se prolne,
+   obraz se sotva znatelně usadí. */
 
 .id-hero__scrim {
-  /* Scrim jen ve spodní části, kde leží text — obraz zůstane obrazem. */
-  /* Dvě vrstvy: spodní scrim pod textový blok (ten je vysoký — titulek má
-     tři řádky po 112 px) a jemný boční přechod zleva, protože text je
-     zarovnaný doleva. Obraz vpravo zůstane čistý. */
-  background:
-    linear-gradient(
-      to right,
-      rgba(11, 13, 16, 0.62) 0%,
-      rgba(11, 13, 16, 0.34) 38%,
-      rgba(11, 13, 16, 0) 68%
-    ),
-    linear-gradient(
-      to top,
-      rgba(11, 13, 16, 0.9) 0%,
-      rgba(11, 13, 16, 0.78) 34%,
-      rgba(11, 13, 16, 0.42) 62%,
-      rgba(11, 13, 16, 0.12) 82%,
-      rgba(11, 13, 16, 0) 100%
-    );
+  /* 9.1: scrim NEJVÝŠ do 45 % výšky. Fotografie musí zůstat nositelem
+     emoce, ne tmavou texturou pod textem — proto jediná svislá vrstva
+     a žádný boční přechod. Čitelnost bílého textu zajišťuje spodní
+     třetina snímku (tráva ve stínu), ne plošné ztmavení. */
+  background: linear-gradient(
+    to top,
+    rgba(11, 13, 16, 0.72) 0%,
+    rgba(11, 13, 16, 0.38) 24%,
+    rgba(11, 13, 16, 0) 45%
+  );
+}
+
+/* Art direction ořezu. Master je 21:9 se světlou oblohou nahoře vlevo —
+   přesně tam, kde začíná textový blok. Posunem rámu dolů se pod text
+   dostane tráva ve stínu, takže čitelnost vzniká z obrazu, ne z tmavení.
+   Na mobilu navíc drží v záběru trysku a vějíř (9.1: předmět musí být
+   vidět, ne rozostřené pozadí). */
+.id-hero__img {
+  object-position: 50% 78%;
+}
+@media (max-width: 640px) {
+  .id-hero__img {
+    object-position: 74% 64%;
+  }
 }
 
 .id-hero__title {
@@ -373,26 +378,69 @@
   text-wrap: balance;
 }
 
-/* Kvalifikátor za dvojtečkou je vedlejší hlas — menší a tišší. */
-.id-hero__qualifier {
-  font-size: 0.46em;
-  font-weight: 500;
-  letter-spacing: -0.02em;
-  color: var(--id-ink-dark-2);
-}
-
-.id-hero .id-eyebrow {
-  /* Na fotografii nelze spoléhat na scrim — tint je světlejší a jistější. */
-  color: var(--id-accent-tint);
-}
-
+/* Eyebrow leží na FOTOGRAFII, ne na plochém obsidiánu — modrý tint tam
+   má jen ~4:1. Bílá dává proti témuž podkladu ~11:1 (11.1). Akcentní
+   modrá zůstává eyebrow na plochých tmavých pásech. */
+/* Text leží na fotografii, jejíž jas se místo od místa liší (obloha vs.
+   tráva ve stínu). Scrim ho podle 9.1 ztmavit nesmí, tak si čitelnost
+   nese text sám — jemný stín jako v tištěném magazínu. Nezasahuje do
+   obrazu a funguje i tam, kde je pod textem světlá obloha. */
+.id-hero__eyebrow,
+.id-hero__title,
+.id-hero__lead,
 .id-hero__meta {
+  text-shadow: 0 1px 2px rgba(11, 13, 16, 0.55), 0 2px 14px rgba(11, 13, 16, 0.4);
+}
+
+.id-hero__eyebrow {
+  text-shadow: 0 1px 3px rgba(11, 13, 16, 0.85), 0 2px 10px rgba(11, 13, 16, 0.6);
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
   font-family: var(--id-f-display);
   font-size: var(--id-t-label);
   font-weight: 600;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
+  line-height: 1.2;
+  color: var(--id-ink-dark);
+}
+.id-hero__eyebrow::before {
+  content: '';
+  width: 22px;
+  height: 1.5px;
+  background: var(--id-accent-tint);
+}
+
+/* Lead = slib článku. Vlastní role (--id-t-lead), vlastní řádkování,
+   vlastní odstup — nedědí 0.98 z titulku. */
+.id-hero__lead {
+  margin-top: 20px;
+  max-width: 600px;
+  font-family: var(--id-f-body);
+  font-size: var(--id-t-lead);
+  font-weight: 400;
+  line-height: 1.5;
+  letter-spacing: -0.012em;
   color: var(--id-ink-dark-2);
+  text-wrap: pretty;
+}
+
+/* Meta je administrativa — jiný prostředek než eyebrow: bez verzálek,
+   bez trackingu, menší, aby druhá a třetí fixace oka nebyly zaměnitelné. */
+.id-hero__meta {
+  margin-top: 26px;
+  font-family: var(--id-f-body);
+  font-size: var(--id-t-caption);
+  line-height: 1.5;
+  color: var(--id-ink-dark-3);
+}
+/* Oddělovač patří k údaji za sebou, aby nikdy nevisel na konci řádku. */
+.id-hero__meta-item {
+  white-space: nowrap;
+}
+.id-hero__meta-item + .id-hero__meta-item {
+  margin-left: 8px;
 }
 
 /* Titulek: maskovaný rise po řádcích (6.3.3). */
@@ -405,22 +453,22 @@
   transform: translateY(110%);
   animation: id-hline-rise 1s var(--id-ease-reveal, cubic-bezier(0.22, 0.61, 0.21, 1)) forwards;
 }
-.id-hline--2 > span {
-  animation-delay: 0.12s;
-}
 @keyframes id-hline-rise {
   to {
     transform: none;
   }
 }
 
-/* Eyebrow a meta: čistý fade, žádný posun — jiný prostředek než titulek. */
+/* Eyebrow, lead a meta: čistý fade se staggerem — jiný prostředek. */
 .id-hero__fade {
   opacity: 0;
-  animation: id-hero-fade 1s ease 0.55s forwards;
+  animation: id-hero-fade 1s ease 0.5s forwards;
+}
+.id-hero__lead.id-hero__fade {
+  animation-delay: 0.68s;
 }
 .id-hero__meta.id-hero__fade {
-  animation-delay: 0.75s;
+  animation-delay: 0.86s;
 }
 @keyframes id-hero-fade {
   to {
@@ -428,8 +476,8 @@
   }
 }
 
-/* Obraz: pomalé přiblížení, aby pás dýchal, ne aby poutal pozornost. */
-.id-hero img {
+/* Obraz: pomalé usazení, aby pás dýchal, ne aby poutal pozornost. */
+.id-hero__img {
   animation: id-hero-settle 1.6s var(--id-ease) both;
 }
 @keyframes id-hero-settle {
@@ -441,10 +489,52 @@
   }
 }
 
+/* Jediná nabídnutá akce na obrazovce — kam pokračovat. */
+.id-hero__cue {
+  position: absolute;
+  right: clamp(20px, 4vw, 44px);
+  bottom: clamp(20px, 4vw, 38px);
+  display: flex;
+  width: 52px;
+  height: 52px;
+  align-items: center;
+  justify-content: center;
+  border: 1.5px solid var(--id-line-dark);
+  border-radius: 50%;
+  color: var(--id-ink-dark);
+  transition: border-color 0.3s, background 0.3s;
+}
+.id-hero__cue:hover {
+  border-color: var(--id-ink-dark);
+  background: rgba(255, 255, 255, 0.06);
+}
+.id-hero__cue:focus-visible {
+  outline: 3px solid var(--id-accent-tint);
+  outline-offset: 3px;
+}
+.id-hero__cue svg {
+  animation: id-hero-nudge 2.2s ease-in-out infinite;
+}
+@keyframes id-hero-nudge {
+  0%,
+  100% {
+    transform: translateY(-2px);
+  }
+  50% {
+    transform: translateY(4px);
+  }
+}
+@media (max-width: 640px) {
+  .id-hero__cue {
+    display: none;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .id-hline > span,
   .id-hero__fade,
-  .id-hero img {
+  .id-hero__img,
+  .id-hero__cue svg {
     animation: none;
     opacity: 1;
     transform: none;

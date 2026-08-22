@@ -62,7 +62,7 @@ export default async function Post({ params: paramsPromise }: Args) {
 
       <PostHero post={post} />
 
-      <div className="flex flex-col items-center gap-4 pt-8">
+      <div className="flex scroll-mt-8 flex-col items-center gap-4 pt-8" id="obsah">
         <div className="container">
           <RichText
             className="mx-auto max-w-[var(--id-maxw-prose)]"
