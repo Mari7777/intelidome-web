@@ -495,3 +495,103 @@ nejmenší text stránky měl nejdelší míru (97–99 znaků, víc než próza
 Řada statů dostala stagger dle 6.3.2, kde ji DESIGN.md jmenovitě uvádí;
 do té doby běžel stagger na celé stránce **jedinkrát**, takže 19 z 20
 nástupů bylo totéž gesto.
+
+---
+
+# ✅ Kolo 11 — **PROŠEL**
+
+**Skóre: 4 · 4 · 4 · 4 · 4 · 4 — nula potvrzených kritických nálezů.**
+Práh z nastavení smyčky (každý porotce ≥ 4 a 0 kritických) splněn.
+
+| Porotce | 01 | 02 | 03 | 04 | 05 | 06 | 07 | 08 | 09 | 10 | **11** |
+|---|---|---|---|---|---|---|---|---|---|---|---|
+| Hierarchie | 2 | 3 | 3 | 3 | 3 | 4 | 4 | 4 | 4 | 4 | **4** |
+| Typografie | 3 | 3 | 3 | 3 | 3 | 4 | 4 | 4 | 4 | 4 | **4** |
+| Pohyb | 2 | 2 | 2 | 3 | 4 | 4 | 4 | 4 | 4 | 3 | **4** |
+| Grafický styl | 2 | 2 | 3 | 3 | 4 | 4 | 4 | 4 | 4 | 4 | **4** |
+| Slop | 2 | 2 | 3 | 4 | 4 | 4 | 4 | 4 | 4 | 4 | **4** |
+| Výkon | 3 | 3 | 3 | 3 | 4 | 4 | 4 | 4 | 4 | 4 | **4** |
+| **Kritických** | **12** | **10** | **4** | **5** | **2** | **1** | **1** | **1** | **1** | **1** | **0** |
+
+## Co se v téhle smyčce doopravdy naučilo
+
+**Porotce musí měřit, ne dojmovat — a měřit správně.** Nejcennější nálezy
+byly čísla: `backdropFilter: "none"` proti CSS, které rozostření
+předepisovalo; `sizes` se syntakticky neplatným deskriptorem `w`;
+`getElementById('obsah') === null`; ring 1,41:1; 16 běžících animací při
+`y = 0`. Nic z toho oko nenajde.
+
+**Pět z posledních šesti kritických nálezů byly zpětné kroky z předchozího
+kola.** `autoAlpha` vyhodil obsah z tab pořadí. Přidaný fokusový prstenec
+byl na bílé neviditelný. Setrvačník polykal kotvy. Kalkulátor zdědil
+řádkování. Převod vlny na CSS vypnul pauzování mimo viewport. **Porota,
+která čte jen diff, by nenašla ani jeden** — všechny vyplavaly z toho, že
+se každé kolo přeměřila celá stránka.
+
+**Nejhorší vada byla živá devět kol.** Setrvačníkový rAF se neukončil a po
+prvním otočení kolečka natrvalo přebil klávesnici. Nikdo ji nenašel dřív,
+protože se projeví jen v posloupnosti „kolečko, pak klávesnice" — a testy
+chodily buď jedno, nebo druhé.
+
+**Skeptik je stejně důležitý jako porotce.** Zamítl: délku řádku prózy
+(vada dokumentu, ne stránky — dvakrát), setrvačník jako porušení systému
+(6.5 je per-page opt-in), podíl obsidianu, „6 037 px jednoho povrchu"
+(chyba měření 3×). Bez něj by smyčka honila fantomy.
+
+**A pozor i na vlastní měření.** Můj audit dashe hlásil druhého viníka —
+byl to artefakt regulárního výrazu přes sousední elementy. `element.focus()`
+nevyvolá `:focus-visible`. Prstenec při `outline-offset` leží **vně** prvku,
+takže jeho podklad je stránka, ne výplň tlačítka. Každá z těch tří chyb
+vyrobila falešné čtení, jednou v každém směru.
+
+**Dva porotci si mohou protiřečit — a jeden se může mýlit.** Typograf
+tvrdil, že žádná kapitola nemá eyebrow „Kapitola NN". Přeměřeno: má je
+všechny čtyři (`Kapitola 01`–`04`). Verdikt poroty není důkaz.
+
+## Zbývající backlog (19 důležitých, nic kritického)
+
+**Patří do stránky:**
+1. CTA titulek 52 px → `--id-t-display` (76 px); otázka na závěr je
+   nejmenší text stránky, prompt 6 žádá 19–26 px + hairline.
+2. Šev FAQ → CTA bez posunu povrchu i bez hairline.
+3. Prázdný prostřední slot kapsle — na 11 obrazovkách chybí orientace.
+4. Fotografie má radius 14 px (`.prose img` přebíjí vlastní třídu bloku).
+5. Síťový diagram není číslovaná figura — řada Obr. 01–05 končí a jediný
+   obraz produktu zůstane anonymní.
+6. `StatTiles` jako jediný blok neprochází přes `nezlomitelneMezery`.
+7. Primární tlačítko nemá přechod na hover (skok v 0 ms).
+8. Dotykové cíle ikon v kapsli pod 24×24 px (WCAG 2.2 SC 2.5.8).
+9. Číselné vstupy ruší prstenec a nahrazují ho podtržením (2,60:1).
+10. Jediná ikona z `lucide-react` v zakázané velikosti.
+
+**Patří do DESIGN.md (koš B) — nikdy potichu při opravě stránky:**
+11. **Recept 6.3.1 předepisuje `autoAlpha`**, který nasazuje
+    `visibility: hidden` a vyhazuje obsah z tab pořadí i z hledání
+    na stránce. Systém učí přístupnostní vadu.
+12. **8.1 p. 3 (obsidian 20–35 %) nejde splnit současně s 8.1 p. 8
+    (článek = 1 vnitřní obsidian) a 8.2 (CTA bílé)** — u dlouhého článku
+    jsou ta tři pravidla ve sporu. Naměřeno 17,9 %.
+13. Prose 700 px ≠ 65 znaků (85–94) — dvakrát adjudikováno.
+14. Kapsle 7.1 překrývá běžící text („stránka pod ní protéká") — třikrát
+    zamítnuto jako neporušení, ale zvedla to každá porota.
+
+**Rozhodnutí majitele, ne smyčky:**
+15. Jediná konverze vede na `/` — produktová stránka ještě neexistuje.
+16. Fotografie (teplota 8 960 K vs. 3 200–5 000 K, poměr stran, chybějící
+    telefon s UI aplikace). **Hardware InteliDome se zásadně negeneruje
+    AI — musí se vyfotit fyzicky.**
+17. **Obsahový rozpor:** článek tučně tvrdí „průtok alespoň 25 l/min"
+    a hned dá příklad 10 l / 24 s = 25 l/min, ze kterého se má odečíst
+    20 % rezervy → 20 l/min, tedy **pod vlastní vyhlášenou hranicí**.
+    Kalkulátor i Obr. 02 to poctivě ukážou.
+
+## Předání
+
+Zlatý standard byl **trenér, ne šablona** — ze Sonosu jsme nepřevzali
+jediný asset ani řádek textu, jen principy: fotografie nese emoci,
+autoritu dělá velikost, sekce se dělí posunem povrchu.
+
+Podle skillu následuje **`copy-polish`** na texty. Porota texty nehodnotí,
+jen označila místa: callout „Pro zvídavé" nese tři odstavce v komponentě
+pro jednu větu, FAQ odpovědi převyprávějí už napsané, patička zůstala
+šablonou a Obr. 04 svým vlastním popiskem přiznává, že opakuje Obr. 03.
