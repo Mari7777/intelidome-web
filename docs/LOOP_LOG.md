@@ -450,3 +450,48 @@ nic — jen třpyt.
 pod sebou). Vedlejší zisk: ve svislé sazbě mají oba panely stejné krajní
 hlavice, takže je vidět, že dole **přibyla jedna uprostřed** a suchý pruh
 zmizel — čte se to líp než širokoúhlá varianta.
+
+## Kolo 06 — doladění
+
+**Skóre kola 05: 3 · 3 · 4 · 4 · 4 · 4 — 2 kritické.** Oba byly moje,
+z posledních dvou kol, a oba měly přesnou adresu. Proto ještě kolo nad
+rámec výchozích pěti: zbytek už nejsou dojmy.
+
+- **Kalkulátorový panel dědil `line-height: 1.65` na display rolích.**
+  `not-prose` dědičnost nezastaví a Tailwind preflight vhání do inputu
+  `font: inherit` — takže 44px input jel na 72,6px řádku a jednotka
+  „litrů" seděla **9 px nad účařím čísla** vedle sebe. 4.2 dává roli
+  `stat-num-xl` `line-height: 1.0`.
+- **Setrvačník polykal kotvy.** Modul si sám vypíná nativní
+  `scroll-behavior: smooth`, ale programový scroll neřešil — takže
+  jediná akce hera skočila o 804 px v jednom snímku. 6.5 to předepisuje
+  výslovně; kotvy teď jedou týmž dojezdem jako kolečko.
+- **FAQ má konečně hodnost pásu** (H2 52 px), otázka 28 px stupeň nad
+  odpovědí. Zvedala to každá porota od kola 01.
+- **Česká sazba:** jednopísmenné předložky už neviseji na konci řádku.
+  Řeší se nad daty při vykreslení (formátovací uzly zůstanou celé), ne
+  ručně v obsahu. Naměřeno **0 vlků, 94 pevných mezer**.
+- **Čas čtení hlásil 3 min u 1273 slov**, protože sběrač procházel jen
+  `children` — z bloků (souhrn, kapitoly, popisky, FAQ) nezapočítal nic.
+- **Světlý kalkulátor stojí v krémovém mezipásu** (7.7 + 8.1 p. 5–6).
+  Nejdelší běh jednoho povrchu klesl ze 7343 na 6056 px.
+
+## Kolo 07 — poslední kritický nález
+
+**Skóre kola 06: 4 · 4 · 4 · 4 · 4 · 4 — 1 kritický.** Zase můj, z kola 04.
+
+**Fokusový prstenec primárního CTA byl natvrdo tinta `#93c5fd`** bez
+ohledu na povrch. Jenže prstenec při `outline-offset: 3px` leží na
+**stránce**, ne na tlačítku — takže na bílém pásu měl **1,41:1** proti
+non-text minimu 3:1, a to na jediném konverzním prvku článku. Rozhoduje
+povrch pod ním, ne varianta tlačítka: teď 5,17:1 na světlém, tinta jen
+na obsidianu.
+
+Ke stejné třídě vad, kterou kolo 06 opravilo jen uvnitř kalkulátoru:
+`.id-feature__title` (17/1.65) a `.id-capsule__go` (13.5/1.5) dědily
+tělové řádkování → 1.25 a 1.2. Antialiasing šel z `body` na
+`[data-surface='dark']` (4.3 p. 8). Figcaption ze 700 px na 62ch —
+nejmenší text stránky měl nejdelší míru (97–99 znaků, víc než próza).
+Řada statů dostala stagger dle 6.3.2, kde ji DESIGN.md jmenovitě uvádí;
+do té doby běžel stagger na celé stránce **jedinkrát**, takže 19 z 20
+nástupů bylo totéž gesto.

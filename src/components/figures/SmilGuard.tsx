@@ -1,5 +1,6 @@
 'use client'
 
+import { usePathname } from 'next/navigation'
 import { useEffect } from 'react'
 
 /**
@@ -9,8 +10,15 @@ import { useEffect } from 'react'
  * `<animateTransform>` běží mimo kaskádu. Jediná spolehlivá cesta je uzly
  * z dokumentu odstranit. Klidový stav každé figury je proto zapsaný přímo
  * v markupu, takže po odstranění zůstane figura čitelná, ne rozpadlá.
+ *
+ * Komponenta visí v kořenovém layoutu, který klientskou navigaci přežívá —
+ * proto se efekt musí přehrát na každé změně routy. Bez toho platil
+ * kontrakt jen při tvrdém načtení a po prokliku z výpisu točilo všech
+ * 46 SMIL uzlů i při `prefers-reduced-motion`.
  */
 export const SmilGuard = () => {
+  const pathname = usePathname()
+
   useEffect(() => {
     const query = window.matchMedia('(prefers-reduced-motion: reduce)')
 
@@ -50,7 +58,7 @@ export const SmilGuard = () => {
       query.removeEventListener('change', strip)
       io.disconnect()
     }
-  }, [])
+  }, [pathname])
 
   return null
 }
