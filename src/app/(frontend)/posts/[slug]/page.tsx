@@ -74,12 +74,14 @@ export default async function Post({ params: paramsPromise }: Args) {
           přes celou šířku. Proto tu není žádný `container` ani `max-width` —
           šířku řídí mřížka, ne obal.
         */}
-        <RichText
-          className="id-article scroll-mt-8"
-          data={post.content}
-          enableGutter={false}
-          id="obsah"
-        />
+        {/*
+          Kotva musí viset na skutečném elementu: `ConvertRichText`
+          z Payloadu props nepropouští, takže `id` na RichText se tiše
+          zahodilo a šipka v heru mířila do prázdna.
+        */}
+        <div id="obsah" style={{ scrollMarginTop: '96px' }}>
+          <RichText className="id-article" data={post.content} enableGutter={false} />
+        </div>
 
         {post.relatedPosts && post.relatedPosts.length > 0 && (
           <div className="container pb-16">

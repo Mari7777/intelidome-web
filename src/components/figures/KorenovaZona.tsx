@@ -156,27 +156,6 @@ export const KorenovaZona: React.FC = () => (
       </g>
       <g transform="translate(404 72)">
         <g>
-          <animateTransform
-            attributeName="transform"
-            type="translate"
-            values="0 0; 0 40"
-            keyTimes="0; 1"
-            calcMode="spline"
-            keySplines="0.4 0 1 1"
-            dur="2.6s"
-            begin="1.7s"
-            repeatCount="indefinite"
-          />
-          <animate
-            attributeName="opacity"
-            values="0.9; 0.9; 0"
-            keyTimes="0; 0.74; 1"
-            calcMode="spline"
-            keySplines="0.4 0 1 1; 0.4 0 1 1"
-            dur="2.6s"
-            begin="1.7s"
-            repeatCount="indefinite"
-          />
           <path
             transform="scale(0.85)"
             d="M0 -8C3.8 -3.4 6 -0.6 6 2.2A6 6 0 0 1 -6 2.2C-6 -0.6 -3.8 -3.4 0 -8Z"
@@ -345,27 +324,6 @@ export const KorenovaZona: React.FC = () => (
       </g>
       <g transform="translate(910 72)">
         <g>
-          <animateTransform
-            attributeName="transform"
-            type="translate"
-            values="0 0; 0 40"
-            keyTimes="0; 1"
-            calcMode="spline"
-            keySplines="0.4 0 1 1"
-            dur="3.2s"
-            begin="2s"
-            repeatCount="indefinite"
-          />
-          <animate
-            attributeName="opacity"
-            values="0.9; 0.9; 0"
-            keyTimes="0; 0.74; 1"
-            calcMode="spline"
-            keySplines="0.4 0 1 1; 0.4 0 1 1"
-            dur="3.2s"
-            begin="2s"
-            repeatCount="indefinite"
-          />
           <path
             transform="scale(1.3)"
             d="M0 -8C3.8 -3.4 6 -0.6 6 2.2A6 6 0 0 1 -6 2.2C-6 -0.6 -3.8 -3.4 0 -8Z"

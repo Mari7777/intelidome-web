@@ -19,10 +19,12 @@ const LERP = 0.082
 const MULT = 1.15
 const STOP = 0.5
 
-export const InertiaScroll = () => {
+export const InertiaScroll = ({ enabled = false }: { enabled?: boolean }) => {
   useEffect(() => {
-    const root = document.documentElement
-    if (!root.hasAttribute('data-inertia')) return
+    // Aktivace jde propem, ne čtením atributu z DOM: atribut nastavuje
+    // jiný efekt a pořadí efektů (potomci před rodičem) není zaručené —
+    // modul by se spustil dřív, než by atribut vůbec existoval.
+    if (!enabled) return
 
     const fine = window.matchMedia('(pointer: fine)')
     const still = window.matchMedia('(prefers-reduced-motion: reduce)')
@@ -74,13 +76,22 @@ export const InertiaScroll = () => {
     window.addEventListener('scroll', onScroll, { passive: true })
     window.addEventListener('resize', onResize)
 
+    // Setrvačník si dojezd řídí sám — nativní `scroll-behavior: smooth`
+    // by se s ním pral o týž pohyb.
+    const root = document.documentElement
+    const puvodni = root.style.scrollBehavior
+    root.style.scrollBehavior = 'auto'
+    root.setAttribute('data-inertia', '')
+
     return () => {
+      root.style.scrollBehavior = puvodni
+      root.removeAttribute('data-inertia')
       window.removeEventListener('wheel', onWheel)
       window.removeEventListener('scroll', onScroll)
       window.removeEventListener('resize', onResize)
       if (raf) cancelAnimationFrame(raf)
     }
-  }, [])
+  }, [enabled])
 
   return null
 }

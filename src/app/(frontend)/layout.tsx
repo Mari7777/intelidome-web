@@ -9,7 +9,6 @@ import { Footer } from '@/Footer/Component'
 import { Header } from '@/Header/Component'
 import { LogoMaskDefs } from '@/components/Logo/LogoMaskDefs'
 import { SmilGuard } from '@/components/figures/SmilGuard'
-import { InertiaScroll } from '@/components/motion/InertiaScroll'
 import { Providers } from '@/providers'
 import { mergeOpenGraph } from '@/utilities/mergeOpenGraph'
 import { draftMode } from 'next/headers'
@@ -57,7 +56,6 @@ export default async function RootLayout({ children }: { children: React.ReactNo
             i závěrečné výzvě je jen obdélník maskovaný touto kresbou (9.4). */}
         <LogoMaskDefs />
         <SmilGuard />
-        <InertiaScroll />
         <Providers>
           <AdminBar
             adminBarProps={{

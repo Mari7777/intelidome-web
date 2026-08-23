@@ -5,6 +5,8 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import gsap from 'gsap'
 import { useEffect } from 'react'
 
+import { InertiaScroll } from './InertiaScroll'
+
 /**
  * Jediné místo registrace pohybu (DESIGN.md 6.3.0).
  *
@@ -39,9 +41,17 @@ export const Motion = ({ inertia = false }: { inertia?: boolean }) => {
     const mm = gsap.matchMedia()
 
     mm.add('(prefers-reduced-motion: no-preference)', () => {
-      const HIDDEN = { autoAlpha: 0, y: 30 }
+      /*
+        Zásadně NE `autoAlpha` — GSAP jím nasazuje `visibility: hidden`,
+        takže dokud čtenář neodroluje, je obsah mimo tab pořadí, mimo
+        strom přístupnosti a nenajde ho ani hledání na stránce. Recept
+        6.3.1 v DESIGN.md `autoAlpha` předepisuje; je to vada systému
+        a patří do koše B (viz LOOP_LOG). Tady skrýváme jen opacity,
+        stejně jako to dělá CSS brána.
+      */
+      const HIDDEN = { opacity: 0, y: 30 }
       const SHOWN = {
-        autoAlpha: 1,
+        opacity: 1,
         y: 0,
         duration: 0.8,
         ease: 'idReveal',
@@ -86,11 +96,5 @@ export const Motion = ({ inertia = false }: { inertia?: boolean }) => {
     }
   }, [])
 
-  useEffect(() => {
-    if (!inertia) return
-    document.documentElement.setAttribute('data-inertia', '')
-    return () => document.documentElement.removeAttribute('data-inertia')
-  }, [inertia])
-
-  return null
+  return <InertiaScroll enabled={inertia} />
 }

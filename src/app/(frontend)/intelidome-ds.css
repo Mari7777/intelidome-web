@@ -845,6 +845,12 @@ html {
   html.js .rv {
     opacity: 0;
   }
+  /* Skrývá se jen průhlednost, nikdy `visibility` — obsah musí zůstat
+     v tab pořadí i dohledatelný přes hledání na stránce. Kdyby přesto
+     fokus přistál uvnitř neodhalené sekce, sekce se odkryje. */
+  html.js .rv:focus-within {
+    opacity: 1;
+  }
 }
 
 /* ── Fokus (DESIGN.md 11.2) ───────────────────────────────────────────

@@ -44,14 +44,10 @@ export const HlavaNaHlavu: React.FC = () => (
       </g>
       <g transform="translate(176 166)">
         <circle cx="0" cy="0" r="88" fill="none" stroke="#60a5fa" strokeWidth="1.6" opacity="0.34">
-          <animateTransform attributeName="transform" type="scale" values="0.32;1.12" calcMode="spline" keySplines=".16 .6 .4 1" dur="4.6s" begin="0.5s" repeatCount="indefinite" />
-          <animate attributeName="opacity" values="0.75;0" calcMode="spline" keySplines=".16 .6 .4 1" dur="4.6s" begin="0.5s" repeatCount="indefinite" />
         </circle>
       </g>
       <g transform="translate(176 166)">
         <circle cx="0" cy="0" r="88" fill="none" stroke="#93c5fd" strokeWidth="1.6" opacity="0.2">
-          <animateTransform attributeName="transform" type="scale" values="0.32;1.12" calcMode="spline" keySplines=".16 .6 .4 1" dur="4.6s" begin="1s" repeatCount="indefinite" />
-          <animate attributeName="opacity" values="0.75;0" calcMode="spline" keySplines=".16 .6 .4 1" dur="4.6s" begin="1s" repeatCount="indefinite" />
         </circle>
       </g>
     </g>
@@ -65,14 +61,10 @@ export const HlavaNaHlavu: React.FC = () => (
       </g>
       <g transform="translate(376 166)">
         <circle cx="0" cy="0" r="88" fill="none" stroke="#60a5fa" strokeWidth="1.6" opacity="0.34">
-          <animateTransform attributeName="transform" type="scale" values="0.32;1.12" calcMode="spline" keySplines=".16 .6 .4 1" dur="4.6s" begin="2.1s" repeatCount="indefinite" />
-          <animate attributeName="opacity" values="0.75;0" calcMode="spline" keySplines=".16 .6 .4 1" dur="4.6s" begin="2.1s" repeatCount="indefinite" />
         </circle>
       </g>
       <g transform="translate(376 166)">
         <circle cx="0" cy="0" r="88" fill="none" stroke="#93c5fd" strokeWidth="1.6" opacity="0.2">
-          <animateTransform attributeName="transform" type="scale" values="0.32;1.12" calcMode="spline" keySplines=".16 .6 .4 1" dur="4.6s" begin="2.6s" repeatCount="indefinite" />
-          <animate attributeName="opacity" values="0.75;0" calcMode="spline" keySplines=".16 .6 .4 1" dur="4.6s" begin="2.6s" repeatCount="indefinite" />
         </circle>
       </g>
     </g>
@@ -108,14 +100,10 @@ export const HlavaNaHlavu: React.FC = () => (
       </g>
       <g transform="translate(704 166)">
         <circle cx="0" cy="0" r="88" fill="none" stroke="#60a5fa" strokeWidth="1.6" opacity="0.34">
-          <animateTransform attributeName="transform" type="scale" values="0.32;1.12" calcMode="spline" keySplines=".16 .6 .4 1" dur="4.6s" begin="0.5s" repeatCount="indefinite" />
-          <animate attributeName="opacity" values="0.75;0" calcMode="spline" keySplines=".16 .6 .4 1" dur="4.6s" begin="0.5s" repeatCount="indefinite" />
         </circle>
       </g>
       <g transform="translate(704 166)">
         <circle cx="0" cy="0" r="88" fill="none" stroke="#93c5fd" strokeWidth="1.6" opacity="0.2">
-          <animateTransform attributeName="transform" type="scale" values="0.32;1.12" calcMode="spline" keySplines=".16 .6 .4 1" dur="4.6s" begin="1s" repeatCount="indefinite" />
-          <animate attributeName="opacity" values="0.75;0" calcMode="spline" keySplines=".16 .6 .4 1" dur="4.6s" begin="1s" repeatCount="indefinite" />
         </circle>
       </g>
     </g>
@@ -128,34 +116,24 @@ export const HlavaNaHlavu: React.FC = () => (
       </g>
       <g transform="translate(804 166)">
         <circle cx="0" cy="0" r="88" fill="none" stroke="#60a5fa" strokeWidth="1.6" opacity="0.34">
-          <animateTransform attributeName="transform" type="scale" values="0.32;1.12" calcMode="spline" keySplines=".16 .6 .4 1" dur="4.6s" begin="2s" repeatCount="indefinite" />
-          <animate attributeName="opacity" values="0.75;0" calcMode="spline" keySplines=".16 .6 .4 1" dur="4.6s" begin="2s" repeatCount="indefinite" />
         </circle>
       </g>
       <g transform="translate(804 166)">
         <circle cx="0" cy="0" r="88" fill="none" stroke="#93c5fd" strokeWidth="1.6" opacity="0.2">
-          <animateTransform attributeName="transform" type="scale" values="0.32;1.12" calcMode="spline" keySplines=".16 .6 .4 1" dur="4.6s" begin="2.5s" repeatCount="indefinite" />
-          <animate attributeName="opacity" values="0.75;0" calcMode="spline" keySplines=".16 .6 .4 1" dur="4.6s" begin="2.5s" repeatCount="indefinite" />
         </circle>
       </g>
     </g>
     <g>
       <g transform="translate(904 166)">
         <circle cx="0" cy="0" r="88" fill="none" stroke="#3b82f6" strokeWidth="1.6" opacity="0.5">
-          <animateTransform attributeName="transform" type="scale" values="0.32;1.12" calcMode="spline" keySplines=".16 .6 .4 1" dur="4.6s" begin="3s" repeatCount="indefinite" />
-          <animate attributeName="opacity" values="0.75;0" calcMode="spline" keySplines=".16 .6 .4 1" dur="4.6s" begin="3s" repeatCount="indefinite" />
         </circle>
       </g>
       <g transform="translate(904 166)">
         <circle cx="0" cy="0" r="88" fill="none" stroke="#60a5fa" strokeWidth="1.6" opacity="0.34">
-          <animateTransform attributeName="transform" type="scale" values="0.32;1.12" calcMode="spline" keySplines=".16 .6 .4 1" dur="4.6s" begin="3.5s" repeatCount="indefinite" />
-          <animate attributeName="opacity" values="0.75;0" calcMode="spline" keySplines=".16 .6 .4 1" dur="4.6s" begin="3.5s" repeatCount="indefinite" />
         </circle>
       </g>
       <g transform="translate(904 166)">
         <circle cx="0" cy="0" r="88" fill="none" stroke="#93c5fd" strokeWidth="1.6" opacity="0.2">
-          <animateTransform attributeName="transform" type="scale" values="0.32;1.12" calcMode="spline" keySplines=".16 .6 .4 1" dur="4.6s" begin="4s" repeatCount="indefinite" />
-          <animate attributeName="opacity" values="0.75;0" calcMode="spline" keySplines=".16 .6 .4 1" dur="4.6s" begin="4s" repeatCount="indefinite" />
         </circle>
       </g>
     </g>
