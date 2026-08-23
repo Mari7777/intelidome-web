@@ -78,6 +78,7 @@ export const FigureBlock: React.FC<Props> = ({
     <Media
       htmlElement={null}
       resource={image}
+      size={slotSizes(layout)}
       pictureClassName="block"
       imgClassName="block m-0 w-full h-auto rounded-[var(--id-r-card)]"
     />
@@ -103,6 +104,25 @@ export const FigureBlock: React.FC<Props> = ({
       </figcaption>
     </figure>
   )
+}
+
+/*
+  `sizes` musí popsat slot, který figura SKUTEČNĚ vyplní — jinak si
+  prohlížeč vezme výchozí popis obsahového sloupce (960 px) i pro obraz
+  přes celou šířku. Full-bleed fotka pak na 1990px okně dostala variantu
+  960 px a roztáhla se na dvojnásobek; při dpr 2 dokonce 900 px na
+  3 980 obrazových bodů. Vypadalo to jako rozmazaná kopie hero fotky.
+
+  Šířky odpovídají modulům mřížky (8.2a): obsah 700, mimoosová figura
+  1030, full-bleed = celé okno. Pod zlomem stránky jde figura přes
+  šířku okna zmenšenou o okraje.
+*/
+function slotSizes(layout?: string | null): string {
+  if (layout === 'bleed') return '100vw'
+  if (layout === 'offset-left' || layout === 'offset-right') {
+    return '(min-width: 1130px) 1030px, (min-width: 768px) 92vw, 100vw'
+  }
+  return '(min-width: 1130px) 700px, (min-width: 768px) 92vw, 100vw'
 }
 
 /** Širokoúhlá sazba všude, svislá jen tam, kde bez ní zanikne srovnání. */

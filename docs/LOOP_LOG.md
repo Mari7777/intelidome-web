@@ -271,6 +271,21 @@ jako řádky výstupu vedle (levá polovina byla ze 60 % prázdná). Pod
 zlomem zůstává pevná šířka — `flex-basis: auto` u `input[type=number]`
 zvedá min-content stopu sloupce a přetekl by reflow na 320 px o 58 px.
 
+**Fotografie na širokém okně.** Full-bleed fotka neměla `sizes` pro svůj
+skutečný slot — brala výchozí popis obsahového sloupce (960 px), takže na
+1990px okně dostala variantu **960 px a roztáhla se na dvojnásobek**;
+při dpr 2 dokonce 900 px na 3 980 obrazových bodů. Vypadala jako rozmazaná
+kopie hero fotky. Figura teď hlásí slot podle sazby (bleed 100vw, mimoosová
+1030, obsahová 700). Po opravě žádá 2048 / 3840 místo 1080 / 1920; váha
+obrázků 103 kB na mobilu, 238 kB na širokém okně.
+
+**Zbývá jako věc assetu, ne kódu:** master hero má 2400 px, full-bleed
+fotka 1800 px. Na 1990px okně s dpr 2 potřebuje slot **3 980 bodů** —
+fotky tedy pokryjí 60 % a 45 %. Na běžném monitoru (dpr 1) jsou obě
+v pořádku; na Retina širokoúhlé obrazovce jsou měkké. Řešení je nový
+master ≥ 3840 px, což je rozhodnutí majitele (a hardware InteliDome se
+zásadně negeneruje — viz bod 16).
+
 **Poučení do dalších kol:** *přejímka na jediné šířce neprověří strop.*
 `layout-check` se teď pouští nejmíň na 1440, ≥1920 a 1024. Vada tohohle
 druhu se z 1440 nedá vidět ani okem, ani měřením — musí se otevřít okno.
