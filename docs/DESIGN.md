@@ -1069,6 +1069,14 @@ Prototyp hydraulika-zahrady.html; kapitol 3–5.
 **Tři levé osy a jejich přesná zrcadla** — součet každé dvojice je šířka
 stránky: `0/1440`, `40/1400`, `370/1070`. Nic nezačíná ani nekončí jinde.
 
+**Stránka má JEDNU šířku: 1440 (obsah 1360 + 2×40).** Nad tuhle mez už nic
+neroste — přebytek okna se rozdělí do vnějších okrajů a stránka se jen
+vycentruje. Platí to pro mřížku článku (`edge` má strop, ne `1fr`), pro
+vnitřek pásů i pro utilitu `.container`, na které stojí hero, patička
+a ostatní stránky. Dokud strop chyběl, měl web na širokém okně **tři levé
+osy najednou** (40 pro článek, 268 pro pásy, 300 pro hero) a mezi textem
+a kresbou zela díra 475 px. Osy se nesmí rozejít se šířkou okna.
+
 **Čtyři šířky modulu.** Stránka je součet dvou sloupců a mezery
 (`A = 322`, `B = 652`, `g = 56`): próza `A+g+A = 700`, mimoosová figura
 `A+g+B = 1030`, pás a dvousloupec `B+g+B = 1360`, full-bleed `1440`.
@@ -1085,7 +1093,10 @@ střídají bez výjimky. Tři vysunutí na tutéž stranu = chyba sazby.
 nemají. Tři míry: 22 px próza · 40–72 px modul · 64–120 px pás.
 
 Přejímka: `node scripts/layout-check.mjs <url> [šířka]` — ≤4 osy, ≤4 šířky,
-0 jednorázových os, zrcadlení, střídavost 1,00.
+0 jednorázových os, zrcadlení, střídavost 1,00. **Pouští se nejmíň na třech
+šířkách: 1440 (návrhová osa), ≥1920 (strop stránky) a 1024 (pod stropem).**
+Kontrola jen na 1440 by strop mřížky nikdy neprověřila — právě tam se osy
+rozešly.
 
 ### 8.2b Asymetrická sazba figur (v2.1)
 
@@ -1099,8 +1110,11 @@ kterou sazba odmítá**. Mřížka článku má proto linku `edge` přesně o ok
 od kraje stránky:
 
 ```
-[full-start] gutter [edge-start] 1fr [wide-start] … [content] … [wide-end] 1fr [edge-end] gutter [full-end]
+[full-start] minmax(gutter, 1fr) [edge-start] minmax(0, 330) … [content] … minmax(0, 330) [edge-end] minmax(gutter, 1fr) [full-end]
 ```
+
+Boční sloupce mají **strop 330** (= (1360 − 700) / 2), ne `1fr`. Vnější
+okraje jsou naopak pružné a spolknou celý přebytek okna.
 
 | Sazba | `grid-column` | Kdy |
 |---|---|---|

@@ -668,16 +668,24 @@ html {
                                   edge    B+g+B = 1360
     Co se takhle nesečte, na stránku nepatří.
   */
-  --id-gutter: clamp(20px, 5vw, 40px);
   --id-gap-col: clamp(28px, 4vw, 56px);
   --id-col-a: calc((var(--id-maxw-prose) - var(--id-gap-col)) / 2);
+  /*
+    Boční sloupce mají STROP, ne `1fr`. Bez něj osa `edge` na širokém
+    okně rostla donekonečna (na 1990 px měřila 1895 místo 1360), zatímco
+    `.id-band__inner` zůstal na 1440 — na jedné stránce vedle sebe stály
+    tři levé osy (40 / 268 / 300) a mezi textem a kresbou zela díra
+    475 px. Strop drží zrcadlo 40/1400 na jakékoli šířce; přebytek
+    dostanou vnější `1fr` okraje, takže se stránka jen vycentruje.
+  */
+  --id-col-side: calc((var(--id-maxw-edge) - var(--id-maxw-prose)) / 2);
   display: grid;
   grid-template-columns:
-    [full-start] var(--id-gutter)
-    [edge-start] minmax(0, 1fr)
+    [full-start] minmax(var(--id-gutter), 1fr)
+    [edge-start] minmax(0, var(--id-col-side))
     [content-start] min(var(--id-maxw-prose), 100% - 2 * var(--id-gutter)) [content-end]
-    minmax(0, 1fr) [edge-end]
-    var(--id-gutter) [full-end];
+    minmax(0, var(--id-col-side)) [edge-end]
+    minmax(var(--id-gutter), 1fr) [full-end];
 }
 .id-article > * {
   grid-column: content;
@@ -708,7 +716,7 @@ html {
 /* Vnitřek pásu se vrací k obsahové šířce stránky. */
 .id-band__inner {
   /* Vnitřek pásu sedí na téže ose `edge` jako zbytek stránky: 40..1400. */
-  max-width: calc(1360px + 2 * var(--id-gutter));
+  max-width: calc(var(--id-maxw-edge) + 2 * var(--id-gutter));
   margin-inline: auto;
   padding-inline: var(--id-gutter);
 }
@@ -1022,6 +1030,20 @@ html {
 }
 .id-calc--light .unit {
   color: var(--id-ink-2);
+}
+/* Nad zlomem panelu drží vstupní řádek TOTÉŽ rozpětí jako výstupní
+   `orow` vedle: hodnota vlevo, jednotka na pravém dorazu, podtržení přes
+   celý sloupec. Dřív měl vstup pevných 220 px, takže levá polovina
+   panelu byla ze 60 % prázdná, zatímco pravá šla od kraje ke kraji.
+   Pod zlomem zůstává pevná šířka — `flex-basis: auto` u number inputu
+   tam zvedá min-content stopu sloupce a rozbil by reflow na 320 px. */
+@media (min-width: 821px) {
+  .id-calc__inrow {
+    justify-content: space-between;
+  }
+  .id-calc input[type='number'] {
+    flex: 1 1 auto;
+  }
 }
 .id-calc__orow {
   display: flex;

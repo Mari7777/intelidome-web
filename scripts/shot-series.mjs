@@ -1,14 +1,18 @@
 // shot-series.mjs — série snímků celé stránky po obrazovkách (design-loop)
-// node scripts/shot-series.mjs <url> <outdir> <prefix> [desktop|mobile]
+// node scripts/shot-series.mjs <url> <outdir> <prefix> [desktop|mobile] [sirka]
+// Šířka platí jen pro desktop; bez ní se snímá na 1440 (ose mřížky).
+// Široká okna (1990, 2560) mají vlastní pasti — snímej i je.
 import { chromium, devices } from '@playwright/test'
 import { mkdirSync } from 'fs'
 
-const [, , url, outdir, prefix, mode = 'desktop'] = process.argv
+const [, , url, outdir, prefix, mode = 'desktop', sirka = '1440'] = process.argv
 const isMobile = mode === 'mobile'
 mkdirSync(outdir, { recursive: true })
 const browser = await chromium.launch()
 const ctx = await browser.newContext(
-  isMobile ? { ...devices['iPhone 14 Pro'] } : { viewport: { width: 1440, height: 900 }, deviceScaleFactor: 1 },
+  isMobile
+    ? { ...devices['iPhone 14 Pro'] }
+    : { viewport: { width: Number(sirka), height: 900 }, deviceScaleFactor: 1 },
 )
 const page = await ctx.newPage()
 await page.goto(url, { waitUntil: 'networkidle', timeout: 60000 }).catch(() => {})

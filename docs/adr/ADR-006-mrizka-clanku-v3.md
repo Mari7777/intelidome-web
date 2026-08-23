@@ -164,3 +164,56 @@ a popisky pod 10 px. Legibilita kresby je to jediné, proč tam je —
 obětovat ji kvůli číslu, které jsme si sami zvolili, by byl špatný obchod.
 59 % s každou kresbou spárovanou s jejím textem je poctivé optimum;
 další pohyb patří do délky textu, a to je rozhodnutí autora.
+
+---
+
+## Dodatek 2 — strop stránky (2026-08-23)
+
+**Nález.** Mřížka měla boční sloupce `minmax(0, 1fr)`. Osa `edge` proto
+nebyla 1360 px, ale *co zbylo z okna*. Na 1990 px okně:
+
+| prvek | šířka | levá osa |
+|---|---|---|
+| `.container` (hero, patička) | 1376 | 300 |
+| `.id-band__inner` (pásy, FAQ) | 1440 | 268 |
+| `.id-split`, `.id-calc`, `.id-edge` | **1895** | **40** |
+| full-bleed | 1975 | 0 |
+
+Tři levé osy na jedné stránce a mezi textem a kresbou 475 px prázdna.
+Sloupce splitu měřily 919 px, do nichž se vešel text 700 a kresba 520 —
+zbytek byla díra. Přejímka to nechytila, protože se pouštěla jen na 1440,
+kde `1fr` vychází shodou okolností přesně na 330.
+
+**Rozhodnutí.** Stránka má **jednu šířku, 1440 = 1360 + 2×40**, a nic ji
+nepřekročí:
+
+1. Boční sloupce mřížky dostaly strop `(1360 − 700) / 2 = 330`;
+   vnější okraje jsou `minmax(gutter, 1fr)` a spolknou přebytek okna.
+2. `.id-band__inner` bere strop z tokenu `--id-maxw-edge`, ne z konstanty.
+3. `--id-gutter` a `--id-maxw-edge` se přestěhovaly do `:root`, protože
+   je potřebuje i `.container` mimo článek.
+4. **`.container` opustil žebřík breakpointů** (2xl = 86 rem = 1376,
+   okraj 32) a sedí na téže trati `edge`. Tím se hero, patička, výpis
+   článků i ostatní stránky srovnaly s článkem na osu 40/1400.
+
+Nad 1440 se od té chvíle stránka **jen centruje**; rozložení na 1990
+i 2560 px je identické s návrhovým 1440.
+
+**Přejímka se rozšířila.** `layout-check` se pouští nejmíň na 1440, ≥1920
+a 1024. Kontrola na jediné šířce strop mřížky nikdy neprověří.
+
+| | před (1990) | po (1990) |
+|---|---|---|
+| Levých os | 3 (40 / 268 / 300) | **1 (308)** |
+| Šířek modulů | 4 (1376/1440/1895/1975) | **2 (1360 / full)** |
+| Sloupce splitu | 919 \| 919 | **652 \| 652** |
+| Díra mezi textem a kresbou | 475 px | **122 px** |
+| Vodorovný přetok (320–2560) | 0 | **0** |
+
+**Vedlejší oprava.** V kalkulátoru měl vstup pevných 220 px, zatímco řádky
+výstupu vedle šly od kraje ke kraji sloupce — levá polovina panelu byla
+ze 60 % prázdná. Nad zlomem panelu (821 px) vstup roste a jednotka sedí
+na pravém dorazu, takže obě poloviny mají tentýž rytmus. Pod zlomem
+zůstává pevná šířka: `flex-basis: auto` u `input[type=number]` tam zvedá
+min-content stopu sloupce a rozbil by reflow na 320 px (WCAG 1.4.10) —
+ověřeno, přetok 58 px.

@@ -240,7 +240,42 @@ velikost, sekce se dělí posunem povrchu.
 9. **Tonalita hera je modrá hodina**, 9.1 žádá 3200–5000 K. Buď dotáhnout
    teplotu, nebo si v systému připustit i studenou variantu.
 
-### Předání
+### Kolo 12 — široké okno (2026-08-23, po záznamu obrazovky)
+
+Majitel poslal záznam z 1990px okna: „je toho tam víc, co je třeba
+opravit na širokém zobrazovacím okně". Porota tam nikdy neběžela —
+snímky i `layout-check` se pouštěly výhradně na 1440.
+
+**Kořenová příčina jedna, projevů pět.** Boční sloupce mřížky byly
+`minmax(0, 1fr)`, takže osa `edge` rostla s oknem místo aby držela
+1360. Na 1440 to vychází přesně na 330 a nikdo si toho nevšiml.
+
+Naměřeno na 1990 px:
+
+| | před | po |
+|---|---|---|
+| Levých os na stránce | **3** (40 / 268 / 300) | **1** (308) |
+| Šířek modulů | 4 | **2** |
+| Sloupce splitu | 919 \| 919 | **652 \| 652** |
+| Díra mezi textem a kresbou | **475 px** | 122 px |
+| `layout-check` @1990 | neběžel | **0 chyb** |
+| Přetok 320–2560 px | 0 | **0** |
+
+Opraveno: strop bočních sloupců, `--id-gutter` a `--id-maxw-edge` do
+`:root`, `.container` sundán ze žebříku breakpointů na tutéž trať.
+Nad 1440 se stránka od té chvíle **jen centruje** — rozložení na 1990
+i 2560 je identické s návrhovým 1440. Detail viz ADR-006, dodatek 2.
+
+Navíc: vstupní řádek kalkulátoru dostal nad zlomem panelu totéž rozpětí
+jako řádky výstupu vedle (levá polovina byla ze 60 % prázdná). Pod
+zlomem zůstává pevná šířka — `flex-basis: auto` u `input[type=number]`
+zvedá min-content stopu sloupce a přetekl by reflow na 320 px o 58 px.
+
+**Poučení do dalších kol:** *přejímka na jediné šířce neprověří strop.*
+`layout-check` se teď pouští nejmíň na 1440, ≥1920 a 1024. Vada tohohle
+druhu se z 1440 nedá vidět ani okem, ani měřením — musí se otevřít okno.
+
+## Předání
 
 Hero pilot je hotový. Podle skillu následuje **`copy-polish`** na texty —
 porotce slopu upozornil, že lead sklouzává do AI kadence („X, ne Y" +

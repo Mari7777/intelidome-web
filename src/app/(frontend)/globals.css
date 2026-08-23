@@ -52,41 +52,18 @@
 }
 
 @layer utilities {
+  /*
+    Jedna stránková šířka pro celý web (ADR-006): vnější box 1440,
+    obsah 1360, okraj 40. Dřív tu byl žebřík breakpointů (2xl = 86rem
+    = 1376 s okrajem 32), takže hero a patička stály na ose 332, článek
+    na 40 a pásy na 308 — tři osy na jedné stránce. Kontejner teď sedí
+    přesně na trati `edge` z mřížky článku.
+  */
   .container {
     width: 100%;
+    max-width: calc(var(--id-maxw-edge) + 2 * var(--id-gutter));
     margin-inline: auto;
-    padding-inline: 1rem;
-  }
-
-  @variant sm {
-    .container {
-      max-width: var(--breakpoint-sm);
-    }
-  }
-
-  @variant md {
-    .container {
-      max-width: var(--breakpoint-md);
-      padding-inline: 2rem;
-    }
-  }
-
-  @variant lg {
-    .container {
-      max-width: var(--breakpoint-lg);
-    }
-  }
-
-  @variant xl {
-    .container {
-      max-width: var(--breakpoint-xl);
-    }
-  }
-
-  @variant 2xl {
-    .container {
-      max-width: var(--breakpoint-2xl);
-    }
+    padding-inline: var(--id-gutter);
   }
 }
 

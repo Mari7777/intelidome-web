@@ -82,6 +82,11 @@
   --id-t-stat-xl: clamp(40px, 5.4vw, 64px);
 
   /* ---- geometry ---- */
+  /* Stránka má JEDNU šířku (ADR-006): vnější box 1440 = obsah 1360 + 2×40.
+     Okraj `--id-gutter` a doraz `--id-maxw-edge` bydlí tady, ne v článku,
+     aby na stejné ose seděl i hero, patička a ostatní stránky. */
+  --id-gutter: clamp(20px, 5vw, 40px);
+  --id-maxw-edge: 1360px;
   --id-maxw: 1200px;
   --id-maxw-prose: 700px;
   --id-maxw-summary: 960px;
