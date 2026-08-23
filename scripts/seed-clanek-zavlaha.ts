@@ -64,8 +64,8 @@ const split = (fields: Record<string, unknown>): Node =>
   block({ blockType: 'split', ...fields })
 
 /** Kalkulátor (8.2: max 2 na článek; druhý musí být světlý — 7.7). */
-const calc = (kind: string, light = false): Node =>
-  block({ blockType: 'calculator', blockName: `Kalkulátor ${kind}`, kind, light })
+const calc = (kind: string, light = false, layout = 'axis'): Node =>
+  block({ blockType: 'calculator', blockName: `Kalkulátor ${kind}`, kind, light, layout })
 
 /** Technická kresba (DESIGN.md 9.2) — obraz je kód, v obsahu jen klíč. */
 const drawing = (
@@ -123,11 +123,12 @@ const body = root([
     ],
   }),
 
-  /* 8.2b: kapitola jako dvousloupec — obraz vlevo, text vpravo.
-     Kresba jde v portrétové sazbě, panoramatická by se do sloupce nevešla. */
+  /* 8.2b: kapitola jako dvousloupec, sloupce 652 | 652 se zlomem v ose 720.
+     Kresba jde v portrétové sazbě, panoramatická by se do sloupce nevešla.
+     Strana R — první mimoosová hmota článku. */
   split({
     blockName: 'Kapitola 01',
-    side: 'image-left',
+    side: 'image-right',
     drawing: 'korenova-zona',
     eyebrow: 'Kapitola 01',
     title: 'Jak funguje krevní oběh vaší zahrady?',
@@ -162,10 +163,10 @@ const body = root([
     '02',
     'Schéma kbelíkového testu: zdroj, manometr s ručičkou na 3,5 baru, proud vody plnící desetilitrový kbelík a stopky; vpravo výpočet průtoku se srážkou 20 %.',
     'Kbelíkový test krok za krokem. Tlak se odečítá až ve chvíli, kdy voda proudí — a od výsledného průtoku se vždy odečte 20 % rezervy.',
-    'offset-right',
+    'offset-left',
   ),
 
-  calc('prutok'),
+  calc('prutok', false, 'offset-right'),
 
   block({
     blockType: 'banner',
@@ -178,9 +179,8 @@ const body = root([
     ),
   }),
 
-  /* 8.2b: druhý dvousloupec. Střídání se počítá přes VŠECHNY obrazové
-     bloky, ne jen dvousloupce — mezi nimi leží figura ukotvená vpravo,
-     takže tenhle může zase kotvit vlevo. */
+  /* Druhý dvousloupec, překlopený: obraz vlevo. Strana L.
+     Střídání se počítá přes VŠECHNY mimoosové hmoty (ADR-006). */
   split({
     blockName: 'Kapitola 03',
     side: 'image-left',
@@ -220,14 +220,14 @@ const body = root([
     'Využíváme přesná čidla vlhkosti (senzory půdní vlhkosti), díky kterým systém pozná, kdy mají kořeny rostlin opravdu žízeň. InteliDome navíc dokáže logicky řídit spínače, takže přednostně odčerpává dešťovou vodu z vaší retenční nádrže dříve, než sáhnete po placené vodě z řadu. Spolu se závlahou pak snadno zautomatizujete i večerní zahradní osvětlení, takže získáte plnou kontrolu nad celou zahradou pohodlně z jednoho místa.',
   ),
 
-  calc('davka', true),
+  calc('davka', true, 'axis'),
 
   drawing(
     'ridici-smycka',
     '05',
     'Uzavřená rozhodovací smyčka: čidlo vlhkosti změří stav půdy, hodnota se porovná s prahem, při nedostatku se přes most otevře ventil a voda se vrací zpět k čidlu; zdrojem je přednostně retenční nádrž, vodovodní řad až jako záloha.',
     'Smyčka, kterou obyčejný časovač nemá. Rozhodnutí zalévat vzniká z měření půdy a vrací se zpátky k němu — a voda se bere nejdřív z nádrže.',
-    'offset-right',
+    'offset-left',
   ),
 
   /* Šablona 8.2 ř. N+1: jediný vnitřní obsidian článku. Tady se z výkladu

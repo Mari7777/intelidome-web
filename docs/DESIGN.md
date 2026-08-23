@@ -2,7 +2,7 @@
 
 _Prověřeno 3 adversárními kontrolami: 41 nálezů, 37 zapracováno, 4 zamítnuty jako vkusové. Poté ručně překlopeno na paletu Tech Blue + Emerald (rozhodnutí 22. 8. 2026) s přepočtem všech kontrastů._
 
-**Verze:** 2.1 · **Datum:** 2026-08-23 · **Platí pro:** www.intelidome.com / intelidome.cz (Next.js + Tailwind CSS + GSAP)
+**Verze:** 2.2 · **Datum:** 2026-08-23 · **Platí pro:** www.intelidome.com / intelidome.cz (Next.js + Tailwind CSS + GSAP)
 **Primární reference:** [Sonos](https://styles.refero.design/style/8d315332-6267-4dc0-a14c-e8b49c26b0e1) · **Sekundární:** [Eight Sleep](https://styles.refero.design/style/e4e8fe86-47ed-4ddd-a6c6-2c28eae9aabe), [Samara](https://styles.refero.design/style/934a61aa-50ff-4e90-852b-4ad0b8262d54)
 
 > **Esence:** Teplý papír za dne, obsidian po setmění — a jeden modrý pulz.
@@ -1063,6 +1063,29 @@ Prototyp hydraulika-zahrady.html; kapitol 3–5.
 | N+1 | Produktový pás | obsidian | eyebrow + titulek; prose #9ba1a8, `<strong>` bílým; grid minmax(0,420px) 1fr (SVG telefon s app UI + síťový diagram bridge); 3 feature karty (prompt 5) |
 | N+2 | CTA | bílá, centrovaná | prompt 6 (logo, H2, sub, btn-blue se šipkou, otázka čtenáři) |
 | N+3 | Footer | bílá | hairline top; logo 19px + meta 13.5px --id-ink-2 |
+
+### 8.2a Mřízka článku: tři osy, čtyři šířky, jeden zlom (v2.2, ADR-006)
+
+**Tři levé osy a jejich přesná zrcadla** — součet každé dvojice je šířka
+stránky: `0/1440`, `40/1400`, `370/1070`. Nic nezačíná ani nekončí jinde.
+
+**Čtyři šířky modulu.** Stránka je součet dvou sloupců a mezery
+(`A = 322`, `B = 652`, `g = 56`): próza `A+g+A = 700`, mimoosová figura
+`A+g+B = 1030`, pás a dvousloupec `B+g+B = 1360`, full-bleed `1440`.
+**Nová šířka je chyba, ne varianta.**
+
+**Jediný zlom stránky je 720 s mezerou 56 px** (sloupce 692 | 748).
+Opakuje se ve splitu, kalkulátoru, FAQ i produktovém pásu — osa se tím
+nechá vidět, ne nakreslit (8.1 p. 1 platí dál).
+
+**Mimoosová poloha je pár:** právě dvě (+165 / −165) a v článku se
+střídají bez výjimky. Tři vysunutí na tutéž stranu = chyba sazby.
+
+**Mezera je vlastnost přechodu, ne komponenty.** Komponenty svislé marginy
+nemají. Tři míry: 22 px próza · 40–72 px modul · 64–120 px pás.
+
+Přejímka: `node scripts/layout-check.mjs <url> [šířka]` — ≤4 osy, ≤4 šířky,
+0 jednorázových os, zrcadlení, střídavost 1,00.
 
 ### 8.2b Asymetrická sazba figur (v2.1)
 

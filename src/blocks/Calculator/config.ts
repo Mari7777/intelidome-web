@@ -20,6 +20,18 @@ export const Calculator: Block = {
       ],
     },
     {
+      name: 'layout',
+      type: 'select',
+      defaultValue: 'axis',
+      label: 'Poloha na mřížce',
+      admin: { description: 'Mimoosové polohy se musí v článku střídat (ADR-006).' },
+      options: [
+        { label: 'Na ose (edge 40–1400)', value: 'axis' },
+        { label: 'Vysunout doprava (370–1400)', value: 'offset-right' },
+        { label: 'Vysunout doleva (40–1070)', value: 'offset-left' },
+      ],
+    },
+    {
       name: 'light',
       type: 'checkbox',
       defaultValue: false,

@@ -101,9 +101,10 @@ export const FaqBlock: React.FC<FaqBlockProps> = ({ className, heading, id, item
   return (
     <section
       aria-labelledby={headingId}
-      className={cn('rv not-prose mt-[var(--id-sect-y-sm)] mb-0 w-full', className)}
+      className={cn('rv id-edge id-2col not-prose w-full', className)}
       data-block="faq"
     >
+      <div>
       <span className="mb-[14px] flex w-fit items-center gap-[10px] font-[family-name:var(--id-f-display)] text-[12px] leading-[1.2] font-semibold tracking-[0.14em] text-[var(--id-accent)] uppercase">
         <span aria-hidden="true" className="h-[1.5px] w-[22px] shrink-0 bg-[var(--id-accent)]" />
         Otázky a odpovědi
@@ -115,8 +116,9 @@ export const FaqBlock: React.FC<FaqBlockProps> = ({ className, heading, id, item
       >
         {headingText}
       </h2>
+      </div>
 
-      <div className="mt-6 border-b border-[var(--id-line-soft)]">
+      <div className="border-b border-[var(--id-line-soft)]">
         {entries.map((item, index) => (
           <details className="group" key={item.id ?? `${index}`}>
             <summary className="flex cursor-pointer list-none items-start justify-between gap-6 border-t border-[var(--id-line-soft)] py-[20px] font-[family-name:var(--id-f-display)] text-[length:var(--id-t-subtitle)] font-medium leading-[1.25] tracking-[-0.01em] text-[var(--id-ink)] [transition:color_250ms] hover:text-[var(--id-accent)] [&::-webkit-details-marker]:hidden">

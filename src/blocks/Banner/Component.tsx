@@ -11,7 +11,7 @@ type Props = {
 // Rendered as an InteliDome DS callout — tinted box with a tone dot.
 export const BannerBlock: React.FC<Props> = ({ className, content, style }) => {
   return (
-    <div className={cn('mx-auto my-8 w-full', className)}>
+    <div className={cn('mx-auto w-full', className)}>
       <div
         className={cn('id-callout', {
           'id-callout--info': style === 'info',

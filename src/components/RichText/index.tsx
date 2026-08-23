@@ -72,21 +72,21 @@ const jsxConverters: JSXConvertersFunction<NodeTypes> = ({ defaultConverters }) 
   ...defaultConverters,
   ...LinkJSXConverter({ internalDocToHref }),
   blocks: {
-    banner: ({ node }) => <BannerBlock className="mb-4" {...node.fields} />,
+    banner: ({ node }) => <BannerBlock {...node.fields} />,
     chapter: ({ node }) => <ChapterBlock {...node.fields} />,
     figure: ({ node }) => (
-      <FigureBlock className={node.fields.layout ? undefined : 'id-wide'} {...node.fields} />
+      <FigureBlock className={node.fields.layout ? undefined : 'id-edge'} {...node.fields} />
     ),
     statTiles: ({ node }) => <StatTilesBlock {...node.fields} />,
     split: ({ node }) => <SplitBlock {...node.fields} />,
     summaryBand: ({ node }) => <SummaryBandBlock {...node.fields} />,
     productBand: ({ node }) => <ProductBandBlock {...node.fields} />,
     ctaBand: ({ node }) => <CtaBandBlock {...node.fields} />,
-    calculator: ({ node }) => <CalculatorBlock className="rv id-wide" {...node.fields} />,
+    calculator: ({ node }) => <CalculatorBlock {...node.fields} />,
     faq: ({ node }) => <FaqBlock {...node.fields} />,
     mediaBlock: ({ node }) => (
       <MediaBlock
-        className="id-wide"
+        className="id-edge"
         imgClassName="m-0"
         {...node.fields}
         captionClassName="mx-auto max-w-[48rem]"

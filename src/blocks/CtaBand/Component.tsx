@@ -33,7 +33,7 @@ export const CtaBandBlock: React.FC<CtaBandBlockProps> = ({
   title,
 }) => (
   <section className={cn('not-prose id-band id-cta', className)}>
-    <div className="rv id-band__inner id-band__inner--summary">
+    <div className="rv id-band__inner id-band__inner--prose-axis">
       <Logo className="id-cta__logo" decorative height="clamp(30px, 4.6vw, 50px)" />
 
       <h2 className="id-cta__title">{nezlomitelneMezery(title)}</h2>

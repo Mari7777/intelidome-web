@@ -648,20 +648,25 @@ html {
    Full-bleed se dělá pojmenovaným sloupcem, ne trikem se 100vw —
    ten by na desktopu s viditelným posuvníkem přidal vodorovný přetok. */
 .id-article {
-  --id-gutter: clamp(20px, 5vw, 40px);
-  display: grid;
   /*
-    Linka `edge` sedí přesně o okraj od kraje stránky. Díky ní se figura
-    může ukotvit k levé hraně textu a přetéct do pravého marginu (nebo
-    obráceně) — text zůstane na 700 px, ale obraz použije šířku, kterou
-    sazba odmítá. Bez toho čte celá stránka jako jeden pruh.
+    Mřížka v3 (ADR-006). Tři levé osy a jejich přesná zrcadla:
+    0/1440, 40/1400, 370/1070 — součet každé dvojice je 1440.
+    Track `wide` (240/1200) zrušen: šířka 960 byla pátý řád navíc.
+
+    Celá stránka je součet dvou sloupců a jedné mezery:
+    A = 322, B = 652, g = 56  →  content A+g+A = 700
+                                  offset  A+g+B = 1030
+                                  edge    B+g+B = 1360
+    Co se takhle nesečte, na stránku nepatří.
   */
+  --id-gutter: clamp(20px, 5vw, 40px);
+  --id-gap-col: clamp(28px, 4vw, 56px);
+  --id-col-a: calc((var(--id-maxw-prose) - var(--id-gap-col)) / 2);
+  display: grid;
   grid-template-columns:
     [full-start] var(--id-gutter)
     [edge-start] minmax(0, 1fr)
-    [wide-start] minmax(0, calc((var(--id-maxw-summary) - var(--id-maxw-prose)) / 2))
     [content-start] min(var(--id-maxw-prose), 100% - 2 * var(--id-gutter)) [content-end]
-    minmax(0, calc((var(--id-maxw-summary) - var(--id-maxw-prose)) / 2)) [wide-end]
     minmax(0, 1fr) [edge-end]
     var(--id-gutter) [full-end];
 }
@@ -669,8 +674,8 @@ html {
   grid-column: content;
   min-width: 0;
 }
-.id-article > .id-wide {
-  grid-column: wide;
+.id-article > .id-edge {
+  grid-column: edge;
 }
 .id-article > .id-band {
   grid-column: full;
@@ -693,15 +698,18 @@ html {
 }
 /* Vnitřek pásu se vrací k obsahové šířce stránky. */
 .id-band__inner {
-  max-width: var(--id-maxw);
+  /* Vnitřek pásu sedí na téže ose `edge` jako zbytek stránky: 40..1400. */
+  max-width: calc(1360px + 2 * var(--id-gutter));
   margin-inline: auto;
   padding-inline: var(--id-gutter);
 }
 .id-band__inner--prose {
   max-width: calc(var(--id-maxw-prose) + 2 * var(--id-gutter));
 }
-.id-band__inner--summary {
-  max-width: calc(var(--id-maxw-summary) + 2 * var(--id-gutter));
+/* Souhrn drží prózu na dominantní ose 370..1070, ne na vlastní šířce. */
+.id-band__inner--prose-axis > * {
+  max-width: var(--id-maxw-prose);
+  margin-inline: auto;
 }
 
 /* ── Souhrn: vlastní typografický hlas druhé obrazovky (8.2 ř. 2) ──
@@ -713,7 +721,7 @@ html {
   font-weight: 500;
   line-height: 1.38;
   letter-spacing: -0.015em;
-  max-width: var(--id-maxw-summary);
+  max-width: var(--id-maxw-prose);
   text-wrap: pretty;
   color: var(--id-ink);
 }
@@ -893,8 +901,7 @@ html {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: clamp(28px, 4vw, 64px);
-  margin: 56px 0 8px;
-  padding: clamp(28px, 4vw, 52px);
+  padding: var(--id-gutter, 40px);
   border-radius: var(--id-r-card);
   background: var(--id-obsidian);
   color: var(--id-ink-dark);
@@ -1143,10 +1150,14 @@ html {
    kapitoly se v tom střídají. Fotografie smí jít přes celou šířku — tam
    podle 9.1 padá radius, protože full-bleed obraz rám nemá. */
 @media (min-width: 900px) {
-  .id-article > .id-figure--offset-right {
+  /* Jediné dvě mimoosové polohy: +165 a −165 od osy 720. Musí se
+     v článku vyskytovat v zrcadleném počtu, jinak se stránka nakloní. */
+  .id-article > .id-figure--offset-right,
+  .id-article > .id-calc--offset-right {
     grid-column: content-start / edge-end;
   }
-  .id-article > .id-figure--offset-left {
+  .id-article > .id-figure--offset-left,
+  .id-article > .id-calc--offset-left {
     grid-column: edge-start / content-end;
   }
   /* Popisek se drží té hrany, u které figura kotví. */
@@ -1173,15 +1184,14 @@ html {
    celou šířku. Pod 900 px se skládá pod sebe a obraz jde vždy první,
    protože nese pointu, kterou text teprve rozvádí. */
 .id-article > .id-split {
-  grid-column: edge-start / edge-end;
+  /* Sloupce jsou STEJNĚ široké (652 | 652) a zlom sedí v ose stránky.
+     Dřív 0.82fr/1fr = 587 vs 700, tedy vlastní osa 64,5 px vedle té
+     stránkové — přesně ta „třetí páteř", kterou porota naměřila. */
+  grid-column: edge;
   display: grid;
   align-items: center;
-  gap: clamp(28px, 4vw, 72px);
-  grid-template-columns: minmax(0, 0.82fr) minmax(0, 1fr);
-  margin-block: clamp(64px, 8vw, 104px);
-}
-.id-article > .id-split--right {
-  grid-template-columns: minmax(0, 1fr) minmax(0, 0.82fr);
+  gap: var(--id-gap-col);
+  grid-template-columns: 1fr 1fr;
 }
 .id-split--right > .id-split__figure {
   order: 2;
@@ -1199,8 +1209,7 @@ html {
   font-weight: 600;
 }
 @media (max-width: 899px) {
-  .id-article > .id-split,
-  .id-article > .id-split--right {
+  .id-article > .id-split {
     grid-column: content;
     grid-template-columns: 1fr;
     gap: clamp(24px, 5vw, 34px);
@@ -1208,4 +1217,64 @@ html {
   .id-split--right > .id-split__figure {
     order: 0;
   }
+}
+
+
+/* ── Jediný zlom stránky (ADR-006) ────────────────────────────────────
+   Tatáž mezera se zopakuje ve splitu, kalkulátoru, stat-mřížce,
+   produktovém pásu i FAQ. Osa 720 se tím nechá VIDĚT, ne nakreslit —
+   8.1 p. 1 platí dál: povrch mluví, čáry mlčí. */
+.id-2col {
+  display: grid;
+  gap: var(--id-gap-col);
+  grid-template-columns: 1fr 1fr;
+  align-items: start;
+}
+.id-2col--narrow-left {
+  grid-template-columns: var(--id-col-a) minmax(0, 1fr);
+}
+.id-2col--narrow-right {
+  grid-template-columns: minmax(0, 1fr) var(--id-col-a);
+}
+@media (max-width: 899px) {
+  .id-2col,
+  .id-2col--narrow-left,
+  .id-2col--narrow-right {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ── Svislý rytmus (ADR-006) ──────────────────────────────────────────
+   Mezera je vlastnost PŘECHODU, ne komponenty. Komponenty proto vlastní
+   svislé marginy nemají — sečetly by se s mřížkou a vzniklo by z toho
+   sedmnáct různých mezer, jak porota naměřila.
+
+   Tři míry:
+     běžící text  22 px    — odstavec za odstavcem
+     modul        40–72 px — figura, kalkulátor, callout
+     pás          64–120 px — barevný pás a dvousloupcová kapitola
+                             (mění povrch, ne jen obsah)
+*/
+.id-article {
+  --id-rhythm: clamp(40px, 5vw, 72px);
+  --id-rhythm-band: clamp(64px, 8vw, 120px);
+  --id-rhythm-prose: 22px;
+}
+.id-article > * {
+  margin-block: 0;
+}
+.id-article > * + * {
+  margin-top: var(--id-rhythm);
+}
+/* Běžící text drží svou vlastní, mnohem těsnější míru. */
+.id-article > p + p {
+  margin-top: var(--id-rhythm-prose);
+}
+/* Nadpis kapitoly patří ke svému odstavci, ne k předchozímu bloku. */
+.id-article > .id-chapter + p {
+  margin-top: 24px;
+}
+.id-article > :is(.id-band, .id-split) + *,
+.id-article > * + :is(.id-band, .id-split) {
+  margin-top: var(--id-rhythm-band);
 }

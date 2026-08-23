@@ -1776,6 +1776,10 @@ export interface BannerBlock {
 export interface CalculatorBlock {
   kind: 'prutok' | 'davka';
   /**
+   * Mimoosové polohy se musí v článku střídat (ADR-006).
+   */
+  layout?: ('axis' | 'offset-right' | 'offset-left') | null;
+  /**
    * Druhý kalkulátor v článku musí být světlý — dva obsidianové panely za sebou jsou zakázané (7.7).
    */
   light?: boolean | null;

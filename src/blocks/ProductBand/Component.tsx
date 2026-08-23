@@ -35,8 +35,8 @@ export const ProductBandBlock: React.FC<ProductBandBlockProps> = ({
 
   return (
     <section className={cn('not-prose id-band id-band--obsidian', className)} data-surface="dark">
-      <div className="id-band__inner id-band__inner--summary">
-        <div className="rv max-w-[var(--id-maxw-summary)]">
+      <div className="id-band__inner">
+        <div className="rv">
           {eyebrow ? (
             <span className="mb-[14px] flex w-fit items-center gap-[10px] font-[family-name:var(--id-f-display)] text-[12px] leading-[1.2] font-semibold tracking-[0.14em] text-[var(--id-accent-tint)] uppercase">
               <span aria-hidden="true" className="h-[1.5px] w-[22px] shrink-0 bg-[var(--id-accent-tint)]" />

@@ -70,7 +70,7 @@ export const StatTilesBlock: React.FC<StatTilesBlockProps> = ({ className, tiles
   if (items.length === 0) return null
 
   return (
-    <div className={cn('not-prose mx-auto my-10 w-full', className)}>
+    <div className={cn('not-prose mx-auto w-full', className)}>
       <div
         data-rv-group
         className={cn(

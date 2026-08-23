@@ -6,6 +6,8 @@ import { cn } from '@/utilities/ui'
 
 export type CalculatorBlockProps = {
   kind: 'prutok' | 'davka'
+  /** Poloha na mřížce článku: na ose, nebo zrcadlený offset (ADR-006). */
+  layout?: string | null
   light?: boolean | null
   id?: string | null
   blockName?: string | null
@@ -43,14 +45,20 @@ const Warn = () => (
  * čísly z článku, takže panel něco ukazuje hned a čtenář jen přepíše svoje.
  * Verdikt má `aria-live="polite"`, aby se odečítač dozvěděl výsledek.
  */
-export const CalculatorBlock: React.FC<CalculatorBlockProps> = ({ className, kind, light }) => {
+export const CalculatorBlock: React.FC<CalculatorBlockProps> = ({
+  className,
+  kind,
+  layout,
+  light,
+}) => {
   const uid = useId()
   /*
     7.7 + 8.1 p. 5: kalkulátor je PANEL plovoucí ve světlé sekci, ne pás.
     Druhý v článku má variantu `--light` (krémový panel), protože dva
     obsidianové panely za sebou jsou zakázané.
   */
-  const panel = cn('id-calc not-prose', light && 'id-calc--light', className)
+  const poloha = layout === 'offset-right' || layout === 'offset-left' ? `id-calc--${layout}` : 'id-edge'
+  const panel = cn('rv id-calc not-prose', poloha, light && 'id-calc--light', className)
 
   return kind === 'prutok' ? <Prutok className={panel} uid={uid} /> : <Davka className={panel} uid={uid} />
 }
