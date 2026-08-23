@@ -480,8 +480,14 @@
 
 /* Eyebrow, lead a meta: čistý fade se staggerem — jiný prostředek. */
 .id-hero__fade {
-  opacity: 0;
-  animation: id-hero-fade 1s ease 0.5s forwards;
+  /*
+    Chromium NEUZNÁ za kandidáta LCP prvek, který má při prvním paintu
+    `opacity: 0` — posun mu nevadí. Hero proto nastupuje POSUNEM, ne
+    prolnutím: text je od první snímku vykreslený, jen o kus níž.
+    Naměřeno: bez toho vracelo `getEntriesByType('largest-contentful-paint')`
+    prázdné pole i po 3 s, zatímco sousední stránky měly LCP 140 a 396 ms.
+  */
+  animation: id-hero-fade 1s var(--id-ease-soft, ease) 0.5s both;
 }
 .id-hero__lead.id-hero__fade {
   animation-delay: 0.68s;
@@ -490,8 +496,11 @@
   animation-delay: 0.86s;
 }
 @keyframes id-hero-fade {
+  from {
+    transform: translateY(14px);
+  }
   to {
-    opacity: 1;
+    transform: none;
   }
 }
 
@@ -1208,9 +1217,9 @@ html {
 .id-split__p strong {
   font-weight: 600;
 }
-@media (max-width: 899px) {
+@media (max-width: 1129px) {
   .id-article > .id-split {
-    grid-column: content;
+    grid-column: edge;
     grid-template-columns: 1fr;
     gap: clamp(24px, 5vw, 34px);
   }
@@ -1236,7 +1245,14 @@ html {
 .id-2col--narrow-right {
   grid-template-columns: minmax(0, 1fr) var(--id-col-a);
 }
-@media (max-width: 899px) {
+/*
+  Práh 1130, ne 900. Sloupec dvousloupce je (V − 136) / 2 a kresba
+  v něm ještě ztrácí 2× padding panelu (~32 px). Aby popisek 12 jednotek
+  viewBoxu 520 zůstal nad mezí 10 px, musí být kresba ≥ 433 px široká,
+  tedy sloupec ≥ 497 a viewport ≥ 1130. Při 900 px vycházel popisek
+  na 7,8 px, při 1024 px na 9,0 px — obojí pod mezí.
+*/
+@media (max-width: 1129px) {
   .id-2col,
   .id-2col--narrow-left,
   .id-2col--narrow-right {
@@ -1307,4 +1323,20 @@ html {
 .id-edge > .id-callout {
   max-width: calc(var(--id-maxw-prose) + 2 * var(--id-gutter));
   margin-inline: auto;
+}
+
+
+/* ── Mez čitelnosti popisků kreseb (DESIGN.md 9.2 p. 3) ───────────────
+   Popisek 12 jednotek viewBoxu se renderuje jako 12 × (šířka / 520).
+   Na telefonu je kresba ~320 px široká, což dává 7,4 px — pod mezí.
+   V úzkém okně se proto popisek sází větší v jednotkách viewBoxu,
+   aby jeho SKUTEČNÁ velikost zůstala nad 10 px. */
+@media (max-width: 560px) {
+  .id-figure-svg .sv-lbl {
+    font-size: 17px;
+    letter-spacing: 0.08em;
+  }
+  .id-figure-svg .sv-val {
+    font-size: 21px;
+  }
 }
