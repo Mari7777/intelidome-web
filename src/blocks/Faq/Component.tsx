@@ -119,7 +119,7 @@ export const FaqBlock: React.FC<FaqBlockProps> = ({ className, heading, id, item
       <div className="mt-6 border-b border-[var(--id-line-soft)]">
         {entries.map((item, index) => (
           <details className="group" key={item.id ?? `${index}`}>
-            <summary className="flex cursor-pointer list-none items-start justify-between gap-6 border-t border-[var(--id-line-soft)] py-[20px] font-[family-name:var(--id-f-display)] text-[length:var(--id-t-subtitle)] font-medium leading-[1.25] tracking-[-0.01em] text-[var(--id-ink)] transition-colors duration-[250ms] hover:text-[var(--id-accent)] focus-visible:outline-[3px] focus-visible:outline-offset-[3px] focus-visible:outline-[color:var(--id-accent)] [&::-webkit-details-marker]:hidden">
+            <summary className="flex cursor-pointer list-none items-start justify-between gap-6 border-t border-[var(--id-line-soft)] py-[20px] font-[family-name:var(--id-f-display)] text-[length:var(--id-t-subtitle)] font-medium leading-[1.25] tracking-[-0.01em] text-[var(--id-ink)] [transition:color_250ms] hover:text-[var(--id-accent)] [&::-webkit-details-marker]:hidden">
               <span className="text-balance">{nezlomitelneMezery(item.question)}</span>
               <span
                 aria-hidden="true"

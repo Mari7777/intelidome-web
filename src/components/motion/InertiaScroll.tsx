@@ -33,21 +33,48 @@ export const InertiaScroll = ({ enabled = false }: { enabled?: boolean }) => {
     let target = window.scrollY
     let raf = 0
     let running = false
+    /** Poslední pozice, kterou zapsal modul — podle ní se pozná cizí scroll. */
+    let zapsano = window.scrollY
+    let stagnace = 0
 
     const max = () => document.documentElement.scrollHeight - window.innerHeight
 
     const tick = () => {
-      const diff = target - window.scrollY
+      const pred = window.scrollY
+      const diff = target - pred
+
       if (Math.abs(diff) < STOP) {
         running = false
         raf = 0
         return
       }
-      window.scrollTo(0, window.scrollY + diff * LERP)
+
+      window.scrollTo(0, pred + diff * LERP)
+      zapsano = window.scrollY
+
+      /*
+        Krok `diff * LERP` klesne pod jeden fyzický pixel dřív, než `diff`
+        klesne pod práh — prohlížeč sub-pixelový zápis slije a `scrollY` se
+        přestane hýbat. Bez téhle pojistky by `running` zůstalo navždy true
+        a resync níž (hlídaný na `!running`) by se už nikdy nespustil:
+        klávesnice, posuvník i hledání na stránce by byly natrvalo přebité.
+      */
+      if (Math.abs(window.scrollY - pred) < 0.5) stagnace += 1
+      else stagnace = 0
+
+      if (stagnace >= 3) {
+        target = window.scrollY
+        running = false
+        raf = 0
+        stagnace = 0
+        return
+      }
+
       raf = requestAnimationFrame(tick)
     }
 
     const start = () => {
+      stagnace = 0
       if (running) return
       running = true
       raf = requestAnimationFrame(tick)
@@ -59,14 +86,22 @@ export const InertiaScroll = ({ enabled = false }: { enabled?: boolean }) => {
       event.preventDefault()
       // Firefox posílá řádky (deltaMode 1), ne pixely.
       const delta = event.deltaMode === 1 ? event.deltaY * 16 : event.deltaY
-      target = Math.min(Math.max(target + delta * MULT, 0), max())
+      target = Math.round(Math.min(Math.max(target + delta * MULT, 0), max()))
       start()
     }
 
-    // Klávesnice, posuvník i kotvy scrollují nativně — když neběží rAF,
-    // musí se cíl srovnat, jinak by další kolečko skočilo zpět.
+    /*
+      Klávesnice, posuvník, kotvy i hledání na stránce scrollují nativně.
+      Rozhoduje PŮVOD posunu, ne to, jestli zrovna běží rAF: když se
+      stránka pohnula jinam, než kam ji zapsal modul, je to cizí scroll
+      a cíl se mu musí podřídit — jinak by ho modul stáhl zpátky.
+    */
     const onScroll = () => {
-      if (!running) target = window.scrollY
+      if (Math.abs(window.scrollY - zapsano) > 2) {
+        target = window.scrollY
+        zapsano = window.scrollY
+        stagnace = 0
+      }
     }
     const onResize = () => {
       target = Math.min(target, max())
@@ -87,9 +122,8 @@ export const InertiaScroll = ({ enabled = false }: { enabled?: boolean }) => {
 
       event.preventDefault()
       const odsazeni = parseFloat(getComputedStyle(cil).scrollMarginTop) || 0
-      target = Math.min(
-        Math.max(cil.getBoundingClientRect().top + window.scrollY - odsazeni, 0),
-        max(),
+      target = Math.round(
+        Math.min(Math.max(cil.getBoundingClientRect().top + window.scrollY - odsazeni, 0), max()),
       )
       history.replaceState(null, '', link.hash)
       start()

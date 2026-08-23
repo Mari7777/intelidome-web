@@ -45,21 +45,14 @@ const Warn = () => (
  */
 export const CalculatorBlock: React.FC<CalculatorBlockProps> = ({ className, kind, light }) => {
   const uid = useId()
-  const panel = cn('id-calc not-prose', light && 'id-calc--light', !light && className)
-  const telo = kind === 'prutok' ? <Prutok className={panel} uid={uid} /> : <Davka className={panel} uid={uid} />
-
   /*
-    Světlý kalkulátor stojí v krémovém mezipásu (8.1 p. 5–6): panel na
-    krému je jeho vlastní varianta dle 7.7 a pás zároveň rozetne dlouhý
-    bílý běh, který porota měřila na 65 % výšky stránky.
+    7.7 + 8.1 p. 5: kalkulátor je PANEL plovoucí ve světlé sekci, ne pás.
+    Druhý v článku má variantu `--light` (krémový panel), protože dva
+    obsidianové panely za sebou jsou zakázané.
   */
-  if (!light) return telo
+  const panel = cn('id-calc not-prose', light && 'id-calc--light', className)
 
-  return (
-    <section className={cn('rv id-band id-band--cream id-band--sm', className)}>
-      <div className="id-band__inner id-band__inner--summary">{telo}</div>
-    </section>
-  )
+  return kind === 'prutok' ? <Prutok className={panel} uid={uid} /> : <Davka className={panel} uid={uid} />
 }
 
 /** Kbelíkový test: objem a čas → průtok, mínus 20 % rezervy, verdikt proti 25 l/min. */

@@ -897,11 +897,7 @@ html {
   }
 }
 .id-calc--light {
-  /* Uvnitř krémového pásu panel nemá vlastní okraje ani druhý krém —
-     nese ho pás. Barvu drží kvůli mapování `--light` ze 7.7. */
-  margin: 0;
-  padding: 0;
-  background: transparent;
+  background: var(--id-cream);
   color: var(--id-ink);
 }
 .id-calc__head {
