@@ -100,3 +100,67 @@ Drží na 1440, 1200 i 900 px. Pod 900 px vše padá na osu textu (2 osy,
 - **Modrý plnobarevný CTA pás** — rozstřelil by akcentový rozpočet ≤ 5 %.
 - **Míru sazby 656 px.** Próza zůstává na 700 (dvakrát adjudikováno).
   Ze Samary si bereme jen to, že se míra **nemění** — ne její konkrétní číslo.
+
+
+---
+
+## Dodatek (23. 8. 2026) — poměr text : obraz
+
+Majitel po nasazení mřížky v3: *„Ta vzorová stránka byla hodně o krásných
+obrázcích, fungovalo to, protože cílem bylo ukázat krásné fotky. Naše SVG
+animace jsou skvělé, ale nejsou tak lahodící oku jako velký obrázek.
+Na rozdíl od vzoru by se u nás měla informace přenášet **půl na půl**
+textem a animacemi."*
+
+Námitka míří na to, co ADR-006 nezohlednilo: **Samařinu sazbu nese
+fotografie.** Krásná fotka unese velkou plochu sama o sobě. Technická
+kresba ne — čím víc ji roztáhneš, tím řidší je.
+
+### Naměřeno
+
+| Kresba | šířka | hustota (uzlů / 100 000 px²) |
+|---|---|---|
+| Síťový diagram, širokoúhle | 1360 | **6,7** |
+| Řídicí smyčka, širokoúhle | 1360 | 6,7 |
+| Kbelíkový test, širokoúhle | 1360 | 12,3 |
+| tytéž portrétově ve sloupci 520 | 520 | **17,8–24,4** |
+
+Obraz nesl **71 %** namalované plochy stránky.
+
+### Rozhodnutí
+
+**Každá kresba stojí vedle textu, který ji vykládá.** Všechny čtyři
+kapitoly jsou dvousloupcové (`.id-split`), strany se střídají `R L R L`.
+K tomu vznikly portrétové varianty i pro tři panoramatické kresby
+(`KbelikovyTestPortret`, `RidiciSmyckaPortret`, `SitMostuPortret`) —
+`portrait` v registru už není mobilní berlička, je to **druhá sazba** téže
+kresby pro úzký sloupec.
+
+Doplňková pravidla:
+
+1. **Výšku řádku určuje text, ne kresba.** Portrétová kresba ve sloupci
+   652 px vyroste na ~880 px, zatímco text má ~500 — vedle textu zbývalo
+   350 px prázdna. Panel proto drží šířku odvozenou z viewBoxu (520 px)
+   a v sloupci se centruje.
+2. **Panel obepíná kresbu, nevyplňuje sloupec.** Krémový panel široký
+   652 px s kresbou 470 px je ze dvou třetin prázdný krém, a ten se počítá
+   do obrazové plochy.
+3. Past: `width: fit-content` na panelu spolu s `width: auto` na SVG
+   se zacyklí a kresba zkolabuje na nulu. Šířka musí mít pevný základ.
+
+### Výsledek
+
+| | před | po |
+|---|---|---|
+| Obraz / namalovaná plocha | **71 %** | **59 %** |
+| Nejnižší hustota kresby | 6,7 | **15,1** |
+| Levých os / šířek modulů | 3 / 4 | **2 / 2** |
+| Jednorázových os | 0 | **0** |
+| Střídání dvousloupců | — | **R L R L** |
+| Výška stránky | 11 435 px | 9 879 px |
+
+**Proč ne přesně 50 %:** kresba by musela klesnout pod ~400 px šířky
+a popisky pod 10 px. Legibilita kresby je to jediné, proč tam je —
+obětovat ji kvůli číslu, které jsme si sami zvolili, by byl špatný obchod.
+59 % s každou kresbou spárovanou s jejím textem je poctivé optimum;
+další pohyb patří do délky textu, a to je rozhodnutí autora.

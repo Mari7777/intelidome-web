@@ -1278,3 +1278,33 @@ html {
 .id-article > * + :is(.id-band, .id-split) {
   margin-top: var(--id-rhythm-band);
 }
+
+/* ── Panel obepne kresbu, nevyplňuje sloupec ──────────────────────────
+   Krémový panel široký 652 px, ve kterém stojí kresba široká 470, je
+   ze dvou třetin prázdný krém — a ten se počítá do obrazové plochy.
+   Panel proto drží šířku odvozenou z viewBoxu portrétové kresby (520)
+   a v sloupci se vycentruje.
+
+   Pozor: `width: fit-content` na panelu spolu s `width: auto` na SVG
+   se zacyklí a kresba zkolabuje na nulu — šířka musí mít pevný základ.
+*/
+.id-split__figure > .id-figure-media {
+  max-width: calc(520px + 2 * clamp(16px, 3vw, 32px));
+  margin-inline: auto;
+}
+.id-split__figure .id-figure-svg svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.id-split__figure > figcaption {
+  max-width: 62ch;
+  margin-inline: auto;
+}
+
+/* Callout stojí na `edge` jako ostatní moduly, ale text uvnitř drží
+   prozaickou míru — jinak by nejmenší stupeň textu měl nejdelší řádek. */
+.id-edge > .id-callout {
+  max-width: calc(var(--id-maxw-prose) + 2 * var(--id-gutter));
+  margin-inline: auto;
+}

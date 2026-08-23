@@ -72,7 +72,7 @@ const jsxConverters: JSXConvertersFunction<NodeTypes> = ({ defaultConverters }) 
   ...defaultConverters,
   ...LinkJSXConverter({ internalDocToHref }),
   blocks: {
-    banner: ({ node }) => <BannerBlock {...node.fields} />,
+    banner: ({ node }) => <BannerBlock className="id-edge" {...node.fields} />,
     chapter: ({ node }) => <ChapterBlock {...node.fields} />,
     figure: ({ node }) => (
       <FigureBlock className={node.fields.layout ? undefined : 'id-edge'} {...node.fields} />

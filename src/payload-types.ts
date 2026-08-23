@@ -1701,7 +1701,7 @@ export interface SplitBlock {
   /**
    * Do úzkého sloupce patří jen kresba s portrétovou sazbou — panoramatická by měla popisky pod 5 px.
    */
-  drawing: 'korenova-zona' | 'hlava-na-hlavu';
+  drawing: 'korenova-zona' | 'kbelikovy-test' | 'hlava-na-hlavu' | 'ridici-smycka';
   eyebrow?: string | null;
   title?: string | null;
   /**

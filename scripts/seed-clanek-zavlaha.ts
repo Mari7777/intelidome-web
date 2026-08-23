@@ -140,33 +140,24 @@ const body = root([
       'Zahrada je fascinující živý organismus a voda představuje její krevní oběh. Obecně se doporučuje dodat trávníku **10 až 15 litrů vody na metr čtvereční každé tři dny**, ale reálná potřeba vždy závisí na aktuálních podmínkách. Roli hraje teplota vzduchu, konkrétní druh trávy i celková kondice vašeho zeleného koberce. Zdravý trávník s hlubokými kořeny totiž s přehledem přežije i ta největší vedra s překvapivě malým množstvím vláhy.\n\nMladý trávník bez vyspělých kořenů naopak potřebuje první roky mnohem pečlivější přístup a opečovávaná tráva je z dlouhodobého hlediska daleko odolnější. Množství vody, které na trávník jednoduše vylijeme, nám ale bohužel neřekne vůbec nic o tom, jaká je skutečná vlhkost uvnitř půdy. Proto dává mnohem větší smysl **měřit přímo půdní vlhkost, než jen slepě počítat objem dopadající vody**. Pokud tento základní přírodní princip nerespektujeme a závlahu nenavrhneme správně, nepomohou nám k dokonalé zahradě ani ty nejdražší komponenty.',
   }),
 
-  block({
-    blockType: 'chapter',
+  /* Kapitola 02 jako dvousloupec — kresba vlevo, text vpravo.
+     Portrétová sazba: panoramatická měla při 1360 px hustotu 12,3,
+     tahle má ve sloupci 652 px hustotu 20,6. */
+  split({
     blockName: 'Kapitola 02',
+    side: 'image-left',
+    drawing: 'kbelikovy-test',
     eyebrow: 'Kapitola 02',
     title: 'Jak změřit skutečnou sílu vašeho vodního zdroje?',
+    number: '02',
+    alt: 'Schéma kbelíkového testu: zdroj se stoupačkou, manometr s ručičkou na 3,5 baru, proud vody plnící desetilitrový kbelík k rysce, stopky na 24 sekundách a pod tím výpočet průtoku se srážkou 20 %.',
+    caption:
+      'Kbelíkový test krok za krokem. Tlak se odečítá až ve chvíli, kdy voda proudí — a od výsledného průtoku se vždy odečte 20 % rezervy.',
+    body:
+      'Nejčastější a bohužel nejfatálnější chybou je pouhý odhad síly vašeho vodního zdroje. Závlahové systémy totiž zajímá pouze to, jak se voda chová ve chvíli, kdy skutečně proudí potrubím. Pro běžné systémy potřebujete zajistit **průtok alespoň 25 litrů za minutu při tlaku 3 bary**. Tyto přesné hodnoty zjistíte pomocí takzvaného kbelíkového testu, který zvládne každý zručný majitel zahrady.\n\nPro přesné měření budete potřebovat tlakoměr (manometr), stopky a objemnou nádobu, ideálně desetilitrový kbelík. Tlakoměr připojte přímo k vašemu zdroji vody a velmi pomalu otevírejte ventil. Otevírání zastavte v přesný moment, kdy ručička tlaku klesne a ustálí se na hodnotě 3,5 baru.\n\nNásledně vložte pod vytékající proud vody kbelík a pečlivě stopněte čas, za který se naplní po okraj. Z naměřených vteřin a objemu snadno vypočítáte váš reálný minutový průtok. Nezapomeňte ale z tohoto výsledku vždy odečíst 20 % — tahle rezerva pokryje ztráty na potrubí i stárnutí čerpadla.',
   }),
-  p(
-    'Nejčastější a bohužel nejfatálnější chybou je pouhý odhad síly vašeho vodního zdroje. Závlahové systémy totiž zajímá pouze to, jak se voda chová ve chvíli, kdy skutečně proudí potrubím. Pro běžné systémy potřebujete zajistit ',
-    ['průtok alespoň 25 litrů za minutu při tlaku 3 bary', BOLD],
-    '. Tyto přesné hodnoty zjistíte pomocí takzvaného kbelíkového testu, který zvládne každý zručný majitel zahrady.',
-  ),
-  p(
-    'Pro přesné měření budete potřebovat tlakoměr (manometr), stopky a objemnou nádobu, ideálně desetilitrový kbelík. Tlakoměr připojte přímo k vašemu zdroji vody a velmi pomalu otevírejte ventil. Otevírání zastavte v přesný moment, kdy ručička tlaku klesne a ustálí se na hodnotě 3,5 baru. Tím nasimulujete ideální podmínky pro budoucí zavlažovací systém.',
-  ),
-  p(
-    'Následně vložte pod vytékající proud vody kbelík a pečlivě stopněte čas, za který se naplní po okraj. Z naměřených vteřin a objemu snadno vypočítáte váš reálný minutový průtok. Nezapomeňte ale z tohoto výsledku vždy odečíst 20 %. Tato nezbytná bezpečnostní rezerva pokryje přirozené ztráty na potrubí i nevyhnutelné stárnutí čerpadla.',
-  ),
 
-  drawing(
-    'kbelikovy-test',
-    '02',
-    'Schéma kbelíkového testu: zdroj, manometr s ručičkou na 3,5 baru, proud vody plnící desetilitrový kbelík a stopky; vpravo výpočet průtoku se srážkou 20 %.',
-    'Kbelíkový test krok za krokem. Tlak se odečítá až ve chvíli, kdy voda proudí — a od výsledného průtoku se vždy odečte 20 % rezervy.',
-    'offset-left',
-  ),
-
-  calc('prutok', false, 'offset-right'),
+  calc('prutok', false, 'axis'),
 
   block({
     blockType: 'banner',
@@ -183,7 +174,7 @@ const body = root([
      Střídání se počítá přes VŠECHNY mimoosové hmoty (ADR-006). */
   split({
     blockName: 'Kapitola 03',
-    side: 'image-left',
+    side: 'image-right',
     drawing: 'hlava-na-hlavu',
     eyebrow: 'Kapitola 03',
     title: 'Proč se postřikovače musí vzájemně překrývat?',
@@ -205,30 +196,21 @@ const body = root([
     false,
   ),
 
-  block({
-    blockType: 'chapter',
+  /* Kapitola 04 jako dvousloupec — kresba vpravo, ať se strany střídají.
+     Řídicí smyčka měla širokoúhle hustotu 6,7; portrétově 19,8. */
+  split({
     blockName: 'Kapitola 04',
+    side: 'image-left',
+    drawing: 'ridici-smycka',
     eyebrow: 'Kapitola 04',
     title: 'Jak závlahu chytře řídit a neplýtvat?',
+    number: '05',
+    alt: 'Uzavřená rozhodovací smyčka: čidlo vlhkosti v půdě naměří 38 %, hodnota se porovná s cílem 45 %, při nedostatku se přes most otevře ventil a voda se vrací zpět k čidlu; zdrojem je přednostně retenční nádrž, vodovodní řad až jako záloha.',
+    caption:
+      'Smyčka, kterou obyčejný časovač nemá. Rozhodnutí zalévat vzniká z měření půdy a vrací se zpátky k němu — a voda se bere nejdřív z nádrže.',
+    body:
+      'Když už máte postřikovače rozmístěné a propojené hadicemi pod povrchem, přichází na řadu elektronický mozek celé zahrady. Obyčejné časovače spustí vodu klidně i během vydatného deště nebo ve chvíli, kdy má půda vody stále dostatek. Zde vstupuje do hry systém **InteliDome**, který obyčejnou síť trubek promění ve vnímavý a ohleduplný organismus.\n\nVyužíváme přesná čidla vlhkosti, díky kterým systém pozná, kdy mají kořeny rostlin opravdu žízeň. InteliDome navíc dokáže logicky řídit spínače, takže přednostně odčerpává dešťovou vodu z vaší retenční nádrže dříve, než sáhnete po placené vodě z řadu. Spolu se závlahou pak snadno zautomatizujete i večerní zahradní osvětlení.',
   }),
-  p(
-    'Když už máte postřikovače rozmístěné a propojené hadicemi pod povrchem, přichází na řadu elektronický mozek celé zahrady. Obyčejné časovače spustí vodu klidně i během vydatného deště nebo ve chvíli, kdy má půda vody stále dostatek. Zde vstupuje do hry systém ',
-    ['InteliDome', BOLD],
-    ', který obyčejnou síť trubek promění ve vnímavý a ohleduplný organismus. Náš systém ovládá sektory primárně na základě aktuální vlhkosti a dokáže zohlednit, zda na trávník zrovna svítí slunce, nebo leží ve stínu.',
-  ),
-  p(
-    'Využíváme přesná čidla vlhkosti (senzory půdní vlhkosti), díky kterým systém pozná, kdy mají kořeny rostlin opravdu žízeň. InteliDome navíc dokáže logicky řídit spínače, takže přednostně odčerpává dešťovou vodu z vaší retenční nádrže dříve, než sáhnete po placené vodě z řadu. Spolu se závlahou pak snadno zautomatizujete i večerní zahradní osvětlení, takže získáte plnou kontrolu nad celou zahradou pohodlně z jednoho místa.',
-  ),
-
-  calc('davka', true, 'axis'),
-
-  drawing(
-    'ridici-smycka',
-    '05',
-    'Uzavřená rozhodovací smyčka: čidlo vlhkosti změří stav půdy, hodnota se porovná s prahem, při nedostatku se přes most otevře ventil a voda se vrací zpět k čidlu; zdrojem je přednostně retenční nádrž, vodovodní řad až jako záloha.',
-    'Smyčka, kterou obyčejný časovač nemá. Rozhodnutí zalévat vzniká z měření půdy a vrací se zpátky k němu — a voda se bere nejdřív z nádrže.',
-    'offset-left',
-  ),
 
   /* Šablona 8.2 ř. N+1: jediný vnitřní obsidian článku. Tady se z výkladu
      o zahradě stává řeč o systému — proto je to jediný předěl povrchem. */

@@ -58,6 +58,10 @@ const d = await p.evaluate((W) => {
     dominantniR: osyR[0] ? Math.round(100 * osyR[0][1] / moduly.length) : 0,
     zrcadla,
     mimoosove: mimo.map((m) => `${m.strana} ${m.l}..${m.r} ${m.jmeno}`),
+    // Když jsou moduly souměrné, střídání nese sazba UVNITŘ nich.
+    stranyDvousloupcu: [...clanek.querySelectorAll('.id-split')]
+      .map((s) => (s.classList.contains('id-split--right') ? 'R' : 'L'))
+      .join(''),
     stridavost: mimo.length > 1 ? +(zmen / (mimo.length - 1)).toFixed(2) : null,
   }
 }, W)
@@ -76,6 +80,13 @@ console.log(
     ? `OK   střídavost: neměří se (0–1 mimoosová hmota, vše na ose)`
     : `${zeleno(d.stridavost === 1)} střídavost mimoosových hmot: ${d.stridavost}`,
 )
+const sd = d.stranyDvousloupcu
+if (sd.length > 1) {
+  let z = 0
+  for (let i = 1; i < sd.length; i++) if (sd[i] !== sd[i - 1]) z++
+  const stridaSe = z === sd.length - 1
+  console.log(`${zeleno(stridaSe)} střídání dvousloupců: ${sd.split('').join(' ')} ${stridaSe ? '' : '← dva stejné za sebou'}`)
+}
 console.log(`\nmimoosové hmoty shora dolů:`)
 d.mimoosove.forEach((m) => console.log('   ' + m))
 await b.close()

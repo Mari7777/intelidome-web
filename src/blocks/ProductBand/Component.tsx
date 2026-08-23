@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { SitMostu } from '@/components/figures/SitMostu'
+import { SitMostuPortret } from '@/components/figures/SitMostuPortret'
 import { nezlomitelneMezery } from '@/utilities/czechTypography'
 import { cn } from '@/utilities/ui'
 
@@ -36,6 +36,7 @@ export const ProductBandBlock: React.FC<ProductBandBlockProps> = ({
   return (
     <section className={cn('not-prose id-band id-band--obsidian', className)} data-surface="dark">
       <div className="id-band__inner">
+        <div className="id-2col">
         <div className="rv">
           {eyebrow ? (
             <span className="mb-[14px] flex w-fit items-center gap-[10px] font-[family-name:var(--id-f-display)] text-[12px] leading-[1.2] font-semibold tracking-[0.14em] text-[var(--id-accent-tint)] uppercase">
@@ -48,7 +49,7 @@ export const ProductBandBlock: React.FC<ProductBandBlockProps> = ({
             {nezlomitelneMezery(title)}
           </h2>
 
-          <div className="mt-[22px] max-w-[var(--id-maxw-prose)] space-y-[18px]">
+          <div className="mt-[22px] space-y-[18px]">
             {paragraphs.map((paragraph) => (
               <p className="id-productband__prose" key={paragraph.slice(0, 40)}>
                 {renderStrong(paragraph)}
@@ -57,20 +58,12 @@ export const ProductBandBlock: React.FC<ProductBandBlockProps> = ({
           </div>
         </div>
 
-        {/*
-          8.2 předepisuje pro tenhle pás dvousloupcovou mřížku s telefonem
-          a síťovým diagramem. Diagram má viewBox 1080 px — vecpaný do
-          420px sloupce by měl popisky pod 5 px, takže stojí přes celou
-          šířku pásu. Vědomá odchylka od šablony, zapsaná v LOOP_LOG.
-        */}
-        <div
-          aria-label="Schéma sítě: most uprostřed, kolem něj ventil, čidlo vlhkosti, retenční nádrž a venkovní osvětlení; aktivní spoj vede k ventilu."
-          className="rv id-figure-svg mt-[clamp(40px,6vw,64px)] overflow-x-auto"
-          role="img"
-          tabIndex={0}
-        >
-          <div className="min-w-[560px]">
-            <SitMostu />
+          <div
+            aria-label="Schéma sítě: most uprostřed, kolem něj ventil, čidlo vlhkosti, retenční nádrž a venkovní osvětlení; aktivní spoj vede k ventilu."
+            className="rv id-figure-svg"
+            role="img"
+          >
+            <SitMostuPortret />
           </div>
         </div>
 

@@ -3,9 +3,13 @@ import type React from 'react'
 import { HlavaNaHlavu } from './HlavaNaHlavu'
 import { HlavaNaHlavuMobil } from './HlavaNaHlavuMobil'
 import { KbelikovyTest } from './KbelikovyTest'
+import { KbelikovyTestPortret } from './KbelikovyTestPortret'
 import { KorenovaZona } from './KorenovaZona'
 import { KorenovaZonaMobil } from './KorenovaZonaMobil'
 import { RidiciSmycka } from './RidiciSmycka'
+import { RidiciSmyckaPortret } from './RidiciSmyckaPortret'
+import { SitMostu } from './SitMostu'
+import { SitMostuPortret } from './SitMostuPortret'
 
 export type Drawing = {
   /** Širokoúhlá sazba (viewBox 1080) — desktop a tablet. */
@@ -26,9 +30,10 @@ export type Drawing = {
  */
 export const DRAWINGS = {
   'korenova-zona': { wide: KorenovaZona, portrait: KorenovaZonaMobil },
-  'kbelikovy-test': { wide: KbelikovyTest },
+  'kbelikovy-test': { wide: KbelikovyTest, portrait: KbelikovyTestPortret },
   'hlava-na-hlavu': { wide: HlavaNaHlavu, portrait: HlavaNaHlavuMobil },
-  'ridici-smycka': { wide: RidiciSmycka },
+  'ridici-smycka': { wide: RidiciSmycka, portrait: RidiciSmyckaPortret },
+  'sit-mostu': { wide: SitMostu, portrait: SitMostuPortret },
 } satisfies Record<string, Drawing>
 
 export type DrawingKey = keyof typeof DRAWINGS

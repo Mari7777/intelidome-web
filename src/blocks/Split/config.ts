@@ -33,7 +33,9 @@ export const Split: Block = {
       },
       options: [
         { label: 'Kořenová zóna', value: 'korenova-zona' },
+        { label: 'Kbelíkový test', value: 'kbelikovy-test' },
         { label: 'Hlava na hlavu', value: 'hlava-na-hlavu' },
+        { label: 'Řídicí smyčka', value: 'ridici-smycka' },
       ],
     },
     { name: 'eyebrow', type: 'text', label: 'Nadřádek' },
