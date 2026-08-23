@@ -1326,6 +1326,19 @@ html {
 }
 
 
+/* ── Portrétová kresba má strop šířky VŠUDE, nejen ve dvousloupci ─────
+   Když se sloupec složí (pod 1130 px), kresba bez stropu vyroste na
+   šířku celého pásu — naměřeno 1020 × 1083 px v produktovém pásu.
+   To je přesně ta „roztažená a řídká" kresba, kvůli které portrétové
+   varianty vznikly. Strop je odvozený z jejich viewBoxu (520). */
+.id-figure-svg svg[viewBox^='0 0 520'] {
+  display: block;
+  width: 100%;
+  max-width: 520px;
+  height: auto;
+  margin-inline: auto;
+}
+
 /* ── Mez čitelnosti popisků kreseb (DESIGN.md 9.2 p. 3) ───────────────
    Popisek 12 jednotek viewBoxu se renderuje jako 12 × (šířka / 520).
    Na telefonu je kresba ~320 px široká, což dává 7,4 px — pod mezí.
@@ -1338,5 +1351,15 @@ html {
   }
   .id-figure-svg .sv-val {
     font-size: 21px;
+  }
+}
+/* Nejužší telefony: kresba klesá k 250 px, takže popisek potřebuje ještě víc. */
+@media (max-width: 400px) {
+  .id-figure-svg .sv-lbl {
+    font-size: 21px;
+    letter-spacing: 0.06em;
+  }
+  .id-figure-svg .sv-val {
+    font-size: 25px;
   }
 }
