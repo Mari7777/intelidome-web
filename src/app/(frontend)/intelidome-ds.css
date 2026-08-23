@@ -566,8 +566,11 @@
   border: 1px solid var(--id-line-soft);
   border-radius: var(--id-r-pill);
   background: rgba(255, 255, 255, 0.9);
-  backdrop-filter: blur(18px);
+  /* Pořadí je záměrné: sloučí-li build dvojici do jedné deklarace, musí
+     přežít ta nepředponovaná — Chrome `-webkit-backdrop-filter` nezná
+     a kapsle by zůstala bez rozostření (naměřeno v kole 02). */
   -webkit-backdrop-filter: blur(18px);
+  backdrop-filter: blur(18px);
   box-shadow: 0 8px 30px rgba(10, 12, 15, 0.1);
 }
 .id-capsule__mark {
@@ -778,4 +781,57 @@ html {
    uvolní; sloupec `content` ji drží sám a pásy potřebují celou šířku. */
 .prose.id-article {
   max-width: none;
+}
+
+
+/* ── Popisky uvnitř SVG figur (DESIGN.md 9.2 p. 3) ────────────────── */
+.sv-lbl {
+  font-family: var(--id-f-display);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  fill: #5b5e63;
+}
+.sv-val {
+  font-family: var(--id-f-display);
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  font-variant-numeric: tabular-nums;
+  fill: var(--id-ink);
+}
+[data-surface='dark'] .sv-lbl {
+  fill: #9ba1a8;
+}
+[data-surface='dark'] .sv-val {
+  fill: #ffffff;
+}
+
+/* Klidový stav figur je čitelný přímo z markupu, takže při omezeném
+   pohybu stačí animace vypnout — nikdy zkracovat na 0,01 ms (9.2 p. 5).
+   SMIL uzly odstraní `SmilGuard`, protože CSS na ně nedosáhne. */
+@media (prefers-reduced-motion: reduce) {
+  .id-figure-svg * {
+    animation: none !important;
+  }
+}
+
+/* Posuvná kresba musí mít viditelný fokus stejně jako cokoli jiného (11.2). */
+.id-figure-svg:focus-visible {
+  outline: 3px solid var(--id-accent);
+  outline-offset: 4px;
+  border-radius: var(--id-r-md);
+}
+[data-surface='dark'] .id-figure-svg:focus-visible {
+  outline-color: var(--id-accent-tint);
+}
+
+/* Popisek aktivního stavu ve figuře — jediné místo, kde smí popisek nést
+   akcent. Na obsidianu je to #93c5fd (10,79:1), na světlém plný akcent. */
+.sv-lbl--aktivni {
+  fill: var(--id-accent);
+}
+[data-surface='dark'] .sv-lbl--aktivni {
+  fill: var(--id-accent-tint);
 }

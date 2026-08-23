@@ -1,5 +1,6 @@
 import React from 'react'
 
+import { SitMostu } from '@/components/figures/SitMostu'
 import { cn } from '@/utilities/ui'
 
 export type ProductBandBlockProps = {
@@ -52,6 +53,23 @@ export const ProductBandBlock: React.FC<ProductBandBlockProps> = ({
                 {renderStrong(paragraph)}
               </p>
             ))}
+          </div>
+        </div>
+
+        {/*
+          8.2 předepisuje pro tenhle pás dvousloupcovou mřížku s telefonem
+          a síťovým diagramem. Diagram má viewBox 1080 px — vecpaný do
+          420px sloupce by měl popisky pod 5 px, takže stojí přes celou
+          šířku pásu. Vědomá odchylka od šablony, zapsaná v LOOP_LOG.
+        */}
+        <div
+          aria-label="Schéma sítě: most uprostřed, kolem něj ventil, čidlo vlhkosti, retenční nádrž a venkovní osvětlení; aktivní spoj vede k ventilu."
+          className="id-figure-svg mt-[clamp(40px,6vw,64px)] overflow-x-auto"
+          role="img"
+          tabIndex={0}
+        >
+          <div className="min-w-[560px]">
+            <SitMostu />
           </div>
         </div>
 

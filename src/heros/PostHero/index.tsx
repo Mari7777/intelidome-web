@@ -58,6 +58,7 @@ export const PostHero: React.FC<{ post: Post }> = ({ post }) => {
             priority
             resource={heroImage}
             pictureClassName="h-full w-full"
+            size="100vw"
           />
           <div className="id-hero__scrim absolute inset-0" />
         </div>

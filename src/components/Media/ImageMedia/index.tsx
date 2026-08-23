@@ -8,10 +8,7 @@ import React from 'react'
 
 import type { Props as MediaProps } from '../types'
 
-import { cssVariables } from '@/cssVariables'
 import { getMediaUrl } from '@/utilities/getMediaUrl'
-
-const { breakpoints } = cssVariables
 
 // A base64 encoded image to use as a placeholder while the image is loading
 const placeholderBlur =
@@ -77,12 +74,16 @@ export const ImageMedia: React.FC<MediaProps> = (props) => {
 
   const loading = loadingFromProps || (!priority ? 'lazy' : undefined)
 
-  // NOTE: this is used by the browser to determine which image to download at different screen sizes
-  const sizes = sizeFromProps
-    ? sizeFromProps
-    : Object.entries(breakpoints)
-        .map(([, value]) => `(max-width: ${value}px) ${value * 2}w`)
-        .join(', ')
+  /*
+    `sizes` popisuje, jak ŠIROKÝ bude slot na obrazovce — tedy délky (px, vw),
+    nikdy deskriptory `w`. Původní generátor skládal `(max-width: 768px) 1536w`,
+    což je syntakticky neplatné: prohlížeč celý atribut zahodil a spadl na
+    100vw, takže do 880px slotu stahoval variantu pro 1920 px.
+
+    Výchozí hodnota odpovídá mřížce článku (8.1): do tabletu plná šířka,
+    nad ním obsahový sloupec. Hero a full-bleed si `100vw` předá samo.
+  */
+  const sizes = sizeFromProps ?? '(min-width: 1024px) 960px, (min-width: 768px) 90vw, 100vw'
 
   return (
     <picture className={cn(pictureClassName)}>

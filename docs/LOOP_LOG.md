@@ -245,3 +245,81 @@ velikost, sekce se dělí posunem povrchu.
 Hero pilot je hotový. Podle skillu následuje **`copy-polish`** na texty —
 porotce slopu upozornil, že lead sklouzává do AI kadence („X, ne Y" +
 „Zjistěte, proč"). Porota texty nehodnotí, jen je označila.
+
+---
+
+# Smyčka II — celý článek
+
+Pilot hera prošel v kole 05. Tenhle díl smyčky bere článek
+`/posts/jak-navrhnout-automatickou-zavlahu` jako celek: 7,2 obrazovky,
+hero už schválené, zbytek nehodnocený.
+
+**Nastavení:** stejné jako u pilota — 6 nezávislých porotců (hierarchie,
+typografie, pohyb, grafický styl, slop, výkon a přístupnost), každý jen se
+svou rubrikou, snímky desktop 1440×900 i mobil iPhone 14 Pro, závazný
+`DESIGN.md`. Navíc **adversariální ověření**: každý kritický nález dostane
+skeptika, jehož úkolem je ho vyvrátit; potvrdí se jen to, co ustojí.
+Práh průchodu: každý porotce ≥ 4 a nula potvrzených kritických nálezů.
+
+## Kolo 01 — výchozí stav
+
+**Skóre: 2 · 3 · 2 · 2 · 2 · 3 — 12 potvrzených kritických nálezů.**
+
+| Porotce | Skóre | Co lámalo dojem |
+|---|---|---|
+| Hierarchie | 2 | 82 % stránky jeden nepřerušený 700px sloupec; chybí 3 sekce šablony 8.2 |
+| Typografie | 3 | tokeny drží, ale `.prose` přebíjí komponenty; FAQ nadpis 24 px vedle 52px kapitol |
+| Pohyb | 2 | pod herem se nehýbe nic — scroll-reveal v repu neexistuje |
+| Grafický styl | 2 | 3 obrázky na 7,2 obrazovky; nula SVG figur; logo je vysázený text |
+| Slop | 2 | obrazová vrstva bez vlastního jazyka; rytmus povrchů z článku vypadl |
+| Výkon | 3 | kontrasty a fokus výborné, ale kapsle trvale leží na textu; vadné `sizes` |
+
+**Dva nálezy skeptici zamítli — a měli pravdu:**
+
+1. *„Odstavce mají 83–98 znaků na řádek."* Čísla sedí, ale `DESIGN.md`
+   předepisuje **700 px**, a ty jsou splněné na pixel. Dodatek „≈ 65 znaků"
+   je popisný odhad, ne druhá mez. Vada je v dokumentu, ne na stránce —
+   projekt to už dvakrát adjudikoval jako **koš B**.
+2. *„Chybí setrvačníkový scroll, který si uživatel přál."* Modul skutečně
+   chybí (0 výskytů Lenis/GSAP), ale 6.5 je výslovně **per-page opt-in** a
+   pro nepřihlášené stránky sama předepisuje `scroll-behavior: smooth`,
+   což repo má. Pravdivé pozorování povýšené na porušení pravidla,
+   které neexistuje. → **Zůstává jako přání uživatele, ne jako vada systému.**
+
+## Kolo 02 — jeden balík: partitura pásů
+
+Nejhorší nález měl jeden kořen: tělo článku nemělo **žádnou architekturu
+sekcí**. Všechno — souhrn, čísla, kapitoly, figury, FAQ — bydlelo v jednom
+700px sloupci na bílé. Proto chyběly celé sekce šablony 8.2: nedaly se kam
+postavit.
+
+**Co se změnilo (commit `bbb7239`):**
+
+- **Mřížka článku** `.id-article` se třemi dorazy: `content` 700 px,
+  `wide` 960 px, `full` přes celou šířku. Full-bleed dělá pojmenovaný
+  sloupec mřížky, **ne trik se `100vw`** — ten by na desktopu s viditelným
+  posuvníkem přidal vodorovný přetok (ověřeno: `overflowX: false`).
+- **`summaryBand`** — krémový pás hned po heru (8.1 p. 4) s vlastní rolí
+  `summary-lead` (Archivo 500, subtitle škála, 960 px) a řadou čísel uvnitř.
+- **`productBand`** — jediný vnitřní obsidian článku (8.2 ř. N+1).
+- **`ctaBand`** — bílá centrovaná závěrečná výzva. Do té doby **na celé
+  stránce nebyl jediný odkaz v těle článku**; teď je tam právě jedno tlačítko.
+- **Logo je konečně logo** — maskované SVG dle 9.4 místo vysázeného textu
+  s modrým „Dome". Hlavička 21 px, patička 19 px, CTA clamp(30,4.6vw,50).
+- **Patička na bílou** (8.1 p. 7), meta 13,5 px na `--id-ink-2`.
+- **FAQ dostalo `not-prose` a hodnost `title-sm`** (36 px). Do té doby ho
+  ručně psané `.prose h2` z `globals.css` přebíjelo na 24 px — nadpis
+  sekce byl menší než odstavcový podnadpis.
+- **`.prose` nadpisy dostaly škálu 4.2 po hodnostech.** Plošné
+  `line-height: 1.15` porušovalo strop 1.05 u role `title`. Výjimka
+  `:not(:where(.not-prose, .not-prose *))` je táž, jakou používá
+  `@tailwindcss/typography`, takže komponenty si svou sazbu uřídí samy.
+- `<main>` landmark kolem článku.
+
+**Měření po zásahu:** obsidian 13,9 % → **19,8 %** (cíl 20–35 %; zbytek
+dorovná produktový pás, až v kole 03 dostane svou SVG scénu — dopadovat
+metriku prázdným paddingem by bylo podvádění). Levé okraje: **dvě osy**
+(pás 240, prose 370) místo tří. Vodorovný přetok nula.
+
+**Vědomě neopraveno v tomhle kole** (patří do dalších balíků): SVG figury
+a obraz v kapitolách, pohyb pod herem, kalkulátory, kapsle překrývající text.

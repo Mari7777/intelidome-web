@@ -59,6 +59,18 @@ const root = (children: Node[]) => ({
 /** Krátký richText do pole uvnitř bloku (Banner, FAQ odpověď). */
 const mini = (...paragraphs: string[]) => root(paragraphs.map((t) => p(t)))
 
+/** Technická kresba (DESIGN.md 9.2) — obraz je kód, v obsahu jen klíč. */
+const drawing = (key: string, number: string, alt: string, caption: string): Node =>
+  block({
+    blockType: 'figure',
+    blockName: `Obr. ${number}`,
+    drawing: key,
+    alt,
+    number,
+    caption,
+    panel: true,
+  })
+
 /** Figura; `image` se doplní až za běhu podle názvu souboru v Media. */
 const figure = (filename: string, number: string, caption: string): Node =>
   block({
@@ -106,6 +118,13 @@ const body = root([
     '. Pokud tento základní přírodní princip nerespektujeme a závlahu nenavrhneme správně, nepomohou nám k dokonalé zahradě ani ty nejdražší komponenty.',
   ),
 
+  drawing(
+    'korenova-zona',
+    '01',
+    'Řez půdou ve dvou sloupcích: vlevo častá malá zálivka, která smočí jen horní vrstvu a vychová mělké kořeny; vpravo vydatná zálivka méně často, po které voda dojde do hloubky a kořeny jdou za ní.',
+    'Stejné množství vody, jiný výsledek. Rozhoduje hloubka, do které voda dojde — kořeny rostou tam, kam se dostane.',
+  ),
+
   block({
     blockType: 'chapter',
     blockName: 'Kapitola 02',
@@ -124,10 +143,11 @@ const body = root([
     'Následně vložte pod vytékající proud vody kbelík a pečlivě stopněte čas, za který se naplní po okraj. Z naměřených vteřin a objemu snadno vypočítáte váš reálný minutový průtok. Nezapomeňte ale z tohoto výsledku vždy odečíst 20 %. Tato nezbytná bezpečnostní rezerva pokryje přirozené ztráty na potrubí i nevyhnutelné stárnutí čerpadla.',
   ),
 
-  figure(
-    'fig-kbelikovy-test.avif',
-    '01',
-    'Kbelíkový test: manometr ustálený na 3,5 baru, desetilitrový kbelík a stopky. Z času naplnění vypočítáte průtok — a odečtete 20 % rezervy.',
+  drawing(
+    'kbelikovy-test',
+    '02',
+    'Schéma kbelíkového testu: zdroj, manometr s ručičkou na 3,5 baru, proud vody plnící desetilitrový kbelík a stopky; vpravo výpočet průtoku se srážkou 20 %.',
+    'Kbelíkový test krok za krokem. Tlak se odečítá až ve chvíli, kdy voda proudí — a od výsledného průtoku se vždy odečte 20 % rezervy.',
   ),
 
   block({
@@ -156,10 +176,17 @@ const body = root([
     'Tomuto nekompromisnímu pravidlu se v inženýrské praxi říká „hlava na hlavu". Jakmile se pokusíte ušetřit a postřikovače od sebe oddálíte, vytvoříte hluchá místa s nedostatkem vláhy. V horkých letních měsících se pak na trávníku velmi rychle objeví suché a nažloutlé pruhy. Ke správnému vsakování do hlubších vrstev půdy doporučujeme používat moderní paprskové trysky, které vodu dávkují pomalu a šetrně.',
   ),
 
+  drawing(
+    'hlava-na-hlavu',
+    '03',
+    'Půdorys trávníku ve dvou stavech: vlevo oddálené postřikovače se suchým pruhem mezi dostřiky, vpravo rozestup rovný dostřiku, kde se kruhy protínají ve středech sousedních hlavic.',
+    'Proč se rozestup rovná dostřiku. Jakmile je větší, zůstane mezi hlavicemi pruh, kam nedosáhne ani jedna z nich.',
+  ),
+
   figure(
     'fig-hlava-na-hlavu.avif',
-    '02',
-    'Pravidlo „hlava na hlavu“ v praxi: vějíře dvou sousedních postřikovačů se protínají, takže mezi nimi nezůstane pruh bez vody.',
+    '04',
+    'Totéž pravidlo na skutečném trávníku: vějíře dvou sousedních postřikovačů se protínají, takže mezi nimi nezůstane pruh bez vody.',
   ),
 
   block({
@@ -175,6 +202,13 @@ const body = root([
   ),
   p(
     'Využíváme přesná čidla vlhkosti (senzory půdní vlhkosti), díky kterým systém pozná, kdy mají kořeny rostlin opravdu žízeň. InteliDome navíc dokáže logicky řídit spínače, takže přednostně odčerpává dešťovou vodu z vaší retenční nádrže dříve, než sáhnete po placené vodě z řadu. Spolu se závlahou pak snadno zautomatizujete i večerní zahradní osvětlení, takže získáte plnou kontrolu nad celou zahradou pohodlně z jednoho místa.',
+  ),
+
+  drawing(
+    'ridici-smycka',
+    '05',
+    'Uzavřená rozhodovací smyčka: čidlo vlhkosti změří stav půdy, hodnota se porovná s prahem, při nedostatku se přes most otevře ventil a voda se vrací zpět k čidlu; zdrojem je přednostně retenční nádrž, vodovodní řad až jako záloha.',
+    'Smyčka, kterou obyčejný časovač nemá. Rozhodnutí zalévat vzniká z měření půdy a vrací se zpátky k němu — a voda se bere nejdřív z nádrže.',
   ),
 
   /* Šablona 8.2 ř. N+1: jediný vnitřní obsidian článku. Tady se z výkladu

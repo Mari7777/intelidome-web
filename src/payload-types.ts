@@ -1658,9 +1658,17 @@ export interface ChapterBlock {
  */
 export interface FigureBlock {
   /**
+   * Vysvětlující SVG figura (DESIGN.md 9.2). Když je vybraná, obrázek se nepoužije — kresba nese výklad, fotografie nálada.
+   */
+  drawing?: ('' | 'korenova-zona' | 'kbelikovy-test' | 'hlava-na-hlavu' | 'ridici-smycka') | null;
+  /**
    * Fotografie nebo schéma. Alt text se bere z knihovny médií.
    */
-  image: number | Media;
+  image?: (number | null) | Media;
+  /**
+   * Povinný u technické kresby — co figura ukazuje (9.2 p. 8).
+   */
+  alt?: string | null;
   /**
    * Dvouciferně, průběžně v rámci článku (01, 02, 03 …). Blok nezná svou pozici, číslo se píše ručně. Prázdné = popisek bez štítku.
    */
