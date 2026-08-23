@@ -905,6 +905,7 @@ html {
   color: var(--id-ink);
 }
 .id-calc__head {
+  min-width: 0;
   display: flex;
   flex-wrap: wrap;
   align-items: baseline;
@@ -961,10 +962,16 @@ html {
   display: flex;
   align-items: center;
   gap: 12px;
+  min-width: 0;
+  flex-wrap: wrap;
 }
 .id-calc input[type='number'] {
   line-height: 1;
-  max-width: 220px;
+  /* Pevných 220 px přeteklo při 320px šířce (400% zoom) dokument
+     o 21 px — reflow dle WCAG 1.4.10. Šířka se teď smrskne s panelem. */
+  width: min(220px, 100%);
+  max-width: 100%;
+  min-width: 0;
   padding: 2px 0 8px;
   border: 0;
   border-bottom: 2px solid var(--id-line-dark);
@@ -1097,4 +1104,25 @@ html {
 [data-surface='dark'] {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+
+/* ── Vlna dostřiku (DESIGN.md 6.6.3 ripple, technika 6.6.1 var. 1) ────
+   Kružnice se zvětšuje kolem vlastního středu, takže `fill-box` míří
+   správně a SMIL tu není povinné (6.6.2 ho žádá jen u jiného pivotu).
+   Klidový stav drží markup — po vypnutí animace zůstane prstenec vidět. */
+.id-ripple {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: id-ripple 4.6s cubic-bezier(0.16, 0.6, 0.4, 1) infinite;
+}
+@keyframes id-ripple {
+  from {
+    transform: scale(0.32);
+    opacity: 0.75;
+  }
+  to {
+    transform: scale(1.12);
+    opacity: 0;
+  }
 }

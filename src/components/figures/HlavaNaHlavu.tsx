@@ -37,35 +37,25 @@ export const HlavaNaHlavu: React.FC = () => (
     {/* vlny od hlavice 1 */}
     <g>
       <g transform="translate(176 166)">
-        <circle cx="0" cy="0" r="88" fill="none" stroke="#3b82f6" strokeWidth="1.6" opacity="0.5">
-          <animateTransform attributeName="transform" type="scale" values="0.32;1.12" calcMode="spline" keySplines=".16 .6 .4 1" dur="4.6s" begin="0s" repeatCount="indefinite" />
-          <animate attributeName="opacity" values="0.75;0" calcMode="spline" keySplines=".16 .6 .4 1" dur="4.6s" begin="0s" repeatCount="indefinite" />
-        </circle>
+        <circle className="id-ripple" cx="0" cy="0" r="88" fill="none" stroke="#3b82f6" strokeWidth="1.6" opacity="0.34" style={{ animationDelay: '0.0s' }} />
       </g>
       <g transform="translate(176 166)">
-        <circle cx="0" cy="0" r="88" fill="none" stroke="#60a5fa" strokeWidth="1.6" opacity="0.34">
-        </circle>
+        <circle className="id-ripple" cx="0" cy="0" r="88" fill="none" stroke="#60a5fa" strokeWidth="1.6" opacity="0.34" style={{ animationDelay: '1.533s' }} />
       </g>
       <g transform="translate(176 166)">
-        <circle cx="0" cy="0" r="88" fill="none" stroke="#93c5fd" strokeWidth="1.6" opacity="0.2">
-        </circle>
+        <circle className="id-ripple" cx="0" cy="0" r="88" fill="none" stroke="#93c5fd" strokeWidth="1.6" opacity="0.34" style={{ animationDelay: '3.066s' }} />
       </g>
     </g>
     {/* vlny od hlavice 2 — fázově posunuté */}
     <g>
       <g transform="translate(376 166)">
-        <circle cx="0" cy="0" r="88" fill="none" stroke="#3b82f6" strokeWidth="1.6" opacity="0.5">
-          <animateTransform attributeName="transform" type="scale" values="0.32;1.12" calcMode="spline" keySplines=".16 .6 .4 1" dur="4.6s" begin="1.6s" repeatCount="indefinite" />
-          <animate attributeName="opacity" values="0.75;0" calcMode="spline" keySplines=".16 .6 .4 1" dur="4.6s" begin="1.6s" repeatCount="indefinite" />
-        </circle>
+        <circle className="id-ripple" cx="0" cy="0" r="88" fill="none" stroke="#3b82f6" strokeWidth="1.6" opacity="0.34" style={{ animationDelay: '1.6s' }} />
       </g>
       <g transform="translate(376 166)">
-        <circle cx="0" cy="0" r="88" fill="none" stroke="#60a5fa" strokeWidth="1.6" opacity="0.34">
-        </circle>
+        <circle className="id-ripple" cx="0" cy="0" r="88" fill="none" stroke="#60a5fa" strokeWidth="1.6" opacity="0.34" style={{ animationDelay: '1.933s' }} />
       </g>
       <g transform="translate(376 166)">
-        <circle cx="0" cy="0" r="88" fill="none" stroke="#93c5fd" strokeWidth="1.6" opacity="0.2">
-        </circle>
+        <circle className="id-ripple" cx="0" cy="0" r="88" fill="none" stroke="#93c5fd" strokeWidth="1.6" opacity="0.34" style={{ animationDelay: '3.466s' }} />
       </g>
     </g>
 
@@ -93,48 +83,35 @@ export const HlavaNaHlavu: React.FC = () => (
 
     <g>
       <g transform="translate(704 166)">
-        <circle cx="0" cy="0" r="88" fill="none" stroke="#3b82f6" strokeWidth="1.6" opacity="0.5">
-          <animateTransform attributeName="transform" type="scale" values="0.32;1.12" calcMode="spline" keySplines=".16 .6 .4 1" dur="4.6s" begin="0s" repeatCount="indefinite" />
-          <animate attributeName="opacity" values="0.75;0" calcMode="spline" keySplines=".16 .6 .4 1" dur="4.6s" begin="0s" repeatCount="indefinite" />
-        </circle>
+        <circle className="id-ripple" cx="0" cy="0" r="88" fill="none" stroke="#3b82f6" strokeWidth="1.6" opacity="0.34" style={{ animationDelay: '0.8s' }} />
       </g>
       <g transform="translate(704 166)">
-        <circle cx="0" cy="0" r="88" fill="none" stroke="#60a5fa" strokeWidth="1.6" opacity="0.34">
-        </circle>
+        <circle className="id-ripple" cx="0" cy="0" r="88" fill="none" stroke="#60a5fa" strokeWidth="1.6" opacity="0.34" style={{ animationDelay: '2.333s' }} />
       </g>
       <g transform="translate(704 166)">
-        <circle cx="0" cy="0" r="88" fill="none" stroke="#93c5fd" strokeWidth="1.6" opacity="0.2">
-        </circle>
+        <circle className="id-ripple" cx="0" cy="0" r="88" fill="none" stroke="#93c5fd" strokeWidth="1.6" opacity="0.34" style={{ animationDelay: '3.866s' }} />
       </g>
     </g>
     <g>
       <g transform="translate(804 166)">
-        <circle cx="0" cy="0" r="88" fill="none" stroke="#3b82f6" strokeWidth="1.6" opacity="0.5">
-          <animateTransform attributeName="transform" type="scale" values="0.32;1.12" calcMode="spline" keySplines=".16 .6 .4 1" dur="4.6s" begin="1.5s" repeatCount="indefinite" />
-          <animate attributeName="opacity" values="0.75;0" calcMode="spline" keySplines=".16 .6 .4 1" dur="4.6s" begin="1.5s" repeatCount="indefinite" />
-        </circle>
+        <circle className="id-ripple" cx="0" cy="0" r="88" fill="none" stroke="#3b82f6" strokeWidth="1.6" opacity="0.34" style={{ animationDelay: '1.5s' }} />
       </g>
       <g transform="translate(804 166)">
-        <circle cx="0" cy="0" r="88" fill="none" stroke="#60a5fa" strokeWidth="1.6" opacity="0.34">
-        </circle>
+        <circle className="id-ripple" cx="0" cy="0" r="88" fill="none" stroke="#60a5fa" strokeWidth="1.6" opacity="0.34" style={{ animationDelay: '2.733s' }} />
       </g>
       <g transform="translate(804 166)">
-        <circle cx="0" cy="0" r="88" fill="none" stroke="#93c5fd" strokeWidth="1.6" opacity="0.2">
-        </circle>
+        <circle className="id-ripple" cx="0" cy="0" r="88" fill="none" stroke="#93c5fd" strokeWidth="1.6" opacity="0.34" style={{ animationDelay: '4.266s' }} />
       </g>
     </g>
     <g>
       <g transform="translate(904 166)">
-        <circle cx="0" cy="0" r="88" fill="none" stroke="#3b82f6" strokeWidth="1.6" opacity="0.5">
-        </circle>
+        <circle className="id-ripple" cx="0" cy="0" r="88" fill="none" stroke="#3b82f6" strokeWidth="1.6" opacity="0.34" style={{ animationDelay: '1.6s' }} />
       </g>
       <g transform="translate(904 166)">
-        <circle cx="0" cy="0" r="88" fill="none" stroke="#60a5fa" strokeWidth="1.6" opacity="0.34">
-        </circle>
+        <circle className="id-ripple" cx="0" cy="0" r="88" fill="none" stroke="#60a5fa" strokeWidth="1.6" opacity="0.34" style={{ animationDelay: '3.133s' }} />
       </g>
       <g transform="translate(904 166)">
-        <circle cx="0" cy="0" r="88" fill="none" stroke="#93c5fd" strokeWidth="1.6" opacity="0.2">
-        </circle>
+        <circle className="id-ripple" cx="0" cy="0" r="88" fill="none" stroke="#93c5fd" strokeWidth="1.6" opacity="0.34" style={{ animationDelay: '4.666s' }} />
       </g>
     </g>
 

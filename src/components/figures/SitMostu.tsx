@@ -18,8 +18,8 @@ export const SitMostu: React.FC = () => (
 
     {/* aktivní spoj most → ventil */}
     <path d="M610 172.9 L757.7 124" fill="none" stroke="#2563eb" strokeWidth="2" strokeLinecap="round" />
-    <path d="M610 172.9 L757.7 124" fill="none" stroke="#93c5fd" strokeWidth="2.5" strokeLinecap="round" strokeDasharray="10 8" strokeDashoffset="28">
-      <animate attributeName="stroke-dashoffset" from="28" to="0" dur="1.1s" repeatCount="indefinite" />
+    <path d="M610 172.9 L757.7 124" fill="none" stroke="#93c5fd" strokeWidth="2.5" strokeLinecap="round" strokeDasharray="10 8" strokeDashoffset="18">
+      <animate attributeName="stroke-dashoffset" from="18" to="0" dur="1.1s" repeatCount="indefinite" />
     </path>
     <path d="M-8 -6 L0 0 L-8 6" fill="none" stroke="#2563eb" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" transform="translate(755 125.2) rotate(-18.3)" />
     <text className="sv-lbl sv-lbl--aktivni" x="700" y="180" textAnchor="middle">Právě teče voda</text>
