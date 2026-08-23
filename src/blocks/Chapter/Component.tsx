@@ -1,5 +1,6 @@
 import React from 'react'
 
+import { nezlomitelneMezery } from '@/utilities/czechTypography'
 import { cn } from '@/utilities/ui'
 import { slugify } from '@/utilities/slugify'
 
@@ -40,7 +41,7 @@ export const ChapterBlock: React.FC<Props> = ({ className, eyebrow, title }) => 
         className="scroll-mt-[96px] font-[family-name:var(--id-f-display)] text-[clamp(30px,4.2vw,52px)] leading-[1.05] font-semibold tracking-[-0.025em] text-[var(--id-ink)] [text-wrap:balance]"
         id={anchor}
       >
-        {title}
+        {nezlomitelneMezery(title)}
       </h2>
     </div>
   )

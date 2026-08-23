@@ -36,6 +36,7 @@ import { FigureBlock } from '@/blocks/Figure/Component'
 import { ProductBandBlock } from '@/blocks/ProductBand/Component'
 import { StatTilesBlock } from '@/blocks/StatTiles/Component'
 import { SummaryBandBlock } from '@/blocks/SummaryBand/Component'
+import { nezlomitelneMezeryVeStromu } from '@/utilities/czechTypography'
 import { cn } from '@/utilities/ui'
 
 type NodeTypes =
@@ -99,10 +100,16 @@ type Props = {
 } & React.HTMLAttributes<HTMLDivElement>
 
 export default function RichText(props: Props) {
-  const { className, enableProse = true, enableGutter = true, ...rest } = props
+  const { className, data, enableProse = true, enableGutter = true, ...rest } = props
+
+  // Česká sazba: jednopísmenné předložky nesmí viset na konci řádku.
+  // Děláme to nad daty, ne nad hotovým JSX — formátovací uzly zůstanou celé.
+  const sazba = nezlomitelneMezeryVeStromu(data)
+
   return (
     <ConvertRichText
       converters={jsxConverters}
+      data={sazba}
       className={cn(
         'payload-richtext',
         {

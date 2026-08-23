@@ -5,6 +5,7 @@ import type { Post } from '@/payload-types'
 
 import { Media } from '@/components/Media'
 import { formatAuthors } from '@/utilities/formatAuthors'
+import { nezlomitelneMezery } from '@/utilities/czechTypography'
 import { readingTime } from '@/utilities/readingTime'
 
 /**
@@ -75,7 +76,7 @@ export const PostHero: React.FC<{ post: Post }> = ({ post }) => {
           ))}
         </h1>
 
-        {lead && <p className="id-hero__lead id-hero__fade">{lead}</p>}
+        {lead && <p className="id-hero__lead id-hero__fade">{nezlomitelneMezery(lead)}</p>}
 
         <p className="id-hero__fade id-hero__meta">
           {metaItems.map((item, index) => (

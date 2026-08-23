@@ -1,6 +1,7 @@
 import React from 'react'
 
 import { StatTilesBlock } from '@/blocks/StatTiles/Component'
+import { nezlomitelneMezery } from '@/utilities/czechTypography'
 import { cn } from '@/utilities/ui'
 
 export type SummaryBandBlockProps = {
@@ -40,7 +41,7 @@ function renderAccent(source: string): React.ReactNode[] {
     part.startsWith('*') && part.endsWith('*') && part.length > 2 ? (
       <em key={index}>{part.slice(1, -1)}</em>
     ) : (
-      <React.Fragment key={index}>{part}</React.Fragment>
+      <React.Fragment key={index}>{nezlomitelneMezery(part)}</React.Fragment>
     ),
   )
 }

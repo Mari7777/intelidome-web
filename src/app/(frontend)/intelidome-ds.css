@@ -872,6 +872,10 @@ html {
    jediné akcentové číslo je hero výsledek. `--light` na krému pro druhý
    kalkulátor — dva obsidianové panely za sebou jsou zakázané. */
 .id-calc {
+  /* Panel dědí prose lh 1.65; display role mají podle 4.2 strop 1.25,
+     a hero číslo dokonce 1.0. Bez tohohle základu sedí jednotka „litrů"
+     o 9 px nad účařím čísla vedle ní. */
+  line-height: 1.2;
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: clamp(28px, 4vw, 64px);
@@ -887,7 +891,11 @@ html {
   }
 }
 .id-calc--light {
-  background: var(--id-cream);
+  /* Uvnitř krémového pásu panel nemá vlastní okraje ani druhý krém —
+     nese ho pás. Barvu drží kvůli mapování `--light` ze 7.7. */
+  margin: 0;
+  padding: 0;
+  background: transparent;
   color: var(--id-ink);
 }
 .id-calc__head {
@@ -949,6 +957,7 @@ html {
   gap: 12px;
 }
 .id-calc input[type='number'] {
+  line-height: 1;
   max-width: 220px;
   padding: 2px 0 8px;
   border: 0;
@@ -972,6 +981,7 @@ html {
   border-bottom-color: var(--id-accent);
 }
 .id-calc .unit {
+  line-height: 1.05;
   font-family: var(--id-f-display);
   font-size: 18px;
   font-weight: 600;
@@ -998,6 +1008,7 @@ html {
   }
 }
 .id-calc__ol {
+  line-height: 1.5;
   font-size: 14px;
   color: var(--id-ink-dark-2);
 }
@@ -1005,6 +1016,7 @@ html {
   color: var(--id-ink-2);
 }
 .id-calc__ov {
+  line-height: 1;
   font-family: var(--id-f-display);
   font-size: clamp(20px, 2.2vw, 28px);
   font-weight: 600;

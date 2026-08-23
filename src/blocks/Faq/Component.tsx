@@ -3,6 +3,7 @@ import type { DefaultTypedEditorState } from '@payloadcms/richtext-lexical'
 import React from 'react'
 
 import RichText from '@/components/RichText'
+import { nezlomitelneMezery } from '@/utilities/czechTypography'
 import { cn } from '@/utilities/ui'
 
 // Local props — the generated `FaqBlock` type does not exist until `generate:types` runs.
@@ -109,7 +110,7 @@ export const FaqBlock: React.FC<FaqBlockProps> = ({ className, heading, id, item
       </span>
 
       <h2
-        className="m-0 font-[family-name:var(--id-f-display)] text-[length:var(--id-t-title-sm)] font-semibold leading-[1.12] tracking-[-0.02em] text-balance text-[var(--id-ink)]"
+        className="m-0 font-[family-name:var(--id-f-display)] text-[length:var(--id-t-title)] font-semibold leading-[1.05] tracking-[-0.025em] text-balance text-[var(--id-ink)]"
         id={headingId}
       >
         {headingText}
@@ -118,8 +119,8 @@ export const FaqBlock: React.FC<FaqBlockProps> = ({ className, heading, id, item
       <div className="mt-6 border-b border-[var(--id-line-soft)]">
         {entries.map((item, index) => (
           <details className="group" key={item.id ?? `${index}`}>
-            <summary className="flex cursor-pointer list-none items-start justify-between gap-6 border-t border-[var(--id-line-soft)] py-[18px] font-[family-name:var(--id-f-display)] text-[17px] font-semibold leading-[1.4] tracking-[-0.01em] text-[var(--id-ink)] transition-colors duration-[250ms] hover:text-[var(--id-accent)] focus-visible:outline-[3px] focus-visible:outline-offset-[3px] focus-visible:outline-[color:var(--id-accent)] [&::-webkit-details-marker]:hidden">
-              <span className="text-balance">{item.question}</span>
+            <summary className="flex cursor-pointer list-none items-start justify-between gap-6 border-t border-[var(--id-line-soft)] py-[20px] font-[family-name:var(--id-f-display)] text-[length:var(--id-t-subtitle)] font-medium leading-[1.25] tracking-[-0.01em] text-[var(--id-ink)] transition-colors duration-[250ms] hover:text-[var(--id-accent)] focus-visible:outline-[3px] focus-visible:outline-offset-[3px] focus-visible:outline-[color:var(--id-accent)] [&::-webkit-details-marker]:hidden">
+              <span className="text-balance">{nezlomitelneMezery(item.question)}</span>
               <span
                 aria-hidden="true"
                 className="relative mt-[5px] h-[13px] w-[13px] shrink-0"

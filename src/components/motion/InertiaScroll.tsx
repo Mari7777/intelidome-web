@@ -72,7 +72,31 @@ export const InertiaScroll = ({ enabled = false }: { enabled?: boolean }) => {
       target = Math.min(target, max())
     }
 
+    /*
+      Programový scroll (šipka v heru, kotvy) musí jet týmž dojezdem —
+      jinak je jediná nabízená akce hero obrazovky zároveň jediné místo,
+      kde se pohyb vypne a stránka skočí (DESIGN.md 6.5, poslední odstavec).
+    */
+    const onAnchorClick = (event: MouseEvent) => {
+      if (event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey) return
+      const link = (event.target as Element | null)?.closest?.('a[href^="#"]')
+      if (!(link instanceof HTMLAnchorElement)) return
+      const id = decodeURIComponent(link.hash.slice(1))
+      const cil = id ? document.getElementById(id) : null
+      if (!cil) return
+
+      event.preventDefault()
+      const odsazeni = parseFloat(getComputedStyle(cil).scrollMarginTop) || 0
+      target = Math.min(
+        Math.max(cil.getBoundingClientRect().top + window.scrollY - odsazeni, 0),
+        max(),
+      )
+      history.replaceState(null, '', link.hash)
+      start()
+    }
+
     window.addEventListener('wheel', onWheel, { passive: false })
+    document.addEventListener('click', onAnchorClick)
     window.addEventListener('scroll', onScroll, { passive: true })
     window.addEventListener('resize', onResize)
 
@@ -87,6 +111,7 @@ export const InertiaScroll = ({ enabled = false }: { enabled?: boolean }) => {
       root.style.scrollBehavior = puvodni
       root.removeAttribute('data-inertia')
       window.removeEventListener('wheel', onWheel)
+      document.removeEventListener('click', onAnchorClick)
       window.removeEventListener('scroll', onScroll)
       window.removeEventListener('resize', onResize)
       if (raf) cancelAnimationFrame(raf)

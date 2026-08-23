@@ -2,6 +2,7 @@ import React from 'react'
 
 import type { Props as MediaProps } from '@/components/Media/types'
 
+import { nezlomitelneMezery } from '@/utilities/czechTypography'
 import { cn } from '@/utilities/ui'
 import { Media } from '@/components/Media'
 import { DRAWINGS, type Drawing, type DrawingKey } from '@/components/figures/registry'
@@ -94,7 +95,7 @@ export const FigureBlock: React.FC<Props> = ({
             {label}
           </b>
         )}
-        <span className="[text-wrap:pretty]">{caption}</span>
+        <span className="[text-wrap:pretty]">{nezlomitelneMezery(caption)}</span>
       </figcaption>
     </figure>
   )

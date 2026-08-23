@@ -2,6 +2,7 @@ import Link from 'next/link'
 import React from 'react'
 
 import { Logo } from '@/components/Logo/Logo'
+import { nezlomitelneMezery } from '@/utilities/czechTypography'
 import { cn } from '@/utilities/ui'
 
 export type CtaBandBlockProps = {
@@ -35,8 +36,8 @@ export const CtaBandBlock: React.FC<CtaBandBlockProps> = ({
     <div className="rv id-band__inner id-band__inner--summary">
       <Logo className="id-cta__logo" decorative height="clamp(30px, 4.6vw, 50px)" />
 
-      <h2 className="id-cta__title">{title}</h2>
-      <p className="id-cta__sub">{sub}</p>
+      <h2 className="id-cta__title">{nezlomitelneMezery(title)}</h2>
+      <p className="id-cta__sub">{nezlomitelneMezery(sub)}</p>
 
       <p className="mt-[30px]">
         <Link className="id-btn id-btn--primary" href={buttonHref}>
@@ -53,7 +54,7 @@ export const CtaBandBlock: React.FC<CtaBandBlockProps> = ({
         </Link>
       </p>
 
-      {ask ? <p className="id-cta__ask">{ask}</p> : null}
+      {ask ? <p className="id-cta__ask">{nezlomitelneMezery(ask)}</p> : null}
     </div>
   </section>
 )

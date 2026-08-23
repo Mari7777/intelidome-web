@@ -378,3 +378,75 @@ místo **řad**. Všechno opraveno.
    kvůli sjednocení žánru se čtyřmi měřicími figurami. Diagram topologie
    nemá co měřit a vymyšlené hodnoty by byly přesně ta ozdobná statistika,
    kterou tahle smyčka jinde trestá. Nesourodost žánru je menší zlo.
+
+## Kolo 04 — jeden balík: pohyb
+
+**Skóre kola 03: 3 · 3 · 2 · 3 · 3 · 3 — 4 potvrzené kritické nálezy.**
+Dva byly pohyb: pod herem se neodhalovalo nic a všech 43 SMIL smyček
+běželo lineárně, takže se všechno hýbalo stejně.
+
+**Co se změnilo (commit `752963b`, kalkulátory `fb069d8`):**
+
+- **GSAP + ScrollTrigger dle 6.3.0** — závazný stack systému, ne vlastní
+  vymyšlenost. Jedno místo registrace, šest křivek z tabulky 6.2, recepty
+  výhradně v `mm.add('(prefers-reduced-motion: no-preference)')`.
+- **Nástup sekcí 6.3.1/6.3.2**: 18 prvků `.rv`, karty produktového pásu
+  se staggerem 80 ms. Hero zůstává na CSS keyframes (LCP guard 6.3.3).
+- **Anti-FOUC brána `html.js` + pojistka** — kdyby klientský balík
+  nedoběhl, brána se po 3 s sama otevře a obsah zůstane viditelný.
+- **Setrvačníkové brzdění scrollu dle 6.5** — přesně to, co si uživatel
+  přál. Běží nad **oknem**, ne nad vlastním kontejnerem, takže
+  ScrollTrigger nepotřebuje `scrollerProxy` a `position: fixed` kapsle
+  se nerozbije.
+- **Křivky na SMIL** z tabulky 6.2; `march` a stopky zůstávají `linear`,
+  jak 6.6.3 předepisuje. Plnění kbelíku a vlna smyčky přepsány
+  z geometrických vlastností (`y`/`height`/`r`) na `transform`.
+- **Dva kalkulátory** dle 7.7 — požadavek zadání, který žádné kolo poroty
+  nepokrývalo. Počítají při psaní, verdikt má `aria-live="polite"`.
+
+## Kolo 05 — jeden balík: co bylo rozbité
+
+**Skóre kola 04: 3 · 3 · 3 · 3 · 4 · 3 — 5 kritických.** Slop poprvé na 4.
+Tři nálezy nebyly „nedotažené", ale **rozbité** — a jeden z nich jsem si
+rozbil sám v kole 04.
+
+### Zpětný krok, který porota chytila
+
+**Nástup sekcí stavěl na GSAP `autoAlpha`, což nasazuje
+`visibility: hidden`.** Dvacet bloků tím vypadlo z tab pořadí, ze stromu
+přístupnosti i z hledání na stránce — klávesnice přeskočila celý článek
+včetně všech šesti otázek FAQ, pěti vstupů kalkulátoru i jediného CTA.
+
+Nepříjemná část: **`DESIGN.md` 6.3.1 `autoAlpha` jmenovitě předepisuje.**
+Šel jsem podle receptu systému a vyrobil přístupnostní vadu. Stránka teď
+skrývá výhradně `opacity` + `.rv:focus-within`; **oprava receptu patří do
+koše B**, protože záplatovat jednu stránku a nechat systém učit tutéž
+vadu dál znamená vyrobit ji znovu na další stránce.
+
+### Další dvě rozbité věci
+
+- **Kotva `#obsah` v dokumentu vůbec neexistovala.**
+  `document.getElementById('obsah')` vracelo `null`: Payloadův
+  `ConvertRichText` props nepropouští, takže `id` předané z kola 02 se
+  tiše zahodilo. Jediná akce 100svh hera mířila do prázdna.
+- **Setrvačník byl mrtvý kód.** Aktivaci četl z atributu, který nastavoval
+  jiný efekt — a React spouští efekty potomků dřív než rodičovské, takže
+  modul kontroloval atribut, který ještě neexistoval. Aktivace jde teď
+  propem a modul si sám vypíná nativní `scroll-behavior: smooth`, aby se
+  s ním nepral o týž pohyb. Naměřeno: kolečko odchycené, 500 px delty
+  nese 569 px dojezdu.
+
+### Rozpočet uzlů a mobil
+
+| Figura | SMIL uzlů před | po |
+|---|---|---|
+| Kořenová zóna | 12 | **8** |
+| Hlava na hlavu | 30 | **8** |
+
+Zklidněné vlny zůstávají nakreslené staticky, takže z výkladu nezmizelo
+nic — jen třpyt.
+
+**Svislé mobilní varianty** dvou porovnávacích figur (viewBox 520, panely
+pod sebou). Vedlejší zisk: ve svislé sazbě mají oba panely stejné krajní
+hlavice, takže je vidět, že dole **přibyla jedna uprostřed** a suchý pruh
+zmizel — čte se to líp než širokoúhlá varianta.

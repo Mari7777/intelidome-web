@@ -1,6 +1,7 @@
 import React from 'react'
 
 import { SitMostu } from '@/components/figures/SitMostu'
+import { nezlomitelneMezery } from '@/utilities/czechTypography'
 import { cn } from '@/utilities/ui'
 
 export type ProductBandBlockProps = {
@@ -44,7 +45,7 @@ export const ProductBandBlock: React.FC<ProductBandBlockProps> = ({
           ) : null}
 
           <h2 className="font-[family-name:var(--id-f-display)] text-[length:var(--id-t-title)] leading-[1.05] font-semibold tracking-[-0.025em] text-[var(--id-ink-dark)] [text-wrap:balance]">
-            {title}
+            {nezlomitelneMezery(title)}
           </h2>
 
           <div className="mt-[22px] max-w-[var(--id-maxw-prose)] space-y-[18px]">
@@ -81,7 +82,7 @@ export const ProductBandBlock: React.FC<ProductBandBlockProps> = ({
             {items.map((feature) => (
               <div className="rv id-feature" key={feature.id ?? feature.title}>
                 <h3 className="id-feature__title">{feature.title}</h3>
-                <p className="id-feature__text">{feature.text}</p>
+                <p className="id-feature__text">{nezlomitelneMezery(feature.text)}</p>
               </div>
             ))}
           </div>
@@ -97,7 +98,7 @@ function renderStrong(source: string): React.ReactNode[] {
     part.startsWith('**') && part.endsWith('**') && part.length > 4 ? (
       <strong key={index}>{part.slice(2, -2)}</strong>
     ) : (
-      <React.Fragment key={index}>{part}</React.Fragment>
+      <React.Fragment key={index}>{nezlomitelneMezery(part)}</React.Fragment>
     ),
   )
 }
