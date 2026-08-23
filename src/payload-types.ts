@@ -1741,6 +1741,20 @@ export interface BannerBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "CalculatorBlock".
+ */
+export interface CalculatorBlock {
+  kind: 'prutok' | 'davka';
+  /**
+   * Druhý kalkulátor v článku musí být světlý — dva obsidianové panely za sebou jsou zakázané (7.7).
+   */
+  light?: boolean | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'calculator';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "ProductBandBlock".
  */
 export interface ProductBandBlock {

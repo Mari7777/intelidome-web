@@ -860,3 +860,210 @@ html {
 [data-surface='dark'] :where(a, button, summary, [tabindex]):focus-visible {
   outline-color: var(--id-accent-tint);
 }
+
+/* ══ Kalkulátorový panel (DESIGN.md 7.7) ═════════════════════════════
+   „Tmavý přístroj" na světlé stránce: vlevo vstupy, vpravo výstupy,
+   jediné akcentové číslo je hero výsledek. `--light` na krému pro druhý
+   kalkulátor — dva obsidianové panely za sebou jsou zakázané. */
+.id-calc {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(28px, 4vw, 64px);
+  margin: 56px 0 8px;
+  padding: clamp(28px, 4vw, 52px);
+  border-radius: var(--id-r-card);
+  background: var(--id-obsidian);
+  color: var(--id-ink-dark);
+}
+@media (max-width: 820px) {
+  .id-calc {
+    grid-template-columns: 1fr;
+  }
+}
+.id-calc--light {
+  background: var(--id-cream);
+  color: var(--id-ink);
+}
+.id-calc__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 20px;
+  grid-column: 1 / -1;
+  padding-bottom: 22px;
+  border-bottom: 1px solid var(--id-line-dark);
+}
+.id-calc--light .id-calc__head {
+  border-bottom-color: var(--id-line-cream, var(--id-line-soft));
+}
+.id-calc__head h3 {
+  margin: 0;
+  font-family: var(--id-f-display);
+  font-size: clamp(20px, 2.4vw, 28px);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+}
+.id-chip--outline-accent {
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 14px;
+  border: 1.5px solid var(--id-accent);
+  border-radius: var(--id-r-pill);
+  font-family: var(--id-f-display);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--id-accent-tint);
+}
+.id-calc--light .id-chip--outline-accent {
+  color: var(--id-accent);
+}
+.id-calc__field {
+  margin-bottom: 26px;
+}
+.id-calc__field label {
+  display: block;
+  margin-bottom: 10px;
+  font-family: var(--id-f-display);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--id-ink-dark-2);
+}
+.id-calc--light .id-calc__field label {
+  color: var(--id-ink-2);
+}
+.id-calc__inrow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.id-calc input[type='number'] {
+  max-width: 220px;
+  padding: 2px 0 8px;
+  border: 0;
+  border-bottom: 2px solid var(--id-line-dark);
+  border-radius: 0;
+  background: transparent;
+  color: inherit;
+  font-family: var(--id-f-display);
+  font-size: clamp(30px, 3.4vw, 44px);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums;
+}
+.id-calc--light input[type='number'] {
+  border-bottom-color: var(--id-line-cream-strong, #d5d3cc);
+}
+/* Podtržení JE fokusový indikátor — proto tady výjimka z globálního prstence. */
+.id-calc input[type='number']:focus,
+.id-calc input[type='number']:focus-visible {
+  outline: none;
+  border-bottom-color: var(--id-accent);
+}
+.id-calc .unit {
+  font-family: var(--id-f-display);
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--id-ink-dark-2);
+}
+.id-calc--light .unit {
+  color: var(--id-ink-2);
+}
+.id-calc__orow {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 16px 0;
+  border-bottom: 1px solid var(--id-line-dark);
+}
+.id-calc--light .id-calc__orow {
+  border-bottom-color: var(--id-line-soft);
+}
+@media (max-width: 640px) {
+  .id-calc__orow {
+    flex-direction: column;
+    gap: 4px;
+  }
+}
+.id-calc__ol {
+  font-size: 14px;
+  color: var(--id-ink-dark-2);
+}
+.id-calc--light .id-calc__ol {
+  color: var(--id-ink-2);
+}
+.id-calc__ov {
+  font-family: var(--id-f-display);
+  font-size: clamp(20px, 2.2vw, 28px);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+.id-calc__orow--hero .id-calc__ov {
+  font-size: clamp(30px, 3.4vw, 46px);
+  color: var(--id-accent-dark, #60a5fa);
+}
+.id-calc--light .id-calc__orow--hero .id-calc__ov {
+  color: var(--id-accent);
+}
+
+/* ── Verdikt (DESIGN.md 7.8) ─────────────────────────────────────── */
+.id-verdict {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  margin-top: 24px;
+  padding: 16px 20px;
+  border-radius: var(--id-r-md);
+  font-size: 14.5px;
+  font-weight: 500;
+  line-height: 1.5;
+  transition:
+    background 0.3s,
+    color 0.3s;
+}
+.id-verdict .ic {
+  display: flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  margin-top: 1px;
+  border-radius: 50%;
+}
+.id-verdict--ok {
+  background: rgba(16, 185, 129, 0.14);
+  color: var(--id-green-tint, #6ee7b7);
+}
+.id-verdict--ok .ic {
+  background: var(--id-emerald, #10b981);
+}
+.id-verdict--warn {
+  background: rgba(183, 106, 0, 0.16);
+  color: var(--id-warn-tint, #f2b96b);
+}
+.id-verdict--warn .ic {
+  background: var(--id-warn, #b76a00);
+}
+.id-calc--light .id-verdict--ok {
+  background: rgba(16, 185, 129, 0.1);
+  color: var(--id-green, #047857);
+}
+/* Warn 4,14:1 je pod AA — barvu proto nese ikona a podklad, text zůstává ink. */
+.id-calc--light .id-verdict--warn {
+  background: rgba(183, 106, 0, 0.1);
+  color: var(--id-ink);
+}
+@media (prefers-reduced-motion: reduce) {
+  .id-verdict {
+    transition: none;
+  }
+}

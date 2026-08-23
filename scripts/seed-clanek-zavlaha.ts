@@ -59,6 +59,10 @@ const root = (children: Node[]) => ({
 /** Krátký richText do pole uvnitř bloku (Banner, FAQ odpověď). */
 const mini = (...paragraphs: string[]) => root(paragraphs.map((t) => p(t)))
 
+/** Kalkulátor (8.2: max 2 na článek; druhý musí být světlý — 7.7). */
+const calc = (kind: string, light = false): Node =>
+  block({ blockType: 'calculator', blockName: `Kalkulátor ${kind}`, kind, light })
+
 /** Technická kresba (DESIGN.md 9.2) — obraz je kód, v obsahu jen klíč. */
 const drawing = (key: string, number: string, alt: string, caption: string): Node =>
   block({
@@ -150,6 +154,8 @@ const body = root([
     'Kbelíkový test krok za krokem. Tlak se odečítá až ve chvíli, kdy voda proudí — a od výsledného průtoku se vždy odečte 20 % rezervy.',
   ),
 
+  calc('prutok'),
+
   block({
     blockType: 'banner',
     blockName: 'Pro zvídavé',
@@ -203,6 +209,8 @@ const body = root([
   p(
     'Využíváme přesná čidla vlhkosti (senzory půdní vlhkosti), díky kterým systém pozná, kdy mají kořeny rostlin opravdu žízeň. InteliDome navíc dokáže logicky řídit spínače, takže přednostně odčerpává dešťovou vodu z vaší retenční nádrže dříve, než sáhnete po placené vodě z řadu. Spolu se závlahou pak snadno zautomatizujete i večerní zahradní osvětlení, takže získáte plnou kontrolu nad celou zahradou pohodlně z jednoho místa.',
   ),
+
+  calc('davka', true),
 
   drawing(
     'ridici-smycka',

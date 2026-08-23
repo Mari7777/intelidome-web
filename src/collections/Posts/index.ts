@@ -16,6 +16,7 @@ import { Chapter } from '../../blocks/Chapter/config'
 import { SummaryBand } from '../../blocks/SummaryBand/config'
 import { ProductBand } from '../../blocks/ProductBand/config'
 import { CtaBand } from '../../blocks/CtaBand/config'
+import { Calculator } from '../../blocks/Calculator/config'
 import { Code } from '../../blocks/Code/config'
 import { Faq } from '../../blocks/Faq/config'
 import { Figure } from '../../blocks/Figure/config'
@@ -110,6 +111,7 @@ export const Posts: CollectionConfig<'posts'> = {
                         Figure,
                         StatTiles,
                         Banner,
+                        Calculator,
                         ProductBand,
                         CtaBand,
                         Faq,

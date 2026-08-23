@@ -17,6 +17,7 @@ import type {
   BannerBlock as BannerBlockProps,
   CallToActionBlock as CTABlockProps,
   ChapterBlock as ChapterBlockProps,
+  CalculatorBlock as CalculatorBlockProps,
   CtaBandBlock as CtaBandBlockProps,
   FaqBlock as FaqBlockProps,
   FigureBlock as FigureBlockProps,
@@ -28,6 +29,7 @@ import type {
 import { BannerBlock } from '@/blocks/Banner/Component'
 import { CallToActionBlock } from '@/blocks/CallToAction/Component'
 import { ChapterBlock } from '@/blocks/Chapter/Component'
+import { CalculatorBlock } from '@/blocks/Calculator/Component'
 import { CtaBandBlock } from '@/blocks/CtaBand/Component'
 import { FaqBlock } from '@/blocks/Faq/Component'
 import { FigureBlock } from '@/blocks/Figure/Component'
@@ -48,6 +50,7 @@ type NodeTypes =
       | StatTilesBlockProps
       | SummaryBandBlockProps
       | ProductBandBlockProps
+      | CalculatorBlockProps
       | CtaBandBlockProps
       | FaqBlockProps
     >
@@ -72,6 +75,7 @@ const jsxConverters: JSXConvertersFunction<NodeTypes> = ({ defaultConverters }) 
     summaryBand: ({ node }) => <SummaryBandBlock {...node.fields} />,
     productBand: ({ node }) => <ProductBandBlock {...node.fields} />,
     ctaBand: ({ node }) => <CtaBandBlock {...node.fields} />,
+    calculator: ({ node }) => <CalculatorBlock className="rv id-wide" {...node.fields} />,
     faq: ({ node }) => <FaqBlock {...node.fields} />,
     mediaBlock: ({ node }) => (
       <MediaBlock
