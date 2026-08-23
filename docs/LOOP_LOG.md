@@ -323,3 +323,58 @@ metriku prázdným paddingem by bylo podvádění). Levé okraje: **dvě osy**
 
 **Vědomě neopraveno v tomhle kole** (patří do dalších balíků): SVG figury
 a obraz v kapitolách, pohyb pod herem, kalkulátory, kapsle překrývající text.
+
+## Kolo 03 — jeden balík: obraz
+
+**Skóre kola 02: 3 · 3 · 2 · 2 · 3 · 3 — 10 potvrzených kritických nálezů.**
+Osm z deseti mluvilo o jedné věci: článek neměl **ani jednu vysvětlující
+figuru**. Obraz nesly tři fotografie na jedenáct obrazovek textu.
+
+Nejtvrdší nález byl přitom faktický, ne estetický: popiska Obr. 01 tvrdila
+„manometr ustálený na 3,5 baru", zatímco na fotografii byl ciferník 0–30
+s ručičkou u nuly. **Vymyšlené číslo nalepené na stock fotku** — a pozná to
+první čtenář, který kdy držel manometr.
+
+**Co se změnilo (commit `e13e203`):**
+
+- **Blok `Figure` umí variantu `drawing`.** Technická kresba je **kód**
+  (registr komponent), ne obsah v databázi — v CMS se vybírá jen klíč,
+  takže se nikde nevolá `dangerouslySetInnerHTML`.
+- **Pět SVG figur** podle závazné palety 9.2. Každou kreslil jiný autor
+  se stejnou kotvou stylu, pak je srovnala kontrola „jedné ruky" (4/5):
+  `korenova-zona`, `kbelikovy-test`, `hlava-na-hlavu`, `ridici-smycka`,
+  `sit-mostu` (tmavá, do produktového pásu).
+- **Každá kapitola má svou figuru** (9.2 p. 8). Lhoucí fotka je nahrazená
+  kresbou, kde je **3,5 baru nakreslené na ciferníku**, ne tvrzené v popisce.
+- **`SmilGuard`** — při `prefers-reduced-motion` se SMIL uzly odstraní
+  z dokumentu. CSS na ně nedosáhne: `animation: none` platí na keyframes,
+  `<animateTransform>` běží mimo kaskádu. Klidový stav každé figury je
+  proto zapsaný přímo v markupu.
+- **Kapsle konečně rozostřuje.** Naměřeno `backdropFilter: "none"` proti
+  CSS, které předepisovalo `blur(18px)`: build sloučil prefixovanou
+  dvojici a nechal jen `-webkit-`, kterou Chrome nezná.
+- **`sizes` byl syntakticky neplatný** — deskriptor `w` tam, kde patří
+  délka. Prohlížeč atribut zahazoval a stahoval 1920px varianty do 880px
+  slotu; na mobilu byl hero bitmapa 393×166 roztažená 5,13×.
+
+### Co si kontrola „jedné ruky" našla sama na sobě
+
+Pět autorů, pět stylů — a kontrola je chytila měřením, ne dojmem:
+`KbelikovyTest` používal **12 různých tlouštěk tahu** (až 11 px) proti
+dvěma v `KorenovaZona`; `SitMostu` měl **#aab1b8**, barvu, která
+v žádné tabulce DESIGN.md není; `RidiciSmycka` psala **„vodovodní řád"**
+místo **řad**. Všechno opraveno.
+
+### Vědomé odchylky (raději zapsat než zamlčet)
+
+1. **Produktový pás má diagram přes celou šířku**, ne v `minmax(0,420px)`
+   sloupci dle 8.2. Důvod: viewBox 1080 px vecpaný do 420px sloupce by
+   měl popisky pod 5 px. Šablona tu předpokládá dvě užší SVG; my máme
+   jedno široké.
+2. **Figury na mobilu se posouvají do stran** (spodní mez 560 px) místo
+   aby se zmenšily. Na 393px telefonu by 1080px viewBox srazil popisky
+   12 px na necelých 5. Posuvná oblast má `tabIndex` a fokusový prstenec.
+3. **Do `SitMostu` jsem nedoplnil čísla**, ačkoli kontrola to navrhovala
+   kvůli sjednocení žánru se čtyřmi měřicími figurami. Diagram topologie
+   nemá co měřit a vymyšlené hodnoty by byly přesně ta ozdobná statistika,
+   kterou tahle smyčka jinde trestá. Nesourodost žánru je menší zlo.

@@ -101,7 +101,9 @@ export const KbelikovyTest: React.FC = () => (
             type="rotate"
             values="-157.5 200 121; 7 200 121; -3 200 121; 0 200 121"
             keyTimes="0; 0.6; 0.8; 1"
-            dur="6s"
+            calcMode="spline"
+          keySplines=".22 .61 .21 1; .22 .61 .21 1; .22 .61 .21 1"
+          dur="6s"
             repeatCount="indefinite"
           />
         </g>
@@ -148,6 +150,8 @@ export const KbelikovyTest: React.FC = () => (
           attributeName="transform"
           type="translate"
           values="0 0; 0 34"
+          calcMode="spline"
+          keySplines="0.4 0 1 1"
           dur="2.9s"
           repeatCount="indefinite"
         />
@@ -158,6 +162,8 @@ export const KbelikovyTest: React.FC = () => (
           attributeName="transform"
           type="translate"
           values="0 0; 0 34"
+          calcMode="spline"
+          keySplines="0.4 0 1 1"
           dur="2.9s"
           begin="-1.45s"
           repeatCount="indefinite"
@@ -174,18 +180,18 @@ export const KbelikovyTest: React.FC = () => (
       strokeLinejoin="round"
     />
     <g clipPath="url(#kt-kbelik-clip)">
-      <rect x="384" y="226" width="176" height="124" fill="url(#kt-voda)" stroke="#60a5fa" strokeWidth="2">
-        <animate
-          attributeName="y"
-          values="350; 226; 226"
+      {/* fillup dle 6.6.3: scaleY s počátkem u dna, ne animace y/height —
+          geometrické vlastnosti nutí prohlížeč přepočítávat layout SVG.
+          Klidový stav je plný kbelík, animace ho jen naplní znovu. */}
+      <rect x="384" y="226" width="176" height="124" fill="url(#kt-voda)" stroke="#60a5fa" strokeWidth="2" style={{ transformBox: 'fill-box', transformOrigin: 'bottom' }}>
+        <animateTransform
+          attributeName="transform"
+          type="scale"
+          additive="sum"
+          values="1 0.06; 1 0.94; 1 0.94"
           keyTimes="0; 0.8; 1"
-          dur="5s"
-          repeatCount="indefinite"
-        />
-        <animate
-          attributeName="height"
-          values="0; 124; 124"
-          keyTimes="0; 0.8; 1"
+          calcMode="spline"
+          keySplines=".3 .1 .4 1; 0 0 1 1"
           dur="5s"
           repeatCount="indefinite"
         />
@@ -268,7 +274,9 @@ export const KbelikovyTest: React.FC = () => (
             type="rotate"
             values="-144 676 150; 0 676 150; 0 676 150"
             keyTimes="0; 0.78; 1"
-            dur="6s"
+            calcMode="spline"
+          keySplines=".22 .61 .21 1; .22 .61 .21 1"
+          dur="6s"
             repeatCount="indefinite"
           />
         </g>

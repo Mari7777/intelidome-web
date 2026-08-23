@@ -27,8 +27,8 @@ export const SummaryBandBlock: React.FC<SummaryBandBlockProps> = ({ className, l
   return (
     <section className={cn('not-prose id-band id-band--cream id-band--sm', className)}>
       <div className="id-band__inner id-band__inner--summary">
-        <p className="id-summary-lead">{renderAccent(lead)}</p>
-        {items.length > 0 && <StatTilesBlock className="mt-[clamp(34px,5vw,54px)] mb-0" tiles={items} />}
+        <p className="rv id-summary-lead">{renderAccent(lead)}</p>
+        {items.length > 0 && <StatTilesBlock className="rv mt-[clamp(34px,5vw,54px)] mb-0" tiles={items} />}
       </div>
     </section>
   )

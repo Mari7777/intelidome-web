@@ -25,7 +25,31 @@ export const SmilGuard = () => {
 
     strip()
     query.addEventListener('change', strip)
-    return () => query.removeEventListener('change', strip)
+
+    /*
+      Smyčky, které nikdo nevidí, nemají důvod běžet. Každá figura se
+      pauzuje, jakmile opustí viewport — jinak by 40+ SMIL uzlů točilo
+      po celou dobu čtení devítitisícové stránky.
+    */
+    const svgs = Array.from(document.querySelectorAll<SVGSVGElement>('.id-figure-svg svg'))
+    svgs.forEach((svg) => svg.pauseAnimations())
+
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          const svg = entry.target as SVGSVGElement
+          if (entry.isIntersecting) svg.unpauseAnimations()
+          else svg.pauseAnimations()
+        })
+      },
+      { rootMargin: '10% 0px' },
+    )
+    svgs.forEach((svg) => io.observe(svg))
+
+    return () => {
+      query.removeEventListener('change', strip)
+      io.disconnect()
+    }
   }, [])
 
   return null

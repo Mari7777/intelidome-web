@@ -10,6 +10,7 @@ import RichText from '@/components/RichText'
 
 import type { Post } from '@/payload-types'
 
+import { Motion } from '@/components/motion/Motion'
 import { PostHero } from '@/heros/PostHero'
 import { generateMeta } from '@/utilities/generateMeta'
 import PageClient from './page.client'
@@ -60,6 +61,10 @@ export default async function Post({ params: paramsPromise }: Args) {
         <PayloadRedirects disableNotFound url={url} />
 
         {draft && <LivePreviewListener />}
+
+        {/* Nástupy sekcí + setrvačníkové brzdění: per-page opt-in dle 6.5,
+            imerzivní obsah ano, formuláře a administrace nikdy. */}
+        <Motion inertia />
 
         <PostHero post={post} />
 

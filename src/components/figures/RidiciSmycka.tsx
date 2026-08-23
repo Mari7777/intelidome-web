@@ -74,8 +74,20 @@ export const RidiciSmycka: React.FC = () => (
       <circle cx="150" cy="272" r="3.6" fill="#2563eb" />
       {/* měření: vlna u hrotu sondy */}
       <circle cx="150" cy="384" r="7" fill="none" stroke="#60a5fa" strokeWidth="1.8" opacity="0.45">
-        <animate attributeName="r" values="7;26" dur="4.6s" repeatCount="indefinite" />
-        <animate attributeName="opacity" values="0.45;0" dur="4.6s" repeatCount="indefinite" />
+        <animateTransform
+          attributeName="transform"
+          type="scale"
+          additive="sum"
+          values="0.32; 1.12"
+          calcMode="spline"
+          keySplines=".16 .6 .4 1"
+          dur="4.6s"
+          repeatCount="indefinite"
+          style={{ transformBox: 'fill-box', transformOrigin: 'center' }}
+        />
+        <animate attributeName="opacity" values="0.45;0" calcMode="spline"
+          keySplines=".16 .6 .4 1"
+          dur="4.6s" repeatCount="indefinite" />
       </circle>
     </g>
 

@@ -28,7 +28,7 @@ export const ChapterBlock: React.FC<Props> = ({ className, eyebrow, title }) => 
   const anchor = slugify(title) || undefined
 
   return (
-    <div className={cn('not-prose mt-[clamp(64px,8vw,96px)] mb-[24px] first:mt-0', className)}>
+    <div className={cn('rv not-prose mt-[clamp(64px,8vw,96px)] mb-[24px] first:mt-0', className)}>
       {label ? (
         <span className="mb-[14px] flex w-fit items-center gap-[10px] font-[family-name:var(--id-f-display)] text-[12px] leading-[1.2] font-semibold tracking-[0.14em] text-[var(--id-accent)] uppercase">
           <span aria-hidden="true" className="h-[1.5px] w-[22px] shrink-0 bg-[var(--id-accent)]" />

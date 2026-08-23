@@ -9,6 +9,7 @@ import { Footer } from '@/Footer/Component'
 import { Header } from '@/Header/Component'
 import { LogoMaskDefs } from '@/components/Logo/LogoMaskDefs'
 import { SmilGuard } from '@/components/figures/SmilGuard'
+import { InertiaScroll } from '@/components/motion/InertiaScroll'
 import { Providers } from '@/providers'
 import { mergeOpenGraph } from '@/utilities/mergeOpenGraph'
 import { draftMode } from 'next/headers'
@@ -32,6 +33,21 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   return (
     <html className={archivo.variable} data-theme="light" lang="cs" suppressHydrationWarning>
       <head>
+        {/*
+          Anti-FOUC brána (6.3.2): skrytí `.rv` visí na `html.js`, takže bez
+          JS zůstane obsah viditelný. Musí běžet před prvním paintem.
+        */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html:
+              // Brána nese skrytí `.rv`, takže kdyby klientský balík nedoběhl,
+              // zůstal by obsah navždy neviditelný. Po 3 s se proto brána sama
+              // otevře, pokud se pohyb nepřihlásil.
+              "document.documentElement.classList.add('js');" +
+              "setTimeout(function(){var d=document.documentElement;" +
+              "if(d.dataset.motion!=='ready')d.classList.remove('js')},3000)",
+          }}
+        />
         <link href="/favicon.svg" rel="icon" type="image/svg+xml" />
         <link href="/favicon.png" rel="icon" type="image/png" sizes="32x32" />
         <link href="/apple-touch-icon.png" rel="apple-touch-icon" sizes="180x180" />
@@ -41,6 +57,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
             i závěrečné výzvě je jen obdélník maskovaný touto kresbou (9.4). */}
         <LogoMaskDefs />
         <SmilGuard />
+        <InertiaScroll />
         <Providers>
           <AdminBar
             adminBarProps={{

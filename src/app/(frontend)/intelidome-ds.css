@@ -773,7 +773,9 @@ html {
   max-width: 52ch;
   font-size: var(--id-t-body-sm);
   line-height: 1.55;
-  color: var(--id-ink-3);
+  /* --id-ink-3 (#86868b) má na bílé 3,62:1 — pod mezí pro běžný text.
+     Sekundární role na bílé je --id-ink-2 = 6,51:1 (tabulka 11.1). */
+  color: var(--id-ink-2);
   text-wrap: pretty;
 }
 
@@ -834,4 +836,27 @@ html {
 }
 [data-surface='dark'] .sv-lbl--aktivni {
   fill: var(--id-accent-tint);
+}
+
+/* ── Nástup sekcí (DESIGN.md 6.3.1 / 6.4) ─────────────────────────────
+   V CSS je jen skrytí a jen za `html.js` — bez JS musí obsah zůstat
+   viditelný. Posun a křivku dodává GSAP, aby se hodnoty nerozešly. */
+@media (prefers-reduced-motion: no-preference) {
+  html.js .rv {
+    opacity: 0;
+  }
+}
+
+/* ── Fokus (DESIGN.md 11.2) ───────────────────────────────────────────
+   Globální základ: prstenec ≥ 3:1 všude. Tlačítka a odkazy si ho do
+   teď nesly jen tam, kde na ně někdo sáhl ručně. */
+:where(a, button, summary, [tabindex]):focus-visible {
+  outline: 3px solid var(--id-accent);
+  outline-offset: 3px;
+  border-radius: var(--id-r-sm, 10px);
+}
+/* Na modrém i obsidianovém podkladu je plný akcent neviditelný. */
+.id-btn--primary:focus-visible,
+[data-surface='dark'] :where(a, button, summary, [tabindex]):focus-visible {
+  outline-color: var(--id-accent-tint);
 }

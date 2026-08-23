@@ -81,7 +81,7 @@ export const FigureBlock: React.FC<Props> = ({
   )
 
   return (
-    <figure className={cn('mt-[54px] mb-[10px] w-full', className)}>
+    <figure className={cn('rv mt-[54px] mb-[10px] w-full', className)}>
       {withPanel ? (
         <div className="rounded-[var(--id-r-card)] bg-[var(--id-cream,var(--id-bg-2))] p-[clamp(16px,3vw,40px)]">
           {media}

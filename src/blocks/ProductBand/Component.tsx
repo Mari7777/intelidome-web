@@ -35,7 +35,7 @@ export const ProductBandBlock: React.FC<ProductBandBlockProps> = ({
   return (
     <section className={cn('not-prose id-band id-band--obsidian', className)} data-surface="dark">
       <div className="id-band__inner id-band__inner--summary">
-        <div className="max-w-[var(--id-maxw-summary)]">
+        <div className="rv max-w-[var(--id-maxw-summary)]">
           {eyebrow ? (
             <span className="mb-[14px] flex w-fit items-center gap-[10px] font-[family-name:var(--id-f-display)] text-[12px] leading-[1.2] font-semibold tracking-[0.14em] text-[var(--id-accent-tint)] uppercase">
               <span aria-hidden="true" className="h-[1.5px] w-[22px] shrink-0 bg-[var(--id-accent-tint)]" />
@@ -64,7 +64,7 @@ export const ProductBandBlock: React.FC<ProductBandBlockProps> = ({
         */}
         <div
           aria-label="Schéma sítě: most uprostřed, kolem něj ventil, čidlo vlhkosti, retenční nádrž a venkovní osvětlení; aktivní spoj vede k ventilu."
-          className="id-figure-svg mt-[clamp(40px,6vw,64px)] overflow-x-auto"
+          className="rv id-figure-svg mt-[clamp(40px,6vw,64px)] overflow-x-auto"
           role="img"
           tabIndex={0}
         >
@@ -74,9 +74,12 @@ export const ProductBandBlock: React.FC<ProductBandBlockProps> = ({
         </div>
 
         {items.length > 0 && (
-          <div className="mt-[clamp(40px,6vw,64px)] grid gap-[clamp(22px,3vw,34px)] sm:grid-cols-3">
+          <div
+            className="mt-[clamp(40px,6vw,64px)] grid gap-[clamp(22px,3vw,34px)] sm:grid-cols-3"
+            data-rv-group
+          >
             {items.map((feature) => (
-              <div className="id-feature" key={feature.id ?? feature.title}>
+              <div className="rv id-feature" key={feature.id ?? feature.title}>
                 <h3 className="id-feature__title">{feature.title}</h3>
                 <p className="id-feature__text">{feature.text}</p>
               </div>
