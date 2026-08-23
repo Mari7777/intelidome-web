@@ -23,6 +23,7 @@ import type {
   FigureBlock as FigureBlockProps,
   MediaBlock as MediaBlockProps,
   ProductBandBlock as ProductBandBlockProps,
+  SplitBlock as SplitBlockProps,
   StatTilesBlock as StatTilesBlockProps,
   SummaryBandBlock as SummaryBandBlockProps,
 } from '@/payload-types'
@@ -34,6 +35,7 @@ import { CtaBandBlock } from '@/blocks/CtaBand/Component'
 import { FaqBlock } from '@/blocks/Faq/Component'
 import { FigureBlock } from '@/blocks/Figure/Component'
 import { ProductBandBlock } from '@/blocks/ProductBand/Component'
+import { SplitBlock } from '@/blocks/Split/Component'
 import { StatTilesBlock } from '@/blocks/StatTiles/Component'
 import { SummaryBandBlock } from '@/blocks/SummaryBand/Component'
 import { nezlomitelneMezeryVeStromu } from '@/utilities/czechTypography'
@@ -48,6 +50,7 @@ type NodeTypes =
       | CodeBlockProps
       | ChapterBlockProps
       | FigureBlockProps
+      | SplitBlockProps
       | StatTilesBlockProps
       | SummaryBandBlockProps
       | ProductBandBlockProps
@@ -75,6 +78,7 @@ const jsxConverters: JSXConvertersFunction<NodeTypes> = ({ defaultConverters }) 
       <FigureBlock className={node.fields.layout ? undefined : 'id-wide'} {...node.fields} />
     ),
     statTiles: ({ node }) => <StatTilesBlock {...node.fields} />,
+    split: ({ node }) => <SplitBlock {...node.fields} />,
     summaryBand: ({ node }) => <SummaryBandBlock {...node.fields} />,
     productBand: ({ node }) => <ProductBandBlock {...node.fields} />,
     ctaBand: ({ node }) => <CtaBandBlock {...node.fields} />,

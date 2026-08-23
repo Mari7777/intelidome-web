@@ -1096,6 +1096,25 @@ od kraje stránky:
 4. Full-bleed je **předěl, ne norma**. Schéma s popisky ho neunese
    (rozjede se měřítko), fotografie ano.
 
+**Dvousloupcová kapitola `.id-split`** (vzor z 8.3 ř. 4, teď i pro článek):
+obraz a text, které patří k sobě, drží **jeden blok** — v ploché struktuře
+Lexicalu se vedle sebe postavit nedají.
+
+| Prvek | Spec |
+|---|---|
+| Mřížka | `grid-column: edge-start / edge-end`; sloupce `0.82fr 1fr` (u `--right` obráceně); gap clamp(28px,4vw,72px); align-items:center |
+| Obraz | **portrétová sazba kresby** (viewBox ~520×670). Panoramatická 1080 px by ve sloupci ~590 px měla popisky pod 7 px — do dvousloupce nepatří. |
+| Text | max `--id-maxw-prose`; eyebrow + H2 uvnitř bloku, ne nad ním |
+| Odsazení | margin-block clamp(64px,8vw,104px) |
+| Pod 900 px | jeden sloupec; **obraz vždy první**, protože nese pointu, kterou text teprve rozvádí |
+
+5. **Střídání se počítá přes všechny obrazové bloky**, ne zvlášť pro
+   dvousloupce a zvlášť pro figury. Dvě sousední hmoty nikdy na téže straně;
+   full-bleed rytmus resetuje. Referenční pořadí článku:
+   `vlevo → vpravo → vlevo → full-bleed → vpravo`.
+6. Kresba potřebuje **portrétovou variantu**, má-li jít do dvousloupce.
+   Bez ní patří do asymetrické figury, kde má šířku.
+
 ### 8.3 Šablona: Landing page
 
 Header dle článku s CTA „Koupit systém"; footer standardní.

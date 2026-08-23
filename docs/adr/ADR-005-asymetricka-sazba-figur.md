@@ -39,7 +39,7 @@ ukotvená figura si drží radius panelu a nedotýká se hrany viewportu.
 
 | Varianta | Proč ne |
 |---|---|
-| Dvousloupcové bloky text+obraz (8.3 ř. 4) | Silnější zásah do rytmu; článek by se přiblížil produktové stránce. Zůstává jako možnost pro delší články. |
+| ~~Dvousloupcové bloky text+obraz (8.3 ř. 4)~~ | **Dodatečně přijato** — viz Dodatek. |
 | Rozšířit prose na 820–900 px | Nejmenší práce, ale zhoršuje čitelnost a neřeší monotónnost — pruh by byl jen širší. |
 | Nechat beze změny | Porota prošla, ale majitel je vlastníkem vkusu značky a námitka je věcná. |
 
@@ -55,3 +55,38 @@ ukotvená figura si drží radius panelu a nedotýká se hrany viewportu.
   se tím zmírnil.
 - Full-bleed je vyhrazený fotografii. Schéma s popisky ho neunese, protože
   se rozjede měřítko kresby.
+
+
+---
+
+## Dodatek (23. 8. 2026) — dvousloupcová kapitola
+
+Majitel po nasazení asymetrických figur požádal o **kombinaci s druhou
+variantou**: obraz vlevo, text vpravo. Přijato a doplněno do 8.2b.
+
+**Klíčové zjištění:** panoramatická kresba (viewBox 1080) se do sloupce
+~590 px nevejde čitelně — popisky 12 px by klesly pod 7 px, tedy pod obě
+podlahy systému. Do dvousloupce proto smí jen kresba, která má
+**portrétovou variantu**.
+
+Ty už existovaly: postavil jsem je v kole 05 smyčky jako mobilní sazbu
+porovnávacích figur (520×670). Ukázalo se, že týž tvar je přesně to, co
+úzký sloupec potřebuje — proto se v registru přejmenovaly z `mobile` na
+`portrait`. Není to mobilní berlička, je to druhá sazba téže kresby.
+
+**Rozdělení vzorů podle tvaru kresby, ne podle pořadí kapitoly:**
+
+| Kapitola | Kresba | Vzor | Proč |
+|---|---|---|---|
+| 01 | kořenová zóna | dvousloupec, obraz vlevo | má portrétovou variantu |
+| 02 | kbelíkový test | asymetrická figura vpravo | panoramatický tok zleva doprava |
+| 03 | hlava na hlavu | dvousloupec, obraz vlevo | má portrétovou variantu |
+| — | fotografie | full-bleed | předěl; fotka to unese |
+| 04 | řídicí smyčka | asymetrická figura vpravo | panoramatická smyčka |
+
+**Střídání se počítá přes všechny obrazové bloky**, ne zvlášť pro každý typ.
+Naměřené pořadí hmot: `vlevo (40) → vpravo (370) → vlevo (40) → full (0) → vpravo (370)`.
+
+Naměřeno po zásahu (1440 px): dvousloupec obraz 40/587 + text 684/700,
+resp. text 40/700 + obraz 813/587. Pod 900 px oba skládají obraz nad text.
+Vodorovný přetok nula na 1440, 768, 393 i 320 px.

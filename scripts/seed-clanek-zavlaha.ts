@@ -59,6 +59,10 @@ const root = (children: Node[]) => ({
 /** Krátký richText do pole uvnitř bloku (Banner, FAQ odpověď). */
 const mini = (...paragraphs: string[]) => root(paragraphs.map((t) => p(t)))
 
+/** Text vedle obrazu (8.2b) — obraz a text, které patří k sobě, drží jeden blok. */
+const split = (fields: Record<string, unknown>): Node =>
+  block({ blockType: 'split', ...fields })
+
 /** Kalkulátor (8.2: max 2 na článek; druhý musí být světlý — 7.7). */
 const calc = (kind: string, light = false): Node =>
   block({ blockType: 'calculator', blockName: `Kalkulátor ${kind}`, kind, light })
@@ -119,30 +123,21 @@ const body = root([
     ],
   }),
 
-  block({
-    blockType: 'chapter',
+  /* 8.2b: kapitola jako dvousloupec — obraz vlevo, text vpravo.
+     Kresba jde v portrétové sazbě, panoramatická by se do sloupce nevešla. */
+  split({
     blockName: 'Kapitola 01',
+    side: 'image-left',
+    drawing: 'korenova-zona',
     eyebrow: 'Kapitola 01',
     title: 'Jak funguje krevní oběh vaší zahrady?',
+    number: '01',
+    alt: 'Řez půdou ve dvou sloupcích: nahoře častá malá zálivka, která smočí jen horní vrstvu a vychová mělké kořeny; dole vydatná zálivka méně často, po které voda dojde do hloubky a kořeny jdou za ní.',
+    caption:
+      'Stejné množství vody, jiný výsledek. Rozhoduje hloubka, do které voda dojde — kořeny rostou tam, kam se dostane.',
+    body:
+      'Zahrada je fascinující živý organismus a voda představuje její krevní oběh. Obecně se doporučuje dodat trávníku **10 až 15 litrů vody na metr čtvereční každé tři dny**, ale reálná potřeba vždy závisí na aktuálních podmínkách. Roli hraje teplota vzduchu, konkrétní druh trávy i celková kondice vašeho zeleného koberce. Zdravý trávník s hlubokými kořeny totiž s přehledem přežije i ta největší vedra s překvapivě malým množstvím vláhy.\n\nMladý trávník bez vyspělých kořenů naopak potřebuje první roky mnohem pečlivější přístup a opečovávaná tráva je z dlouhodobého hlediska daleko odolnější. Množství vody, které na trávník jednoduše vylijeme, nám ale bohužel neřekne vůbec nic o tom, jaká je skutečná vlhkost uvnitř půdy. Proto dává mnohem větší smysl **měřit přímo půdní vlhkost, než jen slepě počítat objem dopadající vody**. Pokud tento základní přírodní princip nerespektujeme a závlahu nenavrhneme správně, nepomohou nám k dokonalé zahradě ani ty nejdražší komponenty.',
   }),
-  p(
-    'Zahrada je fascinující živý organismus a voda představuje její krevní oběh. Obecně se doporučuje dodat trávníku ',
-    ['10 až 15 litrů vody na metr čtvereční každé tři dny', BOLD],
-    ', ale reálná potřeba vždy závisí na aktuálních podmínkách. Roli hraje teplota vzduchu, konkrétní druh trávy i celková kondice vašeho zeleného koberce. Zdravý trávník s hlubokými kořeny totiž s přehledem přežije i ta největší vedra s překvapivě malým množstvím vláhy.',
-  ),
-  p(
-    'Mladý trávník bez vyspělých kořenů naopak potřebuje první roky mnohem pečlivější přístup a opečovávaná tráva je z dlouhodobého hlediska daleko odolnější. Množství vody, které na trávník jednoduše vylijeme, nám ale bohužel neřekne vůbec nic o tom, jaká je skutečná vlhkost uvnitř půdy. Proto dává mnohem větší smysl ',
-    ['měřit přímo půdní vlhkost, než jen slepě počítat objem dopadající vody', BOLD],
-    '. Pokud tento základní přírodní princip nerespektujeme a závlahu nenavrhneme správně, nepomohou nám k dokonalé zahradě ani ty nejdražší komponenty.',
-  ),
-
-  drawing(
-    'korenova-zona',
-    '01',
-    'Řez půdou ve dvou sloupcích: vlevo častá malá zálivka, která smočí jen horní vrstvu a vychová mělké kořeny; vpravo vydatná zálivka méně často, po které voda dojde do hloubky a kořeny jdou za ní.',
-    'Stejné množství vody, jiný výsledek. Rozhoduje hloubka, do které voda dojde — kořeny rostou tam, kam se dostane.',
-    'offset-right',
-  ),
 
   block({
     blockType: 'chapter',
@@ -167,7 +162,7 @@ const body = root([
     '02',
     'Schéma kbelíkového testu: zdroj, manometr s ručičkou na 3,5 baru, proud vody plnící desetilitrový kbelík a stopky; vpravo výpočet průtoku se srážkou 20 %.',
     'Kbelíkový test krok za krokem. Tlak se odečítá až ve chvíli, kdy voda proudí — a od výsledného průtoku se vždy odečte 20 % rezervy.',
-    'offset-left',
+    'offset-right',
   ),
 
   calc('prutok'),
@@ -183,28 +178,22 @@ const body = root([
     ),
   }),
 
-  block({
-    blockType: 'chapter',
+  /* 8.2b: druhý dvousloupec. Střídání se počítá přes VŠECHNY obrazové
+     bloky, ne jen dvousloupce — mezi nimi leží figura ukotvená vpravo,
+     takže tenhle může zase kotvit vlevo. */
+  split({
     blockName: 'Kapitola 03',
+    side: 'image-left',
+    drawing: 'hlava-na-hlavu',
     eyebrow: 'Kapitola 03',
     title: 'Proč se postřikovače musí vzájemně překrývat?',
+    number: '03',
+    alt: 'Půdorys trávníku ve dvou stavech: nahoře oddálené postřikovače se suchým pruhem mezi dostřiky, dole rozestup rovný dostřiku, kde se kruhy protínají ve středech sousedních hlavic.',
+    caption:
+      'Proč se rozestup rovná dostřiku. Jakmile je větší, zůstane mezi hlavicemi pruh, kam nedosáhne ani jedna z nich.',
+    body:
+      'Základní vlastností každého postřikovače je, že vodu nerozstřikuje rovnoměrně po celé ploše svého dostřiku. Největší množství kapek dopadá do jeho bezprostředního okolí a s rostoucí vzdáleností intenzita zálivky klesá. Abychom dosáhli naprosto rovnoměrného pokrytí trávníku, musí voda z jednoho postřikovače **dostříknout přesně na tělo toho sousedního**.\n\nTomuto nekompromisnímu pravidlu se v inženýrské praxi říká „hlava na hlavu“. Jakmile se pokusíte ušetřit a postřikovače od sebe oddálíte, vytvoříte hluchá místa s nedostatkem vláhy. V horkých letních měsících se pak na trávníku velmi rychle objeví suché a nažloutlé pruhy. Ke správnému vsakování do hlubších vrstev půdy doporučujeme používat moderní paprskové trysky, které vodu dávkují pomalu a šetrně.',
   }),
-  p(
-    'Základní vlastností každého postřikovače je, že vodu nerozstřikuje rovnoměrně po celé ploše svého dostřiku. Největší množství kapek dopadá do jeho bezprostředního okolí a s rostoucí vzdáleností intenzita zálivky klesá. Abychom dosáhli naprosto rovnoměrného pokrytí trávníku, musí voda z jednoho postřikovače ',
-    ['dostříknout přesně na tělo toho sousedního', BOLD],
-    '.',
-  ),
-  p(
-    'Tomuto nekompromisnímu pravidlu se v inženýrské praxi říká „hlava na hlavu". Jakmile se pokusíte ušetřit a postřikovače od sebe oddálíte, vytvoříte hluchá místa s nedostatkem vláhy. V horkých letních měsících se pak na trávníku velmi rychle objeví suché a nažloutlé pruhy. Ke správnému vsakování do hlubších vrstev půdy doporučujeme používat moderní paprskové trysky, které vodu dávkují pomalu a šetrně.',
-  ),
-
-  drawing(
-    'hlava-na-hlavu',
-    '03',
-    'Půdorys trávníku ve dvou stavech: vlevo oddálené postřikovače se suchým pruhem mezi dostřiky, vpravo rozestup rovný dostřiku, kde se kruhy protínají ve středech sousedních hlavic.',
-    'Proč se rozestup rovná dostřiku. Jakmile je větší, zůstane mezi hlavicemi pruh, kam nedosáhne ani jedna z nich.',
-    'offset-right',
-  ),
 
   /* Jediný obraz přes celou šířku — fotografie unese předěl, schéma ne.
      Podle 9.1 tady padá radius: full-bleed obraz rám nemá. */
@@ -238,7 +227,7 @@ const body = root([
     '05',
     'Uzavřená rozhodovací smyčka: čidlo vlhkosti změří stav půdy, hodnota se porovná s prahem, při nedostatku se přes most otevře ventil a voda se vrací zpět k čidlu; zdrojem je přednostně retenční nádrž, vodovodní řad až jako záloha.',
     'Smyčka, kterou obyčejný časovač nemá. Rozhodnutí zalévat vzniká z měření půdy a vrací se zpátky k němu — a voda se bere nejdřív z nádrže.',
-    'offset-left',
+    'offset-right',
   ),
 
   /* Šablona 8.2 ř. N+1: jediný vnitřní obsidian článku. Tady se z výkladu

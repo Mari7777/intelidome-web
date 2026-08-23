@@ -1166,3 +1166,46 @@ html {
   margin-inline: auto;
   padding-inline: var(--id-gutter);
 }
+
+/* ── Text vedle obrazu (DESIGN.md 8.2b) ───────────────────────────────
+   Dvousloupcový blok kapitoly. Obraz dostane užší sloupec (portrétová
+   sazba kresby), text ten širší — ale pořád pod mezí čitelnosti, ne přes
+   celou šířku. Pod 900 px se skládá pod sebe a obraz jde vždy první,
+   protože nese pointu, kterou text teprve rozvádí. */
+.id-article > .id-split {
+  grid-column: edge-start / edge-end;
+  display: grid;
+  align-items: center;
+  gap: clamp(28px, 4vw, 72px);
+  grid-template-columns: minmax(0, 0.82fr) minmax(0, 1fr);
+  margin-block: clamp(64px, 8vw, 104px);
+}
+.id-article > .id-split--right {
+  grid-template-columns: minmax(0, 1fr) minmax(0, 0.82fr);
+}
+.id-split--right > .id-split__figure {
+  order: 2;
+}
+.id-split__text {
+  max-width: var(--id-maxw-prose);
+}
+.id-split__p {
+  font-size: var(--id-t-body);
+  line-height: 1.65;
+  color: var(--id-ink);
+  text-wrap: pretty;
+}
+.id-split__p strong {
+  font-weight: 600;
+}
+@media (max-width: 899px) {
+  .id-article > .id-split,
+  .id-article > .id-split--right {
+    grid-column: content;
+    grid-template-columns: 1fr;
+    gap: clamp(24px, 5vw, 34px);
+  }
+  .id-split--right > .id-split__figure {
+    order: 0;
+  }
+}

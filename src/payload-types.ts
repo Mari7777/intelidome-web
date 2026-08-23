@@ -1691,6 +1691,32 @@ export interface FigureBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "SplitBlock".
+ */
+export interface SplitBlock {
+  /**
+   * Sousední bloky se musí střídat, jinak vznikne pruh.
+   */
+  side: 'image-left' | 'image-right';
+  /**
+   * Do úzkého sloupce patří jen kresba s portrétovou sazbou — panoramatická by měla popisky pod 5 px.
+   */
+  drawing: 'korenova-zona' | 'hlava-na-hlavu';
+  eyebrow?: string | null;
+  title?: string | null;
+  /**
+   * Odstavce oddělte prázdným řádkem. **Tučně** takto.
+   */
+  body: string;
+  number?: string | null;
+  caption: string;
+  alt: string;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'split';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "StatTilesBlock".
  */
 export interface StatTilesBlock {

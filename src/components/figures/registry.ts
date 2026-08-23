@@ -11,11 +11,11 @@ export type Drawing = {
   /** Širokoúhlá sazba (viewBox 1080) — desktop a tablet. */
   wide: React.FC
   /**
-   * Svislá sazba pro telefon. Má ji jen figura, které by posun do stran
-   * zabil smysl — u porovnání dvou stavů vedle sebe je potřeba vidět
-   * oba najednou. Ostatní figury se na telefonu posouvají.
+   * Portrétová sazba. Vznikla pro telefon (kde by posun do stran zabil
+   * porovnání dvou stavů), ale slouží i dvousloupcovému bloku na desktopu —
+   * do sloupce ~520 px se panoramatická kresba 1080 px nevejde čitelně.
    */
-  mobile?: React.FC
+  portrait?: React.FC
 }
 
 /**
@@ -25,9 +25,9 @@ export type Drawing = {
  * do databáze žádné SVG a nikde se nevolá `dangerouslySetInnerHTML`.
  */
 export const DRAWINGS = {
-  'korenova-zona': { wide: KorenovaZona, mobile: KorenovaZonaMobil },
+  'korenova-zona': { wide: KorenovaZona, portrait: KorenovaZonaMobil },
   'kbelikovy-test': { wide: KbelikovyTest },
-  'hlava-na-hlavu': { wide: HlavaNaHlavu, mobile: HlavaNaHlavuMobil },
+  'hlava-na-hlavu': { wide: HlavaNaHlavu, portrait: HlavaNaHlavuMobil },
   'ridici-smycka': { wide: RidiciSmycka },
 } satisfies Record<string, Drawing>
 

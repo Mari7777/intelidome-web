@@ -108,9 +108,9 @@ export const FigureBlock: React.FC<Props> = ({
 /** Širokoúhlá sazba všude, svislá jen tam, kde bez ní zanikne srovnání. */
 function renderDrawing(entry: Drawing): React.ReactNode {
   const Wide = entry.wide
-  const Mobile = entry.mobile
+  const Portrait = entry.portrait
 
-  if (!Mobile) {
+  if (!Portrait) {
     return (
       <div className="min-w-[560px]">
         <Wide />
@@ -121,7 +121,7 @@ function renderDrawing(entry: Drawing): React.ReactNode {
   return (
     <>
       <div className="sm:hidden">
-        <Mobile />
+        <Portrait />
       </div>
       <div className="hidden min-w-[560px] sm:block">
         <Wide />
