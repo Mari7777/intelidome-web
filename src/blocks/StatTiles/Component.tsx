@@ -72,6 +72,7 @@ export const StatTilesBlock: React.FC<StatTilesBlockProps> = ({ className, tiles
   return (
     <div className={cn('not-prose mx-auto my-10 w-full', className)}>
       <div
+        data-rv-group
         className={cn(
           'grid grid-cols-1 border-t border-[color:var(--id-line-soft)]',
           items.length > 1 && 'sm:grid-cols-2',
@@ -79,7 +80,7 @@ export const StatTilesBlock: React.FC<StatTilesBlockProps> = ({ className, tiles
         )}
       >
         {items.map((tile, index) => (
-          <div key={tile.id ?? index} className={tileClassName(index, items.length)}>
+          <div key={tile.id ?? index} className={cn('rv', tileClassName(index, items.length))}>
             <div
               className={cn(
                 'font-[family-name:var(--id-f-display)] font-semibold tabular-nums',

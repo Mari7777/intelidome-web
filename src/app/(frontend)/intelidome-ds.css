@@ -606,6 +606,7 @@
 .id-capsule__go {
   font-family: var(--id-f-display);
   font-size: 13.5px;
+  line-height: 1.2;
   font-weight: 600;
   padding: 9px 18px;
   border-radius: var(--id-r-pill);
@@ -731,6 +732,7 @@ html {
 .id-feature__title {
   font-family: var(--id-f-display);
   font-size: 17px;
+  line-height: 1.25;
   font-weight: 600;
   letter-spacing: -0.01em;
   color: var(--id-ink-dark);
@@ -861,8 +863,12 @@ html {
   outline-offset: 3px;
   border-radius: var(--id-r-sm, 10px);
 }
-/* Na modrém i obsidianovém podkladu je plný akcent neviditelný. */
-.id-btn--primary:focus-visible,
+/*
+  Prstenec sedí při `outline-offset: 3px` na STRÁNCE, ne na tlačítku —
+  rozhoduje proto povrch pod ním, ne varianta tlačítka. Na bílé měl
+  primární button tintu #93c5fd = 1,4:1, tedy hluboko pod non-text
+  minimem 3:1. Na obsidianu je to obráceně (tinta 10,79:1).
+*/
 [data-surface='dark'] :where(a, button, summary, [tabindex]):focus-visible {
   outline-color: var(--id-accent-tint);
 }
@@ -1084,4 +1090,11 @@ html {
   .id-verdict {
     transition: none;
   }
+}
+
+/* Ztenčení tahu patří jen na tmavý povrch (DESIGN.md 4.3 p. 8) — na světlém
+   ubírá Archivu váhu, kterou sazba potřebuje. */
+[data-surface='dark'] {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
