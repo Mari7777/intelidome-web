@@ -3,6 +3,10 @@ import React from 'react'
 /**
  * Kresba wordmarku „inteliDome" jako maska (DESIGN.md 9.4).
  *
+ * Zdrojový soubor: `~/myapp/Obrázky/logo/final/intelidome-logo.svg`
+ * (pozor, `Obrázky` je pod `myapp`, ne v domovském adresáři).
+ * Dráhy jsou z něj převzaté doslova — ověřeno otiskem, byte za bytem.
+ *
  * Zdroj má vnitřní souřadnice 4096 a vnější viewBox 5760 (scale 1.40625);
  * ořez wordmarku je proto 446 2126 4870 1227 (3,97:1) ve vnějším prostoru.
  * Uvnitř masky je kresba bílá = viditelná, takže vnitřky písmen (protínky
