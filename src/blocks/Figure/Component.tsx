@@ -4,7 +4,7 @@ import type { Props as MediaProps } from '@/components/Media/types'
 
 import { cn } from '@/utilities/ui'
 import { Media } from '@/components/Media'
-import { DRAWINGS, type DrawingKey } from '@/components/figures/registry'
+import { DRAWINGS, type Drawing, type DrawingKey } from '@/components/figures/registry'
 
 // Local prop type — the generated `FigureBlock` interface does not exist until
 // `payload generate:types` runs after this block is registered.
@@ -49,7 +49,7 @@ export const FigureBlock: React.FC<Props> = ({
 }) => {
   const label = formatFigureNumber(number)
   const withPanel = panel !== false
-  const Drawing = drawing ? DRAWINGS[drawing as DrawingKey] : undefined
+  const entry: Drawing | undefined = drawing ? DRAWINGS[drawing as DrawingKey] : undefined
 
   /*
     Kresba je informační obraz, takže `role="img"` a popis nese ten prvek,
@@ -60,16 +60,14 @@ export const FigureBlock: React.FC<Props> = ({
     drží spodní mez šířky a v užším panelu se posouvá do stran. Posuvná
     oblast musí být dosažitelná i klávesnicí, proto `tabIndex`.
   */
-  const media = Drawing ? (
+  const media = entry ? (
     <div
       aria-label={alt || caption}
       className="id-figure-svg -mx-[2px] overflow-x-auto px-[2px]"
       role="img"
       tabIndex={0}
     >
-      <div className="min-w-[560px]">
-        <Drawing />
-      </div>
+      {renderDrawing(entry)}
     </div>
   ) : (
     <Media
@@ -99,5 +97,30 @@ export const FigureBlock: React.FC<Props> = ({
         <span className="[text-wrap:pretty]">{caption}</span>
       </figcaption>
     </figure>
+  )
+}
+
+/** Širokoúhlá sazba všude, svislá jen tam, kde bez ní zanikne srovnání. */
+function renderDrawing(entry: Drawing): React.ReactNode {
+  const Wide = entry.wide
+  const Mobile = entry.mobile
+
+  if (!Mobile) {
+    return (
+      <div className="min-w-[560px]">
+        <Wide />
+      </div>
+    )
+  }
+
+  return (
+    <>
+      <div className="sm:hidden">
+        <Mobile />
+      </div>
+      <div className="hidden min-w-[560px] sm:block">
+        <Wide />
+      </div>
+    </>
   )
 }
