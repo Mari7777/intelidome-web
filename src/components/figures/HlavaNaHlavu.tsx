@@ -37,25 +37,25 @@ export const HlavaNaHlavu: React.FC = () => (
     {/* vlny od hlavice 1 */}
     <g>
       <g transform="translate(176 166)">
-        <circle className="id-ripple" cx="0" cy="0" r="88" fill="none" stroke="#3b82f6" strokeWidth="1.6" opacity="0.34" style={{ animationDelay: '0.0s' }} />
+        <circle className="id-ripple" cx="0" cy="0" r="88" fill="none" stroke="#3b82f6" strokeWidth="1.6" opacity="0.34" style={{ animationDelay: '-0.0s' }} />
       </g>
       <g transform="translate(176 166)">
-        <circle className="id-ripple" cx="0" cy="0" r="88" fill="none" stroke="#60a5fa" strokeWidth="1.6" opacity="0.34" style={{ animationDelay: '1.533s' }} />
+        <circle cx="0" cy="0" r="88" fill="none" stroke="#60a5fa" strokeWidth="1.6" opacity="0.34" />
       </g>
       <g transform="translate(176 166)">
-        <circle className="id-ripple" cx="0" cy="0" r="88" fill="none" stroke="#93c5fd" strokeWidth="1.6" opacity="0.34" style={{ animationDelay: '3.066s' }} />
+        <circle cx="0" cy="0" r="88" fill="none" stroke="#93c5fd" strokeWidth="1.6" opacity="0.34" />
       </g>
     </g>
     {/* vlny od hlavice 2 — fázově posunuté */}
     <g>
       <g transform="translate(376 166)">
-        <circle className="id-ripple" cx="0" cy="0" r="88" fill="none" stroke="#3b82f6" strokeWidth="1.6" opacity="0.34" style={{ animationDelay: '1.6s' }} />
+        <circle className="id-ripple" cx="0" cy="0" r="88" fill="none" stroke="#3b82f6" strokeWidth="1.6" opacity="0.34" style={{ animationDelay: '-0.92s' }} />
       </g>
       <g transform="translate(376 166)">
-        <circle className="id-ripple" cx="0" cy="0" r="88" fill="none" stroke="#60a5fa" strokeWidth="1.6" opacity="0.34" style={{ animationDelay: '1.933s' }} />
+        <circle cx="0" cy="0" r="88" fill="none" stroke="#60a5fa" strokeWidth="1.6" opacity="0.34" />
       </g>
       <g transform="translate(376 166)">
-        <circle className="id-ripple" cx="0" cy="0" r="88" fill="none" stroke="#93c5fd" strokeWidth="1.6" opacity="0.34" style={{ animationDelay: '3.466s' }} />
+        <circle cx="0" cy="0" r="88" fill="none" stroke="#93c5fd" strokeWidth="1.6" opacity="0.34" />
       </g>
     </g>
 
@@ -83,35 +83,35 @@ export const HlavaNaHlavu: React.FC = () => (
 
     <g>
       <g transform="translate(704 166)">
-        <circle className="id-ripple" cx="0" cy="0" r="88" fill="none" stroke="#3b82f6" strokeWidth="1.6" opacity="0.34" style={{ animationDelay: '0.8s' }} />
+        <circle className="id-ripple" cx="0" cy="0" r="88" fill="none" stroke="#3b82f6" strokeWidth="1.6" opacity="0.34" style={{ animationDelay: '-1.84s' }} />
       </g>
       <g transform="translate(704 166)">
-        <circle className="id-ripple" cx="0" cy="0" r="88" fill="none" stroke="#60a5fa" strokeWidth="1.6" opacity="0.34" style={{ animationDelay: '2.333s' }} />
+        <circle cx="0" cy="0" r="88" fill="none" stroke="#60a5fa" strokeWidth="1.6" opacity="0.34" />
       </g>
       <g transform="translate(704 166)">
-        <circle className="id-ripple" cx="0" cy="0" r="88" fill="none" stroke="#93c5fd" strokeWidth="1.6" opacity="0.34" style={{ animationDelay: '3.866s' }} />
+        <circle cx="0" cy="0" r="88" fill="none" stroke="#93c5fd" strokeWidth="1.6" opacity="0.34" />
       </g>
     </g>
     <g>
       <g transform="translate(804 166)">
-        <circle className="id-ripple" cx="0" cy="0" r="88" fill="none" stroke="#3b82f6" strokeWidth="1.6" opacity="0.34" style={{ animationDelay: '1.5s' }} />
+        <circle className="id-ripple" cx="0" cy="0" r="88" fill="none" stroke="#3b82f6" strokeWidth="1.6" opacity="0.34" style={{ animationDelay: '-2.76s' }} />
       </g>
       <g transform="translate(804 166)">
-        <circle className="id-ripple" cx="0" cy="0" r="88" fill="none" stroke="#60a5fa" strokeWidth="1.6" opacity="0.34" style={{ animationDelay: '2.733s' }} />
+        <circle cx="0" cy="0" r="88" fill="none" stroke="#60a5fa" strokeWidth="1.6" opacity="0.34" />
       </g>
       <g transform="translate(804 166)">
-        <circle className="id-ripple" cx="0" cy="0" r="88" fill="none" stroke="#93c5fd" strokeWidth="1.6" opacity="0.34" style={{ animationDelay: '4.266s' }} />
+        <circle cx="0" cy="0" r="88" fill="none" stroke="#93c5fd" strokeWidth="1.6" opacity="0.34" />
       </g>
     </g>
     <g>
       <g transform="translate(904 166)">
-        <circle className="id-ripple" cx="0" cy="0" r="88" fill="none" stroke="#3b82f6" strokeWidth="1.6" opacity="0.34" style={{ animationDelay: '1.6s' }} />
+        <circle className="id-ripple" cx="0" cy="0" r="88" fill="none" stroke="#3b82f6" strokeWidth="1.6" opacity="0.34" style={{ animationDelay: '-3.68s' }} />
       </g>
       <g transform="translate(904 166)">
-        <circle className="id-ripple" cx="0" cy="0" r="88" fill="none" stroke="#60a5fa" strokeWidth="1.6" opacity="0.34" style={{ animationDelay: '3.133s' }} />
+        <circle cx="0" cy="0" r="88" fill="none" stroke="#60a5fa" strokeWidth="1.6" opacity="0.34" />
       </g>
       <g transform="translate(904 166)">
-        <circle className="id-ripple" cx="0" cy="0" r="88" fill="none" stroke="#93c5fd" strokeWidth="1.6" opacity="0.34" style={{ animationDelay: '4.666s' }} />
+        <circle cx="0" cy="0" r="88" fill="none" stroke="#93c5fd" strokeWidth="1.6" opacity="0.34" />
       </g>
     </g>
 

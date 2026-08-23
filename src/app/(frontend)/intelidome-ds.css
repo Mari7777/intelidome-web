@@ -1126,3 +1126,9 @@ html {
     opacity: 0;
   }
 }
+
+/* Smyčka, kterou nikdo nevidí, nemá běžet. Atribut visí na obalu, protože
+   `animation-play-state` se přes inline styl na potomky nedědí. */
+.id-figure-svg[data-paused] * {
+  animation-play-state: paused;
+}

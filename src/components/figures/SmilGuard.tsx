@@ -40,14 +40,20 @@ export const SmilGuard = () => {
       po celou dobu čtení devítitisícové stránky.
     */
     const svgs = Array.from(document.querySelectorAll<SVGSVGElement>('.id-figure-svg svg'))
-    svgs.forEach((svg) => svg.pauseAnimations())
+    const pauza = (svg: SVGSVGElement, stop: boolean) => {
+      // `pauseAnimations()` sahá jen na SMIL osu — CSS keyframes je nutné
+      // zastavit zvlášť, a přes atribut na obalu, protože
+      // `animation-play-state` se na potomky nedědí přes inline styl.
+      if (stop) svg.pauseAnimations()
+      else svg.unpauseAnimations()
+      svg.closest('.id-figure-svg')?.toggleAttribute('data-paused', stop)
+    }
+    svgs.forEach((svg) => pauza(svg, true))
 
     const io = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          const svg = entry.target as SVGSVGElement
-          if (entry.isIntersecting) svg.unpauseAnimations()
-          else svg.pauseAnimations()
+          pauza(entry.target as SVGSVGElement, !entry.isIntersecting)
         })
       },
       { rootMargin: '10% 0px' },
