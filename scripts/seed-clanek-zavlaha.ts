@@ -64,7 +64,13 @@ const calc = (kind: string, light = false): Node =>
   block({ blockType: 'calculator', blockName: `Kalkulátor ${kind}`, kind, light })
 
 /** Technická kresba (DESIGN.md 9.2) — obraz je kód, v obsahu jen klíč. */
-const drawing = (key: string, number: string, alt: string, caption: string): Node =>
+const drawing = (
+  key: string,
+  number: string,
+  alt: string,
+  caption: string,
+  layout = '',
+): Node =>
   block({
     blockType: 'figure',
     blockName: `Obr. ${number}`,
@@ -73,17 +79,25 @@ const drawing = (key: string, number: string, alt: string, caption: string): Nod
     number,
     caption,
     panel: true,
+    layout,
   })
 
 /** Figura; `image` se doplní až za běhu podle názvu souboru v Media. */
-const figure = (filename: string, number: string, caption: string): Node =>
+const figure = (
+  filename: string,
+  number: string,
+  caption: string,
+  layout = '',
+  panel = true,
+): Node =>
   block({
     blockType: 'figure',
     blockName: `Obr. ${number}`,
     __filename: filename, // dočasné, nahradí se ID média
     number,
     caption,
-    panel: true,
+    panel,
+    layout,
   })
 
 /* ── Obsah článku ───────────────────────────────────────────────── */
@@ -127,6 +141,7 @@ const body = root([
     '01',
     'Řez půdou ve dvou sloupcích: vlevo častá malá zálivka, která smočí jen horní vrstvu a vychová mělké kořeny; vpravo vydatná zálivka méně často, po které voda dojde do hloubky a kořeny jdou za ní.',
     'Stejné množství vody, jiný výsledek. Rozhoduje hloubka, do které voda dojde — kořeny rostou tam, kam se dostane.',
+    'offset-right',
   ),
 
   block({
@@ -152,6 +167,7 @@ const body = root([
     '02',
     'Schéma kbelíkového testu: zdroj, manometr s ručičkou na 3,5 baru, proud vody plnící desetilitrový kbelík a stopky; vpravo výpočet průtoku se srážkou 20 %.',
     'Kbelíkový test krok za krokem. Tlak se odečítá až ve chvíli, kdy voda proudí — a od výsledného průtoku se vždy odečte 20 % rezervy.',
+    'offset-left',
   ),
 
   calc('prutok'),
@@ -187,12 +203,17 @@ const body = root([
     '03',
     'Půdorys trávníku ve dvou stavech: vlevo oddálené postřikovače se suchým pruhem mezi dostřiky, vpravo rozestup rovný dostřiku, kde se kruhy protínají ve středech sousedních hlavic.',
     'Proč se rozestup rovná dostřiku. Jakmile je větší, zůstane mezi hlavicemi pruh, kam nedosáhne ani jedna z nich.',
+    'offset-right',
   ),
 
+  /* Jediný obraz přes celou šířku — fotografie unese předěl, schéma ne.
+     Podle 9.1 tady padá radius: full-bleed obraz rám nemá. */
   figure(
     'fig-hlava-na-hlavu.avif',
     '04',
     'Totéž pravidlo na skutečném trávníku: vějíře dvou sousedních postřikovačů se protínají, takže mezi nimi nezůstane pruh bez vody.',
+    'bleed',
+    false,
   ),
 
   block({
@@ -217,6 +238,7 @@ const body = root([
     '05',
     'Uzavřená rozhodovací smyčka: čidlo vlhkosti změří stav půdy, hodnota se porovná s prahem, při nedostatku se přes most otevře ventil a voda se vrací zpět k čidlu; zdrojem je přednostně retenční nádrž, vodovodní řad až jako záloha.',
     'Smyčka, kterou obyčejný časovač nemá. Rozhodnutí zalévat vzniká z měření půdy a vrací se zpátky k němu — a voda se bere nejdřív z nádrže.',
+    'offset-left',
   ),
 
   /* Šablona 8.2 ř. N+1: jediný vnitřní obsidian článku. Tady se z výkladu

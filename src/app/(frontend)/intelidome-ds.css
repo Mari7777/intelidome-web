@@ -650,12 +650,20 @@ html {
 .id-article {
   --id-gutter: clamp(20px, 5vw, 40px);
   display: grid;
+  /*
+    Linka `edge` sedí přesně o okraj od kraje stránky. Díky ní se figura
+    může ukotvit k levé hraně textu a přetéct do pravého marginu (nebo
+    obráceně) — text zůstane na 700 px, ale obraz použije šířku, kterou
+    sazba odmítá. Bez toho čte celá stránka jako jeden pruh.
+  */
   grid-template-columns:
-    [full-start] minmax(var(--id-gutter), 1fr)
+    [full-start] var(--id-gutter)
+    [edge-start] minmax(0, 1fr)
     [wide-start] minmax(0, calc((var(--id-maxw-summary) - var(--id-maxw-prose)) / 2))
     [content-start] min(var(--id-maxw-prose), 100% - 2 * var(--id-gutter)) [content-end]
     minmax(0, calc((var(--id-maxw-summary) - var(--id-maxw-prose)) / 2)) [wide-end]
-    minmax(var(--id-gutter), 1fr) [full-end];
+    minmax(0, 1fr) [edge-end]
+    var(--id-gutter) [full-end];
 }
 .id-article > * {
   grid-column: content;
@@ -1127,4 +1135,34 @@ html {
    `animation-play-state` se přes inline styl na potomky nedědí. */
 .id-figure-svg[data-paused] * {
   animation-play-state: paused;
+}
+
+
+/* ── Asymetrická sazba figur (DESIGN.md 8.2, v2.1) ────────────────────
+   Figura se ukotví k jedné hraně textu a přeteče do protějšího okraje;
+   kapitoly se v tom střídají. Fotografie smí jít přes celou šířku — tam
+   podle 9.1 padá radius, protože full-bleed obraz rám nemá. */
+@media (min-width: 900px) {
+  .id-article > .id-figure--offset-right {
+    grid-column: content-start / edge-end;
+  }
+  .id-article > .id-figure--offset-left {
+    grid-column: edge-start / content-end;
+  }
+  /* Popisek se drží té hrany, u které figura kotví. */
+  .id-figure--offset-left > figcaption {
+    margin-left: auto;
+    text-align: left;
+  }
+}
+.id-article > .id-figure--bleed {
+  grid-column: full;
+}
+.id-figure--bleed > .id-figure-media {
+  border-radius: 0;
+}
+.id-figure--bleed > figcaption {
+  max-width: var(--id-maxw-prose);
+  margin-inline: auto;
+  padding-inline: var(--id-gutter);
 }

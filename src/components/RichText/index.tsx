@@ -71,7 +71,9 @@ const jsxConverters: JSXConvertersFunction<NodeTypes> = ({ defaultConverters }) 
   blocks: {
     banner: ({ node }) => <BannerBlock className="mb-4" {...node.fields} />,
     chapter: ({ node }) => <ChapterBlock {...node.fields} />,
-    figure: ({ node }) => <FigureBlock className="id-wide" {...node.fields} />,
+    figure: ({ node }) => (
+      <FigureBlock className={node.fields.layout ? undefined : 'id-wide'} {...node.fields} />
+    ),
     statTiles: ({ node }) => <StatTilesBlock {...node.fields} />,
     summaryBand: ({ node }) => <SummaryBandBlock {...node.fields} />,
     productBand: ({ node }) => <ProductBandBlock {...node.fields} />,

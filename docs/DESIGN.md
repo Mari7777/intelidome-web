@@ -2,7 +2,7 @@
 
 _Prověřeno 3 adversárními kontrolami: 41 nálezů, 37 zapracováno, 4 zamítnuty jako vkusové. Poté ručně překlopeno na paletu Tech Blue + Emerald (rozhodnutí 22. 8. 2026) s přepočtem všech kontrastů._
 
-**Verze:** 2.0 · **Datum:** 2026-08-22 · **Platí pro:** www.intelidome.com / intelidome.cz (Next.js + Tailwind CSS + GSAP)
+**Verze:** 2.1 · **Datum:** 2026-08-23 · **Platí pro:** www.intelidome.com / intelidome.cz (Next.js + Tailwind CSS + GSAP)
 **Primární reference:** [Sonos](https://styles.refero.design/style/8d315332-6267-4dc0-a14c-e8b49c26b0e1) · **Sekundární:** [Eight Sleep](https://styles.refero.design/style/e4e8fe86-47ed-4ddd-a6c6-2c28eae9aabe), [Samara](https://styles.refero.design/style/934a61aa-50ff-4e90-852b-4ad0b8262d54)
 
 > **Esence:** Teplý papír za dne, obsidian po setmění — a jeden modrý pulz.
@@ -1059,10 +1059,42 @@ Prototyp hydraulika-zahrady.html; kapitol 3–5.
 | 0 | Header | frosted capsule | prompt 4; kategorie uprostřed, pill-button „Objevit systém" |
 | 1 | Hero | obsidian, min-height 100svh | prompt 1; meta = čas čtení · počet kalkulátorů · InteliDome Journal |
 | 2 | Souhrn | krém | summary-lead Archivo na velikosti --id-t-subtitle w500 lh 1.38 (role leadu, ne titulku), max-width 960px (--id-maxw-summary), klíčová fráze v `<em>` akcentem --id-accent (na krému 4,74:1 = AA, 11.1); 4 stat-tiles (prompt 3) |
-| 3…N | Kapitoly 01–0N | bílá | eyebrow „Kapitola NN" + sec-title (title škála); 1 SVG figura v krémovém panelu s figcaption „Obr. NN"; volitelně kalkulátor (max 2/článek, prompt 2), krémové demo (max 1), step-karty 4× |
+| 3…N | Kapitoly 01–0N | bílá | eyebrow „Kapitola NN" + sec-title (title škála); 1 SVG figura v krémovém panelu s figcaption „Obr. NN", **sázená asymetricky dle 8.2b**; volitelně kalkulátor (max 2/článek, prompt 2), krémové demo (max 1), step-karty 4× |
 | N+1 | Produktový pás | obsidian | eyebrow + titulek; prose #9ba1a8, `<strong>` bílým; grid minmax(0,420px) 1fr (SVG telefon s app UI + síťový diagram bridge); 3 feature karty (prompt 5) |
 | N+2 | CTA | bílá, centrovaná | prompt 6 (logo, H2, sub, btn-blue se šipkou, otázka čtenáři) |
 | N+3 | Footer | bílá | hairline top; logo 19px + meta 13.5px --id-ink-2 |
+
+### 8.2b Asymetrická sazba figur (v2.1)
+
+**Proč:** prose 700 px na střed + figura 960 px na střed dělá rozdíl jen
+130 px na stranu — článek pak čte jako **jeden úzký pruh** se šedivými boxy,
+ne jako editorial. Předlohy tenhle vzor nemají; 8.3 ř. 4 už zná střídavé
+dvousloupcové bloky, článek je jen nedostal.
+
+**Pravidlo:** text zůstává na 700 px (čitelnost), ale **obraz použije šířku,
+kterou sazba odmítá**. Mřížka článku má proto linku `edge` přesně o okraj
+od kraje stránky:
+
+```
+[full-start] gutter [edge-start] 1fr [wide-start] … [content] … [wide-end] 1fr [edge-end] gutter [full-end]
+```
+
+| Sazba | `grid-column` | Kdy |
+|---|---|---|
+| `--offset-right` | `content-start / edge-end` | ukotveno k levé hraně textu, přetéká doprava |
+| `--offset-left` | `edge-start / content-end` | ukotveno k pravé hraně textu, přetéká doleva |
+| `--bleed` | `full` | **jen fotografie, max 1× za článek**; dle 9.1 padá radius |
+| výchozí | `wide` | schéma, které širokou sazbu neunese |
+
+1. **Kapitoly se ve stranách střídají** — dvě sousední figury nikdy nekotví
+   ke stejné hraně.
+2. **Popisek se drží ukotvené hrany**: u `--offset-left` jde doprava
+   (`margin-left: auto`), u `--offset-right` zůstává vlevo. Max 62ch —
+   nejmenší text stránky nesmí mít nejdelší míru.
+3. **Pod 900 px offsety mizí** a figura se vrací do osy textu; `--bleed`
+   zůstává full-bleed i na telefonu.
+4. Full-bleed je **předěl, ne norma**. Schéma s popisky ho neunese
+   (rozjede se měřítko), fotografie ano.
 
 ### 8.3 Šablona: Landing page
 

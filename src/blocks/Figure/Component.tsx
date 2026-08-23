@@ -15,6 +15,8 @@ export type FigureBlockProps = {
   drawing?: string | null
   /** Popis kresby pro odečítač — u fotografie ho nese alt v knihovně médií. */
   alt?: string | null
+  /** Asymetrická sazba: ukotvení k jedné hraně textu, nebo přes celou šířku. */
+  layout?: string | null
   /** Written by hand in the admin — the block does not know its position on the page. */
   number?: string | null
   caption: string
@@ -45,11 +47,13 @@ export const FigureBlock: React.FC<Props> = ({
   caption,
   drawing,
   image,
+  layout,
   number,
   panel,
 }) => {
   const label = formatFigureNumber(number)
   const withPanel = panel !== false
+  const sazba = layout ? `id-figure--${layout}` : null
   const entry: Drawing | undefined = drawing ? DRAWINGS[drawing as DrawingKey] : undefined
 
   /*
@@ -80,13 +84,13 @@ export const FigureBlock: React.FC<Props> = ({
   )
 
   return (
-    <figure className={cn('rv mt-[54px] mb-[10px] w-full', className)}>
+    <figure className={cn('rv mt-[54px] mb-[10px] w-full', sazba, className)}>
       {withPanel ? (
-        <div className="rounded-[var(--id-r-card)] bg-[var(--id-cream,var(--id-bg-2))] p-[clamp(16px,3vw,40px)]">
+        <div className="id-figure-media rounded-[var(--id-r-card)] bg-[var(--id-cream,var(--id-bg-2))] p-[clamp(16px,3vw,40px)]">
           {media}
         </div>
       ) : (
-        media
+        <div className="id-figure-media overflow-hidden rounded-[var(--id-r-card)]">{media}</div>
       )}
 
       <figcaption className="mt-[16px] flex max-w-[62ch] items-baseline gap-[10px] border-t-[1px] border-[var(--id-line-soft)] pt-[14px] text-[13.5px] leading-[1.45] text-[var(--id-ink-2)]">

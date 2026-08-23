@@ -43,6 +43,22 @@ export const Figure: Block = {
       },
     },
     {
+      name: 'layout',
+      type: 'select',
+      defaultValue: '',
+      label: 'Sazba',
+      admin: {
+        description:
+          'Kapitoly se ve stranách střídají, ať článek nečte jako jeden pruh. Přes celou šířku jen fotografie, max jednou za článek.',
+      },
+      options: [
+        { label: 'V ose textu (výchozí)', value: '' },
+        { label: 'Ukotvit vlevo, přetéct doprava', value: 'offset-right' },
+        { label: 'Ukotvit vpravo, přetéct doleva', value: 'offset-left' },
+        { label: 'Přes celou šířku (jen fotografie)', value: 'bleed' },
+      ],
+    },
+    {
       name: 'number',
       type: 'text',
       label: 'Číslo obrázku',

@@ -1670,6 +1670,10 @@ export interface FigureBlock {
    */
   alt?: string | null;
   /**
+   * Kapitoly se ve stranách střídají, ať článek nečte jako jeden pruh. Přes celou šířku jen fotografie, max jednou za článek.
+   */
+  layout?: ('' | 'offset-right' | 'offset-left' | 'bleed') | null;
+  /**
    * Dvouciferně, průběžně v rámci článku (01, 02, 03 …). Blok nezná svou pozici, číslo se píše ručně. Prázdné = popisek bez štítku.
    */
   number?: string | null;
