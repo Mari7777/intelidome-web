@@ -1715,6 +1715,10 @@ export interface SplitBlock {
   eyebrow?: string | null;
   title?: string | null;
   /**
+   * Kapitola = h2. Podkapitola uvnitř kapitoly = h3 (sazba subtitle).
+   */
+  titleLevel?: ('h2' | 'h3') | null;
+  /**
    * Odstavce oddělte prázdným řádkem. **Tučně** takto.
    */
   body: string;
@@ -1842,6 +1846,10 @@ export interface CtaBandBlock {
  */
 export interface FaqBlock {
   heading?: string | null;
+  /**
+   * Krátký standfirst v levém sloupci (např. shrnutí článku). Bez něj by vedle šesti otázek stál nadpis v prázdnu.
+   */
+  lead?: string | null;
   /**
    * Tři až šest skutečných otázek čtenáře. Vkládá se i do strukturovaných dat.
    */

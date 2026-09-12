@@ -20,7 +20,7 @@ import React from 'react'
  * ručička na 3,5 baru, hladina přesně na rysce 10 l, stopky na 24 s.
  */
 export const KbelikovyTestPortret: React.FC = () => (
-  <svg className="block h-auto w-full" viewBox="0 0 520 660">
+  <svg aria-hidden="true" className="block h-auto w-full" viewBox="0 0 520 660">
     <defs>
       <radialGradient id="ktp-voda" gradientUnits="userSpaceOnUse" cx="232" cy="400" r="140">
         <stop offset="0" stopColor="#2563eb" stopOpacity="0.34" />

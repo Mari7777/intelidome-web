@@ -59,6 +59,11 @@ export const ImageMedia: React.FC<MediaProps> = (props) => {
   let height: number | undefined
   let alt = altFromProps
   let src: StaticImageData | string = srcFromProps || ''
+  // Fokální bod z knihovny médií (Media má `focalPoint: true`): u `fill`
+  // s object-fit cover rozhoduje, co z fotky zůstane v záběru — art
+  // direction patří k fotografii, ne do globálního CSS (hero článku 1
+  // chtělo 62 %, sonda článku 2 chce 30 %, aby titulek neležel přes rýč).
+  let objectPosition: string | undefined
 
   if (!src && resource && typeof resource === 'object') {
     const { alt: altFromResource, height: fullHeight, url, width: fullWidth } = resource
@@ -66,6 +71,10 @@ export const ImageMedia: React.FC<MediaProps> = (props) => {
     width = fullWidth!
     height = fullHeight!
     alt = altFromResource || ''
+    const { focalX, focalY } = resource as { focalX?: number | null; focalY?: number | null }
+    if (typeof focalX === 'number' && typeof focalY === 'number') {
+      objectPosition = `${focalX}% ${focalY}%`
+    }
 
     const cacheTag = resource.updatedAt
 
@@ -100,6 +109,7 @@ export const ImageMedia: React.FC<MediaProps> = (props) => {
         loading={loading}
         sizes={sizes}
         src={src}
+        style={objectPosition ? { objectPosition } : undefined}
         width={!fill ? width : undefined}
       />
     </picture>

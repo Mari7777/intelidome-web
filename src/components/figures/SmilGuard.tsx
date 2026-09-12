@@ -60,9 +60,20 @@ export const SmilGuard = () => {
     )
     svgs.forEach((svg) => io.observe(svg))
 
+    /* Scroll-cue hera je jediná smyčka mimo figury — také ji nemá cenu
+       točit, když je hero dávno nad viewportem. */
+    const cue = document.querySelector<HTMLElement>('.id-hero__cue')
+    const ioCue = cue
+      ? new IntersectionObserver(([entry]) => {
+          cue.toggleAttribute('data-paused', !entry.isIntersecting)
+        })
+      : null
+    if (cue && ioCue) ioCue.observe(cue)
+
     return () => {
       query.removeEventListener('change', strip)
       io.disconnect()
+      ioCue?.disconnect()
     }
   }, [pathname])
 

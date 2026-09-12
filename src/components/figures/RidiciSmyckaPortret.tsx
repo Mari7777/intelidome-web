@@ -19,7 +19,7 @@ import React from 'react'
 // Klidový stav (po odebrání SMIL uzlů při prefers-reduced-motion) je v markupu:
 // všechny trasy stojí jako čárkované čáry, vlna u hrotu sondy stojí na r 7 / opacity .45.
 export const RidiciSmyckaPortret: React.FC = () => (
-  <svg className="block h-auto w-full" viewBox="0 0 520 600">
+  <svg aria-hidden="true" className="block h-auto w-full" viewBox="0 0 520 600">
     <defs>
       <radialGradient id="rsp-voda" cx="50%" cy="34%" r="66%">
         <stop offset="0" stopColor="#2563eb" stopOpacity="0.34" />

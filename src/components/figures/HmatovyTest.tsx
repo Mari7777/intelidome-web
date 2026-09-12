@@ -15,7 +15,7 @@ import React from 'react'
  * váleček, prasklý váleček, rozpadlá kulička — bez animace zůstává vše čitelné.
  */
 export const HmatovyTest: React.FC = () => (
-  <svg className="block h-auto w-full" viewBox="0 0 520 500">
+  <svg aria-hidden="true" className="block h-auto w-full" viewBox="0 0 520 500">
     <defs>
       {/* jedna vzorkovnice zrnek pro lupu, tři hustoty */}
       <pattern id="hmt-jil" width="6" height="6" patternUnits="userSpaceOnUse">
@@ -129,7 +129,7 @@ export const HmatovyTest: React.FC = () => (
       />
       <path d="M52 356 C 84 356, 110 340, 148 332" fill="none" stroke="#54402c" strokeWidth="18" strokeLinecap="round" opacity="0.92" />
     </g>
-    <text className="sv-lbl" x="100" y="392" textAnchor="middle">Ohne se</text>
+    <text className="sv-val" x="100" y="394" textAnchor="middle" style={{ fontSize: 20 }}>Ohne se</text>
 
     {/* hlína: drží, ale při ohnutí praská — zlom uprostřed */}
     <path d="M212 356 C 232 354, 246 347, 256 340" fill="none" stroke="#6b5138" strokeWidth="18" strokeLinecap="round" opacity="0.9" />
@@ -143,7 +143,7 @@ export const HmatovyTest: React.FC = () => (
       <circle cx="259" cy="370" r="2.2" />
       <circle cx="266" cy="374" r="1.6" />
     </g>
-    <text className="sv-lbl" x="260" y="392" textAnchor="middle">Praská</text>
+    <text className="sv-val" x="260" y="394" textAnchor="middle" style={{ fontSize: 20 }}>Praská</text>
 
     {/* písek: uválet nejde — jen duch válečku a rozsypaná zrna */}
     <rect x="372" y="337" width="96" height="18" rx="9" fill="none" stroke="#d5d3cc" strokeWidth="1.6" strokeDasharray="3 7" />
@@ -156,7 +156,7 @@ export const HmatovyTest: React.FC = () => (
       <path d="M406 372 l4 -2 3 3 -1 4 -4 1 -2 -3 z" />
       <path d="M438 372 l4 -2 3 3 -1 4 -4 1 -2 -3 z" />
     </g>
-    <text className="sv-lbl" x="420" y="392" textAnchor="middle">Rozpadá se</text>
+    <text className="sv-val" x="420" y="394" textAnchor="middle" style={{ fontSize: 20 }}>Rozpadá se</text>
 
     {/* ── řádek 4: na co se zaměřit ────────────────────────────── */}
     <line x1="30" y1="410" x2="490" y2="410" stroke="#d5d3cc" strokeWidth="1.6" strokeDasharray="3 7" strokeLinecap="round" />

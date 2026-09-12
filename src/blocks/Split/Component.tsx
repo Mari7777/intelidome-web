@@ -10,6 +10,7 @@ export type SplitBlockProps = {
   drawing: string
   eyebrow?: string | null
   title?: string | null
+  titleLevel?: 'h2' | 'h3' | null
   body: string
   number?: string | null
   caption: string
@@ -32,7 +33,8 @@ const formatFigureNumber = (raw?: string | null): string | null => {
  * Obraz a text, které patří k sobě, drží jeden blok — v ploché struktuře
  * Lexicalu by se vedle sebe postavit nedaly. Do úzkého sloupce jde
  * **portrétová** sazba kresby; panoramatická 1080 px by tu měla popisky
- * pod 5 px. Pod 900 px se sloupce skládají pod sebe, obraz vždy první.
+ * pod 5 px. Pod 1130 px se skládá pod sebe: titulek → kresba → tělo —
+ * teze před obrazem, obraz před rozvedením.
  */
 export const SplitBlock: React.FC<SplitBlockProps> = ({
   alt,
@@ -44,6 +46,7 @@ export const SplitBlock: React.FC<SplitBlockProps> = ({
   number,
   side,
   title,
+  titleLevel,
 }) => {
   const entry: Drawing | undefined = DRAWINGS[drawing as DrawingKey]
   const Kresba = entry?.portrait ?? entry?.wide
@@ -53,10 +56,41 @@ export const SplitBlock: React.FC<SplitBlockProps> = ({
   const label = formatFigureNumber(number)
   const anchor = title ? slugify(title) || undefined : undefined
 
+  const hasHead = Boolean(eyebrow || title)
+  const Titulek = titleLevel === 'h3' ? 'h3' : 'h2'
+
   return (
     <section
       className={cn('id-split not-prose', side === 'image-right' && 'id-split--right', className)}
     >
+      {/* Tři položky mřížky: hlava, kresba, tělo. Na desktopu hlava + tělo
+          v jednom sloupci vedle kresby, na telefonu titulek → kresba → tělo. */}
+      {hasHead ? (
+        <header className="id-split__head rv">
+          {eyebrow ? (
+            <span className="mb-[14px] flex w-fit items-center gap-[10px] font-[family-name:var(--id-f-display)] text-[12px] leading-[1.2] font-semibold tracking-[0.14em] text-[var(--id-accent)] uppercase">
+              <span aria-hidden="true" className="h-[1.5px] w-[22px] shrink-0 bg-[var(--id-accent)]" />
+              {eyebrow}
+            </span>
+          ) : null}
+
+          {title ? (
+            Titulek === 'h3' ? (
+              <h3 className="id-split__h3 mb-[18px]" id={anchor}>
+                {nezlomitelneMezery(title)}
+              </h3>
+            ) : (
+              <h2
+                className="mb-[22px] font-[family-name:var(--id-f-display)] text-[length:var(--id-t-title)] leading-[1.05] font-semibold tracking-[-0.025em] text-[var(--id-ink)] [text-wrap:balance]"
+                id={anchor}
+              >
+                {nezlomitelneMezery(title)}
+              </h2>
+            )
+          ) : null}
+        </header>
+      ) : null}
+
       <figure className="id-split__figure rv">
         <div
           aria-label={alt}
@@ -77,23 +111,7 @@ export const SplitBlock: React.FC<SplitBlockProps> = ({
         </figcaption>
       </figure>
 
-      <div className="id-split__text rv">
-        {eyebrow ? (
-          <span className="mb-[14px] flex w-fit items-center gap-[10px] font-[family-name:var(--id-f-display)] text-[12px] leading-[1.2] font-semibold tracking-[0.14em] text-[var(--id-accent)] uppercase">
-            <span aria-hidden="true" className="h-[1.5px] w-[22px] shrink-0 bg-[var(--id-accent)]" />
-            {eyebrow}
-          </span>
-        ) : null}
-
-        {title ? (
-          <h2
-            className="mb-[22px] font-[family-name:var(--id-f-display)] text-[length:var(--id-t-title)] leading-[1.05] font-semibold tracking-[-0.025em] text-[var(--id-ink)] [text-wrap:balance]"
-            id={anchor}
-          >
-            {nezlomitelneMezery(title)}
-          </h2>
-        ) : null}
-
+      <div className="id-split__body rv">
         <div className="space-y-[18px]">
           {paragraphs.map((paragraph) => (
             <p className="id-split__p" key={paragraph.slice(0, 40)}>

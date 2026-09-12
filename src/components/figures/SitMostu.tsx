@@ -5,7 +5,7 @@ import React from 'react'
 // dashline, jen jeden je právě aktivní — po něm pochoduje voda k ventilu.
 // Pointa: nejsou to čtyři samostatné krabičky, ale jedna síť s jedním mozkem.
 export const SitMostu: React.FC = () => (
-  <svg className="block h-auto w-full" viewBox="0 0 1080 400">
+  <svg aria-hidden="true" className="block h-auto w-full" viewBox="0 0 1080 400">
     {/* jeden okruh — všechna zařízení visí na téže síti */}
     <ellipse cx="540" cy="196" rx="380" ry="126" fill="none" stroke="rgba(255,255,255,.12)" strokeWidth="1.6" strokeDasharray="3 7" />
 

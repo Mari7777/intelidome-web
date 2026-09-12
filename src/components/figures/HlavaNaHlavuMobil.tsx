@@ -17,7 +17,7 @@ import React from 'react'
 // pod okrajem dostřiku (r 77 z 88, opacity 0.4) — stejný poměr jako širokoúhlá
 // varianta, aby v klidu nevznikl falešný druhý okraj.
 export const HlavaNaHlavuMobil: React.FC = () => (
-  <svg className="block h-auto w-full" viewBox="0 0 520 672">
+  <svg aria-hidden="true" className="block h-auto w-full" viewBox="0 0 520 672">
     <defs>
       <radialGradient id="hnhm-voda" cx="0.5" cy="0.5" r="0.5">
         <stop offset="0" stopColor="#2563eb" stopOpacity="0.34" />

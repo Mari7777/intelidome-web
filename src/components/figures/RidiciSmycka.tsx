@@ -5,7 +5,7 @@ import React from 'react'
 // vrací zpátky k půdě. Vedlejší větev ukazuje, že voda se bere nejdřív z retenční nádrže
 // a vodovodní řad je jen záloha.
 export const RidiciSmycka: React.FC = () => (
-  <svg className="block h-auto w-full" viewBox="0 0 1080 420">
+  <svg aria-hidden="true" className="block h-auto w-full" viewBox="0 0 1080 420">
     <defs>
       <radialGradient id="rs-voda" cx="50%" cy="34%" r="66%">
         <stop offset="0" stopColor="#2563eb" stopOpacity="0.34" />

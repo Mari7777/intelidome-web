@@ -48,6 +48,17 @@ export const Split: Block = {
     { name: 'eyebrow', type: 'text', label: 'Nadřádek' },
     { name: 'title', type: 'text', label: 'Titulek' },
     {
+      name: 'titleLevel',
+      type: 'select',
+      defaultValue: 'h2',
+      label: 'Úroveň titulku',
+      admin: { description: 'Kapitola = h2. Podkapitola uvnitř kapitoly = h3 (sazba subtitle).' },
+      options: [
+        { label: 'Kapitola (h2)', value: 'h2' },
+        { label: 'Podkapitola (h3)', value: 'h3' },
+      ],
+    },
+    {
       name: 'body',
       type: 'textarea',
       required: true,

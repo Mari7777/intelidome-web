@@ -14,7 +14,7 @@ import React from 'react'
  * kapky viditelné nad prohlubní, louže i doplněk nakreslené.
  */
 export const Sedani: React.FC = () => (
-  <svg className="block h-auto w-full" viewBox="0 0 520 500">
+  <svg aria-hidden="true" className="block h-auto w-full" viewBox="0 0 520 500">
     <defs>
       <pattern id="sd-vzduch-hodne" width="16" height="16" patternUnits="userSpaceOnUse">
         <circle cx="5" cy="5" r="3" fill="none" stroke="rgba(255,255,255,.22)" strokeWidth="1" />
@@ -65,9 +65,9 @@ export const Sedani: React.FC = () => (
     <line x1="30" y1="200" x2="490" y2="200" stroke="#d5d3cc" strokeWidth="1.6" strokeDasharray="3 7" strokeLinecap="round" />
     {/* kapky deště */}
     <g fill="#3b82f6" opacity="0.85">
-      <g className="sd-kapka"><ellipse cx="228" cy="164" rx="2.6" ry="4.5" /></g>
-      <g className="sd-kapka" style={{ animationDelay: '0.9s' }}><ellipse cx="262" cy="158" rx="2.6" ry="4.5" /></g>
-      <g className="sd-kapka" style={{ animationDelay: '1.7s' }}><ellipse cx="296" cy="166" rx="2.6" ry="4.5" /></g>
+      <g className="sd-kapka"><ellipse cx="228" cy="176" rx="2.6" ry="4.5" /></g>
+      <g className="sd-kapka" style={{ animationDelay: '0.9s' }}><ellipse cx="262" cy="172" rx="2.6" ry="4.5" /></g>
+      <g className="sd-kapka" style={{ animationDelay: '1.7s' }}><ellipse cx="296" cy="178" rx="2.6" ry="4.5" /></g>
     </g>
     <text className="sv-lbl" x="480" y="306" textAnchor="end">málo vzduchu</text>
 
@@ -92,6 +92,6 @@ export const Sedani: React.FC = () => (
     {/* ── pointa ──────────────────────────────────────────────── */}
     <line x1="30" y1="472" x2="490" y2="472" stroke="#d5d3cc" strokeWidth="1.6" strokeDasharray="3 7" strokeLinecap="round" />
     <text className="sv-lbl" x="30" y="494">Čerstvá zemina lže</text>
-    <text className="sv-val" x="490" y="495" textAnchor="end">sedá týdny, ne dny</text>
+    <text className="sv-val" x="490" y="497" textAnchor="end" style={{ fontSize: 22 }}>sedá týdny, ne dny</text>
   </svg>
 )

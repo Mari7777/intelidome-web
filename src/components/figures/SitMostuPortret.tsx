@@ -26,7 +26,7 @@ import React from 'react'
 // nečerpá. Klidový stav drží markup: voda stojí na spoji, obě kapky visí
 // pod ventilem, halo je vidět jako přerušovaná kružnice kolem mostu.
 export const SitMostuPortret: React.FC = () => (
-  <svg className="block h-auto w-full" viewBox="0 0 520 552">
+  <svg aria-hidden="true" className="block h-auto w-full" viewBox="0 0 520 552">
     {/* jeden okruh — všechna zařízení visí na téže síti */}
     <ellipse
       cx="260"
@@ -40,16 +40,11 @@ export const SitMostuPortret: React.FC = () => (
     />
 
     {/* dosah mostu — kružnice roste kolem vlastního středu (CSS, ne SMIL) */}
-    <circle
-      className="id-ripple"
-      cx="260"
-      cy="273"
-      r="94"
-      fill="none"
-      stroke="rgba(255,255,255,.1)"
-      strokeWidth="1.6"
-      strokeDasharray="3 7"
-    />
+    {/* tři instance s fázovým posunem ⅓ periody (6.6.3); tah .34, aby
+        byl ripple na obsidianu vidět — .1 mizel (Δ 4/255) */}
+    <circle className="id-ripple" cx="260" cy="273" r="94" fill="none" stroke="rgba(255,255,255,.34)" strokeWidth="1.6" strokeDasharray="3 7" />
+    <circle className="id-ripple" style={{ animationDelay: '-1.53s' }} cx="260" cy="273" r="94" fill="none" stroke="rgba(255,255,255,.34)" strokeWidth="1.6" strokeDasharray="3 7" />
+    <circle className="id-ripple" style={{ animationDelay: '-3.07s' }} cx="260" cy="273" r="94" fill="none" stroke="rgba(255,255,255,.34)" strokeWidth="1.6" strokeDasharray="3 7" />
 
     {/* neaktivní spoje */}
     <g
@@ -84,9 +79,8 @@ export const SitMostuPortret: React.FC = () => (
       strokeLinecap="round"
       strokeDasharray="10 8"
       strokeDashoffset="18"
-    >
-      <animate attributeName="stroke-dashoffset" from="18" to="0" dur="1.1s" repeatCount="indefinite" />
-    </path>
+      className="id-march"
+    />
     <circle cx="296.5" cy="230" r="3" fill="#0b0d10" stroke="#2563eb" strokeWidth="1.6" />
     <path
       d="M-8 -6 L0 0 L-8 6"
@@ -150,29 +144,7 @@ export const SitMostuPortret: React.FC = () => (
         <path d="M15 -13 L15 11" />
       </g>
       {/* kapka na odtoku — v klidu visí pod ventilem */}
-      <g transform="translate(400 94)" opacity="0.85">
-        <animateTransform
-          attributeName="transform"
-          type="translate"
-          values="0 0; 0 13"
-          keyTimes="0; 1"
-          calcMode="spline"
-          keySplines="0.4 0 1 1"
-          dur="2.6s"
-          begin="0s"
-          repeatCount="indefinite"
-          additive="sum"
-        />
-        <animate
-          attributeName="opacity"
-          values="0.85; 0.85; 0"
-          keyTimes="0; 0.72; 1"
-          calcMode="spline"
-          keySplines="0.4 0 1 1; 0.4 0 1 1"
-          dur="2.6s"
-          begin="0s"
-          repeatCount="indefinite"
-        />
+      <g transform="translate(400 94)"><g className="sm-kapka">
         <path
           d="M0 18 C 6 26 9 30 9 34 A 9 9 0 0 1 -9 34 C -9 30 -6 26 0 18 Z"
           fill="none"
@@ -180,31 +152,9 @@ export const SitMostuPortret: React.FC = () => (
           strokeWidth="1.6"
           strokeLinejoin="round"
         />
-      </g>
+      </g></g>
       {/* druhá kapka — o půl periody napřed, menší a níž */}
-      <g transform="translate(400 106)" opacity="0.45">
-        <animateTransform
-          attributeName="transform"
-          type="translate"
-          values="0 0; 0 12"
-          keyTimes="0; 1"
-          calcMode="spline"
-          keySplines="0.4 0 1 1"
-          dur="2.6s"
-          begin="1.3s"
-          repeatCount="indefinite"
-          additive="sum"
-        />
-        <animate
-          attributeName="opacity"
-          values="0.45; 0.45; 0"
-          keyTimes="0; 0.72; 1"
-          calcMode="spline"
-          keySplines="0.4 0 1 1; 0.4 0 1 1"
-          dur="2.6s"
-          begin="1.3s"
-          repeatCount="indefinite"
-        />
+      <g transform="translate(400 106)"><g className="sm-kapka sm-kapka--2">
         <path
           transform="scale(0.72)"
           d="M0 18 C 6 26 9 30 9 34 A 9 9 0 0 1 -9 34 C -9 30 -6 26 0 18 Z"
@@ -213,7 +163,7 @@ export const SitMostuPortret: React.FC = () => (
           strokeWidth="1.6"
           strokeLinejoin="round"
         />
-      </g>
+      </g></g>
       <text className="sv-lbl" x="400" y="46" textAnchor="middle">Ventil</text>
     </g>
 

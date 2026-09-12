@@ -775,3 +775,66 @@ GEO šablona, dvojí „Objevit systém" (kapsle 7.1 + CTA), hero podtext bez
 fade (LCP), fokus vstupů kalkulátoru podtržením (výjimka v CSS vs. 11.2),
 skip-link a `aria-label` navigací (mimo článek), délka 21 obrazovek.
 
+## Kolo 02 — NEPROŠEL
+
+| Porotce | 01 → 02 | Kritické 02 |
+|---|---|---|
+| Hierarchie | 3 → 3 | žádné |
+| Typografie | 2 → 3 | `.id-feature__text` 85 zn./řádek — jediný prozaický uzel, který míře unikl |
+| Pohyb | 3 → 3 | žádné |
+| Grafický styl | 3 → 3 | full-bleed stále s radiusem 14 px — `.prose img` v globals.css má stejnou specificitu a stojí později |
+| Slop | 4 → 4 | žádné |
+| Výkon a přístupnost | 3 → 4 | žádné |
+| Rozložení | 3 → 3 | zónovací dvousloupec 64 % prázdna (text 242 vs. panel 673); FAQ 83 % (lepivý štítek se v bloku kratším než viewport nikdy nerozjede) |
+
+**Souhrn: 3 · 3 · 3 · 3 · 4 · 4 · 3, 4 kritické** (z 9). Shodně zvednuto
+napříč porotci: dlaždice „2,5–7,5 cm/h" přetéká do „300 l" (moje `nowrap`
+z kola 01 — regrese), na mobilu jde kresba před titulek kapitoly (šablona,
+ne rozhodnutí), callout „Shrnuto a podtrženo" jako poloprázdný modrý panel
+na páté šířce, FAQ vklíněné mezi produkt a výzvu (8.2: N+1 → N+2), hero
+titulek přes list rýče (`object-position: 62 %` zůstal po fotce článku 1),
+kresba 05 bez stropu 520 v pásmu 900–1129 (`viewBox^="0 0 520"` nechytne
+viewBox od y=60), diagram v pásu se SMIL translate/opacity (6.6.1),
+kapky Obr. 07 startující uvnitř bloku 1, čtyři kresby bez dominantního
+prvku, h3 w600 místo w500, NBSP ve verdiktech kalkulátorů, CTA sub 78 zn.
+
+**Zamítnuto s důvodem:** hero podtext bez fade (LCP, koš B — podruhé);
+fokus vstupů podtržením (výjimka v CSS, spor s 11.2 — koš B); popisky
+kreseb 10,6 px na telefonu pod 12px minimem 4.3 p. 6 (9.2 p. 3 počítá
+s měřítkem, 10 px je mez z článku 1 — spor uvnitř DS, koš B); kapka
+Obr. 05 5,2 s (dráha 212 px, rychlost odpovídá normě `fall`).
+
+#### Opraveno — balík „kapitola 05, FAQ, regrese" (2026-09-12)
+
+1. **Zónovací dvousloupec** nese mezititulek uvnitř (nový `titleLevel: h3`
+   ve Split, sazba subtitle) a tři odstavce vč. „Upozornění"; kresba 05
+   zhutněna (bez řádku „přechody navazují" — nese ho popisek; „cm" nad
+   metr; viewBox 430). Prázdno **64 → 19 %**.
+2. **FAQ** dostalo standfirst: autorovo „Shrnuto a podtrženo" v levém
+   sloupci v roli leadu (nové pole `lead`), modrý callout z prózy pryč;
+   FAQ stojí před produktovým pásem, takže produkt → výzva sousedí
+   a přechod FAQ → produkt je posunem povrchu. Lepivý sloupec zrušen.
+3. **Split = hlava · kresba · tělo** (tři položky mřížky): na desktopu
+   hlava k dolní hraně 1. řádky, tělo k horní hraně 2., kresba přes obě
+   → centrované jako dřív; na telefonu titulek → kresba → tělo.
+4. **Míra** i pro `.id-feature__text` (85 → ~66 zn.); h3 w500 / lh 1,25;
+   CTA sub 30 em; NBSP ve všech čtyřech verdiktech.
+5. **Dlaždice:** `nowrap` jen na hodnotě + `<wbr>` před jednotkou —
+   „2,5–7,5" drží, „cm/h" smí spadnout.
+6. **Full-bleed bez radiusu** přes `.prose .id-figure--bleed img`.
+7. **Hero art direction patří fotce:** `ImageMedia` čte `focalX/focalY`
+   z knihovny médií → `object-position`; sonda 30/50 (rýč na 71 %, titulek
+   volný), hero článku 1 dostalo 62/48 do dat. `sizes` hera
+   `(orientation: portrait) 236vh, 100vw` — na výšku se z 21:9 zobrazí
+   jen 22 % šířky, mobil teď žádá 3840 místo 1200.
+8. **Kresby:** strop 520 podle `viewBox*=" 520 "`; dominantní prvek
+   v 01 (chování válečku 20 px), 02 (10–15 cm 24 px), 05 (hloubky 22 px),
+   07 (pointa 22 px); kapky Obr. 07 startují pod blokem 1.
+9. **Diagram pásu:** kapky a pochod linky jako CSS (fade-in, bez skoku),
+   ripple 3 instance s tahem .34 (dřív .1 = neviditelný); scroll-cue se
+   pauzuje mimo viewport; `aria-hidden` na SVG uvnitř `role="img"`.
+
+Přejímka po balíku: layout-check 1024/1440/1990 čisté; svg-labels
+320/360/393/1440 0 kolizí, 0 ořezů; dvousloupce 5–24 % prázdna, produkt
+20 %; próza max 79 zn.
+

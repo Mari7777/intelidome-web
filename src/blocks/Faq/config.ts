@@ -20,6 +20,15 @@ export const Faq: Block = {
       label: 'Nadpis sekce',
     },
     {
+      name: 'lead',
+      type: 'textarea',
+      label: 'Úvodní věta pod nadpisem',
+      admin: {
+        description:
+          'Krátký standfirst v levém sloupci (např. shrnutí článku). Bez něj by vedle šesti otázek stál nadpis v prázdnu.',
+      },
+    },
+    {
       name: 'items',
       type: 'array',
       label: 'Otázky',

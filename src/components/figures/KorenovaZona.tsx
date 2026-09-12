@@ -6,7 +6,7 @@ import React from 'react'
 // vodu do 25 cm a kořeny jdou za ní až k 26 cm. Osa uprostřed měří obě hloubky
 // týmž metrem; pointa je, že o kořenech nerozhoduje množství vody, ale kam dojde.
 export const KorenovaZona: React.FC = () => (
-  <svg className="block h-auto w-full" viewBox="0 0 1080 418">
+  <svg aria-hidden="true" className="block h-auto w-full" viewBox="0 0 1080 418">
     <defs>
       <radialGradient id="kz-voda" cx="0.5" cy="0" r="0.9">
         <stop offset="0" stopColor="#2563eb" stopOpacity="0.34" />

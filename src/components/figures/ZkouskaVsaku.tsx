@@ -17,7 +17,7 @@ import React from 'react'
  * 0,71): odečet vpravo má 204 px, jáma je o to užší.
  */
 export const ZkouskaVsaku: React.FC = () => (
-  <svg className="block h-auto w-full" viewBox="0 0 520 490">
+  <svg aria-hidden="true" className="block h-auto w-full" viewBox="0 0 520 490">
     <defs>
       <radialGradient id="zv-voda" gradientUnits="userSpaceOnUse" cx="175" cy="200" r="180">
         <stop offset="0" stopColor="#2563eb" stopOpacity="0.34" />

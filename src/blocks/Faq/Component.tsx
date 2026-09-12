@@ -17,6 +17,7 @@ export type FaqBlockProps = {
   className?: string
   heading?: string | null
   items?: FaqBlockItem[] | null
+  lead?: string | null
   id?: string | null
   blockName?: string | null
   blockType?: 'faq'
@@ -65,7 +66,7 @@ const richTextToPlainText = (data: unknown): string =>
 
 // Closing section of an article: native <details>/<summary> accordion (works without JS)
 // plus FAQPage structured data — the main GEO lever of the article template.
-export const FaqBlock: React.FC<FaqBlockProps> = ({ className, heading, id, items }) => {
+export const FaqBlock: React.FC<FaqBlockProps> = ({ className, heading, id, items, lead }) => {
   const entries = (Array.isArray(items) ? items : []).filter(
     (item) => item && typeof item.question === 'string' && item.question.trim() !== '',
   )
@@ -116,6 +117,7 @@ export const FaqBlock: React.FC<FaqBlockProps> = ({ className, heading, id, item
       >
         {headingText}
       </h2>
+      {lead ? <p className="id-faq__lead">{nezlomitelneMezery(lead)}</p> : null}
       </div>
 
       <div className="border-b border-[var(--id-line-soft)]">

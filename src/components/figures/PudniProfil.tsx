@@ -13,7 +13,7 @@ import React from 'react'
  * rýč opřený o desku, kořeny ohnuté — bez animace se nic neztratí.
  */
 export const PudniProfil: React.FC = () => (
-  <svg className="block h-auto w-full" viewBox="0 0 520 470">
+  <svg aria-hidden="true" className="block h-auto w-full" viewBox="0 0 520 470">
     <defs>
       {/* slisovaná vrstva: husté vodorovné lamely = žádné velké póry */}
       <pattern id="pp-lis" width="8" height="5" patternUnits="userSpaceOnUse">
@@ -95,7 +95,7 @@ export const PudniProfil: React.FC = () => (
 
     <text className="sv-lbl" x="396" y="206">Udusaná</text>
     <text className="sv-lbl" x="396" y="228">vrstva</text>
-    <text className="sv-val" x="396" y="252">10–15 cm</text>
+    <text className="sv-val" x="396" y="254" style={{ fontSize: 24 }}>10–15 cm</text>
 
     <text className="sv-lbl" x="396" y="318">Podloží</text>
     <text className="sv-val" x="396" y="342">15–30 cm</text>

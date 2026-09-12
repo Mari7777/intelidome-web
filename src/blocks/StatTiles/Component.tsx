@@ -84,13 +84,14 @@ export const StatTilesBlock: React.FC<StatTilesBlockProps> = ({ className, tiles
             <div
               className={cn(
                 'font-[family-name:var(--id-f-display)] font-semibold tabular-nums',
-                // Rozsah „2,5–7,5" se nesmí zlomit za pomlčkou.
-                'whitespace-nowrap',
                 'text-[length:clamp(26px,3vw,40px)] leading-[1.05] tracking-[-0.02em]',
                 'text-[color:var(--id-ink)]',
               )}
             >
-              {tile.value}
+              {/* Rozsah „2,5–7,5" drží pohromadě; jednotka smí spadnout na další řádek. */}
+              <span className="whitespace-nowrap">{tile.value}</span>
+              {/* místo zlomu: bez něj by jednotka nespadla na další řádek a přetekla do sousední dlaždice */}
+              <wbr />
               {tile.unit ? (
                 <small className="ml-[2px] text-[length:0.52em] font-semibold tracking-normal text-[color:var(--id-ink-2)]">
                   {tile.unit}

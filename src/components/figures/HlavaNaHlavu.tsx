@@ -5,7 +5,7 @@ import React from 'react'
 // Vpravo je rozestup roven dostřiku — voda z jedné hlavice dopadá na tělo té sousední,
 // překryv je vyznačený sytější modrou. Pointa: obě šipky ukazují stejných 5 m.
 export const HlavaNaHlavu: React.FC = () => (
-  <svg className="block h-auto w-full" viewBox="0 0 1080 360">
+  <svg aria-hidden="true" className="block h-auto w-full" viewBox="0 0 1080 360">
     <defs>
       <radialGradient id="hnh-voda" cx="0.5" cy="0.5" r="0.5">
         <stop offset="0" stopColor="#2563eb" stopOpacity="0.34" />

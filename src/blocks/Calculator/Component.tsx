@@ -2,6 +2,7 @@
 
 import React, { useId, useState } from 'react'
 
+import { nezlomitelneMezery } from '@/utilities/czechTypography'
 import { cn } from '@/utilities/ui'
 
 export type CalculatorBlockProps = {
@@ -164,7 +165,7 @@ const Vsak = ({ className, uid }: { className: string; uid: string }) => {
           className={cn('id-verdict', pasmo === 'idealni' ? 'id-verdict--ok' : 'id-verdict--warn')}
         >
           {pasmo === 'idealni' ? <Ok /> : <Warn />}
-          <span>{zprava}</span>
+          <span>{nezlomitelneMezery(zprava)}</span>
         </div>
       </div>
     </div>
@@ -306,9 +307,11 @@ const Primesi = ({ className, uid }: { className: string; uid: string }) => {
         <div aria-live="polite" className={cn('id-verdict', platne ? 'id-verdict--ok' : 'id-verdict--warn')}>
           {platne ? <Ok /> : <Warn />}
           <span>
-            {platne
+            {nezlomitelneMezery(
+              platne
               ? `Podíl ${fmt(podil)} % počítáme z litrů: ${fmtN(primesNaM2, 1)} l příměsi + ${fmtN(zakladNaM2, 1)} l minerálního základu = ${fmtN(vrstvaNaM2)} l na každý m². Kilogramy vzniknou až sypnou hustotou — litr zeminy váží jinak než litr příměsi.`
-              : 'Doplňte plochu, hloubku vrstvy, podíl příměsi a sypnou hustotu od výrobce.'}
+              : 'Doplňte plochu, hloubku vrstvy, podíl příměsi a sypnou hustotu od výrobce.',
+            )}
           </span>
         </div>
       </div>
@@ -384,11 +387,13 @@ const Prutok = ({ className, uid }: { className: string; uid: string }) => {
         >
           {staci && platne ? <Ok /> : <Warn />}
           <span>
-            {!platne
+            {nezlomitelneMezery(
+              !platne
               ? 'Doplňte objem nádoby a čas, za který se naplnila.'
               : staci
                 ? `Zdroj na běžný systém stačí — návrhový průtok ${fmt(navrhovy)} l/min je nad hranicí 25 l/min.`
-                : `Na běžný systém to zatím nestačí: ${fmt(navrhovy)} l/min proti potřebným 25 l/min. Rozdělte zahradu na víc sektorů, nebo posilte zdroj.`}
+                : `Na běžný systém to zatím nestačí: ${fmt(navrhovy)} l/min proti potřebným 25 l/min. Rozdělte zahradu na víc sektorů, nebo posilte zdroj.`,
+            )}
           </span>
         </div>
       </div>
@@ -480,11 +485,13 @@ const Davka = ({ className, uid }: { className: string; uid: string }) => {
         >
           {platne && !dlouhe ? <Ok /> : <Warn />}
           <span>
-            {!platne
+            {nezlomitelneMezery(
+              !platne
               ? 'Doplňte plochu, dávku a průtok.'
               : dlouhe
                 ? `${fmt(minuty, 0)} minut v jednom kuse je moc — voda odteče dřív, než se stihne vsáknout. Rozdělte plochu na víc sektorů a nechte mezi nimi vsáknout.`
-                : `${fmt(minuty, 0)} minut na sektor je rozumná dávka — voda stihne vsáknout, místo aby odtekla po povrchu.`}
+                : `${fmt(minuty, 0)} minut na sektor je rozumná dávka — voda stihne vsáknout, místo aby odtekla po povrchu.`,
+            )}
           </span>
         </div>
       </div>

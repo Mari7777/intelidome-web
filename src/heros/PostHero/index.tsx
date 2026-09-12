@@ -61,7 +61,9 @@ export const PostHero: React.FC<{ post: Post }> = ({ post }) => {
             priority
             resource={heroImage}
             pictureClassName="h-full w-full"
-            size="100vw"
+            // Na výšku (telefon) se z 21:9 masteru zobrazí jen ~22 % šířky —
+            // požadovaná šířka obrázku se proto odvíjí od výšky viewportu.
+            size="(orientation: portrait) 236vh, 100vw"
           />
           <div className="id-hero__scrim absolute inset-0" />
         </div>

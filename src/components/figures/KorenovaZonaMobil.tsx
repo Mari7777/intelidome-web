@@ -10,7 +10,7 @@ import React from 'react'
 // Pozor: všechna id mají prefix `kzm-`, aby se nesrazila se širokoúhlou variantou,
 // která je v DOM současně.
 export const KorenovaZonaMobil: React.FC = () => (
-  <svg className="block h-auto w-full" viewBox="0 0 520 670">
+  <svg aria-hidden="true" className="block h-auto w-full" viewBox="0 0 520 670">
     <defs>
       <radialGradient id="kzm-voda" cx="0.5" cy="0" r="0.9">
         <stop offset="0" stopColor="#2563eb" stopOpacity="0.34" />

@@ -135,10 +135,20 @@ const figure = (
 const SLUG = 'krasny-travnik-zacina-pod-zemi-2'
 
 /** Soubory k nahrání do knihovny médií, když tam ještě nejsou. */
-const MEDIA: { filename: string; alt: string }[] = [
+const MEDIA: { filename: string; alt: string; focal?: { focalX: number; focalY: number } }[] = [
   {
     filename: 'hero-sonda.avif',
+    /* Rýč je v masteru na 55 % šířky; s fokálním bodem 30 % se při ořezu
+       na 1440×1000 posune na ~71 % a titulek vlevo přes něj neleží. */
+    focal: { focalX: 30, focalY: 50 },
     alt: 'Čerstvě vykopaná sonda v trávníku za nízkého odpoledního slunce: nahoře drn, pod ním tmavá ornice a světlejší udusaná vrstva, do které se opírá rýč; levá polovina záběru leží ve stínu.',
+  },
+  {
+    /* Článek 1: art direction 62/48 bydlela v CSS `.id-hero__img`; teď ji
+       nese fotografie sama (soubor v knihovně už je, jen se doplní bod). */
+    filename: 'hero-soumrak.avif',
+    alt: '',
+    focal: { focalX: 62, focalY: 48 },
   },
   {
     filename: 'fig-ryci-vidle.avif',
@@ -297,19 +307,19 @@ const body = root([
     li(['Zeolit (konkrétně klinoptilolit): ', BOLD], 'Speciální minerál, který na sebe dokáže vázat určité živiny (například draslík či amonné ionty), které by se jinak z půdy vyplavily. Později je umí uvolňovat zpět kořenům.'),
   ),
 
-  h3('Proč nesypat všechno všude? (Chytré zónování)'),
   split({
     blockName: 'Zónování (Obr. 05)',
     side: 'image-right',
     drawing: 'tri-zony',
+    title: 'Proč nesypat všechno všude? (Chytré zónování)',
+    titleLevel: 'h3',
     number: '05',
     alt: 'Řez profilem 30 cm rozdělený do tří zón: 0 až 10 cm minerální základ s biocharem, Actinem a zeolitem, kde žije nejvíc kořenů; 10 až 15 cm minerální základ se zeolitem jako přechod; 15 až 30 cm jen minerální základ jako rezervní prostor pro vodu a vzduch. Přechody mezi zónami jsou plynulé, ne ostré.',
     caption:
       'Co kam patří. Drahé příměsi jen tam, kde žijí kořeny; spodní zóna je rezervoár vody a vzduchu — a přechody navazují, nejsou to patra dortu.',
     body:
-      'Pokud půdní profil budujete nově, nemusíte (a ani byste neměli) rvát drahé příměsi do celých 30 centimetrů. Rozdělte si zeminu do tří zón (přičemž „minerální základ“ znamená vaši původní zeminu, případně její směs s pískem) – co kam patří, ukazuje Obr. 05.\n\nToto uspořádání má jasný ekonomický smysl. Představte si plochu 100 m². Vrstva 10 cm představuje 10 000 litrů zeminy. Kdybyste chtěli obohatit celých 30 cm (30 000 litrů), spotřebujete všeho třikrát tolik. Pro takovou investici musíte mít sakra dobrý důvod.',
+      'Pokud půdní profil budujete nově, nemusíte (a ani byste neměli) rvát drahé příměsi do celých 30 centimetrů. Rozdělte si zeminu do tří zón (přičemž „minerální základ“ znamená vaši původní zeminu, případně její směs s pískem) – co kam patří, ukazuje Obr. 05.\n\nToto uspořádání má jasný ekonomický smysl. Představte si plochu 100 m². Vrstva 10 cm představuje 10 000 litrů zeminy. Kdybyste chtěli obohatit celých 30 cm (30 000 litrů), spotřebujete všeho třikrát tolik. Pro takovou investici musíte mít sakra dobrý důvod.\n\n**Upozornění:** Zóny neskládejte na sebe jako patra dortu s ostrými hranami. Vše musí být v dané vrstvě rovnoměrně promíchané a přechody musí navazovat, aby kořeny nepřešly šokem. Pokud už dobrou půdu na zahradě máte, nerozebírejte ji kvůli tomuto návodu na tři umělé vrstvy! I vaše spodní vrstva přirozeně obsahuje minerály, organismy a organickou hmotu.',
   }),
-  p(['Upozornění: ', ITALIC], 'Zóny neskládejte na sebe jako patra dortu s ostrými hranami. Vše musí být v dané vrstvě rovnoměrně promíchané a přechody musí navazovat, aby kořeny nepřešly šokem. Pokud už dobrou půdu na zahradě máte, nerozebírejte ji kvůli tomuto návodu na tři umělé vrstvy! I vaše spodní vrstva přirozeně obsahuje minerály, organismy a organickou hmotu.'),
 
   h3('Matematika trávníku: litry řeší poměr, kilogramy nákup'),
   p('Jak spočítat, kolik čeho koupit? Pojďme si ukázat vzorový příklad: Chcete do vrchních 20 cm půdy přidat 5 % zeolitu.'),
@@ -364,45 +374,16 @@ const body = root([
   p('Co se ale stane, když na tu samou překážku narazíte až za dva roky, kdy vám trávník začne umírat? Budete muset strhnout drn, dávat pozor na okolní rostliny, složitě rozkopávat tvrdou zem na hotové zahradě, znovu sít a znovu trávu složitě piplat. Práce se vám zmnohonásobí. Náprava hotového trávníku je možná, ale extrémně zasáhne do toho, jak zahradu používáte.'),
   p('Když půdu připravíte správně hned na začátku, každá kapka vody a gram hnojiva se dostanou přesně tam, kde je kořeny využijí. Neochrání vás to před každou chorobou trávy a nezbaví vás to nutnosti sekat. Ale už nikdy nebudete platit za hektolitry vody a zázračné postřiky, kterými se budete snažit vyřešit něco, co ve skutečnosti vězí třicet centimetrů pod zemí.'),
 
-  block({
-    blockType: 'banner',
-    blockName: 'Shrnuto a podtrženo',
-    style: 'info',
-    content: mini(
-      'Shrnuto a podtrženo: Na jílu bojujte o průchodnost a vzduch. U dobré hlíny hlídejte její strukturu a neničte ji. U písku zadržujte vodu a živiny. A u všech tří chtějte to samé: třicet centimetrů souvislého, dýchajícího prostoru pro kořeny, ze kterého může plynule odtékat voda.',
-    ),
-  }),
-
   p('Až se po novém trávníku poprvé projdete bosi, všechnu tu tvrdou podzemní dřinu už neuvidíte. Její pravý smysl doceníte až tehdy, když přijde přívalový déšť nebo pekelně horký týden. Tehdy totiž nebudete zahradu zachraňovat, ale budete si ji prostě jen užívat.'),
-
-  /* Jediný vnitřní obsidian: tady se z řeči o půdě stává řeč o systému. */
-  block({
-    blockType: 'productBand',
-    blockName: 'Systém InteliDome',
-    eyebrow: 'Systém InteliDome',
-    title: 'Když závlahu řídí půda, ne kalendář',
-    body:
-      'Mokrá hlína neznamená napité kořeny — a do přemokřeného profilu je každá další zálivka škoda. Čidlo vlhkosti InteliDome sedí přímo v kořenové zóně, kterou jste právě připravili, a měří, **kolik vody tam skutečně je**.\n\nSystém tak zalévá tehdy, kdy mají kořeny žízeň, a mlčí, když je půda po dešti plná. Těch třicet centimetrů rezervoáru začne pracovat pro vás, ne proti vám.',
-    features: [
-      {
-        title: 'Čidlo v kořenové zóně',
-        text: 'Měří vlhkost v hloubce, kde kořeny skutečně pijí — ne na povrchu, který slunce vysuší za odpoledne.',
-      },
-      {
-        title: 'Zálivka podle půdy',
-        text: 'Sektor se spustí podle naměřené vlhkosti, ne podle hodin. Po vydatném dešti systém nezalévá.',
-      },
-      {
-        title: 'Retenční nádrž',
-        text: 'Přednostně čerpá dešťovou vodu a po vodě z řadu sáhne až tehdy, když je nádrž prázdná.',
-      },
-    ],
-  }),
 
   block({
     blockType: 'faq',
     blockName: 'Časté otázky',
     heading: 'Časté otázky',
+    /* Autorovo „Shrnuto a podtrženo" jako standfirst: FAQ tím dostane
+       levý sloupec s obsahem místo nadpisu v prázdnu a článek nemá
+       třetí shrnutí v modrém rámečku. */
+    lead: 'Shrnuto a podtrženo: Na jílu bojujte o průchodnost a vzduch. U dobré hlíny hlídejte její strukturu a neničte ji. U písku zadržujte vodu a živiny. A u všech tří chtějte to samé: třicet centimetrů souvislého, dýchajícího prostoru pro kořeny, ze kterého může plynule odtékat voda.',
     items: [
       {
         question: 'Jak poznám, jestli mám jíl, hlínu, nebo písek?',
@@ -443,6 +424,30 @@ const body = root([
     ],
   }),
 
+  /* Jediný vnitřní obsidian: tady se z řeči o půdě stává řeč o systému. */
+  block({
+    blockType: 'productBand',
+    blockName: 'Systém InteliDome',
+    eyebrow: 'Systém InteliDome',
+    title: 'Když závlahu řídí půda, ne kalendář',
+    body:
+      'Mokrá hlína neznamená napité kořeny — a do přemokřeného profilu je každá další zálivka škoda. Čidlo vlhkosti InteliDome sedí přímo v kořenové zóně, kterou jste právě připravili, a měří, **kolik vody tam skutečně je**.\n\nSystém tak zalévá tehdy, kdy mají kořeny žízeň, a mlčí, když je půda po dešti plná. Těch třicet centimetrů rezervoáru začne pracovat pro vás, ne proti vám.',
+    features: [
+      {
+        title: 'Čidlo v kořenové zóně',
+        text: 'Měří vlhkost v hloubce, kde kořeny skutečně pijí — ne na povrchu, který slunce vysuší za odpoledne.',
+      },
+      {
+        title: 'Zálivka podle půdy',
+        text: 'Sektor se spustí podle naměřené vlhkosti, ne podle hodin. Po vydatném dešti systém nezalévá.',
+      },
+      {
+        title: 'Retenční nádrž',
+        text: 'Přednostně čerpá dešťovou vodu a po vodě z řadu sáhne až tehdy, když je nádrž prázdná.',
+      },
+    ],
+  }),
+
   block({
     blockType: 'ctaBand',
     blockName: 'Závěrečná výzva',
@@ -468,13 +473,18 @@ const run = async () => {
       limit: 1,
       pagination: false,
     })
-    if (found.docs.length > 0) continue
+    if (found.docs.length > 0) {
+      if (item.focal) {
+        await payload.update({ collection: 'media', id: found.docs[0].id, data: item.focal })
+      }
+      continue
+    }
     const filePath = path.resolve(dirname, '../zdroje-informaci/fotky', item.filename)
     if (!existsSync(filePath)) {
       payload.logger.warn(`fotografie ${item.filename} není v zdroje-informaci/fotky — přeskočeno`)
       continue
     }
-    await payload.create({ collection: 'media', data: { alt: item.alt }, filePath })
+    await payload.create({ collection: 'media', data: { alt: item.alt, ...item.focal }, filePath })
     payload.logger.info(`nahráno médium ${item.filename}`)
   }
 
