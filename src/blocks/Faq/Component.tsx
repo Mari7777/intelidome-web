@@ -108,7 +108,7 @@ export const FaqBlock: React.FC<FaqBlockProps> = ({ className, heading, id, item
       <div>
       <span className="mb-[14px] flex w-fit items-center gap-[10px] font-[family-name:var(--id-f-display)] text-[12px] leading-[1.2] font-semibold tracking-[0.14em] text-[var(--id-accent)] uppercase">
         <span aria-hidden="true" className="h-[1.5px] w-[22px] shrink-0 bg-[var(--id-accent)]" />
-        Otázky a odpovědi
+        Otázky a&nbsp;odpovědi
       </span>
 
       <h2

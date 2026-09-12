@@ -69,6 +69,11 @@ export const StatTilesBlock: React.FC<StatTilesBlockProps> = ({ className, tiles
 
   if (items.length === 0) return null
 
+  // Rozsah jako „2,5–7,5" se ve 40 px do dlaždice 175 px nevejde. Stupeň
+  // ale drží celá řada: jedna menší dlaždice vedle tří velkých četla porota
+  // jako chybu, ne jako záměr — proto o stupeň níž jdou všechny.
+  const kompakt = items.some((tile) => tile.value.length > 5)
+
   return (
     <div className={cn('not-prose mx-auto w-full', className)}>
       <div
@@ -84,7 +89,9 @@ export const StatTilesBlock: React.FC<StatTilesBlockProps> = ({ className, tiles
             <div
               className={cn(
                 'font-[family-name:var(--id-f-display)] font-semibold tabular-nums',
-                'text-[length:clamp(26px,3vw,40px)] leading-[1.05] tracking-[-0.02em]',
+                kompakt
+                  ? 'text-[length:clamp(20px,1.9vw,26px)] leading-[1.15] tracking-[-0.02em]'
+                  : 'text-[length:clamp(26px,3vw,40px)] leading-[1.05] tracking-[-0.02em]',
                 'text-[color:var(--id-ink)]',
               )}
             >

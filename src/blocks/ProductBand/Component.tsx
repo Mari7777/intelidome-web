@@ -64,7 +64,7 @@ export const ProductBandBlock: React.FC<ProductBandBlockProps> = ({
             <div className="mt-[34px] grid gap-[18px]" data-rv-group>
               {items.map((feature) => (
                 <div className="rv id-feature" key={feature.id ?? feature.title}>
-                  <h3 className="id-feature__title">{feature.title}</h3>
+                  <h3 className="id-feature__title">{nezlomitelneMezery(feature.title)}</h3>
                   <p className="id-feature__text">{nezlomitelneMezery(feature.text)}</p>
                 </div>
               ))}

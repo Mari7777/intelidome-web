@@ -306,11 +306,13 @@
   line-height: 1.25;
   letter-spacing: -0.015em;
 }
-.prose a {
+/* Tlačítko v próze (CTA v článku) má vlastní přechod v DS (.id-btn) —
+   `.prose a` (0,1,1) by ho jinak přepsal na pouhý text-decoration-color. */
+.prose a:not(.id-btn) {
   text-decoration-color: var(--id-line);
   transition: text-decoration-color 0.2s;
 }
-.prose a:hover {
+.prose a:not(.id-btn):hover {
   text-decoration-color: var(--id-accent);
 }
 .prose code {

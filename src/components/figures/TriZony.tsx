@@ -121,6 +121,8 @@ export const TriZony: React.FC = () => (
     <text className="sv-val" x="288" y="420">zeolit</text>
     <rect x="372" y="409" width="14" height="14" rx="3" fill="#6b5138" opacity="0.9" />
     <text className="sv-val" x="394" y="420">základ</text>
+    <path d="M446 409 C 449 413, 451 416, 451 418.5 A 5 5 0 0 1 441 418.5 C 441 416, 443 413, 446 409 Z" fill="#2563eb" opacity="0.9" />
+    <text className="sv-val" x="458" y="420">voda</text>
 
     <text className="sv-lbl" x="30" y="452">Základ = vaše zemina,</text>
     <text className="sv-lbl" x="30" y="472">případně její směs s pískem</text>

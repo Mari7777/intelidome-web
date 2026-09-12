@@ -13,7 +13,7 @@ import React from 'react'
  * kořeny ohnuté i hluboké. Portrétová sazba 520 px, id s prefixem `tc-`.
  */
 export const TricetCentimetru: React.FC = () => (
-  <svg aria-hidden="true" className="block h-auto w-full" viewBox="0 0 520 520">
+  <svg aria-hidden="true" className="block h-auto w-full" viewBox="0 0 520 496">
     <defs>
       <radialGradient id="tc-sucho" cx="0.5" cy="0" r="0.9">
         <stop offset="0" stopColor="#c2a052" stopOpacity="0.95" />

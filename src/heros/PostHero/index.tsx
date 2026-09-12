@@ -42,7 +42,7 @@ export const PostHero: React.FC<{ post: Post }> = ({ post }) => {
 
   const minutes = readingTime(content)
   const metaItems = [
-    minutes ? `${minutes} min čtení` : null,
+    minutes ? nezlomitelneMezery(`${minutes} min čtení`) : null,
     hasAuthors ? formatAuthors(populatedAuthors) : null,
     'InteliDome Journal',
     publishedAt ? formatDateTime(publishedAt) : null,

@@ -39,7 +39,7 @@ export const SummaryBandBlock: React.FC<SummaryBandBlockProps> = ({ className, l
 function renderAccent(source: string): React.ReactNode[] {
   return source.split(/(\*[^*]+\*)/g).map((part, index) =>
     part.startsWith('*') && part.endsWith('*') && part.length > 2 ? (
-      <em key={index}>{part.slice(1, -1)}</em>
+      <em key={index}>{nezlomitelneMezery(part.slice(1, -1))}</em>
     ) : (
       <React.Fragment key={index}>{nezlomitelneMezery(part)}</React.Fragment>
     ),

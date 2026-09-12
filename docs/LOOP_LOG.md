@@ -844,3 +844,54 @@ přebilo na plnou šířku (kaskáda, změřeno: padding 0 → 232 px). Levý
 sloupec 83 → 294 px vedle seznamu 492 px = **40 %** (dřív 83 %); je to na
 hraně kritéria, další rezerva by byla pět otázek místo šesti.
 
+## Kolo 03 — NEPROŠEL (těsně)
+
+| Porotce | 02 → 03 | Kritické 03 |
+|---|---|---|
+| Hierarchie | 3 → 4 | žádné |
+| Typografie | 3 → 3 | žádné (důležité: NBSP číslo–jednotka chybí systémově; dlaždice „2,5–7,5" přesahuje box o 9 px; figcaption 62ch = 85 zn.) |
+| Pohyb | 3 → 4 | žádné |
+| Grafický styl | 3 → 4 | žádné (důležité: hero na výšku zobrazí jen 20 % šířky → rýč mimo záběr) |
+| Slop | 4 → 4 | žádné |
+| Výkon a přístupnost | 4 → 4 | žádné |
+| Rozložení | 3 → 3 | FAQ 40 % prázdna (na hraně); pásmo 900–1129: panel kresby 944 px s kresbou 520 = kresba plave v krému |
+
+**Souhrn: 4 · 3 · 4 · 4 · 4 · 4 · 3, 2 kritické** (z 4). Pět ze sedmi lenzů
+na 4, nula kritických mimo rozložení.
+
+**Zamítnuto s důvodem:** „šest ze sedmi kapitol otevírá stejný modul —
+chybí střídání šířek" (slop) × „souměrné, pravidelné střídání" (rozložení,
+kritérium majitele) — držíme pravidelnost; tučné návěstí a vykřičníky
+v próze (slop) = autorův text → `copy-polish`; „obraz vždy první" 8.2b ×
+rubrika hierarchie — DESIGN.md opraven na titulek → obraz → tělo; dvojí
+„Objevit systém" (kapsle 7.1 + CTA) — koš B; hero podtext bez fade — koš B
+(potřetí, LCP).
+
+#### Opraveno — balík „NBSP, portrét, pásmo 900–1129, FAQ" (2026-09-12)
+
+1. **`nezlomitelneMezery` váže číslo k jednotce** (cm, cm/h, l, l/min,
+   kg, kg/l, m², m³, min, s, h, bar, litry, sekundy, minuty, dny, %, °C)
+   a tisíce („10 000") — platí pro Lexical prózu, dvousloupce, popisky,
+   FAQ i verdikty kalkulátorů najednou.
+2. **Hero na výšku:** knihovna médií dostala `focalPortraitX/Y`;
+   `ImageMedia` vypisuje `--id-focal` a `--id-focal-portrait`, CSS je bere
+   podle orientace (sonda 30/50 na šířku, 62/45 na výšku — rýč v záběru;
+   článek 1: 62/48 a 70/36 — dřív natvrdo v CSS).
+3. **Pásmo 900–1129:** po složení dvousloupce má panel kresby šířku prózy
+   (700, osa 162 @1024) místo `edge` (944) — kresba už neplave; popisek
+   pod ním totéž.
+4. **FAQ:** pět otázek místo šesti (šestá byla nejméně nosná, text můj)
+   → 294 vs. ~410 px.
+5. **Dlaždice:** hodnota delší než 5 znaků jde o stupeň níž (32 px) —
+   „2,5–7,5 cm/h" na jednom řádku, čtyři dlaždice stejně vysoké.
+6. **Figcaption** dvousloupce sedí na hraně panelu (40/1400), míra 30 em
+   ≈ 62 znaků (62ch dávalo 85 — `ch` je u SF Pro široký); full-bleed
+   totéž.
+7. **Kapitola 06:** titulek → full-bleed fotka → próza (fotka už
+   nepředchází tezi); mezery 32 / 44.
+8. **Pohyb:** `.id-btn` má přechod (transform .35 s, barvy .25 s, `--id-ease`);
+   hladina v Obr. 03 klesá jednosměrně a reset schová opacity 0.
+9. Drobné: kalkulátor h3 `balance`; světlý verdikt na `--id-green-soft`
+   (4,61 → ≥ 5:1); legenda Obr. 05 má „voda"; Obr. 04 bez prázdného spodku
+   (viewBox 496); DESIGN.md 8.2b: pořadí a panel po složení.
+

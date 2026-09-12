@@ -135,12 +135,16 @@ const figure = (
 const SLUG = 'krasny-travnik-zacina-pod-zemi-2'
 
 /** Soubory k nahrání do knihovny médií, když tam ještě nejsou. */
-const MEDIA: { filename: string; alt: string; focal?: { focalX: number; focalY: number } }[] = [
+const MEDIA: {
+  filename: string
+  alt: string
+  focal?: { focalX: number; focalY: number; focalPortraitX?: number; focalPortraitY?: number }
+}[] = [
   {
     filename: 'hero-sonda.avif',
     /* Rýč je v masteru na 55 % šířky; s fokálním bodem 30 % se při ořezu
        na 1440×1000 posune na ~71 % a titulek vlevo přes něj neleží. */
-    focal: { focalX: 30, focalY: 50 },
+    focal: { focalX: 30, focalY: 50, focalPortraitX: 62, focalPortraitY: 45 },
     alt: 'Čerstvě vykopaná sonda v trávníku za nízkého odpoledního slunce: nahoře drn, pod ním tmavá ornice a světlejší udusaná vrstva, do které se opírá rýč; levá polovina záběru leží ve stínu.',
   },
   {
@@ -148,7 +152,7 @@ const MEDIA: { filename: string; alt: string; focal?: { focalX: number; focalY: 
        nese fotografie sama (soubor v knihovně už je, jen se doplní bod). */
     filename: 'hero-soumrak.avif',
     alt: '',
-    focal: { focalX: 62, focalY: 48 },
+    focal: { focalX: 62, focalY: 48, focalPortraitX: 70, focalPortraitY: 36 },
   },
   {
     filename: 'fig-ryci-vidle.avif',
@@ -333,7 +337,10 @@ const body = root([
 
   calc('primesi', true, 'axis'),
 
-  /* Jediný obraz přes celou šířku — fotografie unese předěl, schéma ne. */
+  /* ── Kapitola 06 — bez kresby, obraz nese full-bleed fotografie ─────
+     Pořadí titulek → obraz → próza jako u ostatních kapitol; fotka před
+     tezí by obracela hierarchii (porota kola 03). */
+  chapter('Těžká práce: udělejte to hned, později už to nepůjde', 'Kapitola 06'),
   figure(
     'fig-ryci-vidle.avif',
     '06',
@@ -341,9 +348,6 @@ const body = root([
     'bleed',
     false,
   ),
-
-  /* ── Kapitola 06 — bez kresby, obraz nese fotografie nad ní ─────── */
-  chapter('Těžká práce: udělejte to hned, později už to nepůjde', 'Kapitola 06'),
   p('Než se do toho pustíte, určete si finální výšku povrchu tak, aby navazovala na chodníky a terasy a udržela odtok vody.'),
   p('Pokud musíte pozemek radikálně rekonstruovat, vždy si pečlivě oddělte použitelnou vrchní ornici od spodní suti a hlušiny. Jakmile kvalitní hlínu proženete frézou společně s nevhodnou navážkou, zničíte si ji a vyrobíte si další problém.'),
   p('Nyní vyřešte podloží. Našli jste udusanou vrstvu? Rozrušte ji přesně v hloubce, kde leží. Nestačí jen načechrat vršek těsně nad ní! Na malou plochu stačí rycí vidle, na velkou udusanou pláň volejte těžkou techniku. Zároveň do této otevřené země nyní patří uložení případné drenáže a trubek pro zavlažování.'),
@@ -413,12 +417,6 @@ const body = root([
         question: 'Jak spočítám, kolik příměsi (třeba zeolitu) koupit?',
         answer: mini(
           'Vždy přes litry, ne kilogramy. Vrstva 20 cm pod metrem čtverečním je 200 litrů; 5 % z toho je 10 litrů příměsi. Litry převedete na kilogramy sypnou hustotou od výrobce — při 0,8 kg/l je to 8 kg na m², tedy 800 kg na 100 m². Procento podílu nikdy nepočítejte z hmotnosti, litr zeminy váží jinak než litr zeolitu.',
-        ),
-      },
-      {
-        question: 'Kdy můžu s jílovitou půdou pracovat?',
-        answer: mini(
-          'Jen když je mírně vlhká: po zmáčknutí drží pohromadě, ale dá se snadno rozdrobit. Pokud je mazlavá, lepí se na rýč a roztírá se do lesklých ploch, je příliš mokrá — práce zastavte, jinak půdu sami utužíte. Čerstvě upravenou plochu pak chraňte před přejezdy aut a strojů.',
         ),
       },
     ],

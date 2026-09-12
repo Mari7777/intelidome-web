@@ -9,6 +9,11 @@
 
 /* ── Button ──────────────────────────────────────────────── */
 .id-btn {
+  transition:
+    transform 0.35s var(--id-ease),
+    background-color 0.25s var(--id-ease),
+    border-color 0.25s var(--id-ease),
+    color 0.25s var(--id-ease);
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -23,11 +28,6 @@
   cursor: pointer;
   border: 1px solid transparent;
   text-decoration: none;
-  transition:
-    background 0.2s,
-    color 0.2s,
-    border-color 0.2s,
-    transform 0.2s;
 }
 /* DESIGN.md 10/Do 10 — tlačítko se při najetí zvedne o 2 px, nic víc. */
 @media (hover: hover) {
@@ -373,16 +373,16 @@
    Na mobilu navíc drží v záběru trysku a vějíř (9.1: předmět musí být
    vidět, ne rozostřené pozadí). */
 .id-hero__img {
-  /* Desktop: rám posunut doprava a nahoru, aby se do záběru vrátil teplý
-     blok scény (dům s rozsvícenými okny, západ) — vlevo pod textem zůstává
-     tráva ve stínu, kde má bílý text rezervu ~20:1. */
-  object-position: 62% 48%;
+  /* Art direction patří k fotografii: `--id-focal` (a pro výšku
+     `--id-focal-portrait`) vypisuje ImageMedia z fokálních bodů v knihovně
+     médií. Výchozí hodnoty odpovídají hero článku 1 (62/48, mobil 70/36). */
+  object-position: var(--id-focal, 62% 48%);
 }
-@media (max-width: 640px) {
-  /* Mobil: vějíř patří NAD textový blok, ne do něj — jinak si obraz
-     a titulek konkurují o tytéž pixely a eyebrow padá na 2:1. */
+@media (orientation: portrait) {
+  /* Na výšku se z 21:9 fotky zobrazí jen ~20 % šířky — bod pro šířku by
+     nechal předmět mimo záběr (sonda: rýč na 55 % masteru). */
   .id-hero__img {
-    object-position: 70% 36%;
+    object-position: var(--id-focal-portrait, var(--id-focal, 70% 36%));
   }
 }
 
@@ -952,6 +952,9 @@ html {
   background: var(--id-cream);
   color: var(--id-ink);
 }
+.id-calc__head h3 {
+  text-wrap: balance;
+}
 .id-calc__head {
   min-width: 0;
   display: flex;
@@ -1147,7 +1150,9 @@ html {
   background: var(--id-warn, #b76a00);
 }
 .id-calc--light .id-verdict--ok {
-  background: rgba(16, 185, 129, 0.1);
+  /* Tónované rgba .1 na krému dávalo #dfefe7 → 4,61:1 bez rezervy;
+     token green-soft je světlejší a drží ≥ 5:1. */
+  background: var(--id-green-soft, #ecfdf5);
   color: var(--id-green, #047857);
 }
 /* Warn 4,14:1 je pod AA — barvu proto nese ikona a podklad, text zůstává ink. */
@@ -1259,11 +1264,17 @@ html {
 .zv-hladina {
   transform-box: fill-box;
   transform-origin: bottom;
-  animation: zv-hladina 6s cubic-bezier(0.3, 0.1, 0.4, 1) infinite alternate;
+  animation: zv-hladina 6s linear infinite;
 }
+/* Jednosměrný děj: hladina se objeví na výchozí lince, klesne o 1 cm, drží
+   (odečet) a zmizí — reset zpět nahoru proběhne při opacity 0, takže hranice
+   smyčky nemá skok a voda „nedýchá" oběma směry. */
 @keyframes zv-hladina {
-  from { transform: scaleY(1.047); }
-  to { transform: scaleY(1); }
+  0% { transform: scaleY(1.047); opacity: 0; animation-timing-function: ease-out; }
+  8% { transform: scaleY(1.047); opacity: 1; animation-timing-function: cubic-bezier(0.3, 0.1, 0.4, 1); }
+  70% { transform: scaleY(1); opacity: 1; animation-timing-function: linear; }
+  90% { transform: scaleY(1); opacity: 1; animation-timing-function: ease-in; }
+  100% { transform: scaleY(1); opacity: 0; }
 }
 
 /* Diagram sítě (produktový pás): pochod čárkované linky a kapky u ventilu
@@ -1333,7 +1344,7 @@ html {
   border-radius: 0;
 }
 .id-figure--bleed > figcaption {
-  max-width: min(62ch, var(--id-maxw-prose));
+  max-width: min(30em, var(--id-maxw-prose));
   margin-inline: auto;
   padding-inline: var(--id-gutter);
 }
@@ -1574,7 +1585,10 @@ html {
 .id-article > * + .id-figure--bleed {
   margin-top: var(--id-rhythm-band);
 }
-.id-article > .id-figure--bleed + .id-chapter {
+.id-article > .id-chapter + .id-figure--bleed {
+  margin-top: 32px;
+}
+.id-article > .id-figure--bleed + :is(p, ul, ol) {
   margin-top: 44px;
 }
 
@@ -1609,8 +1623,30 @@ html {
   height: auto;
 }
 .id-split__figure > figcaption {
-  max-width: 62ch;
-  margin-inline: auto;
+  /* Sedí na hraně panelu (40/1400), ne na vlastní ose 104/812; míra 30 em
+     ≈ 62 znaků při 13,5 px (62ch dávalo 85 — `ch` je u SF Pro široký). */
+  max-width: none;
+  margin-inline: 0;
+  padding-right: max(0px, calc(100% - 30em));
+}
+@media (min-width: 561px) and (max-width: 1129px) {
+  /* Složený dvousloupec (tablet, úzký desktop): panel nevyplňuje celý
+     sloupec `edge` (944 px @1024 — kresba 520 by plavala v krému), ale
+     drží šířku prózy a sedí na téže ose jako titulek a tělo (162 @1024).
+     Musí stát ZA základním pravidlem výš — stejná specificita. */
+  .id-split__figure > .id-figure-media {
+    max-width: var(--id-maxw-prose);
+    margin-inline: auto;
+  }
+  .id-split__figure > figcaption {
+    /* Procenta v `padding-right` se počítají z rodiče (944 @1024), ne
+       z vlastní šířky 700 — popisek by měl sloupec 161 px a devět řádků.
+       Proto tu míru drží `max-width: 30em` a levá hrana panelu se
+       dopočítá z rodiče: (100 % − 700) / 2, pod 780 px nula. */
+    max-width: 30em;
+    margin-inline: max(0px, calc((100% - var(--id-maxw-prose)) / 2)) auto;
+    padding-right: 0;
+  }
 }
 
 /* Callout stojí na `edge` jako ostatní moduly, ale text uvnitř drží
@@ -1663,3 +1699,4 @@ html {
     font-size: 21px;
   }
 }
+

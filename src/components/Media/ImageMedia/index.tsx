@@ -63,7 +63,7 @@ export const ImageMedia: React.FC<MediaProps> = (props) => {
   // s object-fit cover rozhoduje, co z fotky zůstane v záběru — art
   // direction patří k fotografii, ne do globálního CSS (hero článku 1
   // chtělo 62 %, sonda článku 2 chce 30 %, aby titulek neležel přes rýč).
-  let objectPosition: string | undefined
+  const focal: Record<string, string> = {}
 
   if (!src && resource && typeof resource === 'object') {
     const { alt: altFromResource, height: fullHeight, url, width: fullWidth } = resource
@@ -71,9 +71,17 @@ export const ImageMedia: React.FC<MediaProps> = (props) => {
     width = fullWidth!
     height = fullHeight!
     alt = altFromResource || ''
-    const { focalX, focalY } = resource as { focalX?: number | null; focalY?: number | null }
+    const { focalX, focalY, focalPortraitX, focalPortraitY } = resource as {
+      focalX?: number | null
+      focalY?: number | null
+      focalPortraitX?: number | null
+      focalPortraitY?: number | null
+    }
     if (typeof focalX === 'number' && typeof focalY === 'number') {
-      objectPosition = `${focalX}% ${focalY}%`
+      focal['--id-focal'] = `${focalX}% ${focalY}%`
+    }
+    if (typeof focalPortraitX === 'number' && typeof focalPortraitY === 'number') {
+      focal['--id-focal-portrait'] = `${focalPortraitX}% ${focalPortraitY}%`
     }
 
     const cacheTag = resource.updatedAt
@@ -109,7 +117,7 @@ export const ImageMedia: React.FC<MediaProps> = (props) => {
         loading={loading}
         sizes={sizes}
         src={src}
-        style={objectPosition ? { objectPosition } : undefined}
+        style={Object.keys(focal).length ? (focal as React.CSSProperties) : undefined}
         width={!fill ? width : undefined}
       />
     </picture>

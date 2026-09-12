@@ -153,11 +153,11 @@ const Vsak = ({ className, uid }: { className: string; uid: string }) => {
       <div>
         <div className="id-calc__orow">
           <span className="id-calc__ol">Pokles za měřený čas</span>
-          <span className="id-calc__ov">{platne ? `${fmt(pokles)} cm / ${fmt(doba, 0)} min` : '—'}</span>
+          <span className="id-calc__ov">{platne ? nezlomitelneMezery(`${fmt(pokles)} cm / ${fmt(doba, 0)} min`) : '—'}</span>
         </div>
         <div className="id-calc__orow id-calc__orow--hero">
           <span className="id-calc__ol">Rychlost vsakování</span>
-          <span className="id-calc__ov">{platne ? `${fmt(rychlost)} cm/h` : '—'}</span>
+          <span className="id-calc__ov">{platne ? nezlomitelneMezery(`${fmt(rychlost)} cm/h`) : '—'}</span>
         </div>
 
         <div
@@ -233,7 +233,7 @@ const Primesi = ({ className, uid }: { className: string; uid: string }) => {
         </div>
 
         <div className="id-calc__field">
-          <label htmlFor={`${uid}-podil`}>Podíl příměsi (z objemu)</label>
+          <label htmlFor={`${uid}-podil`}>Podíl příměsi (z&nbsp;objemu)</label>
           <div className="id-calc__inrow">
             <input
               id={`${uid}-podil`}
@@ -284,23 +284,23 @@ const Primesi = ({ className, uid }: { className: string; uid: string }) => {
 
       <div>
         <div className="id-calc__orow">
-          <span className="id-calc__ol">Vrstva pod 1 m²</span>
-          <span className="id-calc__ov">{platne ? `${fmtN(vrstvaNaM2)} l` : '—'}</span>
+          <span className="id-calc__ol">Vrstva pod 1&nbsp;m²</span>
+          <span className="id-calc__ov">{platne ? nezlomitelneMezery(`${fmtN(vrstvaNaM2)} l`) : '—'}</span>
         </div>
         <div className="id-calc__orow">
-          <span className="id-calc__ol">Příměs na 1 m²</span>
-          <span className="id-calc__ov">{platne ? `${fmtN(primesNaM2, 1)} l` : '—'}</span>
+          <span className="id-calc__ol">Příměs na 1&nbsp;m²</span>
+          <span className="id-calc__ov">{platne ? nezlomitelneMezery(`${fmtN(primesNaM2, 1)} l`) : '—'}</span>
         </div>
         <div className="id-calc__orow">
           <span className="id-calc__ol">Příměs celkem</span>
-          <span className="id-calc__ov">{platne ? fmtObjem(litru) : '—'}</span>
+          <span className="id-calc__ov">{platne ? nezlomitelneMezery(fmtObjem(litru)) : '—'}</span>
         </div>
         <div className="id-calc__orow id-calc__orow--hero">
-          <span className="id-calc__ol">K objednání</span>
-          <span className="id-calc__ov">{platne ? fmtHmota(kg) : '—'}</span>
+          <span className="id-calc__ol">K&nbsp;objednání</span>
+          <span className="id-calc__ov">{platne ? nezlomitelneMezery(fmtHmota(kg)) : '—'}</span>
         </div>
         <div className="id-calc__orow">
-          <span className="id-calc__ol">Pytlů po {fmtN(pytel)} kg</span>
+          <span className="id-calc__ol">{nezlomitelneMezery(`Pytlů po ${fmtN(pytel)} kg`)}</span>
           <span className="id-calc__ov">{platne && Number.isFinite(pytlu) ? fmtN(pytlu) : '—'}</span>
         </div>
 
@@ -374,11 +374,11 @@ const Prutok = ({ className, uid }: { className: string; uid: string }) => {
       <div>
         <div className="id-calc__orow">
           <span className="id-calc__ol">Naměřený průtok</span>
-          <span className="id-calc__ov">{platne ? `${fmt(namereny)} l/min` : '—'}</span>
+          <span className="id-calc__ov">{platne ? nezlomitelneMezery(`${fmt(namereny)} l/min`) : '—'}</span>
         </div>
         <div className="id-calc__orow id-calc__orow--hero">
           <span className="id-calc__ol">Návrhový průtok po odečtení 20 %</span>
-          <span className="id-calc__ov">{platne ? `${fmt(navrhovy)} l/min` : '—'}</span>
+          <span className="id-calc__ov">{platne ? nezlomitelneMezery(`${fmt(navrhovy)} l/min`) : '—'}</span>
         </div>
 
         <div
@@ -472,11 +472,11 @@ const Davka = ({ className, uid }: { className: string; uid: string }) => {
       <div>
         <div className="id-calc__orow">
           <span className="id-calc__ol">Objem jedné zálivky</span>
-          <span className="id-calc__ov">{platne ? `${fmt(litry, 0)} l` : '—'}</span>
+          <span className="id-calc__ov">{platne ? nezlomitelneMezery(`${fmt(litry, 0)} l`) : '—'}</span>
         </div>
         <div className="id-calc__orow id-calc__orow--hero">
           <span className="id-calc__ol">Doba běhu jedním sektorem</span>
-          <span className="id-calc__ov">{platne ? `${fmt(minuty, 0)} min` : '—'}</span>
+          <span className="id-calc__ov">{platne ? nezlomitelneMezery(`${fmt(minuty, 0)} min`) : '—'}</span>
         </div>
 
         <div

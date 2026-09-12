@@ -35,6 +35,30 @@ export const Media: CollectionConfig = {
       //required: true,
     },
     {
+      /* Fokální bod (nahoře v UI) řídí ořez na šířku; na výšku se z 21:9
+         fotky zobrazí jen ~20 % šířky, takže hero potřebuje druhý bod.
+         Prázdné = použije se hlavní. */
+      type: 'row',
+      fields: [
+        {
+          name: 'focalPortraitX',
+          type: 'number',
+          label: 'Fokální bod na výšku — X (%)',
+          min: 0,
+          max: 100,
+          admin: { width: '50%', description: 'Jen pro hero na telefonu (orientace na výšku).' },
+        },
+        {
+          name: 'focalPortraitY',
+          type: 'number',
+          label: 'Fokální bod na výšku — Y (%)',
+          min: 0,
+          max: 100,
+          admin: { width: '50%' },
+        },
+      ],
+    },
+    {
       name: 'caption',
       type: 'richText',
       localized: true,

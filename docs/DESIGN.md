@@ -1148,7 +1148,7 @@ Lexicalu se vedle sebe postavit nedají.
 | Obraz | **portrétová sazba kresby** (viewBox ~520×670). Panoramatická 1080 px by ve sloupci ~590 px měla popisky pod 7 px — do dvousloupce nepatří. |
 | Text | max `--id-maxw-prose`; eyebrow + H2 uvnitř bloku, ne nad ním |
 | Odsazení | margin-block clamp(64px,8vw,104px) |
-| Pod 900 px | jeden sloupec; **obraz vždy první**, protože nese pointu, kterou text teprve rozvádí |
+| Pod 1130 px | jeden sloupec v pořadí **titulek → obraz → tělo** (v2.3); panel kresby na šířce prózy, ne na `edge` — kresba 520 by v 944 px plavala |
 
 5. **Střídání se počítá přes všechny obrazové bloky**, ne zvlášť pro
    dvousloupce a zvlášť pro figury. Dvě sousední hmoty nikdy na téže straně;

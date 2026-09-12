@@ -269,6 +269,11 @@ export interface Post {
 export interface Media {
   id: number;
   alt?: string | null;
+  /**
+   * Jen pro hero na telefonu (orientace na výšku).
+   */
+  focalPortraitX?: number | null;
+  focalPortraitY?: number | null;
   caption?: {
     root: {
       type: string;
@@ -1119,6 +1124,8 @@ export interface PostsSelect<T extends boolean = true> {
  */
 export interface MediaSelect<T extends boolean = true> {
   alt?: T;
+  focalPortraitX?: T;
+  focalPortraitY?: T;
   caption?: T;
   folder?: T;
   updatedAt?: T;
