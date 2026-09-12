@@ -48,7 +48,7 @@ export const Sedani: React.FC = () => (
     <path d="M40 62 V140 H480 V62" stroke="#232830" strokeWidth="1.6" fill="none" strokeLinejoin="round" />
     {/* cílová rovina */}
     <line x1="30" y1="62" x2="490" y2="62" stroke="#d5d3cc" strokeWidth="1.6" strokeDasharray="3 7" strokeLinecap="round" />
-    <text className="sv-lbl" x="480" y="126" textAnchor="end" style={{ fill: '#d8c9b4' }}>hodně vzduchu</text>
+    <text className="sv-lbl" x="480" y="126" textAnchor="end" style={{ fill: '#e8e7e3' }}>hodně vzduchu</text>
 
     {/* ── 2. po dešti ─────────────────────────────────────────── */}
     <text className="sv-lbl" x="40" y="176">2 · Po dešti si sedá</text>
@@ -69,7 +69,7 @@ export const Sedani: React.FC = () => (
       <g className="sd-kapka" style={{ animationDelay: '0.9s' }}><ellipse cx="262" cy="158" rx="2.6" ry="4.5" /></g>
       <g className="sd-kapka" style={{ animationDelay: '1.7s' }}><ellipse cx="296" cy="166" rx="2.6" ry="4.5" /></g>
     </g>
-    <text className="sv-lbl" x="480" y="272" textAnchor="end" style={{ fill: '#d8c9b4' }}>málo vzduchu</text>
+    <text className="sv-lbl" x="480" y="272" textAnchor="end" style={{ fill: '#e8e7e3' }}>málo vzduchu</text>
 
     {/* ── 3. doplněno a ustáleno ──────────────────────────────── */}
     <text className="sv-lbl" x="40" y="322">3 · Doplněno, ustáleno</text>
@@ -87,7 +87,7 @@ export const Sedani: React.FC = () => (
     <g stroke="#3f7d4e" strokeWidth="1.6" strokeLinecap="round" fill="none">
       <path d="M80 354 v-8 M83 354 q2 -6 6 -8 M150 354 v-7 M230 354 q-2 -6 -6 -8 M233 354 v-9 M320 354 v-8 M400 354 q2 -6 6 -8 M403 354 v-7 M460 354 v-8" />
     </g>
-    <text className="sv-lbl" x="480" y="418" textAnchor="end" style={{ fill: '#d8c9b4' }}>póry akorát</text>
+    <text className="sv-lbl" x="480" y="418" textAnchor="end" style={{ fill: '#e8e7e3' }}>póry akorát</text>
 
     {/* ── pointa ──────────────────────────────────────────────── */}
     <line x1="30" y1="452" x2="490" y2="452" stroke="#d5d3cc" strokeWidth="1.6" strokeDasharray="3 7" strokeLinecap="round" />

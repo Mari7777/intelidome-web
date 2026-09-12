@@ -9,11 +9,12 @@ import React from 'react'
  * Jediný akcent: kapka vody, která projde všemi třemi zónami (CSS, 5,2 s) —
  * voda a vzduch musí mít volnou cestu.
  *
- * Portrétová sazba 520 px, id s prefixem `tz-`. Klidový stav v markupu:
+ * Portrétová sazba 520 px (viewBox začíná na y=60 — nad drnem nic není),
+ * id s prefixem `tz-`. Klidový stav v markupu:
  * kapka ve třetí zóně, všechny příměsi na svém místě.
  */
 export const TriZony: React.FC = () => (
-  <svg className="block h-auto w-full" viewBox="0 0 520 540">
+  <svg className="block h-auto w-full" viewBox="0 60 520 480">
     <defs>
       {/* biochar = černé střípky, Actino = tmavě hnědé hrudky, zeolit = světlá hranatá zrna */}
       <pattern id="tz-plna" width="30" height="30" patternUnits="userSpaceOnUse">

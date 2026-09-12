@@ -1091,6 +1091,11 @@ střídají bez výjimky. Tři vysunutí na tutéž stranu = chyba sazby.
 
 **Mezera je vlastnost přechodu, ne komponenty.** Komponenty svislé marginy
 nemají. Tři míry: 22 px próza · 40–72 px modul · 64–120 px pás.
+Prozaická míra platí pro **všechny prozaické uzly** — odstavce, seznamy
+i mezititulky h3 (`p/ul/ol + p/ul/ol` = 22 px, `h3 + próza` = 14 px,
+`próza + h3` = 44 px). Kdo ji omezí na `p + p`, dostane mezi „Pátrejte po
+třech věcech:" a samotným seznamem díru 72 px. Mezititulek h3 je role
+subtitle (4.2), ne druhý titulek kapitoly.
 
 Přejímka: `node scripts/layout-check.mjs <url> [šířka]` — ≤4 osy, ≤4 šířky,
 0 jednorázových os, zrcadlení, střídavost 1,00. **Pouští se nejmíň na třech

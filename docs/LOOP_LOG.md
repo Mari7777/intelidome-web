@@ -645,3 +645,50 @@ Podle skillu následuje **`copy-polish`** na texty. Porota texty nehodnotí,
 jen označila místa: callout „Pro zvídavé" nese tři odstavce v komponentě
 pro jednu větu, FAQ odpovědi převyprávějí už napsané, patička zůstala
 šablonou a Obr. 04 svým vlastním popiskem přiznává, že opakuje Obr. 03.
+
+---
+
+# Článek 2 — „Krásný trávník začíná pod zemí"
+
+## Nastavení smyčky
+
+| Položka | Hodnota |
+|---|---|
+| **Rozsah** | celý článek (`/posts/krasny-travnik-zacina-pod-zemi-2`), 7 kapitol + závěr, ~3 700 slov |
+| **Zlatý standard** | týž jako u článku 1: Sonos (editorial klid, autorita velikostí, sekce dělené posunem povrchu) + Samara (vzdušnost) — z DNA v DESIGN.md v2.2, ne z živého webu |
+| **Design systém** | `docs/DESIGN.md` v2.2 vč. mřížky v3 (ADR-006) a stropu stránky (dodatek 2) |
+| **Generátor assetů** | Higgsfield přes MCP, model `nano_banana_pro` 4K 21:9 (6336×2688 → master 3840 px AVIF) |
+| **Max kol** | 5 |
+| **Práh „prošel"** | každý porotce ≥ 4/5 **a** nula kritických nálezů |
+| **Porota** | 6 lenzů jako u článku 1: hierarchie · typografie · pohyb · grafický styl · slop · výkon a přístupnost |
+
+## Výchozí stav (před kolem 01)
+
+Postaveno rovnou na šabloně 8.2 a mřížce v3, tj. na tom, co u článku 1
+prošlo v kole 11 — pilot se tentokrát netýkal hera (ten je hotový vzor),
+ale **první kresby**: Obr. 01 hmatový test byl schválen vizuálně dřív, než
+vznikly zbylé.
+
+- Hero: fotografie sondy v trávníku (rýč, ornice, udusaná vrstva), 4 varianty,
+  vybrána ta s nejtmavší zónou textu (jas 64/255) a nejsilnějším příběhem
+  vrstev. Master 3840 px — poučení z článku 1 (2400 px na dpr 2 nestačilo).
+- Souhrn: lead složený z autorových vět + 4 dlaždice (3 typy · 30 cm ·
+  2,5–7,5 cm/h · 300 l).
+- Kapitoly 01–05 a 07 jako dvousloupce text + kresba, střídání R L R L R (L);
+  kapitola 06 bez kresby — obraz jí dělá full-bleed fotografie rycích vidlí
+  těsně nad ní. Zbytek textu každé kapitoly (seznamy, h3) teče pod
+  dvousloupcem na obsahové ose.
+- Šest kreseb jen v portrétové sazbě (520 px) — všechny stojí ve sloupci
+  vedle textu, kde má portrét vyšší hustotu než panorama (ADR-006 dodatek).
+  Dvě tabulky z autorova textu (hmat → půda → zaměření; hloubka → co →
+  proč) nesou kresby 01 a 05.
+- Dva kalkulátory: `vsak` (obsidian, na ose) a `primesi` (světlý, na ose).
+- Rytmus prózy rozšířen na h3/ul/ol (DESIGN 8.2a) — dřív jen `p + p`.
+- Přejímka mřížky: 0 chyb na 1024 / 1440 / 1990; osy 372/40/0, šířky
+  700/1360/full, střídání R L R L R L.
+
+**Podezření před porotou:** délka (docH 19 250 px na 1440, 22 min čtení);
+FAQ a produktový pás jsou převzaté vzory a text produktového pásu je můj,
+ne autorův; kresby 05 a 07 mají hodně textu v popiscích; hodnota 7,5–10 cm/h
+není v článku pojmenovaná.
+

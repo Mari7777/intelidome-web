@@ -88,7 +88,7 @@ export const ZkouskaVsaku: React.FC = () => (
       <line x1="129" y1="126" x2="139" y2="126" />
       <line x1="129" y1="354" x2="139" y2="354" />
     </g>
-    <text className="sv-val" x="144" y="150">30 cm</text>
+    <text className="sv-val" x="144" y="300">30 cm</text>
 
     {/* kóta: od laťky k hladině — to, co se měří */}
     <g stroke="#232830" strokeWidth="1.4" strokeLinecap="round">
@@ -103,7 +103,7 @@ export const ZkouskaVsaku: React.FC = () => (
       <line x1="195" y1="188" x2="205" y2="188" />
     </g>
     <text className="sv-val" x="192" y="178" textAnchor="end" style={{ fill: '#2563eb' }}>1 cm</text>
-    <text className="sv-lbl" x="226" y="158" textAnchor="end">měřím</text>
+    <text className="sv-lbl" x="236" y="100" textAnchor="end">měřím</text>
 
     {/* ── odečet vpravo ───────────────────────────────────────── */}
     <text className="sv-lbl" x="360" y="118">Pokles hladiny</text>
