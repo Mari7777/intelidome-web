@@ -13,6 +13,7 @@ import type { Post } from '@/payload-types'
 import { Motion } from '@/components/motion/Motion'
 import { PostHero } from '@/heros/PostHero'
 import { generateMeta } from '@/utilities/generateMeta'
+import { getServerSideURL } from '@/utilities/getURL'
 import PageClient from './page.client'
 import { LivePreviewListener } from '@/components/LivePreviewListener'
 
@@ -67,6 +68,15 @@ export default async function Post({ params: paramsPromise }: Args) {
         <Motion inertia />
 
         <PostHero post={post} />
+
+        {/* Article JSON-LD (skill intellidome-web: JSON-LD dle typu stránky);
+            FAQPage si přidává blok FAQ sám. `<` se escapuje kvůli </script>. */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(articleJsonLd(post)).replace(/</g, '\\u003c'),
+          }}
+        />
 
         {/*
           Tělo článku je jedna mřížka (DESIGN.md 8.1): sloupec `content` drží
@@ -125,3 +135,26 @@ const queryPostBySlug = cache(async ({ slug }: { slug: string }) => {
 
   return result.docs?.[0] || null
 })
+
+/** BlogPosting pro vyhledávače i AI crawlery — data jen z dokumentu, nic ručně. */
+function articleJsonLd(post: Post) {
+  const base = getServerSideURL()
+  const hero = typeof post.heroImage === 'object' && post.heroImage?.url ? base + post.heroImage.url : undefined
+  const authors = (post.populatedAuthors ?? []).map((author) => author?.name).filter(Boolean) as string[]
+
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'BlogPosting',
+    headline: post.title,
+    description: post.meta?.description ?? undefined,
+    image: hero ? [hero] : undefined,
+    datePublished: post.publishedAt ?? undefined,
+    dateModified: post.updatedAt,
+    inLanguage: 'cs',
+    author: authors.length
+      ? authors.map((name) => ({ '@type': 'Person', name }))
+      : { '@type': 'Organization', name: 'InteliDome' },
+    publisher: { '@type': 'Organization', name: 'InteliDome', url: base },
+    mainEntityOfPage: `${base}/posts/${post.slug}`,
+  }
+}

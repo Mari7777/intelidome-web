@@ -11,6 +11,7 @@
 .id-btn {
   transition:
     transform 0.35s var(--id-ease),
+    box-shadow 0.35s var(--id-ease),
     background-color 0.25s var(--id-ease),
     border-color 0.25s var(--id-ease),
     color 0.25s var(--id-ease);
@@ -44,8 +45,9 @@
   background: var(--id-accent);
   color: var(--id-ink-dark);
 }
+/* 7.2: primary na hover jen svítí (glow), pozadí se NEmění. */
 .id-btn--primary:hover {
-  background: var(--id-accent-deep);
+  box-shadow: 0 12px 32px rgba(37, 99, 235, 0.35);
 }
 .id-btn--ghost {
   background: transparent;
@@ -942,6 +944,9 @@ html {
   border-radius: var(--id-r-card);
   background: var(--id-obsidian);
   color: var(--id-ink-dark);
+  /* 4.3 p. 8: světlé písmo na obsidianu tloustne — antialiased jako hero a pás */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 @media (max-width: 820px) {
   .id-calc {
@@ -951,6 +956,8 @@ html {
 .id-calc--light {
   background: var(--id-cream);
   color: var(--id-ink);
+  -webkit-font-smoothing: auto;
+  -moz-osx-font-smoothing: auto;
 }
 .id-calc__head h3 {
   text-wrap: balance;
@@ -1034,15 +1041,21 @@ html {
   font-weight: 600;
   letter-spacing: -0.02em;
   font-variant-numeric: tabular-nums;
+  transition: border-bottom-color 0.25s var(--id-ease);
 }
 .id-calc--light input[type='number'] {
   border-bottom-color: var(--id-line-cream-strong, #d5d3cc);
 }
-/* Podtržení JE fokusový indikátor — proto tady výjimka z globálního prstence. */
-.id-calc input[type='number']:focus,
-.id-calc input[type='number']:focus-visible {
+/* Podtržení hlásí :focus (myš i klávesnice); klávesnice dostane navíc
+   prstenec 3 px / offset 3 px podle 7.0 („kalk. inputy"). Dřívější
+   `outline: none` bez náhrady zakazuje 11.2 — porota kola 04 (pohyb + výkon). */
+.id-calc input[type='number']:focus {
   outline: none;
   border-bottom-color: var(--id-accent);
+}
+.id-calc input[type='number']:focus-visible {
+  outline: 3px solid var(--id-accent);
+  outline-offset: 3px;
 }
 .id-calc .unit {
   line-height: 1.05;
@@ -1344,9 +1357,13 @@ html {
   border-radius: 0;
 }
 .id-figure--bleed > figcaption {
-  max-width: min(30em, var(--id-maxw-prose));
-  margin-inline: auto;
-  padding-inline: var(--id-gutter);
+  /* Na ose prózy (370 @1440, 162 @1024), ne na vlastní centrované hraně
+     558 — porota rozložení ji měřila jako čtvrtou levou hranu. Procenta
+     marginu se počítají z rodiče = celá šířka, proto (100 % − 700) / 2;
+     na telefonu vyhraje gutter. */
+  max-width: 30em;
+  margin-inline: max(var(--id-gutter), calc((100% - var(--id-maxw-prose)) / 2)) auto;
+  padding-inline: 0;
 }
 
 /* ── Text vedle obrazu (DESIGN.md 8.2b) ───────────────────────────────

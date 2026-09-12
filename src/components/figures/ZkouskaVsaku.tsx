@@ -104,7 +104,7 @@ export const ZkouskaVsaku: React.FC = () => (
     <text className="sv-val" x="316" y="200">1 cm × 4</text>
 
     <text className="sv-lbl" x="316" y="236">Rychlost vsaku</text>
-    <text className="sv-val" x="316" y="268" style={{ fontSize: 26 }}>4 cm/h</text>
+    <text className="sv-val" x="316" y="268" style={{ fontSize: 24 }}>4 cm/h</text>
 
     <line x1="316" y1="290" x2="490" y2="290" stroke="#d5d3cc" strokeWidth="1.6" strokeDasharray="3 7" strokeLinecap="round" />
     <text className="sv-lbl" x="316" y="314">Stěny zdrsněte</text>

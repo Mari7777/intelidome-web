@@ -119,11 +119,11 @@ export const TricetCentimetru: React.FC = () => (
 
     {/* ── objemy ──────────────────────────────────────────────── */}
     <text className="sv-lbl" x="130" y="340" textAnchor="middle">Objem pro kořeny</text>
-    <text className="sv-val" x="130" y="376" textAnchor="middle" style={{ fontSize: 30 }}>100 l</text>
+    <text className="sv-val" x="130" y="376" textAnchor="middle" style={{ fontSize: 24 }}>100 l</text>
     <text className="sv-lbl" x="130" y="400" textAnchor="middle">závislé na počasí</text>
 
     <text className="sv-lbl" x="390" y="340" textAnchor="middle">Objem pro kořeny</text>
-    <text className="sv-val" x="390" y="376" textAnchor="middle" style={{ fontSize: 30 }}>300 l</text>
+    <text className="sv-val" x="390" y="376" textAnchor="middle" style={{ fontSize: 24 }}>300 l</text>
     <text className="sv-lbl" x="390" y="400" textAnchor="middle">rezervoár</text>
 
     {/* ── pointa + legenda pórů ───────────────────────────────── */}

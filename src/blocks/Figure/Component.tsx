@@ -94,7 +94,7 @@ export const FigureBlock: React.FC<Props> = ({
         <div className="id-figure-media overflow-hidden rounded-[var(--id-r-card)]">{media}</div>
       )}
 
-      <figcaption className="mt-[16px] flex max-w-[62ch] items-baseline gap-[10px] border-t-[1px] border-[var(--id-line-soft)] pt-[14px] text-[13.5px] leading-[1.45] text-[var(--id-ink-2)]">
+      <figcaption className="mt-[16px] flex max-w-[62ch] items-baseline gap-[10px] border-t-[1px] border-[var(--id-mist)] pt-[14px] text-[13.5px] leading-[1.45] text-[var(--id-ink-2)]">
         {label && (
           <b className="font-[family-name:var(--id-f-display)] text-[11.5px] font-semibold uppercase tracking-[0.06em] whitespace-nowrap text-[var(--id-ink)]">
             {label}

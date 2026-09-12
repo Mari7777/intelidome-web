@@ -92,6 +92,6 @@ export const Sedani: React.FC = () => (
     {/* ── pointa ──────────────────────────────────────────────── */}
     <line x1="30" y1="472" x2="490" y2="472" stroke="#d5d3cc" strokeWidth="1.6" strokeDasharray="3 7" strokeLinecap="round" />
     <text className="sv-lbl" x="30" y="494">Čerstvá zemina lže</text>
-    <text className="sv-val" x="490" y="497" textAnchor="end" style={{ fontSize: 22 }}>sedá týdny, ne dny</text>
+    <text className="sv-val" x="490" y="497" textAnchor="end" style={{ fontSize: 24 }}>sedá týdny, ne dny</text>
   </svg>
 )

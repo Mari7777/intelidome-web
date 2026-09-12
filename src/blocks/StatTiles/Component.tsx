@@ -1,5 +1,6 @@
 import React from 'react'
 
+import { nezlomitelneMezery } from '@/utilities/czechTypography'
 import { cn } from '@/utilities/ui'
 
 /**
@@ -20,6 +21,8 @@ export type StatTilesBlockProps = {
   blockName?: string | null
   blockType?: 'statTiles'
   className?: string
+  /** Sloupce na desktopu; výchozí = počet dlaždic (max 4). Souhrn na ose prózy (700 px) sází 2×2. */
+  columns?: 2 | 3 | 4
 }
 
 /**
@@ -44,35 +47,35 @@ const DESKTOP_COLUMNS: Record<number, string> = {
  * position of each tile within its row is computable at render time, so no
  * arbitrary `nth-child` variants are needed.
  */
-const tileClassName = (index: number, count: number): string => {
+const tileClassName = (index: number, count: number, cols: number): string => {
   const opensRowOnTablet = index % 2 === 0
   const isFirstRowOnTablet = index < 2
-  const opensRowOnDesktop = index === 0 || count === 1
+  const opensRowOnDesktop = index % cols === 0
+  const isFirstRowOnDesktop = index < cols
+  const isLastRowOnDesktop = index >= count - (count % cols || cols)
 
   return cn(
     // padding 22/18/18 while wrapped, 28/26/4 once the tiles stand in one row
-    'min-w-0 pt-[22px] pr-[18px] pb-[18px] pl-0 md:pt-[28px] md:pr-[26px] md:pb-[4px]',
+    'min-w-0 pt-[22px] pr-[18px] pb-[18px] pl-0 md:pt-[28px] md:pr-[26px]',
+    isLastRowOnDesktop ? 'md:pb-[4px]' : 'md:pb-[22px]',
     'border-[color:var(--id-line-soft)]',
     // single column: every tile but the first needs its own horizontal hairline
     index > 0 && 'border-t',
     // two columns
     opensRowOnTablet ? 'sm:border-l-0 sm:pl-0' : 'sm:border-l sm:pl-[18px]',
     isFirstRowOnTablet ? 'sm:border-t-0' : 'sm:border-t',
-    // one row: vertical hairlines only, the shared top hairline sits on the grid
+    // desktop rows: vertical hairlines inside a row, the shared top hairline sits on the grid
     opensRowOnDesktop ? 'md:border-l-0 md:pl-0' : 'md:border-l md:pl-[26px]',
-    'md:border-t-0',
+    isFirstRowOnDesktop ? 'md:border-t-0' : 'md:border-t',
   )
 }
 
-export const StatTilesBlock: React.FC<StatTilesBlockProps> = ({ className, tiles }) => {
+export const StatTilesBlock: React.FC<StatTilesBlockProps> = ({ className, columns, tiles }) => {
   const items = (tiles ?? []).filter((tile) => Boolean(tile?.value || tile?.label))
 
   if (items.length === 0) return null
 
-  // Rozsah jako „2,5–7,5" se ve 40 px do dlaždice 175 px nevejde. Stupeň
-  // ale drží celá řada: jedna menší dlaždice vedle tří velkých četla porota
-  // jako chybu, ne jako záměr — proto o stupeň níž jdou všechny.
-  const kompakt = items.some((tile) => tile.value.length > 5)
+  const cols = Math.min(columns ?? items.length, 4)
 
   return (
     <div className={cn('not-prose mx-auto w-full', className)}>
@@ -81,17 +84,16 @@ export const StatTilesBlock: React.FC<StatTilesBlockProps> = ({ className, tiles
         className={cn(
           'grid grid-cols-1 border-t border-[color:var(--id-line-soft)]',
           items.length > 1 && 'sm:grid-cols-2',
-          DESKTOP_COLUMNS[items.length] ?? 'md:grid-cols-4',
+          DESKTOP_COLUMNS[cols] ?? 'md:grid-cols-4',
         )}
       >
         {items.map((tile, index) => (
-          <div key={tile.id ?? index} className={cn('rv', tileClassName(index, items.length))}>
+          <div key={tile.id ?? index} className={cn('rv', tileClassName(index, items.length, cols))}>
             <div
               className={cn(
                 'font-[family-name:var(--id-f-display)] font-semibold tabular-nums',
-                kompakt
-                  ? 'text-[length:clamp(20px,1.9vw,26px)] leading-[1.15] tracking-[-0.02em]'
-                  : 'text-[length:clamp(26px,3vw,40px)] leading-[1.05] tracking-[-0.02em]',
+                // stupeň stat-num z DS (4.2 / 7.6); dlouhý rozsah řeší sazba 2×2, ne menší písmo
+                'text-[length:var(--id-t-stat)] leading-[1.05] tracking-[-0.02em]',
                 'text-[color:var(--id-ink)]',
               )}
             >
@@ -106,7 +108,7 @@ export const StatTilesBlock: React.FC<StatTilesBlockProps> = ({ className, tiles
               ) : null}
             </div>
             <div className="mt-[6px] text-[length:13px] leading-[1.45] text-[color:var(--id-ink-2)]">
-              {tile.label}
+              {nezlomitelneMezery(tile.label)}
             </div>
           </div>
         ))}

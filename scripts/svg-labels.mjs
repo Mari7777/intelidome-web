@@ -1,7 +1,9 @@
 // svg-labels.mjs — přejímka popisků v kresbách: kolize a ořez na dané šířce
 //   node scripts/svg-labels.mjs <url> [sirka=393] [dpr=3]
 // Pro každý `.id-figure-svg svg` vypíše nejmenší vykreslený popisek,
-// dvojice textů, jejichž rámce se protínají, a texty přesahující panel.
+// dvojice textů, jejichž rámce se protínají, texty přesahující panel
+// a kolize značek (malé tvary ≤ 26 px mimo <defs>) s textem — kapka legendy
+// Obr. 05 přes „základ" prošla přejímkou text × text (porota kola 04).
 import { chromium } from '@playwright/test'
 const [, , url, W = '393', D = '3'] = process.argv
 const b = await chromium.launch()
@@ -28,6 +30,14 @@ const out = await p.evaluate(() => {
       const A = texts[a], B = texts[c]
       const ox = Math.min(A.r, B.r) - Math.max(A.l, B.l), oy = Math.min(A.b, B.b) - Math.max(A.t, B.t)
       if (ox > 1 && oy > 1) kolize.push(`${A.s} × ${B.s} (${Math.round(ox)}×${Math.round(oy)} px)`)
+    }
+    const tvary = [...svg.querySelectorAll('circle, rect, path, polygon, ellipse')]
+      .filter((el) => !el.closest('defs') && !el.closest('clipPath') && !el.closest('mask'))
+      .map((el) => { const r = el.getBoundingClientRect(); return { tag: el.tagName, l: r.left, r: r.right, t: r.top, b: r.bottom, w: r.width, h: r.height } })
+      .filter((s) => s.w > 0 && s.h > 0 && s.w <= 26 && s.h <= 26)
+    for (const s of tvary) for (const T of texts) {
+      const ox = Math.min(s.r, T.r) - Math.max(s.l, T.l), oy = Math.min(s.b, T.b) - Math.max(s.t, T.t)
+      if (ox > 0.5 && oy > 0.5) kolize.push(`${s.tag}@${Math.round(s.l)},${Math.round(s.t)} × ${T.s} (${Math.round(ox)}×${Math.round(oy)} px, tvar×text)`)
     }
     const orez = texts.filter((t) => t.l < inner.left - 1 || t.r > inner.right + 1).map((t) => `${t.s} (${Math.round(t.l - inner.left)}..${Math.round(t.r - inner.right)})`)
     res.push({ kresba: i + 1, textu: texts.length, minPx: min, kolize, orez })

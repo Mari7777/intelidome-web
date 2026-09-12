@@ -15,6 +15,11 @@ const JEDNOTKA_SLOVO =
 const JEDNOTKA_SYMBOL = /(\d)[ \t]+(?=(?:%|°C))/g
 /* Tisíce: „10 000" se nesmí rozdělit. */
 const TISICE = /(\d)[ \t](?=\d{3}(?!\d))/g
+/* Rozsah „1–2 centimetry" se za pomlčkou nesmí zlomit (ČSN 01 6910):
+   za en dash mezi číslicemi jde U+2060 (word joiner). Násobení „1 × 1"
+   drží pohromadě pevnými mezerami. */
+const ROZSAH = /(\d)–(?=\d)/g
+const KRAT = /(\d)[ \t]*×[ \t]*(?=\d)/g
 
 export const nezlomitelneMezery = (text: string): string =>
   text
@@ -22,6 +27,8 @@ export const nezlomitelneMezery = (text: string): string =>
     .replace(TISICE, '$1\u00a0')
     .replace(JEDNOTKA_SLOVO, '$1\u00a0')
     .replace(JEDNOTKA_SYMBOL, '$1\u00a0')
+    .replace(ROZSAH, '$1–\u2060')
+    .replace(KRAT, '$1\u00a0×\u00a0')
 
 /**
  * Projde Lexical strom a doplní pevné mezery do všech textových uzlů.

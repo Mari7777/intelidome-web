@@ -9,13 +9,13 @@ import React from 'react'
  * Jediný akcent: kapka vody, která projde všemi třemi zónami (CSS, 5,2 s) —
  * voda a vzduch musí mít volnou cestu.
  *
- * Portrétová sazba 520 px (viewBox začíná na y=60 — nad drnem nic není),
+ * Portrétová sazba 520 px (viewBox 0 60 520 452 — nad drnem nic není),
  * popisky vpravo mají 204 px, aby se vešly i po mobilním zvětšení (15/18
  * při měřítku 0,71). Id s prefixem `tz-`. Klidový stav v markupu: kapka ve
  * třetí zóně, všechny příměsi na svém místě.
  */
 export const TriZony: React.FC = () => (
-  <svg aria-hidden="true" className="block h-auto w-full" viewBox="0 60 520 430">
+  <svg aria-hidden="true" className="block h-auto w-full" viewBox="0 60 520 452">
     <defs>
       {/* biochar = černé střípky, Actino = tmavě hnědé hrudky, zeolit = světlá hranatá zrna */}
       <pattern id="tz-plna" width="30" height="30" patternUnits="userSpaceOnUse">
@@ -95,36 +95,39 @@ export const TriZony: React.FC = () => (
       <line x1="290" y1="210" x2="308" y2="210" />
       <line x1="290" y1="290" x2="308" y2="290" />
     </g>
-    <text className="sv-val" x="316" y="130" style={{ fontSize: 22 }}>0–10 cm</text>
+    <text className="sv-val" x="316" y="130" style={{ fontSize: 24 }}>0–10 cm</text>
     <text className="sv-lbl" x="316" y="150">základ + biochar</text>
     <text className="sv-lbl" x="316" y="170">+ Actino + zeolit</text>
     <text className="sv-lbl" x="316" y="190">nejvíc kořenů</text>
 
-    <text className="sv-val" x="316" y="216" style={{ fontSize: 22 }}>10–15 cm</text>
+    <text className="sv-val" x="316" y="216" style={{ fontSize: 24 }}>10–15 cm</text>
     <text className="sv-lbl" x="316" y="236">základ + zeolit</text>
     <text className="sv-lbl" x="316" y="256">přechod</text>
 
-    <text className="sv-val" x="316" y="288" style={{ fontSize: 22 }}>15–30 cm</text>
+    <text className="sv-val" x="316" y="288" style={{ fontSize: 24 }}>15–30 cm</text>
     <text className="sv-lbl" x="316" y="308">jen základ</text>
     <text className="sv-lbl" x="316" y="328">rezervoár vody</text>
     <text className="sv-lbl" x="316" y="348">a vzduchu</text>
 
-    {/* ── legenda ─────────────────────────────────────────────── */}
+    {/* ── legenda — dva řádky (3 + 2). V jednom řádku na 460 px seděla kapka
+        „vody" 3 px za slovem „základ" a na mobilu (popisek 18 px) ho
+        překrývala — porota kola 04, potvrzeno pixelově. ─────────────── */}
     <line x1="30" y1="372" x2="490" y2="372" stroke="#d5d3cc" strokeWidth="1.6" strokeDasharray="3 7" strokeLinecap="round" />
     <text className="sv-lbl" x="30" y="394">Co je co</text>
 
     <path d="M32 412 l7 -4 4 5 -5 4 z" fill="#12161b" />
     <text className="sv-val" x="52" y="420">biochar</text>
-    <circle cx="160" cy="416" r="4" fill="#54402c" />
-    <text className="sv-val" x="172" y="420">Actino</text>
-    <path d="M268 412 l6 -3 5 4 -1 6 -6 2 -5 -4 z" fill="#d5d3cc" stroke="#5b5e63" strokeWidth="1.5" />
-    <text className="sv-val" x="288" y="420">zeolit</text>
-    <rect x="372" y="409" width="14" height="14" rx="3" fill="#6b5138" opacity="0.9" />
-    <text className="sv-val" x="394" y="420">základ</text>
-    <path d="M446 409 C 449 413, 451 416, 451 418.5 A 5 5 0 0 1 441 418.5 C 441 416, 443 413, 446 409 Z" fill="#2563eb" opacity="0.9" />
-    <text className="sv-val" x="458" y="420">voda</text>
+    <circle cx="198" cy="416" r="4" fill="#54402c" />
+    <text className="sv-val" x="210" y="420">Actino</text>
+    <path d="M338 412 l6 -3 5 4 -1 6 -6 2 -5 -4 z" fill="#d5d3cc" stroke="#5b5e63" strokeWidth="1.5" />
+    <text className="sv-val" x="358" y="420">zeolit</text>
 
-    <text className="sv-lbl" x="30" y="452">Základ = vaše zemina,</text>
-    <text className="sv-lbl" x="30" y="472">případně její směs s pískem</text>
+    <rect x="30" y="439" width="14" height="14" rx="3" fill="#6b5138" opacity="0.9" />
+    <text className="sv-val" x="52" y="450">základ</text>
+    <path d="M198 439 C 201 443, 203 446, 203 448.5 A 5 5 0 0 1 193 448.5 C 193 446, 195 443, 198 439 Z" fill="#2563eb" opacity="0.9" />
+    <text className="sv-val" x="210" y="450">voda</text>
+
+    <text className="sv-lbl" x="30" y="482">Základ = vaše zemina,</text>
+    <text className="sv-lbl" x="30" y="502">případně její směs s pískem</text>
   </svg>
 )

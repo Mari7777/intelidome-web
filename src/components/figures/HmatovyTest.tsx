@@ -111,7 +111,8 @@ export const HmatovyTest: React.FC = () => (
     {/* hromádka pod ní — kam se zrna sypou */}
     <path d="M396 286 q24 -10 48 0" fill="none" stroke="#c2a052" strokeWidth="2.2" strokeLinecap="round" />
 
-    {/* ── řádek 3: váleček ─────────────────────────────────────── */}
+    {/* ── řádek 3: váleček — drobky 4 px výš a pointy na 397: klíčová hodnota
+        má 24 px (jeden stupeň pro všechny kresby) a bbox textu sahal do drobků. */}
     <line x1="30" y1="300" x2="490" y2="300" stroke="#d5d3cc" strokeWidth="1.6" strokeDasharray="3 7" strokeLinecap="round" />
     <text className="sv-lbl" x="30" y="322">Váleček</text>
 
@@ -129,7 +130,7 @@ export const HmatovyTest: React.FC = () => (
       />
       <path d="M52 356 C 84 356, 110 340, 148 332" fill="none" stroke="#54402c" strokeWidth="18" strokeLinecap="round" opacity="0.92" />
     </g>
-    <text className="sv-val" x="100" y="394" textAnchor="middle" style={{ fontSize: 20 }}>Ohne se</text>
+    <text className="sv-val" x="100" y="397" textAnchor="middle" style={{ fontSize: 24 }}>Ohne se</text>
 
     {/* hlína: drží, ale při ohnutí praská — zlom uprostřed */}
     <path d="M212 356 C 232 354, 246 347, 256 340" fill="none" stroke="#6b5138" strokeWidth="18" strokeLinecap="round" opacity="0.9" />
@@ -140,10 +141,10 @@ export const HmatovyTest: React.FC = () => (
       <path d="M265 331 l4 -6" />
     </g>
     <g fill="#6b5138" opacity="0.8">
-      <circle cx="259" cy="370" r="2.2" />
-      <circle cx="266" cy="374" r="1.6" />
+      <circle cx="259" cy="366" r="2.2" />
+      <circle cx="266" cy="370" r="1.6" />
     </g>
-    <text className="sv-val" x="260" y="394" textAnchor="middle" style={{ fontSize: 20 }}>Praská</text>
+    <text className="sv-val" x="260" y="397" textAnchor="middle" style={{ fontSize: 24 }}>Praská</text>
 
     {/* písek: uválet nejde — jen duch válečku a rozsypaná zrna */}
     <rect x="372" y="337" width="96" height="18" rx="9" fill="none" stroke="#d5d3cc" strokeWidth="1.6" strokeDasharray="3 7" />
@@ -153,10 +154,10 @@ export const HmatovyTest: React.FC = () => (
       <path d="M414 361 l5 -2 4 4 -2 5 -5 1 -3 -4 z" />
       <path d="M430 365 l5 -2 4 3 -1 5 -5 2 -3 -4 z" />
       <path d="M446 361 l5 -3 5 3 0 5 -5 2 -5 -2 z" />
-      <path d="M406 372 l4 -2 3 3 -1 4 -4 1 -2 -3 z" />
-      <path d="M438 372 l4 -2 3 3 -1 4 -4 1 -2 -3 z" />
+      <path d="M406 368 l4 -2 3 3 -1 4 -4 1 -2 -3 z" />
+      <path d="M438 368 l4 -2 3 3 -1 4 -4 1 -2 -3 z" />
     </g>
-    <text className="sv-val" x="420" y="394" textAnchor="middle" style={{ fontSize: 20 }}>Rozpadá se</text>
+    <text className="sv-val" x="420" y="397" textAnchor="middle" style={{ fontSize: 24 }}>Rozpadá se</text>
 
     {/* ── řádek 4: na co se zaměřit ────────────────────────────── */}
     <line x1="30" y1="410" x2="490" y2="410" stroke="#d5d3cc" strokeWidth="1.6" strokeDasharray="3 7" strokeLinecap="round" />

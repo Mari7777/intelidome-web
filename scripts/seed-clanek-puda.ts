@@ -294,13 +294,23 @@ const body = root([
   /* Kresba tří zón nestojí v čele kapitoly, ale u podkapitoly o zónování,
      o kterém mluví — jinak měla kapitola 2,2 obrazovky prózy bez obrazu
      (porota rozložení, kolo 01). Čelo kapitoly nese titulek + próza. */
-  chapter('Půdní alchymie: biochar, Actino, zeolit a správné počty', 'Kapitola 05'),
-  p('Až teď přichází chvíle, kdy má smysl uvažovat o tom, co do půdy přimíchat. Už víme, co máme v ruce, víme, co je pod tím, a víme, jak odtéká voda. Každá příměs tak dostane svůj jasný úkol.'),
-  ul(
-    li(['Těžký jíl: ', BOLD], 'Nejdříve fyzicky odstraňte utužení (když je půda mírně vlhká). Pokud to nestačí a musíte změnit zrnitost, použijte promyšlenou směs praného písku a původní zeminy. Pozor: pár lopat písku nevyřeší nic! Jemný jíl jen vyplní mezery mezi zrny písku. Je to jako nasypat jemný prach do sklenice s korálky – víc vzduchu tím nezískáte.'),
-    li(['Střední hlína: ', BOLD], 'Nedělejte nic plošně, řešte jen místní utužení. Písek sem přidávejte jen tehdy, pokud je hlína spíše těžší. Drobtovitá zdravá půda písek nepotřebuje.'),
-    li(['Lehký písek: ', BOLD], 'Na další písek zapomeňte. Veškeré úsilí věnujte tomu, jak v zemině udržet vodu a živiny.'),
-  ),
+  /* ── Kapitola 05 — otevírá Obr. 05 jako ostatní kapitoly. V kole 04
+     stála kresba 1 350 px pod titulkem u mezititulku h3 (hierarchie
+     i rozložení). Trojice jíl / hlína / písek jde do těla dvousloupce
+     jako odstavce s tučným návěstím — seznam do těla splitu nejde. ─── */
+  split({
+    blockName: 'Kapitola 05',
+    side: 'image-right',
+    drawing: 'tri-zony',
+    eyebrow: 'Kapitola 05',
+    title: 'Půdní alchymie: biochar, Actino, zeolit a správné počty',
+    number: '05',
+    alt: 'Řez profilem 30 cm rozdělený do tří zón: 0 až 10 cm minerální základ s biocharem, Actinem a zeolitem, kde žije nejvíc kořenů; 10 až 15 cm minerální základ se zeolitem jako přechod; 15 až 30 cm jen minerální základ jako rezervní prostor pro vodu a vzduch. Přechody mezi zónami jsou plynulé, ne ostré.',
+    caption:
+      'Co kam patří. Drahé příměsi jen tam, kde žijí kořeny; spodní zóna je rezervoár vody a vzduchu — a přechody navazují, nejsou to patra dortu.',
+    body:
+      'Až teď přichází chvíle, kdy má smysl uvažovat o tom, co do půdy přimíchat. Už víme, co máme v ruce, víme, co je pod tím, a víme, jak odtéká voda. Každá příměs tak dostane svůj jasný úkol.\n\n**Těžký jíl:** Nejdříve fyzicky odstraňte utužení (když je půda mírně vlhká). Pokud to nestačí a musíte změnit zrnitost, použijte promyšlenou směs praného písku a původní zeminy. Pozor: pár lopat písku nevyřeší nic! Jemný jíl jen vyplní mezery mezi zrny písku. Je to jako nasypat jemný prach do sklenice s korálky – víc vzduchu tím nezískáte.\n\n**Střední hlína:** Nedělejte nic plošně, řešte jen místní utužení. Písek sem přidávejte jen tehdy, pokud je hlína spíše těžší. Drobtovitá zdravá půda písek nepotřebuje.\n\n**Lehký písek:** Na další písek zapomeňte. Veškeré úsilí věnujte tomu, jak v zemině udržet vodu a živiny.',
+  }),
   p('Vždy platí, že vaše původní zemina je cenný základ. Není to odpad, který musíte vyvézt jen proto, abyste udělali místo pytlům s lákavými názvy.'),
 
   h3('Co umí speciální příměsi?'),
@@ -311,27 +321,18 @@ const body = root([
     li(['Zeolit (konkrétně klinoptilolit): ', BOLD], 'Speciální minerál, který na sebe dokáže vázat určité živiny (například draslík či amonné ionty), které by se jinak z půdy vyplavily. Později je umí uvolňovat zpět kořenům.'),
   ),
 
-  split({
-    blockName: 'Zónování (Obr. 05)',
-    side: 'image-right',
-    drawing: 'tri-zony',
-    title: 'Proč nesypat všechno všude? (Chytré zónování)',
-    titleLevel: 'h3',
-    number: '05',
-    alt: 'Řez profilem 30 cm rozdělený do tří zón: 0 až 10 cm minerální základ s biocharem, Actinem a zeolitem, kde žije nejvíc kořenů; 10 až 15 cm minerální základ se zeolitem jako přechod; 15 až 30 cm jen minerální základ jako rezervní prostor pro vodu a vzduch. Přechody mezi zónami jsou plynulé, ne ostré.',
-    caption:
-      'Co kam patří. Drahé příměsi jen tam, kde žijí kořeny; spodní zóna je rezervoár vody a vzduchu — a přechody navazují, nejsou to patra dortu.',
-    body:
-      'Pokud půdní profil budujete nově, nemusíte (a ani byste neměli) rvát drahé příměsi do celých 30 centimetrů. Rozdělte si zeminu do tří zón (přičemž „minerální základ“ znamená vaši původní zeminu, případně její směs s pískem) – co kam patří, ukazuje Obr. 05.\n\nToto uspořádání má jasný ekonomický smysl. Představte si plochu 100 m². Vrstva 10 cm představuje 10 000 litrů zeminy. Kdybyste chtěli obohatit celých 30 cm (30 000 litrů), spotřebujete všeho třikrát tolik. Pro takovou investici musíte mít sakra dobrý důvod.\n\n**Upozornění:** Zóny neskládejte na sebe jako patra dortu s ostrými hranami. Vše musí být v dané vrstvě rovnoměrně promíchané a přechody musí navazovat, aby kořeny nepřešly šokem. Pokud už dobrou půdu na zahradě máte, nerozebírejte ji kvůli tomuto návodu na tři umělé vrstvy! I vaše spodní vrstva přirozeně obsahuje minerály, organismy a organickou hmotu.',
-  }),
+  h3('Proč nesypat všechno všude? (Chytré zónování)'),
+  p('Pokud půdní profil budujete nově, nemusíte (a ani byste neměli) rvát drahé příměsi do celých 30 centimetrů. Rozdělte si zeminu do tří zón (přičemž „minerální základ“ znamená vaši původní zeminu, případně její směs s pískem) – co kam patří, ukazuje Obr. 05.'),
+  p('Toto uspořádání má jasný ekonomický smysl. Představte si plochu 100 m². Vrstva 10 cm představuje 10 000 litrů zeminy. Kdybyste chtěli obohatit celých 30 cm (30 000 litrů), spotřebujete všeho třikrát tolik. Pro takovou investici musíte mít sakra dobrý důvod.'),
+  p(['Upozornění: ', BOLD], 'Zóny neskládejte na sebe jako patra dortu s ostrými hranami. Vše musí být v dané vrstvě rovnoměrně promíchané a přechody musí navazovat, aby kořeny nepřešly šokem. Pokud už dobrou půdu na zahradě máte, nerozebírejte ji kvůli tomuto návodu na tři umělé vrstvy! I vaše spodní vrstva přirozeně obsahuje minerály, organismy a organickou hmotu.'),
 
   h3('Matematika trávníku: litry řeší poměr, kilogramy nákup'),
   p('Jak spočítat, kolik čeho koupit? Pojďme si ukázat vzorový příklad: Chcete do vrchních 20 cm půdy přidat 5 % zeolitu.'),
   ol(
-    li(['Výpočet objemu: ', BOLD], 'Představte si čtverec 1 x 1 metr. Hloubka je 0,2 metru. Objem je tedy 1 x 1 x 0,2 = 0,2 m³, což je přesně ', ['200 litrů půdy', BOLD], '.'),
+    li(['Výpočet objemu: ', BOLD], 'Představte si čtverec 1 × 1 metr. Hloubka je 0,2 metru. Objem je tedy 1 × 1 × 0,2 = 0,2 m³, což je přesně ', ['200 litrů půdy', BOLD], '.'),
     li(['Podíl příměsi: ', BOLD], '5 % z 200 litrů je ', ['10 litrů zeolitu', BOLD], ' (jeden běžný kbelík) na metr čtvereční. Zbylých 190 litrů tvoří váš minerální základ (10 + 190 = požadovaných 200).'),
     li(['Převod na nákupní košík: ', BOLD], 'V obchodě se zeolit prodává na kila. Zde potřebujete znát tzv. sypnou hustotu od výrobce. Dejme tomu, že je 0,8 kg/l. Vašich 10 litrů tedy váží ', ['8 kilogramů', BOLD], '.'),
-    li(['Celková objednávka: ', BOLD], 'Pokud má váš trávník 100 m², potřebujete 100 x 8 kg = ', ['800 kg zeolitu', BOLD], ', což je 40 dvacetikilových pytlů (celkem 1 000 litrů).'),
+    li(['Celková objednávka: ', BOLD], 'Pokud má váš trávník 100 m², potřebujete 100 × 8 kg = ', ['800 kg zeolitu', BOLD], ', což je 40 dvacetikilových pytlů (celkem 1 000 litrů).'),
   ),
   p(['Pamatujte: ', BOLD], 'Procento podílu nikdy nepočítejte z kilogramů! Litr zeminy váží jinak než litr zeolitu. Objem surovin se odměřuje před smícháním v nádobách bez pěchování. Po zamíchání a ulehnutí se celkový objem zmenší, protože drobné částice zapadnou mezi ty větší.'),
 
@@ -528,6 +529,8 @@ const run = async () => {
     content: body,
     publishedAt: '2026-09-12T08:00:00.000Z',
     meta: {
+      // og:image = hero (bez toho jde ven og-default.webp — porota kola 04, výkon)
+      image: hero.docs[0]?.id,
       title: 'Krásný trávník začíná pod zemí: jak připravit půdu pro trávník',
       description:
         'Srozumitelný průvodce přípravou půdy pro trávník: jak poznat jíl, hlínu a písek, ověřit odtok vody a vytvořit funkční kořenový prostor hluboký přibližně 30 cm.',

@@ -45,8 +45,8 @@ export const PostHero: React.FC<{ post: Post }> = ({ post }) => {
     minutes ? nezlomitelneMezery(`${minutes} min čtení`) : null,
     hasAuthors ? formatAuthors(populatedAuthors) : null,
     'InteliDome Journal',
-    publishedAt ? formatDateTime(publishedAt) : null,
-  ].filter(Boolean) as string[]
+    publishedAt ? <time dateTime={publishedAt}>{formatDateTime(publishedAt)}</time> : null,
+  ].filter(Boolean) as React.ReactNode[]
 
   return (
     <header
@@ -74,9 +74,13 @@ export const PostHero: React.FC<{ post: Post }> = ({ post }) => {
 
         <h1 className="id-hero__title mt-5 max-w-[13ch] text-ink-dark">
           {lines.map((line, index) => (
-            <span className="id-hline" key={line}>
-              <span style={{ animationDelay: `${index * 0.12}s` }}>{line}</span>
-            </span>
+            <React.Fragment key={line}>
+              {/* mezera mezi blokovými řádky: textContent jinak slepí „trávníkzačíná" */}
+              {index > 0 && ' '}
+              <span className="id-hline">
+                <span style={{ animationDelay: `${index * 0.12}s` }}>{line}</span>
+              </span>
+            </React.Fragment>
           ))}
         </h1>
 
@@ -84,10 +88,14 @@ export const PostHero: React.FC<{ post: Post }> = ({ post }) => {
 
         <p className="id-hero__fade id-hero__meta">
           {metaItems.map((item, index) => (
-            <span className="id-hero__meta-item" key={item}>
-              {index > 0 && <span aria-hidden="true">·&nbsp;</span>}
-              {item}
-            </span>
+            <React.Fragment key={index}>
+              {index > 0 && ' '}
+              {/* oddělovač patří k předchozí položce — na 320 px se láme po položkách, ne „· datum" */}
+              <span className="id-hero__meta-item">
+                {item}
+                {index < metaItems.length - 1 && <span aria-hidden="true">&nbsp;·</span>}
+              </span>
+            </React.Fragment>
           ))}
         </p>
       </div>

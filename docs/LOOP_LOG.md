@@ -872,26 +872,48 @@ rubrika hierarchie — DESIGN.md opraven na titulek → obraz → tělo; dvojí
 1. **`nezlomitelneMezery` váže číslo k jednotce** (cm, cm/h, l, l/min,
    kg, kg/l, m², m³, min, s, h, bar, litry, sekundy, minuty, dny, %, °C)
    a tisíce („10 000") — platí pro Lexical prózu, dvousloupce, popisky,
-   FAQ i verdikty kalkulátorů najednou.
+   FAQ i verdikty kalkulátorů najednou. Past: `\w` neumí „ů", takže
+   „30 centimetrů" propadalo — regex je teď `\p{L}` s vlajkou `u`.
+   Dobráno ručně: výstupy a popisky kalkulátorů (`.id-calc__ov/ol`),
+   zvýrazněný `<em>` v souhrnu, titulky rysů produktového pásu, chip FAQ.
+   Sonda po opravě: 0 zbytků na 1440 i 1024.
 2. **Hero na výšku:** knihovna médií dostala `focalPortraitX/Y`;
    `ImageMedia` vypisuje `--id-focal` a `--id-focal-portrait`, CSS je bere
    podle orientace (sonda 30/50 na šířku, 62/45 na výšku — rýč v záběru;
    článek 1: 62/48 a 70/36 — dřív natvrdo v CSS).
 3. **Pásmo 900–1129:** po složení dvousloupce má panel kresby šířku prózy
    (700, osa 162 @1024) místo `edge` (944) — kresba už neplave; popisek
-   pod ním totéž.
+   pod ním totéž. Past: procentní `padding-right` popisku se počítá
+   z rodiče (944), ne z vlastních 700 → sloupec 161 px a devět řádků;
+   popisek proto po složení drží `max-width: 30em` a levou hranu panelu
+   dopočítává z rodiče. Naměřeno @1024: panel 700 @162, popisek 405 @162.
 4. **FAQ:** pět otázek místo šesti (šestá byla nejméně nosná, text můj)
    → 294 vs. ~410 px.
-5. **Dlaždice:** hodnota delší než 5 znaků jde o stupeň níž (32 px) —
-   „2,5–7,5 cm/h" na jednom řádku, čtyři dlaždice stejně vysoké.
+5. **Dlaždice:** má-li některá hodnota přes 5 znaků, jde o stupeň níž
+   **celá řada** (26 px; 32 i 28 px „2,5–7,5" ještě zalamovaly a jedna
+   menší dlaždice vedle tří velkých by četla jako chyba, ne záměr) —
+   čtyři dlaždice 30 px vysoké, hodnota `white-space: nowrap`, jednotka
+   smí za `<wbr>` spadnout níž.
 6. **Figcaption** dvousloupce sedí na hraně panelu (40/1400), míra 30 em
    ≈ 62 znaků (62ch dávalo 85 — `ch` je u SF Pro široký); full-bleed
    totéž.
 7. **Kapitola 06:** titulek → full-bleed fotka → próza (fotka už
    nepředchází tezi); mezery 32 / 44.
 8. **Pohyb:** `.id-btn` má přechod (transform .35 s, barvy .25 s, `--id-ease`);
-   hladina v Obr. 03 klesá jednosměrně a reset schová opacity 0.
+   past: `.prose a` (0,1,1) v globals.css ho přepisoval na pouhý
+   `text-decoration-color .2s` → `.prose a:not(.id-btn)`. Hladina
+   v Obr. 03 klesá jednosměrně a reset schová opacity 0.
 9. Drobné: kalkulátor h3 `balance`; světlý verdikt na `--id-green-soft`
    (4,61 → ≥ 5:1); legenda Obr. 05 má „voda"; Obr. 04 bez prázdného spodku
    (viewBox 496); DESIGN.md 8.2b: pořadí a panel po složení.
+
+**Přejímka před porotou 04** (commit `4b6d77e`): `layout-check` 1024 / 1100 /
+1440 / 1990 bez chyby (osy 3+3, šířky 700/1360/full, R L R L R L);
+`svg-labels` 393 (min 10,2 px) i 1440 (min 12 px): 0 kolizí, 0 ořezů;
+hero na šířku `30% 50%` + `w=1920` @1440; `tsc` čistý. Mezi přejímkou
+a porotou se kód neměnil.
+
+Pozn. k provozu: přesun bloku 561–1129 v `intelidome-ds.css` nechal
+osamocenou `}` → Turbopack držel chybu „Missing opening {" i po opravě
+souboru a restartu; pomohlo až smazat `.next/dev`.
 
