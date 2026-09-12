@@ -838,3 +838,9 @@ Přejímka po balíku: layout-check 1024/1440/1990 čisté; svg-labels
 320/360/393/1440 0 kolizí, 0 ořezů; dvousloupce 5–24 % prázdna, produkt
 20 %; próza max 79 zn.
 
+Dodatek k bodu 2 (FAQ): standfirst v roli leadu (21/1,5) s vlastní mírou
+20 em (≈ 41 znaků) — v obecném seznamu míry 33 em by ho pozdější pravidlo
+přebilo na plnou šířku (kaskáda, změřeno: padding 0 → 232 px). Levý
+sloupec 83 → 294 px vedle seznamu 492 px = **40 %** (dřív 83 %); je to na
+hraně kritéria, další rezerva by byla pět otázek místo šesti.
+

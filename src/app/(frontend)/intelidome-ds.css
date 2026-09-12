@@ -1447,9 +1447,10 @@ html {
   letter-spacing: -0.012em;
   color: var(--id-ink-2);
   text-wrap: pretty;
-  /* Lead má užší míru než próza (26 em ≈ 52 znaků): standfirst nemá běžet
-     přes celý sloupec — a sloupec tím dorovná výšku seznamu otázek. */
-  padding-right: max(0px, calc(100% - 26em));
+  /* Lead má užší míru než próza (20 em ≈ 41 znaků): standfirst nemá běžet
+     přes celý sloupec — a sloupec tím dorovná výšku seznamu otázek.
+     Nesmí být v obecném seznamu míry výš — ten by ho přebil na 33 em. */
+  padding-right: max(0px, calc(100% - 20em));
 }
 
 /* ── Jediný zlom stránky (ADR-006) ────────────────────────────────────
@@ -1529,8 +1530,7 @@ html {
 .id-callout p,
 [data-block='faq'] details > div p,
 .id-productband__prose,
-.id-feature__text,
-.id-faq__lead {
+.id-feature__text {
   padding-right: max(0px, calc(100% - var(--id-measure)));
   letter-spacing: -0.01em;
 }
