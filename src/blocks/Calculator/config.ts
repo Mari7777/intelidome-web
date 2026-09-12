@@ -17,6 +17,8 @@ export const Calculator: Block = {
       options: [
         { label: 'Kbelíkový test — průtok zdroje', value: 'prutok' },
         { label: 'Dávka a doba zálivky', value: 'davka' },
+        { label: 'Zkouška vsakování — rychlost a verdikt', value: 'vsak' },
+        { label: 'Příměs do půdy — litry, kilogramy, pytle', value: 'primesi' },
       ],
     },
     {

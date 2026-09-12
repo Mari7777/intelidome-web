@@ -1169,6 +1169,70 @@ html {
   }
 }
 
+/* Sypající se zrnka písku (hmatový test) — `fall` dle 6.6.3, jen kratší
+   dráha, protože padají do hromádky o 20 px níž, ne o 88. */
+.hmt-zrno {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: hmt-zrno 2.6s ease-in infinite;
+}
+@keyframes hmt-zrno {
+  0% { transform: translateY(0); opacity: 0; }
+  12% { opacity: 1; }
+  85% { opacity: 1; }
+  100% { transform: translateY(20px); opacity: 0; }
+}
+
+/* Rýč v sondě: krátký pokus zajet hlouběji, který se o desku zastaví. */
+.pp-ryc {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: pp-ryc 3.6s cubic-bezier(0.22, 0.61, 0.36, 1) infinite;
+}
+@keyframes pp-ryc {
+  0%, 20% { transform: translateY(0); }
+  45%, 60% { transform: translateY(6px); }
+  100% { transform: translateY(0); }
+}
+
+/* Odpar z povrchu (30 cm svobody) — `evap` dle 6.6.3. */
+.tc-odpar {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: tc-odpar 3.6s ease-out infinite;
+}
+@keyframes tc-odpar {
+  0% { transform: translateY(6px); opacity: 0; }
+  20% { opacity: 0.7; }
+  100% { transform: translateY(-26px); opacity: 0; }
+}
+
+/* Kapka procházející třemi zónami (tři zóny profilu) — dlouhý `fall`. */
+.tz-kapka {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: tz-kapka 5.2s ease-in infinite;
+}
+@keyframes tz-kapka {
+  0% { transform: translateY(0); opacity: 0; }
+  10% { opacity: 0.9; }
+  88% { opacity: 0.9; }
+  100% { transform: translateY(212px); opacity: 0; }
+}
+
+/* Déšť nad sedající zeminou — `fall` dle 6.6.3, dráha ke dnu prohlubně. */
+.sd-kapka {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: sd-kapka 2.6s ease-in infinite;
+}
+@keyframes sd-kapka {
+  0% { transform: translateY(-30px); opacity: 0; }
+  15% { opacity: 0.85; }
+  90% { opacity: 0.85; }
+  100% { transform: translateY(58px); opacity: 0; }
+}
+
 /* Smyčka, kterou nikdo nevidí, nemá běžet. Atribut visí na obalu, protože
    `animation-play-state` se přes inline styl na potomky nedědí. */
 .id-figure-svg[data-paused] * {
@@ -1307,6 +1371,38 @@ html {
 /* Běžící text drží svou vlastní, mnohem těsnější míru. */
 .id-article > p + p {
   margin-top: var(--id-rhythm-prose);
+}
+/* Próza není jen odstavce: seznamy a mezititulky drží tentýž prozaický
+   rytmus, ne modulový — jinak by mezi „Pátrejte po třech věcech:"
+   a samotným seznamem zela díra 72 px. */
+.id-article > :is(p, ul, ol) + :is(p, ul, ol) {
+  margin-top: var(--id-rhythm-prose);
+}
+.id-article > h3 + :is(p, ul, ol) {
+  margin-top: 14px;
+}
+.id-article > :is(p, ul, ol) + h3 {
+  margin-top: 44px;
+}
+/* Mezititulek (h3) je role „subtitle" (4.2), ne druhý titulek kapitoly. */
+.id-article > h3 {
+  font-family: var(--id-f-display);
+  font-size: var(--id-t-subtitle);
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: -0.015em;
+  color: var(--id-ink);
+  text-wrap: balance;
+}
+/* Seznam v próze: odsazení podle typografie DS, ne výchozí 1,625em. */
+.id-article > :is(ul, ol) {
+  padding-left: 1.35em;
+}
+.id-article > :is(ul, ol) > li + li {
+  margin-top: 10px;
+}
+.id-article > :is(ul, ol) > li::marker {
+  color: var(--id-ink-3);
 }
 /* Nadpis kapitoly patří ke svému odstavci, ne k předchozímu bloku. */
 .id-article > .id-chapter + p {

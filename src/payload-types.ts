@@ -1701,7 +1701,17 @@ export interface SplitBlock {
   /**
    * Do úzkého sloupce patří jen kresba s portrétovou sazbou — panoramatická by měla popisky pod 5 px.
    */
-  drawing: 'korenova-zona' | 'kbelikovy-test' | 'hlava-na-hlavu' | 'ridici-smycka';
+  drawing:
+    | 'korenova-zona'
+    | 'kbelikovy-test'
+    | 'hlava-na-hlavu'
+    | 'ridici-smycka'
+    | 'hmatovy-test'
+    | 'pudni-profil'
+    | 'zkouska-vsaku'
+    | 'tricet-centimetru'
+    | 'tri-zony'
+    | 'sedani';
   eyebrow?: string | null;
   title?: string | null;
   /**
@@ -1774,7 +1784,7 @@ export interface BannerBlock {
  * via the `definition` "CalculatorBlock".
  */
 export interface CalculatorBlock {
-  kind: 'prutok' | 'davka';
+  kind: 'prutok' | 'davka' | 'vsak' | 'primesi';
   /**
    * Mimoosové polohy se musí v článku střídat (ADR-006).
    */

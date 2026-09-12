@@ -5,7 +5,7 @@ import React, { useId, useState } from 'react'
 import { cn } from '@/utilities/ui'
 
 export type CalculatorBlockProps = {
-  kind: 'prutok' | 'davka'
+  kind: 'prutok' | 'davka' | 'vsak' | 'primesi'
   /** Poloha na mřížce článku: na ose, nebo zrcadlený offset (ADR-006). */
   layout?: string | null
   light?: boolean | null
@@ -60,8 +60,262 @@ export const CalculatorBlock: React.FC<CalculatorBlockProps> = ({
   const poloha = layout === 'offset-right' || layout === 'offset-left' ? `id-calc--${layout}` : 'id-edge'
   const panel = cn('rv id-calc not-prose', poloha, light && 'id-calc--light', className)
 
-  return kind === 'prutok' ? <Prutok className={panel} uid={uid} /> : <Davka className={panel} uid={uid} />
+  const Panel = PANELY[kind] ?? Davka
+  return <Panel className={panel} uid={uid} />
 }
+
+/** Číslo s tisícovými mezerami a desetinnou čárkou (cs-CZ). */
+const fmtN = (value: number, decimals = 0): string =>
+  Number.isFinite(value)
+    ? value.toLocaleString('cs-CZ', { maximumFractionDigits: decimals })
+    : '—'
+
+/** Litry do 1 000, pak metry krychlové. */
+const fmtObjem = (litru: number): string =>
+  !Number.isFinite(litru) ? '—' : litru < 1000 ? `${fmtN(litru)} l` : `${fmtN(litru / 1000, 1)} m³`
+
+/** Kilogramy do tuny, pak tuny. */
+const fmtHmota = (kg: number): string =>
+  !Number.isFinite(kg) ? '—' : kg < 1000 ? `${fmtN(kg)} kg` : `${fmtN(kg / 1000, 2)} t`
+
+/**
+ * Zkouška vsakování (článek „Krásný trávník začíná pod zemí", kap. 3):
+ * pokles hladiny za dobu měření → centimetry za hodinu. Pásma jsou
+ * autorova: pod 2,5 pomalu, 2,5–7,5 ideální, nad 10 příliš rychle.
+ * Mezi 7,5 a 10 článek pásmo nepojmenovává — kalkulátor to říká poctivě.
+ */
+const Vsak = ({ className, uid }: { className: string; uid: string }) => {
+  const [pokles, setPokles] = useState(1)
+  const [doba, setDoba] = useState(15)
+
+  const platne = pokles >= 0 && doba > 0
+  const rychlost = platne ? (pokles / doba) * 60 : NaN
+  const pasmo = !platne
+    ? 'nic'
+    : rychlost < 2.5
+      ? 'pomalu'
+      : rychlost <= 7.5
+        ? 'idealni'
+        : rychlost <= 10
+          ? 'nad'
+          : 'rychle'
+
+  const zprava = {
+    nic: 'Doplňte, o kolik hladina klesla a za jak dlouho.',
+    pomalu: `Voda odtéká pomalu: ${fmt(rychlost)} cm/h je pod 2,5. Najděte příčinu — prohlubeň, přítok z okolí, nebo utužená vrstva z profilu; tu za vhodné vlhkosti rozrušte a test zopakujte.`,
+    idealni: `${fmt(rychlost)} cm/h je v pásmu 2,5 až 7,5 — ideální stav pro většinu rostlin.`,
+    nad: `${fmt(rychlost)} cm/h je nad ideálním pásmem 2,5 až 7,5, ale ještě ne nad 10. Sledujte, jestli půda udrží vláhu mezi zálivkami.`,
+    rychle: `Voda uniká velmi rychle: ${fmt(rychlost)} cm/h je nad 10. U písčité půdy vás čeká boj o každou kapku — dodejte jí schopnost vodu uchovat. Rychle prázdná jáma není výhra.`,
+  }[pasmo]
+
+  return (
+    <div className={className}>
+      <div className="id-calc__head">
+        <h3>Vyhodnoťte zkoušku vsakování</h3>
+        <span className="id-chip--outline-accent">Kalkulátor</span>
+      </div>
+
+      <div>
+        <div className="id-calc__field">
+          <label htmlFor={`${uid}-pokles`}>Pokles hladiny</label>
+          <div className="id-calc__inrow">
+            <input
+              id={`${uid}-pokles`}
+              inputMode="decimal"
+              min={0}
+              onChange={(e) => setPokles(Number(e.target.value))}
+              step="0.5"
+              type="number"
+              value={pokles}
+            />
+            <span className="unit">cm</span>
+          </div>
+        </div>
+
+        <div className="id-calc__field">
+          <label htmlFor={`${uid}-doba`}>Doba měření</label>
+          <div className="id-calc__inrow">
+            <input
+              id={`${uid}-doba`}
+              inputMode="decimal"
+              min={0}
+              onChange={(e) => setDoba(Number(e.target.value))}
+              step="5"
+              type="number"
+              value={doba}
+            />
+            <span className="unit">minut</span>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div className="id-calc__orow">
+          <span className="id-calc__ol">Pokles za měřený čas</span>
+          <span className="id-calc__ov">{platne ? `${fmt(pokles)} cm / ${fmt(doba, 0)} min` : '—'}</span>
+        </div>
+        <div className="id-calc__orow id-calc__orow--hero">
+          <span className="id-calc__ol">Rychlost vsakování</span>
+          <span className="id-calc__ov">{platne ? `${fmt(rychlost)} cm/h` : '—'}</span>
+        </div>
+
+        <div
+          aria-live="polite"
+          className={cn('id-verdict', pasmo === 'idealni' ? 'id-verdict--ok' : 'id-verdict--warn')}
+        >
+          {pasmo === 'idealni' ? <Ok /> : <Warn />}
+          <span>{zprava}</span>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+/**
+ * Příměs do půdy (kap. 5 „Matematika trávníku"): podíl se počítá z LITRŮ,
+ * kilogramy vzniknou až sypnou hustotou od výrobce. Výchozí čísla jsou
+ * vzorový příklad z článku: 100 m², 20 cm, 5 % zeolitu, 0,8 kg/l, pytle 20 kg.
+ */
+const Primesi = ({ className, uid }: { className: string; uid: string }) => {
+  const [plocha, setPlocha] = useState(100)
+  const [hloubka, setHloubka] = useState(20)
+  const [podil, setPodil] = useState(5)
+  const [hustota, setHustota] = useState(0.8)
+  const [pytel, setPytel] = useState(20)
+
+  const platne = plocha > 0 && hloubka > 0 && podil >= 0 && podil <= 100 && hustota > 0
+  const vrstvaNaM2 = hloubka * 10 // litrů pod 1 m²
+  const primesNaM2 = (vrstvaNaM2 * podil) / 100
+  const zakladNaM2 = vrstvaNaM2 - primesNaM2
+  const litru = primesNaM2 * plocha
+  const kg = litru * hustota
+  const pytlu = pytel > 0 ? Math.ceil(kg / pytel) : NaN
+
+  return (
+    <div className={className}>
+      <div className="id-calc__head">
+        <h3>Spočítejte příměs do půdy</h3>
+        <span className="id-chip--outline-accent">Kalkulátor</span>
+      </div>
+
+      <div>
+        <div className="id-calc__field">
+          <label htmlFor={`${uid}-plocha`}>Plocha trávníku</label>
+          <div className="id-calc__inrow">
+            <input
+              id={`${uid}-plocha`}
+              inputMode="decimal"
+              min={0}
+              onChange={(e) => setPlocha(Number(e.target.value))}
+              step="1"
+              type="number"
+              value={plocha}
+            />
+            <span className="unit">m²</span>
+          </div>
+        </div>
+
+        <div className="id-calc__field">
+          <label htmlFor={`${uid}-hloubka`}>Hloubka obohacené vrstvy</label>
+          <div className="id-calc__inrow">
+            <input
+              id={`${uid}-hloubka`}
+              inputMode="decimal"
+              min={0}
+              onChange={(e) => setHloubka(Number(e.target.value))}
+              step="1"
+              type="number"
+              value={hloubka}
+            />
+            <span className="unit">cm</span>
+          </div>
+        </div>
+
+        <div className="id-calc__field">
+          <label htmlFor={`${uid}-podil`}>Podíl příměsi (z objemu)</label>
+          <div className="id-calc__inrow">
+            <input
+              id={`${uid}-podil`}
+              inputMode="decimal"
+              max={100}
+              min={0}
+              onChange={(e) => setPodil(Number(e.target.value))}
+              step="0.5"
+              type="number"
+              value={podil}
+            />
+            <span className="unit">%</span>
+          </div>
+        </div>
+
+        <div className="id-calc__field">
+          <label htmlFor={`${uid}-hustota`}>Sypná hustota od výrobce</label>
+          <div className="id-calc__inrow">
+            <input
+              id={`${uid}-hustota`}
+              inputMode="decimal"
+              min={0}
+              onChange={(e) => setHustota(Number(e.target.value))}
+              step="0.05"
+              type="number"
+              value={hustota}
+            />
+            <span className="unit">kg/l</span>
+          </div>
+        </div>
+
+        <div className="id-calc__field">
+          <label htmlFor={`${uid}-pytel`}>Balení</label>
+          <div className="id-calc__inrow">
+            <input
+              id={`${uid}-pytel`}
+              inputMode="decimal"
+              min={0}
+              onChange={(e) => setPytel(Number(e.target.value))}
+              step="1"
+              type="number"
+              value={pytel}
+            />
+            <span className="unit">kg / pytel</span>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div className="id-calc__orow">
+          <span className="id-calc__ol">Vrstva pod 1 m²</span>
+          <span className="id-calc__ov">{platne ? `${fmtN(vrstvaNaM2)} l` : '—'}</span>
+        </div>
+        <div className="id-calc__orow">
+          <span className="id-calc__ol">Příměs na 1 m²</span>
+          <span className="id-calc__ov">{platne ? `${fmtN(primesNaM2, 1)} l` : '—'}</span>
+        </div>
+        <div className="id-calc__orow">
+          <span className="id-calc__ol">Příměs celkem</span>
+          <span className="id-calc__ov">{platne ? fmtObjem(litru) : '—'}</span>
+        </div>
+        <div className="id-calc__orow id-calc__orow--hero">
+          <span className="id-calc__ol">K objednání</span>
+          <span className="id-calc__ov">{platne ? fmtHmota(kg) : '—'}</span>
+        </div>
+        <div className="id-calc__orow">
+          <span className="id-calc__ol">Pytlů po {fmtN(pytel)} kg</span>
+          <span className="id-calc__ov">{platne && Number.isFinite(pytlu) ? fmtN(pytlu) : '—'}</span>
+        </div>
+
+        <div aria-live="polite" className={cn('id-verdict', platne ? 'id-verdict--ok' : 'id-verdict--warn')}>
+          {platne ? <Ok /> : <Warn />}
+          <span>
+            {platne
+              ? `Podíl ${fmt(podil)} % počítáme z litrů: ${fmtN(primesNaM2, 1)} l příměsi + ${fmtN(zakladNaM2, 1)} l minerálního základu = ${fmtN(vrstvaNaM2)} l na každý m². Kilogramy vzniknou až sypnou hustotou — litr zeminy váží jinak než litr příměsi.`
+              : 'Doplňte plochu, hloubku vrstvy, podíl příměsi a sypnou hustotu od výrobce.'}
+          </span>
+        </div>
+      </div>
+    </div>
+  )
+}
+
 
 /** Kbelíkový test: objem a čas → průtok, mínus 20 % rezervy, verdikt proti 25 l/min. */
 const Prutok = ({ className, uid }: { className: string; uid: string }) => {
@@ -237,3 +491,6 @@ const Davka = ({ className, uid }: { className: string; uid: string }) => {
     </div>
   )
 }
+
+/* Až za všemi panely — `const` komponenty nesmí být použité před deklarací. */
+const PANELY = { prutok: Prutok, davka: Davka, vsak: Vsak, primesi: Primesi } as const

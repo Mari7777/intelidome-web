@@ -36,6 +36,13 @@ export const Split: Block = {
         { label: 'Kbelíkový test', value: 'kbelikovy-test' },
         { label: 'Hlava na hlavu', value: 'hlava-na-hlavu' },
         { label: 'Řídicí smyčka', value: 'ridici-smycka' },
+        /* Článek „Krásný trávník začíná pod zemí" */
+        { label: 'Hmatový test půdy', value: 'hmatovy-test' },
+        { label: 'Půdní profil (sonda 30 cm)', value: 'pudni-profil' },
+        { label: 'Zkouška vsakování', value: 'zkouska-vsaku' },
+        { label: 'Třicet centimetrů (100 l vs. 300 l)', value: 'tricet-centimetru' },
+        { label: 'Tři zóny profilu', value: 'tri-zony' },
+        { label: 'Sedání půdy', value: 'sedani' },
       ],
     },
     { name: 'eyebrow', type: 'text', label: 'Nadřádek' },
