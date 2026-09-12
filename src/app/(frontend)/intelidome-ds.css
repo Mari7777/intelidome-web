@@ -507,6 +507,13 @@
 /* Obraz se NEanimuje. Ken-Burns neodpovídal na otázku „kam se dívat teď"
    a 6.1.1 takovou animaci maže; Sonos hero je nehybná fotografie. */
 
+/* Na telefonu má meta řádek plnou šířku — cue by ležel přes „Journal". */
+@media (max-width: 560px) {
+  .id-hero > .container {
+    padding-bottom: 96px;
+  }
+}
+
 /* Jediná nabídnutá akce na obrazovce — kam pokračovat. */
 .id-hero__cue {
   position: absolute;
@@ -566,6 +573,14 @@
 /* ── Plovoucí kapsle hlavičky (DESIGN.md 7.1) ────────────────────────
    Není to lišta přes celou šířku — ta je v anti-vzorech a ukrajovala by
    z hera, který má mít přesně 100svh. Stránka pod kapslí protéká. */
+@media (prefers-reduced-motion: reduce) {
+  /* Globální zkrácení na 0,01 ms by kapsli po 0,95 s „luplo" — 6.7 to
+     zakazuje; vstup se ruší úplně a kapsle stojí od začátku. */
+  .id-capsule {
+    animation: none !important;
+    opacity: 1;
+  }
+}
 .id-capsule {
   animation: id-capsule-in 0.8s var(--id-ease) 0.95s both;
   display: flex;
@@ -1233,6 +1248,19 @@ html {
   100% { transform: translateY(58px); opacity: 0; }
 }
 
+/* Hladina ve zkušební jámě: klesá 6 s a stejně pomalu se vrací — druhá
+   půlka smyčky je „naplňte jámu znovu", žádný střih (6.6.1: SMIL jen
+   pro rotaci, tohle je CSS transform od dna). */
+.zv-hladina {
+  transform-box: fill-box;
+  transform-origin: bottom;
+  animation: zv-hladina 6s cubic-bezier(0.3, 0.1, 0.4, 1) infinite alternate;
+}
+@keyframes zv-hladina {
+  from { transform: scaleY(1.047); }
+  to { transform: scaleY(1); }
+}
+
 /* Smyčka, kterou nikdo nevidí, nemá běžet. Atribut visí na obalu, protože
    `animation-play-state` se přes inline styl na potomky nedědí. */
 .id-figure-svg[data-paused] * {
@@ -1267,8 +1295,11 @@ html {
 .id-figure--bleed > .id-figure-media {
   border-radius: 0;
 }
+.id-figure--bleed img {
+  border-radius: 0;
+}
 .id-figure--bleed > figcaption {
-  max-width: var(--id-maxw-prose);
+  max-width: min(62ch, var(--id-maxw-prose));
   margin-inline: auto;
   padding-inline: var(--id-gutter);
 }
@@ -1309,11 +1340,28 @@ html {
     grid-template-columns: 1fr;
     gap: clamp(24px, 5vw, 34px);
   }
+  /* Po složení sedí text kapitoly na téže ose jako próza pod ním
+     (na 1024: 162, ne 40) — jinak má kapitola dvě osy pro týž text. */
+  .id-split__text {
+    width: 100%;
+    max-width: var(--id-maxw-prose);
+    margin-inline: auto;
+  }
   .id-split--right > .id-split__figure {
     order: 0;
   }
 }
 
+
+/* FAQ: štítek vlevo je konvence předloh, ale vedle šesti otázek by
+   stál 83 % výšky bloku v prázdnu — sloupec proto cestuje se seznamem. */
+@media (min-width: 1130px) {
+  [data-block='faq'] > div:first-child {
+    position: sticky;
+    top: 112px;
+    align-self: start;
+  }
+}
 
 /* ── Jediný zlom stránky (ADR-006) ────────────────────────────────────
    Tatáž mezera se zopakuje ve splitu, kalkulátoru, stat-mřížce,
@@ -1384,8 +1432,22 @@ html {
 .id-article > :is(p, ul, ol) + h3 {
   margin-top: 44px;
 }
-/* Mezititulek (h3) je role „subtitle" (4.2), ne druhý titulek kapitoly. */
-.id-article > h3 {
+/* Míra textu (ADR-007): sloupec zůstává 700, text jde na 33 em ≈ 70 znaků.
+   Pravé odsazení místo zúžení boxu — osy mřížky se nehnou. */
+.id-article > p,
+.id-article > :is(ul, ol) > li,
+.id-split__p,
+.id-callout p,
+[data-block='faq'] details > div p,
+.id-productband__prose {
+  padding-right: max(0px, calc(100% - var(--id-measure)));
+  letter-spacing: -0.01em;
+}
+
+/* Mezititulek (h3) je role „subtitle" (4.2), ne druhý titulek kapitoly.
+   `.prose` píše h3 přes `:where(h3):not(:where(.not-prose *))` = (0,2,0),
+   proto tu musí být i `.prose`, jinak pravidlo prohraje kaskádu. */
+.prose.id-article > h3 {
   font-family: var(--id-f-display);
   font-size: var(--id-t-subtitle);
   font-weight: 600;
@@ -1405,12 +1467,24 @@ html {
   color: var(--id-ink-3);
 }
 /* Nadpis kapitoly patří ke svému odstavci, ne k předchozímu bloku. */
+/* Mezititulek, který uvádí dvousloupec, k němu patří — ne přes pásovou mezeru. */
+.id-article > h3 + .id-split {
+  margin-top: 28px;
+}
 .id-article > .id-chapter + p {
   margin-top: 24px;
 }
 .id-article > :is(.id-band, .id-split) + *,
 .id-article > * + :is(.id-band, .id-split) {
   margin-top: var(--id-rhythm-band);
+}
+/* Full-bleed fotografie patří ke kapitole POD ní: před ní pásová mezera,
+   za ní modulová — jinak vypadá jako dovětek předchozího bloku. */
+.id-article > * + .id-figure--bleed {
+  margin-top: var(--id-rhythm-band);
+}
+.id-article > .id-figure--bleed + .id-chapter {
+  margin-top: 44px;
 }
 
 /* ── Panel obepne kresbu, nevyplňuje sloupec ──────────────────────────
@@ -1423,8 +1497,20 @@ html {
    se zacyklí a kresba zkolabuje na nulu — šířka musí mít pevný základ.
 */
 .id-split__figure > .id-figure-media {
-  max-width: calc(520px + 2 * clamp(16px, 3vw, 32px));
+  /* Panel vyplní celý sloupec (652 = B), kresba 520 se v něm centruje.
+     Dřív měl panel 584 a stál na vlastní ose 74/1366 — pod kalkulátorem
+     na 40 to bylo vidět pouhým okem (porota rozložení, kolo 01). */
+  max-width: none;
   margin-inline: auto;
+}
+@media (max-width: 560px) {
+  /* Na telefonu panel k okrajům obrazovky: kresba získá 48 px šířky,
+     popisky se nemusí tolik zvětšovat. Full-bleed → bez radiusu (9.1). */
+  .id-split__figure > .id-figure-media {
+    margin-inline: calc(-1 * var(--id-gutter));
+    padding: 12px;
+    border-radius: 0;
+  }
 }
 .id-split__figure .id-figure-svg svg {
   display: block;
@@ -1463,21 +1549,25 @@ html {
    V úzkém okně se proto popisek sází větší v jednotkách viewBoxu,
    aby jeho SKUTEČNÁ velikost zůstala nad 10 px. */
 @media (max-width: 560px) {
+  /* Panel kresby jde na telefonu k okrajům obrazovky (393 − 2×12 = 369 px,
+     měřítko 0,71), takže stačí 15/18: popisek 10,6 px, hodnota 12,8 px.
+     Dřívějších 17/21 (a 21/25 pod 400 px) dávalo 13 px — víc, než je
+     třeba, a v hustých kresbách se popisky překrývaly a ořezávaly. */
   .id-figure-svg .sv-lbl {
-    font-size: 17px;
+    font-size: 15px;
     letter-spacing: 0.08em;
   }
   .id-figure-svg .sv-val {
-    font-size: 21px;
+    font-size: 18px;
   }
 }
-/* Nejužší telefony: kresba klesá k 250 px, takže popisek potřebuje ještě víc. */
-@media (max-width: 400px) {
+/* Nejužší telefony (320–360): kresba klesá k 296 px, měřítko 0,57. */
+@media (max-width: 360px) {
   .id-figure-svg .sv-lbl {
-    font-size: 21px;
+    font-size: 18px;
     letter-spacing: 0.06em;
   }
   .id-figure-svg .sv-val {
-    font-size: 25px;
+    font-size: 21px;
   }
 }

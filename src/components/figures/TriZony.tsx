@@ -10,8 +10,9 @@ import React from 'react'
  * voda a vzduch musí mít volnou cestu.
  *
  * Portrétová sazba 520 px (viewBox začíná na y=60 — nad drnem nic není),
- * id s prefixem `tz-`. Klidový stav v markupu:
- * kapka ve třetí zóně, všechny příměsi na svém místě.
+ * popisky vpravo mají 204 px, aby se vešly i po mobilním zvětšení (15/18
+ * při měřítku 0,71). Id s prefixem `tz-`. Klidový stav v markupu: kapka ve
+ * třetí zóně, všechny příměsi na svém místě.
  */
 export const TriZony: React.FC = () => (
   <svg className="block h-auto w-full" viewBox="0 60 520 480">
@@ -22,20 +23,20 @@ export const TriZony: React.FC = () => (
         <path d="M20 22 l5 -2 2 4 -4 3 z" fill="#12161b" opacity="0.9" />
         <circle cx="21" cy="8" r="2.6" fill="#54402c" />
         <circle cx="8" cy="22" r="2.2" fill="#54402c" />
-        <path d="M13 13 l5 -2 4 3 -1 5 -5 2 -4 -3 z" fill="#e8e7e3" stroke="#5b5e63" strokeWidth="0.7" />
+        <path d="M13 13 l5 -2 4 3 -1 5 -5 2 -4 -3 z" fill="#d5d3cc" stroke="#5b5e63" strokeWidth="1.5" />
       </pattern>
       <pattern id="tz-zeolit" width="34" height="26" patternUnits="userSpaceOnUse">
-        <path d="M6 8 l5 -2 4 3 -1 5 -5 2 -4 -3 z" fill="#e8e7e3" stroke="#5b5e63" strokeWidth="0.7" />
-        <path d="M23 18 l5 -2 4 3 -1 5 -5 2 -4 -3 z" fill="#e8e7e3" stroke="#5b5e63" strokeWidth="0.7" />
+        <path d="M6 8 l5 -2 4 3 -1 5 -5 2 -4 -3 z" fill="#d5d3cc" stroke="#5b5e63" strokeWidth="1.5" />
+        <path d="M23 18 l5 -2 4 3 -1 5 -5 2 -4 -3 z" fill="#d5d3cc" stroke="#5b5e63" strokeWidth="1.5" />
       </pattern>
       {/* vytrácení příměsí u spodní hrany zóny */}
       <linearGradient id="tz-fade" x1="0" y1="0" x2="0" y2="1">
         <stop offset="0.75" stopColor="#fff" stopOpacity="1" />
         <stop offset="1" stopColor="#fff" stopOpacity="0" />
       </linearGradient>
-      <mask id="tz-m1"><rect x="80" y="110" width="230" height="92" fill="url(#tz-fade)" /></mask>
-      <mask id="tz-m2"><rect x="80" y="190" width="230" height="52" fill="url(#tz-fade)" /></mask>
-      <clipPath id="tz-rez"><rect x="80" y="110" width="230" height="240" /></clipPath>
+      <mask id="tz-m1"><rect x="80" y="110" width="210" height="92" fill="url(#tz-fade)" /></mask>
+      <mask id="tz-m2"><rect x="80" y="190" width="210" height="52" fill="url(#tz-fade)" /></mask>
+      <clipPath id="tz-rez"><rect x="80" y="110" width="210" height="240" /></clipPath>
     </defs>
 
     {/* ── metr ────────────────────────────────────────────────── */}
@@ -49,81 +50,83 @@ export const TriZony: React.FC = () => (
     <text className="sv-val" x="50" y="115" textAnchor="end">0</text>
     <text className="sv-val" x="50" y="195" textAnchor="end">10</text>
     <text className="sv-val" x="50" y="235" textAnchor="end">15</text>
-    <text className="sv-val" x="50" y="355" textAnchor="end">30 cm</text>
+    <text className="sv-val" x="50" y="355" textAnchor="end">30</text>
+    <text className="sv-lbl" x="50" y="378" textAnchor="end">cm</text>
 
     {/* ── řez ─────────────────────────────────────────────────── */}
     <g clipPath="url(#tz-rez)">
-      <rect x="80" y="110" width="230" height="240" fill="#6b5138" opacity="0.9" />
+      <rect x="80" y="110" width="210" height="240" fill="#6b5138" opacity="0.9" />
       {/* zóna 1: plná výbava, vytrácí se k 10–12 cm */}
-      <rect x="80" y="110" width="230" height="92" fill="url(#tz-plna)" mask="url(#tz-m1)" />
+      <rect x="80" y="110" width="210" height="92" fill="url(#tz-plna)" mask="url(#tz-m1)" />
       {/* zóna 2: jen zeolit, vytrácí se k 15–16 cm */}
-      <rect x="80" y="190" width="230" height="52" fill="url(#tz-zeolit)" mask="url(#tz-m2)" />
+      <rect x="80" y="190" width="210" height="52" fill="url(#tz-zeolit)" mask="url(#tz-m2)" />
 
       {/* kořeny: husté nahoře, řidší dole */}
       <g fill="none" stroke="#d8c9b4" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" opacity="0.85">
-        <path d="M116 110 C 114 140, 118 170, 116 200 C 115 230, 118 260, 116 290" />
-        <path d="M116 124 C 106 134, 100 142, 96 152 M116 146 C 126 156, 132 162, 136 172 M116 176 C 108 186, 104 194, 102 204 M116 240 C 124 250, 128 258, 130 268" />
-        <path d="M166 110 C 170 140, 164 170, 168 200 C 170 224, 166 246, 168 262" />
-        <path d="M166 120 C 176 128, 182 136, 186 146 M167 152 C 158 162, 154 170, 152 180 M168 190 C 176 200, 180 208, 182 218" />
-        <path d="M222 110 C 220 140, 224 170, 222 200 C 221 226, 224 250, 222 276" />
-        <path d="M222 128 C 212 138, 206 146, 202 156 M222 158 C 232 168, 238 174, 242 184 M222 214 C 214 224, 210 232, 208 242" />
-        <path d="M274 110 C 276 136, 272 160, 275 186 C 276 204, 274 218, 275 232" />
-        <path d="M274 122 C 284 130, 290 138, 294 148 M275 156 C 266 166, 262 174, 260 184" />
+        <path d="M112 110 C 110 140, 114 170, 112 200 C 111 230, 114 260, 112 290" />
+        <path d="M112 124 C 102 134, 96 142, 92 152 M112 146 C 122 156, 128 162, 132 172 M112 176 C 104 186, 100 194, 98 204 M112 240 C 120 250, 124 258, 126 268" />
+        <path d="M160 110 C 164 140, 158 170, 162 200 C 164 224, 160 246, 162 262" />
+        <path d="M160 120 C 170 128, 176 136, 180 146 M161 152 C 152 162, 148 170, 146 180 M162 190 C 170 200, 174 208, 176 218" />
+        <path d="M210 110 C 208 140, 212 170, 210 200 C 209 226, 212 250, 210 276" />
+        <path d="M210 128 C 200 138, 194 146, 190 156 M210 158 C 220 168, 226 174, 230 184 M210 214 C 202 224, 198 232, 196 242" />
+        <path d="M258 110 C 260 136, 256 160, 259 186 C 260 204, 258 218, 259 232" />
+        <path d="M258 122 C 268 130, 274 138, 278 148 M259 156 C 250 166, 246 174, 244 184" />
       </g>
 
       {/* kapka: projde všemi třemi zónami */}
       <g className="tz-kapka">
-        <path d="M195 112 C 199 118, 202 122, 202 126 A 7 7 0 0 1 188 126 C 188 122, 191 118, 195 112 Z" fill="#2563eb" opacity="0.9" />
+        <path d="M185 112 C 189 118, 192 122, 192 126 A 7 7 0 0 1 178 126 C 178 122, 181 118, 185 112 Z" fill="#2563eb" opacity="0.9" />
       </g>
     </g>
-    <rect x="80" y="96" width="230" height="14" fill="#3f7d4e" />
-    <path d="M80 110 H310" stroke="#2e6440" strokeWidth="1.6" fill="none" />
+    <rect x="80" y="96" width="210" height="14" fill="#3f7d4e" />
+    <path d="M80 110 H290" stroke="#2e6440" strokeWidth="1.6" fill="none" />
     <path
-      d="M88 97q-1 -8 -3 -13M102 97q2 -7 5 -12M116 97q0 -9 0 -14M130 97q2 -10 5 -16M144 97q2 -5 5 -8M158 97q-1 -6 -4 -10M172 97q-2 -10 -5 -17M186 97q-2 -6 -5 -11M200 97q1 -5 2 -8M214 97q1 -10 4 -16M228 97q-2 -9 -5 -15M242 97q0 -8 0 -13M256 97q2 -6 5 -9M270 97q1 -5 3 -8M284 97q-2 -6 -5 -9M298 97q-1 -8 -3 -13"
+      d="M88 97q-1 -8 -3 -13M102 97q2 -7 5 -12M116 97q0 -9 0 -14M130 97q2 -10 5 -16M144 97q2 -5 5 -8M158 97q-1 -6 -4 -10M172 97q-2 -10 -5 -17M186 97q-2 -6 -5 -11M200 97q1 -5 2 -8M214 97q1 -10 4 -16M228 97q-2 -9 -5 -15M242 97q0 -8 0 -13M256 97q2 -6 5 -9M270 97q1 -5 3 -8M284 97q-2 -6 -5 -9"
       fill="none"
       stroke="#3f7d4e"
       strokeWidth="1.6"
       strokeLinecap="round"
     />
-    <path d="M80 96 V350 H310 V96" fill="none" stroke="#232830" strokeWidth="1.6" strokeLinejoin="round" />
+    <path d="M80 96 V350 H290 V96" fill="none" stroke="#232830" strokeWidth="1.6" strokeLinejoin="round" />
 
-    {/* ── popisky zón vpravo ──────────────────────────────────── */}
+    {/* ── popisky zón vpravo (204 px) ─────────────────────────── */}
     <g stroke="#d5d3cc" strokeWidth="1.6" strokeDasharray="3 7" strokeLinecap="round">
-      <line x1="310" y1="150" x2="330" y2="150" />
-      <line x1="310" y1="210" x2="330" y2="210" />
-      <line x1="310" y1="290" x2="330" y2="290" />
+      <line x1="290" y1="150" x2="308" y2="150" />
+      <line x1="290" y1="210" x2="308" y2="210" />
+      <line x1="290" y1="290" x2="308" y2="290" />
     </g>
-    <text className="sv-val" x="338" y="128">0–10 cm</text>
-    <text className="sv-lbl" x="338" y="148">základ + biochar</text>
-    <text className="sv-lbl" x="338" y="164">+ Actino + zeolit</text>
-    <text className="sv-lbl" x="338" y="182" opacity="0.75">nejvíc kořenů</text>
+    <text className="sv-val" x="316" y="128">0–10 cm</text>
+    <text className="sv-lbl" x="316" y="150">základ + biochar</text>
+    <text className="sv-lbl" x="316" y="170">+ Actino + zeolit</text>
+    <text className="sv-lbl" x="316" y="190">nejvíc kořenů</text>
 
-    <text className="sv-val" x="338" y="206">10–15 cm</text>
-    <text className="sv-lbl" x="338" y="226">základ + zeolit</text>
-    <text className="sv-lbl" x="338" y="244" opacity="0.75">přechod</text>
+    <text className="sv-val" x="316" y="214">10–15 cm</text>
+    <text className="sv-lbl" x="316" y="236">základ + zeolit</text>
+    <text className="sv-lbl" x="316" y="256">přechod</text>
 
-    <text className="sv-val" x="338" y="286">15–30 cm</text>
-    <text className="sv-lbl" x="338" y="306">jen minerální základ</text>
-    <text className="sv-lbl" x="338" y="324" opacity="0.75">rezerva: voda, vzduch</text>
+    <text className="sv-val" x="316" y="286">15–30 cm</text>
+    <text className="sv-lbl" x="316" y="308">jen základ</text>
+    <text className="sv-lbl" x="316" y="328">rezervoár vody</text>
+    <text className="sv-lbl" x="316" y="348">a vzduchu</text>
 
     {/* ── legenda ─────────────────────────────────────────────── */}
-    <line x1="30" y1="376" x2="490" y2="376" stroke="#d5d3cc" strokeWidth="1.6" strokeDasharray="3 7" strokeLinecap="round" />
-    <text className="sv-lbl" x="30" y="400">Co je co</text>
+    <line x1="30" y1="386" x2="490" y2="386" stroke="#d5d3cc" strokeWidth="1.6" strokeDasharray="3 7" strokeLinecap="round" />
+    <text className="sv-lbl" x="30" y="408">Co je co</text>
 
-    <path d="M32 418 l7 -4 4 5 -5 4 z" fill="#12161b" />
-    <text className="sv-val" x="52" y="426">biochar</text>
-    <circle cx="160" cy="422" r="4" fill="#54402c" />
-    <text className="sv-val" x="172" y="426">Actino</text>
-    <path d="M268 418 l6 -3 5 4 -1 6 -6 2 -5 -4 z" fill="#e8e7e3" stroke="#5b5e63" strokeWidth="0.8" />
-    <text className="sv-val" x="288" y="426">zeolit</text>
-    <rect x="372" y="415" width="14" height="14" rx="3" fill="#6b5138" opacity="0.9" />
-    <text className="sv-val" x="394" y="426">základ</text>
+    <path d="M32 426 l7 -4 4 5 -5 4 z" fill="#12161b" />
+    <text className="sv-val" x="52" y="434">biochar</text>
+    <circle cx="160" cy="430" r="4" fill="#54402c" />
+    <text className="sv-val" x="172" y="434">Actino</text>
+    <path d="M268 426 l6 -3 5 4 -1 6 -6 2 -5 -4 z" fill="#d5d3cc" stroke="#5b5e63" strokeWidth="1.5" />
+    <text className="sv-val" x="288" y="434">zeolit</text>
+    <rect x="372" y="423" width="14" height="14" rx="3" fill="#6b5138" opacity="0.9" />
+    <text className="sv-val" x="394" y="434">základ</text>
 
-    <text className="sv-lbl" x="30" y="458">Minerální základ = vaše zemina,</text>
-    <text className="sv-lbl" x="30" y="474">případně její směs s pískem</text>
+    <text className="sv-lbl" x="30" y="466">Základ = vaše zemina,</text>
+    <text className="sv-lbl" x="30" y="486">případně její směs s pískem</text>
 
-    <line x1="30" y1="492" x2="490" y2="492" stroke="#d5d3cc" strokeWidth="1.6" strokeDasharray="3 7" strokeLinecap="round" />
-    <text className="sv-lbl" x="30" y="516">Přechody navazují</text>
-    <text className="sv-val" x="490" y="517" textAnchor="end">ne patra dortu</text>
+    <line x1="30" y1="504" x2="490" y2="504" stroke="#d5d3cc" strokeWidth="1.6" strokeDasharray="3 7" strokeLinecap="round" />
+    <text className="sv-lbl" x="30" y="528">Přechody navazují</text>
+    <text className="sv-val" x="490" y="529" textAnchor="end">ne patra dortu</text>
   </svg>
 )

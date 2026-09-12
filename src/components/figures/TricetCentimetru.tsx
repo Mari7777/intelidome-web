@@ -25,8 +25,8 @@ export const TricetCentimetru: React.FC = () => (
       <pattern id="tc-pory" width="26" height="26" patternUnits="userSpaceOnUse">
         <circle cx="6" cy="7" r="1.7" fill="#2563eb" opacity="0.9" />
         <circle cx="19" cy="19" r="1.7" fill="#2563eb" opacity="0.9" />
-        <circle cx="18" cy="6" r="3.4" fill="none" stroke="rgba(255,255,255,.34)" strokeWidth="1" />
-        <circle cx="7" cy="20" r="2.6" fill="none" stroke="rgba(255,255,255,.34)" strokeWidth="1" />
+        <circle cx="18" cy="6" r="3.4" fill="none" stroke="rgba(255,255,255,.22)" strokeWidth="1.5" />
+        <circle cx="7" cy="20" r="2.6" fill="none" stroke="rgba(255,255,255,.22)" strokeWidth="1.5" />
       </pattern>
       <clipPath id="tc-l"><rect x="40" y="124" width="180" height="60" /></clipPath>
       <clipPath id="tc-r"><rect x="300" y="124" width="180" height="180" /></clipPath>
@@ -67,13 +67,14 @@ export const TricetCentimetru: React.FC = () => (
     {/* udusaná deska */}
     <rect x="40" y="184" width="180" height="20" fill="#54402c" opacity="0.95" />
     <rect x="40" y="184" width="180" height="20" fill="url(#tc-lis)" />
-    <line x1="40" y1="184" x2="220" y2="184" stroke="rgba(255,255,255,.34)" strokeWidth="1.6" />
+    <line x1="40" y1="184" x2="220" y2="184" stroke="rgba(255,255,255,.22)" strokeWidth="1.6" />
     {/* pod deskou: prostor, kam se kořeny nedostanou */}
     <rect x="40" y="204" width="180" height="100" fill="none" stroke="#d5d3cc" strokeWidth="1.6" strokeDasharray="3 7" />
-    <text className="sv-lbl" x="130" y="258" textAnchor="middle" opacity="0.8">nedostupné</text>
+    <text className="sv-lbl" x="130" y="258" textAnchor="middle">nedostupné</text>
     {/* drn */}
     <rect x="40" y="110" width="180" height="14" fill="#3f7d4e" />
     <path d="M40 124 H220" stroke="#2e6440" strokeWidth="1.6" fill="none" />
+    <path d="M48 111q-1 -8 -3 -13M62 111q2 -7 5 -12M76 111q0 -9 0 -14M90 111q2 -10 5 -16M104 111q2 -5 5 -8M118 111q-1 -6 -4 -10M132 111q-2 -10 -5 -17M146 111q-2 -6 -5 -11M160 111q1 -5 2 -8M174 111q1 -10 4 -16M188 111q-2 -9 -5 -15M202 111q0 -8 0 -13M214 111q2 -6 4 -9" fill="none" stroke="#3f7d4e" strokeWidth="1.6" strokeLinecap="round" />
     <path d="M40 110 V184 M220 110 V184" stroke="#232830" strokeWidth="1.6" fill="none" />
     {/* odpar z povrchu */}
     <g fill="none" stroke="#b76a00" strokeWidth="1.6" strokeLinecap="round" opacity="0.7">
@@ -97,6 +98,7 @@ export const TricetCentimetru: React.FC = () => (
     </g>
     <rect x="300" y="110" width="180" height="14" fill="#3f7d4e" />
     <path d="M300 124 H480" stroke="#2e6440" strokeWidth="1.6" fill="none" />
+    <path d="M308 111q-1 -8 -3 -13M322 111q2 -7 5 -12M336 111q0 -9 0 -14M350 111q2 -10 5 -16M364 111q2 -5 5 -8M378 111q-1 -6 -4 -10M392 111q-2 -10 -5 -17M406 111q-2 -6 -5 -11M420 111q1 -5 2 -8M434 111q1 -10 4 -16M448 111q-2 -9 -5 -15M462 111q0 -8 0 -13M474 111q2 -6 4 -9" fill="none" stroke="#3f7d4e" strokeWidth="1.6" strokeLinecap="round" />
     <path d="M300 110 V304 H480 V110" stroke="#232830" strokeWidth="1.6" fill="none" strokeLinejoin="round" />
     <g fill="none" stroke="#b76a00" strokeWidth="1.6" strokeLinecap="round" opacity="0.7">
       <path className="tc-odpar" d="M356 104 q4 -6 0 -12 q-4 -6 0 -12" style={{ animationDelay: '0.8s' }} />
@@ -118,11 +120,11 @@ export const TricetCentimetru: React.FC = () => (
     {/* ── objemy ──────────────────────────────────────────────── */}
     <text className="sv-lbl" x="130" y="340" textAnchor="middle">Objem pro kořeny</text>
     <text className="sv-val" x="130" y="376" textAnchor="middle" style={{ fontSize: 30 }}>100 l</text>
-    <text className="sv-lbl" x="130" y="400" textAnchor="middle" opacity="0.8">závislé na počasí</text>
+    <text className="sv-lbl" x="130" y="400" textAnchor="middle">závislé na počasí</text>
 
     <text className="sv-lbl" x="390" y="340" textAnchor="middle">Objem pro kořeny</text>
     <text className="sv-val" x="390" y="376" textAnchor="middle" style={{ fontSize: 30 }}>300 l</text>
-    <text className="sv-lbl" x="390" y="400" textAnchor="middle" opacity="0.8">rezervoár</text>
+    <text className="sv-lbl" x="390" y="400" textAnchor="middle">rezervoár</text>
 
     {/* ── pointa + legenda pórů ───────────────────────────────── */}
     <line x1="30" y1="428" x2="490" y2="428" stroke="#d5d3cc" strokeWidth="1.6" strokeDasharray="3 7" strokeLinecap="round" />

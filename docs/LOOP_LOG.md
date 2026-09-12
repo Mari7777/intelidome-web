@@ -692,3 +692,86 @@ FAQ a produktový pás jsou převzaté vzory a text produktového pásu je můj,
 ne autorův; kresby 05 a 07 mají hodně textu v popiscích; hodnota 7,5–10 cm/h
 není v článku pojmenovaná.
 
+## Kolo 01 — NEPROŠEL
+
+| Porotce | Skóre | Kritické |
+|---|---|---|
+| Hierarchie | 3/5 | popisky kreseb na mobilu (Obr. 01/02/03/05: 11 + 1 + 5 + 7 kolizí či ořezů) |
+| Typografie | 2/5 | próza 87,4 zn./řádek (max 94; `li` 83,7; split 81,1; callout 112); H1 natvrdo „Krásný trávník / začíná pod / zemí" (sirotek + předložka); popisky kreseb na mobilu (5 ze 6) |
+| Pohyb | 3/5 | Obr. 03: hladina na hranici smyčky skočí o 9 px (diff 0,51 % vs. 0,00 % u ostatních 20 hranic); SMIL `scale` mimo 6.6.1 |
+| Grafický styl | 3/5 | `#8a6b4a` v Obr. 07 — jediná barva mimo paletu 9.2 |
+| Slop | 4/5 | žádné |
+| Výkon a přístupnost | 3/5 | 9 popisků s `opacity` .75/.8 → 3,45–3,83:1 (Obr. 01/04/05) |
+| Rozložení | 3/5 | pod 1200 px text kapitoly na dvou osách (split na 40, próza na 162); prázdno 42 % (produktový pás) a 83 % (FAQ) vedle kratšího sloupce |
+
+**Důležité, co porota zvedla shodně:** h3 mezititulky v roli title-sm
+(36 px) místo subtitle — moje pravidlo `.id-article > h3` prohrálo kaskádu
+s `.prose :where(h3):not(:where(.not-prose *))` (0,2,0 > 0,1,1); figcaption
+splitů 76–86 zn. a full-bleed 92 zn. (max-width 700 přebíjí 62ch); stat
+„2,5–7,5 cm/h" zlomený za pomlčkou; tracking těla 0 místo −0,01 em;
+full-bleed fotka má radius 14 px; barvy-tokeny mimo tabulku 9.2 (#e8e7e3,
+#f6f5f2, bílé linky .34–.36); tahy pod 1,5 px; hero: perex viditelný
+dřív než titulek; reduced-motion: kapsle „lupne" po 1 s
+(`id-capsule-in 1e-05s 0.95s` přežije `animation:none`); Obr. 07 popisky
+na vzorku pórů p05 2,79:1; mobil: scroll-cue leží přes metu.
+
+**Zamítnuto s důvodem:**
+- „Hero podvzorkované 1440×611" (styl) — `naturalWidth` u srcset s `w`
+  deskriptory vrací hodnotu dělenou hustotou; na disku je master
+  3840×1629 a prohlížeč žádá w=1920 (1×) / w=3840 (2×). Změřeno, ne
+  odhadnuto — táž past jako u článku 1.
+- „Hero podtext má nabíhat autoAlpha 0→1" (pohyb, dle 6.3.3) — vědomě ne:
+  lead je LCP kandidát (744 ms, LCP = FCP); opacity 0 by LCP posunulo za
+  fade. Spor 6.3.3 × 6.8 → koš B.
+- Chip KALKULÁTOR (slop) — předepisuje 7.7; FAQ jako „třetí shrnutí"
+  (slop) — vyžaduje šablona obsahu (GEO); obojí koš B / textový krok.
+
+**Souhrn kola 01: 3 · 2 · 3 · 3 · 4 · 3 · 3, 9 kritických nálezů.**
+
+#### Opraveno — balík „mobil, míra sazby, osy" (2026-09-12)
+
+1. **Popisky kreseb na mobilu.** Mobilní zvětšení 17/21 (a 21/25 pod
+   400 px) zděděné z článku 1 dávalo 13 px — víc, než je třeba — a
+   v hustých kresbách se řádky překrývaly a ořezávaly. Panel kresby jde
+   na telefonu k okrajům obrazovky (369 px místo 321, měřítko 0,71),
+   zvětšení kleslo na 15/18 (→ 10,6 / 12,8 px) a pod 360 px na 18/21.
+   Pět kreseb přeskládáno pro tuto sazbu: kratší hlavičky a verdikty
+   (Obr. 01), pointa Obr. 02, užší jáma + širší odečet 204 px (Obr. 03),
+   užší profil + popisky 204 px a `viewBox` od y=60 (Obr. 05), popisky
+   vzduchu z hlíny na krém a rozteč hlaviček (Obr. 07). Nový přejímkový
+   skript `scripts/svg-labels.mjs` (kolize + ořez + min. px): 393 px
+   **0 kolizí, 0 ořezů, min 10,6 px** u všech sedmi kreseb; 1440 čisté.
+2. **Míra sazby (ADR-007).** Token `--id-measure: 33em`, pravé odsazení
+   uvnitř sloupce: próza **87,4 → 72,1** znaku (max 94 → 79), `li` 83,7
+   → 71,1, split 81,1 → 71,7, callout 112 → 73, FAQ → 73, produktový pás
+   → 71,8. Nad 80: **0 řádků** (dřív 32 z 37 odstavců). Tracking těla
+   −0,01 em. Osy mřížky beze změny (layout-check 1024/1440/1990 čisté).
+3. **H1** na dva řádky („Krásný trávník / začíná pod zemí"), splitLines
+   14 → 16 znaků; bez sirotka i předložky na konci řádku.
+4. **Paleta a kontrast kreseb.** `#8a6b4a` → `#d8c9b4`@.55; zeolit
+   `#e8e7e3` → `#d5d3cc`; praskliny `#f6f5f2` → `#d5d3cc`; bílé linky
+   .34–.36 → .22; tahy 0,7–1,4 → 1,5–1,6; devět popisků bez `opacity`
+   (3,45–3,83:1 → 5,97:1); popisky Obr. 07 pryč ze vzorku pórů.
+5. **Obr. 03 hladina** — SMIL `scale` (skok 9 px na hranici smyčky) → CSS
+   `alternate` 6 s: druhá půlka je „naplňte jámu znovu", žádný střih.
+6. **Osy pod 1200 px:** po složení dvousloupce sedí text kapitoly na
+   obsahové ose (`margin-inline: auto`, 1024: 162 = 162), ne na hraně 40.
+7. **Prázdno vedle sloupců:** produktový pás — tři vlastnosti pod prózou
+   v levém sloupci místo řady pod pásem (sloupce vyrovnané); FAQ —
+   nadpisový sloupec lepivý (cestuje se seznamem). Panel kresby vyplní
+   sloupec (652 = B), takže hrany sedí na 40/1400 jako text a kalkulátor.
+8. **Kapitola 05** — kresba tří zón přesunuta k podkapitole o zónování
+   (2,2 obrazovky prózy bez obrazu → obraz uprostřed), čelo kapitoly
+   nese `chapter` + próza; `h3 + split` 28 px.
+9. Drobné: h3 v roli subtitle (`.prose.id-article > h3` — kaskáda),
+   figcaption full-bleed 62ch, obraz full-bleed bez radiusu, stat „2,5–7,5"
+   `nowrap`, kalkulátory `role=group` + `aria-labelledby`, kapsle při
+   reduced-motion bez „lupnutí" (`animation: none !important`), hero na
+   mobilu 96 px pod metou (cue už neleží přes „Journal"), full-bleed
+   fotka: 115 px před, 44 px za (patří ke kapitole 06), Obr. 04 stébla.
+
+**Ponecháno vědomě (koš B / text):** chip KALKULÁTOR (7.7), FAQ jako
+GEO šablona, dvojí „Objevit systém" (kapsle 7.1 + CTA), hero podtext bez
+fade (LCP), fokus vstupů kalkulátoru podtržením (výjimka v CSS vs. 11.2),
+skip-link a `aria-label` navigací (mimo článek), délka 21 obrazovek.
+

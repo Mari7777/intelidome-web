@@ -84,6 +84,8 @@ export const StatTilesBlock: React.FC<StatTilesBlockProps> = ({ className, tiles
             <div
               className={cn(
                 'font-[family-name:var(--id-f-display)] font-semibold tabular-nums',
+                // Rozsah „2,5–7,5" se nesmí zlomit za pomlčkou.
+                'whitespace-nowrap',
                 'text-[length:clamp(26px,3vw,40px)] leading-[1.05] tracking-[-0.02em]',
                 'text-[color:var(--id-ink)]',
               )}

@@ -32,9 +32,9 @@ export const HmatovyTest: React.FC = () => (
     </defs>
 
     {/* ── hlavičky sloupců ─────────────────────────────────────── */}
-    <text className="sv-lbl" x="100" y="26" textAnchor="middle">Těžká jílovitá</text>
-    <text className="sv-lbl" x="260" y="26" textAnchor="middle">Střední hlinitá</text>
-    <text className="sv-lbl" x="420" y="26" textAnchor="middle">Lehká písčitá</text>
+    <text className="sv-lbl" x="100" y="26" textAnchor="middle">Jílovitá</text>
+    <text className="sv-lbl" x="260" y="26" textAnchor="middle">Hlinitá</text>
+    <text className="sv-lbl" x="420" y="26" textAnchor="middle">Písčitá</text>
     <line x1="30" y1="40" x2="490" y2="40" stroke="#d5d3cc" strokeWidth="1.6" strokeDasharray="3 7" strokeLinecap="round" />
 
     {/* ── řádek 1: zrnka pod lupou ─────────────────────────────── */}
@@ -51,7 +51,7 @@ export const HmatovyTest: React.FC = () => (
     <circle cx="260" cy="106" r="34" fill="none" stroke="#232830" strokeWidth="1.6" />
 
     {/* písek: pár velkých hranatých zrn, mezi nimi vzduch */}
-    <g clipPath="url(#hmt-lupa-c)" fill="#c2a052" stroke="#232830" strokeWidth="0.9" strokeLinejoin="round">
+    <g clipPath="url(#hmt-lupa-c)" fill="#c2a052" stroke="#232830" strokeWidth="1.5" strokeLinejoin="round">
       <path d="M404 86 l9 -4 7 6 -2 9 -9 3 -6 -6 z" />
       <path d="M428 82 l8 1 4 8 -5 6 -9 -1 -3 -8 z" />
       <path d="M396 108 l7 -6 9 3 1 9 -8 4 -8 -4 z" />
@@ -62,9 +62,9 @@ export const HmatovyTest: React.FC = () => (
     </g>
     <circle cx="420" cy="106" r="34" fill="none" stroke="#232830" strokeWidth="1.6" />
 
-    <text className="sv-lbl" x="100" y="160" textAnchor="middle" opacity="0.8">nejjemnější</text>
-    <text className="sv-lbl" x="260" y="160" textAnchor="middle" opacity="0.8">směs</text>
-    <text className="sv-lbl" x="420" y="160" textAnchor="middle" opacity="0.8">největší</text>
+    <text className="sv-lbl" x="100" y="160" textAnchor="middle">nejjemnější</text>
+    <text className="sv-lbl" x="260" y="160" textAnchor="middle">směs</text>
+    <text className="sv-lbl" x="420" y="160" textAnchor="middle">největší</text>
 
     {/* ── řádek 2: kulička ─────────────────────────────────────── */}
     <line x1="30" y1="176" x2="490" y2="176" stroke="#d5d3cc" strokeWidth="1.6" strokeDasharray="3 7" strokeLinecap="round" />
@@ -75,7 +75,7 @@ export const HmatovyTest: React.FC = () => (
 
     {/* hlína: drží tvar, ale drobí se — hairline trhlinky */}
     <circle cx="260" cy="236" r="25" fill="#6b5138" opacity="0.9" />
-    <g stroke="#f6f5f2" strokeWidth="1.4" strokeLinecap="round" fill="none" opacity="0.85">
+    <g stroke="#d5d3cc" strokeWidth="1.6" strokeLinecap="round" fill="none">
       <path d="M248 226 l6 5 -2 6" />
       <path d="M268 244 l5 -4 4 3" />
       <path d="M256 251 l4 -3" />
@@ -87,7 +87,7 @@ export const HmatovyTest: React.FC = () => (
 
     {/* písek: kulička se rozpadá — duch tvaru + zrna, tři z nich se sypou */}
     <circle cx="420" cy="236" r="25" fill="none" stroke="#d5d3cc" strokeWidth="1.6" strokeDasharray="3 7" />
-    <g fill="#c2a052" stroke="#232830" strokeWidth="0.8" strokeLinejoin="round">
+    <g fill="#c2a052" stroke="#232830" strokeWidth="1.5" strokeLinejoin="round">
       <path d="M406 222 l6 -3 5 4 -1 6 -6 2 -4 -4 z" />
       <path d="M420 218 l6 0 3 5 -3 5 -6 0 -3 -5 z" />
       <path d="M432 226 l5 -2 4 4 -2 5 -5 1 -3 -4 z" />
@@ -97,7 +97,7 @@ export const HmatovyTest: React.FC = () => (
       <path d="M438 250 l5 -2 4 3 -1 5 -5 2 -3 -4 z" />
       <path d="M413 256 l5 -2 4 3 0 5 -5 2 -4 -3 z" />
     </g>
-    <g fill="#c2a052" stroke="#232830" strokeWidth="0.8" strokeLinejoin="round">
+    <g fill="#c2a052" stroke="#232830" strokeWidth="1.5" strokeLinejoin="round">
       <g className="hmt-zrno" style={{ animationDelay: '0s' }}>
         <path d="M404 262 l4 -2 3 3 -1 4 -4 1 -2 -3 z" />
       </g>
@@ -134,7 +134,7 @@ export const HmatovyTest: React.FC = () => (
     {/* hlína: drží, ale při ohnutí praská — zlom uprostřed */}
     <path d="M212 356 C 232 354, 246 347, 256 340" fill="none" stroke="#6b5138" strokeWidth="18" strokeLinecap="round" opacity="0.9" />
     <path d="M266 338 C 278 336, 294 342, 308 350" fill="none" stroke="#6b5138" strokeWidth="18" strokeLinecap="round" opacity="0.9" />
-    <g stroke="#232830" strokeWidth="1.4" strokeLinecap="round" fill="none" opacity="0.7">
+    <g stroke="#232830" strokeWidth="1.6" strokeLinecap="round" fill="none" opacity="0.7">
       <path d="M261 328 l0 -8" />
       <path d="M257 331 l-4 -6" />
       <path d="M265 331 l4 -6" />
@@ -147,7 +147,7 @@ export const HmatovyTest: React.FC = () => (
 
     {/* písek: uválet nejde — jen duch válečku a rozsypaná zrna */}
     <rect x="372" y="337" width="96" height="18" rx="9" fill="none" stroke="#d5d3cc" strokeWidth="1.6" strokeDasharray="3 7" />
-    <g fill="#c2a052" stroke="#232830" strokeWidth="0.8" strokeLinejoin="round">
+    <g fill="#c2a052" stroke="#232830" strokeWidth="1.5" strokeLinejoin="round">
       <path d="M382 360 l5 -2 4 3 -1 5 -5 2 -3 -4 z" />
       <path d="M398 364 l5 -3 5 3 0 5 -5 2 -5 -2 z" />
       <path d="M414 361 l5 -2 4 4 -2 5 -5 1 -3 -4 z" />
@@ -162,13 +162,13 @@ export const HmatovyTest: React.FC = () => (
     <line x1="30" y1="410" x2="490" y2="410" stroke="#d5d3cc" strokeWidth="1.6" strokeDasharray="3 7" strokeLinecap="round" />
     <text className="sv-lbl" x="30" y="432">Na co se zaměřit</text>
 
-    <text className="sv-val" x="100" y="458" textAnchor="middle">Zhutnění, odtok,</text>
-    <text className="sv-val" x="100" y="478" textAnchor="middle">přísun vzduchu</text>
+    <text className="sv-val" x="100" y="456" textAnchor="middle">Zhutnění, odtok</text>
+    <text className="sv-val" x="100" y="480" textAnchor="middle">a vzduch</text>
 
-    <text className="sv-val" x="260" y="458" textAnchor="middle">Udržet strukturu,</text>
-    <text className="sv-val" x="260" y="478" textAnchor="middle">opravit jen místa</text>
+    <text className="sv-val" x="260" y="456" textAnchor="middle">Udržet</text>
+    <text className="sv-val" x="260" y="480" textAnchor="middle">strukturu</text>
 
-    <text className="sv-val" x="420" y="458" textAnchor="middle">Zvýšit zásobu vody,</text>
-    <text className="sv-val" x="420" y="478" textAnchor="middle">udržet živiny</text>
+    <text className="sv-val" x="420" y="456" textAnchor="middle">Zadržet vodu</text>
+    <text className="sv-val" x="420" y="480" textAnchor="middle">a živiny</text>
   </svg>
 )

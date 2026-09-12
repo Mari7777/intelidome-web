@@ -32,7 +32,9 @@ export const PostHero: React.FC<{ post: Post }> = ({ post }) => {
   // Titulek po řádcích: každý má VLASTNÍ masku, aby mohl stoupat zvlášť
   // se staggerem (6.3.3). Kvalifikátor za dvojtečkou je druhý hlas.
   const [headline, qualifier] = splitTitle(title)
-  const lines = splitLines(headline, 14)
+  // 16 znaků: „začíná pod zemí" (15) se vejde na řádek na 1440 i 393 —
+  // se 14 vznikal sirotek „zemí" a předložka „pod" na konci řádku.
+  const lines = splitLines(headline, 16)
 
   // Lead nese slib. Použijeme meta description (už je napsaná a je to
   // přesně slib článku); kvalifikátor je nouzová varianta.

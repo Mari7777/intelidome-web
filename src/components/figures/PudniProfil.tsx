@@ -59,7 +59,7 @@ export const PudniProfil: React.FC = () => (
     </g>
 
     {/* hrana slisované vrstvy — jediná pevná linka v řezu, protože je to ta „deska" */}
-    <line x1="98" y1="200" x2="368" y2="200" stroke="rgba(255,255,255,.34)" strokeWidth="1.6" />
+    <line x1="98" y1="200" x2="368" y2="200" stroke="rgba(255,255,255,.22)" strokeWidth="1.6" />
     <line x1="98" y1="250" x2="368" y2="250" stroke="rgba(255,255,255,.14)" strokeWidth="1.6" />
 
     {/* drn */}
@@ -78,10 +78,10 @@ export const PudniProfil: React.FC = () => (
 
     {/* ── rýč: opřený o desku, zkouší hlouběji a zastaví se ────── */}
     <g className="pp-ryc">
-      <rect x="326" y="20" width="10" height="150" rx="3" fill="#232830" stroke="rgba(255,255,255,.2)" strokeWidth="1.4" />
-      <rect x="316" y="10" width="30" height="12" rx="4" fill="#232830" stroke="rgba(255,255,255,.2)" strokeWidth="1.4" />
-      <path d="M312 168 H350 L346 214 Q331 222 316 214 Z" fill="#232830" stroke="rgba(255,255,255,.2)" strokeWidth="1.4" strokeLinejoin="round" />
-      <line x1="331" y1="168" x2="331" y2="206" stroke="rgba(255,255,255,.14)" strokeWidth="1.4" />
+      <rect x="326" y="20" width="10" height="150" rx="3" fill="#232830" stroke="rgba(255,255,255,.2)" strokeWidth="1.6" />
+      <rect x="316" y="10" width="30" height="12" rx="4" fill="#232830" stroke="rgba(255,255,255,.2)" strokeWidth="1.6" />
+      <path d="M312 168 H350 L346 214 Q331 222 316 214 Z" fill="#232830" stroke="rgba(255,255,255,.2)" strokeWidth="1.6" strokeLinejoin="round" />
+      <line x1="331" y1="168" x2="331" y2="206" stroke="rgba(255,255,255,.14)" strokeWidth="1.6" />
     </g>
 
     {/* ── popisky vrstev vpravo ────────────────────────────────── */}
@@ -90,19 +90,19 @@ export const PudniProfil: React.FC = () => (
       <line x1="368" y1="225" x2="388" y2="225" />
       <line x1="368" y1="325" x2="388" y2="325" />
     </g>
-    <text className="sv-lbl" x="396" y="146">Ornice</text>
-    <text className="sv-val" x="396" y="166">0–10 cm</text>
+    <text className="sv-lbl" x="396" y="143">Ornice</text>
+    <text className="sv-val" x="396" y="167">0–10 cm</text>
 
-    <text className="sv-lbl" x="396" y="213">Udusaná</text>
-    <text className="sv-lbl" x="396" y="229">vrstva</text>
-    <text className="sv-val" x="396" y="249">10–15 cm</text>
+    <text className="sv-lbl" x="396" y="206">Udusaná</text>
+    <text className="sv-lbl" x="396" y="228">vrstva</text>
+    <text className="sv-val" x="396" y="252">10–15 cm</text>
 
-    <text className="sv-lbl" x="396" y="321">Podloží</text>
-    <text className="sv-val" x="396" y="341">15–30 cm</text>
+    <text className="sv-lbl" x="396" y="318">Podloží</text>
+    <text className="sv-val" x="396" y="342">15–30 cm</text>
 
     {/* ── pointa ───────────────────────────────────────────────── */}
     <line x1="30" y1="424" x2="490" y2="424" stroke="#d5d3cc" strokeWidth="1.6" strokeDasharray="3 7" strokeLinecap="round" />
-    <text className="sv-lbl" x="30" y="448">Kořeny se na desce placatí</text>
-    <text className="sv-val" x="490" y="449" textAnchor="end">= překážka, i když ji nevidíte</text>
+    <text className="sv-lbl" x="30" y="448">Kořeny se placatí</text>
+    <text className="sv-val" x="490" y="449" textAnchor="end">= překážka pod nimi</text>
   </svg>
 )

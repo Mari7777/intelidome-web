@@ -277,25 +277,17 @@ const body = root([
   p('Příprava funkčního prostředí neznamená automatický nákup třiceti centimetrů nové hlíny. Právě toto zjištění vám může ušetřit tisíce korun a hodiny těžké dřiny.'),
 
   /* ── Kapitola 05 ─────────────────────────────────────────────── */
-  split({
-    blockName: 'Kapitola 05',
-    side: 'image-right',
-    drawing: 'tri-zony',
-    eyebrow: 'Kapitola 05',
-    title: 'Půdní alchymie: biochar, Actino, zeolit a správné počty',
-    number: '05',
-    alt: 'Řez profilem 30 cm rozdělený do tří zón: 0 až 10 cm minerální základ s biocharem, Actinem a zeolitem, kde žije nejvíc kořenů; 10 až 15 cm minerální základ se zeolitem jako přechod; 15 až 30 cm jen minerální základ jako rezervní prostor pro vodu a vzduch. Přechody mezi zónami jsou plynulé, ne ostré.',
-    caption:
-      'Co kam patří. Drahé příměsi jen tam, kde žijí kořeny; spodní zóna je rezervoár vody a vzduchu — a přechody navazují, nejsou to patra dortu.',
-    body:
-      'Až teď přichází chvíle, kdy má smysl uvažovat o tom, co do půdy přimíchat. Už víme, co máme v ruce, víme, co je pod tím, a víme, jak odtéká voda. Každá příměs tak dostane svůj jasný úkol.\n\nVždy platí, že vaše původní zemina je cenný základ. Není to odpad, který musíte vyvézt jen proto, abyste udělali místo pytlům s lákavými názvy.',
-  }),
-
+  /* Kresba tří zón nestojí v čele kapitoly, ale u podkapitoly o zónování,
+     o kterém mluví — jinak měla kapitola 2,2 obrazovky prózy bez obrazu
+     (porota rozložení, kolo 01). Čelo kapitoly nese titulek + próza. */
+  chapter('Půdní alchymie: biochar, Actino, zeolit a správné počty', 'Kapitola 05'),
+  p('Až teď přichází chvíle, kdy má smysl uvažovat o tom, co do půdy přimíchat. Už víme, co máme v ruce, víme, co je pod tím, a víme, jak odtéká voda. Každá příměs tak dostane svůj jasný úkol.'),
   ul(
     li(['Těžký jíl: ', BOLD], 'Nejdříve fyzicky odstraňte utužení (když je půda mírně vlhká). Pokud to nestačí a musíte změnit zrnitost, použijte promyšlenou směs praného písku a původní zeminy. Pozor: pár lopat písku nevyřeší nic! Jemný jíl jen vyplní mezery mezi zrny písku. Je to jako nasypat jemný prach do sklenice s korálky – víc vzduchu tím nezískáte.'),
     li(['Střední hlína: ', BOLD], 'Nedělejte nic plošně, řešte jen místní utužení. Písek sem přidávejte jen tehdy, pokud je hlína spíše těžší. Drobtovitá zdravá půda písek nepotřebuje.'),
     li(['Lehký písek: ', BOLD], 'Na další písek zapomeňte. Veškeré úsilí věnujte tomu, jak v zemině udržet vodu a živiny.'),
   ),
+  p('Vždy platí, že vaše původní zemina je cenný základ. Není to odpad, který musíte vyvézt jen proto, abyste udělali místo pytlům s lákavými názvy.'),
 
   h3('Co umí speciální příměsi?'),
   p('Pokud potřebujete vlastnosti půdy cíleně zlepšit, nabízí se několik šikovných pomocníků:'),
@@ -306,8 +298,17 @@ const body = root([
   ),
 
   h3('Proč nesypat všechno všude? (Chytré zónování)'),
-  p('Pokud půdní profil budujete nově, nemusíte (a ani byste neměli) rvát drahé příměsi do celých 30 centimetrů. Rozdělte si zeminu do tří zón (přičemž „minerální základ“ znamená vaši původní zeminu, případně její směs s pískem) – co kam patří, ukazuje Obr. 05.'),
-  p('Toto uspořádání má jasný ekonomický smysl. Představte si plochu 100 m². Vrstva 10 cm představuje 10 000 litrů zeminy. Kdybyste chtěli obohatit celých 30 cm (30 000 litrů), spotřebujete všeho třikrát tolik. Pro takovou investici musíte mít sakra dobrý důvod.'),
+  split({
+    blockName: 'Zónování (Obr. 05)',
+    side: 'image-right',
+    drawing: 'tri-zony',
+    number: '05',
+    alt: 'Řez profilem 30 cm rozdělený do tří zón: 0 až 10 cm minerální základ s biocharem, Actinem a zeolitem, kde žije nejvíc kořenů; 10 až 15 cm minerální základ se zeolitem jako přechod; 15 až 30 cm jen minerální základ jako rezervní prostor pro vodu a vzduch. Přechody mezi zónami jsou plynulé, ne ostré.',
+    caption:
+      'Co kam patří. Drahé příměsi jen tam, kde žijí kořeny; spodní zóna je rezervoár vody a vzduchu — a přechody navazují, nejsou to patra dortu.',
+    body:
+      'Pokud půdní profil budujete nově, nemusíte (a ani byste neměli) rvát drahé příměsi do celých 30 centimetrů. Rozdělte si zeminu do tří zón (přičemž „minerální základ“ znamená vaši původní zeminu, případně její směs s pískem) – co kam patří, ukazuje Obr. 05.\n\nToto uspořádání má jasný ekonomický smysl. Představte si plochu 100 m². Vrstva 10 cm představuje 10 000 litrů zeminy. Kdybyste chtěli obohatit celých 30 cm (30 000 litrů), spotřebujete všeho třikrát tolik. Pro takovou investici musíte mít sakra dobrý důvod.',
+  }),
   p(['Upozornění: ', ITALIC], 'Zóny neskládejte na sebe jako patra dortu s ostrými hranami. Vše musí být v dané vrstvě rovnoměrně promíchané a přechody musí navazovat, aby kořeny nepřešly šokem. Pokud už dobrou půdu na zahradě máte, nerozebírejte ji kvůli tomuto návodu na tři umělé vrstvy! I vaše spodní vrstva přirozeně obsahuje minerály, organismy a organickou hmotu.'),
 
   h3('Matematika trávníku: litry řeší poměr, kilogramy nákup'),

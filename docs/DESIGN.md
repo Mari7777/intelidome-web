@@ -2,7 +2,7 @@
 
 _Prověřeno 3 adversárními kontrolami: 41 nálezů, 37 zapracováno, 4 zamítnuty jako vkusové. Poté ručně překlopeno na paletu Tech Blue + Emerald (rozhodnutí 22. 8. 2026) s přepočtem všech kontrastů._
 
-**Verze:** 2.2 · **Datum:** 2026-08-23 · **Platí pro:** www.intelidome.com / intelidome.cz (Next.js + Tailwind CSS + GSAP)
+**Verze:** 2.3 · **Datum:** 2026-09-12 · **Platí pro:** www.intelidome.com / intelidome.cz (Next.js + Tailwind CSS + GSAP)
 **Primární reference:** [Sonos](https://styles.refero.design/style/8d315332-6267-4dc0-a14c-e8b49c26b0e1) · **Sekundární:** [Eight Sleep](https://styles.refero.design/style/e4e8fe86-47ed-4ddd-a6c6-2c28eae9aabe), [Samara](https://styles.refero.design/style/934a61aa-50ff-4e90-852b-4ad0b8262d54)
 
 > **Esence:** Teplý papír za dne, obsidian po setmění — a jeden modrý pulz.
@@ -256,7 +256,7 @@ Vše přes `clamp()` — žádné breakpointové skoky velikostí. Písmo Archiv
 1. **Váhy:** display role vždy **600 — nikdy víc** (vědomé rozhodnutí InteliDome; předlohy sázejí displaye ještě lehčí, proto je 700+ absolutní zákaz). 500 = subtitle a základní chip; buttony 600 (7.2, `--id-t-btn`). 700 výhradně do 13,5px (zvýraznění v datových tabulkách) — nikdy titulky ani body.
 2. **`tabular-nums` povinné**, kde čísla stojí ve sloupcích nebo se mění: kalkulátory, stat-tiles, tabulky, odpočty, hodnoty sliderů (`font-variant-numeric: tabular-nums`, utilita `.id-tnum`; Archivo `tnum` podporuje).
 3. **`text-wrap: balance`** na `display-xl`, `display`, `title`, `title-sm`, `subtitle` (nadpisy do 4 řádků); **`text-wrap: pretty`** na prose odstavce.
-4. **Prose max 700px** (`--id-maxw-prose`) ≈ 65 znaků/řádek. Body text se nikdy necentruje — centrují se jen display titulky.
+4. **Sloupec prózy 700px** (`--id-maxw-prose`) je šířka **sloupce v mřížce**, ne míra textu: SF Pro 17 px v něm dává ~87 znaků na řádek (naměřeno u dvou článků), ne 65. **Míra textu je `--id-measure: 33em`** (≈ 70 znaků při jakékoli velikosti písma) a uplatňuje se pravým odsazením uvnitř sloupce, ne zúžením boxu — osy mřížky se tím nehnou (ADR-007). Platí pro odstavce, seznamy, callouty, odpovědi FAQ i prózu pásů; ne pro titulky, lead souhrnu a centrované CTA. Body text se nikdy necentruje — centrují se jen display titulky.
 5. **Tracking:** záporný roste s velikostí (−0.01em u 17px → −0.035em u 112px); kladný +0.14em výhradně u uppercase labelů 12px. Uppercase bez rozšířeného trackingu zakázán.
 6. **Minimum 12px** — jen uppercase label; nejmenší běžný text caption 13,5px.
 7. **line-height body 1.65, strop 1.7** (ES); display line-height nikdy nad 1.25.

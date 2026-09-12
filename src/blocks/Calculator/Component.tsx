@@ -109,9 +109,9 @@ const Vsak = ({ className, uid }: { className: string; uid: string }) => {
   }[pasmo]
 
   return (
-    <div className={className}>
+    <div aria-labelledby={`${uid}-h`} className={className} role="group">
       <div className="id-calc__head">
-        <h3>Vyhodnoťte zkoušku vsakování</h3>
+        <h3 id={`${uid}-h`}>Vyhodnoťte zkoušku vsakování</h3>
         <span className="id-chip--outline-accent">Kalkulátor</span>
       </div>
 
@@ -192,9 +192,9 @@ const Primesi = ({ className, uid }: { className: string; uid: string }) => {
   const pytlu = pytel > 0 ? Math.ceil(kg / pytel) : NaN
 
   return (
-    <div className={className}>
+    <div aria-labelledby={`${uid}-h`} className={className} role="group">
       <div className="id-calc__head">
-        <h3>Spočítejte příměs do půdy</h3>
+        <h3 id={`${uid}-h`}>Spočítejte příměs do půdy</h3>
         <span className="id-chip--outline-accent">Kalkulátor</span>
       </div>
 
@@ -328,9 +328,9 @@ const Prutok = ({ className, uid }: { className: string; uid: string }) => {
   const staci = navrhovy >= 25
 
   return (
-    <div className={className}>
+    <div aria-labelledby={`${uid}-h`} className={className} role="group">
       <div className="id-calc__head">
-        <h3>Vyhodnoťte svůj kbelíkový test</h3>
+        <h3 id={`${uid}-h`}>Vyhodnoťte svůj kbelíkový test</h3>
         <span className="id-chip--outline-accent">Kalkulátor</span>
       </div>
 
@@ -408,9 +408,9 @@ const Davka = ({ className, uid }: { className: string; uid: string }) => {
   const dlouhe = minuty > 45
 
   return (
-    <div className={className}>
+    <div aria-labelledby={`${uid}-h`} className={className} role="group">
       <div className="id-calc__head">
-        <h3>Kolik vody a jak dlouho</h3>
+        <h3 id={`${uid}-h`}>Kolik vody a jak dlouho</h3>
         <span className="id-chip--outline-accent">Kalkulátor</span>
       </div>
 

@@ -87,6 +87,9 @@
      aby na stejné ose seděl i hero, patička a ostatní stránky. */
   --id-gutter: clamp(20px, 5vw, 40px);
   --id-maxw-edge: 1360px;
+  /* Míra TEXTU uvnitř sloupce prózy (ADR-007): 33 em ≈ 70 znaků při
+     jakékoli velikosti písma. Sloupec 700 px zůstává šířkou mřížky. */
+  --id-measure: 33em;
   --id-maxw: 1200px;
   --id-maxw-prose: 700px;
   --id-maxw-summary: 960px;

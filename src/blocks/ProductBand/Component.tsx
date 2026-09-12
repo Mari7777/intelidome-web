@@ -21,7 +21,8 @@ export type ProductBandBlockProps = {
  * Jediný tmavý pás uvnitř článku — proto nese celou váhu předělu mezi
  * „jak to funguje" a „čím to vyřešíme". Text jde na `--id-ink-dark-2`
  * (7,47:1) s bílým `<strong>`; tři vlastnosti stojí na hairlinu, ne
- * v kartách se stínem (8.1 Do p. 8).
+ * v kartách se stínem (8.1 Do p. 8), a to POD prózou v levém sloupci,
+ * aby sloupce měly vyrovnanou výšku s diagramem.
  */
 export const ProductBandBlock: React.FC<ProductBandBlockProps> = ({
   body,
@@ -56,6 +57,19 @@ export const ProductBandBlock: React.FC<ProductBandBlockProps> = ({
               </p>
             ))}
           </div>
+
+          {/* Vlastnosti pod prózou, ne v řadě pod celým pásem: levý sloupec
+              tak dorovná výšku diagramu (dřív 318 vs. 552 px = 42 % prázdna). */}
+          {items.length > 0 && (
+            <div className="mt-[34px] grid gap-[18px]" data-rv-group>
+              {items.map((feature) => (
+                <div className="rv id-feature" key={feature.id ?? feature.title}>
+                  <h3 className="id-feature__title">{feature.title}</h3>
+                  <p className="id-feature__text">{nezlomitelneMezery(feature.text)}</p>
+                </div>
+              ))}
+            </div>
+          )}
         </div>
 
           <div
@@ -67,19 +81,6 @@ export const ProductBandBlock: React.FC<ProductBandBlockProps> = ({
           </div>
         </div>
 
-        {items.length > 0 && (
-          <div
-            className="mt-[clamp(40px,6vw,64px)] grid gap-[clamp(22px,3vw,34px)] sm:grid-cols-3"
-            data-rv-group
-          >
-            {items.map((feature) => (
-              <div className="rv id-feature" key={feature.id ?? feature.title}>
-                <h3 className="id-feature__title">{feature.title}</h3>
-                <p className="id-feature__text">{nezlomitelneMezery(feature.text)}</p>
-              </div>
-            ))}
-          </div>
-        )}
       </div>
     </section>
   )
