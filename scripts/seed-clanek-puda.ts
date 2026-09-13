@@ -340,7 +340,7 @@ const body = root([
   p('Jak spočítat, kolik čeho koupit? Pojďme si ukázat vzorový příklad: Chcete do vrchních 20 cm půdy přidat 5 % zeolitu.'),
   ol(
     li(['Výpočet objemu: ', BOLD], 'Představte si čtverec 1 × 1 metr. Hloubka je 0,2 metru. Objem je tedy 1 × 1 × 0,2 = 0,2 m³, což je přesně ', ['200 litrů půdy', BOLD], '.'),
-    li(['Podíl příměsi: ', BOLD], '5 % z 200 litrů je ', ['10 litrů zeolitu', BOLD], ' (jeden běžný kbelík) na metr čtvereční. Zbylých 190 litrů tvoří váš minerální základ (10 + 190 = požadovaných 200).'),
+    li(['Podíl příměsi: ', BOLD], '5 % z 200 litrů je ', ['10 litrů zeolitu', BOLD], ' (jeden běžný kbelík) na metr čtvereční. Zbylých 190 litrů tvoří váš minerální základ (10 + 190 = požadovaných 200).'),
     li(['Převod na nákupní košík: ', BOLD], 'V obchodě se zeolit prodává na kila. Zde potřebujete znát tzv. sypnou hustotu od výrobce. Dejme tomu, že je 0,8 kg/l. Vašich 10 litrů tedy váží ', ['8 kilogramů', BOLD], '.'),
     li(['Celková objednávka: ', BOLD], 'Pokud má váš trávník 100 m², potřebujete 100 × 8 kg = ', ['800 kg zeolitu', BOLD], ', což je 40 dvacetikilových pytlů (celkem 1 000 litrů).'),
   ),

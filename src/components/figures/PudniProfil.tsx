@@ -32,7 +32,7 @@ export const PudniProfil: React.FC = () => (
       <line x1="70" y1="300" x2="82" y2="300" />
       <line x1="70" y1="400" x2="82" y2="400" />
     </g>
-    <text className="sv-val" x="64" y="105" textAnchor="end">0 cm</text>
+    <text className="sv-val" x="64" y="105" textAnchor="end">0 cm</text>
     <text className="sv-val" x="64" y="205" textAnchor="end">10</text>
     <text className="sv-val" x="64" y="305" textAnchor="end">20</text>
     <text className="sv-val" x="64" y="405" textAnchor="end">30</text>
@@ -95,14 +95,14 @@ export const PudniProfil: React.FC = () => (
       <line x1="368" y1="325" x2="388" y2="325" />
     </g>
     <text className="sv-lbl" x="396" y="143">Ornice</text>
-    <text className="sv-val" x="396" y="167">0–10 cm</text>
+    <text className="sv-val" x="396" y="167">0–10 cm</text>
 
     <text className="sv-lbl" x="396" y="206">Udusaná</text>
     <text className="sv-lbl" x="396" y="228">vrstva</text>
-    <text className="sv-val" x="396" y="254" style={{ fontSize: 24 }}>10–15 cm</text>
+    <text className="sv-val" x="396" y="254" style={{ fontSize: 24 }}>10–15 cm</text>
 
     <text className="sv-lbl" x="396" y="318">Podloží</text>
-    <text className="sv-val" x="396" y="342">15–30 cm</text>
+    <text className="sv-val" x="396" y="342">15–30 cm</text>
 
     {/* ── pointa ───────────────────────────────────────────────── */}
     <line x1="30" y1="424" x2="490" y2="424" stroke="#d5d3cc" strokeWidth="1.6" strokeDasharray="3 7" strokeLinecap="round" />

@@ -88,16 +88,16 @@ export const KorenovaZonaMobil: React.FC = () => (
       <path d="M57 124V166M57 186V228M57 248V290" strokeDasharray="3 7" />
     </g>
     <text className="sv-val" x="44" y="119" textAnchor="end">
-      0 cm
+      0 cm
     </text>
     <text className="sv-val" x="44" y="181" textAnchor="end">
-      10 cm
+      10 cm
     </text>
     <text className="sv-val" x="44" y="243" textAnchor="end">
-      20 cm
+      20 cm
     </text>
     <text className="sv-val" x="44" y="305" textAnchor="end">
-      30 cm
+      30 cm
     </text>
 
     {/* hranice promočení + kóta */}
@@ -113,7 +113,7 @@ export const KorenovaZonaMobil: React.FC = () => (
       Voda
     </text>
     <text className="sv-val" x="474" y="160">
-      5 cm
+      5 cm
     </text>
 
     {/* kapky — v klidu stojí nad drnem */}
@@ -180,7 +180,7 @@ export const KorenovaZonaMobil: React.FC = () => (
       Kořeny
     </text>
     <text className="sv-val" x="267" y="322">
-      6 cm
+      6 cm
     </text>
 
     {/* ══ DOLNÍ ŘEZ — vydatně a méně často ══════════════════════════ */}
@@ -240,16 +240,16 @@ export const KorenovaZonaMobil: React.FC = () => (
       <path d="M57 460V502M57 522V564M57 584V626" strokeDasharray="3 7" />
     </g>
     <text className="sv-val" x="44" y="455" textAnchor="end">
-      0 cm
+      0 cm
     </text>
     <text className="sv-val" x="44" y="517" textAnchor="end">
-      10 cm
+      10 cm
     </text>
     <text className="sv-val" x="44" y="579" textAnchor="end">
-      20 cm
+      20 cm
     </text>
     <text className="sv-val" x="44" y="641" textAnchor="end">
-      30 cm
+      30 cm
     </text>
 
     {/* hranice promočení + kóta */}
@@ -265,7 +265,7 @@ export const KorenovaZonaMobil: React.FC = () => (
       Voda
     </text>
     <text className="sv-val" x="474" y="620">
-      25 cm
+      25 cm
     </text>
 
     {/* kapky — větší dávka, delší perioda */}
@@ -332,7 +332,7 @@ export const KorenovaZonaMobil: React.FC = () => (
       Kořeny
     </text>
     <text className="sv-val" x="267" y="658">
-      26 cm
+      26 cm
     </text>
   </svg>
 )

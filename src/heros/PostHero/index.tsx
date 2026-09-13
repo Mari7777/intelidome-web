@@ -96,7 +96,9 @@ export const PostHero: React.FC<{ post: Post }> = ({ post }) => {
               {/* oddělovač patří k předchozí položce — na 320 px se láme po položkách, ne „· datum" */}
               <span className="id-hero__meta-item">
                 {item}
-                {index < metaItems.length - 1 && <span aria-hidden="true">&nbsp;·</span>}
+                {/* Oddělovač drží u své položky, ale zalomit se smí AŽ ZA ním:
+                    jinak na mobilu visela „·" na konci řádku (kolo 08). */}
+                {index < metaItems.length - 1 && <span aria-hidden="true">&nbsp;·&#8203;</span>}
               </span>
             </React.Fragment>
           ))}

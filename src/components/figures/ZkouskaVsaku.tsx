@@ -4,7 +4,7 @@ import React from 'react'
  * Zkouška vsakování (DESIGN.md 9.2). Řez zkušební jámou hlubokou 30 cm:
  * přes okraj leží laťka, od ní se měří vzdálenost k hladině. Hladina
  * začínala na horní čárkované lince a za 15 minut klesla o 1 cm — vpravo
- * je odečet (1 cm × 4 = 4 cm/h), dole stupnice s pásmy z článku: pod 2,5
+ * je odečet (1 cm × 4 = 4 cm/h), dole stupnice s pásmy z článku: pod 2,5
  * pomalu, 2,5–7,5 ideální, nad 10 příliš rychle. Mezi 7,5 a 10 článek
  * pásmo nepojmenovává, proto je šedé.
  *
@@ -79,7 +79,7 @@ export const ZkouskaVsaku: React.FC = () => (
       <line x1="119" y1="126" x2="129" y2="126" />
       <line x1="119" y1="354" x2="129" y2="354" />
     </g>
-    <text className="sv-val" x="134" y="300">30 cm</text>
+    <text className="sv-val" x="134" y="300">30 cm</text>
 
     {/* kóta: od laťky k hladině — to, co se měří */}
     <g stroke="#232830" strokeWidth="1.6" strokeLinecap="round">
@@ -94,17 +94,17 @@ export const ZkouskaVsaku: React.FC = () => (
       <line x1="175" y1="180" x2="185" y2="180" />
       <line x1="175" y1="188" x2="185" y2="188" />
     </g>
-    <text className="sv-val" x="172" y="172" textAnchor="end" style={{ fill: '#2563eb' }}>1 cm</text>
+    <text className="sv-val" x="172" y="172" textAnchor="end" style={{ fill: '#2563eb' }}>1 cm</text>
 
     {/* ── odečet vpravo ───────────────────────────────────────── */}
     <text className="sv-lbl" x="316" y="116">Pokles hladiny</text>
-    <text className="sv-val" x="316" y="140">1 cm za 15 min</text>
+    <text className="sv-val" x="316" y="140">1 cm za 15 min</text>
 
     <text className="sv-lbl" x="316" y="176">Přepočet</text>
-    <text className="sv-val" x="316" y="200">1 cm × 4</text>
+    <text className="sv-val" x="316" y="200">1 cm × 4</text>
 
     <text className="sv-lbl" x="316" y="236">Rychlost vsaku</text>
-    <text className="sv-val" x="316" y="268" style={{ fontSize: 24 }}>4 cm/h</text>
+    <text className="sv-val" x="316" y="268" style={{ fontSize: 24 }}>4 cm/h</text>
 
     <line x1="316" y1="290" x2="490" y2="290" stroke="#d5d3cc" strokeWidth="1.6" strokeDasharray="3 7" strokeLinecap="round" />
     <text className="sv-lbl" x="316" y="314">Stěny zdrsněte</text>

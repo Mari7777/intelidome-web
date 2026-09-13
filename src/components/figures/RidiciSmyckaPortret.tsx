@@ -322,7 +322,7 @@ export const RidiciSmyckaPortret: React.FC = () => (
       Ventil
     </text>
     <text className="sv-val" x="124" y="402">
-      38 %
+      38 %
     </text>
     <text className="sv-lbl" x="154" y="450">
       Čidlo vlhkosti

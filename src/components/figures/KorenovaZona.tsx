@@ -91,7 +91,7 @@ export const KorenovaZona: React.FC = () => (
       Voda
     </text>
     <text className="sv-val" x="62" y="192" textAnchor="end">
-      5 cm
+      5 cm
     </text>
 
     {/* kapky — v klidu stojí nad drnem */}
@@ -168,7 +168,7 @@ export const KorenovaZona: React.FC = () => (
       Kořeny
     </text>
     <text className="sv-val" x="293" y="406">
-      6 cm
+      6 cm
     </text>
 
     {/* ── HLOUBKOVÁ OSA ───────────────────────────────────────────── */}
@@ -180,16 +180,16 @@ export const KorenovaZona: React.FC = () => (
       <path d="M540 148V213M540 231V295M540 313V378" strokeDasharray="3 7" />
     </g>
     <text className="sv-val" x="540" y="143" textAnchor="middle">
-      0 cm
+      0 cm
     </text>
     <text className="sv-val" x="540" y="226" textAnchor="middle">
-      10 cm
+      10 cm
     </text>
     <text className="sv-val" x="540" y="308" textAnchor="middle">
-      20 cm
+      20 cm
     </text>
     <text className="sv-val" x="540" y="391" textAnchor="middle">
-      30 cm
+      30 cm
     </text>
 
     {/* ── PRAVÝ SLOUPEC — vydatně a méně často ────────────────────── */}
@@ -259,7 +259,7 @@ export const KorenovaZona: React.FC = () => (
       Voda
     </text>
     <text className="sv-val" x="1018" y="358">
-      25 cm
+      25 cm
     </text>
 
     {/* kapky — větší dávka, delší perioda */}
@@ -336,7 +336,7 @@ export const KorenovaZona: React.FC = () => (
       Kořeny
     </text>
     <text className="sv-val" x="799" y="406">
-      26 cm
+      26 cm
     </text>
   </svg>
 )

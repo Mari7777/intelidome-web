@@ -261,7 +261,7 @@ export const KbelikovyTestPortret: React.FC = () => (
       strokeLinecap="round"
     />
     <text className="sv-val" x="112" y="361" textAnchor="end">
-      10 l
+      10 l
     </text>
     <text className="sv-lbl" x="232" y="498" textAnchor="middle">
       Kbelík
@@ -360,7 +360,7 @@ export const KbelikovyTestPortret: React.FC = () => (
       Naměřený průtok
     </text>
     <text className="sv-val" x="30" y="572">
-      10 l / 24 s = 25 l/min
+      10 l / 24 s = 25 l/min
     </text>
     <line
       x1="30"
@@ -376,7 +376,7 @@ export const KbelikovyTestPortret: React.FC = () => (
       Rezerva na ztráty
     </text>
     <text className="sv-val" x="30" y="646">
-      −20 % rezerva → 20 l/min
+      −20 % rezerva → 20 l/min
     </text>
   </svg>
 )

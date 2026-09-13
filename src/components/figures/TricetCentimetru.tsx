@@ -33,8 +33,8 @@ export const TricetCentimetru: React.FC = () => (
     </defs>
 
     {/* ── hlavičky ────────────────────────────────────────────── */}
-    <text className="sv-lbl" x="130" y="26" textAnchor="middle">Hloubka 10 cm</text>
-    <text className="sv-lbl" x="390" y="26" textAnchor="middle">Hloubka 30 cm</text>
+    <text className="sv-lbl" x="130" y="26" textAnchor="middle">Hloubka 10 cm</text>
+    <text className="sv-lbl" x="390" y="26" textAnchor="middle">Hloubka 30 cm</text>
 
     {/* ── slunce nad oběma ─────────────────────────────────────── */}
     <g>
@@ -117,18 +117,18 @@ export const TricetCentimetru: React.FC = () => (
     </g>
     {/* Hloubková osa mluví ve všech řezech stejně (9.2 p. 3): .sv-val,
         jednotka jen u nuly. Dřív tu byl .sv-lbl 12 px bez jednotky. */}
-    <text className="sv-val" x="260" y="118" textAnchor="middle">0 cm</text>
+    <text className="sv-val" x="260" y="118" textAnchor="middle">0 cm</text>
     <text className="sv-val" x="260" y="178" textAnchor="middle">10</text>
     <text className="sv-val" x="260" y="238" textAnchor="middle">20</text>
     <text className="sv-val" x="260" y="298" textAnchor="middle">30</text>
 
     {/* ── objemy ──────────────────────────────────────────────── */}
     <text className="sv-lbl" x="130" y="340" textAnchor="middle">Objem pro kořeny</text>
-    <text className="sv-val" x="130" y="376" textAnchor="middle" style={{ fontSize: 24 }}>100 l</text>
+    <text className="sv-val" x="130" y="376" textAnchor="middle" style={{ fontSize: 24 }}>100 l</text>
     <text className="sv-lbl" x="130" y="400" textAnchor="middle">závislé na počasí</text>
 
     <text className="sv-lbl" x="390" y="340" textAnchor="middle">Objem pro kořeny</text>
-    <text className="sv-val" x="390" y="376" textAnchor="middle" style={{ fontSize: 24 }}>300 l</text>
+    <text className="sv-val" x="390" y="376" textAnchor="middle" style={{ fontSize: 24 }}>300 l</text>
     <text className="sv-lbl" x="390" y="400" textAnchor="middle">rezervoár</text>
 
     {/* ── pointa + legenda pórů ───────────────────────────────── */}

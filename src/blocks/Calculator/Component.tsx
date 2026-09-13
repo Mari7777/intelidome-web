@@ -67,6 +67,16 @@ export const CalculatorBlock: React.FC<CalculatorBlockProps> = ({
 }
 
 /** Číslo s tisícovými mezerami a desetinnou čárkou (cs-CZ). */
+/** Vstup píše čárku, model počítá s tečkou — jinak stojí v jednom panelu
+ *  „0.8" proti „0,8 kg/l" v próze (porota kola 08, typografie). */
+const naCarku = (hodnota: number): string => String(hodnota).replace('.', ',')
+const cislo = (raw: string, puvodni: number): number => {
+  const normalizovane = raw.replace(',', '.').trim()
+  if (normalizovane === '') return 0
+  const hodnota = Number(normalizovane)
+  return Number.isFinite(hodnota) && hodnota >= 0 ? hodnota : puvodni
+}
+
 const fmtN = (value: number, decimals = 0): string =>
   Number.isFinite(value)
     ? value.toLocaleString('cs-CZ', { maximumFractionDigits: decimals })
@@ -264,11 +274,9 @@ const Primesi = ({ className, uid }: { className: string; uid: string }) => {
               aria-describedby={`${uid}-hustota-u`}
               id={`${uid}-hustota`}
               inputMode="decimal"
-              min={0}
-              onChange={(e) => setHustota(Number(e.target.value))}
-              step="0.05"
-              type="number"
-              value={hustota}
+              onChange={(e) => setHustota(cislo(e.target.value, hustota))}
+              type="text"
+              value={naCarku(hustota)}
             />
             <span className="unit" id={`${uid}-hustota-u`}>kg/l</span>
           </div>

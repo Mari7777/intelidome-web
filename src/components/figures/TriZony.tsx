@@ -49,7 +49,7 @@ export const TriZony: React.FC = () => (
       <line x1="56" y1="230" x2="68" y2="230" />
       <line x1="56" y1="350" x2="68" y2="350" />
     </g>
-    <text className="sv-val" x="50" y="115" textAnchor="end">0 cm</text>
+    <text className="sv-val" x="50" y="115" textAnchor="end">0 cm</text>
     <text className="sv-val" x="50" y="195" textAnchor="end">10</text>
     <text className="sv-val" x="50" y="235" textAnchor="end">15</text>
     <text className="sv-val" x="50" y="355" textAnchor="end">30</text>
@@ -97,16 +97,16 @@ export const TriZony: React.FC = () => (
       <line x1="290" y1="290" x2="308" y2="290" />
     </g>
     {/* Pointa kresby (9.2 p. 3) je jedna: drahé příměsi patří do horních 10 cm. */}
-    <text className="sv-val" x="316" y="130" style={{ fontSize: 24 }}>0–10 cm</text>
+    <text className="sv-val" x="316" y="130" style={{ fontSize: 24 }}>0–10 cm</text>
     <text className="sv-lbl" x="316" y="150">základ + biochar</text>
     <text className="sv-lbl" x="316" y="170">+ Actino + zeolit</text>
     <text className="sv-lbl" x="316" y="190">nejvíc kořenů</text>
 
-    <text className="sv-val" x="316" y="216">10–15 cm</text>
+    <text className="sv-val" x="316" y="216">10–15 cm</text>
     <text className="sv-lbl" x="316" y="236">základ + zeolit</text>
     <text className="sv-lbl" x="316" y="256">přechod</text>
 
-    <text className="sv-val" x="316" y="288">15–30 cm</text>
+    <text className="sv-val" x="316" y="288">15–30 cm</text>
     <text className="sv-lbl" x="316" y="308">jen základ</text>
     <text className="sv-lbl" x="316" y="328">rezervoár vody</text>
     <text className="sv-lbl" x="316" y="348">a vzduchu</text>

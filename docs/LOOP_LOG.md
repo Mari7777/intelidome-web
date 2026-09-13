@@ -1305,3 +1305,55 @@ tečka „0.8" v number inputu; 12px label má na stránce tři trackingy.
 
 Obojí je architektonické, ne kosmetické: první chce rozhodnout, kde
 kapitola končí jako dvousloupec, druhé sáhnout na masku v 6.3.3.
+
+## Balík „dvě trojky" (hierarchie + typografie, po kole 08)
+
+### Typografie — devět zásahů
+
+| Nález | Řešení | Naměřeno |
+|---|---|---|
+| maska H1 ořezává descendery | `.id-hline` padding-bottom 0,12 em + záporný margin | ořez 2,5 px → **rezerva 8,2 px** |
+| tři trackingy u uppercase 12 px | eyebrow, label kalkulátoru i chip na +0,14 em | 1,68 px u všech tří (dřív 1,68 / 1,44 / 1,20) |
+| chip pod minimem 12 px | 11,5 → 12 px (4.3 p. 6) | 12 px |
+| verdikt s váhou 500 | token body-sm: 400 / 1,55 / −0,006 em | 400 / 22,475 px |
+| centrované CTA 68 a 75 znaků | vlastní míra 28 em místo 30 em a 52ch | pod 62 znaků |
+| „0.8" s desetinnou tečkou | pole je `text` + `inputMode`, model počítá s tečkou, vstup píše čárku | „0,8" |
+| „·" visící na konci řádku (mobil) | nezlomitelná mezera před oddělovač, zlom až za něj (`&#8203;`) | 0 visících |
+| 17× obyčejná mezera číslo–jednotka v kresbách | NBSP ve všech figurách | **0 výskytů** |
+| „(10 + 190 = …)" se lámalo za plus | NBSP kolem operátoru | drží pohromadě |
+
+### Hierarchie — dva zásahy a jedno rozhodnutí
+
+1. **Kresba už nevstupuje do čtení před kapitolovým titulkem.**
+   `align-items: center` posouval panel o 39–92 px nad hlavičku; teď má
+   hlava, kresba i tělo společnou horní hranu (`start`). Předstih
+   naměřen **0 px** ve všech šesti kapitolách (dřív 39 / 58 / 92 px).
+2. **Titulek rysu v produktovém pásu 17 → 19 px** — měl přesně velikost
+   prózy téhož pásu, takže hierarchii nesla jen váha (Filozofie 2:
+   autorita velikostí, ne tučností).
+3. **Skok osy mezi tělem splitu a prózou zůstává** — viz níž.
+
+### Proč skok osy neopravuji
+
+Tělo dvousloupce stojí ve sloupci 652 px (osa 40 nebo 748), zbytek
+kapitoly v próze 700 px (osa 370). **Geometricky to uvnitř 8.2b nemá
+řešení:** kresba 520 px plus próza 700 px se na společnou osu do šířky
+1360 nevejdou — textový sloupec by musel začínat na 370 a obraz by pak
+měl 274 px. Obě varianty, které porota navrhla, mají horší vedlejší
+efekt: (a) celá kapitola dvousloupcová vyžaduje seznamy a mezititulky
+uvnitř bloku, což plochý Lexical neumí; (b) split jen s titulkem
+a obrazem nechá textový sloupec s > 35 % prázdna. Zapsáno do
+`DESIGN.md` §15 jako otevřené architektonické rozhodnutí s doporučením
+ponechat do článku o 3–5 kapitolách.
+
+### DESIGN.md v2.5 — čtyři spory rozhodnuty
+
+Porota našla čtyři místa, kde si dokument odporoval: stat-num-xl (4.2)
+× hero kalkulátoru (7.7), lead souhrnu 960 px (8.2) × 700 px (ADR-006),
+tracking uppercase 12 px, váha verdiktu (7.8) × váhy těla (4.1). Všechny
+rozhodnuty v nové sekci 15 — vždy ve prospěch toho, co stránka měřitelně
+dělá, s důvodem. Výjimka `.sv-lbl` (+0,10 em) je nově pojmenovaná:
+v husté kresbě působí širší rozpal kolize značka × text.
+
+Přejímka: `layout-check` 1024/1280/1440/1990 a `svg-labels` 320/393/1440
+bez nálezu, `tsc` čistý.

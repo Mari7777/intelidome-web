@@ -483,6 +483,11 @@
 .id-hline {
   display: block;
   overflow: hidden;
+  /* Maska 6.3.3 počítala s výškou ŘÁDKU (lh 0,98), ne s výškou inkoustu
+     (1,089 em), takže „ý" a „p" v H1 měly plochý řez (kolo 08). Box se
+     pustí níž a svislý rytmus se vrátí záporným marginem. */
+  padding-bottom: 0.12em;
+  margin-bottom: -0.12em;
 }
 .id-hline > span {
   display: block;
@@ -812,8 +817,10 @@ html {
   padding-top: 18px;
 }
 .id-feature__title {
+  /* Autorita velikostí, ne tučností (Filozofie 2): 17 px byla přesně
+     velikost prózy téhož pásu, hierarchii nesla jen váha (kolo 08). */
   font-family: var(--id-f-display);
-  font-size: 17px;
+  font-size: 19px;
   line-height: 1.25;
   font-weight: 600;
   letter-spacing: -0.01em;
@@ -847,8 +854,9 @@ html {
 .id-cta__sub {
   margin: 16px auto 0;
   letter-spacing: -0.01em;
-  /* 56ch = 600 px = 78 znaků; míra 30 em ≈ 66 znaků (ADR-007). */
-  max-width: 30em;
+  /* Centrovaný text má kratší míru než próza: ADR-007 dává CTA 52–56
+     znaků, 30 em jich dávalo 66. */
+  max-width: 28em;
   font-size: var(--id-t-body);
   line-height: 1.65;
   color: var(--id-ink-2);
@@ -857,7 +865,8 @@ html {
 .id-cta__ask {
   margin: 26px auto 0;
   letter-spacing: -0.01em;
-  max-width: 52ch;
+  /* `ch` je u SF Pro široký: 52ch vycházelo na 75 znaků. */
+  max-width: 28em;
   font-size: var(--id-t-body-sm);
   line-height: 1.55;
   /* --id-ink-3 (#86868b) má na bílé 3,62:1 — pod mezí pro běžný text.
@@ -1021,7 +1030,8 @@ html {
   border: 1.5px solid var(--id-accent);
   border-radius: var(--id-r-pill);
   font-family: var(--id-f-display);
-  font-size: 11.5px;
+  /* 4.3 p. 6: minimum 12 px, a chip mezi vyjmenované výjimky nepatří. */
+  font-size: 12px;
   font-weight: 600;
   letter-spacing: 0.14em;
   text-transform: uppercase;
@@ -1039,7 +1049,9 @@ html {
   font-family: var(--id-f-display);
   font-size: 12px;
   font-weight: 600;
-  letter-spacing: 0.12em;
+  /* 4.3 p. 5 zná u uppercase labelu 12 px jediný rozpal: +0,14 em.
+     Stránka měla tři různé (0,10 / 0,12 / 0,14) — porota kola 08. */
+  letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--id-ink-dark-2);
 }
@@ -1171,8 +1183,11 @@ html {
   padding: 16px 20px;
   border-radius: var(--id-r-md);
   font-size: 14.5px;
-  font-weight: 500;
-  line-height: 1.5;
+  /* Token body-sm (4.2): 400 / lh 1,55 / −0,006 em. Váhu 500 má tělo
+     textu podle 4.1 zakázanou (semibold jen inline <strong>). */
+  font-weight: 400;
+  line-height: 1.55;
+  letter-spacing: -0.006em;
   /* Míra 33 em jako zbytek prózy (ADR-007) — bez ní běžel verdikt na 36 em. */
   max-width: calc(var(--id-measure) + 32px);
   transition:
@@ -1448,13 +1463,15 @@ html {
      stránkové — přesně ta „třetí páteř", kterou porota naměřila.
 
      Tři položky: hlava (nadřádek + titulek), kresba, tělo. Kresba
-     zabírá obě řádky, hlava se tlačí ke spodní hraně první a tělo
-     k horní hraně druhé — dohromady jsou vůči kresbě centrované.
-     Důvod tří položek: na telefonu má jít titulek PŘED kresbu
-     (porota kola 02: „čtenář dostane tabulku dřív než tezi"). */
+     zabírá obě řádky. Důvod tří položek: na telefonu má jít titulek
+     PŘED kresbu (porota kola 02: „čtenář dostane tabulku dřív než tezi").
+
+     `start`, ne `center`: centrování posouvalo kresbu o 39–92 px NAD
+     kapitolový titulek, takže na desktopu vstupoval do čtení obraz dřív
+     než číslo kapitoly (porota kola 08). Teď mají horní hranu společnou. */
   grid-column: edge;
   display: grid;
-  align-items: center;
+  align-items: start;
   column-gap: var(--id-gap-col);
   row-gap: 0;
   grid-template-columns: 1fr 1fr;
@@ -1463,7 +1480,9 @@ html {
 .id-split__head {
   grid-column: 2;
   grid-row: 1;
-  align-self: end;
+  /* `start`, ne `end`: hlava musí mít společnou horní hranu s kresbou,
+     jinak do čtení vstupuje obraz dřív než číslo kapitoly (kolo 08). */
+  align-self: start;
 }
 .id-split__body {
   grid-column: 2;
@@ -1473,7 +1492,7 @@ html {
 .id-split__figure {
   grid-column: 1;
   grid-row: 1 / 3;
-  align-self: center;
+  align-self: start;
 }
 .id-split--right > .id-split__head,
 .id-split--right > .id-split__body {

@@ -247,7 +247,7 @@ export const RidiciSmycka: React.FC = () => (
       Čidlo vlhkosti
     </text>
     <text className="sv-val" x="170" y="206">
-      38 %
+      38 %
     </text>
     <text className="sv-lbl" x="392" y="56" textAnchor="middle">
       Práh
