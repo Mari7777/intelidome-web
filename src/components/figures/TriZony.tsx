@@ -47,11 +47,10 @@ export const TriZony: React.FC = () => (
       <line x1="56" y1="230" x2="68" y2="230" />
       <line x1="56" y1="350" x2="68" y2="350" />
     </g>
-    <text className="sv-val" x="50" y="115" textAnchor="end">0</text>
+    <text className="sv-val" x="50" y="115" textAnchor="end">0 cm</text>
     <text className="sv-val" x="50" y="195" textAnchor="end">10</text>
     <text className="sv-val" x="50" y="235" textAnchor="end">15</text>
     <text className="sv-val" x="50" y="355" textAnchor="end">30</text>
-    <text className="sv-lbl" x="50" y="92" textAnchor="end">cm</text>
 
     {/* ── řez ─────────────────────────────────────────────────── */}
     <g clipPath="url(#tz-rez)">

@@ -2,7 +2,7 @@
 
 _Prověřeno 3 adversárními kontrolami: 41 nálezů, 37 zapracováno, 4 zamítnuty jako vkusové. Poté ručně překlopeno na paletu Tech Blue + Emerald (rozhodnutí 22. 8. 2026) s přepočtem všech kontrastů._
 
-**Verze:** 2.3 · **Datum:** 2026-09-12 · **Platí pro:** www.intelidome.com / intelidome.cz (Next.js + Tailwind CSS + GSAP)
+**Verze:** 2.4 · **Datum:** 2026-09-12 · **Platí pro:** www.intelidome.com / intelidome.cz (Next.js + Tailwind CSS + GSAP)
 **Primární reference:** [Sonos](https://styles.refero.design/style/8d315332-6267-4dc0-a14c-e8b49c26b0e1) · **Sekundární:** [Eight Sleep](https://styles.refero.design/style/e4e8fe86-47ed-4ddd-a6c6-2c28eae9aabe), [Samara](https://styles.refero.design/style/934a61aa-50ff-4e90-852b-4ad0b8262d54)
 
 > **Esence:** Teplý papír za dne, obsidian po setmění — a jeden modrý pulz.
@@ -258,7 +258,7 @@ Vše přes `clamp()` — žádné breakpointové skoky velikostí. Písmo Archiv
 3. **`text-wrap: balance`** na `display-xl`, `display`, `title`, `title-sm`, `subtitle` (nadpisy do 4 řádků); **`text-wrap: pretty`** na prose odstavce.
 4. **Sloupec prózy 700px** (`--id-maxw-prose`) je šířka **sloupce v mřížce**, ne míra textu: SF Pro 17 px v něm dává ~87 znaků na řádek (naměřeno u dvou článků), ne 65. **Míra textu je `--id-measure: 33em`** (≈ 70 znaků při jakékoli velikosti písma) a uplatňuje se pravým odsazením uvnitř sloupce, ne zúžením boxu — osy mřížky se tím nehnou (ADR-007). Platí pro odstavce, seznamy, callouty, odpovědi FAQ i prózu pásů; ne pro titulky, lead souhrnu a centrované CTA. Body text se nikdy necentruje — centrují se jen display titulky.
 5. **Tracking:** záporný roste s velikostí (−0.01em u 17px → −0.035em u 112px); kladný +0.14em výhradně u uppercase labelů 12px. Uppercase bez rozšířeného trackingu zakázán.
-6. **Minimum 12px** — jen uppercase label; nejmenší běžný text caption 13,5px.
+6. **Minimum 12px** — jen uppercase label; nejmenší běžný text caption 13,5px. Výjimky (v2.4): číslo figury `<b>` v popisku 11,5 px (7.12) a popisky uvnitř škálovaného SVG, které se na telefonu vykreslují 10,2–10,6 px (9.2 p. 3).
 7. **line-height body 1.65, strop 1.7** (ES); display line-height nikdy nad 1.25.
 8. **Na obsidianu** `-webkit-font-smoothing: antialiased;` (jen tmavé pásy — světlé písmo jinak opticky tloustne); text `#ffffff` / `--id-ink-dark-2`.
 
@@ -624,7 +624,7 @@ Odchylky uvedeny u komponent.
 | Stav | Specifikace | Poznámka |
 |---|---|---|
 | hover (plošné prvky) | translateY(-3px) karty / -4px step a feature karty + zesílený stín; přechod 0.25–0.4s ease | jen transform + box-shadow/border-color, nikdy layout |
-| hover (buttony) | translateY(-2px); přechod transform .35s cubic-bezier(.22,.61,.21,1), box-shadow .35s, background .25s | primary navíc glow stín |
+| hover (buttony) | translateY(-2px); přechod transform .35s `--id-ease` (.22,.61,.36,1 — sjednoceno s 6.2 ve v2.4, dřív tu stálo .21 = `--id-ease-reveal`), box-shadow .35s, background .25s | primary navíc glow stín |
 | focus-visible standard | outline:3px solid accent; offset:3px | buttony, seg, kalk. inputy |
 | focus-visible kompaktní | outline:2.5px solid accent; offset:4px | logo, odkazy v liště |
 | focus-visible slider | outline:3px solid accent; offset:6px | offset kvůli 28px palci |
@@ -1131,8 +1131,11 @@ okraje jsou naopak pružné a spolknou celý přebytek okna.
 1. **Kapitoly se ve stranách střídají** — dvě sousední figury nikdy nekotví
    ke stejné hraně.
 2. **Popisek se drží ukotvené hrany**: u `--offset-left` jde doprava
-   (`margin-left: auto`), u `--offset-right` zůstává vlevo. Max 62ch —
-   nejmenší text stránky nesmí mít nejdelší míru.
+   (`margin-left: auto`), u `--offset-right` zůstává vlevo. Míra 30 em
+   (≈ 62 znaků; `62ch` dávalo 85 — `ch` je u SF Pro široký) — nejmenší
+   text stránky nesmí mít nejdelší míru. Popisek `--bleed` figury stojí
+   **na ose prózy** (levá hrana = osa prózy, 30 em), ne centrovaný —
+   centrovaný box zaváděl čtvrtou levou hranu (v2.4).
 3. **Pod 900 px offsety mizí** a figura se vrací do osy textu; `--bleed`
    zůstává full-bleed i na telefonu.
 4. Full-bleed je **předěl, ne norma**. Schéma s popisky ho neunese
@@ -1227,7 +1230,7 @@ Technická kresba: obrys, žádné 3D ani stínování; jediné gradienty dva ra
 
 1. Jeden akcent na figuru: #2563eb = voda/aktivní bod, nikdy 2 nesouvisející modré motivy (tinty = týž motiv).
 2. Stroke 1.5–2.5px, default 1.6px, linecap round; pomocné kružnice a osy dasharray 3 7 #d5d3cc.
-3. Popisky .sv-lbl: Archivo 12px w600 uppercase ls .1em, fill #5b5e63 / #9ba1a8 (tmavý).
+3. Popisky .sv-lbl: Archivo 12px w600 uppercase ls .1em, fill #5b5e63 / #9ba1a8 (tmavý); hodnoty `.sv-val` 15 px w600 ink. **Klíčová hodnota (pointa kresby) 24 px w600 — jeden stupeň pro všechny kresby článku** (v2.4; porota článku 2 našla 20/22/24/26/30 px v šesti kresbách). Kresba se škáluje s viewBoxem: na ≤ 560 px se `.sv-lbl/.sv-val` zvětšují na 15/18 px (≤ 360: 18/21) a vykreslené minimum je 10 px; přejímka `scripts/svg-labels.mjs` hlídá kolize text × text i značka × text a ořez o panel.
 4. Keyframes: kapky 2.6–3.2 s, ripples 4.6 s, plnění 5 s, rotace 5.5–7 s, paprsky 26 s; bodová rotace vždy SMIL animateTransform rotate „a cx cy" (fill-box = rotace kolem bboxu).
 5. reduced-motion: jednotně dle kontraktu 6.7 a 6.6.4 — animation: none (platí klidový stav z markup) + JS remove všech SMIL uzlů (animateTransform, animate, animateMotion); žádné zkracování na 0,01 ms u animation.
 6. ViewBox: plná šířka 1080×300–430, poloviční 480–560; figura v krémovém panelu (padding clamp(16px,3vw,40px)).
@@ -1655,3 +1658,33 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 ```
 
 `--id-f-display` začíná `var(--id-f-archivo)` — třída z `next/font` tak dosadí self-hostovaný řez místo výchozího `"Archivo"`. Statické stránky bez build pipeline použijí `<link>` z 4.1 beze změny tokenů.
+
+## 14. Otevřené body systému (koš B po smyčce článku 2, 2026-09-12)
+
+Nálezy poroty, které nejsou vadou stránky, ale systému — každý čeká na
+vlastní rozhodnutí (ADR), ne na záplatu v článku:
+
+1. **`display-xl` dolní mez 48 px** dává na 320 px H1 „Krásný trávník
+   začíná pod zemí" čtyři řádky po slovu (360: tři). Kandidát: mez 40–42 px
+   nebo užší tracking pod 360 px.
+2. **Dvě CTA na poslední obrazovce** — kapsle `__go` „Objevit systém" a
+   závěrečná `.id-cta` vedou na tutéž adresu. Kandidát: kapsle-CTA ztlumit,
+   jakmile je `.id-cta` ve viewportu.
+3. **Hero na výšku** načítá `w=3840` (187 kB, dekódování ~25 MB) kvůli
+   `sizes: 236vh` z masteru 21:9. Kandidát: portrétový ořez přes `<picture>`.
+4. **Maska řádků H1 (`.id-hline`, 6.3.3)** ořezává descender o 1–2,5 px
+   (box lh 0,98 vs. obsah 122 px). Kandidát: `padding-bottom: .06em` +
+   `margin-bottom: −.06em`.
+5. **Produktový pás** sdílí figuru sítě (`SitMostuPortret`, uzel Osvětlení)
+   napříč články. Kandidát: figura per článek nebo prop na uzly.
+6. **Chip „Kalkulátor" (7.4/7.7)** s akcentovým obrysem čte jako tlačítko.
+7. **Reveal dvousloupce** — hlava, figura a tělo mají tři triggery;
+   na 1440 startuje figura dřív než eyebrow. Kandidát: jedna skupina
+   `data-rv-group` per split (6.3.2).
+8. **Reduced-motion globální blok** krátí na 0,01 ms místo `animation: none`
+   (6.7 v2) — v praxi kryto lokálními pravidly.
+9. **LCP kandidát v heru** je lead, ne H1 (maska) ani fotka (celý viewport).
+10. **Přechod split → próza pod 1130 px** dostává pásovou mezeru 64 px
+    uvnitř toku 22px odstavců; kalkulátor má gap 64 místo `--id-gap-col` 56.
+11. **Skip-link** chybí (11.2 ho nepředepisuje; hero cue ho supluje) a cíle
+    v kapsli jsou pod 24 × 24 px (výjimka spacing).

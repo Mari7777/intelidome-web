@@ -26,6 +26,10 @@ export const generateMeta = async (args: {
 
   const ogImage = getImageURL(doc?.meta?.image)
 
+  const slug = Array.isArray(doc?.slug) ? doc?.slug.join('/') : doc?.slug
+  const isPost = Boolean(doc && 'publishedAt' in doc)
+  const path = slug ? `${isPost ? '/posts/' : '/'}${slug}`.replace('//', '/') : '/'
+
   // The layout's title template appends "| InteliDome"; strip it from stored
   // values (older docs were saved with the suffix baked in) so it appears once.
   const docTitle =
@@ -47,8 +51,12 @@ export const generateMeta = async (args: {
           ]
         : undefined,
       title: docTitle || siteTitle,
-      url: Array.isArray(doc?.slug) ? doc?.slug.join('/') : '/',
+      // Příspěvek má slug jako řetězec, ne pole — dřívější větev proto vždy
+      // spadla na '/' a sdílený článek hlásil crawlerům domovskou stránku.
+      type: isPost ? 'article' : 'website',
+      url: path,
     }),
+    alternates: { canonical: path },
     // `absolute` skips the template — the fallback already carries the brand
     title: docTitle ?? { absolute: siteTitle },
   }

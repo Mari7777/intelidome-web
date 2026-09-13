@@ -19,6 +19,9 @@ const TISICE = /(\d)[ \t](?=\d{3}(?!\d))/g
    za en dash mezi číslicemi jde U+2060 (word joiner). Násobení „1 × 1"
    drží pohromadě pevnými mezerami. */
 const ROZSAH = /(\d)–(?=\d)/g
+/* Rovnice se nesmí zlomit za „=" a odkaz „Obr. 05" za tečkou. */
+const ROVNITKO = /[ \t]+=[ \t]+/g
+const OBRAZEK = /\bObr\.[ \t]+(?=\d)/g
 const KRAT = /(\d)[ \t]*×[ \t]*(?=\d)/g
 
 export const nezlomitelneMezery = (text: string): string =>
@@ -29,6 +32,8 @@ export const nezlomitelneMezery = (text: string): string =>
     .replace(JEDNOTKA_SYMBOL, '$1\u00a0')
     .replace(ROZSAH, '$1–\u2060')
     .replace(KRAT, '$1\u00a0×\u00a0')
+    .replace(ROVNITKO, '\u00a0=\u00a0')
+    .replace(OBRAZEK, 'Obr.\u00a0')
 
 /**
  * Projde Lexical strom a doplní pevné mezery do všech textových uzlů.

@@ -56,14 +56,12 @@ const tileClassName = (index: number, count: number, cols: number): string => {
 
   return cn(
     // padding 22/18/18 while wrapped, 28/26/4 once the tiles stand in one row
-    'min-w-0 pt-[22px] pr-[18px] pb-[18px] pl-0 md:pt-[28px] md:pr-[26px]',
+    'min-w-0 pt-[22px] pr-[18px] pb-[18px] md:pt-[28px] md:pr-[26px]',
     isLastRowOnDesktop ? 'md:pb-[4px]' : 'md:pb-[22px]',
     'border-[color:var(--id-line-soft)]',
-    // single column: every tile but the first needs its own horizontal hairline
-    index > 0 && 'border-t',
-    // two columns
-    opensRowOnTablet ? 'sm:border-l-0 sm:pl-0' : 'sm:border-l sm:pl-[18px]',
-    isFirstRowOnTablet ? 'sm:border-t-0' : 'sm:border-t',
+    // two columns už od nejmenší šířky (7.6: pod 820 px mřížka 1fr 1fr)
+    opensRowOnTablet ? 'border-l-0 pl-0' : 'border-l pl-[18px]',
+    isFirstRowOnTablet ? 'border-t-0' : 'border-t',
     // desktop rows: vertical hairlines inside a row, the shared top hairline sits on the grid
     opensRowOnDesktop ? 'md:border-l-0 md:pl-0' : 'md:border-l md:pl-[26px]',
     isFirstRowOnDesktop ? 'md:border-t-0' : 'md:border-t',
@@ -82,8 +80,8 @@ export const StatTilesBlock: React.FC<StatTilesBlockProps> = ({ className, colum
       <div
         data-rv-group
         className={cn(
-          'grid grid-cols-1 border-t border-[color:var(--id-line-soft)]',
-          items.length > 1 && 'sm:grid-cols-2',
+          'grid border-t border-[color:var(--id-line-soft)]',
+          items.length > 1 ? 'grid-cols-2' : 'grid-cols-1',
           DESKTOP_COLUMNS[cols] ?? 'md:grid-cols-4',
         )}
       >

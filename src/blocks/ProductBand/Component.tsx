@@ -38,19 +38,22 @@ export const ProductBandBlock: React.FC<ProductBandBlockProps> = ({
     <section className={cn('not-prose id-band id-band--obsidian', className)} data-surface="dark">
       <div className="id-band__inner">
         <div className="id-2col">
-        <div className="rv">
+        {/* Jedna orchestrace na sloupec (6.3.2): skupina odhaluje své PŘÍMÉ
+            potomky staggerem. `.rv` uvnitř `.rv` sčítal posun (56 px místo
+            30) a násobil krytí — porota kola 05, pohyb. */}
+        <div data-rv-group>
           {eyebrow ? (
-            <span className="mb-[14px] flex w-fit items-center gap-[10px] font-[family-name:var(--id-f-display)] text-[12px] leading-[1.2] font-semibold tracking-[0.14em] text-[var(--id-accent-tint)] uppercase">
+            <span className="rv mb-[14px] flex w-fit items-center gap-[10px] font-[family-name:var(--id-f-display)] text-[12px] leading-[1.2] font-semibold tracking-[0.14em] text-[var(--id-accent-tint)] uppercase">
               <span aria-hidden="true" className="h-[1.5px] w-[22px] shrink-0 bg-[var(--id-accent-tint)]" />
               {eyebrow}
             </span>
           ) : null}
 
-          <h2 className="font-[family-name:var(--id-f-display)] text-[length:var(--id-t-title)] leading-[1.05] font-semibold tracking-[-0.025em] text-[var(--id-ink-dark)] [text-wrap:balance]">
+          <h2 className="rv font-[family-name:var(--id-f-display)] text-[length:var(--id-t-title)] leading-[1.05] font-semibold tracking-[-0.025em] text-[var(--id-ink-dark)] [text-wrap:balance]">
             {nezlomitelneMezery(title)}
           </h2>
 
-          <div className="mt-[22px] space-y-[18px]">
+          <div className="rv mt-[22px] space-y-[18px]">
             {paragraphs.map((paragraph) => (
               <p className="id-productband__prose" key={paragraph.slice(0, 40)}>
                 {renderStrong(paragraph)}
@@ -61,9 +64,9 @@ export const ProductBandBlock: React.FC<ProductBandBlockProps> = ({
           {/* Vlastnosti pod prózou, ne v řadě pod celým pásem: levý sloupec
               tak dorovná výšku diagramu (dřív 318 vs. 552 px = 42 % prázdna). */}
           {items.length > 0 && (
-            <div className="mt-[34px] grid gap-[18px]" data-rv-group>
+            <div className="rv mt-[34px] grid gap-[18px]">
               {items.map((feature) => (
-                <div className="rv id-feature" key={feature.id ?? feature.title}>
+                <div className="id-feature" key={feature.id ?? feature.title}>
                   <h3 className="id-feature__title">{nezlomitelneMezery(feature.title)}</h3>
                   <p className="id-feature__text">{nezlomitelneMezery(feature.text)}</p>
                 </div>

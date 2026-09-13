@@ -3,11 +3,11 @@
  * Spuštění:  npm run payload -- run scripts/seed-clanek-puda.ts
  *
  * Idempotentní: když článek se stejným slugem existuje, přepíše ho.
- * Ostrý web se plní vlastním nasazením, ne tímhle skriptem — publikaci
+ * Ostrý web se plní vlastním nasazením, ne tímhle skriptem – publikaci
  * dělá majitel v adminu.
  *
  * Text je autorův, převzatý doslova (jen bez citačních značek z editoru).
- * Dvě tabulky z původního textu nesou kresby Obr. 01 a Obr. 05 — tabulka
+ * Dvě tabulky z původního textu nesou kresby Obr. 01 a Obr. 05 – tabulka
  * v próze by byla jejich doslovným opakováním.
  */
 import path from 'path'
@@ -157,6 +157,7 @@ const MEDIA: {
   {
     filename: 'fig-ryci-vidle.avif',
     alt: 'Ruce v pracovních rukavicích zarážejí rycí vidle do připravovaného záhonu pro trávník; hroty lámou světlou udusanou vrstvu pod tmavou drobivou ornicí.',
+      focal: { focalX: 50, focalY: 52, focalPortraitX: 52, focalPortraitY: 48 },
   },
 ]
 
@@ -166,7 +167,10 @@ const body = root([
   block({
     blockType: 'summaryBand',
     blockName: 'Souhrn',
-    lead: 'Nejdražší půda pod trávníkem překvapivě nebývá ta, kterou vám draze přiveze nákladní auto. Je to ta, kterou před výsevem zapomeneme zkontrolovat. Pokud nejprve zjistíme, jakou půdu na zahradě vlastně máme a jak v ní proudí voda, můžeme kořenům připravit *souvislý, provzdušněný prostor hluboký přibližně 30 cm*. Až teprve potom má smysl řešit osivo.',
+    /* Lead je destilát, ne citace z těla: dřív opakoval třetí odstavec
+       úvodu z 94 % a čtenář potkal tezi dvakrát na jedné obrazovce
+       (porota kola 05, hierarchie). Autorova próza zůstává nedotčená. */
+    lead: 'Tři hmatové zkoušky, jedna jamka a kbelík vody vám řeknou, co pod trávníkem doopravdy máte. Teprve z toho plyne, co kupovat – a co si ušetřit. Cílem je *souvislý, provzdušněný prostor hluboký přibližně 30 cm*.',
     tiles: [
       { value: '3', unit: 'typy', label: 'půdy: jílovitá, hlinitá, písčitá' },
       { value: '30', unit: 'cm', label: 'souvislý prostor pro kořeny' },
@@ -175,7 +179,7 @@ const body = root([
     ],
   }),
 
-  /* Úvod — autorův příběh, na obsahové ose před první kapitolou. */
+  /* Úvod – autorův příběh, na obsahové ose před první kapitolou. */
   p('Představte si typický jarní scénář: nový trávník krásně vzejde, všechno je svěže zelené a vy poctivě zaléváte. Pak ale přijde vydatnější déšť a na trávníku se objeví trvalé louže. Nebo naopak udeří několik horkých dnů a tráva začne doslova před očima slábnout. Běžíme pro hnojivo, přidáváme zálivku, doséváme.'),
   p('Jenže problém často neleží na povrchu. Pod deseti centimetry úhledné zeminy totiž může stále ležet udusaná vrstva po stavebních strojích. Žádná sekačka ji neodstraní a sebelepší hnojivo přes ni kořenům cestu neprorazí.'),
   p('Nejdražší půda pod trávníkem tak překvapivě nebývá ta, kterou vám draze přiveze nákladní auto. Je to ta, kterou před výsevem zapomeneme zkontrolovat. Pokud ale nejprve zjistíme, jakou půdu na zahradě vlastně máme a jak v ní proudí voda, můžeme kořenům připravit dokonalý prostor. Až teprve potom má smysl řešit osivo. Pochopení tohoto postupu vás navíc ušetří zbytečného utrácení za práci, kterou vaše zahrada vůbec nepotřebuje. Začít přitom můžeme úplně obyčejně: vezměte rýč, trochu vody a pojďme si ušpinit ruce.'),
@@ -188,9 +192,9 @@ const body = root([
     eyebrow: 'Kapitola 01',
     title: 'Písek, jíl, nebo hlína? Prozradí to vaše dlaň',
     number: '01',
-    alt: 'Tři sloupce hmatového testu: vlevo jílovitá půda — váleček z vlhké zeminy se ohýbá bez prasknutí; uprostřed hlinitá — kulička drží, váleček při ohnutí praská; vpravo písčitá — zrnka drhnou a kulička se rozpadá. Pod každým sloupcem stojí, na co se při přípravě zaměřit.',
+    alt: 'Tři sloupce hmatového testu: vlevo jílovitá půda – váleček z vlhké zeminy se ohýbá bez prasknutí; uprostřed hlinitá – kulička drží, váleček při ohnutí praská; vpravo písčitá – zrnka drhnou a kulička se rozpadá. Pod každým sloupcem stojí, na co se při přípravě zaměřit.',
     caption:
-      'Tři půdy, tři chování ve vlhké dlani. Ohebný váleček je jíl, praskající hlína, rozpadlá kulička písek — a každá chce od přípravy něco jiného.',
+      'Tři půdy, tři chování ve vlhké dlani. Ohebný váleček je jíl, praskající hlína, rozpadlá kulička písek – a každá chce od přípravy něco jiného.',
     body:
       'Slovo „hlína“ používáme v běžné řeči pro všechno, co se nám lepí na boty. Z hlediska trávníku je to ale nepřesné. Pro základní orientaci dělíme půdu do tří skupin: na těžkou jílovitou, střední hlinitou a lehkou písčitou. Ačkoliv v přírodě existuje mnoho přechodů, toto rozdělení nám prozradí to nejdůležitější – jak půda hospodaří s vodou a vzduchem.\n\nOznačení „těžká“ a „lehká“ přitom neříká, jak těžký bude kbelík, až ho naplníte. Popisuje to, jak těžko či snadno se půda zpracovává. Rozdíl tkví ve velikosti nerostných částic. Největší zrnka má písek, jemnější je prach a absolutně nejjemnější je jíl. Mezi těmito částicemi vznikají mezery, takzvané půdní póry. Právě v nich se ukrývá voda a vzduch. Zdravá půda musí umět obojí: po dešti vodu chvíli podržet, ale přebytek včas odvést, aby se ke kořenům mohl vrátit životodárný kyslík.',
   }),
@@ -242,7 +246,7 @@ const body = root([
     number: '03',
     alt: 'Řez zkušební jámou hlubokou 30 cm naplněnou vodou, přes okraj leží laťka a od ní se měří vzdálenost k hladině; hladina klesla o 1 cm za 15 minut, tedy 4 cm za hodinu. Pod jámou stupnice se třemi pásmy: pod 2,5 cm/h pomalé, 2,5 až 7,5 ideální, nad 10 příliš rychlé.',
     caption:
-      'Zkouška vsakování. Pokles hladiny za čtvrt hodiny krát čtyři dá centimetry za hodinu — a ta hodnota rozhodne, jestli řešit odtok, nebo zadržení vody.',
+      'Zkouška vsakování. Pokles hladiny za čtvrt hodiny krát čtyři dá centimetry za hodinu – a ta hodnota rozhodne, jestli řešit odtok, nebo zadržení vody.',
     body:
       'Zní to jako paradox, ale tráva ke svému životu zoufale potřebuje kyslík. Kyslík totiž slouží k buněčnému dýchání, při kterém rostlina pod zemí získává energii z cukrů vytvořených v listech na slunci.\n\nPokud voda na dlouhou dobu zaplní půdní póry a vytlačí z nich vzduch, kořeny se začnou dusit a nevratně se poškodí. Až poté vysvitne slunce a oteplí se, tráva začne vadnout, přestože stála donedávna v kaluži. Pokud v takové chvíli zapnete zavlažování, problém jen zhoršíte.\n\nJak odtok vody prověřit? Nejprve se po zahradě projděte po opravdu vydatném dešti. Zmapujte si místa, kde stojí louže, a kudy případně přitéká voda od sousedů nebo ze svahu. Zkontrolujte zahradu i druhý den. Jedna zapomenutá louže v dolíku je úplně jiný problém než rovnoměrně nasáklý a čvachtající pozemek.',
   }),
@@ -292,12 +296,12 @@ const body = root([
 
   /* ── Kapitola 05 ─────────────────────────────────────────────── */
   /* Kresba tří zón nestojí v čele kapitoly, ale u podkapitoly o zónování,
-     o kterém mluví — jinak měla kapitola 2,2 obrazovky prózy bez obrazu
+     o kterém mluví – jinak měla kapitola 2,2 obrazovky prózy bez obrazu
      (porota rozložení, kolo 01). Čelo kapitoly nese titulek + próza. */
-  /* ── Kapitola 05 — otevírá Obr. 05 jako ostatní kapitoly. V kole 04
+  /* ── Kapitola 05 – otevírá Obr. 05 jako ostatní kapitoly. V kole 04
      stála kresba 1 350 px pod titulkem u mezititulku h3 (hierarchie
      i rozložení). Trojice jíl / hlína / písek jde do těla dvousloupce
-     jako odstavce s tučným návěstím — seznam do těla splitu nejde. ─── */
+     jako odstavce s tučným návěstím – seznam do těla splitu nejde. ─── */
   split({
     blockName: 'Kapitola 05',
     side: 'image-right',
@@ -307,7 +311,7 @@ const body = root([
     number: '05',
     alt: 'Řez profilem 30 cm rozdělený do tří zón: 0 až 10 cm minerální základ s biocharem, Actinem a zeolitem, kde žije nejvíc kořenů; 10 až 15 cm minerální základ se zeolitem jako přechod; 15 až 30 cm jen minerální základ jako rezervní prostor pro vodu a vzduch. Přechody mezi zónami jsou plynulé, ne ostré.',
     caption:
-      'Co kam patří. Drahé příměsi jen tam, kde žijí kořeny; spodní zóna je rezervoár vody a vzduchu — a přechody navazují, nejsou to patra dortu.',
+      'Co kam patří. Drahé příměsi jen tam, kde žijí kořeny; spodní zóna je rezervoár vody a vzduchu – a přechody navazují, nejsou to patra dortu.',
     body:
       'Až teď přichází chvíle, kdy má smysl uvažovat o tom, co do půdy přimíchat. Už víme, co máme v ruce, víme, co je pod tím, a víme, jak odtéká voda. Každá příměs tak dostane svůj jasný úkol.\n\n**Těžký jíl:** Nejdříve fyzicky odstraňte utužení (když je půda mírně vlhká). Pokud to nestačí a musíte změnit zrnitost, použijte promyšlenou směs praného písku a původní zeminy. Pozor: pár lopat písku nevyřeší nic! Jemný jíl jen vyplní mezery mezi zrny písku. Je to jako nasypat jemný prach do sklenice s korálky – víc vzduchu tím nezískáte.\n\n**Střední hlína:** Nedělejte nic plošně, řešte jen místní utužení. Písek sem přidávejte jen tehdy, pokud je hlína spíše těžší. Drobtovitá zdravá půda písek nepotřebuje.\n\n**Lehký písek:** Na další písek zapomeňte. Veškeré úsilí věnujte tomu, jak v zemině udržet vodu a živiny.',
   }),
@@ -338,14 +342,14 @@ const body = root([
 
   calc('primesi', true, 'axis'),
 
-  /* ── Kapitola 06 — bez kresby, obraz nese full-bleed fotografie ─────
+  /* ── Kapitola 06 – bez kresby, obraz nese full-bleed fotografie ─────
      Pořadí titulek → obraz → próza jako u ostatních kapitol; fotka před
      tezí by obracela hierarchii (porota kola 03). */
   chapter('Těžká práce: udělejte to hned, později už to nepůjde', 'Kapitola 06'),
   figure(
     'fig-ryci-vidle.avif',
     '06',
-    'Rozrušit udusanou vrstvu přesně v hloubce, kde leží — a jen tehdy, když se zemina po zmáčknutí drží pohromadě, ale dá se rozdrobit.',
+    'Rozrušit udusanou vrstvu přesně v hloubce, kde leží – a jen tehdy, když se zemina po zmáčknutí drží pohromadě, ale dá se rozdrobit.',
     'bleed',
     false,
   ),
@@ -365,7 +369,7 @@ const body = root([
     number: '07',
     alt: 'Tři fáze téhož řezu půdou: čerstvě nakypřená zemina s velkými vzduchovými mezerami a rovným povrchem; po dešti slehlá vrstva s prohlubní a loužičkou; nakonec prohlubeň doplněná směsí a stabilní, ustálený povrch připravený k výsevu.',
     caption:
-      'Čerstvě zpracovaná zemina lže. Teprve po zavlažení a několika týdnech sedání víte, kde se terén propadne — a doplníte to dřív, než to udělá déšť na hotovém trávníku.',
+      'Čerstvě zpracovaná zemina lže. Teprve po zavlažení a několika týdnech sedání víte, kde se terén propadne – a doplníte to dřív, než to udělá déšť na hotovém trávníku.',
     body:
       'Máte hotovo, hlína je krásně nakypřená a láká k okamžitému výsevu. Zadržte. Čerstvě zpracovaná zemina lže.\n\nMezi částicemi je teď spousta umělého vzdušného prostoru. Jakmile zaprší, celá směs si začne „sedat“. Pokud byste zaseli hned, první silnější déšť vám na budoucím trávníku vymodeluje nepředvídatelné dolíky a propadliny.\n\nPlochu proto zhruba urovnejte a důkladně zavlažte, aby se promáčela celá připravená vrstva (pozor, proud vody nesmí spláchnout povrch!). Podle počasí a hloubky zásahu potrvá i několik týdnů, než si půda sedne. Sledujte, kde se tvoří louže a kde se terén propadá. Tyto prohlubně doplňte správnou směsí zeminy a znovu zvlhčete. Vaším cílem je stabilní, vyzrálý povrch, nikoliv uježděná tvrdá deska.',
   }),
@@ -405,7 +409,7 @@ const body = root([
       {
         question: 'Proč zrovna 30 centimetrů, když má tráva mělké kořeny?',
         answer: mini(
-          'Horních pár centimetrů půdy se s počasím neustále mění — slunce je vysuší, zálivka namočí. Třicet centimetrů souvislého, provzdušněného prostoru dá kořenům rezervoár: pod metrem čtverečním je to 300 litrů půdy místo 100. Trávník je pak méně závislý na tom, co se právě děje na povrchu, a lépe hospodaří s vodou mezi dešti a zálivkami.',
+          'Horních pár centimetrů půdy se s počasím neustále mění – slunce je vysuší, zálivka namočí. Třicet centimetrů souvislého, provzdušněného prostoru dá kořenům rezervoár: pod metrem čtverečním je to 300 litrů půdy místo 100. Trávník je pak méně závislý na tom, co se právě děje na povrchu, a lépe hospodaří s vodou mezi dešti a zálivkami.',
         ),
       },
       {
@@ -417,7 +421,7 @@ const body = root([
       {
         question: 'Jak spočítám, kolik příměsi (třeba zeolitu) koupit?',
         answer: mini(
-          'Vždy přes litry, ne kilogramy. Vrstva 20 cm pod metrem čtverečním je 200 litrů; 5 % z toho je 10 litrů příměsi. Litry převedete na kilogramy sypnou hustotou od výrobce — při 0,8 kg/l je to 8 kg na m², tedy 800 kg na 100 m². Procento podílu nikdy nepočítejte z hmotnosti, litr zeminy váží jinak než litr zeolitu.',
+          'Vždy přes litry, ne kilogramy. Vrstva 20 cm pod metrem čtverečním je 200 litrů; 5 % z toho je 10 litrů příměsi. Litry převedete na kilogramy sypnou hustotou od výrobce – při 0,8 kg/l je to 8 kg na m², tedy 800 kg na 100 m². Procento podílu nikdy nepočítejte z hmotnosti, litr zeminy váží jinak než litr zeolitu.',
         ),
       },
     ],
@@ -430,11 +434,11 @@ const body = root([
     eyebrow: 'Systém InteliDome',
     title: 'Když závlahu řídí půda, ne kalendář',
     body:
-      'Mokrá hlína neznamená napité kořeny — a do přemokřeného profilu je každá další zálivka škoda. Čidlo vlhkosti InteliDome sedí přímo v kořenové zóně, kterou jste právě připravili, a měří, **kolik vody tam skutečně je**.\n\nSystém tak zalévá tehdy, kdy mají kořeny žízeň, a mlčí, když je půda po dešti plná. Těch třicet centimetrů rezervoáru začne pracovat pro vás, ne proti vám.',
+      'Mokrá hlína neznamená napité kořeny – a do přemokřeného profilu je každá další zálivka škoda. Čidlo vlhkosti InteliDome sedí přímo v kořenové zóně, kterou jste právě připravili, a měří, **kolik vody tam skutečně je**.\n\nSystém tak zalévá tehdy, kdy mají kořeny žízeň, a mlčí, když je půda po dešti plná. Těch třicet centimetrů rezervoáru začne pracovat pro vás, ne proti vám.',
     features: [
       {
         title: 'Čidlo v kořenové zóně',
-        text: 'Měří vlhkost v hloubce, kde kořeny skutečně pijí — ne na povrchu, který slunce vysuší za odpoledne.',
+        text: 'Měří vlhkost v hloubce, kde kořeny skutečně pijí – ne na povrchu, který slunce vysuší za odpoledne.',
       },
       {
         title: 'Zálivka podle půdy',
@@ -451,7 +455,7 @@ const body = root([
     blockType: 'ctaBand',
     blockName: 'Závěrečná výzva',
     title: 'Trávník, který začíná pod zemí',
-    sub: 'Připravili jste kořenům třicet centimetrů prostoru. Chcete, aby dostávaly vodu přesně tehdy, kdy ji potřebují — a ani o zálivku víc?',
+    sub: 'Připravili jste kořenům třicet centimetrů prostoru. Chcete, aby dostávaly vodu přesně tehdy, kdy ji potřebují – a ani o zálivku víc?',
     buttonLabel: 'Objevit systém InteliDome',
     buttonHref: '/',
     ask: 'A otázka na závěr: víte, co leží pod deseti centimetry vaší ornice, nebo to zatím jen tušíte?',
@@ -480,14 +484,14 @@ const run = async () => {
     }
     const filePath = path.resolve(dirname, '../zdroje-informaci/fotky', item.filename)
     if (!existsSync(filePath)) {
-      payload.logger.warn(`fotografie ${item.filename} není v zdroje-informaci/fotky — přeskočeno`)
+      payload.logger.warn(`fotografie ${item.filename} není v zdroje-informaci/fotky – přeskočeno`)
       continue
     }
     await payload.create({ collection: 'media', data: { alt: item.alt, ...item.focal }, filePath })
     payload.logger.info(`nahráno médium ${item.filename}`)
   }
 
-  /* Figury odkazují na média názvem souboru — přeložíme na ID.
+  /* Figury odkazují na média názvem souboru – přeložíme na ID.
      Chybějící soubor blok vypustí, aby článek nikdy nespadl na null. */
   const nodes = body.root.children as Node[]
   const resolved: Node[] = []
@@ -505,7 +509,7 @@ const run = async () => {
       pagination: false,
     })
     if (found.docs.length === 0) {
-      payload.logger.warn(`médium "${filename}" nenalezeno — figura vynechána`)
+      payload.logger.warn(`médium "${filename}" nenalezeno – figura vynechána`)
       continue
     }
     delete fields!.__filename
@@ -529,7 +533,7 @@ const run = async () => {
     content: body,
     publishedAt: '2026-09-12T08:00:00.000Z',
     meta: {
-      // og:image = hero (bez toho jde ven og-default.webp — porota kola 04, výkon)
+      // og:image = hero (bez toho jde ven og-default.webp – porota kola 04, výkon)
       image: hero.docs[0]?.id,
       title: 'Krásný trávník začíná pod zemí: jak připravit půdu pro trávník',
       description:
@@ -554,7 +558,7 @@ const run = async () => {
       draft: false,
       context: { disableRevalidate: true },
     })
-    payload.logger.info(`Článek aktualizován (id ${id}) — /posts/${SLUG}`)
+    payload.logger.info(`Článek aktualizován (id ${id}) – /posts/${SLUG}`)
   } else {
     const created = await payload.create({
       collection: 'posts',
@@ -562,7 +566,7 @@ const run = async () => {
       draft: false,
       context: { disableRevalidate: true },
     })
-    payload.logger.info(`Článek vytvořen (id ${created.id}) — /posts/${SLUG}`)
+    payload.logger.info(`Článek vytvořen (id ${created.id}) – /posts/${SLUG}`)
   }
 
   process.exit(0)

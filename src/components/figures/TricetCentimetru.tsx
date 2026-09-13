@@ -113,9 +113,12 @@ export const TricetCentimetru: React.FC = () => (
       <line x1="254" y1="244" x2="266" y2="244" />
       <line x1="254" y1="304" x2="266" y2="304" />
     </g>
-    <text className="sv-lbl" x="260" y="178" textAnchor="middle">10</text>
-    <text className="sv-lbl" x="260" y="238" textAnchor="middle">20</text>
-    <text className="sv-lbl" x="260" y="298" textAnchor="middle">30</text>
+    {/* Hloubková osa mluví ve všech řezech stejně (9.2 p. 3): .sv-val,
+        jednotka jen u nuly. Dřív tu byl .sv-lbl 12 px bez jednotky. */}
+    <text className="sv-val" x="260" y="118" textAnchor="middle">0 cm</text>
+    <text className="sv-val" x="260" y="178" textAnchor="middle">10</text>
+    <text className="sv-val" x="260" y="238" textAnchor="middle">20</text>
+    <text className="sv-val" x="260" y="298" textAnchor="middle">30</text>
 
     {/* ── objemy ──────────────────────────────────────────────── */}
     <text className="sv-lbl" x="130" y="340" textAnchor="middle">Objem pro kořeny</text>

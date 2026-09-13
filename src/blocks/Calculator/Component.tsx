@@ -42,7 +42,7 @@ const Warn = () => (
 /**
  * Kalkulátorový panel (DESIGN.md 7.7).
  *
- * Počítá při psaní — žádné tlačítko „spočítat". Hodnoty jsou předvyplněné
+ * Počítá při psaní – žádné tlačítko „spočítat". Hodnoty jsou předvyplněné
  * čísly z článku, takže panel něco ukazuje hned a čtenář jen přepíše svoje.
  * Verdikt má `aria-live="polite"`, aby se odečítač dozvěděl výsledek.
  */
@@ -83,7 +83,7 @@ const fmtHmota = (kg: number): string =>
  * Zkouška vsakování (článek „Krásný trávník začíná pod zemí", kap. 3):
  * pokles hladiny za dobu měření → centimetry za hodinu. Pásma jsou
  * autorova: pod 2,5 pomalu, 2,5–7,5 ideální, nad 10 příliš rychle.
- * Mezi 7,5 a 10 článek pásmo nepojmenovává — kalkulátor to říká poctivě.
+ * Mezi 7,5 a 10 článek pásmo nepojmenovává – kalkulátor to říká poctivě.
  */
 const Vsak = ({ className, uid }: { className: string; uid: string }) => {
   const [pokles, setPokles] = useState(1)
@@ -103,10 +103,10 @@ const Vsak = ({ className, uid }: { className: string; uid: string }) => {
 
   const zprava = {
     nic: 'Doplňte, o kolik hladina klesla a za jak dlouho.',
-    pomalu: `Voda odtéká pomalu: ${fmt(rychlost)} cm/h je pod 2,5. Najděte příčinu — prohlubeň, přítok z okolí, nebo utužená vrstva z profilu; tu za vhodné vlhkosti rozrušte a test zopakujte.`,
-    idealni: `${fmt(rychlost)} cm/h je v pásmu 2,5 až 7,5 — ideální stav pro většinu rostlin.`,
+    pomalu: `Voda odtéká pomalu: ${fmt(rychlost)} cm/h je pod 2,5. Najděte příčinu – prohlubeň, přítok z okolí, nebo utužená vrstva z profilu; tu za vhodné vlhkosti rozrušte a test zopakujte.`,
+    idealni: `${fmt(rychlost)} cm/h je v pásmu 2,5 až 7,5 – ideální stav pro většinu rostlin.`,
     nad: `${fmt(rychlost)} cm/h je nad ideálním pásmem 2,5 až 7,5, ale ještě ne nad 10. Sledujte, jestli půda udrží vláhu mezi zálivkami.`,
-    rychle: `Voda uniká velmi rychle: ${fmt(rychlost)} cm/h je nad 10. U písčité půdy vás čeká boj o každou kapku — dodejte jí schopnost vodu uchovat. Rychle prázdná jáma není výhra.`,
+    rychle: `Voda uniká velmi rychle: ${fmt(rychlost)} cm/h je nad 10. U písčité půdy vás čeká boj o každou kapku – dodejte jí schopnost vodu uchovat. Rychle prázdná jáma není výhra.`,
   }[pasmo]
 
   return (
@@ -121,6 +121,7 @@ const Vsak = ({ className, uid }: { className: string; uid: string }) => {
           <label htmlFor={`${uid}-pokles`}>Pokles hladiny</label>
           <div className="id-calc__inrow">
             <input
+              aria-describedby={`${uid}-pokles-u`}
               id={`${uid}-pokles`}
               inputMode="decimal"
               min={0}
@@ -129,7 +130,7 @@ const Vsak = ({ className, uid }: { className: string; uid: string }) => {
               type="number"
               value={pokles}
             />
-            <span className="unit">cm</span>
+            <span className="unit" id={`${uid}-pokles-u`}>cm</span>
           </div>
         </div>
 
@@ -137,6 +138,7 @@ const Vsak = ({ className, uid }: { className: string; uid: string }) => {
           <label htmlFor={`${uid}-doba`}>Doba měření</label>
           <div className="id-calc__inrow">
             <input
+              aria-describedby={`${uid}-doba-u`}
               id={`${uid}-doba`}
               inputMode="decimal"
               min={0}
@@ -145,7 +147,7 @@ const Vsak = ({ className, uid }: { className: string; uid: string }) => {
               type="number"
               value={doba}
             />
-            <span className="unit">minut</span>
+            <span className="unit" id={`${uid}-doba-u`}>minut</span>
           </div>
         </div>
       </div>
@@ -204,6 +206,7 @@ const Primesi = ({ className, uid }: { className: string; uid: string }) => {
           <label htmlFor={`${uid}-plocha`}>Plocha trávníku</label>
           <div className="id-calc__inrow">
             <input
+              aria-describedby={`${uid}-plocha-u`}
               id={`${uid}-plocha`}
               inputMode="decimal"
               min={0}
@@ -212,7 +215,7 @@ const Primesi = ({ className, uid }: { className: string; uid: string }) => {
               type="number"
               value={plocha}
             />
-            <span className="unit">m²</span>
+            <span className="unit" id={`${uid}-plocha-u`}>m²</span>
           </div>
         </div>
 
@@ -220,6 +223,7 @@ const Primesi = ({ className, uid }: { className: string; uid: string }) => {
           <label htmlFor={`${uid}-hloubka`}>Hloubka obohacené vrstvy</label>
           <div className="id-calc__inrow">
             <input
+              aria-describedby={`${uid}-hloubka-u`}
               id={`${uid}-hloubka`}
               inputMode="decimal"
               min={0}
@@ -228,7 +232,7 @@ const Primesi = ({ className, uid }: { className: string; uid: string }) => {
               type="number"
               value={hloubka}
             />
-            <span className="unit">cm</span>
+            <span className="unit" id={`${uid}-hloubka-u`}>cm</span>
           </div>
         </div>
 
@@ -236,6 +240,7 @@ const Primesi = ({ className, uid }: { className: string; uid: string }) => {
           <label htmlFor={`${uid}-podil`}>Podíl příměsi (z&nbsp;objemu)</label>
           <div className="id-calc__inrow">
             <input
+              aria-describedby={`${uid}-podil-u`}
               id={`${uid}-podil`}
               inputMode="decimal"
               max={100}
@@ -245,7 +250,7 @@ const Primesi = ({ className, uid }: { className: string; uid: string }) => {
               type="number"
               value={podil}
             />
-            <span className="unit">%</span>
+            <span className="unit" id={`${uid}-podil-u`}>%</span>
           </div>
         </div>
 
@@ -253,6 +258,7 @@ const Primesi = ({ className, uid }: { className: string; uid: string }) => {
           <label htmlFor={`${uid}-hustota`}>Sypná hustota od výrobce</label>
           <div className="id-calc__inrow">
             <input
+              aria-describedby={`${uid}-hustota-u`}
               id={`${uid}-hustota`}
               inputMode="decimal"
               min={0}
@@ -261,7 +267,7 @@ const Primesi = ({ className, uid }: { className: string; uid: string }) => {
               type="number"
               value={hustota}
             />
-            <span className="unit">kg/l</span>
+            <span className="unit" id={`${uid}-hustota-u`}>kg/l</span>
           </div>
         </div>
 
@@ -269,6 +275,7 @@ const Primesi = ({ className, uid }: { className: string; uid: string }) => {
           <label htmlFor={`${uid}-pytel`}>Balení</label>
           <div className="id-calc__inrow">
             <input
+              aria-describedby={`${uid}-pytel-u`}
               id={`${uid}-pytel`}
               inputMode="decimal"
               min={0}
@@ -277,7 +284,7 @@ const Primesi = ({ className, uid }: { className: string; uid: string }) => {
               type="number"
               value={pytel}
             />
-            <span className="unit">kg / pytel</span>
+            <span className="unit" id={`${uid}-pytel-u`}>kg / pytel</span>
           </div>
         </div>
       </div>
@@ -309,7 +316,7 @@ const Primesi = ({ className, uid }: { className: string; uid: string }) => {
           <span>
             {nezlomitelneMezery(
               platne
-              ? `Podíl ${fmt(podil)} % počítáme z litrů: ${fmtN(primesNaM2, 1)} l příměsi + ${fmtN(zakladNaM2, 1)} l minerálního základu = ${fmtN(vrstvaNaM2)} l na každý m². Kilogramy vzniknou až sypnou hustotou — litr zeminy váží jinak než litr příměsi.`
+              ? `Podíl ${fmt(podil)} % počítáme z litrů: ${fmtN(primesNaM2, 1)} l příměsi + ${fmtN(zakladNaM2, 1)} l minerálního základu = ${fmtN(vrstvaNaM2)} l na každý m². Kilogramy vzniknou až sypnou hustotou – litr zeminy váží jinak než litr příměsi.`
               : 'Doplňte plochu, hloubku vrstvy, podíl příměsi a sypnou hustotu od výrobce.',
             )}
           </span>
@@ -342,6 +349,7 @@ const Prutok = ({ className, uid }: { className: string; uid: string }) => {
           <label htmlFor={`${uid}-objem`}>Objem nádoby</label>
           <div className="id-calc__inrow">
             <input
+              aria-describedby={`${uid}-objem-u`}
               id={`${uid}-objem`}
               inputMode="decimal"
               min={0}
@@ -350,7 +358,7 @@ const Prutok = ({ className, uid }: { className: string; uid: string }) => {
               type="number"
               value={objem}
             />
-            <span className="unit">litrů</span>
+            <span className="unit" id={`${uid}-objem-u`}>litrů</span>
           </div>
         </div>
 
@@ -358,6 +366,7 @@ const Prutok = ({ className, uid }: { className: string; uid: string }) => {
           <label htmlFor={`${uid}-cas`}>Čas naplnění</label>
           <div className="id-calc__inrow">
             <input
+              aria-describedby={`${uid}-cas-u`}
               id={`${uid}-cas`}
               inputMode="decimal"
               min={0}
@@ -366,7 +375,7 @@ const Prutok = ({ className, uid }: { className: string; uid: string }) => {
               type="number"
               value={cas}
             />
-            <span className="unit">sekund</span>
+            <span className="unit" id={`${uid}-cas-u`}>sekund</span>
           </div>
         </div>
       </div>
@@ -391,7 +400,7 @@ const Prutok = ({ className, uid }: { className: string; uid: string }) => {
               !platne
               ? 'Doplňte objem nádoby a čas, za který se naplnila.'
               : staci
-                ? `Zdroj na běžný systém stačí — návrhový průtok ${fmt(navrhovy)} l/min je nad hranicí 25 l/min.`
+                ? `Zdroj na běžný systém stačí – návrhový průtok ${fmt(navrhovy)} l/min je nad hranicí 25 l/min.`
                 : `Na běžný systém to zatím nestačí: ${fmt(navrhovy)} l/min proti potřebným 25 l/min. Rozdělte zahradu na víc sektorů, nebo posilte zdroj.`,
             )}
           </span>
@@ -424,6 +433,7 @@ const Davka = ({ className, uid }: { className: string; uid: string }) => {
           <label htmlFor={`${uid}-plocha`}>Plocha sektoru</label>
           <div className="id-calc__inrow">
             <input
+              aria-describedby={`${uid}-plocha-u`}
               id={`${uid}-plocha`}
               inputMode="decimal"
               min={0}
@@ -432,7 +442,7 @@ const Davka = ({ className, uid }: { className: string; uid: string }) => {
               type="number"
               value={plocha}
             />
-            <span className="unit">m²</span>
+            <span className="unit" id={`${uid}-plocha-u`}>m²</span>
           </div>
         </div>
 
@@ -440,6 +450,7 @@ const Davka = ({ className, uid }: { className: string; uid: string }) => {
           <label htmlFor={`${uid}-davka`}>Dávka na zálivku</label>
           <div className="id-calc__inrow">
             <input
+              aria-describedby={`${uid}-davka-u`}
               id={`${uid}-davka`}
               inputMode="decimal"
               min={0}
@@ -448,7 +459,7 @@ const Davka = ({ className, uid }: { className: string; uid: string }) => {
               type="number"
               value={davka}
             />
-            <span className="unit">l/m²</span>
+            <span className="unit" id={`${uid}-davka-u`}>l/m²</span>
           </div>
         </div>
 
@@ -456,6 +467,7 @@ const Davka = ({ className, uid }: { className: string; uid: string }) => {
           <label htmlFor={`${uid}-prutok`}>Návrhový průtok</label>
           <div className="id-calc__inrow">
             <input
+              aria-describedby={`${uid}-prutok-u`}
               id={`${uid}-prutok`}
               inputMode="decimal"
               min={0}
@@ -464,7 +476,7 @@ const Davka = ({ className, uid }: { className: string; uid: string }) => {
               type="number"
               value={prutok}
             />
-            <span className="unit">l/min</span>
+            <span className="unit" id={`${uid}-prutok-u`}>l/min</span>
           </div>
         </div>
       </div>
@@ -489,8 +501,8 @@ const Davka = ({ className, uid }: { className: string; uid: string }) => {
               !platne
               ? 'Doplňte plochu, dávku a průtok.'
               : dlouhe
-                ? `${fmt(minuty, 0)} minut v jednom kuse je moc — voda odteče dřív, než se stihne vsáknout. Rozdělte plochu na víc sektorů a nechte mezi nimi vsáknout.`
-                : `${fmt(minuty, 0)} minut na sektor je rozumná dávka — voda stihne vsáknout, místo aby odtekla po povrchu.`,
+                ? `${fmt(minuty, 0)} minut v jednom kuse je moc – voda odteče dřív, než se stihne vsáknout. Rozdělte plochu na víc sektorů a nechte mezi nimi vsáknout.`
+                : `${fmt(minuty, 0)} minut na sektor je rozumná dávka – voda stihne vsáknout, místo aby odtekla po povrchu.`,
             )}
           </span>
         </div>
@@ -499,5 +511,5 @@ const Davka = ({ className, uid }: { className: string; uid: string }) => {
   )
 }
 
-/* Až za všemi panely — `const` komponenty nesmí být použité před deklarací. */
+/* Až za všemi panely – `const` komponenty nesmí být použité před deklarací. */
 const PANELY = { prutok: Prutok, davka: Davka, vsak: Vsak, primesi: Primesi } as const

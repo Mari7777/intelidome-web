@@ -33,9 +33,9 @@ export const PudniProfil: React.FC = () => (
       <line x1="70" y1="400" x2="82" y2="400" />
     </g>
     <text className="sv-val" x="64" y="105" textAnchor="end">0 cm</text>
-    <text className="sv-val" x="64" y="205" textAnchor="end">10 cm</text>
-    <text className="sv-val" x="64" y="305" textAnchor="end">20 cm</text>
-    <text className="sv-val" x="64" y="405" textAnchor="end">30 cm</text>
+    <text className="sv-val" x="64" y="205" textAnchor="end">10</text>
+    <text className="sv-val" x="64" y="305" textAnchor="end">20</text>
+    <text className="sv-val" x="64" y="405" textAnchor="end">30</text>
 
     {/* ── stěna sondy ──────────────────────────────────────────── */}
     <g clipPath="url(#pp-rez)">

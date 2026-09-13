@@ -343,10 +343,22 @@
   *,
   *::before,
   *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
+    /* 6.7 v2: `animation: none`, ne zkrácení na 0,01 ms — zkrácená animace
+       pořád doběhne do koncového snímku; klidový stav má nést markup. */
+    animation: none !important;
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
+  }
+  /* Pojistky kontraktu: co odhaluje JS nebo maska, zůstane viditelné. */
+  .rv {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  .id-hline > span {
+    transform: none !important;
+  }
+  .id-hero__fade {
+    opacity: 1 !important;
   }
 }
 
@@ -818,6 +830,7 @@ html {
 }
 .id-cta__sub {
   margin: 16px auto 0;
+  letter-spacing: -0.01em;
   /* 56ch = 600 px = 78 znaků; míra 30 em ≈ 66 znaků (ADR-007). */
   max-width: 30em;
   font-size: var(--id-t-body);
@@ -827,6 +840,7 @@ html {
 }
 .id-cta__ask {
   margin: 26px auto 0;
+  letter-spacing: -0.01em;
   max-width: 52ch;
   font-size: var(--id-t-body-sm);
   line-height: 1.55;
@@ -991,9 +1005,9 @@ html {
   border: 1.5px solid var(--id-accent);
   border-radius: var(--id-r-pill);
   font-family: var(--id-f-display);
-  font-size: 12px;
+  font-size: 11.5px;
   font-weight: 600;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--id-accent-tint);
 }
@@ -1022,6 +1036,11 @@ html {
   gap: 12px;
   min-width: 0;
   flex-wrap: wrap;
+  /* Linka patří řádku, ne poli: dokud ji nesl input, končila tam, kde
+     začínala jednotka, takže pět polí mělo pět pravých hran (rozptyl
+     56 px — porota kola 05). Teď má sloupec jeden doraz jako výstupy. */
+  border-bottom: 2px solid var(--id-line-dark);
+  transition: border-bottom-color 0.25s var(--id-ease);
 }
 .id-calc input[type='number'] {
   line-height: 1;
@@ -1032,7 +1051,6 @@ html {
   min-width: 0;
   padding: 2px 0 8px;
   border: 0;
-  border-bottom: 2px solid var(--id-line-dark);
   border-radius: 0;
   background: transparent;
   color: inherit;
@@ -1041,17 +1059,18 @@ html {
   font-weight: 600;
   letter-spacing: -0.02em;
   font-variant-numeric: tabular-nums;
-  transition: border-bottom-color 0.25s var(--id-ease);
 }
-.id-calc--light input[type='number'] {
+.id-calc--light .id-calc__inrow {
   border-bottom-color: var(--id-line-cream-strong, #d5d3cc);
+}
+.id-calc__inrow:has(input:focus) {
+  border-bottom-color: var(--id-accent);
 }
 /* Podtržení hlásí :focus (myš i klávesnice); klávesnice dostane navíc
    prstenec 3 px / offset 3 px podle 7.0 („kalk. inputy"). Dřívější
    `outline: none` bez náhrady zakazuje 11.2 — porota kola 04 (pohyb + výkon). */
 .id-calc input[type='number']:focus {
   outline: none;
-  border-bottom-color: var(--id-accent);
 }
 .id-calc input[type='number']:focus-visible {
   outline: 3px solid var(--id-accent);
@@ -1134,6 +1153,8 @@ html {
   font-size: 14.5px;
   font-weight: 500;
   line-height: 1.5;
+  /* Míra 33 em jako zbytek prózy (ADR-007) — bez ní běžel verdikt na 36 em. */
+  max-width: calc(var(--id-measure) + 32px);
   transition:
     background 0.3s,
     color 0.3s;
@@ -1197,8 +1218,13 @@ html {
   animation: id-ripple 4.6s cubic-bezier(0.16, 0.6, 0.4, 1) infinite;
 }
 @keyframes id-ripple {
+  /* Krytí náběhne a zhasne uvnitř periody; dřív smyčka začínala na 0,75
+     a na hranici viditelně luplo (porota kola 05, pohyb). */
   from {
     transform: scale(0.32);
+    opacity: 0;
+  }
+  12% {
     opacity: 0.75;
   }
   to {
@@ -1356,6 +1382,18 @@ html {
 .id-figure--bleed img {
   border-radius: 0;
 }
+/* Předěl musí nést váhu i na telefonu: master 21:9 se tam vykresloval
+   jako pruh 393×167 px (19,6 % výšky), zatímco hero má pro výšku vlastní
+   fokální bod. Ořez 4:5 kolem `--id-focal-portrait` (8.2b p. 4, 9.1). */
+@media (max-width: 560px) {
+  .prose .id-figure--bleed img,
+  .id-figure--bleed img {
+    aspect-ratio: 4 / 5;
+    height: auto;
+    object-fit: cover;
+    object-position: var(--id-focal-portrait, var(--id-focal, 50% 50%));
+  }
+}
 .id-figure--bleed > figcaption {
   /* Na ose prózy (370 @1440, 162 @1024), ne na vlastní centrované hraně
      558 — porota rozložení ji měřila jako čtvrtou levou hranu. Procenta
@@ -1511,6 +1549,21 @@ html {
     grid-template-columns: 1fr;
   }
 }
+/* FAQ má vlevo jen nadřádek + titulek + lead (294 px), vpravo seznam,
+   který roste s lámáním otázek: na 1280 zbylo vlevo 47 % prázdna.
+   Dvousloupec proto drží až od 1440; níž jde titulek nad seznam. */
+@media (max-width: 1439px) {
+  section[data-block='faq'].id-2col {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Kotva pod plovoucí kapslí: dolní hrana 74 px (7.1) + odstup + 30 px,
+   o které reveal obsah zvedá. Bez toho přistál nadpis 30 px NAD
+   viewportem a kapsle překryla dalších 56 px (porota kola 05, výkon). */
+:where(.id-article, main) :is(h2, h3)[id] {
+  scroll-margin-top: 124px;
+}
 
 /* ── Svislý rytmus (ADR-006) ──────────────────────────────────────────
    Mezera je vlastnost PŘECHODU, ne komponenty. Komponenty proto vlastní
@@ -1596,6 +1649,12 @@ html {
 .id-article > :is(.id-band, .id-split) + *,
 .id-article > * + :is(.id-band, .id-split) {
   margin-top: var(--id-rhythm-band);
+}
+/* Dva pásy za sebou se potkávají švem: každý nese vlastní `--id-sect-y`
+   nahoře i dole, takže mezera mezi nimi je třetí, cizí prázdno
+   (116 px mezi obsidianem a CTA — porota kola 05, rozložení). */
+.id-article > .id-band + .id-band {
+  margin-top: 0;
 }
 /* Full-bleed fotografie patří ke kapitole POD ní: před ní pásová mezera,
    za ní modulová — jinak vypadá jako dovětek předchozího bloku. */

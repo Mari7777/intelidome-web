@@ -917,3 +917,63 @@ Pozn. k provozu: přesun bloku 561–1129 v `intelidome-ds.css` nechal
 osamocenou `}` → Turbopack držel chybu „Missing opening {" i po opravě
 souboru a restartu; pomohlo až smazat `.next/dev`.
 
+## Kolo 04 — NEPROŠEL (těsně): 3 · 4 · 4 · 4 · 4 · 4 · 4, 1 kritický
+
+Porota běžela jako workflow: 7 lenzů paralelně se strukturovaným verdiktem
+a ke každému kritickému nálezu skeptik, který ho zkouší vyvrátit měřením
+(první pokus se sedmi samostatnými subagenty spadl na limit relace).
+
+| Porotce | 03 → 04 | Kritické 04 |
+|---|---|---|
+| Hierarchie | 4 → 3 | **kapka legendy Obr. 05 přes „základ"**: 393 překryv 4 px, 360/320 6 px; na 1440 kapka 3 px od „základ" vs. 7 px od „voda" → čte se jako značka špatného slova. Skeptik potvrdil třemi cestami (DOM, pixely snímků, offline render). |
+| Typografie | 3 → 4 | žádné (důležité: dlaždice mimo token 26/20 px — můj zpětný krok z kola 04; maska H1 ořezává descender 1,5 px; rozsah „1–2" lomený za pomlčkou) |
+| Pohyb | 4 → 4 | žádné (důležité: primary hover mění pozadí místo glow — 7.2; vstupy kalkulátorů bez prstence — 7.0) |
+| Grafický styl | 4 → 4 | žádné (důležité: táž kolize legendy; klíčové hodnoty v pěti velikostech 20–30 px) |
+| Slop | 4 → 4 | žádné (důležité: sdílená figura produktového pásu s uzlem Osvětlení — koš B; CTA i kapsle vedou na „/" — fáze F1) |
+| Výkon a přístupnost | 4 → 4 | žádné (důležité: vstupy bez prstence; chybí Article JSON-LD, `<time>`, og:image = hero; hero na telefonu w=3840) |
+| Rozložení | 3 → 4 | žádné (důležité: kapitola 05 bez obrazu — 2 499 px prózy mezi Obr. 04 a 05; FAQ levý sloupec 36 % prázdný) |
+
+**Souhrn: 3 · 4 · 4 · 4 · 4 · 4 · 4, 1 kritický** (ze 2). Naměřeno beze sporu:
+36/36 `.rv` odhaleno jednou, 10/10 smyček bez skoku, CLS 0,000, 100 % párů
+≥ 4,5:1, próza Ø 70,5 zn. (0 z 382 řádků nad 80), 254 nbsp po předložkách,
+78 číslo–jednotka, akcent ≤ 0,99 % plochy.
+
+**Zamítnuto s důvodem:** FAQ „přidat 6. otázku" (rozložení) × kolo 03
+„FAQ 40 % prázdna" — šestá otázka by levý sloupec vyprázdnila víc, ne
+míň; CTA na domovskou stránku (slop) = fáze F1, produktová stránka
+neexistuje — koš B; hero w=3840 na telefonu (výkon) = potřebuje portrétový
+ořez jako nový asset — koš B; H1 na 320 px 4 řádky = dolní mez tokenu
+`display-xl` — koš B (DESIGN.md 14).
+
+#### Opraveno — balík „Obr. 05, kapitola 05, sladění se spec" (kolo 05, commit `4875f6f`)
+
+1. **Legenda Obr. 05 na dva řádky (3 + 2)**, viewBox 452; kapka 158 px od
+   „základ". `svg-labels.mjs` nově hlídá i **kolize značka × text** —
+   při 24px pointách hned chytila drobky v Obr. 01 (drobky 4 px výš,
+   pointy na 397).
+2. **Kapitola 05 otevírá Obr. 05** ve dvousloupci s eyebrow + H2 jako
+   ostatní kapitoly; trojice jíl / hlína / písek jde do těla splitu jako
+   odstavce s tučným návěstím (seznam do těla splitu nejde), zónování je
+   h3 + tři odstavce prózy. Pořadí autorova textu beze změny; R L R L R L
+   drží; nejdelší úsek bez hmoty spadl z 2 499 px.
+3. **Klíčová hodnota kreseb 24 px jednotně** (DESIGN 9.2 p. 3, v2.4).
+4. **DS podle spec:** `.id-btn--primary:hover` glow místo ztmavení
+   (+ box-shadow v přechodu); vstupy kalkulátorů `:focus-visible` prstenec
+   3/3 a přechod podtržení; `.id-calc` antialiased (světlý panel auto);
+   figcaption 16/14/mist (7.12); popisek full-bleed figury na ose prózy
+   (370 @1440, 162 @1024).
+5. **Dlaždice zpět na `--id-t-stat`** (40 px @1440, 26 px na telefonu);
+   souhrn sází 2×2 — dlouhý rozsah řeší sazba, ne menší písmo.
+6. **Mikrotypografie:** rozsahy „1–⁠2" (U+2060), „×" místo „x" s pevnými
+   mezerami, `text-wrap: balance` na otázkách FAQ, popisek dlaždice nbsp,
+   hero meta láme po položkách (oddělovač u předchozí), mezera mezi
+   řádky H1 (textContent „trávník začíná").
+7. **Strojová čitelnost:** Article/BlogPosting JSON-LD, `<time datetime>`,
+   og:image = hero.
+
+**Přejímka před porotou 05:** `layout-check` 1024 / 1100 / 1440 / 1990 OK
+(R L R L R L, 64 modulů); `svg-labels` 320 / 360 / 393 / 1440 vč. značek:
+0 kolizí, 0 ořezů; dlaždice 40 px 2×2 @1440; K05 split @10 288 → h3
+zónování @11 737; popisek bleed l=370; JSON-LD BlogPosting + FAQPage;
+hover glow rgba(37,99,235,.35), pozadí beze změny; prstenec 3 px / 3 px;
+`tsc` čistý.

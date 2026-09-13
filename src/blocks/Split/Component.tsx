@@ -107,6 +107,8 @@ export const SplitBlock: React.FC<SplitBlockProps> = ({
               {label}
             </b>
           )}
+          {/* mezera drží slova oddělená i v textContent (odečítač, kopírování) */}
+          {' '}
           <span className="[text-wrap:pretty]">{nezlomitelneMezery(caption)}</span>
         </figcaption>
       </figure>
