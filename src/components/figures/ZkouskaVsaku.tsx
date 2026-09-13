@@ -35,6 +35,9 @@ export const ZkouskaVsaku: React.FC = () => (
     <rect x="30" y="100" width="80" height="20" fill="#3f7d4e" />
     <rect x="240" y="100" width="60" height="20" fill="#3f7d4e" />
     <path d="M30 120 H110 M240 120 H300" stroke="#2e6440" strokeWidth="1.6" fill="none" />
+    {/* Obvodový obrys jako v pěti sesterských kresbách — bez něj byla tahle
+        jediná hmota půdy „otevřená" (porota kola 09, styl). */}
+    <path d="M30 100 V360 H110 M240 360 H300 V100" fill="none" stroke="#232830" strokeWidth="1.6" strokeLinejoin="round" />
     <path
       d="M38 101q-1 -8 -3 -13M52 101q2 -7 5 -12M66 101q0 -9 0 -14M80 101q2 -10 5 -16M94 101q2 -5 5 -8M106 101q-1 -6 -4 -10M248 101q-2 -10 -5 -17M262 101q-2 -6 -5 -11M276 101q1 -5 2 -8M290 101q1 -10 4 -16"
       fill="none"

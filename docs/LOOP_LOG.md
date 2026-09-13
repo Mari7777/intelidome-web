@@ -1357,3 +1357,45 @@ v husté kresbě působí širší rozpal kolize značka × text.
 
 Přejímka: `layout-check` 1024/1280/1440/1990 a `svg-labels` 320/393/1440
 bez nálezu, `tsc` čistý.
+
+## Kolo 09 — 4 · 3 · 4 · 3 · 4 · 4 · 3, 1 kritický
+
+**Hierarchie poprvé na čtyřce** (3 → 4): společná horní hrana titulku
+a kresby zabrala, předstih obrazu 39–92 px → 0 px. Pohyb, slop a výkon
+drží čtyřku potřetí.
+
+**Oba kritické nálezy stylu skeptici vyvrátili měřením** — tvrzení
+o AI artefaktech na obou fotografiích („nesouměrná ramena listu, chybějící
+objímka") neobstálo: robustní fit dává mezi vnějšími rohy 7,8 px (0,25 %
+šířky snímku), sklony +5,1° a +16,9° jsou zrcadlově symetrické vůči
+naklonění nástroje a ramena mají v projekci stejnou délku. Rýč je
+v pořádku; „30px krok" v měření porotce není reprodukovatelný.
+
+**Kritický nález ale zůstal — a byl můj.** Česká desetinná čárka
+v poli sypné hustoty si vyžádala `type="text"`, jenže sazbu panelu nesl
+selektor `.id-calc input[type='number']`. Pole z ní vypadlo a sázelo se
+systémovým 17 px proti 44 px u sousedů; jednotka „kg/l" (18 px) byla
+větší než hodnota. **Pátá regrese z mých vlastních oprav.**
+
+A šestá hned vedle: `align-items: start` sice srovnal horní hranu, ale
+s `grid-template-rows: auto auto` si řádky rozdělily zbytek výšky kresby,
+takže mezera titulek → tělo měla v šesti kapitolách šest hodnot
+(22–113,6 px).
+
+#### Opraveno
+
+| Regrese | Příčina | Řešení | Naměřeno |
+|---|---|---|---|
+| pole hustoty bez sazby | selektor podle **typu pole** | sazbu nese **řádek**: `.id-calc__inrow input` | 5 z 5 polí 44 px / 600 / vpravo |
+| mezera titulek → tělo 22–113,6 px | `grid-template-rows: auto auto` | `auto 1fr` + `margin-bottom: 24px` (5.1) | **24 px ve všech šesti** |
+
+Plus dva nálezy zvenčí: Obr. 03 dostal obvodový obrys (jediná z šesti
+kreseb, které hmota půdy „tekla" bez kontury) a `.id-feature__title`
+sedí na tokenu `--id-t-lead` místo volných 19 px.
+
+**Poučení k selektorům:** vazba na `[type='number']` je vazba na
+implementaci pole, ne na jeho roli. Jakmile se typ změní kvůli něčemu
+úplně jinému (lokalizace!), sazba tiše zmizí. Role patří na kontejner.
+
+Přejímka: `layout-check` 1024/1440/1990 a `svg-labels` 320/393/1440 bez
+nálezu, `tsc` čistý.

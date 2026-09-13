@@ -818,9 +818,10 @@ html {
 }
 .id-feature__title {
   /* Autorita velikostí, ne tučností (Filozofie 2): 17 px byla přesně
-     velikost prózy téhož pásu, hierarchii nesla jen váha (kolo 08). */
+     velikost prózy téhož pásu, hierarchii nesla jen váha (kolo 08).
+     Stupeň bere token `--id-t-lead` ze škály 4.2, ne volné číslo. */
   font-family: var(--id-f-display);
-  font-size: 19px;
+  font-size: var(--id-t-lead);
   line-height: 1.25;
   font-weight: 600;
   letter-spacing: -0.01em;
@@ -1070,7 +1071,10 @@ html {
   border-bottom: 2px solid var(--id-line-dark);
   transition: border-bottom-color 0.25s var(--id-ease);
 }
-.id-calc input[type='number'] {
+/* Sazbu nese ŘÁDEK vstupu, ne typ pole: pole sypné hustoty je `text`
+   (kvůli české desetinné čárce), a se selektorem na `[type='number']`
+   vypadlo ze sazby panelu na systémových 17 px (kolo 09, kritické). */
+.id-calc__inrow input {
   line-height: 1;
   /* Pevných 220 px přeteklo při 320px šířce (400% zoom) dokument
      o 21 px — reflow dle WCAG 1.4.10. Šířka se teď smrskne s panelem. */
@@ -1097,10 +1101,10 @@ html {
 /* Podtržení hlásí :focus (myš i klávesnice); klávesnice dostane navíc
    prstenec 3 px / offset 3 px podle 7.0 („kalk. inputy"). Dřívější
    `outline: none` bez náhrady zakazuje 11.2 — porota kola 04 (pohyb + výkon). */
-.id-calc input[type='number']:focus {
+.id-calc__inrow input:focus {
   outline: none;
 }
-.id-calc input[type='number']:focus-visible {
+.id-calc__inrow input:focus-visible {
   outline: 3px solid var(--id-accent);
   outline-offset: 3px;
 }
@@ -1128,7 +1132,7 @@ html {
 .id-calc__inrow {
   justify-content: flex-start;
 }
-.id-calc input[type='number'] {
+.id-calc__inrow input {
   flex: 1 1 auto;
   text-align: right;
 }
@@ -1475,11 +1479,16 @@ html {
   column-gap: var(--id-gap-col);
   row-gap: 0;
   grid-template-columns: 1fr 1fr;
-  grid-template-rows: auto auto;
+  /* Tělo drží PEVNĚ pod hlavou: s `auto auto` si řádky rozdělily zbytek
+     výšky kresby, takže tentýž přechod měl v šesti kapitolách šest
+     hodnot (22–113,6 px — porota kola 09). Volná výška padá pod tělo. */
+  grid-template-rows: auto 1fr;
 }
 .id-split__head {
   grid-column: 2;
   grid-row: 1;
+  /* 5.1: titulek ↔ obsah = 24 px, konstantně ve všech kapitolách. */
+  margin-bottom: 24px;
   /* `start`, ne `end`: hlava musí mít společnou horní hranu s kresbou,
      jinak do čtení vstupuje obraz dřív než číslo kapitoly (kolo 08). */
   align-self: start;
