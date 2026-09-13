@@ -1680,11 +1680,39 @@ vlastní rozhodnutí (ADR), ne na záplatu v článku:
 6. **Chip „Kalkulátor" (7.4/7.7)** s akcentovým obrysem čte jako tlačítko.
 7. **Reveal dvousloupce** — hlava, figura a tělo mají tři triggery;
    na 1440 startuje figura dřív než eyebrow. Kandidát: jedna skupina
-   `data-rv-group` per split (6.3.2).
-8. **Reduced-motion globální blok** krátí na 0,01 ms místo `animation: none`
-   (6.7 v2) — v praxi kryto lokálními pravidly.
+   `data-rv-group` per split (6.3.2). (Produktový pás takto opraven
+   v kole 06; split zbývá.)
+8. ~~Reduced-motion globální blok krátí na 0,01 ms~~ — **vyřešeno**
+   (kolo 06): blok sází `animation: none !important` + pojistky
+   `.rv` / `.id-hline > span` / `.id-hero__fade` podle 6.7 v2.
 9. **LCP kandidát v heru** je lead, ne H1 (maska) ani fotka (celý viewport).
 10. **Přechod split → próza pod 1130 px** dostává pásovou mezeru 64 px
     uvnitř toku 22px odstavců; kalkulátor má gap 64 místo `--id-gap-col` 56.
 11. **Skip-link** chybí (11.2 ho nepředepisuje; hero cue ho supluje) a cíle
     v kapsli jsou pod 24 × 24 px (výjimka spacing).
+
+Doplněno po kole 05 (2026-09-13):
+
+12. **Partitura pásů dlouhého článku** — mezi souhrnem a produktovým
+    pásem je 16 250 px bez posunu povrchu (83 % stránky) a obsidian
+    tvoří 11,4 % výšky proti 20–35 % z 8.1 p. 3. Rytmus nesou jen
+    vsazené panely. Kandidát: vnitřní krémový mezipás kolem jedné
+    kapitoly, nebo kalkulátor jako plný obsidianový pás místo panelu.
+13. **8.2 × ADR-006** — šablona článku stále předepisuje leadu souhrnu
+    `--id-maxw-summary` 960 px a produktovému pásu `minmax(0,420px) 1fr`,
+    přestože mřížka v3 track 960 ruší. Jedno z toho má z dokumentu zmizet.
+14. **4.2 × 7.7** — `--id-t-stat-xl` clamp(40,5.4vw,64) proti
+    „hero kalkulátoru" clamp(30,3.4vw,46) v 7.7. Stránka drží 7.7,
+    token ze 4.2 nepoužívá nikdo.
+15. **Kotva pod kapslí** — 7.1 nemá token odsazení kotev; stránka teď
+    sází 124 px (dolní hrana 74 + odstup + 30 px revealu). K zapsání
+    do 7.1 jako `--id-anchor-offset`.
+16. **11.3 vzor kalkulátoru** neřeší jednotku u pole: `<label for>` nese
+    jen název veličiny, takže odečítač ohlásí „Hloubka, 20" bez jednotky.
+    Stránka to řeší `aria-describedby` na `<span class="unit">`.
+17. **9.2 gradienty** — pravidlo zná „dva radiální (voda, sucho)", kresby
+    mají navíc `sd-louze` (jiné stopy než závazné .34→.14→.05) a lineární
+    `tz-fade` jako masku, kterou paleta nezná.
+18. **Přejímka mřížky** má krýt i **1280** (a obecně pásmo 1130–1439):
+    sloupce tam jsou o 12–24 % užší a obsah se láme jinak. Do kola 06
+    se pouštěla jen 1024 / 1440 / ≥1920.

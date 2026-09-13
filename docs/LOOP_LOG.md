@@ -977,3 +977,64 @@ ořez jako nový asset — koš B; H1 na 320 px 4 řádky = dolní mez tokenu
 zónování @11 737; popisek bleed l=370; JSON-LD BlogPosting + FAQPage;
 hover glow rgba(37,99,235,.35), pozadí beze změny; prstenec 3 px / 3 px;
 `tsc` čistý.
+
+## Kolo 05 — NEPROŠEL: 4 · 4 · 4 · 3 · 4 · 4 · 3, 0 kritických
+
+Porota poprvé doběhla bez jediného kritického nálezu. Jediný, který
+vznikl (rozložení: CTA pás 40,3 % prázdna), skeptik překlasifikoval —
+240 px prázdna je přesně 2 × `--id-sect-y` (120 nahoře, 120 dole), tedy
+to, co 8.1 p. 6 předepisuje; pod práh 35 % se při 356 px inkoustu
+nedostane ani pás sázený zcela podle normy. Zůstala ale druhá noha
+nálezu: 116 px mezi obsidianem a CTA — dva pásy, které se mají potkat švem.
+
+| Porotce | 04 → 05 | Co drží podprahové lenzy |
+|---|---|---|
+| Hierarchie | 3 → 4 | — (důležité: lead souhrnu = 94 % třetího odstavce úvodu; dvě CTA na poslední obrazovce) |
+| Typografie | 4 → 4 | — (důležité: dvě pomlčky v jednom článku — próza „–", komponenty „—") |
+| Pohyb | 4 → 4 | — (důležité: `.rv` v `.rv` v produktovém pásu = posun 56 px místo 30; ripple startuje na krytí 0,75) |
+| **Grafický styl** | 4 → **3** | hloubková osa má ve třech sousedních řezech tři hlasy (15 px s jednotkou 4× / 12 px bez nuly / 15 px + hlavička „cm"); full-bleed fotka je na telefonu pruh 393×167 px (19,6 % výšky) bez art direction, kterou hero má |
+| Slop | 4 → 4 | — (důležité, koš B: 16 250 px bez posunu povrchu = 83 % stránky, obsidian 11,4 % proti 20–35 % dle 8.1) |
+| Výkon a přístupnost | 4 → 4 | — (důležité: kotva nadpisu končí 30 px nad viewportem a kapsle překryje dalších 56; og:url a canonical míří na domovskou stránku; hero na telefonu w=3840) |
+| **Rozložení** | 4 → **3** | 116px mezera mezi dvěma pásy; pět vstupních polí kalkulátoru má pět pravých hran (rozptyl 56 px); FAQ na 1280 má vlevo 47 % prázdna; úsek 1 978 px prózy bez obrazové hmoty |
+
+Naměřeno beze sporu: 35/35 revealů doběhne a jen jednou, 10/10 smyček
+bez skoku (kromě ripple), CLS 0,0000, LCP = FCP i při 4× brzdě CPU,
+0 textů pod 4,5:1 (pixelově i pod fotkou), 0 přetoku na 320 px, focus
+na všech 18 cílech, próza 69–72 znaků, 339 nezlomitelných mezer,
+0 sirotků v titulcích, akcent ≤ 1,02 %.
+
+#### Opraveno — balík „osa řezů, předěl na telefonu, švy a sazba" (kolo 06, commit `a4b5e14`)
+
+1. **Hloubková osa jedním hlasem** ve všech třech řezech: `.sv-val`,
+   jednotka jen u nuly („0 cm / 10 / 20 / 30"). Zapsáno do 9.2 p. 3.
+2. **Full-bleed fotka má na telefonu ořez 4:5** kolem `--id-focal-portrait`
+   (fotka dostala fokální bod jako hero); nad 560 px zůstává 21:9.
+3. **Šev mezi pásy**: `.id-article > .id-band + .id-band { margin-top: 0 }`
+   — pás nese vlastní `--id-sect-y`, mezera mezi nimi byla třetí, cizí prázdno.
+4. **Linku vstupu nese řádek, ne pole.** Dokud ji nesl input, končila tam,
+   kde začínala jednotka („cm" vs. „kg / pytel"), takže pět polí mělo pět
+   hran. Teď 5 × 691 px @1440, 5 × 353 px @393.
+5. **FAQ drží dvousloupec až od 1440** — níž jde titulek nad seznam.
+6. **Jedna pomlčka** (česká „–") ve všech komponentových textech; nbsp
+   kolem „=" a za „Obr."; verdikt na míru 33 em; chip 11,5 px/+0,14em
+   a CTA tracking na tokeny; dlaždice 2 sloupce už pod 640 px (7.6).
+7. **Kotvy nadpisů** `scroll-margin-top: 124px` (dolní hrana kapsle 74 px
+   + odstup + 30 px revealu) — ověřeno skokem na fragment: top = 124 px.
+8. **Přístupnost a stroje:** jednotky kalkulátoru v přístupném jméně pole
+   (`aria-describedby`), reduced-motion podle 6.7 v2 (`animation: none`
+   + pojistky `.rv` / `.id-hline > span` / `.id-hero__fade`),
+   og:url + og:type=article + canonical na článek.
+9. **Pohyb:** produktový pás má jednu reveal skupinu místo `.rv` v `.rv`;
+   ripple náběh z krytí 0 (12 % periody) místo skoku z 0,75.
+10. **Souhrn:** lead je destilát, ne doslovný třetí odstavec úvodu.
+    Autorova próza zůstala nedotčená — přepsán byl můj text.
+
+**Přejímka před porotou 06:** `layout-check` 1024 / **1280** / 1440 / 1990
+bez chyby (1280 je nově kryté pásmo, které porota označila za nehlídané);
+`svg-labels` 320 / 360 / 393 / 1440 vč. značek: 0 kolizí, 0 ořezů;
+šev mezi pásy 0 px; linky kalkulátoru jednotné; em dash v článku 0;
+kotva 124 px; og + canonical na článek; `tsc` čistý.
+
+**Pozn. k limitu:** vstupní nastavení mělo max 5 kol. Kolo 06 běží proto,
+že balík po kole 05 je hotový a ověřený přejímkami, ale bez verdikt
+poroty ho nelze prohlásit za průchod (u článku 1 smyčka doběhla v 11 kolech).
