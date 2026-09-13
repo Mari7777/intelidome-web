@@ -1230,3 +1230,27 @@ rytmu.** To není vada článku, ale mezera šablony 8.2, která počítá
 s 3–5 kapitolami.
 
 Zlatý standard byl trenér, ne šablona.
+
+## Balík „koš A" (po předání, na žádost autora)
+
+Devět bodů z předávacího seznamu. Nic z toho neprošlo porotou — smyčka
+skončila kolem 07 — takže čísla níž jsou z vlastní přejímky, ne verdikt.
+
+| # | Bod | Stav | Naměřeno |
+|---|---|---|---|
+| 1 | kalkulátor: hodnota u jednotky | ✅ | mezera 12 px, vstup 220 px (7.7) **a zároveň** jeden pravý doraz 691 / 353 px — dřív 520–585 px mezi číslem a jednotkou |
+| 2 | Obr. 05: značka zeolitu | ✅ | 0 výskytů `#5b5e63` v kresbách; rastr i legenda mají `#232830` / 1,6 px |
+| 3 | Obr. 02: podloží | ✅ | opacity 0,70 → **0,88**; hloubkový klíč se přestal obracet |
+| 4 | Obr. 03: čtvrtý segment | ✅ | přibylo „7,5–10 / na hraně"; 4 segmenty = 4 popisky |
+| 5 | split: jedna orchestrace | ✅ | `data-rv-group` na 6 kapitolách; v 90 ms hlava 0,375 · kresba 0,071 · tělo 0 (dřív 0,371/0,371/0,371) |
+| 6 | Obr. 02 a 03: pohyb = princip | ✅ | rýč stojí, kreslí se **kořen**, který se na desce láme do stran (`pathLength="1"`, dashoffset 1→0); hladina už nemizí — klesne, drží na odečet a rychle se doplní |
+| 7 | hero meta | ✅ | „22 min čtení · **2 kalkulátory** · InteliDome Journal · 12. 9. 2026" |
+| 8 | kapitola 05 bez hmoty | ⚠️ částečně | autorovo „Upozornění" sází callout místo odstavce → mobil **3 430 → 2 825 px** (4,0 → 3,3 obrazovky). Cíl 1 300–1 600 px to nesplňuje: bez nové kresby se úsek nerozpůlí |
+| 9 | popisek Obr. 06 na telefonu | ✅ | glyfová hrana 393 → **373 px**, tedy na ose sazby. Past: `padding-right` musí stát **za** `padding-inline`, jinak ho zkratka přepíše |
+
+Přejímka po balíku: `layout-check` 1024 / 1280 / 1440 / 1990 bez chyby,
+`svg-labels` 320 / 393 / 1440 bez kolizí a ořezů, `tsc` čistý.
+
+Bod 8 zůstává otevřený a patří k tomu, co předání pojmenovalo jako kořen
+tří trojek: **sedm kapitol na 19 554 px nemá dost obrazového rytmu.**
+Callout je náplast, ne řešení — to je nová kresba nebo ADR o partituře.

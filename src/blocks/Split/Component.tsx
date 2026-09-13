@@ -60,8 +60,12 @@ export const SplitBlock: React.FC<SplitBlockProps> = ({
   const Titulek = titleLevel === 'h3' ? 'h3' : 'h2'
 
   return (
+    // Jedna orchestrace na kapitolu (6.1 p. 2, recept 6.3.2): skupina odhaluje
+    // své přímé potomky staggerem hlava → kresba → tělo. Tři nezávislé
+    // triggery nastupovaly naráz (stagger 0 ms — porota kola 07, pohyb).
     <section
       className={cn('id-split not-prose', side === 'image-right' && 'id-split--right', className)}
+      data-rv-group
     >
       {/* Tři položky mřížky: hlava, kresba, tělo. Na desktopu hlava + tělo
           v jednom sloupci vedle kresby, na telefonu titulek → kresba → tělo. */}

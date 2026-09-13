@@ -126,7 +126,11 @@ export const ZkouskaVsaku: React.FC = () => (
     <text className="sv-lbl" x="78" y="486" textAnchor="middle">pomalu</text>
     <text className="sv-val" x="221" y="464" textAnchor="middle">2,5–7,5</text>
     <text className="sv-lbl" x="221" y="486" textAnchor="middle">ideální</text>
-    <text className="sv-val" x="451" y="464" textAnchor="middle">nad 10</text>
-    <text className="sv-lbl" x="451" y="486" textAnchor="middle">rychle</text>
+    {/* Čtvrtý segment (7,5–10) zůstával bez legendy, tedy nedešifrovatelný
+        — 21 % šířky pruhu (porota kola 07, styl). */}
+    <text className="sv-val" x="365" y="464" textAnchor="middle">7,5–10</text>
+    <text className="sv-lbl" x="365" y="486" textAnchor="middle">na hraně</text>
+    <text className="sv-val" x="458" y="464" textAnchor="middle">nad 10</text>
+    <text className="sv-lbl" x="458" y="486" textAnchor="middle">rychle</text>
   </svg>
 )

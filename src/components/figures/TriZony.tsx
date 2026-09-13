@@ -17,17 +17,19 @@ import React from 'react'
 export const TriZony: React.FC = () => (
   <svg aria-hidden="true" className="block h-auto w-full" viewBox="0 60 520 452">
     <defs>
-      {/* biochar = černé střípky, Actino = tmavě hnědé hrudky, zeolit = světlá hranatá zrna */}
+      {/* biochar = černé střípky, Actino = tmavě hnědé hrudky, zeolit = světlá hranatá zrna.
+          Obrys #232830 / 1,6 px shodně s legendou — táž značka nesmí mít
+          v jedné kresbě dva obrysy (porota kola 07, styl). */}
       <pattern id="tz-plna" width="30" height="30" patternUnits="userSpaceOnUse">
         <path d="M4 6 l5 -3 3 4 -4 3 z" fill="#12161b" opacity="0.9" />
         <path d="M20 22 l5 -2 2 4 -4 3 z" fill="#12161b" opacity="0.9" />
         <circle cx="21" cy="8" r="2.6" fill="#54402c" />
         <circle cx="8" cy="22" r="2.2" fill="#54402c" />
-        <path d="M13 13 l5 -2 4 3 -1 5 -5 2 -4 -3 z" fill="#d5d3cc" stroke="#5b5e63" strokeWidth="1.5" />
+        <path d="M13 13 l5 -2 4 3 -1 5 -5 2 -4 -3 z" fill="#d5d3cc" stroke="#232830" strokeWidth="1.6" />
       </pattern>
       <pattern id="tz-zeolit" width="34" height="26" patternUnits="userSpaceOnUse">
-        <path d="M6 8 l5 -2 4 3 -1 5 -5 2 -4 -3 z" fill="#d5d3cc" stroke="#5b5e63" strokeWidth="1.5" />
-        <path d="M23 18 l5 -2 4 3 -1 5 -5 2 -4 -3 z" fill="#d5d3cc" stroke="#5b5e63" strokeWidth="1.5" />
+        <path d="M6 8 l5 -2 4 3 -1 5 -5 2 -4 -3 z" fill="#d5d3cc" stroke="#232830" strokeWidth="1.6" />
+        <path d="M23 18 l5 -2 4 3 -1 5 -5 2 -4 -3 z" fill="#d5d3cc" stroke="#232830" strokeWidth="1.6" />
       </pattern>
       {/* vytrácení příměsí u spodní hrany zóny */}
       <linearGradient id="tz-fade" x1="0" y1="0" x2="0" y2="1">

@@ -45,13 +45,17 @@ export const PudniProfil: React.FC = () => (
       <rect x="98" y="200" width="270" height="50" fill="#54402c" opacity="0.95" />
       <rect x="98" y="200" width="270" height="50" fill="url(#pp-lis)" />
       {/* podloží 15–30 */}
-      <rect x="98" y="250" width="270" height="150" fill="#54402c" opacity="0.7" />
+      {/* Podloží musí být TMAVŠÍ než ornice, jinak se hloubkový klíč obrací
+          (při 0,7 vycházelo o 13 % světlejší — porota kola 07, styl). */}
+      <rect x="98" y="250" width="270" height="150" fill="#54402c" opacity="0.88" />
 
       {/* kořeny: ornicí dolů, na desce se placatí a zahýbají do stran */}
       <g fill="none" stroke="#d8c9b4" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" opacity="0.85">
         <path d="M146 100 C 144 130, 148 160, 145 190 C 144 197, 132 198, 106 198 M145 190 C 146 197, 158 198, 184 198" />
         <path d="M146 112 C 136 122, 128 130, 120 134 M146 124 C 156 134, 164 140, 172 146 M146 150 C 138 160, 134 170, 132 180" />
-        <path d="M212 100 C 216 130, 210 160, 213 191 C 214 197, 226 198, 254 198 M213 191 C 212 197, 200 198, 172 198" />
+        {/* Kořen, který se kreslí: dolů ornicí, na desce se zlomí do stran.
+            Nese pohyb celé figury (dřív se pohupoval jen rýč). */}
+        <path className="pp-koren" pathLength="1" d="M212 100 C 216 130, 210 160, 213 191 C 214 197, 226 198, 254 198 M213 191 C 212 197, 200 198, 172 198" />
         <path d="M212 116 C 222 124, 230 130, 236 138 M212 140 C 202 150, 198 158, 196 168 M213 160 C 222 170, 226 178, 228 186" />
         <path d="M276 100 C 274 128, 278 158, 275 191 C 274 197, 262 198, 236 198 M275 191 C 276 197, 288 198, 312 198" />
         <path d="M276 118 C 266 128, 260 136, 256 144 M276 136 C 286 146, 292 152, 296 160 M275 158 C 268 168, 264 176, 262 184" />
@@ -76,8 +80,8 @@ export const PudniProfil: React.FC = () => (
     {/* dno a obrys sondy */}
     <path d="M98 80 V400 H368 V80" fill="none" stroke="#232830" strokeWidth="1.6" strokeLinejoin="round" />
 
-    {/* ── rýč: opřený o desku, zkouší hlouběji a zastaví se ────── */}
-    <g className="pp-ryc">
+    {/* ── rýč: opřený o desku (statický — pohyb patří kořenům) ──── */}
+    <g>
       <rect x="326" y="20" width="10" height="150" rx="3" fill="#232830" stroke="rgba(255,255,255,.2)" strokeWidth="1.6" />
       <rect x="316" y="10" width="30" height="12" rx="4" fill="#232830" stroke="rgba(255,255,255,.2)" strokeWidth="1.6" />
       <path d="M312 168 H350 L346 214 Q331 222 316 214 Z" fill="#232830" stroke="rgba(255,255,255,.2)" strokeWidth="1.6" strokeLinejoin="round" />

@@ -41,8 +41,11 @@ export const PostHero: React.FC<{ post: Post }> = ({ post }) => {
   const lead = meta?.description?.trim() || qualifier
 
   const minutes = readingTime(content)
+  // 8.2 ř. 1: ve třísekundové zóně má stát slib interaktivity, ne jen datum.
+  const kalkulatoru = countCalculators(content)
   const metaItems = [
     minutes ? nezlomitelneMezery(`${minutes} min čtení`) : null,
+    kalkulatoru ? nezlomitelneMezery(`${kalkulatoru} ${kalkulatorySlovo(kalkulatoru)}`) : null,
     hasAuthors ? formatAuthors(populatedAuthors) : null,
     'InteliDome Journal',
     publishedAt ? <time dateTime={publishedAt}>{formatDateTime(publishedAt)}</time> : null,
@@ -124,6 +127,30 @@ function splitTitle(title: string): [string, string | null] {
 
 /** Rozdělí titulek na řádky o max. `maxChars` znacích — každý dostane
  *  vlastní masku, takže mohou stoupat se staggerem (DESIGN.md 6.3.3). */
+/** Kolik kalkulátorů článek nese — hledá bloky `calculator` kdekoli ve stromu. */
+function countCalculators(node: unknown, depth = 0): number {
+  if (depth > 8 || node == null || typeof node !== 'object') return 0
+  if (Array.isArray(node)) return node.reduce<number>((n, child) => n + countCalculators(child, depth + 1), 0)
+  const zaznam = node as Record<string, unknown>
+  const fields = zaznam.fields as Record<string, unknown> | undefined
+  // Jen uzel bloku, ne i jeho `fields` — jinak se každý kalkulátor počítá dvakrát.
+  const jeKalkulator = fields?.blockType === 'calculator'
+  return (
+    (jeKalkulator ? 1 : 0) +
+    Object.values(zaznam).reduce<number>(
+      (n, value) => n + (value && typeof value === 'object' ? countCalculators(value, depth + 1) : 0),
+      0,
+    )
+  )
+}
+
+/** 1 kalkulátor · 2–4 kalkulátory · 5+ kalkulátorů */
+function kalkulatorySlovo(pocet: number): string {
+  if (pocet === 1) return 'kalkulátor'
+  if (pocet < 5) return 'kalkulátory'
+  return 'kalkulátorů'
+}
+
 function splitLines(text: string, maxChars: number): string[] {
   const lines: string[] = []
   let current = ''

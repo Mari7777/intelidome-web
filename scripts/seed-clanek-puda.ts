@@ -326,7 +326,15 @@ const body = root([
   h3('Proč nesypat všechno všude? (Chytré zónování)'),
   p('Pokud půdní profil budujete nově, nemusíte (a ani byste neměli) rvát drahé příměsi do celých 30 centimetrů. Rozdělte si zeminu do tří zón (přičemž „minerální základ“ znamená vaši původní zeminu, případně její směs s pískem) – co kam patří, ukazuje Obr. 05.'),
   p('Toto uspořádání má jasný ekonomický smysl. Představte si plochu 100 m². Vrstva 10 cm představuje 10 000 litrů zeminy. Kdybyste chtěli obohatit celých 30 cm (30 000 litrů), spotřebujete všeho třikrát tolik. Pro takovou investici musíte mít sakra dobrý důvod.'),
-  p(['Upozornění: ', BOLD], 'Zóny neskládejte na sebe jako patra dortu s ostrými hranami. Vše musí být v dané vrstvě rovnoměrně promíchané a přechody musí navazovat, aby kořeny nepřešly šokem. Pokud už dobrou půdu na zahradě máte, nerozebírejte ji kvůli tomuto návodu na tři umělé vrstvy! I vaše spodní vrstva přirozeně obsahuje minerály, organismy a organickou hmotu.'),
+  /* Autorovo upozornění nese callout, ne odstavec: kapitola 05 běžela na
+     telefonu 3 430 px (čtyři obrazovky) bez jediné hmoty (porota kola 07).
+     Text se nemění, mění se jen jeho sazba. */
+  block({
+    blockType: 'banner',
+    blockName: 'Upozornění k zónování',
+    style: 'warning',
+    content: root([p(['Upozornění: ', BOLD], 'Zóny neskládejte na sebe jako patra dortu s ostrými hranami. Vše musí být v dané vrstvě rovnoměrně promíchané a přechody musí navazovat, aby kořeny nepřešly šokem. Pokud už dobrou půdu na zahradě máte, nerozebírejte ji kvůli tomuto návodu na tři umělé vrstvy! I vaše spodní vrstva přirozeně obsahuje minerály, organismy a organickou hmotu.')]),
+  }),
 
   h3('Matematika trávníku: litry řeší poměr, kilogramy nákup'),
   p('Jak spočítat, kolik čeho koupit? Pojďme si ukázat vzorový příklad: Chcete do vrchních 20 cm půdy přidat 5 % zeolitu.'),

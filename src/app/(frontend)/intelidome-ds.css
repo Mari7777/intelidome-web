@@ -1112,13 +1112,15 @@ html {
    panelu byla ze 60 % prázdná, zatímco pravá šla od kraje ke kraji.
    Pod zlomem zůstává pevná šířka — `flex-basis: auto` u number inputu
    tam zvedá min-content stopu sloupce a rozbil by reflow na 320 px. */
-@media (min-width: 821px) {
-  .id-calc__inrow {
-    justify-content: space-between;
-  }
-  .id-calc input[type='number'] {
-    flex: 1 1 auto;
-  }
+/* Pole se nenatahuje: `space-between` + `flex-grow` odtrhly hodnotu od
+   jednotky o 520–585 px (porota kola 07, typografie). 7.7 dává vstupu
+   220 px a jednotka stojí hned za číslem; linku nese řádek, takže pravý
+   doraz sloupce zůstává jeden pro všechna pole. */
+.id-calc__inrow {
+  justify-content: flex-start;
+}
+.id-calc input[type='number'] {
+  flex: 0 0 auto;
 }
 .id-calc__orow {
   display: flex;
@@ -1267,16 +1269,21 @@ html {
   100% { transform: translateY(20px); opacity: 0; }
 }
 
-/* Rýč v sondě: krátký pokus zajet hlouběji, který se o desku zastaví. */
-.pp-ryc {
-  transform-box: fill-box;
-  transform-origin: center;
-  animation: pp-ryc 3.6s cubic-bezier(0.22, 0.61, 0.36, 1) infinite;
+/* Obr. 02 vysvětluje, že kořeny narazí na udusanou desku a rozběhnou se
+   po ní do stran — proto se kreslí kořen, ne pohupuje rýč. Dřív byl
+   jediným pohybem figury rýč o 6 px, tedy dekorace (porota kola 07).
+   `pathLength="1"` normalizuje délku dráhy, takže dashoffset jede 1 → 0
+   bez ohledu na skutečnou délku křivky. */
+.pp-koren {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: pp-koren 5.2s cubic-bezier(0.4, 0, 0.3, 1) infinite;
 }
-@keyframes pp-ryc {
-  0%, 20% { transform: translateY(0); }
-  45%, 60% { transform: translateY(6px); }
-  100% { transform: translateY(0); }
+@keyframes pp-koren {
+  0% { stroke-dashoffset: 1; }
+  55% { stroke-dashoffset: 0; }
+  88% { stroke-dashoffset: 0; }
+  100% { stroke-dashoffset: 0; opacity: 0; }
 }
 
 /* Odpar z povrchu (30 cm svobody) — `evap` dle 6.6.3. */
@@ -1325,15 +1332,16 @@ html {
   transform-origin: bottom;
   animation: zv-hladina 6s linear infinite;
 }
-/* Jednosměrný děj: hladina se objeví na výchozí lince, klesne o 1 cm, drží
-   (odečet) a zmizí — reset zpět nahoru proběhne při opacity 0, takže hranice
-   smyčky nemá skok a voda „nedýchá" oběma směry. */
+/* Děj smyčky je pokles, ne mizení: dřív byl dominantním pohybem fade
+   celého vodního sloupce (100 % krytí) proti 8 px poklesu, takže oko
+   četlo „voda bliká" místo „voda se vsakuje" (porota kola 07, pohyb).
+   Voda teď zůstává viditelná pořád: klesne o 1 cm, drží na odečet
+   a pak se rychle doplní — to je další měření, ne reset. */
 @keyframes zv-hladina {
-  0% { transform: scaleY(1.047); opacity: 0; animation-timing-function: ease-out; }
-  8% { transform: scaleY(1.047); opacity: 1; animation-timing-function: cubic-bezier(0.3, 0.1, 0.4, 1); }
-  70% { transform: scaleY(1); opacity: 1; animation-timing-function: linear; }
-  90% { transform: scaleY(1); opacity: 1; animation-timing-function: ease-in; }
-  100% { transform: scaleY(1); opacity: 0; }
+  0% { transform: scaleY(1.047); animation-timing-function: cubic-bezier(0.3, 0.1, 0.4, 1); }
+  72% { transform: scaleY(1); animation-timing-function: linear; }
+  88% { transform: scaleY(1); animation-timing-function: ease-in-out; }
+  100% { transform: scaleY(1.047); }
 }
 
 /* Diagram sítě (produktový pás): pochod čárkované linky a kapky u ventilu
@@ -1422,6 +1430,9 @@ html {
   max-width: 30em;
   margin-inline: max(var(--id-gutter), calc((100% - var(--id-maxw-prose)) / 2)) auto;
   padding-inline: 0;
+  /* Musí stát ZA `padding-inline`, jinak ho zkratka přepíše. Bez něj šel
+     text až k hraně displeje (379 px proti pravé ose sazby 373). */
+  padding-right: var(--id-gutter);
 }
 
 /* ── Text vedle obrazu (DESIGN.md 8.2b) ───────────────────────────────
