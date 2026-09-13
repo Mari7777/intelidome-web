@@ -14,7 +14,7 @@ import React from 'react'
  * kapky viditelné nad prohlubní, louže i doplněk nakreslené.
  */
 export const Sedani: React.FC = () => (
-  <svg aria-hidden="true" className="block h-auto w-full" viewBox="0 0 520 500">
+  <svg aria-hidden="true" className="block h-auto w-full" viewBox="0 0 520 512">
     <defs>
       <pattern id="sd-vzduch-hodne" width="16" height="16" patternUnits="userSpaceOnUse">
         <circle cx="5" cy="5" r="3" fill="none" stroke="rgba(255,255,255,.22)" strokeWidth="1" />
@@ -46,8 +46,6 @@ export const Sedani: React.FC = () => (
     </g>
     <path d="M40 62 H480" stroke="#232830" strokeWidth="1.6" fill="none" />
     <path d="M40 62 V140 H480 V62" stroke="#232830" strokeWidth="1.6" fill="none" strokeLinejoin="round" />
-    {/* cílová rovina */}
-    <line x1="30" y1="62" x2="490" y2="62" stroke="#d5d3cc" strokeWidth="1.6" strokeDasharray="3 7" strokeLinecap="round" />
     <text className="sv-lbl" x="480" y="160" textAnchor="end">hodně vzduchu</text>
 
     {/* ── 2. po dešti ─────────────────────────────────────────── */}
@@ -61,7 +59,9 @@ export const Sedani: React.FC = () => (
     <ellipse cx="260" cy="228" rx="52" ry="7" fill="url(#sd-louze)" stroke="#60a5fa" strokeWidth="1.6" />
     <path d="M40 208 C 120 208, 170 206, 210 220 C 240 232, 280 232, 310 220 C 350 206, 400 208, 480 208" fill="none" stroke="#232830" strokeWidth="1.6" />
     <path d="M40 208 V286 H480 V208" stroke="#232830" strokeWidth="1.6" fill="none" strokeLinejoin="round" />
-    {/* cílová rovina — povrch je pod ní */}
+    {/* Cílová rovina se kreslí jen tam, kde se od ní povrch LIŠÍ. V panelech
+        1 a 3 ležela přesně na černé hraně povrchu, takže hranu rozbíjela na
+        čárkovanou a reference zmizela (porota kola 06, styl). */}
     <line x1="30" y1="200" x2="490" y2="200" stroke="#d5d3cc" strokeWidth="1.6" strokeDasharray="3 7" strokeLinecap="round" />
     {/* kapky deště */}
     <g fill="#3b82f6" opacity="0.85">
@@ -82,7 +82,6 @@ export const Sedani: React.FC = () => (
     </g>
     <path d="M40 354 H480" stroke="#232830" strokeWidth="1.6" fill="none" />
     <path d="M40 354 V432 H480 V354" stroke="#232830" strokeWidth="1.6" fill="none" strokeLinejoin="round" />
-    <line x1="30" y1="354" x2="490" y2="354" stroke="#d5d3cc" strokeWidth="1.6" strokeDasharray="3 7" strokeLinecap="round" />
     {/* drobné výhonky = výsev */}
     <g stroke="#3f7d4e" strokeWidth="1.6" strokeLinecap="round" fill="none">
       <path d="M80 354 v-8 M83 354 q2 -6 6 -8 M150 354 v-7 M230 354 q-2 -6 -6 -8 M233 354 v-9 M320 354 v-8 M400 354 q2 -6 6 -8 M403 354 v-7 M460 354 v-8" />

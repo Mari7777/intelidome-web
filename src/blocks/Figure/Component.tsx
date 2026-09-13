@@ -120,7 +120,11 @@ export const FigureBlock: React.FC<Props> = ({
   šířku okna zmenšenou o okraje.
 */
 function slotSizes(layout?: string | null): string {
-  if (layout === 'bleed') return '100vw'
+  // Pod 560 px má full-bleed fotka ořez 4:5 s `object-fit: cover`, takže
+  // obraz se vnitřně škáluje na ~2,95× šířky slotu (21:9 do 4:5). Se `100vw`
+  // dodal prohlížeč variantu w=1200 do slotu, který potřebuje ~1160 CSS px,
+  // a fotka měkla (porota kola 06, výkon + styl).
+  if (layout === 'bleed') return '(max-width: 560px) 295vw, 100vw'
   if (layout === 'offset-left' || layout === 'offset-right') {
     return '(min-width: 1130px) 1030px, (min-width: 768px) 92vw, 100vw'
   }

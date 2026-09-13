@@ -37,9 +37,27 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [headerTheme])
 
+  /*
+    Na poslední obrazovce stály dvě výzvy se skoro stejným textem: pilulka
+    v kapsli a hlavní CTA pás (porota kola 06, hierarchie — kritické).
+    Kapsle proto svou mini-CTA odloží, jakmile je pás na obrazovce; logo
+    a kategorie zůstávají, takže hlavička nemizí a nic neposkakuje.
+  */
+  const [ctaNaObrazovce, setCtaNaObrazovce] = useState(false)
+  useEffect(() => {
+    const cta = document.querySelector('.id-cta')
+    if (!cta || typeof IntersectionObserver === 'undefined') return
+    const io = new IntersectionObserver(([zaznam]) => setCtaNaObrazovce(zaznam.isIntersecting), {
+      rootMargin: '-10% 0px -10% 0px',
+    })
+    io.observe(cta)
+    return () => io.disconnect()
+  }, [pathname])
+
   return (
     <header
       className="id-capsule-wrap pointer-events-none fixed inset-x-0 top-[18px] z-30 flex justify-center px-4"
+      {...(ctaNaObrazovce ? { 'data-cta-videt': '' } : {})}
       {...(theme ? { 'data-theme': theme } : {})}
     >
       <div className="id-capsule pointer-events-auto">

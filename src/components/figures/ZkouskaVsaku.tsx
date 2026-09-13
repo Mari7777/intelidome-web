@@ -75,7 +75,7 @@ export const ZkouskaVsaku: React.FC = () => (
 
     {/* kóta: hloubka jámy */}
     <g stroke="#232830" strokeWidth="1.6" strokeLinecap="round">
-      <line x1="124" y1="126" x2="124" y2="354" strokeDasharray="3 7" stroke="#5b5e63" />
+      <line x1="124" y1="126" x2="124" y2="354" strokeDasharray="3 7" stroke="#d5d3cc" strokeWidth="1.6" />
       <line x1="119" y1="126" x2="129" y2="126" />
       <line x1="119" y1="354" x2="129" y2="354" />
     </g>

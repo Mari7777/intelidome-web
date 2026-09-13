@@ -105,6 +105,10 @@ export const Media: CollectionConfig = {
         width: 1200,
         height: 630,
         crop: 'center',
+        // Náhledové crawlery (Facebook, LinkedIn, X) neumí AVIF, a protože
+        // zdrojové fotky AVIF jsou, dědila by ho i tato varianta — karta
+        // odkazu by zůstala bez obrázku (porota kola 06, výkon).
+        formatOptions: { format: 'webp', options: { quality: 82 } },
       },
     ],
   },

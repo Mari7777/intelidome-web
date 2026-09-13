@@ -94,16 +94,17 @@ export const TriZony: React.FC = () => (
       <line x1="290" y1="210" x2="308" y2="210" />
       <line x1="290" y1="290" x2="308" y2="290" />
     </g>
+    {/* Pointa kresby (9.2 p. 3) je jedna: drahé příměsi patří do horních 10 cm. */}
     <text className="sv-val" x="316" y="130" style={{ fontSize: 24 }}>0–10 cm</text>
     <text className="sv-lbl" x="316" y="150">základ + biochar</text>
     <text className="sv-lbl" x="316" y="170">+ Actino + zeolit</text>
     <text className="sv-lbl" x="316" y="190">nejvíc kořenů</text>
 
-    <text className="sv-val" x="316" y="216" style={{ fontSize: 24 }}>10–15 cm</text>
+    <text className="sv-val" x="316" y="216">10–15 cm</text>
     <text className="sv-lbl" x="316" y="236">základ + zeolit</text>
     <text className="sv-lbl" x="316" y="256">přechod</text>
 
-    <text className="sv-val" x="316" y="288" style={{ fontSize: 24 }}>15–30 cm</text>
+    <text className="sv-val" x="316" y="288">15–30 cm</text>
     <text className="sv-lbl" x="316" y="308">jen základ</text>
     <text className="sv-lbl" x="316" y="328">rezervoár vody</text>
     <text className="sv-lbl" x="316" y="348">a vzduchu</text>
@@ -118,7 +119,7 @@ export const TriZony: React.FC = () => (
     <text className="sv-val" x="52" y="420">biochar</text>
     <circle cx="198" cy="416" r="4" fill="#54402c" />
     <text className="sv-val" x="210" y="420">Actino</text>
-    <path d="M338 412 l6 -3 5 4 -1 6 -6 2 -5 -4 z" fill="#d5d3cc" stroke="#5b5e63" strokeWidth="1.5" />
+    <path d="M338 412 l6 -3 5 4 -1 6 -6 2 -5 -4 z" fill="#d5d3cc" stroke="#232830" strokeWidth="1.6" />
     <text className="sv-val" x="358" y="420">zeolit</text>
 
     <rect x="30" y="439" width="14" height="14" rx="3" fill="#6b5138" opacity="0.9" />

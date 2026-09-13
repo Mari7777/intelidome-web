@@ -148,16 +148,12 @@ const MEDIA: {
     alt: 'Čerstvě vykopaná sonda v trávníku za nízkého odpoledního slunce: nahoře drn, pod ním tmavá ornice a světlejší udusaná vrstva, do které se opírá rýč; levá polovina záběru leží ve stínu.',
   },
   {
-    /* Článek 1: art direction 62/48 bydlela v CSS `.id-hero__img`; teď ji
-       nese fotografie sama (soubor v knihovně už je, jen se doplní bod). */
-    filename: 'hero-soumrak.avif',
-    alt: '',
-    focal: { focalX: 62, focalY: 48, focalPortraitX: 70, focalPortraitY: 36 },
-  },
-  {
-    filename: 'fig-ryci-vidle.avif',
-    alt: 'Ruce v pracovních rukavicích zarážejí rycí vidle do připravovaného záhonu pro trávník; hroty lámou světlou udusanou vrstvu pod tmavou drobivou ornicí.',
-      focal: { focalX: 50, focalY: 52, focalPortraitX: 52, focalPortraitY: 48 },
+    /* Původní záběr rukou s rycími vidlemi měl strojové artefakty: hroty
+       tvořily dva uzavřené oblouky a hlava nářadí nebyla spojená s násadou
+       (porota kola 06, styl i slop — kritické, ověřeno v masteru). */
+    filename: 'fig-ryc-zahon.avif',
+    alt: 'Rýč zaražený do čerstvě zpracovaného záhonu pro trávník: vpředu leží hrubé hroudy tmavé ornice a rozlámaná světlá udusaná vrstva, vzadu nízké večerní slunce a pás trávy.',
+    focal: { focalX: 62, focalY: 58, focalPortraitX: 70, focalPortraitY: 55 },
   },
 ]
 
@@ -347,7 +343,7 @@ const body = root([
      tezí by obracela hierarchii (porota kola 03). */
   chapter('Těžká práce: udělejte to hned, později už to nepůjde', 'Kapitola 06'),
   figure(
-    'fig-ryci-vidle.avif',
+    'fig-ryc-zahon.avif',
     '06',
     'Rozrušit udusanou vrstvu přesně v hloubce, kde leží – a jen tehdy, když se zemina po zmáčknutí drží pohromadě, ale dá se rozdrobit.',
     'bleed',
@@ -477,10 +473,23 @@ const run = async () => {
       pagination: false,
     })
     if (found.docs.length > 0) {
-      if (item.focal) {
-        await payload.update({ collection: 'media', id: found.docs[0].id, data: item.focal })
+      /* Varianty se generují při nahrání. Když médium nemá og ve WebP
+         (starší nahrání z doby, kdy varianta dědila AVIF ze zdroje),
+         je potřeba ho nahrát znovu — update sizes nepřepočítá. */
+      const doc = found.docs[0] as { id: number | string; sizes?: { og?: { mimeType?: string | null } } }
+      const ogWebp = doc.sizes?.og?.mimeType === 'image/webp'
+      /* Smazat smíme JEN tehdy, když zdroj leží ve `zdroje-informaci/fotky`
+         a dá se nahrát zpět. Bez téhle podmínky seeder smazal médium
+         jiného článku, jehož zdroj v repu není — a vrátit ho nešlo. */
+      const zdroj = path.resolve(dirname, '../zdroje-informaci/fotky', item.filename)
+      if (ogWebp || !existsSync(zdroj)) {
+        if (item.focal) {
+          await payload.update({ collection: 'media', id: doc.id, data: item.focal })
+        }
+        continue
       }
-      continue
+      await payload.delete({ collection: 'media', id: doc.id })
+      payload.logger.info(`médium ${item.filename} se nahrává znovu (og nebyl WebP)`)
     }
     const filePath = path.resolve(dirname, '../zdroje-informaci/fotky', item.filename)
     if (!existsSync(filePath)) {

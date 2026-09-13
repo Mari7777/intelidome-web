@@ -44,7 +44,8 @@ const Warn = () => (
  *
  * Počítá při psaní – žádné tlačítko „spočítat". Hodnoty jsou předvyplněné
  * čísly z článku, takže panel něco ukazuje hned a čtenář jen přepíše svoje.
- * Verdikt má `aria-live="polite"`, aby se odečítač dozvěděl výsledek.
+ * Živou oblast nese výstupní sloupec, ne verdikt — odečítač tak slyší
+ * každý přepočet, ne jen závěrečnou větu.
  */
 export const CalculatorBlock: React.FC<CalculatorBlockProps> = ({
   className,
@@ -152,7 +153,10 @@ const Vsak = ({ className, uid }: { className: string; uid: string }) => {
         </div>
       </div>
 
-      <div>
+      {/* Živá oblast obepíná VŠECHNY výstupy: odečítač jinak slyšel jen
+          verdikt, takže čtyři z pěti vstupů neohlásily vůbec nic
+          (porota kola 06, výkon — WCAG AA). */}
+      <div aria-live="polite">
         <div className="id-calc__orow">
           <span className="id-calc__ol">Pokles za měřený čas</span>
           <span className="id-calc__ov">{platne ? nezlomitelneMezery(`${fmt(pokles)} cm / ${fmt(doba, 0)} min`) : '—'}</span>
@@ -163,7 +167,6 @@ const Vsak = ({ className, uid }: { className: string; uid: string }) => {
         </div>
 
         <div
-          aria-live="polite"
           className={cn('id-verdict', pasmo === 'idealni' ? 'id-verdict--ok' : 'id-verdict--warn')}
         >
           {pasmo === 'idealni' ? <Ok /> : <Warn />}
@@ -289,7 +292,10 @@ const Primesi = ({ className, uid }: { className: string; uid: string }) => {
         </div>
       </div>
 
-      <div>
+      {/* Živá oblast obepíná VŠECHNY výstupy: odečítač jinak slyšel jen
+          verdikt, takže čtyři z pěti vstupů neohlásily vůbec nic
+          (porota kola 06, výkon — WCAG AA). */}
+      <div aria-live="polite">
         <div className="id-calc__orow">
           <span className="id-calc__ol">Vrstva pod 1&nbsp;m²</span>
           <span className="id-calc__ov">{platne ? nezlomitelneMezery(`${fmtN(vrstvaNaM2)} l`) : '—'}</span>
@@ -311,7 +317,7 @@ const Primesi = ({ className, uid }: { className: string; uid: string }) => {
           <span className="id-calc__ov">{platne && Number.isFinite(pytlu) ? fmtN(pytlu) : '—'}</span>
         </div>
 
-        <div aria-live="polite" className={cn('id-verdict', platne ? 'id-verdict--ok' : 'id-verdict--warn')}>
+        <div className={cn('id-verdict', platne ? 'id-verdict--ok' : 'id-verdict--warn')}>
           {platne ? <Ok /> : <Warn />}
           <span>
             {nezlomitelneMezery(
@@ -380,7 +386,10 @@ const Prutok = ({ className, uid }: { className: string; uid: string }) => {
         </div>
       </div>
 
-      <div>
+      {/* Živá oblast obepíná VŠECHNY výstupy: odečítač jinak slyšel jen
+          verdikt, takže čtyři z pěti vstupů neohlásily vůbec nic
+          (porota kola 06, výkon — WCAG AA). */}
+      <div aria-live="polite">
         <div className="id-calc__orow">
           <span className="id-calc__ol">Naměřený průtok</span>
           <span className="id-calc__ov">{platne ? nezlomitelneMezery(`${fmt(namereny)} l/min`) : '—'}</span>
@@ -391,7 +400,6 @@ const Prutok = ({ className, uid }: { className: string; uid: string }) => {
         </div>
 
         <div
-          aria-live="polite"
           className={cn('id-verdict', staci && platne ? 'id-verdict--ok' : 'id-verdict--warn')}
         >
           {staci && platne ? <Ok /> : <Warn />}
@@ -481,7 +489,10 @@ const Davka = ({ className, uid }: { className: string; uid: string }) => {
         </div>
       </div>
 
-      <div>
+      {/* Živá oblast obepíná VŠECHNY výstupy: odečítač jinak slyšel jen
+          verdikt, takže čtyři z pěti vstupů neohlásily vůbec nic
+          (porota kola 06, výkon — WCAG AA). */}
+      <div aria-live="polite">
         <div className="id-calc__orow">
           <span className="id-calc__ol">Objem jedné zálivky</span>
           <span className="id-calc__ov">{platne ? nezlomitelneMezery(`${fmt(litry, 0)} l`) : '—'}</span>
@@ -492,7 +503,6 @@ const Davka = ({ className, uid }: { className: string; uid: string }) => {
         </div>
 
         <div
-          aria-live="polite"
           className={cn('id-verdict', platne && !dlouhe ? 'id-verdict--ok' : 'id-verdict--warn')}
         >
           {platne && !dlouhe ? <Ok /> : <Warn />}

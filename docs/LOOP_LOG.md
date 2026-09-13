@@ -1038,3 +1038,69 @@ kotva 124 px; og + canonical na článek; `tsc` čistý.
 **Pozn. k limitu:** vstupní nastavení mělo max 5 kol. Kolo 06 běží proto,
 že balík po kole 05 je hotový a ověřený přejímkami, ale bez verdikt
 poroty ho nelze prohlásit za průchod (u článku 1 smyčka doběhla v 11 kolech).
+
+## Kolo 06 — NEPROŠEL a ZHORŠIL SE: 3 · 4 · 4 · 2 · 2 · 3 · 4
+
+První kolo, které kleslo (05: 4·4·4·3·4·4·3). Rozbor ukázal dvě různé
+příčiny — a jen jedna z nich je „nový nález".
+
+**a) Zpětné kroky, které způsobil balík kola 06 (čtyři):**
+
+1. Sjednocení klíčové hodnoty kreseb na 24 px **ořízlo pointu Obr. 07**
+   („sedá týdny, ne dny" na baseline 497 ve viewBoxu 500 → bbox 502,6).
+2. Totéž sjednocení dalo **Obr. 05 tři klíčové hodnoty místo jedné** —
+   9.2 p. 3 mluví o pointě v jednotném čísle, kresba tím pointu ztratila.
+3. Ořez full-bleed fotky 4:5 na telefonu **neměl odpovídající `sizes`**
+   (zůstalo `100vw`), takže prohlížeč bral variantu w=1200 do slotu, který
+   potřebuje ~1160 CSS px při dpr 3 → fotka změkla (2,9× upscale).
+4. `meta.image = hero` poslalo do **og:image AVIF**, který náhledové
+   crawlery neumí — předtím tam byl funkční `og-default.webp`.
+
+Poučení je totéž jako u článku 1: **sjednocování je zásah do kompozice,
+ne kosmetika.** Jeden token aplikovaný plošně (24 px) rozbil dvě kresby
+a jeden atribut (`aspect-ratio`) zneplatnil jiný (`sizes`).
+
+**b) Nový nález, který předchozí kola minula — fotografie:**
+
+| Porotce | 05 → 06 | Kritické |
+|---|---|---|
+| Hierarchie | 4 → 3 | dvě CTA na poslední obrazovce (kapsle + pás, týž cíl) |
+| Typografie | 4 → 4 | — |
+| Pohyb | 4 → 4 | — |
+| Grafický styl | 3 → **2** | **Obr. 06: AI artefakty na nářadí** (hroty = dva uzavřené oblouky, hlava vidlí nespojená s násadou, kov mizí v rukavici) |
+| Slop | 4 → **2** | **totéž** + obvinění hera z téže signatury |
+| Výkon | 4 → 3 | — (důležité: výsledky kalkulátorů mimo aria-live = WCAG AA) |
+| Rozložení | 3 → **4** | — (šev, linky kalkulátoru i FAQ z kola 05 uzavřeny) |
+
+Fotky jsem prověřil sám v masteru 3840 px: **u vidlí nález platí**
+(nářadí nemůže existovat), **u hera neplatí** — rýč má tulejku i souměrný
+list, porotcova „nesouměrná ramena" jsou perspektiva. Zamítnuto s důkazem.
+
+#### Opraveno — balík „zpětné kroky, fotografie a jedna výzva" (kolo 07)
+
+1. **Nová fotografie kapitoly 06** (`fig-ryc-zahon.avif`, 3168×1344):
+   rýč zaražený do zpracovaného záhonu, bez rukou a bez druhého nářadí —
+   motiv, kde model nemá kde vyrobit nemožný spoj. Ověřeno výřezem
+   v plném rozlišení: násada → tulejka s nýtem → žebro po listu.
+2. **Zpětné kroky 1–4 vráceny**: Obr. 07 viewBox 512 (pointa se vejde),
+   Obr. 05 má jedinou pointu („0–10 cm"), `sizes` full-bleed figury zná
+   mobilní ořez (`(max-width: 560px) 295vw`), og varianta se generuje
+   ve WebP (`formatOptions` v Media).
+3. **Jedna výzva na obrazovku**: mini-CTA v kapsli ustoupí, jakmile je
+   závěrečný CTA pás ve viewportu (IntersectionObserver + `visibility`,
+   takže nezůstane neviditelný tab stop).
+4. **Výsledky kalkulátorů v živé oblasti** — `aria-live` nese výstupní
+   sloupec, ne jen verdikt (4 z 5 vstupů dřív neohlásily nic).
+5. **Kresby**: uzavřená kontura levého řezu Obr. 04, legendové značky na
+   paletě (#232830, 1,6 px) místo textového tokenu, konstrukční linka
+   Obr. 03 na #d5d3cc, cílová rovina Obr. 07 jen tam, kde se od ní povrch
+   liší; panel figury 40 px dle 7.12.
+
+**Incident při přenahrání médií.** Logika „médium bez WebP og nahraj
+znovu" smazala médium dřív, než ověřila, že jeho zdroj v repu existuje —
+a `hero-soumrak.avif`, hero **článku 1**, v `zdroje-informaci/fotky`
+není. Článek 1 tím na lokální DB přišel o hero. Napraveno: seeder teď
+maže jen tehdy, když soubor pro nahrání zpět skutečně leží na disku,
+a článku 1 bylo přiřazeno `hero-zavlaha.avif` (2400 px, zůstalo
+v knihovně) i s fokálními body. Produkce dotčená není — pracuje se na
+lokální DB.

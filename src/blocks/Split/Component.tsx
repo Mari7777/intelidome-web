@@ -94,7 +94,7 @@ export const SplitBlock: React.FC<SplitBlockProps> = ({
       <figure className="id-split__figure rv">
         <div
           aria-label={alt}
-          className="id-figure-media rounded-[var(--id-r-card)] bg-[var(--id-cream,var(--id-bg-2))] p-[clamp(16px,3vw,32px)]"
+          className="id-figure-media rounded-[var(--id-r-card)] bg-[var(--id-cream,var(--id-bg-2))] p-[clamp(16px,3vw,40px)]"
           role="img"
         >
           <div className="id-figure-svg">

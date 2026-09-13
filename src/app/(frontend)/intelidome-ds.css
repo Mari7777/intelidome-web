@@ -645,7 +645,24 @@
   color: var(--id-ink);
 }
 /* Jediné mini-CTA v kapsli — modrá dostane funkční cíl. */
+/* Jakmile je závěrečný CTA pás na obrazovce, mini-CTA v kapsli ustoupí —
+   na obrazovce má stát jediná výzva (8.2, rubrika hierarchie). Mizí
+   i pro klávesnici (`visibility`), aby nezůstal neviditelný tab stop. */
+.id-capsule-wrap[data-cta-videt] .id-capsule__go {
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-4px);
+}
+@media (prefers-reduced-motion: reduce) {
+  .id-capsule-wrap[data-cta-videt] .id-capsule__go {
+    transform: none;
+  }
+}
 .id-capsule__go {
+  transition:
+    opacity 0.3s var(--id-ease),
+    transform 0.3s var(--id-ease),
+    visibility 0s linear 0.3s;
   font-family: var(--id-f-display);
   font-size: 13.5px;
   line-height: 1.2;

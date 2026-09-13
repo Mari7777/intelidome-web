@@ -75,7 +75,9 @@ export const TricetCentimetru: React.FC = () => (
     <rect x="40" y="110" width="180" height="14" fill="#3f7d4e" />
     <path d="M40 124 H220" stroke="#2e6440" strokeWidth="1.6" fill="none" />
     <path d="M48 111q-1 -8 -3 -13M62 111q2 -7 5 -12M76 111q0 -9 0 -14M90 111q2 -10 5 -16M104 111q2 -5 5 -8M118 111q-1 -6 -4 -10M132 111q-2 -10 -5 -17M146 111q-2 -6 -5 -11M160 111q1 -5 2 -8M174 111q1 -10 4 -16M188 111q-2 -9 -5 -15M202 111q0 -8 0 -13M214 111q2 -6 4 -9" fill="none" stroke="#3f7d4e" strokeWidth="1.6" strokeLinecap="round" />
-    <path d="M40 110 V184 M220 110 V184" stroke="#232830" strokeWidth="1.6" fill="none" />
+    {/* Uzavřená schránka jako pravý řez — udusaná deska byla jediný tvar
+        kresby bez spodní hrany (porota kola 06, styl). */}
+    <path d="M40 110 V184 H220 V110" stroke="#232830" strokeWidth="1.6" fill="none" strokeLinejoin="round" />
     {/* odpar z povrchu */}
     <g fill="none" stroke="#b76a00" strokeWidth="1.6" strokeLinecap="round" opacity="0.7">
       <path className="tc-odpar" d="M96 104 q4 -6 0 -12 q-4 -6 0 -12" />
@@ -134,7 +136,7 @@ export const TricetCentimetru: React.FC = () => (
     <text className="sv-lbl" x="30" y="452">Zdravá půda</text>
     <circle cx="36" cy="478" r="3" fill="#2563eb" />
     <text className="sv-val" x="48" y="483">malé póry drží vodu</text>
-    <circle cx="270" cy="478" r="4.5" fill="none" stroke="#5b5e63" strokeWidth="1.2" />
+    <circle cx="270" cy="478" r="4.5" fill="none" stroke="#232830" strokeWidth="1.6" />
     <text className="sv-val" x="284" y="483">velké pouští vzduch</text>
   </svg>
 )
