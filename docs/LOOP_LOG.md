@@ -1155,3 +1155,78 @@ desktopu — obojí na hranici měřicí nejistoty AVIF komprese.
 `zdroje-informaci/` (podklady autora a fotografické mastery), která do
 repa nepatří. Vráceno (`git rm --cached`) a doplněno do `.gitignore`;
 commit `01de0bc` byl amendován ještě před pushem.
+
+## Kolo 07 — ZÁVĚREČNÉ: 3 · 4 · 3 · 3 · 4 · 4 · 4, **0 kritických**
+
+Poslední kolo na žádost autora. Práh („každý ≥ 4 a nula kritických")
+splněn zpola: **kritický nález nezůstal žádný** — jediný vznesený
+(styl: deformovaný rýč na Obr. 06) skeptik vyvrátil měřením. Rozdíl
+výšky ramen 59 px je z ~80 % důsledkem toho, že rýč je v rovině obrazu
+natočený o ~8°; kontrolní otočení výřezu srovná obě ramena i boční hrany
+do svislice. Zbytek (12 px masteru = 5,5 CSS px @1440) je v pásmu
+nejistoty odečtu na měkkém protisvětelném makru.
+
+| Porotce | 06 → 07 | Co drží skóre |
+|---|---|---|
+| Hierarchie | 3 → 3 | kapitola 05 = 4 mobilní obrazovky bez hmoty (3 430 px); dva kalkulátory na dvou různých površích; hero meta bez počtu kalkulátorů; 7 kapitol proti šabloně 3–5 bez orientačního prvku |
+| Typografie | 4 → 4 | kalkulátor odděluje hodnotu od jednotky (520–585 px mezi číslicí a jednotkou @1440) |
+| Pohyb | 4 → **3** | split odhaluje hlavu, figuru i tělo naráz (stagger 0 ms, 18 z 35 revealů); Obr. 02 a 03 hýbou dekorací místo principu |
+| Grafický styl | 2 → **3** | hero se na dpr 3 převzorkovává 1,90× (zdroj 3 168 px); podloží Obr. 02 je o 13 % SVĚTLEJŠÍ než ornice → obrácený hloubkový klíč; Obr. 03 má 4 segmenty a 3 popisky; legenda Obr. 05 se rozešla s rastrem uvnitř kresby |
+| Slop | 2 → **4** | uzel „osvětlení" v produktovém pásu bez obsahu; partitura pásů (obsidian 9,4 % proti 20–35 %) |
+| Výkon a přístupnost | 3 → **4** | telefon stahuje 2,09× víc bajtů než desktop; scrim končí ve 45 % výšky, takže H1 má 3,27:1 na 1990; kapsle přes 88 % míry sazby na mobilu |
+| Rozložení | 4 → 4 | popisek Obr. 06 na telefonu zavádí čtvrtou pravou hranu; dvě jednorázové mezery (32 px, 24 px); nejdelší úsek bez hmoty 2 006 px |
+
+**Naměřeno beze sporu:** CLS 0,000 na 19 554px stránce, 0 přetečení na
+320–1990, **331 textových běhů bez jediného podkroku 4,5:1**, alt u obou
+fotek, `role="img"` + aria-label u všech 7 kreseb, reduced-motion beze
+zbytku, 0 animací layout vlastností, 0 nedoodhalených prvků, smyčky bez
+skoku, próza pod 80 znaků na osmi šířkách, 327 nezlomitelných mezer,
+0 sirotků v titulcích, akcent ≤ 1,02 % plochy, 0 kolizí popisků kreseb.
+
+### Dva zpětné kroky, které kolo 07 odhalilo v balíku 06/07
+
+1. **Linka vstupu na řádku** (oprava „pěti pravých hran") dala řádku
+   `justify-content: space-between` plnou šířku, takže hodnota zůstala
+   vlevo a jednotka odplula doprava — 520–585 px mezi nimi. 7.7 přitom
+   předepisuje `max-width: 220px`.
+2. **Legenda Obr. 05 na paletě** (#232830 / 1,6 px) se rozešla se
+   značkou uvnitř kresby, která zůstala #5b5e63 / 1,5 px. Táž značka má
+   teď v jedné kresbě dva obrysy.
+
+Vzorec je po třech kolech stejný a stojí za zapsání: **oprava mířená na
+jeden lenz rozbije jiný, když se nesáhne na obě strany vztahu.**
+
+## Předání (po kole 07)
+
+Smyčka se zastavuje bez průchodu, ale s nulou kritických nálezů
+(vstup: 9 kritických v kole 01). Zbývající práce, seřazená:
+
+**Koš A — stránka (opravitelné bez rozhodnutí o systému):**
+1. Kalkulátor: hodnotu a jednotku k sobě (`max-width: 220px`, zarovnání
+   doleva místo `space-between`) — vrací zpětný krok z balíku 06.
+2. Obr. 05: srovnat obrys značky zeolitu uvnitř kresby s legendou.
+3. Obr. 02: podloží na opacity 0,85 (teď je světlejší než ornice).
+4. Obr. 03: popsat čtvrtý segment stupnice (7,5–10 cm/h).
+5. Split: jedna staggerovaná orchestrace (`data-rv-group`, krok 80 ms)
+   místo tří současných triggerů — v produktovém pásu už opraveno.
+6. Obr. 02 a 03: přepnout smyčku z dekorace na princip.
+7. Hero meta: doplnit počet kalkulátorů (8.2 ř. 1).
+8. Kapitola 05: rozbít 3 430px úsek bez hmoty (mobil) — chce novou
+   kresbu nebo přesun kalkulátoru.
+9. Popisek Obr. 06 na telefonu: pravý okraj na osu sazby.
+
+**Koš B — systém (patří do ADR, ne do článku):** partitura pásů dlouhého
+článku (obsidian 9,4 % proti 20–35 %), dva kalkulátorové povrchy pro
+tutéž roli, scrim končící ve 45 % výšky, kapsle přes 88 % míry sazby na
+mobilu, `sizes` hera pro portrét, chip KALKULÁTOR s akcentovým obrysem,
+sdílená figura produktového pásu s uzlem „osvětlení", dva jazyky kresby
+napříč články. Vše je v `DESIGN.md` §14.
+
+**Doporučení:** článek předat do `copy-polish` (produktový pás, FAQ a CTA
+jsou můj text, ne autorův) a koš B řešit jedním ADR o partituře dlouhého
+článku — tři lenzy na trojce ukazují na tentýž kořen: **19 554 px textu
+se šesti stejně stavěnými kapitolami nemá dost obrazového a povrchového
+rytmu.** To není vada článku, ale mezera šablony 8.2, která počítá
+s 3–5 kapitolami.
+
+Zlatý standard byl trenér, ne šablona.
