@@ -1254,3 +1254,54 @@ Přejímka po balíku: `layout-check` 1024 / 1280 / 1440 / 1990 bez chyby,
 Bod 8 zůstává otevřený a patří k tomu, co předání pojmenovalo jako kořen
 tří trojek: **sedm kapitol na 19 554 px nemá dost obrazového rytmu.**
 Callout je náplast, ne řešení — to je nová kresba nebo ADR o partituře.
+
+## Kolo 08 — 3 · 3 · 4 · 4 · 4 · 4 · 4, 0 kritických
+
+Pět lenzů na čtyřce, dva na trojce, podruhé za sebou nula kritických.
+Balík koše A zvedl **pohyb 3 → 4** a **grafický styl 3 → 4**; hierarchie
+zůstala na 3 a **typografie spadla 4 → 3**.
+
+**Čtyři z devíti oprav koše A vyrobily nový nález.** Tohle je potřetí
+tentýž vzorec a stojí za doslovné zapsání:
+
+| Oprava (koš A) | Co vyrobila | Naměřeno |
+|---|---|---|
+| kalkulátor: pevných 220 px na vstup | jednotka 156–215 px za číslem (číslo je v poli vlevo) | 207 px @1440 |
+| Obr. 03: rychlé doplnění místo fade | **návrat** je teď dominantní pohyb, tedy opak děje kapitoly | 17,6 vs. 3,45 px/s = 5,1× |
+| kapitola 05: callout | pátá šířka modulu, jediný box mimo osy | 330/1110 proti próze 370/1070 |
+| kapsle ustoupí CTA pásu | skryté tlačítko si drželo místo → díra v kapsli | 128 z 332 px (39 %) |
+
+Poučení: **u každé opravy se ptát, co je druhá strana vztahu.** Pole má
+vztah k jednotce i k lince; smyčka má dvě půlky a dominantní je ta
+rychlejší; nový modul dědí šířku po wrapperu, ne po sousedech; skrytí
+`visibility` nechává box v toku, `display` ne.
+
+#### Opraveno hned (regrese z balíku koše A)
+
+1. **Vstup vyplní sloupec a číslo v něm stojí vpravo** — jednotka je
+   12 px za posledním glyfem a linka má dál jeden doraz (691 / 353 px).
+   Levá část linky vede oko k hodnotě, stejně jako u výstupních řádků.
+2. **Hladina Obr. 03**: pokles 60 % periody, odečet 10 %, doplnění 30 %.
+   Poměr rychlostí **5,1× → 1,9×**; dominantní je zase pokles.
+3. **Callout na osu prózy** (`max-width` z `prose + 2 gutter` na `prose`)
+   — 370/1070, tedy přesně próza.
+4. **Mini-CTA `display: none`** místo `visibility: hidden` — kapsle se
+   zúží ze 332 na 183 px, žádná díra.
+
+Přejímka po opravě: `layout-check` 1024/1280/1440/1990 a `svg-labels`
+320/393/1440 bez nálezu, `tsc` čistý.
+
+### Co po kole 08 drží dvě trojky
+
+**Hierarchie (koš A):** próza jedné kapitoly běží na dvou osách — začne
+ve sloupci splitu (652 px, x 40 nebo 748) a bez signálu pokračuje
+v centrální próze (700 px, x 370); skok 330 / 378 px v šesti kapitolách
+ze sedmi. Dál: sedm kapitol na 19 696 px bez jakéhokoli orientačního
+prvku a chybějící kategorijní čip v kapsli (7.1 ho předepisuje).
+
+**Typografie (koš B):** maska hero H1 ořezává descendery o 1,5–2,5 px
+(`.id-hline`, 6.3.3 nepočítá s obsahovou výškou 1,089 em); desetinná
+tečka „0.8" v number inputu; 12px label má na stránce tři trackingy.
+
+Obojí je architektonické, ne kosmetické: první chce rozhodnout, kde
+kapitola končí jako dvousloupec, druhé sáhnout na masku v 6.3.3.

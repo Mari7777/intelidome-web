@@ -652,9 +652,9 @@
    na obrazovce má stát jediná výzva (8.2, rubrika hierarchie). Mizí
    i pro klávesnici (`visibility`), aby nezůstal neviditelný tab stop. */
 .id-capsule-wrap[data-cta-videt] .id-capsule__go {
-  opacity: 0;
-  visibility: hidden;
-  transform: translateY(-4px);
+  /* `display: none`, ne jen `visibility`: schované tlačítko si drželo
+     128 z 332 px kapsle, takže vedle loga zela díra (porota kola 08). */
+  display: none;
 }
 @media (prefers-reduced-motion: reduce) {
   .id-capsule-wrap[data-cta-videt] .id-capsule__go {
@@ -662,10 +662,6 @@
   }
 }
 .id-capsule__go {
-  transition:
-    opacity 0.3s var(--id-ease),
-    transform 0.3s var(--id-ease),
-    visibility 0s linear 0.3s;
   font-family: var(--id-f-display);
   font-size: 13.5px;
   line-height: 1.2;
@@ -1067,7 +1063,7 @@ html {
   /* Pevných 220 px přeteklo při 320px šířce (400% zoom) dokument
      o 21 px — reflow dle WCAG 1.4.10. Šířka se teď smrskne s panelem. */
   width: min(220px, 100%);
-  max-width: 100%;
+  max-width: none;
   min-width: 0;
   padding: 2px 0 8px;
   border: 0;
@@ -1112,15 +1108,17 @@ html {
    panelu byla ze 60 % prázdná, zatímco pravá šla od kraje ke kraji.
    Pod zlomem zůstává pevná šířka — `flex-basis: auto` u number inputu
    tam zvedá min-content stopu sloupce a rozbil by reflow na 320 px. */
-/* Pole se nenatahuje: `space-between` + `flex-grow` odtrhly hodnotu od
-   jednotky o 520–585 px (porota kola 07, typografie). 7.7 dává vstupu
-   220 px a jednotka stojí hned za číslem; linku nese řádek, takže pravý
-   doraz sloupce zůstává jeden pro všechna pole. */
+/* Hodnota a jednotka musí být u sebe a linka musí mít jeden doraz.
+   `space-between` s polem vlevo je odtrhl o 520 px (kolo 07), pevných
+   220 px zase nechalo 207 px prázdna uvnitř pole (kolo 08). Pole proto
+   vyplní sloupec a číslo v něm stojí VPRAVO — stejně jako hodnota na
+   výstupním řádku, takže levá část linky vede oko k číslu. */
 .id-calc__inrow {
   justify-content: flex-start;
 }
 .id-calc input[type='number'] {
-  flex: 0 0 auto;
+  flex: 1 1 auto;
+  text-align: right;
 }
 .id-calc__orow {
   display: flex;
@@ -1338,9 +1336,13 @@ html {
    Voda teď zůstává viditelná pořád: klesne o 1 cm, drží na odečet
    a pak se rychle doplní — to je další měření, ne reset. */
 @keyframes zv-hladina {
+  /* Poměr rychlostí = poměr časů: doplnění smí trvat nejvýš dvakrát kratší
+     dobu než pokles, jinak je dominantním pohybem návrat, tedy opak děje
+     kapitoly (naměřeno 5,1× — porota kola 08). Pokles 60 %, odečet 10 %,
+     doplnění 30 % periody. */
   0% { transform: scaleY(1.047); animation-timing-function: cubic-bezier(0.3, 0.1, 0.4, 1); }
-  72% { transform: scaleY(1); animation-timing-function: linear; }
-  88% { transform: scaleY(1); animation-timing-function: ease-in-out; }
+  60% { transform: scaleY(1); animation-timing-function: linear; }
+  70% { transform: scaleY(1); animation-timing-function: ease-in-out; }
   100% { transform: scaleY(1.047); }
 }
 
@@ -1759,7 +1761,9 @@ html {
 /* Callout stojí na `edge` jako ostatní moduly, ale text uvnitř drží
    prozaickou míru — jinak by nejmenší stupeň textu měl nejdelší řádek. */
 .id-edge > .id-callout {
-  max-width: calc(var(--id-maxw-prose) + 2 * var(--id-gutter));
+  /* Na ose prózy, ne o dva guttery širší — jinak zavádí pátou šířku
+     modulu (330/1110 proti próze 370/1070; porota kola 08, rozložení). */
+  max-width: var(--id-maxw-prose);
   margin-inline: auto;
 }
 
