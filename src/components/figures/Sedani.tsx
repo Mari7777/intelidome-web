@@ -29,8 +29,10 @@ export const Sedani: React.FC = () => (
         <circle cx="16" cy="15" r="1.6" fill="#2563eb" opacity="0.8" />
       </pattern>
       <radialGradient id="sd-louze" cx="0.5" cy="0.5" r="0.6">
+        {/* Stopy vody podle 9.2: .34 → .14 → .05, stejně jako `zv-voda`. */}
         <stop offset="0" stopColor="#2563eb" stopOpacity="0.34" />
-        <stop offset="1" stopColor="#2563eb" stopOpacity="0.08" />
+        <stop offset="0.8" stopColor="#2563eb" stopOpacity="0.14" />
+        <stop offset="1" stopColor="#2563eb" stopOpacity="0.05" />
       </radialGradient>
       <clipPath id="sd-c1"><path d="M40 62 H480 V140 H40 Z" /></clipPath>
       <clipPath id="sd-c2"><path d="M40 208 C 120 208, 170 206, 210 220 C 240 232, 280 232, 310 220 C 350 206, 400 208, 480 208 V286 H40 Z" /></clipPath>

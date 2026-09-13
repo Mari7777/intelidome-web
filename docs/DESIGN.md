@@ -2,7 +2,7 @@
 
 _Prověřeno 3 adversárními kontrolami: 41 nálezů, 37 zapracováno, 4 zamítnuty jako vkusové. Poté ručně překlopeno na paletu Tech Blue + Emerald (rozhodnutí 22. 8. 2026) s přepočtem všech kontrastů._
 
-**Verze:** 2.5 · **Datum:** 2026-09-13 · **Platí pro:** www.intelidome.com / intelidome.cz (Next.js + Tailwind CSS + GSAP)
+**Verze:** 2.6 · **Datum:** 2026-09-13 · **Platí pro:** www.intelidome.com / intelidome.cz (Next.js + Tailwind CSS + GSAP)
 **Primární reference:** [Sonos](https://styles.refero.design/style/8d315332-6267-4dc0-a14c-e8b49c26b0e1) · **Sekundární:** [Eight Sleep](https://styles.refero.design/style/e4e8fe86-47ed-4ddd-a6c6-2c28eae9aabe), [Samara](https://styles.refero.design/style/934a61aa-50ff-4e90-852b-4ad0b8262d54)
 
 > **Esence:** Teplý papír za dne, obsidian po setmění — a jeden modrý pulz.
@@ -249,7 +249,9 @@ Vše přes `clamp()` — žádné breakpointové skoky velikostí. Písmo Archiv
 | btn | `15.5px` | 1.2 | +0.01em | 600 | `--id-t-btn` |
 | btn-sm | `13.5px` | 1.2 | +0.01em | 600 | `--id-t-btn-sm` |
 | stat-num (stat-tile) | `clamp(26px, 3vw, 40px)` | 1.05 | −0.02em | 600 | `--id-t-stat` |
-| stat-num-xl (hero kalkulátoru) | `clamp(40px, 5.4vw, 64px)` | 1.0 | −0.03em | 600 | `--id-t-stat-xl` |
+| stat-num-xl (hero **landingu**, 8.3 — NE kalkulátor, viz §15 p. 1) | `clamp(40px, 5.4vw, 64px)` | 1.0 | −0.03em | 600 | `--id-t-stat-xl` |
+
+> `--id-t-stat-xl` nemá v článku užití: kalkulátor stojí v panelu 652 px, kde by 64 px přeteklo na dva řádky, a sází proto vlastní stupeň ze 7.7. Token se drží pro landing page, kde má sekce šířku 1360.
 
 ### 4.3 Pravidla sazby
 
@@ -1058,9 +1060,9 @@ Prototyp hydraulika-zahrady.html; kapitol 3–5.
 |---|---|---|---|
 | 0 | Header | frosted capsule | prompt 4; kategorie uprostřed, pill-button „Objevit systém" |
 | 1 | Hero | obsidian, min-height 100svh | prompt 1; meta = čas čtení · počet kalkulátorů · InteliDome Journal |
-| 2 | Souhrn | krém | summary-lead Archivo na velikosti --id-t-subtitle w500 lh 1.38 (role leadu, ne titulku), max-width 960px (--id-maxw-summary), klíčová fráze v `<em>` akcentem --id-accent (na krému 4,74:1 = AA, 11.1); 4 stat-tiles (prompt 3) |
+| 2 | Souhrn | krém | summary-lead Archivo na velikosti --id-t-subtitle w500 lh 1.38 (role leadu, ne titulku), na ose prózy 700 px (`--id-maxw-prose`; ADR-006 zrušil track `wide`, §15 p. 2), klíčová fráze v `<em>` akcentem --id-accent (na krému 4,74:1 = AA, 11.1); 4 stat-tiles (prompt 3) |
 | 3…N | Kapitoly 01–0N | bílá | eyebrow „Kapitola NN" + sec-title (title škála); 1 SVG figura v krémovém panelu s figcaption „Obr. NN", **sázená asymetricky dle 8.2b**; volitelně kalkulátor (max 2/článek, prompt 2), krémové demo (max 1), step-karty 4× |
-| N+1 | Produktový pás | obsidian | eyebrow + titulek; prose #9ba1a8, `<strong>` bílým; grid minmax(0,420px) 1fr (SVG telefon s app UI + síťový diagram bridge); 3 feature karty (prompt 5) |
+| N+1 | Produktový pás | obsidian | eyebrow + titulek; prose #9ba1a8, `<strong>` bílým; `.id-2col` = `1fr 1fr` (652 | 652, gap `--id-gap-col` 56, zlom v ose 720 — ADR-006); 3 feature karty **pod prózou v levém sloupci**, ne v řadě pod pásem (vyrovnávají výšku diagramu — jinak 42 % prázdna, kolo 05) |
 | N+2 | CTA | bílá, centrovaná | prompt 6 (logo, H2, sub, btn-blue se šipkou, otázka čtenáři) |
 | N+3 | Footer | bílá | hairline top; logo 19px + meta 13.5px --id-ink-2 |
 
@@ -1098,10 +1100,12 @@ třech věcech:" a samotným seznamem díru 72 px. Mezititulek h3 je role
 subtitle (4.2), ne druhý titulek kapitoly.
 
 Přejímka: `node scripts/layout-check.mjs <url> [šířka]` — ≤4 osy, ≤4 šířky,
-0 jednorázových os, zrcadlení, střídavost 1,00. **Pouští se nejmíň na třech
-šířkách: 1440 (návrhová osa), ≥1920 (strop stránky) a 1024 (pod stropem).**
+0 jednorázových os, zrcadlení, střídavost 1,00. **Pouští se nejmíň na čtyřech
+šířkách: 1440 (návrhová osa), ≥1920 (strop stránky), 1130 (nejužší dvousloupec,
+hned nad zlomem) a 1024 (pod stropem);** `svg-labels` navíc na 320 / 393.
 Kontrola jen na 1440 by strop mřížky nikdy neprověřila — právě tam se osy
-rozešly.
+rozešly. Pásmo 1130–1439 (typicky 1280 a 1366) je nejcitlivější na popisky
+kreseb: sloupec je tam o 12–24 % užší a měřítko kresby padá s ním.
 
 ### 8.2b Asymetrická sazba figur (v2.1)
 
@@ -1126,7 +1130,7 @@ okraje jsou naopak pružné a spolknou celý přebytek okna.
 | `--offset-right` | `content-start / edge-end` | ukotveno k levé hraně textu, přetéká doprava |
 | `--offset-left` | `edge-start / content-end` | ukotveno k pravé hraně textu, přetéká doleva |
 | `--bleed` | `full` | **jen fotografie, max 1× za článek**; dle 9.1 padá radius |
-| výchozí | `wide` | schéma, které širokou sazbu neunese |
+| výchozí | `content` (osa prózy 700) | schéma, které širokou sazbu neunese |
 
 1. **Kapitoly se ve stranách střídají** — dvě sousední figury nikdy nekotví
    ke stejné hraně.
@@ -1147,7 +1151,7 @@ Lexicalu se vedle sebe postavit nedají.
 
 | Prvek | Spec |
 |---|---|
-| Mřížka | `grid-column: edge-start / edge-end`; sloupce `0.82fr 1fr` (u `--right` obráceně); gap clamp(28px,4vw,72px); align-items:center |
+| Mřížka | `grid-column: edge`; sloupce `1fr 1fr` (652 \| 652, zlom v ose 720); `column-gap: var(--id-gap-col)`; `row-gap: 0`; **`align-items: start`** a **`grid-template-rows: auto 1fr`**; hlava `margin-bottom: 24px` (5.1) |
 | Obraz | **portrétová sazba kresby** (viewBox ~520×670). Panoramatická 1080 px by ve sloupci ~590 px měla popisky pod 7 px — do dvousloupce nepatří. |
 | Text | max `--id-maxw-prose`; eyebrow + H2 uvnitř bloku, ne nad ním |
 | Odsazení | margin-block clamp(64px,8vw,104px) |
@@ -1275,7 +1279,7 @@ Wordmark „inteliDome"; zdroj Obrázky/logo/final/intelidome-logo.svg, ořez na
 3. Buttony a chipy pill (--id-r-pill 980px); primární padding 16px 30px, Archivo 15.5px w600.
 4. Akcent #2563eb pod 5 % plochy — CTA, odkazy, focus ring, eyebrow, klíčové číslo, 1 prvek v SVG.
 5. Krém místo šedé pro panely, dema, step-karty, mezipásy.
-6. Prose max 700px, summary-lead max 960px.
+6. Sloupec prózy i lead souhrnu 700 px (`--id-maxw-prose`); **míra textu** je 33 em (4.3 p. 4, ADR-007), ne šířka boxu.
 7. tabular-nums na každém čísle; jednotka `<small>` 0.52em v --id-ink-2.
 8. Stat řady odděluj hairline, ne kartami/stíny.
 9. Scroll-reveal jednotně dle QR POHYB.
@@ -1355,14 +1359,22 @@ input[type="range"]:focus-visible { outline-offset: 6px; }
 <div role="group" aria-labelledby="calc-title">
  <h3 id="calc-title">…</h3>
  <label for="area">Plocha</label>
- <input type="number" id="area" inputmode="numeric" min="1" max="20000">
+ <div class="id-calc__inrow">
+  <input type="number" id="area" inputmode="numeric" min="1" max="20000"
+         aria-describedby="area-u">
+  <span class="unit" id="area-u">m²</span>
+ </div>
  <button aria-pressed="true">2 dny</button>
  <button aria-pressed="false">3 dny</button>
- <div aria-live="polite"></div>
+ <div aria-live="polite">… všechny výstupní řádky …</div>
 </div>
 ```
 
 Viditelný `<label for>` u inputů; segmented = buttony s aria-pressed v role=group, ne radio-hack; aria-live polite, nikdy assertive; přepočet mění textContent, ne DOM; verdikt textem (ikona + formulace).
+
+**Jednotka patří do přístupného jména pole** (v2.6): `<label for>` nese jen název veličiny, takže odečítač jinak ohlásí „Plocha, 100" bez jednotky. Jednotku připojí `aria-describedby` na `<span class="unit">`. Platí **jen pro pole s jednotkou** — formulářová pole bez ní (7.11) `aria-describedby` nedostávají, tam by jen přidalo hluk.
+
+**Živá oblast obepíná všechny výstupy, ne jen verdikt** (v2.6): s `aria-live` pouze na verdiktu neohlásí odečítač přepočet čtyř z pěti polí. Vnořovat živé oblasti do sebe se nesmí — nese ji výstupní sloupec.
 
 **Slider:** nativní `<input type="range" min="70" max="160" step="1" value="140">` s aria-labelem; hodnota i textově v `<output for aria-live="polite">` („140 %"); verdikt-chip mění text i třídu.
 
@@ -1504,7 +1516,6 @@ Kompletní tokenová vrstva v2.0 ke zkopírování. Hodnoty jsou 1:1 s kapitolam
   /* ---- geometry ---- */
   --id-maxw: 1200px;
   --id-maxw-prose: 700px;
-  --id-maxw-summary: 960px;
   --id-s-4: 4px; --id-s-8: 8px; --id-s-12: 12px; --id-s-16: 16px;
   --id-s-24: 24px; --id-s-32: 32px; --id-s-40: 40px; --id-s-48: 48px;
   --id-s-64: 64px; --id-s-80: 80px; --id-s-96: 96px; --id-s-120: 120px;
@@ -1667,21 +1678,18 @@ vlastní rozhodnutí (ADR), ne na záplatu v článku:
 1. **`display-xl` dolní mez 48 px** dává na 320 px H1 „Krásný trávník
    začíná pod zemí" čtyři řádky po slovu (360: tři). Kandidát: mez 40–42 px
    nebo užší tracking pod 360 px.
-2. **Dvě CTA na poslední obrazovce** — kapsle `__go` „Objevit systém" a
-   závěrečná `.id-cta` vedou na tutéž adresu. Kandidát: kapsle-CTA ztlumit,
-   jakmile je `.id-cta` ve viewportu.
+2. ~~Dvě CTA na poslední obrazovce~~ — **vyřešeno** (kolo 07): kapsle
+   svou mini-CTA odloží `display: none`, jakmile je `.id-cta` ve viewportu
+   (IntersectionObserver v `Header/Component.client.tsx`).
 3. **Hero na výšku** načítá `w=3840` (187 kB, dekódování ~25 MB) kvůli
    `sizes: 236vh` z masteru 21:9. Kandidát: portrétový ořez přes `<picture>`.
-4. **Maska řádků H1 (`.id-hline`, 6.3.3)** ořezává descender o 1–2,5 px
-   (box lh 0,98 vs. obsah 122 px). Kandidát: `padding-bottom: .06em` +
-   `margin-bottom: −.06em`.
+4. ~~Maska řádků H1 ořezává descender~~ — **vyřešeno** (kolo 09):
+   `.id-hline` má `padding-bottom: .12em` + záporný margin, rezerva 8,2 px.
 5. **Produktový pás** sdílí figuru sítě (`SitMostuPortret`, uzel Osvětlení)
    napříč články. Kandidát: figura per článek nebo prop na uzly.
 6. **Chip „Kalkulátor" (7.4/7.7)** s akcentovým obrysem čte jako tlačítko.
-7. **Reveal dvousloupce** — hlava, figura a tělo mají tři triggery;
-   na 1440 startuje figura dřív než eyebrow. Kandidát: jedna skupina
-   `data-rv-group` per split (6.3.2). (Produktový pás takto opraven
-   v kole 06; split zbývá.)
+7. ~~Reveal dvousloupce má tři triggery~~ — **vyřešeno** (kolo 09):
+   `data-rv-group` na `.id-split`, stagger hlava → kresba → tělo.
 8. ~~Reduced-motion globální blok krátí na 0,01 ms~~ — **vyřešeno**
    (kolo 06): blok sází `animation: none !important` + pojistky
    `.rv` / `.id-hline > span` / `.id-hero__fade` podle 6.7 v2.
@@ -1698,24 +1706,24 @@ Doplněno po kole 05 (2026-09-13):
     tvoří 11,4 % výšky proti 20–35 % z 8.1 p. 3. Rytmus nesou jen
     vsazené panely. Kandidát: vnitřní krémový mezipás kolem jedné
     kapitoly, nebo kalkulátor jako plný obsidianový pás místo panelu.
-13. **8.2 × ADR-006** — šablona článku stále předepisuje leadu souhrnu
-    `--id-maxw-summary` 960 px a produktovému pásu `minmax(0,420px) 1fr`,
-    přestože mřížka v3 track 960 ruší. Jedno z toho má z dokumentu zmizet.
-14. **4.2 × 7.7** — `--id-t-stat-xl` clamp(40,5.4vw,64) proti
-    „hero kalkulátoru" clamp(30,3.4vw,46) v 7.7. Stránka drží 7.7,
-    token ze 4.2 nepoužívá nikdo.
+13. ~~8.2 × ADR-006~~ — **rozhodnuto §15 p. 2** (platí ADR-006) a v2.6
+    **provedeno** v 8.2 ř. 2 i N+1, v 8.2b a v 10. Do p. 6; token
+    `--id-maxw-summary` smazán z 13.1 i z `tokens.css`.
+14. ~~4.2 × 7.7~~ — **rozhodnuto §15 p. 1** (platí 7.7) a v2.6 **provedeno**:
+    popisek tokenu ve 4.2 přeznačen na landing (8.3) s poznámkou, že
+    v článku užití nemá.
 15. **Kotva pod kapslí** — 7.1 nemá token odsazení kotev; stránka teď
     sází 124 px (dolní hrana 74 + odstup + 30 px revealu). K zapsání
     do 7.1 jako `--id-anchor-offset`.
-16. **11.3 vzor kalkulátoru** neřeší jednotku u pole: `<label for>` nese
-    jen název veličiny, takže odečítač ohlásí „Hloubka, 20" bez jednotky.
-    Stránka to řeší `aria-describedby` na `<span class="unit">`.
+16. ~~11.3 neřeší jednotku u pole~~ — **vyřešeno v2.6**: vzor
+    `aria-describedby` na `<span class="unit">` zapsán do 11.3 (platí
+    jen pro pole s jednotkou, ne pro formulářová pole obecně).
 17. **9.2 gradienty** — pravidlo zná „dva radiální (voda, sucho)", kresby
     mají navíc `sd-louze` (jiné stopy než závazné .34→.14→.05) a lineární
     `tz-fade` jako masku, kterou paleta nezná.
-18. **Přejímka mřížky** má krýt i **1280** (a obecně pásmo 1130–1439):
-    sloupce tam jsou o 12–24 % užší a obsah se láme jinak. Do kola 06
-    se pouštěla jen 1024 / 1440 / ≥1920.
+18. ~~Přejímka mřížky nekryje pásmo 1130–1439~~ — **vyřešeno v2.6**:
+    8.2a i ADR-006 předepisují čtyři šířky (1440 / ≥1920 / **1130** / 1024)
+    a `svg-labels` navíc na 320 / 393.
 
 ## 15. Rozhodnuté spory (v2.5, po kole 08)
 

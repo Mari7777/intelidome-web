@@ -1399,3 +1399,83 @@ implementaci pole, ne na jeho roli. Jakmile se typ změní kvůli něčemu
 
 Přejímka: `layout-check` 1024/1440/1990 a `svg-labels` 320/393/1440 bez
 nálezu, `tsc` čistý.
+
+## Koš B — vyřešeno (2026-09-13)
+
+Osm oblastí prověřil workflow (32 agentů: průzkum + oponentura ke každému
+netriviálnímu návrhu). Z **62 bodů 57 platilo, 1 byl mezitím vyřešen,
+4 se ukázaly jako mylné.** Zavřeno všech 33 triviálních plus dva nálezy,
+které průzkum objevil navíc — jeden z nich funkční.
+
+### Nález, který průzkum našel navíc a byl vážný
+
+**Do pole sypné hustoty nešlo napsat desetinné číslo.** Moje oprava
+české čárky (kolo 09) držela ve stavu *číslo*, takže se hodnota při
+každém stisku normalizovala: „1,05" se vyťukalo jako **„10,85"**,
+protože mezistav „1," číslo neunese. Pole teď drží **rozepsaný řetězec**
+a model počítá z `Number(raw.replace(',', '.'))`. Ověřeno psaním:
+„1,05" → 1,05 t · „0,75" → 750 kg · tečka „1.2" → „1,2" · prázdné pole
+→ „—", ne nula. Sedmá regrese z mých vlastních oprav a jediná, která
+byla vidět uživateli.
+
+### Dokument (13 zásahů) — v2.6
+
+Sekce 15 sice spory rozhodla, ale hodnoty zůstaly v textu:
+lead souhrnu 960 px v 8.2 i v 10. Do p. 6, produktový pás
+`minmax(0,420px) 1fr`, výchozí sazba figury na zrušeném tracku `wide`,
+spec dvousloupce se třemi neplatnými hodnotami (`0.82fr 1fr`, gap 72,
+`align-items: center`). Vše přepsáno na měřený stav; token
+`--id-maxw-summary` smazán z 13.1 i z `tokens.css` (nula spotřebitelů);
+popisek `--id-t-stat-xl` přeznačen na landing. V sekci 14 proškrtnuty
+body 2, 4, 7, 13, 14, 16 a 18. ADR-006 i 8.2a nově předepisují přejímku
+na **čtyřech** šířkách (1440 / ≥1920 / **1130** / 1024). ADR-007 má
+u leadu skutečné číslo. 11.3 dostala vzor „jednotka přes
+`aria-describedby`" a „živá oblast obepíná všechny výstupy".
+
+### Kód
+
+| Oblast | Zásah | Naměřeno |
+|---|---|---|
+| kalkulátor | desetinné pole drží řetězec | „1,05" jde napsat |
+| kalkulátor | `gap` na `--id-gap-col` | 64 → **56 px**, zlom panelu sedí na stránkový |
+| kalkulátor | chip bez pilulky a akcentového rámečku (3.8) | border 0, radius 0, zůstal hlas |
+| kapsle | mini-CTA pod 640 px `display: none` | překryv sazby **88 % → 46 %** |
+| kapsle | hit-area ikony pseudo-prvkem | 24 × 30 px bez rozšíření kapsle |
+| kotvy | token `--id-anchor-offset: 124px` | jedna páka pro nadpisy i fokus |
+| kotvy | `#obsah` je `tabindex="-1"` + bez prstence; globální ring vyjímá `[tabindex='-1']` | tab po skoku pokračuje v článku |
+| rytmus | hlavička + první obsah = jeden uzel | **24 px** po obou hlavičkách (dřív 24 a 32) |
+| rytmus | předěl kapitoly pásový vždy | jedna míra bez ohledu na předchůdce |
+| rytmus | složený dvousloupec už není pás | 44 px místo pásové díry v toku |
+| Obr. 07 | gradient louže na stopy 9.2 | .34 → .14 → .05 jako `zv-voda` |
+
+**Past, na kterou se přišlo při ověřování:** pravidlo „hlavička + její
+obsah = 24 px" musí v souboru stát **za** pásovým rytmem — `* + .id-split`
+i `* + .id-figure--bleed` mají stejnou specificitu a rozhoduje pořadí.
+Napoprvé zůstalo 115 px.
+
+Přejímka: `layout-check` 1024 / **1130** / **1280** / 1440 / 1990 a
+`svg-labels` 320 / 393 / 1440 bez nálezu, `tsc` čistý.
+
+### Co z koše B zůstává otevřené (a proč)
+
+Sedm bodů s nákladem „velký" — každý je nový asset nebo zásah do
+struktury článku, ne hodnota v CSS:
+
+1. **Partitura pásů** — obsidian 9,3 % proti 20–35 % z 8.1 p. 3.
+   Oponent upozornil, že převod kalkulátorů na plné pásy by dal článku
+   čtyři tmavé hmoty a padlo by 8.1 p. 8 („článek má jeden vnitřní
+   obsidian"). Chce vlastní rozhodnutí o partituře dlouhého článku.
+2. **Portrétový ořez hera** — telefon stahuje w=3840 a 80 % pixelů
+   zahodí; řešením je samostatné médium 620×1344 a `<picture media>`
+   (odhad 145 → ~71 kB). Pozor: ořezaný zdroj už nesmí dostat portrétový
+   `object-position`, jinak se ořízne podruhé.
+3. **Dva povrchy kalkulátoru** (obsidian × krém) pro tutéž roli.
+4. **Sdílená figura produktového pásu** s uzlem „Osvětlení" bez opory
+   v textu — řešením je prop na uzly, ale sahá i na výšku sloupců pásu.
+5. **Dva jazyky kresby napříč články** — obrys hmoty ano, gradient
+   v Kořenové zóně je nositel pointy a plošně převádět se nesmí.
+6. **Barevný klíč kreseb** — `#54402c` nese čtyři různé významy;
+   oponent doporučil dvouúrovňový klíč, ne „jeden hex = jeden význam".
+7. **Skok osy prózy** uvnitř kapitoly (§15) — adversární přezkoušení
+   potvrdilo, že kresba nemá v pásmu 1130–1440 ani pixel rezervy, ale
+   vyvrátilo číslo u varianty (b): prázdno by nebylo > 35 %, ale **66–76 %**.

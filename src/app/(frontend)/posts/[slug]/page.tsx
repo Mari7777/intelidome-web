@@ -89,7 +89,7 @@ export default async function Post({ params: paramsPromise }: Args) {
           z Payloadu props nepropouští, takže `id` na RichText se tiše
           zahodilo a šipka v heru mířila do prázdna.
         */}
-        <div id="obsah" style={{ scrollMarginTop: '96px' }}>
+        <div className="id-anchor-target" id="obsah" tabIndex={-1}>
           <RichText className="id-article" data={post.content} enableGutter={false} />
         </div>
 

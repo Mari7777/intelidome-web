@@ -645,9 +645,17 @@
   color: var(--id-ink);
 }
 .id-capsule__icon {
+  /* Cíl 24 × 24 px (WCAG 2.5.8) přes pseudo-prvek — šířkou boxu by se
+     rozšířila kapsle, která už tak leží nad sloupcem prózy. */
+  position: relative;
   display: flex;
   color: var(--id-ink-2);
   transition: color 0.25s;
+}
+.id-capsule__icon::after {
+  content: '';
+  position: absolute;
+  inset: -3px;
 }
 .id-capsule__icon:hover {
   color: var(--id-ink);
@@ -655,7 +663,7 @@
 /* Jediné mini-CTA v kapsli — modrá dostane funkční cíl. */
 /* Jakmile je závěrečný CTA pás na obrazovce, mini-CTA v kapsli ustoupí —
    na obrazovce má stát jediná výzva (8.2, rubrika hierarchie). Mizí
-   i pro klávesnici (`visibility`), aby nezůstal neviditelný tab stop. */
+   i pro klávesnici (`display: none`), aby nezůstal neviditelný tab stop. */
 .id-capsule-wrap[data-cta-videt] .id-capsule__go {
   /* `display: none`, ne jen `visibility`: schované tlačítko si drželo
      128 z 332 px kapsle, takže vedle loga zela díra (porota kola 08). */
@@ -664,6 +672,14 @@
 @media (prefers-reduced-motion: reduce) {
   .id-capsule-wrap[data-cta-videt] .id-capsule__go {
     transform: none;
+  }
+}
+@media (max-width: 639px) {
+  /* Kapsle leží nad sloupcem prózy; s mini-CTA zabírala 88–100 % míry
+     sazby, bez ní 46–58 %. Pod 640 px tedy zůstává jen logo a ikona —
+     výzva na čtenáře čeká v CTA pásu (koš B). */
+  .id-capsule__go {
+    display: none;
   }
 }
 .id-capsule__go {
@@ -706,8 +722,9 @@ html {
 }
 
 /* ══ Partitura pásů článku (DESIGN.md 8.1 + 8.2) ══════════════════════
-   Článek je jedna mřížka se třemi dorazy: `content` (prose 700px),
-   `wide` (960px pro souhrn a figury) a `full` (pás přes celou šířku).
+   Článek je jedna mřížka se třemi dorazy: `content` (próza 700px),
+   `edge` (1360 px pro dvousloupce a figury) a `full` (pás přes celou
+   šířku). Track `wide` (960) zrušil ADR-006 — nehledat ho.
    Full-bleed se dělá pojmenovaným sloupcem, ne trikem se 100vw —
    ten by na desktopu s viditelným posuvníkem přidal vodorovný přetok. */
 .id-article {
@@ -953,7 +970,7 @@ html {
 /* ── Fokus (DESIGN.md 11.2) ───────────────────────────────────────────
    Globální základ: prstenec ≥ 3:1 všude. Tlačítka a odkazy si ho do
    teď nesly jen tam, kde na ně někdo sáhl ručně. */
-:where(a, button, summary, [tabindex]):focus-visible {
+:where(a, button, summary, [tabindex]:not([tabindex='-1'])):focus-visible {
   outline: 3px solid var(--id-accent);
   outline-offset: 3px;
   border-radius: var(--id-r-sm, 10px);
@@ -964,7 +981,7 @@ html {
   primární button tintu #93c5fd = 1,4:1, tedy hluboko pod non-text
   minimem 3:1. Na obsidianu je to obráceně (tinta 10,79:1).
 */
-[data-surface='dark'] :where(a, button, summary, [tabindex]):focus-visible {
+[data-surface='dark'] :where(a, button, summary, [tabindex]:not([tabindex='-1'])):focus-visible {
   outline-color: var(--id-accent-tint);
 }
 
@@ -979,7 +996,9 @@ html {
   line-height: 1.2;
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: clamp(28px, 4vw, 64px);
+  /* Táž mezera jako ve splitu a FAQ (ADR-006: jediný zlom 720/56) —
+     se 64 px vznikal na širokém okně druhý zlom o 4 px vedle stránkového. */
+  gap: var(--id-gap-col, clamp(28px, 4vw, 56px));
   padding: var(--id-gutter, 40px);
   border-radius: var(--id-r-card);
   background: var(--id-obsidian);
@@ -1025,11 +1044,12 @@ html {
   line-height: 1.15;
 }
 .id-chip--outline-accent {
+  /* Štítek role, ne akce: pilulka s 1,5px akcentovým obrysem četla jako
+     sekundární tlačítko (3.8 zakazuje akcentové rámečky) a na telefonu
+     spadla pod titulek, kde by sedělo CTA. Zůstává jen hlas — týž stupeň
+     jako labely polí téhož panelu, odlišený akcentem. */
   display: inline-flex;
   align-items: center;
-  padding: 6px 14px;
-  border: 1.5px solid var(--id-accent);
-  border-radius: var(--id-r-pill);
   font-family: var(--id-f-display);
   /* 4.3 p. 6: minimum 12 px, a chip mezi vyjmenované výjimky nepatří. */
   font-size: 12px;
@@ -1622,8 +1642,22 @@ html {
 /* Kotva pod plovoucí kapslí: dolní hrana 74 px (7.1) + odstup + 30 px,
    o které reveal obsah zvedá. Bez toho přistál nadpis 30 px NAD
    viewportem a kapsle překryla dalších 56 px (porota kola 05, výkon). */
+/* Cíl zkratky do obsahu: programově fokusovatelný (tabindex −1), aby po
+   skoku pokračoval tab uvnitř článku, ale bez prstence — o ten fokus
+   uživatel nepožádal. Odsazení bere týž token jako nadpisy. */
+.id-anchor-target {
+  scroll-margin-top: var(--id-anchor-offset);
+}
+.id-anchor-target:focus {
+  outline: none;
+}
 :where(.id-article, main) :is(h2, h3)[id] {
-  scroll-margin-top: 124px;
+  scroll-margin-top: var(--id-anchor-offset);
+}
+/* Totéž pro fokus klávesnicí: prvek, na který se doskočí tabem, nesmí
+   skončit pod kapslí (WCAG 2.4.11). Tatáž hodnota, jedna páka. */
+:where(.id-article) :is(a[href], button, input, select, textarea, summary, [tabindex]) {
+  scroll-margin-top: var(--id-anchor-offset);
 }
 
 /* ── Svislý rytmus (ADR-006) ──────────────────────────────────────────
@@ -1699,16 +1733,13 @@ html {
 .id-article > :is(ul, ol) > li::marker {
   color: var(--id-ink-3);
 }
-/* Nadpis kapitoly patří ke svému odstavci, ne k předchozímu bloku. */
-/* Mezititulek, který uvádí dvousloupec, k němu patří — ne přes pásovou mezeru. */
-.id-article > h3 + .id-split {
-  margin-top: 28px;
-}
-.id-article > .id-chapter + p {
-  margin-top: 24px;
-}
 .id-article > :is(.id-band, .id-split) + *,
 .id-article > * + :is(.id-band, .id-split) {
+  margin-top: var(--id-rhythm-band);
+}
+/* Předěl kapitoly je pásový vždy, ne jen po pásu — jinak má tentýž šev
+   dvě míry podle toho, co kapitole předchází. */
+.id-article > * + .id-chapter {
   margin-top: var(--id-rhythm-band);
 }
 /* Dva pásy za sebou se potkávají švem: každý nese vlastní `--id-sect-y`
@@ -1718,15 +1749,31 @@ html {
   margin-top: 0;
 }
 /* Full-bleed fotografie patří ke kapitole POD ní: před ní pásová mezera,
-   za ní modulová — jinak vypadá jako dovětek předchozího bloku. */
+   za ní modulová — jinak vypadá jako dovětek předchozího bloku. Výjimku
+   „po hlavičce kapitoly" řeší společné pravidlo `chapter + *` (24 px). */
 .id-article > * + .id-figure--bleed {
   margin-top: var(--id-rhythm-band);
 }
-.id-article > .id-chapter + .id-figure--bleed {
-  margin-top: 32px;
-}
 .id-article > .id-figure--bleed + :is(p, ul, ol) {
   margin-top: 44px;
+}
+/* Hlavička a její první obsah jsou JEDEN uzel, i když je struktura
+   v Lexicalu plochá (5.1: titulek ↔ obsah = 24 px). Platí bez ohledu na
+   to, čím kapitola začíná — odstavcem, kresbou i fotografií; dřív měla
+   tatáž role 24 px u prózy a 32 px u full-bleed fotky (koš B). */
+.id-article > .id-chapter + *,
+.id-article > h3 + .id-split {
+  margin-top: 24px;
+}
+/* Pozn.: musí stát ZA pravidly pásového rytmu — `* + .id-split` i
+   `* + .id-figure--bleed` mají stejnou specificitu a rozhoduje pořadí. */
+@media (max-width: 1129px) {
+  /* Po složení dvousloupce je jeho tělo běžná próza téže kapitoly, ne pás:
+     pásová mezera 64–120 px tam dělala díru uprostřed odstavcového toku
+     (koš B). Předěl PŘED splitem zůstává pásový — kapitola jím začíná. */
+  .id-article > .id-split + :is(p, ul, ol, h3) {
+    margin-top: 44px;
+  }
 }
 
 /* ── Panel obepne kresbu, nevyplňuje sloupec ──────────────────────────

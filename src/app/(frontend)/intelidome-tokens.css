@@ -90,9 +90,11 @@
   /* Míra TEXTU uvnitř sloupce prózy (ADR-007): 33 em ≈ 70 znaků při
      jakékoli velikosti písma. Sloupec 700 px zůstává šířkou mřížky. */
   --id-measure: 33em;
+  /* Kotva pod plovoucí kapslí (7.1): dolní hrana 74 px + odstup + 30 px,
+     o které reveal obsah zvedá. Platí pro nadpisy s id i pro fokus. */
+  --id-anchor-offset: 124px;
   --id-maxw: 1200px;
   --id-maxw-prose: 700px;
-  --id-maxw-summary: 960px;
   --id-s-4: 4px; --id-s-8: 8px; --id-s-12: 12px; --id-s-16: 16px;
   --id-s-24: 24px; --id-s-32: 32px; --id-s-40: 40px; --id-s-48: 48px;
   --id-s-64: 64px; --id-s-80: 80px; --id-s-96: 96px; --id-s-120: 120px;

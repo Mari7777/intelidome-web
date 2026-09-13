@@ -67,14 +67,25 @@ export const CalculatorBlock: React.FC<CalculatorBlockProps> = ({
 }
 
 /** Číslo s tisícovými mezerami a desetinnou čárkou (cs-CZ). */
-/** Vstup píše čárku, model počítá s tečkou — jinak stojí v jednom panelu
- *  „0.8" proti „0,8 kg/l" v próze (porota kola 08, typografie). */
+/*
+ * Desetinné pole drží ROZEPSANÝ ŘETĚZEC, ne číslo. Když stav držel číslo
+ * a hodnota se při každém stisku normalizovala, nešlo desetinné číslo
+ * vůbec napsat: „1,05" se vyťukalo jako „10,85", protože mezistav „1,"
+ * číslo neunese (koš B). Model počítá z `cislo()`, zobrazuje se `raw`.
+ */
 const naCarku = (hodnota: number): string => String(hodnota).replace('.', ',')
-const cislo = (raw: string, puvodni: number): number => {
+/** Povolí jen číslice a jeden desetinný oddělovač; tečku píše jako čárku. */
+const pisChislo = (raw: string): string => {
+  const jenPovolene = raw.replace(/[^\d.,]/g, '').replace(/\./g, ',')
+  const [cela, ...zbytek] = jenPovolene.split(',')
+  return zbytek.length ? `${cela},${zbytek.join('').slice(0, 3)}` : cela
+}
+/** Rozepsaný řetězec → číslo pro model. Prázdné nebo neúplné = NaN (neplatné). */
+const cislo = (raw: string): number => {
   const normalizovane = raw.replace(',', '.').trim()
-  if (normalizovane === '') return 0
+  if (normalizovane === '' || normalizovane.endsWith('.')) return NaN
   const hodnota = Number(normalizovane)
-  return Number.isFinite(hodnota) && hodnota >= 0 ? hodnota : puvodni
+  return Number.isFinite(hodnota) ? hodnota : NaN
 }
 
 const fmtN = (value: number, decimals = 0): string =>
@@ -196,10 +207,12 @@ const Primesi = ({ className, uid }: { className: string; uid: string }) => {
   const [plocha, setPlocha] = useState(100)
   const [hloubka, setHloubka] = useState(20)
   const [podil, setPodil] = useState(5)
-  const [hustota, setHustota] = useState(0.8)
+  // rozepsaný řetězec, ne číslo — viz `pisChislo` výš
+  const [hustotaRaw, setHustotaRaw] = useState('0,8')
+  const hustota = cislo(hustotaRaw)
   const [pytel, setPytel] = useState(20)
 
-  const platne = plocha > 0 && hloubka > 0 && podil >= 0 && podil <= 100 && hustota > 0
+  const platne = plocha > 0 && hloubka > 0 && podil >= 0 && podil <= 100 && Number.isFinite(hustota) && hustota > 0
   const vrstvaNaM2 = hloubka * 10 // litrů pod 1 m²
   const primesNaM2 = (vrstvaNaM2 * podil) / 100
   const zakladNaM2 = vrstvaNaM2 - primesNaM2
@@ -274,9 +287,9 @@ const Primesi = ({ className, uid }: { className: string; uid: string }) => {
               aria-describedby={`${uid}-hustota-u`}
               id={`${uid}-hustota`}
               inputMode="decimal"
-              onChange={(e) => setHustota(cislo(e.target.value, hustota))}
+              onChange={(e) => setHustotaRaw(pisChislo(e.target.value))}
               type="text"
-              value={naCarku(hustota)}
+              value={hustotaRaw}
             />
             <span className="unit" id={`${uid}-hustota-u`}>kg/l</span>
           </div>

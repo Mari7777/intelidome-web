@@ -35,7 +35,9 @@ a jiná šířka obsahu tenhle součet rozbije. Zvětšit písmo na 19 px dá
 3. Platí pro všechny prozaické uzly: `.id-article > p`, `li`,
    `.id-split__p`, text calloutu, odpovědi FAQ, prózu produktového
    pásu, figcaption (tam už 62ch z 8.2b — beze změny). Neplatí pro
-   titulky, lead souhrnu (má vlastní 21 px / 66 znaků) a centrované
+   titulky, lead souhrnu (míru mu určuje vlastní clamp 21–28 px: 50–55 znaků
+   na návrhové šířce, nejvýš 76 znaků při dolní mezi — `--id-measure` by
+   při 28 px dalo 924 px, tedy víc než sloupec 700, a neudělalo by nic) a centrované
    CTA (52–56ch).
 4. Tělo prózy dostává předepsaný tracking −0,01 em (4.2), který
    dosud nebyl nasazený.

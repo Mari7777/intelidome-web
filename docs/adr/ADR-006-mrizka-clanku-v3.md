@@ -199,8 +199,13 @@ nepřekročí:
 Nad 1440 se od té chvíle stránka **jen centruje**; rozložení na 1990
 i 2560 px je identické s návrhovým 1440.
 
-**Přejímka se rozšířila.** `layout-check` se pouští nejmíň na 1440, ≥1920
-a 1024. Kontrola na jediné šířce strop mřížky nikdy neprověří.
+**Přejímka se rozšířila (revize 13. 9. 2026).** `layout-check` se pouští
+nejmíň na **čtyřech** šířkách: **1440** (návrhová osa), **≥1920** (strop
+stránky), **1130** (nejužší dvousloupec, hned nad zlomem) a **1024** (pod
+stropem). `svg-labels` navíc na **320 a 393** — popisky kreseb padají
+s měřítkem sloupce, a právě v pásmu 1130–1439 (typicky 1280, 1366) je
+sloupec o 12–24 % užší než na návrhové šířce. Kontrola na jediné šířce
+strop mřížky nikdy neprověří.
 
 | | před (1990) | po (1990) |
 |---|---|---|
