@@ -466,7 +466,10 @@
   font-weight: 400;
   letter-spacing: 0;
   line-height: 1.5;
-  color: var(--id-ink-dark-2);
+  /* Nad fotografií, ne nad obsidianem: `--id-ink-dark-2` (#9ba1a8) má jas
+     blízko osvětlené hlíně, takže i s plným scrimem vyšel metařádek na
+     1,0–3,5:1. Bílá s alfou drží nad tmavou i světlou plochou (11.1). */
+  color: rgba(255, 255, 255, 0.78);
 }
 /* Oddělovač patří k údaji za sebou, aby nikdy nevisel na konci řádku. */
 .id-hero__meta-item {

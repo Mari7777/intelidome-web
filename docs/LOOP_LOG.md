@@ -1104,3 +1104,54 @@ maže jen tehdy, když soubor pro nahrání zpět skutečně leží na disku,
 a článku 1 bylo přiřazeno `hero-zavlaha.avif` (2400 px, zůstalo
 v knihovně) i s fokálními body. Produkce dotčená není — pracuje se na
 lokální DB.
+
+### Připomínka autora k heru (13. 9.) — rýč nefunguje jako měřítko
+
+> „Rýč na prvním obrázku je malý. Díra je hluboká správně, ale čepel rýče
+> má být tak vysoká jako je díra."
+
+Věcná vada, ne vkus: článek staví na tom, že **jeden list rýče ≈ 30 cm**,
+a hero to má ukázat na první pohled. Naměřeno na `hero-sonda.avif`
+(výřez masteru 3840 px): drn v y≈130, dno sondy v y≈1000, čepel od y≈550
+do y≈975 → **čepel = 49 % hloubky**. Sonda tedy vypadá dvakrát hlubší,
+než jakou článek popisuje, a rýč měřítko nenese.
+
+Řešení: nová hero fotografie, kde horní hrana listu leží na drnu a špička
+na dně jamky (poměr 0,9–1,1). Vygenerováno 8 kandidátů ve dvou kompozicích
+(celková scéna / detail u země), vybíráno třemi nezávislými lenzy:
+měřítko · anatomie nářadí · použitelnost pod titulkem.
+
+#### Nové hero (13. 9.) — rýč konečně měří
+
+Vygenerováno 8 kandidátů, vybíráno třemi nezávislými lenzy (měřítko ·
+anatomie nářadí · použitelnost pod titulkem). Lenzy se rozešly přesně
+tam, kde to bylo čekat: nejlepší měřítko (varianta 2, poměr 0,89
+a bezvadná anatomie — tulejka s nýtem, souměrná ramena, souvislé ostří)
+mělo nejhorší podklad pro bílý titulek, protože celý záběr je osvětlená
+tráva. Vybrána varianta 2 — připomínka autora míří na měřítko, ne na
+náladu — a světlost se vyřešila art direction, ne výměnou snímku:
+
+1. **Stín v samotné fotografii** (sharp, gradient vlevo + shora + levý
+   dolní roh). Pravá polovina a dno jámy zůstaly nedotčené, aby špička
+   rýče a půdní profil zůstaly čitelné.
+2. **Metařádek hera na `rgba(255,255,255,.78)`** místo `--id-ink-dark-2`
+   (#9ba1a8): jeho jas leží blízko osvětlené hlíně, takže nad fotografií
+   nevyšel ani s plným scrimem (naměřeno 1,0–3,5:1, i na původním heru).
+
+Naměřeno pod skutečnými glyfy (ne přes celý rámec odstavce):
+
+| prvek | desktop min / průměr | mobil min / průměr |
+|---|---|---|
+| eyebrow | 17,05 / 19,11 | 4,46 / 9,85 |
+| H1 | 4,19 / 14,90 | 4,60 / 10,09 |
+| lead | 13,08 / 18,75 | 7,68 / 14,30 |
+| metařádek | 2,09 / **19,38** (dřív 7,17) | 16,65 / 19,12 |
+
+Zbývá jediný kosmetický bod: eyebrow na mobilu 4,46 proti prahu 4,5
+(rozdíl 0,9 %, průměr 9,85) a několik jednotlivých pixelů metařádku na
+desktopu — obojí na hranici měřicí nejistoty AVIF komprese.
+
+**Pozn. k repu:** `git add -A` v předchozím kroku vtáhl do commitu složku
+`zdroje-informaci/` (podklady autora a fotografické mastery), která do
+repa nepatří. Vráceno (`git rm --cached`) a doplněno do `.gitignore`;
+commit `01de0bc` byl amendován ještě před pushem.

@@ -141,11 +141,13 @@ const MEDIA: {
   focal?: { focalX: number; focalY: number; focalPortraitX?: number; focalPortraitY?: number }
 }[] = [
   {
-    filename: 'hero-sonda.avif',
-    /* Rýč je v masteru na 55 % šířky; s fokálním bodem 30 % se při ořezu
-       na 1440×1000 posune na ~71 % a titulek vlevo přes něj neleží. */
-    focal: { focalX: 30, focalY: 50, focalPortraitX: 62, focalPortraitY: 45 },
-    alt: 'Čerstvě vykopaná sonda v trávníku za nízkého odpoledního slunce: nahoře drn, pod ním tmavá ornice a světlejší udusaná vrstva, do které se opírá rýč; levá polovina záběru leží ve stínu.',
+    /* Rýč je na heru měřítko: článek staví na tom, že jeden list rýče ≈ 30 cm.
+       Na předchozím snímku zabírala čepel jen 49 % hloubky sondy, takže
+       jáma vypadala dvakrát hlubší, než jakou text popisuje (připomínka
+       autora 13. 9.). Tady sedí ramena listu na drnu a špička na dně. */
+    filename: 'hero-sonda-ryc.avif',
+    alt: 'Sonda vykopaná v trávníku, hluboká právě jako list rýče: rýč stojí svisle v jamce, horní hrana listu je v úrovni travního drnu a špička na dně. Ve stěně sondy je vidět tmavá ornice, pod ní světlá udusaná vrstva a kořeny, které se u ní lámou do strany.',
+    focal: { focalX: 48, focalY: 58, focalPortraitX: 48, focalPortraitY: 56 },
   },
   {
     /* Původní záběr rukou s rycími vidlemi měl strojové artefakty: hroty
