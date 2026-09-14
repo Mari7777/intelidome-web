@@ -110,8 +110,11 @@ const split = (fields: Record<string, unknown>): Node =>
 const chapter = (title: string, eyebrow?: string): Node =>
   block({ blockType: 'chapter', blockName: eyebrow ?? title, title, eyebrow })
 
-const calc = (kind: string, light = false, layout = 'axis'): Node =>
-  block({ blockType: 'calculator', blockName: `Kalkulátor ${kind}`, kind, light, layout })
+/* Kalkulátor jako PÁS, ne vsazený panel: v článku dlouhém 19 700 px je
+   posun povrchu jediné, co drží rytmus (8.1 p. 3) — vsazené panely ho
+   neudělají, protože povrch kolem nich zůstává týž. */
+const calc = (kind: string, surface = 'band', layout = 'axis'): Node =>
+  block({ blockType: 'calculator', blockName: `Kalkulátor ${kind}`, kind, surface, layout })
 
 const figure = (
   filename: string,
@@ -211,6 +214,7 @@ const body = root([
   /* ── Kapitola 02 ─────────────────────────────────────────────── */
   split({
     blockName: 'Kapitola 02',
+    surface: 'krem',
     side: 'image-left',
     drawing: 'pudni-profil',
     eyebrow: 'Kapitola 02',
@@ -264,7 +268,7 @@ const body = root([
   ),
   p('Zkoušku proveďte na více místech, voda může unikat do stran nebo najít trhlinu. Pokud zjistíte, že voda stojí v jámě i druhý den, odložte výsev. Musíte upravit terén do mírného spádu směrem od domu (zhruba 1 až 2 %, tedy o 1–2 centimetry na každý metr délky) k místu, které vodu pojme. Pamatujte, že podzemní drenáž musí někam odtékat. Pokud vykopete jámu do nepropustného jílu a zasypete ji štěrkem, nevytvořili jste drenáž, ale jen podzemní vanu, která se brzy naplní.'),
 
-  calc('vsak', false, 'axis'),
+  calc('vsak'),
 
   /* ── Kapitola 04 ─────────────────────────────────────────────── */
   split({
@@ -346,7 +350,7 @@ const body = root([
   ),
   p(['Pamatujte: ', BOLD], 'Procento podílu nikdy nepočítejte z kilogramů! Litr zeminy váží jinak než litr zeolitu. Objem surovin se odměřuje před smícháním v nádobách bez pěchování. Po zamíchání a ulehnutí se celkový objem zmenší, protože drobné částice zapadnou mezi ty větší.'),
 
-  calc('primesi', true, 'axis'),
+  calc('primesi'),
 
   /* ── Kapitola 06 – bez kresby, obraz nese full-bleed fotografie ─────
      Pořadí titulek → obraz → próza jako u ostatních kapitol; fotka před

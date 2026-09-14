@@ -2,7 +2,7 @@
 
 _Prověřeno 3 adversárními kontrolami: 41 nálezů, 37 zapracováno, 4 zamítnuty jako vkusové. Poté ručně překlopeno na paletu Tech Blue + Emerald (rozhodnutí 22. 8. 2026) s přepočtem všech kontrastů._
 
-**Verze:** 2.6 · **Datum:** 2026-09-13 · **Platí pro:** www.intelidome.com / intelidome.cz (Next.js + Tailwind CSS + GSAP)
+**Verze:** 2.7 · **Datum:** 2026-09-14 · **Platí pro:** www.intelidome.com / intelidome.cz (Next.js + Tailwind CSS + GSAP)
 **Primární reference:** [Sonos](https://styles.refero.design/style/8d315332-6267-4dc0-a14c-e8b49c26b0e1) · **Sekundární:** [Eight Sleep](https://styles.refero.design/style/e4e8fe86-47ed-4ddd-a6c6-2c28eae9aabe), [Samara](https://styles.refero.design/style/934a61aa-50ff-4e90-852b-4ad0b8262d54)
 
 > **Esence:** Teplý papír za dne, obsidian po setmění — a jeden modrý pulz.
@@ -1045,12 +1045,22 @@ Full-bleed pásy tří povrchů; „rytmus dne na zahradě": obsidian = noc, kr�
 
 1. Oddělení = posun povrchu, nikdy border mezi povrchy. Hairline 1px (bílá: var(--id-line-soft), krém: #dcdad4) jen mezi sekcemi téhož povrchu.
 2. Dva obsidiany nikdy za sebou; mezi nimi min. 2 světlé sekce.
-3. Obsidian 20–35 % výšky stránky vč. hero.
+3. **Landing a produktová stránka:** obsidian 20–35 % výšky vč. hero.
+   **Článek:** podíl se neměří — na 20 000 px stránce by 20 % znamenalo
+   4 000 px tmavé plochy a pravidlo by si odporovalo s p. 8. Platí
+   **vzdálenost: nejdelší úsek bez posunu povrchu ≤ 6 000 px** na každé
+   přejímkové šířce (393 / 1024 / 1280 / 1440). Vsazený panel posun
+   povrchu NEDĚLÁ — povrch kolem něj zůstává týž (v2.7).
 4. Po obsidianovém hero vždy krém; z vnitřního obsidianu do bílé povoleno.
-5. Panel ≠ pás: kalkulátor/demo smí plavat v bílé sekci jako panel (--id-r-card, padding clamp(28px,4vw,52px)); full-bleed pás bez radiusu.
+5. Panel ≠ pás: kalkulátor/demo smí plavat v bílé sekci jako panel (--id-r-card, padding clamp(28px,4vw,52px)); full-bleed pás bez radiusu. **V dlouhém článku je ale kalkulátor jako PÁS (`surface: band`) to jediné, co udělá posun povrchu** — panel rytmus nenese (v2.7). Pás si maluje povrch přes celé okno a obsah drží na osách (`.id-band--self`), nikdy `max-width` + `auto` (na širokém okně by zbyly bílé pruhy).
 6. Sekce padding-block var(--id-sect-y) (= 96–120px desktop, 72–80px mobil), hustší mezipásy var(--id-sect-y-sm); žádné pevné hodnoty mimo tokeny (5.1). CTA pás rovněž var(--id-sect-y).
 7. Footer vždy bílý, border-top 1px var(--id-line-soft), padding 34px 0 44px; „Tmavě (CTA patička)" ze 7.13 platí jen uvnitř závěrečného obsidianového CTA pásu — samostatná tmavá patička neexistuje.
-8. Max 3 obsidiany/stránku (hero + 1 vnitřní + CTA); článek: 1 vnitřní (produktový), CTA bílé.
+8. **Max 3 obsidiany na stránku do ~9 000 px** (hero + 1 vnitřní + CTA).
+   **Delší článek:** 1 vnitřní obsidian na každých započatých ~7 000 px
+   výšky, nejvýš 4 celkem, a vždy s p. 2 (mezi dvěma obsidiany min.
+   2 světlé sekce). Článek o 19 700 px tedy unese hero + 2 vnitřní +
+   produktový pás; CTA zůstává bílé. Pravidlo v původním znění bylo nad
+   ~9 200 px nesplnitelné současně s p. 3 (v2.7).
 
 ### 8.2 Šablona: Blogový článek
 
@@ -1701,11 +1711,11 @@ vlastní rozhodnutí (ADR), ne na záplatu v článku:
 
 Doplněno po kole 05 (2026-09-13):
 
-12. **Partitura pásů dlouhého článku** — mezi souhrnem a produktovým
-    pásem je 16 250 px bez posunu povrchu (83 % stránky) a obsidian
-    tvoří 11,4 % výšky proti 20–35 % z 8.1 p. 3. Rytmus nesou jen
-    vsazené panely. Kandidát: vnitřní krémový mezipás kolem jedné
-    kapitoly, nebo kalkulátor jako plný obsidianový pás místo panelu.
+12. ~~Partitura pásů dlouhého článku~~ — **vyřešeno v2.7**: oba
+    kalkulátory jsou obsidianové pásy a kapitola 02 stojí na krémovém.
+    Nejdelší úsek bez posunu povrchu **16 560 → 2 317 px** (1440)
+    a **3 577 px** (393); obsidian 9,3 → **16,2 %**. Pravidla 8.1 p. 3,
+    5 a 8 přepsána tak, aby si na dlouhém článku neodporovala.
 13. ~~8.2 × ADR-006~~ — **rozhodnuto §15 p. 2** (platí ADR-006) a v2.6
     **provedeno** v 8.2 ř. 2 i N+1, v 8.2b a v 10. Do p. 6; token
     `--id-maxw-summary` smazán z 13.1 i z `tokens.css`.

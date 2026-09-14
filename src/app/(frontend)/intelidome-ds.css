@@ -791,6 +791,20 @@ html {
   margin-inline: auto;
   padding-inline: var(--id-gutter);
 }
+/* Modul, který je sám pásem: povrch maluje přes celé okno, ale obsah drží
+   na týchž osách jako `.id-band__inner` (40..1400 @1440, 20..373 @393).
+   `max-width` + `margin-inline: auto` použít NELZE — pás by pak maloval
+   povrch jen do 1440 px a na širokém okně by zůstaly bílé pruhy. */
+/* Krémový panel kresby na krémovém pásu je neviditelný rám — podklad se
+   PROPADNE, nepřebarvuje se na bílou: tahy kreseb jsou laděné na krém. */
+.id-band--cream .id-figure-media {
+  background: transparent;
+}
+.id-article > .id-band--self {
+  border-radius: 0;
+  padding-block: var(--id-sect-y);
+  padding-inline: max(var(--id-gutter), calc((100% - var(--id-maxw-edge)) / 2));
+}
 .id-band__inner--prose {
   max-width: calc(var(--id-maxw-prose) + 2 * var(--id-gutter));
 }

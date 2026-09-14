@@ -68,5 +68,19 @@ export const Split: Block = {
     { name: 'number', type: 'text', label: 'Číslo obrázku', admin: { placeholder: '01' } },
     { name: 'caption', type: 'text', required: true, label: 'Popisek' },
     { name: 'alt', type: 'text', required: true, label: 'Popis kresby pro odečítač' },
+    {
+      name: 'surface',
+      type: 'select',
+      defaultValue: 'bila',
+      label: 'Povrch kapitoly',
+      admin: {
+        description:
+          'Krém nese posun povrchu (8.1 p. 3). Mezi dvěma krémovými pásy má zůstat aspoň jedna bílá sekce.',
+      },
+      options: [
+        { label: 'Bílá (výchozí)', value: 'bila' },
+        { label: 'Krémový pás', value: 'krem' },
+      ],
+    },
   ],
 }

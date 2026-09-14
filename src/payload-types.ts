@@ -1732,6 +1732,10 @@ export interface SplitBlock {
   number?: string | null;
   caption: string;
   alt: string;
+  /**
+   * Krém nese posun povrchu (8.1 p. 3). Mezi dvěma krémovými pásy má zůstat aspoň jedna bílá sekce.
+   */
+  surface?: ('bila' | 'krem') | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'split';
@@ -1801,7 +1805,11 @@ export interface CalculatorBlock {
    */
   layout?: ('axis' | 'offset-right' | 'offset-left') | null;
   /**
-   * Druhý kalkulátor v článku musí být světlý — dva obsidianové panely za sebou jsou zakázané (7.7).
+   * Pás nese posun povrchu (8.1 p. 3) — v dlouhém článku drží rytmus, který vsazené panely samy neudělají. Mezi dvěma obsidiany musí zůstat aspoň dvě světlé sekce (8.1 p. 2).
+   */
+  surface?: ('panel' | 'band') | null;
+  /**
+   * Zůstává kvůli starším článkům; nový obsah volí povrch výš.
    */
   light?: boolean | null;
   id?: string | null;

@@ -9,6 +9,9 @@ export type CalculatorBlockProps = {
   kind: 'prutok' | 'davka' | 'vsak' | 'primesi'
   /** Poloha na mřížce článku: na ose, nebo zrcadlený offset (ADR-006). */
   layout?: string | null
+  /** `panel` = vsazený do sekce, `band` = celý pás (nese posun povrchu, 8.1 p. 3). */
+  surface?: string | null
+  /** Zůstává kvůli starším článkům; platí jen pro vsazený panel. */
   light?: boolean | null
   id?: string | null
   blockName?: string | null
@@ -52,18 +55,25 @@ export const CalculatorBlock: React.FC<CalculatorBlockProps> = ({
   kind,
   layout,
   light,
+  surface,
 }) => {
   const uid = useId()
   /*
-    7.7 + 8.1 p. 5: kalkulátor je PANEL plovoucí ve světlé sekci, ne pás.
-    Druhý v článku má variantu `--light` (krémový panel), protože dva
-    obsidianové panely za sebou jsou zakázané.
+    Kalkulátor je buď vsazený PANEL ve světlé sekci (7.7), nebo celý PÁS —
+    v dlouhém článku je pás jediné, co udělá posun povrchu (8.1 p. 3):
+    vsazené panely rytmus nenesou, protože povrch kolem nich zůstává týž.
+
+    Jako pás nesmí `rv` viset na kořeni: do obrazu by se vsouval celý tmavý
+    povrch. Kořen proto nese skupinu a odhalují se jeho děti (6.3.2).
   */
+  const jePas = surface === 'band'
   const poloha = layout === 'offset-right' || layout === 'offset-left' ? `id-calc--${layout}` : 'id-edge'
-  const panel = cn('rv id-calc not-prose', poloha, light && 'id-calc--light', className)
+  const panel = jePas
+    ? cn('id-calc not-prose id-band id-band--obsidian id-band--self', className)
+    : cn('rv id-calc not-prose', poloha, light && 'id-calc--light', className)
 
   const Panel = PANELY[kind] ?? Davka
-  return <Panel className={panel} uid={uid} />
+  return <Panel className={panel} skupina={jePas} uid={uid} />
 }
 
 /** Číslo s tisícovými mezerami a desetinnou čárkou (cs-CZ). */
@@ -107,7 +117,7 @@ const fmtHmota = (kg: number): string =>
  * autorova: pod 2,5 pomalu, 2,5–7,5 ideální, nad 10 příliš rychle.
  * Mezi 7,5 a 10 článek pásmo nepojmenovává – kalkulátor to říká poctivě.
  */
-const Vsak = ({ className, uid }: { className: string; uid: string }) => {
+const Vsak = ({ className, skupina, uid }: PanelProps) => {
   const [pokles, setPokles] = useState(1)
   const [doba, setDoba] = useState(15)
 
@@ -132,7 +142,12 @@ const Vsak = ({ className, uid }: { className: string; uid: string }) => {
   }[pasmo]
 
   return (
-    <div aria-labelledby={`${uid}-h`} className={className} role="group">
+    <div
+      aria-labelledby={`${uid}-h`}
+      className={className}
+      role="group"
+      {...(skupina ? { 'data-rv-group': '' } : {})}
+    >
       <div className="id-calc__head">
         <h3 id={`${uid}-h`}>Vyhodnoťte zkoušku vsakování</h3>
         <span className="id-chip--outline-accent">Kalkulátor</span>
@@ -203,7 +218,7 @@ const Vsak = ({ className, uid }: { className: string; uid: string }) => {
  * kilogramy vzniknou až sypnou hustotou od výrobce. Výchozí čísla jsou
  * vzorový příklad z článku: 100 m², 20 cm, 5 % zeolitu, 0,8 kg/l, pytle 20 kg.
  */
-const Primesi = ({ className, uid }: { className: string; uid: string }) => {
+const Primesi = ({ className, skupina, uid }: PanelProps) => {
   const [plocha, setPlocha] = useState(100)
   const [hloubka, setHloubka] = useState(20)
   const [podil, setPodil] = useState(5)
@@ -221,7 +236,12 @@ const Primesi = ({ className, uid }: { className: string; uid: string }) => {
   const pytlu = pytel > 0 ? Math.ceil(kg / pytel) : NaN
 
   return (
-    <div aria-labelledby={`${uid}-h`} className={className} role="group">
+    <div
+      aria-labelledby={`${uid}-h`}
+      className={className}
+      role="group"
+      {...(skupina ? { 'data-rv-group': '' } : {})}
+    >
       <div className="id-calc__head">
         <h3 id={`${uid}-h`}>Spočítejte příměs do půdy</h3>
         <span className="id-chip--outline-accent">Kalkulátor</span>
@@ -355,7 +375,7 @@ const Primesi = ({ className, uid }: { className: string; uid: string }) => {
 
 
 /** Kbelíkový test: objem a čas → průtok, mínus 20 % rezervy, verdikt proti 25 l/min. */
-const Prutok = ({ className, uid }: { className: string; uid: string }) => {
+const Prutok = ({ className, skupina, uid }: PanelProps) => {
   const [objem, setObjem] = useState(10)
   const [cas, setCas] = useState(24)
 
@@ -365,7 +385,12 @@ const Prutok = ({ className, uid }: { className: string; uid: string }) => {
   const staci = navrhovy >= 25
 
   return (
-    <div aria-labelledby={`${uid}-h`} className={className} role="group">
+    <div
+      aria-labelledby={`${uid}-h`}
+      className={className}
+      role="group"
+      {...(skupina ? { 'data-rv-group': '' } : {})}
+    >
       <div className="id-calc__head">
         <h3 id={`${uid}-h`}>Vyhodnoťte svůj kbelíkový test</h3>
         <span className="id-chip--outline-accent">Kalkulátor</span>
@@ -440,7 +465,7 @@ const Prutok = ({ className, uid }: { className: string; uid: string }) => {
 }
 
 /** Plocha a dávka → objem jedné zálivky a doba běhu při známém průtoku. */
-const Davka = ({ className, uid }: { className: string; uid: string }) => {
+const Davka = ({ className, skupina, uid }: PanelProps) => {
   const [plocha, setPlocha] = useState(60)
   const [davka, setDavka] = useState(12)
   const [prutok, setPrutok] = useState(20)
@@ -451,7 +476,12 @@ const Davka = ({ className, uid }: { className: string; uid: string }) => {
   const dlouhe = minuty > 45
 
   return (
-    <div aria-labelledby={`${uid}-h`} className={className} role="group">
+    <div
+      aria-labelledby={`${uid}-h`}
+      className={className}
+      role="group"
+      {...(skupina ? { 'data-rv-group': '' } : {})}
+    >
       <div className="id-calc__head">
         <h3 id={`${uid}-h`}>Kolik vody a jak dlouho</h3>
         <span className="id-chip--outline-accent">Kalkulátor</span>
@@ -543,4 +573,8 @@ const Davka = ({ className, uid }: { className: string; uid: string }) => {
 }
 
 /* Až za všemi panely – `const` komponenty nesmí být použité před deklarací. */
+/** Panel kalkulátoru. `skupina` = kořen nese reveal skupinu (pás), místo
+ *  aby se odhaloval sám — jinak by do obrazu vjížděl celý tmavý povrch. */
+type PanelProps = { className: string; skupina?: boolean; uid: string }
+
 const PANELY = { prutok: Prutok, davka: Davka, vsak: Vsak, primesi: Primesi } as const

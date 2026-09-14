@@ -6,6 +6,8 @@ import { slugify } from '@/utilities/slugify'
 import { cn } from '@/utilities/ui'
 
 export type SplitBlockProps = {
+  /** `krem` = kapitola stojí na krémovém pásu (posun povrchu, 8.1 p. 3). */
+  surface?: string | null
   side: 'image-left' | 'image-right'
   drawing: string
   eyebrow?: string | null
@@ -45,6 +47,7 @@ export const SplitBlock: React.FC<SplitBlockProps> = ({
   eyebrow,
   number,
   side,
+  surface,
   title,
   titleLevel,
 }) => {
@@ -64,7 +67,12 @@ export const SplitBlock: React.FC<SplitBlockProps> = ({
     // své přímé potomky staggerem hlava → kresba → tělo. Tři nezávislé
     // triggery nastupovaly naráz (stagger 0 ms — porota kola 07, pohyb).
     <section
-      className={cn('id-split not-prose', side === 'image-right' && 'id-split--right', className)}
+      className={cn(
+        'id-split not-prose',
+        side === 'image-right' && 'id-split--right',
+        surface === 'krem' && 'id-band id-band--cream id-band--self',
+        className,
+      )}
       data-rv-group
     >
       {/* Tři položky mřížky: hlava, kresba, tělo. Na desktopu hlava + tělo

@@ -34,13 +34,27 @@ export const Calculator: Block = {
       ],
     },
     {
+      name: 'surface',
+      type: 'select',
+      defaultValue: 'panel',
+      label: 'Povrch',
+      admin: {
+        description:
+          'Pás nese posun povrchu (8.1 p. 3) — v dlouhém článku drží rytmus, který vsazené panely samy neudělají. Mezi dvěma obsidiany musí zůstat aspoň dvě světlé sekce (8.1 p. 2).',
+      },
+      options: [
+        { label: 'Vsazený panel', value: 'panel' },
+        { label: 'Obsidianový pás přes celou šířku', value: 'band' },
+      ],
+    },
+    {
       name: 'light',
       type: 'checkbox',
       defaultValue: false,
-      label: 'Světlá varianta (krém)',
+      label: 'Světlá varianta (krém) — jen pro vsazený panel',
       admin: {
-        description:
-          'Druhý kalkulátor v článku musí být světlý — dva obsidianové panely za sebou jsou zakázané (7.7).',
+        condition: (_, siblingData) => siblingData?.surface !== 'band',
+        description: 'Zůstává kvůli starším článkům; nový obsah volí povrch výš.',
       },
     },
   ],
