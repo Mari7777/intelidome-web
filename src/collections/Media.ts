@@ -29,6 +29,16 @@ export const Media: CollectionConfig = {
   },
   fields: [
     {
+      name: 'portrait',
+      type: 'upload',
+      relationTo: 'media',
+      label: 'Portrétový ořez',
+      admin: {
+        description:
+          'Volitelně: samostatný ořez pro telefon na výšku. Bez něj se z 21:9 masteru ořízne přes 75 % plochy a telefon stahuje zbytečně velkou variantu (9.1).',
+      },
+    },
+    {
       name: 'alt',
       type: 'text',
       localized: true,

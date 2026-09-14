@@ -142,6 +142,8 @@ const MEDIA: {
   filename: string
   alt: string
   focal?: { focalX: number; focalY: number; focalPortraitX?: number; focalPortraitY?: number }
+  /** Volitelný portrétový ořez — nahraje se zvlášť a připojí k hlavní fotce. */
+  portret?: string
 }[] = [
   {
     /* Rýč je na heru měřítko: článek staví na tom, že jeden list rýče ≈ 30 cm.
@@ -149,6 +151,7 @@ const MEDIA: {
        jáma vypadala dvakrát hlubší, než jakou text popisuje (připomínka
        autora 13. 9.). Tady sedí ramena listu na drnu a špička na dně. */
     filename: 'hero-sonda-ryc.avif',
+    portret: 'hero-sonda-ryc-portret.avif',
     alt: 'Sonda vykopaná v trávníku, hluboká právě jako list rýče: rýč stojí svisle v jamce, horní hrana listu je v úrovni travního drnu a špička na dně. Ve stěně sondy je vidět tmavá ornice, pod ní světlá udusaná vrstva a kořeny, které se u ní lámou do strany.',
     focal: { focalX: 48, focalY: 58, focalPortraitX: 48, focalPortraitY: 56 },
   },
@@ -511,7 +514,37 @@ const run = async () => {
       payload.logger.warn(`fotografie ${item.filename} není v zdroje-informaci/fotky – přeskočeno`)
       continue
     }
-    await payload.create({ collection: 'media', data: { alt: item.alt, ...item.focal }, filePath })
+    /* Portrétový ořez se nahraje první a hlavní fotka si ho ponese —
+       art direction patří k fotografii, ne do CSS ani do postu. */
+    let portretId: number | undefined
+    if (item.portret) {
+      const portretPath = path.resolve(dirname, '../zdroje-informaci/fotky', item.portret)
+      if (existsSync(portretPath)) {
+        const naleze = await payload.find({
+          collection: 'media',
+          where: { filename: { equals: item.portret } },
+          limit: 1,
+          pagination: false,
+        })
+        portretId = Number(
+          naleze.docs[0]?.id ??
+          (
+            await payload.create({
+              collection: 'media',
+              data: { alt: `${item.alt} — svislý ořez pro telefon` },
+              filePath: portretPath,
+            })
+          ).id,
+        )
+      } else {
+        payload.logger.warn(`portrétový ořez ${item.portret} chybí – přeskočeno`)
+      }
+    }
+    await payload.create({
+      collection: 'media',
+      data: { alt: item.alt, ...item.focal, ...(portretId ? { portrait: portretId } : {}) },
+      filePath,
+    })
     payload.logger.info(`nahráno médium ${item.filename}`)
   }
 

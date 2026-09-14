@@ -1693,8 +1693,13 @@ vlastní rozhodnutí (ADR), ne na záplatu v článku:
 2. ~~Dvě CTA na poslední obrazovce~~ — **vyřešeno** (kolo 07): kapsle
    svou mini-CTA odloží `display: none`, jakmile je `.id-cta` ve viewportu
    (IntersectionObserver v `Header/Component.client.tsx`).
-3. **Hero na výšku** načítá `w=3840` (187 kB, dekódování ~25 MB) kvůli
-   `sizes: 236vh` z masteru 21:9. Kandidát: portrétový ořez přes `<picture>`.
+3. ~~Hero na výšku načítá `w=3840` z masteru 21:9~~ — **vyřešeno v2.7**:
+   fotka si nese vlastní portrétový ořez (pole `portrait` v knihovně médií)
+   a `<picture>` ho podává pod 560 px. Telefon **142 → 35 kB**, ořezaný
+   zdroj dostane `object-position: center` (jinak by se ořízl podruhé).
+   Past: `priority` u `next/image` preloaduje SVŮJ src, takže s `<source>`
+   stáhne telefon obojí — preload se proto skládá ručně, po jednom
+   pro každou větev `<picture>`, a šířky musí být z `deviceSizes`.
 4. ~~Maska řádků H1 ořezává descender~~ — **vyřešeno** (kolo 09):
    `.id-hline` má `padding-bottom: .12em` + záporný margin, rezerva 8,2 px.
 5. **Produktový pás** sdílí figuru sítě (`SitMostuPortret`, uzel Osvětlení)

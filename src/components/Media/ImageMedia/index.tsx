@@ -64,6 +64,7 @@ export const ImageMedia: React.FC<MediaProps> = (props) => {
   // direction patří k fotografii, ne do globálního CSS (hero článku 1
   // chtělo 62 %, sonda článku 2 chce 30 %, aby titulek neležel přes rýč).
   const focal: Record<string, string> = {}
+  let portretSrc: string | undefined
 
   if (!src && resource && typeof resource === 'object') {
     const { alt: altFromResource, height: fullHeight, url, width: fullWidth } = resource
@@ -87,6 +88,18 @@ export const ImageMedia: React.FC<MediaProps> = (props) => {
     const cacheTag = resource.updatedAt
 
     src = getMediaUrl(url, cacheTag)
+
+    // Portrétový ořez: telefon na výšku jinak stahuje celý 21:9 master
+    // a přes 75 % plochy zahodí (koš B). Zdroj je už oříznutý na fokál,
+    // takže se NESMÍ ořezávat podruhé — proto `--id-focal-portrait: center`.
+    const portrait = (resource as { portrait?: unknown }).portrait
+    if (portrait && typeof portrait === 'object' && 'url' in portrait) {
+      const p = portrait as { url?: string | null; updatedAt?: string | null }
+      if (p.url) {
+        portretSrc = getMediaUrl(p.url, p.updatedAt ?? cacheTag)
+        focal['--id-focal-portrait'] = 'center'
+      }
+    }
   }
 
   const loading = loadingFromProps || (!priority ? 'lazy' : undefined)
@@ -102,8 +115,56 @@ export const ImageMedia: React.FC<MediaProps> = (props) => {
   */
   const sizes = sizeFromProps ?? '(min-width: 1024px) 960px, (min-width: 768px) 90vw, 100vw'
 
+  /* Deskriptory `w` pro <source>: Next optimalizuje i zdroj ze <source>,
+     jen si o něj musíme říct sami — komponenta `next/image` umí jeden src.
+     Šířky MUSÍ být z `deviceSizes` Nextu (640/750/828/1080/1200/1920/2048/
+     3840), jinak optimalizátor vrátí 400 „width is not allowed". */
+  const portretSrcSet = portretSrc
+    ? [640, 750, 828, 1080, 1200]
+        .map((w) => `/_next/image?url=${encodeURIComponent(portretSrc as string)}&w=${w}&q=72 ${w}w`)
+        .join(', ')
+    : undefined
+  const hlavniSrcSet =
+    typeof src === 'string' && src
+      ? [640, 828, 1200, 1920, 2048, 3840]
+          .map((w) => `/_next/image?url=${encodeURIComponent(src)}&w=${w}&q=72 ${w}w`)
+          .join(', ')
+      : undefined
+
+  /*
+    `priority` u next/image vloží preload na SVŮJ src — tedy na master,
+    i když <source> nakonec vybere portrét, takže telefon stáhne obojí
+    (naměřeno 142 kB navíc). S portrétovým zdrojem proto preload skládáme
+    sami, po jednom pro každou větev <picture>, a komponentě necháváme
+    jen `fetchPriority`.
+  */
+  const vlastniPreload = Boolean(portretSrcSet && priority)
+
   return (
     <picture className={cn(pictureClassName)}>
+      {vlastniPreload ? (
+        <>
+          <link
+            rel="preload"
+            as="image"
+            media="(orientation: portrait) and (max-width: 560px)"
+            imageSizes="100vw"
+            imageSrcSet={portretSrcSet}
+            fetchPriority="high"
+          />
+          <link
+            rel="preload"
+            as="image"
+            media="not all and (orientation: portrait) and (max-width: 560px)"
+            imageSizes={sizes}
+            imageSrcSet={hlavniSrcSet}
+            fetchPriority="high"
+          />
+        </>
+      ) : null}
+      {portretSrcSet ? (
+        <source media="(orientation: portrait) and (max-width: 560px)" sizes="100vw" srcSet={portretSrcSet} />
+      ) : null}
       <NextImage
         alt={alt || ''}
         className={cn(imgClassName)}
@@ -111,7 +172,7 @@ export const ImageMedia: React.FC<MediaProps> = (props) => {
         height={!fill ? height : undefined}
         placeholder="blur"
         blurDataURL={placeholderBlur}
-        priority={priority}
+        priority={vlastniPreload ? undefined : priority}
         fetchPriority={priority ? 'high' : undefined}
         quality={72}
         loading={loading}

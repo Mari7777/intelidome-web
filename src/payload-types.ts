@@ -268,6 +268,10 @@ export interface Post {
  */
 export interface Media {
   id: number;
+  /**
+   * Volitelně: samostatný ořez pro telefon na výšku. Bez něj se z 21:9 masteru ořízne přes 75 % plochy a telefon stahuje zbytečně velkou variantu (9.1).
+   */
+  portrait?: (number | null) | Media;
   alt?: string | null;
   /**
    * Jen pro hero na telefonu (orientace na výšku).
@@ -1123,6 +1127,7 @@ export interface PostsSelect<T extends boolean = true> {
  * via the `definition` "media_select".
  */
 export interface MediaSelect<T extends boolean = true> {
+  portrait?: T;
   alt?: T;
   focalPortraitX?: T;
   focalPortraitY?: T;
