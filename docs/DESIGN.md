@@ -1167,11 +1167,16 @@ Lexicalu se vedle sebe postavit nedají.
 | Odsazení | margin-block clamp(64px,8vw,104px) |
 | Pod 1130 px | jeden sloupec v pořadí **titulek → obraz → tělo** (v2.3); panel kresby na šířce prózy, ne na `edge` — kresba 520 by v 944 px plavala |
 
-5. **Střídání se počítá přes všechny obrazové bloky**, ne zvlášť pro
+5. **Próza kapitoly běží na dvou osách** — tělo dvousloupce ve sloupci
+   652 px, zbytek kapitoly v próze 700 px. Je to vědomá cena za „půl na
+   půl" sazbu; čtyři alternativy jsou změřené a horší (§15). Nehledat
+   řešení znovu — kresba 520 a próza 700 se na společnou osu do 1360
+   nevejdou.
+6. **Střídání se počítá přes všechny obrazové bloky**, ne zvlášť pro
    dvousloupce a zvlášť pro figury. Dvě sousední hmoty nikdy na téže straně;
    full-bleed rytmus resetuje. Referenční pořadí článku:
    `vlevo → vpravo → vlevo → full-bleed → vpravo`.
-6. Kresba potřebuje **portrétovou variantu**, má-li jít do dvousloupce.
+7. Kresba potřebuje **portrétovou variantu**, má-li jít do dvousloupce.
    Bez ní patří do asymetrické figury, kde má šířku.
 
 ### 8.3 Šablona: Landing page
@@ -1688,8 +1693,12 @@ Nálezy poroty, které nejsou vadou stránky, ale systému — každý čeká na
 vlastní rozhodnutí (ADR), ne na záplatu v článku:
 
 1. **`display-xl` dolní mez 48 px** dává na 320 px H1 „Krásný trávník
-   začíná pod zemí" čtyři řádky po slovu (360: tři). Kandidát: mez 40–42 px
-   nebo užší tracking pod 360 px.
+   začíná pod zemí" čtyři řádky po slovu (360: tři). Měřením ověřeno, že
+   mez 42 px nestačí (285,8 > 280 px) a tracking by musel na −0,10 em,
+   tedy čtyřnásobek hodnoty ze 4.2. Kandidát: měkký strop `12,5vw`
+   s podlahou 40 px. **Pozor na druhou stranu vztahu:** menší H1 se
+   posune do světlejší části fotky a kontrast klesne — musí jít v jednom
+   balíku se scrimem (bod 15).
 2. ~~Dvě CTA na poslední obrazovce~~ — **vyřešeno** (kolo 07): kapsle
    svou mini-CTA odloží `display: none`, jakmile je `.id-cta` ve viewportu
    (IntersectionObserver v `Header/Component.client.tsx`).
@@ -1702,19 +1711,25 @@ vlastní rozhodnutí (ADR), ne na záplatu v článku:
    pro každou větev `<picture>`, a šířky musí být z `deviceSizes`.
 4. ~~Maska řádků H1 ořezává descender~~ — **vyřešeno** (kolo 09):
    `.id-hline` má `padding-bottom: .12em` + záporný margin, rezerva 8,2 px.
-5. **Produktový pás** sdílí figuru sítě (`SitMostuPortret`, uzel Osvětlení)
-   napříč články. Kandidát: figura per článek nebo prop na uzly.
-6. **Chip „Kalkulátor" (7.4/7.7)** s akcentovým obrysem čte jako tlačítko.
+5. ~~Produktový pás sdílí figuru sítě s uzlem Osvětlení~~ — **vyřešeno
+   v2.7**: `SitMostuPortret` má prop `uzly`, pás pole `figureVariant`
+   a popis pro odečítač se skládá ze stejného seznamu jako kresba.
+6. ~~Chip „Kalkulátor" s akcentovým obrysem čte jako tlačítko~~ —
+   **vyřešeno**: bez pilulky i rámečku, zůstal jen hlas (3.8).
 7. ~~Reveal dvousloupce má tři triggery~~ — **vyřešeno** (kolo 09):
    `data-rv-group` na `.id-split`, stagger hlava → kresba → tělo.
 8. ~~Reduced-motion globální blok krátí na 0,01 ms~~ — **vyřešeno**
    (kolo 06): blok sází `animation: none !important` + pojistky
    `.rv` / `.id-hline > span` / `.id-hero__fade` podle 6.7 v2.
-9. **LCP kandidát v heru** je lead, ne H1 (maska) ani fotka (celý viewport).
-10. **Přechod split → próza pod 1130 px** dostává pásovou mezeru 64 px
-    uvnitř toku 22px odstavců; kalkulátor má gap 64 místo `--id-gap-col` 56.
-11. **Skip-link** chybí (11.2 ho nepředepisuje; hero cue ho supluje) a cíle
-    v kapsli jsou pod 24 × 24 px (výjimka spacing).
+9. ~~LCP kandidát v heru je lead~~ — **není vada**: 6.8 i 6.3.3 jsou
+   psané podmínkou („kde je H1 LCP"), LCP = FCP a fotku přes celý
+   viewport Chromium z kandidátů vylučuje z principu.
+10. ~~Přechod split → próza pod 1130 px a gap kalkulátoru~~ —
+    **vyřešeno**: složený dvousloupec už není pás (44 px) a panel sází
+    `--id-gap-col`.
+11. ~~Skip-link a cíle pod 24 px~~ — **vyřešeno**: `#obsah` je
+    `tabindex="-1"` bez prstence (tab po skoku pokračuje v článku),
+    hit-area ikony 24 × 30 px pseudo-prvkem bez rozšíření kapsle.
 
 Doplněno po kole 05 (2026-09-13):
 
@@ -1729,15 +1744,15 @@ Doplněno po kole 05 (2026-09-13):
 14. ~~4.2 × 7.7~~ — **rozhodnuto §15 p. 1** (platí 7.7) a v2.6 **provedeno**:
     popisek tokenu ve 4.2 přeznačen na landing (8.3) s poznámkou, že
     v článku užití nemá.
-15. **Kotva pod kapslí** — 7.1 nemá token odsazení kotev; stránka teď
-    sází 124 px (dolní hrana 74 + odstup + 30 px revealu). K zapsání
-    do 7.1 jako `--id-anchor-offset`.
+15. **Scrim končí ve 45 % výšky** (9.1), takže eyebrow a první řádek H1
+    leží na holé fotce: 3,27:1 na 1990 a 3,66:1 na 1440 proti limitu
+    3,0:1 pro velký text — rezerva 9 %. Kandidát: scrim do 60 % výšky,
+    nebo boční přechod. (Token `--id-anchor-offset` už zaveden.)
 16. ~~11.3 neřeší jednotku u pole~~ — **vyřešeno v2.6**: vzor
     `aria-describedby` na `<span class="unit">` zapsán do 11.3 (platí
     jen pro pole s jednotkou, ne pro formulářová pole obecně).
-17. **9.2 gradienty** — pravidlo zná „dva radiální (voda, sucho)", kresby
-    mají navíc `sd-louze` (jiné stopy než závazné .34→.14→.05) a lineární
-    `tz-fade` jako masku, kterou paleta nezná.
+17. ~~9.2 gradienty~~ — **vyřešeno**: `sd-louze` sází stopy vody podle
+    9.2; alfa rampa v masce a rastr jsou pojmenované v 9.2 p. 10.
 18. ~~Přejímka mřížky nekryje pásmo 1130–1439~~ — **vyřešeno v2.6**:
     8.2a i ADR-006 předepisují čtyři šířky (1440 / ≥1920 / **1130** / 1024)
     a `svg-labels` navíc na 320 / 393.
@@ -1759,19 +1774,24 @@ Porota našla čtyři místa, kde si dokument odporoval sám se sebou. Rozhodnut
 4. **Váha verdiktu (7.8) × váhy těla (4.1).** Platí **4.1**: tělo textu má
    400 nebo 600, nikdy 500. Verdikt sází token body-sm (400 / 1,55 / −0,006 em).
 
-### Zůstává otevřené (architektura, ne hodnota)
+### Rozhodnuto: próza kapitoly smí běžet na dvou osách (v2.7)
 
-**Próza kapitoly běží na dvou osách.** Tělo dvousloupce stojí ve sloupci
-652 px (osa 40 nebo 748), zbytek kapitoly v próze 700 px (osa 370) —
-skok 330–378 px v šesti kapitolách ze sedmi (porota kola 08, hierarchie).
-Geometricky to nemá řešení uvnitř 8.2b: kresba 520 px a próza 700 px se
-na společnou osu do šířky 1360 nevejdou. Rozhodnout se dá jen mezi:
+Tělo dvousloupce stojí ve sloupci 652 px (osa 40 nebo 748), zbytek
+kapitoly v próze 700 px (osa 370) — skok 330–378 px v šesti kapitolách
+ze sedmi. **Zůstává tak, jak to je.** Není to opomenutí: prověřeny byly
+čtyři alternativy a všechny jsou měřitelně horší.
 
-- **(a) celá kapitola dvousloupcová** — vyžaduje, aby seznamy, mezititulky
-  a tabulky uměly žít uvnitř bloku `split`, což plochý Lexical neumožňuje;
-- **(b) split jen titulek + obraz**, celé tělo v ose prózy — textový sloupec
-  vedle kresby pak nese jen titulek a modul má > 35 % prázdna;
-- **(c) ponechat** a brát skok jako cenu za „půl na půl" sazbu (ADR-006).
+| Varianta | Proč ne |
+|---|---|
+| (a) celá kapitola dvousloupcová | plochý Lexical neumí seznamy, mezititulky a tabulky uvnitř bloku; ~30 selektorů je vázaných na přímého potomka `.id-article` a tiše by přestaly platit |
+| (b) split jen titulek + obraz | textový sloupec by nesl jen titulek — **prázdno 66–76 %**, ne 35 %, jak odhadovalo předání po kole 07 |
+| (c) zátoky 343 \| 561 px | padl by „jediný zlom stránky 720/56" (8.2a) — zlomy by byly dva a ani jeden na 720; varianta navíc žije až od 1395 px, zatímco dvousloupec začíná na 1130. Na 1280 by popisek kresby klesl na **8 px** |
+| (d) obrátit pořadí (próza první, split na konci) | prázdno v textovém sloupci 33–62 %; autorův text by se musel přepsat (dnes nese 22–30 % kapitoly jako úvodní tezi) a padlo by čtení „teze před obrazem" z 8.2b |
 
-Doporučení: **(c)** do doby, než bude článek s 3–5 kapitolami, kde se
-varianta (b) dá vyzkoušet bez ztráty rytmu.
+**Důvod je geometrický, ne vkusový:** kresba 520 px a próza 700 px se na
+společnou osu do šířky 1360 nevejdou — textový sloupec by musel začínat
+na 370 a na obraz by zbylo 274 px. Skok os je cena za „půl na půl" sazbu
+(ADR-006), kterou článek platí vědomě.
+
+Otevřít znovu má smysl jedině u článku se **3–5 kapitolami**, kde má
+varianta (b) dost obrazové hmoty na to, aby prázdný sloupec nevadil.

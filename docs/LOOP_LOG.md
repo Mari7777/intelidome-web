@@ -1479,3 +1479,42 @@ struktury článku, ne hodnota v CSS:
 7. **Skok osy prózy** uvnitř kapitoly (§15) — adversární přezkoušení
    potvrdilo, že kresba nemá v pásmu 1130–1440 ani pixel rezervy, ale
    vyvrátilo číslo u varianty (b): prázdno by nebylo > 35 %, ale **66–76 %**.
+
+## Koš B — dokončeno všech sedm otevřených bodů (2026-09-14)
+
+| # | Bod | Řešení | Naměřeno |
+|---|---|---|---|
+| 1 | partitura pásů | oba kalkulátory jako obsidianové pásy + kapitola 02 na krémovém; `.id-band--self` maluje povrch přes okno a drží obsah na osách | úsek bez posunu povrchu **16 560 → 2 317 px** (1440), **3 577 px** (393); obsidian 9,3 → **16,2 %** |
+| 2 | portrétový hero | fotka si nese vlastní ořez (`portrait` v knihovně médií), `<picture>` ho podává pod 560 px | telefon **142 → 35 kB** |
+| 3 | dva povrchy kalkulátoru | vyřešeno bodem 1 — oba jsou pás, role má jeden vzhled | — |
+| 4 | figura produktového pásu | prop `uzly` + pole `figureVariant`; popis pro odečítač ze stejného seznamu | uzel „osvětlení" bez opory v textu pryč |
+| 5 | dva jazyky kresby | kodifikován jen **obrys hmoty** (9.2 p. 9); měkký nádech jako nositel pointy se nepřevádí | kresby článku 1 uzavřeny tvarem `V…H…V` |
+| 6 | barevný klíč | dvouúrovňový klíč (9.2 p. 10); pásmo „na hraně" z plné `#d5d3cc` na `#c2a052` s opacitou | — |
+| 7 | skok osy prózy | **rozhodnuto ponechat** — čtyři alternativy změřeny a horší | viz níž |
+
+### Bod 7: proč skok os zůstává
+
+Adversární přezkoušení mého vlastního závěru našlo dvě varianty, které
+předání po kole 07 vůbec nezvažovalo — a obě propadly měřením:
+
+- **zátoky 343 | 561 px:** padl by „jediný zlom stránky 720/56" (zlomy by
+  byly dva a ani jeden na 720), varianta žije až od 1395 px, zatímco
+  dvousloupec začíná na 1130 — a na 1280 by popisek kresby klesl na **8 px**;
+- **obrátit pořadí kapitoly:** prázdno v textovém sloupci 33–62 %, autorův
+  text by se musel přepsat a padlo by čtení „teze před obrazem".
+
+Opraveno i číslo z předání: varianta „split jen titulek + obraz" nemá
+prázdno 35 %, ale **66–76 %**. Rozhodnutí i s tabulkou je v DESIGN.md §15,
+poznámka u spec dvousloupce v 8.2b p. 5 — aby to příště nikdo nehledal znovu.
+
+### Co v koši B zbývá (2 body, oba u hera a patří k sobě)
+
+1. **`display-xl` na 320 px** láme H1 na čtyři řádky. Měřením padly obě
+   cesty z §14: mez 42 px nestačí (285,8 > 280 px) a tracking by musel na
+   −0,10 em. Kandidát je měkký strop 12,5vw s podlahou 40 px.
+2. **Scrim končí ve 45 % výšky**, takže eyebrow a první řádek H1 leží na
+   holé fotce (3,27:1 na 1990 proti limitu 3,0:1, rezerva 9 %).
+
+Musí jít **jedním balíkem**: menší H1 se posune do světlejší části fotky
+a kontrast klesne — oprava jednoho bodu bez druhého by vyrobila nález,
+přesně podle vzorce, který tahle smyčka zapsala sedmkrát.
