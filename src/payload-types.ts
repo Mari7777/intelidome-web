@@ -1834,6 +1834,10 @@ export interface ProductBandBlock {
         id?: string | null;
       }[]
     | null;
+  /**
+   * Diagram smí nést jen prvky, které pás skutečně vysvětluje (9.2 p. 8).
+   */
+  figureVariant?: ('plna' | 'zavlaha') | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'productBand';

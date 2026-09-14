@@ -120,7 +120,9 @@ export const ZkouskaVsaku: React.FC = () => (
     {/* 0–12 cm/h přes 460 px: 38,3 px na cm */}
     <rect x="30" y="422" width="96" height="10" fill="#6b5138" opacity="0.4" />
     <rect x="126" y="422" width="191" height="10" fill="#047857" opacity="0.38" />
-    <rect x="317" y="422" width="96" height="10" fill="#d5d3cc" />
+    {/* Pásmo „na hraně": #d5d3cc je v paletě konstrukční linka, ne plocha —
+        proto opacity jako u sousedních pásem, ne plná výplň (9.2 klíč). */}
+    <rect x="317" y="422" width="96" height="10" fill="#c2a052" opacity="0.34" />
     <rect x="413" y="422" width="77" height="10" fill="#c2a052" opacity="0.65" />
     {/* značka pod pruhem: tahle jáma = 4 cm/h */}
     <path d="M183 436 l-6 9 h12 z" fill="#232830" />

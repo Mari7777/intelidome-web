@@ -29,5 +29,18 @@ export const ProductBand: Block = {
         { name: 'text', type: 'text', required: true, label: 'Popis' },
       ],
     },
+    {
+      name: 'figureVariant',
+      type: 'select',
+      defaultValue: 'plna',
+      label: 'Co má diagram ukázat',
+      admin: {
+        description: 'Diagram smí nést jen prvky, které pás skutečně vysvětluje (9.2 p. 8).',
+      },
+      options: [
+        { label: 'Celý ekosystém (čidlo, ventil, nádrž, osvětlení)', value: 'plna' },
+        { label: 'Jen závlaha (bez osvětlení)', value: 'zavlaha' },
+      ],
+    },
   ],
 }

@@ -1250,6 +1250,8 @@ Technická kresba: obrys, žádné 3D ani stínování; jediné gradienty dva ra
 6. ViewBox: plná šířka 1080×300–430, poloviční 480–560; figura v krémovém panelu (padding clamp(16px,3vw,40px)).
 7. Figcaption: b „Obr. NN" Archivo 11.5px 600 uppercase .06em + popis s pointou 13.5px --id-ink-2; hairline nad (border-top 1px, padding-top 14px).
 8. Alt povinný: informační `<figure role="img" aria-label="…">`, dekorativní (hero scéna) aria-hidden="true"; každá kapitola vlastní figuru.
+9. **Obrys hmoty (v2.7):** každá souvislá hmota (půda, voda v nádobě, hardware) má uzavřený obrys `#232830` / 1,6 px, `stroke-linejoin: round`. Obrys se NEkreslí přes hranu, kterou už nese jiná barva (drn `#2e6440`) — tvar `V…H…V`, ne uzavřený `Z`, jinak se hrana ztmaví dvojitým tahem. Tohle je jediný rozdíl, který se mezi články kodifikuje; měkký radiální nádech (např. „kam došla voda") je naopak nositel pointy a plošně se na ploché výplně nepřevádí.
+10. **Barevný klíč, dvě úrovně (v2.7).** *Úroveň 1:* barva z tabulky palety nesmí být výplní objektu, který tou hmotou není — `#6b5138` je ornice, `#d5d3cc` konstrukční linka, ne plocha. *Úroveň 2:* kresba smí barvu použít v jiném významu (abstraktní pásmo stupnice), jen když nese legendu v TÉMŽE panelu a značka v legendě je pixelově shodná se značkou v kresbě — táž značka nesmí mít v jedné kresbě dva obrysy.
 
 ### 9.3 Ikony
 

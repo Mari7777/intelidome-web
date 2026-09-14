@@ -5,6 +5,8 @@ import { nezlomitelneMezery } from '@/utilities/czechTypography'
 import { cn } from '@/utilities/ui'
 
 export type ProductBandBlockProps = {
+  /** `zavlaha` = diagram bez osvětlení (článek o půdě). */
+  figureVariant?: string | null
   eyebrow?: string | null
   title: string
   body: string
@@ -25,12 +27,18 @@ export type ProductBandBlockProps = {
  * aby sloupce měly vyrovnanou výšku s diagramem.
  */
 export const ProductBandBlock: React.FC<ProductBandBlockProps> = ({
+  figureVariant,
   body,
   className,
   eyebrow,
   features,
   title,
 }) => {
+  /* Diagram nese jen to, co pás skutečně vysvětluje: „osvětlení" nemá
+     v článku o půdě oporu v textu a byla by to ikona bez obsahu. */
+  const uzly: Array<'cidlo' | 'ventil' | 'nadrz' | 'svetlo'> =
+    figureVariant === 'zavlaha' ? ['cidlo', 'ventil', 'nadrz'] : ['cidlo', 'ventil', 'nadrz', 'svetlo']
+
   const paragraphs = body.split(/\n{2,}/).map((paragraph) => paragraph.trim()).filter(Boolean)
   const items = (features ?? []).filter((feature) => Boolean(feature?.title))
 
@@ -76,11 +84,11 @@ export const ProductBandBlock: React.FC<ProductBandBlockProps> = ({
         </div>
 
           <div
-            aria-label="Schéma sítě: most uprostřed, kolem něj ventil, čidlo vlhkosti, retenční nádrž a venkovní osvětlení; aktivní spoj vede k ventilu."
+            aria-label={popisSite(uzly)}
             className="rv id-figure-svg"
             role="img"
           >
-            <SitMostuPortret />
+            <SitMostuPortret uzly={uzly} />
           </div>
         </div>
 
@@ -98,4 +106,19 @@ function renderStrong(source: string): React.ReactNode[] {
       <React.Fragment key={index}>{nezlomitelneMezery(part)}</React.Fragment>
     ),
   )
+}
+
+/** Popis pro odečítač se skládá ze stejného seznamu jako kresba — jinak
+ *  by po vypnutí uzlu zůstala věta o prvku, který na obrázku není. */
+function popisSite(uzly: Array<'cidlo' | 'ventil' | 'nadrz' | 'svetlo'>): string {
+  const jmena: Record<string, string> = {
+    cidlo: 'čidlo vlhkosti',
+    ventil: 'ventil',
+    nadrz: 'retenční nádrž',
+    svetlo: 'venkovní osvětlení',
+  }
+  const vyjmenovane = uzly.map((u) => jmena[u]).filter(Boolean)
+  const posledni = vyjmenovane.pop()
+  const vycet = vyjmenovane.length ? `${vyjmenovane.join(', ')} a ${posledni}` : posledni
+  return `Schéma sítě: most uprostřed, kolem něj ${vycet}; aktivní spoj vede k ventilu.`
 }

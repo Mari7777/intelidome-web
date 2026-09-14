@@ -25,7 +25,16 @@ import React from 'react'
 // takže smí jet na CSS třídě `id-ripple` (DESIGN.md 6.6.1) a rozpočet
 // nečerpá. Klidový stav drží markup: voda stojí na spoji, obě kapky visí
 // pod ventilem, halo je vidět jako přerušovaná kružnice kolem mostu.
-export const SitMostuPortret: React.FC = () => (
+type Props = {
+  /** Které periferie diagram nese. Článek o půdě „osvětlení" nikde nezmiňuje,
+   *  takže by to byla ikona bez obsahu; nádrž se pak přesune doprostřed,
+   *  aby dole nezela díra a viewBox zůstal stejně vysoký. */
+  uzly?: Array<'cidlo' | 'ventil' | 'nadrz' | 'svetlo'>
+}
+
+export const SitMostuPortret: React.FC<Props> = ({
+  uzly = ['cidlo', 'ventil', 'nadrz', 'svetlo'],
+}) => (
   <svg aria-hidden="true" className="block h-auto w-full" viewBox="0 0 520 552">
     {/* jeden okruh — všechna zařízení visí na téže síti */}
     <ellipse
@@ -167,8 +176,9 @@ export const SitMostuPortret: React.FC = () => (
       <text className="sv-lbl" x="400" y="46" textAnchor="middle">Ventil</text>
     </g>
 
-    {/* RETENČNÍ NÁDRŽ — vlevo dole */}
-    <g>
+    {/* RETENČNÍ NÁDRŽ — vlevo dole, nebo doprostřed, když osvětlení chybí */}
+    {uzly.includes('nadrz') ? (
+    <g transform={uzly.includes('svetlo') ? undefined : 'translate(140 0)'}>
       <circle cx="120" cy="438" r="44" fill="#12161b" stroke="rgba(255,255,255,.2)" strokeWidth="1.6" />
       <g transform="translate(120 436)" fill="none" stroke="rgba(255,255,255,.55)" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
         <path d="M-17 -14 L-17 8 Q-17 18 -7 18 L7 18 Q17 18 17 8 L17 -14" />
@@ -180,8 +190,10 @@ export const SitMostuPortret: React.FC = () => (
       <path d="M108 448 L132 448" stroke="rgba(255,255,255,.14)" strokeWidth="1.6" strokeDasharray="3 7" strokeLinecap="round" />
       <text className="sv-lbl" x="120" y="510" textAnchor="middle">Retenční nádrž</text>
     </g>
+    ) : null}
 
     {/* OSVĚTLENÍ — vpravo dole */}
+    {uzly.includes('svetlo') ? (
     <g>
       <circle cx="400" cy="438" r="44" fill="#12161b" stroke="rgba(255,255,255,.2)" strokeWidth="1.6" />
       <g transform="translate(400 436)" fill="none" stroke="rgba(255,255,255,.55)" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
@@ -199,5 +211,6 @@ export const SitMostuPortret: React.FC = () => (
       </g>
       <text className="sv-lbl" x="400" y="510" textAnchor="middle">Osvětlení</text>
     </g>
+    ) : null}
   </svg>
 )

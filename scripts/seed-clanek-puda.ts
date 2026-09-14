@@ -440,6 +440,7 @@ const body = root([
   /* Jediný vnitřní obsidian: tady se z řeči o půdě stává řeč o systému. */
   block({
     blockType: 'productBand',
+    figureVariant: 'zavlaha',
     blockName: 'Systém InteliDome',
     eyebrow: 'Systém InteliDome',
     title: 'Když závlahu řídí půda, ne kalendář',

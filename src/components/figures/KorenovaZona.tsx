@@ -28,6 +28,8 @@ export const KorenovaZona: React.FC = () => (
     </text>
 
     <rect x="78" y="138" width="418" height="165" fill="#6b5138" opacity="0.9" />
+    {/* Obvodový obrys hmoty (9.2) — horní hranu nese drn, proto V…H…V. */}
+    <path d="M78 138 V303 H496 V138" fill="none" stroke="#232830" strokeWidth="1.6" strokeLinejoin="round" />
     <rect x="78" y="303" width="418" height="83" fill="#54402c" opacity="0.85" />
     <path d="M78 303H496" stroke="rgba(255,255,255,.13)" strokeWidth="1.6" fill="none" />
 
@@ -201,6 +203,8 @@ export const KorenovaZona: React.FC = () => (
     </text>
 
     <rect x="584" y="138" width="418" height="165" fill="#6b5138" opacity="0.9" />
+    {/* Obvodový obrys hmoty (9.2) — horní hranu nese drn, proto V…H…V. */}
+    <path d="M584 138 V303 H1002 V138" fill="none" stroke="#232830" strokeWidth="1.6" strokeLinejoin="round" />
     <rect x="584" y="303" width="418" height="83" fill="#54402c" opacity="0.85" />
     <path d="M584 303H1002" stroke="rgba(255,255,255,.13)" strokeWidth="1.6" fill="none" />
 

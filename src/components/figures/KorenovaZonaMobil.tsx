@@ -32,6 +32,10 @@ export const KorenovaZonaMobil: React.FC = () => (
     </text>
 
     <rect x="64" y="114" width="398" height="124" fill="#6b5138" opacity="0.9" />
+    {/* Obvodový obrys hmoty (9.2): bez něj byla půda jediná „otevřená"
+        hmota v sadě. Tvar V…H…V, ne Z — horní hranu nese drn #2e6440
+        a dvojitý tah by ji ztmavil. */}
+    <path d="M64 114 V300 H462 V114" fill="none" stroke="#232830" strokeWidth="1.6" strokeLinejoin="round" />
     <rect x="64" y="238" width="398" height="62" fill="#54402c" opacity="0.85" />
     <path d="M64 238H462" stroke="rgba(255,255,255,.13)" strokeWidth="1.6" fill="none" />
 
@@ -192,6 +196,10 @@ export const KorenovaZonaMobil: React.FC = () => (
     </text>
 
     <rect x="64" y="450" width="398" height="124" fill="#6b5138" opacity="0.9" />
+    {/* Obvodový obrys hmoty (9.2): bez něj byla půda jediná „otevřená"
+        hmota v sadě. Tvar V…H…V, ne Z — horní hranu nese drn #2e6440
+        a dvojitý tah by ji ztmavil. */}
+    <path d="M64 450 V636 H462 V450" fill="none" stroke="#232830" strokeWidth="1.6" strokeLinejoin="round" />
     <rect x="64" y="574" width="398" height="62" fill="#54402c" opacity="0.85" />
     <path d="M64 574H462" stroke="rgba(255,255,255,.13)" strokeWidth="1.6" fill="none" />
 
