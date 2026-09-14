@@ -66,7 +66,12 @@
   --id-f-display: var(--id-f-archivo, "Archivo"), "Archivo Fallback", -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
   --id-f-body: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
   --id-f-mono: "SF Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
-  --id-t-display-xl: clamp(48px, 8.4vw, 112px);
+  /* Měkký strop 12,5vw s podlahou 40 px: nad 384 px je nečinný (12,5vw
+     = 48 px právě při 384), pod ním zabrání tomu, aby se autorský zlom
+     H1 rozpadl na řádky po jednom slově — na 320 px měl titulek čtyři
+     řádky. Mez 42 px z původního kandidáta NESTAČÍ (285,8 > 280 px)
+     a tracking by musel na −0,10 em, tedy 4× hodnotu ze 4.2 (koš B). */
+  --id-t-display-xl: min(clamp(48px, 8.4vw, 112px), max(40px, 12.5vw));
   --id-t-display: clamp(36px, 6vw, 76px);
   --id-t-title: clamp(30px, 4.2vw, 52px);
   --id-t-title-sm: clamp(24px, 3.2vw, 36px);

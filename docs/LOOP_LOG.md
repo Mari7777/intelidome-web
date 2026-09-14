@@ -1518,3 +1518,31 @@ poznámka u spec dvousloupce v 8.2b p. 5 — aby to příště nikdo nehledal zn
 Musí jít **jedním balíkem**: menší H1 se posune do světlejší části fotky
 a kontrast klesne — oprava jednoho bodu bez druhého by vyrobila nález,
 přesně podle vzorce, který tahle smyčka zapsala sedmkrát.
+
+## Koš B — hotovo celý (2026-09-14)
+
+Poslední dva body, záměrně v jednom balíku: menší titulek se posune do
+světlejší části fotky, takže oprava jednoho bez druhého by vyrobila nález.
+
+| Šířka | H1 před | H1 po | eyebrow před → po | titulek před → po |
+|---|---|---|---|---|
+| 320 | 48 px / **4 řádky** | 40 px / **2 řádky** | 4,19 → **4,88** | 3,86 → **5,60** |
+| 360 | 48 px / 3 řádky | 45 px / 2 řádky | 4,22 → **4,87** | 3,62 → **5,48** |
+| 393 | 48 px / 2 řádky | beze změny | 4,16 → **5,24** | 4,24 → 5,81 |
+| 1440 | 112 px / 2 řádky | beze změny | 17,05 → 17,27 | 4,19 → **5,43** |
+| 1990 | 112 px / 2 řádky | beze změny | 16,70 → 16,93 | 4,25 → **5,89** |
+
+**Titulek:** měkký strop `12,5vw` s podlahou 40 px. Nad 384 px je nečinný
+(12,5vw = 48 px právě při 384), takže desktop se nehnul. Obě cesty, které
+§14 navrhovala, padly měřením: mez 42 px nestačí (285,8 > 280 px)
+a tracking by musel na −0,10 em, tedy čtyřnásobek hodnoty ze 4.2.
+
+**Scrim:** 45 → 62 % výšky s plošším průběhem (čtyři zastávky místo tří).
+Eyebrow leží na ~53 % výšky, tedy nad původním koncem přechodu — proto
+na holé fotce. Kontrola, že fotka nezčernala plošně: průměrný jas horní
+třetiny **79/255** na 320 px a 65/255 na 1440; v horní třetině je krytí
+scrimu pod 0,1.
+
+**Tím je koš B celý zavřený** — v `DESIGN.md` §14 nezůstal ani jeden
+otevřený bod. Přejímka: `layout-check` 1024/1130/1280/1440/1990,
+`svg-labels` 320/393/1440, oba články HTTP 200, `tsc` čistý.

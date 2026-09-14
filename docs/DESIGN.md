@@ -236,7 +236,9 @@ Vše přes `clamp()` — žádné breakpointové skoky velikostí. Písmo Archiv
 
 | Role | Velikost | l-h | tracking | weight | Token |
 |-|-|-|-|-|-|
-| display-xl (hero H1) | `clamp(48px, 8.4vw, 112px)` | 0.98 | −0.035em | 600 | `--id-t-display-xl` |
+| display-xl (hero H1) | `min(clamp(48px, 8.4vw, 112px), max(40px, 12.5vw))` | 0.98 | −0.035em | 600 | `--id-t-display-xl` |
+
+> Měkký strop `12,5vw` s podlahou 40 px je nad 384 px nečinný (12,5vw = 48 px právě při 384). Pod ním brání tomu, aby se autorský zlom H1 rozpadl na řádky po jednom slově: na 320 px měl titulek čtyři řádky. Mez 42 px nestačí (285,8 > 280 px) a tracking by musel na −0,10 em, tedy čtyřnásobek hodnoty z tabulky (v2.7).
 | display (vnitřní H1) | `clamp(36px, 6vw, 76px)` | 1.02 | −0.03em | 600 | `--id-t-display` |
 | title (sekční H2) | `clamp(30px, 4.2vw, 52px)` | 1.05 | −0.025em | 600 | `--id-t-title` |
 | title-sm (H3, karty) | `clamp(24px, 3.2vw, 36px)` | 1.12 | −0.02em | 600 | `--id-t-title-sm` |
@@ -1221,7 +1223,7 @@ Jediná začíná krémem (produktové foto potřebuje světlý pás). Header s 
 | Kompozice | produkt 8–30 % plochy záběru; hloubka ostrosti mělká (f/2–f/4) u detailů, plná u scén |
 | Poměry stran | 3:2 editorial, 4:5 product hero/portrét, 21:9 full-bleed |
 | Ořez | v obsahu radius 20px; full-bleed bez radiusu |
-| Text přes foto | jen bílý při lokálním kontrastu ≥4.5:1; jinak scrim linear-gradient(rgba(11,13,16,.55), transparent) max do 45 % výšky |
+| Text přes foto | jen bílý při lokálním kontrastu ≥4.5:1; jinak scrim linear-gradient(rgba(11,13,16,.55), transparent) max do 62 % výšky |
 | Formát | AVIF + WebP fallback; LCP/hero ≤260 kB, karty ≤120 kB; srcset+sizes povinné; LCP fetchpriority="high" + preload, ostatní loading="lazy" |
 | Podíl | landing a produktová 30–40 % plochy; článek smí být bez fotografií (obraz nesou SVG figury) |
 | Alt | povinný, obsahový, česky; nikdy prázdný u informačního obrazu |
@@ -1515,7 +1517,7 @@ Kompletní tokenová vrstva v2.0 ke zkopírování. Hodnoty jsou 1:1 s kapitolam
   --id-f-display: var(--id-f-archivo, "Archivo"), "Archivo Fallback", -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
   --id-f-body: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
   --id-f-mono: "SF Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
-  --id-t-display-xl: clamp(48px, 8.4vw, 112px);
+  --id-t-display-xl: min(clamp(48px, 8.4vw, 112px), max(40px, 12.5vw));
   --id-t-display: clamp(36px, 6vw, 76px);
   --id-t-title: clamp(30px, 4.2vw, 52px);
   --id-t-title-sm: clamp(24px, 3.2vw, 36px);
@@ -1692,13 +1694,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 Nálezy poroty, které nejsou vadou stránky, ale systému — každý čeká na
 vlastní rozhodnutí (ADR), ne na záplatu v článku:
 
-1. **`display-xl` dolní mez 48 px** dává na 320 px H1 „Krásný trávník
-   začíná pod zemí" čtyři řádky po slovu (360: tři). Měřením ověřeno, že
-   mez 42 px nestačí (285,8 > 280 px) a tracking by musel na −0,10 em,
-   tedy čtyřnásobek hodnoty ze 4.2. Kandidát: měkký strop `12,5vw`
-   s podlahou 40 px. **Pozor na druhou stranu vztahu:** menší H1 se
-   posune do světlejší části fotky a kontrast klesne — musí jít v jednom
-   balíku se scrimem (bod 15).
+1. ~~`display-xl` dolní mez 48 px láme H1 na 320 px na čtyři řádky~~ —
+   **vyřešeno v2.7** spolu s bodem 15 (jeden balík, protože menší titulek
+   se posune do světlejší části fotky): měkký strop `12,5vw` s podlahou
+   40 px. Naměřeno **320 px → 40 px a 2 řádky** (dřív 4), 360 → 45 px
+   a 2 řádky (dřív 3), od 384 px beze změny.
 2. ~~Dvě CTA na poslední obrazovce~~ — **vyřešeno** (kolo 07): kapsle
    svou mini-CTA odloží `display: none`, jakmile je `.id-cta` ve viewportu
    (IntersectionObserver v `Header/Component.client.tsx`).
@@ -1744,10 +1744,11 @@ Doplněno po kole 05 (2026-09-13):
 14. ~~4.2 × 7.7~~ — **rozhodnuto §15 p. 1** (platí 7.7) a v2.6 **provedeno**:
     popisek tokenu ve 4.2 přeznačen na landing (8.3) s poznámkou, že
     v článku užití nemá.
-15. **Scrim končí ve 45 % výšky** (9.1), takže eyebrow a první řádek H1
-    leží na holé fotce: 3,27:1 na 1990 a 3,66:1 na 1440 proti limitu
-    3,0:1 pro velký text — rezerva 9 %. Kandidát: scrim do 60 % výšky,
-    nebo boční přechod. (Token `--id-anchor-offset` už zaveden.)
+15. ~~Scrim končí ve 45 % výšky~~ — **vyřešeno v2.7**: sahá do 62 %
+    a má plošší průběh (čtyři zastávky), takže v horní třetině je krytí
+    pod 0,1 a fotka zůstává nositelem emoce. Naměřeno pod glyfy:
+    eyebrow **4,19 → 4,88** (320 px), titulek **4,19 → 5,43** (1440)
+    a **4,25 → 5,89** (1990); průměrný jas horní třetiny 79/255.
 16. ~~11.3 neřeší jednotku u pole~~ — **vyřešeno v2.6**: vzor
     `aria-describedby` na `<span class="unit">` zapsán do 11.3 (platí
     jen pro pole s jednotkou, ne pro formulářová pole obecně).
