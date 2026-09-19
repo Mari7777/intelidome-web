@@ -10,7 +10,8 @@ import { cn } from '@/utilities/ui'
  *   buňce pod nimi (výška nejvyššího → přepínání nehýbe stránkou);
  *   výchozí je otevřená první složka, vybírá hover, klik i fokus.
  * — dotyk / ≤ 560 px: akordeon se zavřeným výchozím stavem — čtyři
- *   karty drží pohromadě a panel se otevírá pod celou mřížkou,
+ *   karty drží pohromadě a panel se otevírá NAD mřížkou (dorolování
+ *   míří nahoru), aby čtenář po přečtení pokračoval scrolem dolů;
  *   klepnutí na tutéž kartu zavírá. Do první interakce drží třída `netknuto`
  *   všechny panely zavřené (server rendruje otevřený Biovin pro
  *   desktop, mobil tak nemá skok při načtení).
@@ -47,9 +48,9 @@ export const IngredientsTabs: React.FC<{
     // že serverový výchozí výběr ještě nikdo neotevřel
     const cil = vybrano === i && !netknuto ? null : i
     setVybrano(cil)
-    // panel leží pod celou mřížkou — po otevření k němu doroluj,
-    // jinak se text objeví mimo zobrazovací plochu a tap působí
-    // jako do prázdna (při zavření se neroluje)
+    // panel se otevírá nad mřížkou — doroluj (nahoru) k jeho
+    // titulku, jinak se text objeví mimo zobrazovací plochu a tap
+    // působí jako do prázdna (při zavření se neroluje)
     if (cil !== null) setDorolovat(cil)
   }
 

@@ -528,10 +528,15 @@
 
 /* ── Akordeon (dotyk nebo ≤ 560 px): zavřený výchozí stav ────
    Čtyři karty drží pohromadě (rozhodnutí autora) a panel se otevírá
-   pod celou mřížkou; klepnutí na otevřenou kartu zavírá. Výška se
-   nemání animací (layoutové animace zakázané, vzor FAQ) — jen obsah
-   panelu fade-in. */
+   NAD mřížkou (order: -1) — po přečtení sekce čtenář scrolluje dolů
+   a vždy má pokračování: karty a zbytek článku. Klepnutí na otevřenou
+   kartu zavírá. Výška se nemání animací (vzor FAQ), obsah fade-in. */
 @media (hover: none), (max-width: 560px) {
+  .id-ingredients__panel-slot {
+    order: -1;
+    border-bottom: 1px solid #dcdad4;
+    padding-bottom: clamp(20px, 5vw, 30px);
+  }
   .id-ingredients__panel-slot:not(.is-active),
   .id-ingredients__grid.netknuto .id-ingredients__panel-slot {
     display: none;

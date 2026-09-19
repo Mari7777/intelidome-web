@@ -1837,3 +1837,15 @@ pod plovoucí hlavičkou přes scroll-margin-top = anchor-offset + 4);
 pohyb sám nese kauzalitu „klepnutí → tohle se otevřelo". Při zavření
 a přepínání na desktopu se neroluje; prefers-reduced-motion = skok
 bez animace. Ověřeno: panel top 128 px po tapu, zavření bez posunu.
+
+
+## Karta složek v3.5 — panel NAD mřížkou, dorolování nahoru (autor)
+
+Autor: text se má objevit nad čtyřmi obrázky a autoscroll jet nahoru,
+aby měl čtenář při scrolování dolů vždy pokračování. Na dotyku slot
+panelu order: -1 (nad mřížku, hairline i pod panelem před kartami);
+scrollIntoView beze změny kódu jede přirozeně nahoru. Tok čtení:
+tap na kartu → nahoru k titulku sekce → čtení dolů → karty (vybraná
+s čárkou a otočenou šipkou) → zbytek článku. Ověřeno: scrollY 5852→5593
+(nahoru), titulek pod hlavičkou, panel nad kartami, přetečení false.
+Desktop beze změny.
