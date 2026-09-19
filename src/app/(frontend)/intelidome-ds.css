@@ -285,8 +285,11 @@
 }
 
 /* ── Karta složek `.id-ingredients` (blok `ingredients`) ─────
-   Žádné boxy ani stíny: holá fotografie s radiusem 20 px (9.1)
-   a text pod ní. Mřížka na ose edge — 4 sloupce, pod 1130 px 2. */
+   Přehledový modul jako krémový pás. Karty (fotka + jméno + role)
+   jsou taby: výběr — hover, klepnutí, fokus, šipky — otevře v panelu
+   pod kartami plnou sekci složky. Panely leží všechny v téže mřížkové
+   buňce, takže přepínání nemění výšku stránky; neaktivní jsou inert.
+   Žádné boxy ani stíny: holá fotografie s radiusem 20 px (9.1). */
 .id-ingredients.id-band--self {
   padding-block: var(--id-sect-y-sm);
 }
@@ -316,11 +319,16 @@
     grid-template-columns: repeat(2, 1fr);
   }
 }
+.id-ingredients__tab {
+  border-radius: var(--id-r-card, 20px);
+}
+@media (hover: hover) {
+  .id-ingredients__tab {
+    cursor: pointer;
+  }
+}
 .id-ingredients__item {
   margin: 0;
-}
-.id-ingredients__frame {
-  position: relative;
 }
 .id-ingredients__media {
   display: block;
@@ -344,6 +352,20 @@
   letter-spacing: -0.01em;
   color: var(--id-ink);
 }
+/* Ukazatel výběru: akcentová čárka pod jménem (jazyk eyebrow 7.3). */
+.id-ingredients__name::after {
+  content: '';
+  display: block;
+  width: 22px;
+  height: 2px;
+  margin-top: 7px;
+  background: var(--id-accent);
+  opacity: 0;
+  transition: opacity 0.24s ease;
+}
+.id-ingredients__tab.is-active .id-ingredients__name::after {
+  opacity: 1;
+}
 .id-ingredients__text {
   display: block;
   font-family: var(--id-f-body);
@@ -351,7 +373,7 @@
   line-height: 1.5;
   letter-spacing: -0.01em;
   color: var(--id-ink-2);
-  margin-top: 6px;
+  margin-top: 8px;
 }
 .id-ingredients__note {
   display: block;
@@ -363,62 +385,72 @@
   color: var(--id-ink-2);
   margin-top: 10px;
 }
-/* ── Vlastnosti po najetí (jen zařízení s myší, > 560 px) ────
-   Překryv přes fotku: scrim v mezích 9.1 (text na fotce jen bílý
-   s dostatečným krytím), odhaluje ho :hover i :focus-within —
-   klávesnice nesmí o obsah přijít. Na dotykovém zařízení blok
-   níže neplatí a text zůstává staticky pod jménem. */
-@media (hover: hover) and (min-width: 561px) {
-  .id-ingredients__overlay {
-    position: absolute;
-    inset: 0;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    gap: 0;
-    padding: 18px;
-    border-radius: var(--id-r-card, 20px);
-    background: linear-gradient(to top, rgba(11, 13, 16, 0.84) 0%, rgba(11, 13, 16, 0.62) 55%, rgba(11, 13, 16, 0.28) 100%);
-    opacity: 0;
-    transition: opacity 0.28s ease;
+
+/* ── Panel s plnou sekcí vybrané složky ──────────────────── */
+.id-ingredients__panels {
+  display: grid;
+  margin-top: clamp(30px, 3.4vw, 46px);
+  border-top: 1px solid #dcdad4; /* hairline téhož povrchu (8.1 p. 1) */
+  padding-top: clamp(26px, 3vw, 38px);
+}
+.id-ingredients__panel-slot {
+  grid-area: 1 / 1;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.28s ease, visibility 0.28s;
+}
+.id-ingredients__panel-slot.is-active {
+  opacity: 1;
+  visibility: visible;
+}
+.id-ingredients__panel--s-kresbou {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(300px, 420px);
+  gap: clamp(28px, 4vw, 56px);
+  align-items: start;
+}
+@media (max-width: 1129px) {
+  .id-ingredients__panel--s-kresbou {
+    grid-template-columns: 1fr;
   }
-  .id-ingredients__item:hover .id-ingredients__overlay,
-  .id-ingredients__item:focus-within .id-ingredients__overlay,
-  .id-ingredients__item:focus-visible .id-ingredients__overlay {
-    opacity: 1;
-  }
-  .id-ingredients__overlay .id-ingredients__text {
-    color: var(--id-ink-dark);
-    margin-top: 0;
-  }
-  .id-ingredients__overlay .id-ingredients__note {
-    color: rgba(255, 255, 255, 0.72);
+  .id-ingredients__panel-fig {
+    max-width: 480px;
   }
 }
-/* Dotykové zařízení (a okna ≤ 560 px): překryv se sází staticky —
-   pořadí fotka → jméno → text → poznámka drží flex s display:contents
-   na rámu (jméno je v DOM až za rámem kvůli hover režimu). */
-@media (hover: none), (max-width: 560px) {
-  .id-ingredients__item {
-    display: flex;
-    flex-direction: column;
-  }
-  .id-ingredients__frame {
-    display: contents;
-  }
-  .id-ingredients__media {
-    order: 1;
-  }
-  .id-ingredients__item figcaption {
-    order: 2;
-  }
-  .id-ingredients__overlay {
-    order: 3;
-  }
+.id-ingredients__panel-fig {
+  margin: 0;
+}
+.id-ingredients__panel-text h3 {
+  font-family: var(--id-f-display);
+  font-size: clamp(19px, 1.6vw, 22px);
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: -0.015em;
+  color: var(--id-ink);
+  margin-bottom: 14px;
+  max-width: var(--id-measure);
+  text-wrap: balance;
+}
+.id-ingredients__panel-text .payload-richtext p {
+  font-family: var(--id-f-body);
+  font-size: 16px;
+  line-height: 1.6;
+  letter-spacing: -0.011em;
+  color: var(--id-ink);
+  max-width: var(--id-measure);
+}
+.id-ingredients__panel-text .payload-richtext p + p {
+  margin-top: 14px;
+}
+.id-ingredients__panel-text .payload-richtext a {
+  color: var(--id-accent);
+  text-decoration: underline;
+  text-underline-offset: 3px;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .id-ingredients__overlay {
+  .id-ingredients__panel-slot,
+  .id-ingredients__name::after {
     transition: none;
   }
 }

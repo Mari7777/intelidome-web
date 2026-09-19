@@ -1752,3 +1752,27 @@ zůstává text staticky: pořadí fotka → jméno → text → poznámka drž�
 prefers-reduced-motion vypnutý. Text je v DOM vždy — odečítač ho čte
 bez interakce. Ověřeno: hover ✓, fokus s prstencem ✓ (4 tab stopy
 na 1440, 0 na dotyku), mobil statický ✓, přetečení false, tsc.
+
+
+## Karta složek v3 — plné sekce po najetí (upřesnění autora)
+
+Autor upřesnil: krátký text pod fotkou zůstává, po najetí se má otevřít
+PLNÁ sekce složky (dlouhý úzký sloupec zmizí z toku článku). Karta
+složek je teď přepínač (WAI tabs): karty = fotka + jméno + role +
+„kam patří" (beze změny); výběr — hover, klepnutí, fokus, šipky
+←→/Home/End — otevře pod kartami panel s celou autorovou sekcí
+(items[].detail = richText, Biovin vč. odkazu na výrobce; mykorhiza
+nese v panelu i kresbu mykorhizni-vlakna). Z toku článku odešly čtyři
+sekce (Biovin 3¶, biochar 3¶, zeolit 4¶, mykorhiza split) — článek
+41 887 px na 1440 (bylo 43 182). Split nabíjení biocharu zůstal v toku
+(praktická podkapitola nákupu) a vrátil se na bílou — krém hned za
+krémovou kartou by slil dva pásy.
+
+Technika: panely všechny v téže mřížkové buňce (výška = nejvyšší,
+přepínání nehýbe stránkou), neaktivní inert + aria-hidden, text vždy
+v DOM (vyhledávače, kopírování); klouzavý tabIndex; přechod jen
+opacity, reduced-motion bez přechodu. Ukazatel výběru = akcentová
+čárka 22×2 pod jménem (jazyk eyebrow). Odebrání mykorhiza splitu
+překlopilo paritu: 7 splitů zrcadlově, R L ×10; Obr. přečíslovány
+01–11. Přejímky: svg-labels 11/11 ×3 šířky, layout-check ×3,
+partitura 4 452/5 456 px, přetečení false, tsc.
