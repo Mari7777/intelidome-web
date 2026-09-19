@@ -1945,3 +1945,19 @@ poznámky tabulek (105→71 zn.), hustota hmot v kap. 01/04, výkon 3→4
 (CLS 0,000, kontrasty AA+, karta složek a11y vzorná). Nově otevřeno:
 AI artefakty fotek povýšeny na kritické, kresby pod mobilní mezí,
 mrtvé reveal skupiny.
+
+
+## Balík „hero splitLines" (po kole 02) — kritický č. 1
+
+`splitLines` v PostHero dělila titulek jen podle znakového limitu bez
+ohledu na jednopísmenné předložky/spojky — hero H1 „Písek, biochar a"
+/ „další příměsi" nechával „a" osamocené na konci prvního řádku na
+všech šířkách (potvrzeno skeptikem kola 01 i 02, DESIGN 4.3 + stejná
+sada jako czechTypography.ts PREDLOZKY). Zlom mezi řádky je tu pevný
+(každý řádek = vlastní maska a stagger animace), takže NBSP jako
+v běžném textu nepomůže — po greedy rozdělení běží druhý průchod:
+jednopísmenné slovo na konci řádku (kromě posledního) se přesune na
+začátek dalšího řádku. Výsledek: **„Písek, biochar" / „a další
+příměsi"**. Ověřeno na 393/1440/1990 (článek 3) i na sourozeneckém
+článku 2 („Krásný trávník" / „začíná pod zemí" — beze změny, žádná
+předložka na konci řádku).

@@ -153,6 +153,10 @@ function kalkulatorySlovo(pocet: number): string {
   return 'kalkulátorů'
 }
 
+/** Jednopísmenné předložky a spojky, které nesmí zůstat osamocené na
+ * konci řádku (stejná sada jako czechTypography.ts PREDLOZKY). */
+const JEDNOPISMENNE = new Set(['k', 's', 'v', 'z', 'o', 'u', 't', 'i', 'a'])
+
 function splitLines(text: string, maxChars: number): string[] {
   const lines: string[] = []
   let current = ''
@@ -166,5 +170,19 @@ function splitLines(text: string, maxChars: number): string[] {
     }
   }
   if (current) lines.push(current)
+
+  // Zlom mezi řádky je tu pevný (každý řádek = vlastní maska/animace),
+  // takže se na jednopísmennou předložku na konci řádku nedá nasadit
+  // nezlomitelná mezera jako v běžném textu — slovo se přesune na
+  // začátek dalšího řádku (kolo poroty 02, kritický nález hero H1).
+  for (let i = 0; i < lines.length - 1; i++) {
+    const words = lines[i].split(' ')
+    const posledni = words[words.length - 1]?.toLowerCase()
+    if (words.length > 1 && posledni && JEDNOPISMENNE.has(posledni)) {
+      lines[i] = words.slice(0, -1).join(' ')
+      lines[i + 1] = `${words[words.length - 1]} ${lines[i + 1]}`
+    }
+  }
+
   return lines
 }
