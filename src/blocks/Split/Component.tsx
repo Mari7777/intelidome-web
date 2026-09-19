@@ -138,13 +138,30 @@ export const SplitBlock: React.FC<SplitBlockProps> = ({
   )
 }
 
-/** `**text**` → `<strong>`; pevné mezery se doplní i uvnitř zvýraznění. */
+/**
+ * `**text**` → `<strong>`, `[text](url)` → odkaz na sesterský článek
+ * (kolo 02: dva odstavce s odkazem patřily tematicky do splitu, ale
+ * `body` je prostý řetězec bez Lexical uzlů — minimální markdown místo
+ * přepisování autorovy věty). Pevné mezery se doplní všude.
+ */
 function renderStrong(source: string): React.ReactNode[] {
-  return source.split(/(\*\*[^*]+\*\*)/g).map((part, index) =>
-    part.startsWith('**') && part.endsWith('**') && part.length > 4 ? (
-      <strong key={index}>{nezlomitelneMezery(part.slice(2, -2))}</strong>
-    ) : (
-      <React.Fragment key={index}>{nezlomitelneMezery(part)}</React.Fragment>
-    ),
-  )
+  return source.split(/(\*\*[^*]+\*\*|\[[^\]]+\]\([^)]+\))/g).map((part, index) => {
+    if (part.startsWith('**') && part.endsWith('**') && part.length > 4) {
+      return <strong key={index}>{nezlomitelneMezery(part.slice(2, -2))}</strong>
+    }
+    const odkaz = part.match(/^\[([^\]]+)\]\(([^)]+)\)$/)
+    if (odkaz) {
+      const interni = odkaz[2].startsWith('/')
+      return (
+        <a
+          href={odkaz[2]}
+          key={index}
+          {...(interni ? {} : { target: '_blank', rel: 'noopener noreferrer' })}
+        >
+          {nezlomitelneMezery(odkaz[1])}
+        </a>
+      )
+    }
+    return <React.Fragment key={index}>{nezlomitelneMezery(part)}</React.Fragment>
+  })
 }

@@ -412,10 +412,8 @@ const body = root([
     caption:
       'Co kam patří. Drahé příměsi jen tam, kde žijí kořeny; spodní zóna je rezervoár vody a vzduchu — a přechody navazují, nejsou to patra dortu.',
     body:
-      'Materiály i rozdíl mezi jejich hmotností a objemem už známe. Teď jim potřebujeme vyhradit místo — nejen vedle sebe ve směsi, ale také v různých hloubkách. Pro naše příklady zvolíme **30 cm hluboký profil určený pro nově zakládaný nebo kompletně rekonstruovaný trávník**. Profil zde znamená připravovanou vrstvu půdy od povrchu do této hloubky. Třicet centimetrů je model, nikoli předpis platný pro každou zahradu ani pokyn všude automaticky odvézt třicet centimetrů půdy.',
+      'Materiály i rozdíl mezi jejich hmotností a objemem už známe. Teď jim potřebujeme vyhradit místo — nejen vedle sebe ve směsi, ale také v různých hloubkách. Pro naše příklady zvolíme **30 cm hluboký profil určený pro nově zakládaný nebo kompletně rekonstruovaný trávník**. Profil zde znamená připravovanou vrstvu půdy od povrchu do této hloubky. Třicet centimetrů je model, nikoli předpis platný pro každou zahradu ani pokyn všude automaticky odvézt třicet centimetrů půdy.\n\nProč záleží na souvislém prostoru pro kořeny, jak půda hospodaří s vodou a vzduchem a proč samotná výška navážky nestačí, podrobně vysvětluje článek [Krásný trávník začíná pod zemí](/posts/krasny-travnik-zacina-pod-zemi-2). Zde na něj navazujeme volbou složek a jejich rozmístěním v připravované vrstvě.',
   }),
-
-  p('Proč záleží na souvislém prostoru pro kořeny, jak půda hospodaří s vodou a vzduchem a proč samotná výška navážky nestačí, podrobně vysvětluje článek ', link('/posts/krasny-travnik-zacina-pod-zemi-2', 'Krásný trávník začíná pod zemí'), '. Zde na něj navazujeme volbou složek a jejich rozmístěním v připravované vrstvě.'),
 
   h3('Horní část pomáhá začátku, hlubší umožní kořenům pokračovat'),
   p('Nejpestřejší směs připravíme pro horních deset centimetrů. Zde bude biochar, zeolit a případně Biovin. Zeolit pokračuje také v zóně mezi ', ['10 a 15 cm', BOLD], '. Spodních ', ['15 cm, tedy zónu mezi 15 a 30 cm', BOLD], ', tvoří samotný minerální základ. Poskytuje kořenům další prostor a půdě další objem pro vodu a vzduch.'),
@@ -435,10 +433,9 @@ const body = root([
     caption:
       'Tři zahrady, tři dávky. Nejvíc příměsí dostane chudý písek; dobře fungující hlína nepotřebuje skoro nic — a zbytek objemu vždy doplní minerální základ.',
     body:
-      'Tři půdní typy nám dávají dobrý začátek: **těžkou půdu potřebujeme zpřístupnit vodě a vzduchu, u hlinité zachovat vyvážený základ a písčité pomoci s uchováním vláhy**.\n\nNíže jsou **tři modelové receptury pro založení nebo výraznější obnovu trávníku**. Poskytují konkrétní poměry pro popsané situace. Základní postup je jednoduchý: vybereme odpovídající příklad, zkontrolujeme jeho podmínky a teprve potom spočítáme množství.',
+      'Tři půdní typy nám dávají dobrý začátek: **těžkou půdu potřebujeme zpřístupnit vodě a vzduchu, u hlinité zachovat vyvážený základ a písčité pomoci s uchováním vláhy**.\n\nNíže jsou **tři modelové receptury pro založení nebo výraznější obnovu trávníku**. Poskytují konkrétní poměry pro popsané situace. Základní postup je jednoduchý: vybereme odpovídající příklad, zkontrolujeme jeho podmínky a teprve potom spočítáme množství.\n\nPokud si nejsme jistí, jakou půdu na zahradě máme, pomůže nám ji rozpoznat článek [Krásný trávník začíná pod zemí](/posts/krasny-travnik-zacina-pod-zemi-2). Podle toho vybereme nejbližší příklad.',
   }),
 
-  p('Pokud si nejsme jistí, jakou půdu na zahradě máme, pomůže nám ji rozpoznat článek ', link('/posts/krasny-travnik-zacina-pod-zemi-2', 'Krásný trávník začíná pod zemí'), '. Podle toho vybereme nejbližší příklad.'),
   p('Dobře fungující půdu nemusíme měnit jen proto, že pro ni existuje recept v tabulce. Pokud se trávníku daří, zachovejme to, co funguje. Jestliže se naopak dlouhodobě potýkáme se zamokřením a špatným zakořeněním a příčinou je těžká, nepropustná půda, může dávat smysl důkladnější úprava a nové založení trávníku.'),
   p('U novostavby, nebo při zakládání nového trávníku, nám posouzení půdy pomůže rozlišit nutnou investici od zbytečných výdajů. Do vyvážené, dobře propustné hlíny ani do písčité půdy nemusíme automaticky navážet desítky tun písku. Stejně tak by byla škoda odvézt veškerou jílovitou zeminu a nahradit ji čistým pískem: zbavili bychom se i její schopnosti zadržovat vodu a živiny, které bychom pak museli častěji doplňovat zálivkou a hnojením. Ani u golfových hřišť neplatí, že se všechny plochy zakládají na čistém písku.'),
   p('Cílem tedy není původní půdu za každou cenu vyměnit, ale zachovat její přednosti a napravit konkrétní slabiny.'),
@@ -762,9 +759,9 @@ const body = root([
     caption:
       'Voda deset centimetrů pod prvním kořínkem je teď stejně nedosažitelná jako voda na druhé straně zahrady. Proto se čerstvý výsev zalévá jinak než zakořeněný trávník.',
     body:
-      'Třiceticentimetrový profil je připravený, ale právě klíčící rostlina z něj zatím dokáže využívat jen malou část. Voda deset centimetrů pod prvním kořínkem může být v této chvíli stejně nedosažitelná jako voda na druhé straně zahrady.',
+      'Třiceticentimetrový profil je připravený, ale právě klíčící rostlina z něj zatím dokáže využívat jen malou část. Voda deset centimetrů pod prvním kořínkem může být v této chvíli stejně nedosažitelná jako voda na druhé straně zahrady.\n\nProto se režim čerstvého výsevu liší od režimu zakořeněného trávníku. Jemnou zálivkou udržujeme vlhké seťové lůžko; podle počasí ji můžeme opakovat v krátkých dávkách. S postupným růstem kořenů do hloubky se rostlinám otevírá další prostor a mění se i vhodný interval zavlažování.',
   }),
-  p('Proto se režim čerstvého výsevu liší od režimu zakořeněného trávníku. Jemnou zálivkou udržujeme vlhké seťové lůžko; podle počasí ji můžeme opakovat v krátkých dávkách. S postupným růstem kořenů do hloubky se rostlinám otevírá další prostor a mění se i vhodný interval zavlažování. ', link('https://extension.psu.edu/principles-of-turfgrass-irrigation', 'Principy závlahy trávníků'), ' proto spojují dávku vody s vlastnostmi půdy i dosahem kořenů. Připravená zásoba má význam teprve tam, kde k ní rostlina získá přístup.'),
+  p(link('https://extension.psu.edu/principles-of-turfgrass-irrigation', 'Principy závlahy trávníků'), ' proto spojují dávku vody s vlastnostmi půdy i dosahem kořenů. Připravená zásoba má význam teprve tam, kde k ní rostlina získá přístup.'),
 
   h3('První zelené čárky ještě nejsou hotový porost'),
   p('Ani jednotlivé trávy nevzcházejí současně. Jílek bývá rychlejší, zatímco lipnice může potřebovat několik týdnů. To, co se zazelená jako první, proto ještě nepředstavuje konečnou podobu porostu. Další rostliny mohou teprve přicházet na řadu.'),

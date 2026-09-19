@@ -518,6 +518,12 @@
 .id-ingredients__panel-text .payload-richtext p + p {
   margin-top: 14px;
 }
+.id-split__p a {
+  color: var(--id-accent);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
 .id-ingredients__panel-text .payload-richtext a {
   color: var(--id-accent);
   text-decoration: underline;

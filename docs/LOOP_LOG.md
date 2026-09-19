@@ -1988,3 +1988,37 @@ týmž jménem (pravidlo z incidentu s hero článku 1). Alt texty
 aktualizovány (bez kolečka/palety). Přejímka: layout-check 1440,
 svg-labels 393 11/11, přetečení 320/393 false, tsc čistý, hero H1
 zlom „Písek, biochar / a další příměsi" beze změny.
+
+
+## Balík „splity + hmoty" (po kole 02) — kritický č. 3
+
+Dorovnány textové sloupce nejhorších dvousloupců přesunem PŘÍMO
+NAVAZUJÍCÍHO odstavce z prózy do těla splitu — beze změny pořadí
+čtení (odstavec stál hned pod splitem, teď je jeho druhým odstavcem)
+a beze změny jediného slova autora.
+
+| Split | Pokrytí před | Po | Prázdno před → po |
+|---|---|---|---|
+| „První kořínek" (Obr. 11) | **35 %** | 55 % | 417 → 287 px |
+| „Třicet centimetrů půdy" (Obr. 05) | 61 % | **82 %** | 242 → 112 px |
+| „Tři zahrady" (Obr. 06) | 58 % | **73 %** | 284 → 182 px |
+
+Dva ze dvou odstavců, které bylo potřeba vtáhnout, nesly odkaz na
+sesterský článek — `SplitBlock.body` je ale prostý řetězec bez
+Lexical uzlů (žádné odkazy). Přepsat autorovu větu bez odkazu by
+změnilo obsah; místo toho `renderStrong` v `SplitBlock` rozšířen
+o minimální markdown `[text](url)` (vedle stávajícího `**tučně**"),
+interní cesty (začínají „/") bez `target="_blank"`, externí s ním.
+Odkazy ověřeny živě (2× „Krásný trávník začíná pod zemí", správné
+href, interní bez blank).
+
+**Kap. 01 (68 %) a kap. 02 „Proč směs mícháme" (64 %) ponechány beze
+změny** — jediný navazující text stojí buď za h3 mezititulkem (přesun
+by odtrhl nadpis od jeho vlastního úvodu), nebo je to úvod celého
+článku (přesun by rozbil pořadí autorova vyprávění 1-2-3-4, viz
+komentář v seederu). Obě zůstávají pod 250 px prázdna — pod
+historickým spouštěcím případem ADR-006 (350 px) — a nejsou to
+kritické nálezy samy o sobě, jen součást souhrnného nálezu.
+
+Přejímka: layout-check 1440, svg-labels 393 11/11, přetečení 320/393
+false, partitura beze změny (4 452 / 5 456 px), tsc čistý.
