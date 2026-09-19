@@ -1961,3 +1961,30 @@ začátek dalšího řádku. Výsledek: **„Písek, biochar" / „a další
 příměsi"**. Ověřeno na 393/1440/1990 (článek 3) i na sourozeneckém
 článku 2 („Krásný trávník" / „začíná pod zemí" — beze změny, žádná
 předložka na konci řádku).
+
+
+## Balík „fotky" (po kole 02) — kritický č. 2 + důležité výkonu
+
+Hero (`hero-primesi.avif`) a full-bleed dodávka (`fig-dodavka-materialu.avif`)
+nahrazeny novou generací u obou zdrojů zjednodušená kompozice, ať má
+generátor menší šanci na fyzikální chybu: hero jen tři hromady +
+JEDEN rýč s D-rukojetí (žádné kolečko — přesně ten kus, který nesl
+AI artefakt), dodávka = dvě hromady na plachtě + stoh papírových
+pytlů na trávě (žádná paleta — nesla druhou vadu). Obě fotky prověřeny
+v masteru 6336 px před nasazením (rukojeť rýče, sešití pytlů) — bez
+nálezu. Portrétový ořez hera přepočítán na novou kompozici (x=2100,
+zabírá písek+zeminu i konec rýče).
+
+**Full-bleed dodávka dostala portrétový ořez poprvé** (dosud ho měl
+jen hero) — týž mechanismus `resource.portrait` + `<source media>`
+v `ImageMedia`, teď zapojený i do `FigureBlock` (žádná změna kódu,
+jen nový `portret` v MEDIA a `focalPortraitX/Y`). Řeší důležitý nález
+výkonu: **358 → 67 kB na mobilu** (dpr 3, box 393×491) — místo
+21:9 masteru s `sizes 295vw` (fetch w=3840, i neviditelné okraje
+v plném rozlišení) se stahuje předem oříznutý 4:5 zdroj.
+
+Staré médium smazáno až po ověření, že nový soubor leží na disku pod
+týmž jménem (pravidlo z incidentu s hero článku 1). Alt texty
+aktualizovány (bez kolečka/palety). Přejímka: layout-check 1440,
+svg-labels 393 11/11, přetečení 320/393 false, tsc čistý, hero H1
+zlom „Písek, biochar / a další příměsi" beze změny.

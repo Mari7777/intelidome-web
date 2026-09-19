@@ -187,7 +187,7 @@ const MEDIA: {
   {
     filename: 'hero-primesi.avif',
     portret: 'hero-primesi-portret.avif',
-    alt: 'Připravené hromady materiálů na zahradě před mícháním směsi pro trávník: světlý praný písek, tmavá prosátá zemina a menší hromádka černého biocharu, vedle kolečko a lopata zapíchnutá v písku, vzadu nízké večerní slunce.',
+    alt: 'Připravené hromady materiálů na zahradě před mícháním směsi pro trávník: světlý praný písek, tmavá prosátá zemina a menší hromádka černého biocharu vedle sebe, rýč zapíchnutý do hromady zeminy, vzadu nízké večerní slunce.',
     focal: { focalX: 50, focalY: 55, focalPortraitX: 50, focalPortraitY: 55 },
   },
   {
@@ -220,8 +220,9 @@ const MEDIA: {
   },
   {
     filename: 'fig-dodavka-materialu.avif',
-    alt: 'Vysypaná dodávka materiálů na okraji zahrady: velká hromada písku, vedle menší hromada tmavé zeminy a srovnané pytle s příměsemi na paletě, kolem pás trávníku a večerní světlo.',
-    focal: { focalX: 55, focalY: 55 },
+    portret: 'fig-dodavka-materialu-portret.avif',
+    alt: 'Vysypaná dodávka materiálů na plachtě na okraji zahrady: velká hromada písku, vedle menší hromada tmavé zeminy, opodál stoh papírových pytlů s příměsemi na trávě, kolem plot a nízké ranní slunce.',
+    focal: { focalX: 55, focalY: 55, focalPortraitX: 50, focalPortraitY: 50 },
   },
 ]
 
