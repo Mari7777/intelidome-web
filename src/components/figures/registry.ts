@@ -22,6 +22,10 @@ import { TunaNeniKubik } from './TunaNeniKubik'
 import { TriZahrady } from './TriZahrady'
 import { UkladaniOdspodu } from './UkladaniOdspodu'
 import { PrvniKorinek } from './PrvniKorinek'
+import { NabityBiochar } from './NabityBiochar'
+import { MykorhizniVlakna } from './MykorhizniVlakna'
+import { ZakladTriZahrad } from './ZakladTriZahrad'
+import { SlehnutiVstupu } from './SlehnutiVstupu'
 
 export type Drawing = {
   /** Širokoúhlá sazba (viewBox 1080) — desktop a tablet. */
@@ -72,6 +76,10 @@ export const DRAWINGS = {
   'tri-zahrady': { wide: TriZahrady, portrait: TriZahrady },
   'ukladani-odspodu': { wide: UkladaniOdspodu, portrait: UkladaniOdspodu },
   'prvni-korinek': { wide: PrvniKorinek, portrait: PrvniKorinek },
+  'nabity-biochar': { wide: NabityBiochar, portrait: NabityBiochar },
+  'mykorhizni-vlakna': { wide: MykorhizniVlakna, portrait: MykorhizniVlakna },
+  'zaklad-tri-zahrad': { wide: ZakladTriZahrad, portrait: ZakladTriZahrad },
+  'slehnuti-vstupu': { wide: SlehnutiVstupu, portrait: SlehnutiVstupu },
 } satisfies Record<string, Drawing>
 
 export type DrawingKey = keyof typeof DRAWINGS

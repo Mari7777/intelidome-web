@@ -383,6 +383,22 @@
   max-width: var(--id-measure);
 }
 
+/* ── Tabulka jako krémový pás (8.1 p. 3+5) ───────────────────
+   Přehledové tabulky spotřeby nesou posun povrchu; obsah drží
+   sloupec podle šířky tabulky (edge / próza). Stínová afordance
+   kryje pruhy KRÉMOVÉHO povrchu. */
+.id-table-block.id-band--self {
+  --id-table-surface: var(--id-cream);
+  padding-block: var(--id-sect-y-sm);
+}
+.id-table-band__inner {
+  max-width: var(--id-maxw-edge);
+  margin-inline: auto;
+}
+.id-table-band__inner--prose {
+  max-width: var(--id-maxw-prose);
+}
+
 /* ── Tabulka pod 560 px: řádkový zápis místo sloupců ─────────
    Sloupcové srovnání se pod 560 px nevešlo ani u tří sloupců
    (na 320 px klipovalo 22–27 % u všech tabulek) a tabulka dávek

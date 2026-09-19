@@ -1054,7 +1054,7 @@ Full-bleed pásy tří povrchů; „rytmus dne na zahradě": obsidian = noc, kr�
    přejímkové šířce (393 / 1024 / 1280 / 1440). Vsazený panel posun
    povrchu NEDĚLÁ — povrch kolem něj zůstává týž (v2.7).
 4. Po obsidianovém hero vždy krém; z vnitřního obsidianu do bílé povoleno.
-5. Panel ≠ pás: kalkulátor/demo smí plavat v bílé sekci jako panel (--id-r-card, padding clamp(28px,4vw,52px)); full-bleed pás bez radiusu. **V dlouhém článku je ale kalkulátor jako PÁS (`surface: band`) to jediné, co udělá posun povrchu** — panel rytmus nenese (v2.7). Pás si maluje povrch přes celé okno a obsah drží na osách (`.id-band--self`), nikdy `max-width` + `auto` (na širokém okně by zbyly bílé pruhy).
+5. Panel ≠ pás: kalkulátor/demo smí plavat v bílé sekci jako panel (--id-r-card, padding clamp(28px,4vw,52px)); full-bleed pás bez radiusu. **V dlouhém článku je ale kalkulátor jako PÁS (`surface: band`) to jediné, co udělá posun povrchu** — panel rytmus nenese (v2.7). Stejnou gramatiku smí nést **přehledová tabulka jako krémový pás** (`table.surface: krem`) — obsah drží sloupec podle šířky tabulky; referenční tabulka v ose prózy zůstává na bílé (v2.8, článek 3). Pás si maluje povrch přes celé okno a obsah drží na osách (`.id-band--self`), nikdy `max-width` + `auto` (na širokém okně by zbyly bílé pruhy).
 6. Sekce padding-block var(--id-sect-y) (= 96–120px desktop, 72–80px mobil), hustší mezipásy var(--id-sect-y-sm); žádné pevné hodnoty mimo tokeny (5.1). CTA pás rovněž var(--id-sect-y).
 7. Footer vždy bílý, border-top 1px var(--id-line-soft), padding 34px 0 44px; „Tmavě (CTA patička)" ze 7.13 platí jen uvnitř závěrečného obsidianového CTA pásu — samostatná tmavá patička neexistuje.
 8. **Max 3 obsidiany na stránku do ~9 000 px** (hero + 1 vnitřní + CTA).

@@ -153,6 +153,8 @@ const figure = (
 const table = (opts: {
   heading?: string
   width?: 'prose' | 'edge'
+  /** Přehledová tabulka smí nést posun povrchu jako krémový pás (8.1 p. 5). */
+  surface?: 'bila' | 'krem'
   note?: string
   cols: (string | [string, 'left' | 'right'])[]
   rows: string[][]
@@ -162,6 +164,7 @@ const table = (opts: {
     blockName: opts.heading ?? 'Tabulka',
     heading: opts.heading,
     width: opts.width ?? 'prose',
+    surface: opts.surface ?? 'bila',
     note: opts.note,
     columns: opts.cols.map((col) =>
       typeof col === 'string' ? { label: col, align: 'left' } : { label: col[0], align: col[1] },
@@ -254,10 +257,23 @@ const body = root([
   p('Můžeme si ho představit jako drobnou porézní zásobárnu rozptýlenou mezi zrnky zeminy. Jeho póry mohou zadržovat část vody a povrchy pomáhat s uchováním některých živin. V lehké písčité půdě se tato úloha hodí zvlášť: voda, která by jinak rychle prošla dál, může zčásti zůstat v kořenové vrstvě.'),
   p('Kořeny ale potřebují vedle vody také vzduch. Proto biochar nepřisypáváme bez omezení. V pokusu s kořenovou zónou se při podílu nad 10 % objemu snížila hloubka zakořenění psinečku. Pro náš návod z toho plyne konkrétní krok: držíme se nižších podílů uvedených u tří zahrad a dávku svévolně nezvyšujeme jen proto, že chceme zadržet více vody.'),
 
-  h3('Co koupit a jak biochar připravit'),
-  p(['Nejjednodušší je koupit biochar určený k použití v půdě, již obohacený živinami a připravený k zapravení. ', BOLD], 'V popisu nebo u dodavatele si ověříme právě tyto dvě věci: že je určený pro půdu a že už proběhlo jeho obohacení. Toto obohacení se často označuje jako „nabití“. Samotné navlhčení vodou ho nenahrazuje.'),
-  p('Důvod je jednoduchý: ', ['nenabitý biochar může zpočátku živiny z okolní půdy spíš odebírat, než ji o ně obohacovat.', BOLD], ' Představme si ho jako prázdnou zásobárnu, která se teprve plní. Zachytí část živin z půdy, a tráva jich tak může mít dočasně méně k dispozici. Také mikroorganismy, které rozkládají snadno rozložitelné zbytky uhlíku v biocharu, mohou pro svou činnost dočasně spotřebovat část dostupného dusíku. Proto biochar před zapravením do půdy „nabijeme“ — tedy ', ['předem obohatíme živinami, například přípravou s vlhkým kompostem', BOLD], '. Voda pomáhá živinám proniknout do jeho drobných pórů a část se zachytí na jeho povrchu. Kompost zároveň pomáhá biochar osídlit mikroorganismy. Samotná čistá voda ale nestačí: biochar navlhčí, nikoli vyživí.'),
-  p('Ještě jedna otázka při nákupu ušetří chybu v množství: ', ['kolik samotného biocharu dodávka obsahuje?', BOLD], ' Naše recepty počítají s objemem biocharu, nikoli celé směsi s kompostem. Kompost dodaný spolu s ním nebo použitý při domácím nabíjení proto započítáme zvlášť, stejně jako přinesené živiny při plánování hnojení. Přesný postup ukážeme až při plánování potřebného množství.'),
+  /* Podkapitola se sazbou splitu (kolo 01: kapitola 01 měla 4 667 px
+     prózy bez obrazové hmoty) — kresba nabíjení nese přesně tuhle
+     trojici odstavců; krémový pás dělí úsek povrchů před kalkulátorem. */
+  split({
+    blockName: 'Nabíjení biocharu',
+    surface: 'krem',
+    side: 'image-left',
+    drawing: 'nabity-biochar',
+    titleLevel: 'h3',
+    title: 'Co koupit a jak biochar připravit',
+    number: '02',
+    alt: 'Dvě zrna biocharu vedle sebe: nenabité má prázdné póry a šipky míří dovnitř — živiny si zpočátku bere z okolní půdy; nabité má póry naplněné živinami z kompostu a šipky míří ven ke kořenu. Dole připomínka, že samotná voda biochar jen navlhčí a že nad 10 % objemu kořeny ztrácejí vzduch.',
+    caption:
+      'Prázdná zásobárna se nejdřív plní — na účet trávy. Proto se biochar nabíjí kompostem předem; voda ho jen navlhčí.',
+    body:
+      '**Nejjednodušší je koupit biochar určený k použití v půdě, již obohacený živinami a připravený k zapravení.** V popisu nebo u dodavatele si ověříme právě tyto dvě věci: že je určený pro půdu a že už proběhlo jeho obohacení. Toto obohacení se často označuje jako „nabití“. Samotné navlhčení vodou ho nenahrazuje.\n\nDůvod je jednoduchý: **nenabitý biochar může zpočátku živiny z okolní půdy spíš odebírat, než ji o ně obohacovat.** Představme si ho jako prázdnou zásobárnu, která se teprve plní. Zachytí část živin z půdy, a tráva jich tak může mít dočasně méně k dispozici. Také mikroorganismy, které rozkládají snadno rozložitelné zbytky uhlíku v biocharu, mohou pro svou činnost dočasně spotřebovat část dostupného dusíku. Proto biochar před zapravením do půdy „nabijeme“ — tedy **předem obohatíme živinami, například přípravou s vlhkým kompostem**. Voda pomáhá živinám proniknout do jeho drobných pórů a část se zachytí na jeho povrchu. Kompost zároveň pomáhá biochar osídlit mikroorganismy. Samotná čistá voda ale nestačí: biochar navlhčí, nikoli vyživí.\n\nJeště jedna otázka při nákupu ušetří chybu v množství: **kolik samotného biocharu dodávka obsahuje?** Naše recepty počítají s objemem biocharu, nikoli celé směsi s kompostem. Kompost dodaný spolu s ním nebo použitý při domácím nabíjení proto započítáme zvlášť, stejně jako přinesené živiny při plánování hnojení. Přesný postup ukážeme až při plánování potřebného množství.',
+  }),
 
   h3('Zeolit: některé živiny se mohou na chvíli zdržet'),
   p('Zeolit umí zachytit část živin, podržet je a postupně je zase uvolňovat do půdy, kde je mohou využít kořeny trávy. Pomáhá tak například s uchováním draslíku a některých forem dusíku, které by se jinak mohly s vodou vyplavit.'),
@@ -265,10 +281,19 @@ const body = root([
   p('Pro zdejší příklady používáme ', ['klinoptilolitový zeolit o zrnitosti 0,5–1 mm', BOLD], '. Jeho potřebný podíl se mezi zahradami liší.'),
   p('Důvod najdeme i v samotné zemině. Jílové částice a organická hmota už dokážou některé živiny zachycovat na svých površích. Odborně se tato schopnost označuje jako ', ['kationtová výměnná kapacita', BOLD], '. Chudý písek má takových míst méně, a proto v něm zeolitu vyhradíme větší podíl. Pro praktickou práci stačí tento důsledek: v těžké půdě začneme menší dávkou, v lehkém písku větší. Zeolit však nenahradí uvolnění utužené zeminy ani odvod přebytečné vody.'),
 
-  h3('Mykorhiza: živí pomocníci potřebují vhodné podmínky'),
-  p('Vedle minerálních a organických složek ovlivňují půdu také živé organismy. Jedním z příkladů jsou ', ['arbuskulární mykorhizní houby', BOLD], ', tedy houby schopné vytvářet soužití s kořeny rostlin. Jejich vlákna mohou rozšířit prostor, ze kterého rostlina získává živiny. Houba na oplátku čerpá uhlík vytvořený rostlinou.'),
-  p('Příjem živin tak může pokračovat i za hranicí, kam dosahuje samotný kořen. Představa širšího dosahu je užitečná, ale sama ještě neříká, zda konkrétní zahrada získá přidáním přípravku očekávaný prospěch.'),
-  p(['Mykorhizní přípravek nedávkujeme jako zeolit.', BOLD], ' Zeolitem doplňujeme minerál, který pomáhá půdě zadržovat některé živiny. Jeho podíl proto přizpůsobujeme tomu, co výsledné směsi chybí. Mykorhizním přípravkem naopak přidáváme živé houby, které mají navázat soužití s kořeny. Nejde tedy o to nahradit určité procento půdy, ale dostat vhodný přípravek ve správné dávce do místa, kde se s ním mladé kořeny setkají. Rozhoduje složení výrobku, jeho návod a podmínky pro fungování hub — nikoli samotný podíl písku nebo jílu.'),
+  split({
+    blockName: 'Mykorhiza',
+    side: 'image-right',
+    drawing: 'mykorhizni-vlakna',
+    titleLevel: 'h3',
+    title: 'Mykorhiza: živí pomocníci potřebují vhodné podmínky',
+    number: '03',
+    alt: 'Kořen rostliny s malou čárkovanou kružnicí vlastního dosahu; z kořene vybíhá jemná síť mykorhizních vláken k větší čárkované kružnici. Živiny na okraji velké kružnice jsou pro samotný kořen nedosažitelné — dosáhne na ně jen síť houby, která na oplátku čerpá cukry rostliny.',
+    caption:
+      'Vlákna houby sahají dál než kořen — příjem živin pokračuje i za jeho hranicí. Jestli to konkrétní zahradě pomůže, rozhodne výrobek a podmínky, ne typ půdy.',
+    body:
+      'Vedle minerálních a organických složek ovlivňují půdu také živé organismy. Jedním z příkladů jsou **arbuskulární mykorhizní houby**, tedy houby schopné vytvářet soužití s kořeny rostlin. Jejich vlákna mohou rozšířit prostor, ze kterého rostlina získává živiny. Houba na oplátku čerpá uhlík vytvořený rostlinou.\n\nPříjem živin tak může pokračovat i za hranicí, kam dosahuje samotný kořen. Představa širšího dosahu je užitečná, ale sama ještě neříká, zda konkrétní zahrada získá přidáním přípravku očekávaný prospěch.\n\n**Mykorhizní přípravek nedávkujeme jako zeolit.** Zeolitem doplňujeme minerál, který pomáhá půdě zadržovat některé živiny. Jeho podíl proto přizpůsobujeme tomu, co výsledné směsi chybí. Mykorhizním přípravkem naopak přidáváme živé houby, které mají navázat soužití s kořeny. Nejde tedy o to nahradit určité procento půdy, ale dostat vhodný přípravek ve správné dávce do místa, kde se s ním mladé kořeny setkají. Rozhoduje složení výrobku, jeho návod a podmínky pro fungování hub — nikoli samotný podíl písku nebo jílu.',
+  }),
 
   /* ── Kapitola 02 ─────────────────────────────────────────────── */
   split({
@@ -278,7 +303,7 @@ const body = root([
     drawing: 'tuna-neni-kubik',
     eyebrow: 'Kapitola 02',
     title: 'Proč směs mícháme podle objemu, ne podle tun',
-    number: '02',
+    number: '04',
     alt: 'Vodorovné pruhy na společné ose ukazují, kolik místa zabere jedna tuna materiálu při modelové sypné hustotě: písek 0,67 m³, zemina 0,71 m³, zeolit 1,25 m³, Biovin 1,67 m³ a biochar celých 5 m³.',
     caption:
       'Jedna tuna, pětkrát jiný kus prostoru. Objemem se určuje poměr směsi, hmotností jen objednávka a doprava.',
@@ -306,7 +331,7 @@ const body = root([
     drawing: 'tri-zony-biovin',
     eyebrow: 'Kapitola 03',
     title: 'Třicet centimetrů půdy jako prostor pro život',
-    number: '03',
+    number: '05',
     alt: 'Řez profilem 30 cm rozdělený do tří zón: 0 až 10 cm minerální základ s biocharem, Biovinem a zeolitem, kde žije nejvíc kořenů; 10 až 15 cm základ se zeolitem jako přechod; 15 až 30 cm jen minerální základ jako rezervoár vody a vzduchu. Přechody mezi zónami jsou plynulé, ne ostré.',
     caption:
       'Co kam patří. Drahé příměsi jen tam, kde žijí kořeny; spodní zóna je rezervoár vody a vzduchu — a přechody navazují, nejsou to patra dortu.',
@@ -324,11 +349,12 @@ const body = root([
   /* ── Kapitola 04 ─────────────────────────────────────────────── */
   split({
     blockName: 'Kapitola 04',
+    surface: 'krem',
     side: 'image-left',
     drawing: 'tri-zahrady',
     eyebrow: 'Kapitola 04',
     title: 'Tři zahrady: jaké poměry pro ně zvolit',
-    number: '04',
+    number: '06',
     alt: 'Skupinový sloupcový graf se třemi recepturami: u jílovité zahrady zeolit a biochar po 2 % a Biovin 2,5 %, u hlinité zeolit a biochar po 3 % a Biovin nula, u písčité zeolit 8 % a biochar s Biovinem po 5 %. Legenda nese stejné výplně jako sloupce; zbytek objemu vždy doplní minerální základ.',
     caption:
       'Tři zahrady, tři dávky. Nejvíc příměsí dostane chudý písek; dobře fungující hlína nepotřebuje skoro nic — a zbytek objemu vždy doplní minerální základ.',
@@ -364,10 +390,24 @@ const body = root([
 
   p('Mykorhizní přípravek má vlastní dávku podle plochy. Tu uvedeme na konci této kapitoly; celkovou spotřebu spočítáme v další části. Hlinitý příklad se týká ', ['těžší hlinité půdy při rekonstrukci', BOLD], ', u níž přidáváme písek. Biochar a zeolit mají v upravené směsi pomoci uchovat část vody a živin. Pokud se naše hlína dobře drobí, propouští vodu a nevysychá příliš rychle, můžeme ponechat původní půdu a tyto příměsi vynechat.'),
 
-  h3('Těžká jílovitá půda: kořeny potřebují vedle vody také vzduch'),
-  p('Po dešti se lepí na boty, za sucha může ztvrdnout tak, že rýči pomáháme celou vahou těla. Mezi těmito dvěma stavy mají růst jemné kořeny. Jíl přitom není bezcenný materiál, kterého je potřeba se za každou cenu zbavit. Umí zadržovat vodu i živiny. Problém nastává tehdy, když uspořádání částic a zhutnění omezí vzduch a pohyb přebytečné vody.'),
-  p('Pro tento model používáme minerální základ složený objemově z ', ['65 % písku a 35 % původní jílovité zeminy', BOLD], '. Vysoký podíl písku odpovídá tomu, že zde uvažujeme o výrazné změně minerální směsi. Zachovaná zemina dál přináší jemnější částice a schopnost vázat některé živiny.'),
-  p('V této variantě počítáme s těžkou půdou, do které se dlouho nepřidávala organická hmota. Nejdříve uvolníme utužená místa a vyřešíme odtok přebytečné vody; teprve potom připravíme směs. ', ['Zeolit i biochar volíme v podílu 2 %; Biovin v podílu 2,5 %', BOLD], ', vždy ve vymezených horních zónách. Jílové částice už pomáhají zachycovat živiny, proto použijeme méně zeolitu než v písčité zahradě. Biovin doplní organickou složku.'),
+  /* Sekce jílu otevírá split s kresbou minerálního základu (kolo 01:
+     mezi tabulkou dávek a zónovou tabulkou bylo 4 011 px prózy bez
+     obrazové hmoty) — kresba nese poměry základů všech tří zahrad,
+     doplněk ke sloupcům dávek v čele kapitoly. */
+  split({
+    blockName: 'Jílovitá zahrada',
+    surface: 'krem',
+    side: 'image-right',
+    drawing: 'zaklad-tri-zahrad',
+    titleLevel: 'h3',
+    title: 'Těžká jílovitá půda: kořeny potřebují vedle vody také vzduch',
+    number: '07',
+    alt: 'Tři vodorovné pruhy ukazují poměr přidaného písku a původní zeminy v minerálním základu: jílovitá zahrada 65 % písku a 35 % zeminy, hlinitá 30 % písku a 70 % ornice, písčitá bez nákupu písku — 100 % původní zeminy. Poznámka připomíná, že pár lopat písku poměr nezmění a u těžkých jílů podklady uvádějí i 75 %.',
+    caption:
+      'Minerální základ tří zahrad. U jílu je přidaného písku většina, u dobré hlíny menšina a do písku se žádný nekupuje — příměsi si berou podíl zvlášť.',
+    body:
+      'Po dešti se lepí na boty, za sucha může ztvrdnout tak, že rýči pomáháme celou vahou těla. Mezi těmito dvěma stavy mají růst jemné kořeny. Jíl přitom není bezcenný materiál, kterého je potřeba se za každou cenu zbavit. Umí zadržovat vodu i živiny. Problém nastává tehdy, když uspořádání částic a zhutnění omezí vzduch a pohyb přebytečné vody.\n\nPro tento model používáme minerální základ složený objemově z **65 % písku a 35 % původní jílovité zeminy**. Vysoký podíl písku odpovídá tomu, že zde uvažujeme o výrazné změně minerální směsi. Zachovaná zemina dál přináší jemnější částice a schopnost vázat některé živiny.\n\nV této variantě počítáme s těžkou půdou, do které se dlouho nepřidávala organická hmota. Nejdříve uvolníme utužená místa a vyřešíme odtok přebytečné vody; teprve potom připravíme směs. **Zeolit i biochar volíme v podílu 2 %; Biovin v podílu 2,5 %**, vždy ve vymezených horních zónách. Jílové částice už pomáhají zachycovat živiny, proto použijeme méně zeolitu než v písčité zahradě. Biovin doplní organickou složku.',
+  }),
   p('Současně nesmíme zapomenout, že po přidání velkého množství písku už nepracujeme s původním jílem. Proto ani nízkou dávku zeolitu neodvozujeme slepě z názvu výchozí půdy: musí odpovídat chování nové směsi.'),
   p('Kořen postupující do hloubky opouští nejpestřejší část směsi, ale pod ní dál pokračuje stejný minerální základ. Pod deseti centimetry je méně organických příměsí; kořen však nemá zůstat odkázaný pouze na obohacenou horní zónu. I níže potřebuje prostředí, kterým může prorůstat za vodou.'),
   p('Poměr 65/35 popisuje pouze minerální základ. Příměsi si z celkového objemu vezmou vlastní podíl, takže přidaný písek netvoří 65 % celé horní směsi.'),
@@ -395,6 +435,7 @@ const body = root([
   p('Příměsi nahrazují část minerálního základu. V každé zóně proto zůstává součet podílů 100 %. Níže je celý návrh pohromadě; objem pro konkrétní plochu budeme počítat až z těchto zvolených poměrů.'),
   table({
     width: 'edge',
+    surface: 'krem',
     cols: ['Zóna', 'Jílovitý příklad', 'Hlinitý příklad', 'Písčitý příklad'],
     rows: [
       [
@@ -426,7 +467,7 @@ const body = root([
   chapter('Od zvoleného poměru k dodávce: kolik materiálu zahrada potřebuje', 'Kapitola 05'),
   figure(
     'fig-dodavka-materialu.avif',
-    '05',
+    '09',
     'Objem spočítáme doma, hmotnost potvrdí dodavatel. Dodávka pak na zahradě zabere přesně tolik místa, kolik jí návrh vyhradil.',
     'bleed',
     false,
@@ -452,10 +493,24 @@ const body = root([
   p('Teprve tento zbytek rozdělíme mezi písek a zeminu. U jílovitého příkladu použijeme poměr 65/35, u hlinitého 30/70. Kdybychom nejprve objednali písek a zeminu pro celý profil a příměsi přidali navrch, změnili bychom celkové množství i poměry. Přidat například dalších 12,5 % původního objemu ke kompletnímu základu neznamená vytvořit směs s původně zamýšlenými podíly.'),
   p('Rozdíl mezi základem a celou směsí je patrný i nahoře v jílovité variantě: minerální základ zaujímá 93,5 % objemu a písek tvoří 65 % tohoto základu. V celé horní směsi tak přidaný písek představuje přibližně ', ['60,8 %', BOLD], ', nikoli 65 %. Zbytek prostoru patří zemině a ostatním složkám. Přesný výsledek násobení je 60,775 %, ale pro skutečné míchání nemá smysl usilovat o přesnost na tisíciny procenta. Podstatné je nezaměnit podíl v základu za podíl v celé směsi.'),
 
-  h3('Receptura popisuje vstupy, povrch ukáže výsledek po slehnutí'),
-  p('Objemové podíly se vztahují k jednotlivým materiálům ', ['před promícháním', BOLD], '. Po spojení se jemnější částice mohou usadit mezi hrubšími a změní se uspořádání pórů. Ze součtu vstupních objemů proto nevznikne zaručeně stejný objem uložené a slehlé směsi.'),
-  p('Pro plánování používáme vypočtené množství jako společný základ. Při realizaci pak ověříme výšku a stav skutečně uloženého materiálu. Automatická přirážka bez znalosti konkrétní směsi by mohla být stejně zavádějící jako předpoklad, že neslehne vůbec. Případnou rezervu domluvíme podle materiálů a způsobu ukládání a vedeme ji odděleně od samotného poměru složek.'),
-  p('Stejné pravidlo platí pro pevné nosiče. ', ['Tabulky počítají s objemem samotného biocharu.', BOLD], ' Půl kubíku biocharu není totéž jako půl kubíku připraveného výrobku obsahujícího 0,4 m³ biocharu a 0,1 m³ kompostu. Pokud má recept obsahovat požadovaný objem samotného biocharu, musíme znát složení dodávky. Kompost přivezený spolu s ním se započítá zvlášť a nahradí odpovídající část minerálního základu. Podobně započítáme známý objem nosiče mykorhizního přípravku v místě aplikace.'),
+  /* Podkapitola se sazbou splitu (kolo 01: mezi koncem kapitoly 04
+     a přehledy kapitoly 05 zůstával nejdelší úsek bez posunu povrchu
+     i díra bez obrazové hmoty) — kresba slehnutí nese přesně tuhle
+     trojici odstavců. */
+  split({
+    blockName: 'Slehnutí vstupů',
+    surface: 'krem',
+    side: 'image-left',
+    drawing: 'slehnuti-vstupu',
+    titleLevel: 'h3',
+    title: 'Receptura popisuje vstupy, povrch ukáže výsledek po slehnutí',
+    number: '08',
+    alt: 'Vlevo dva zvlášť odměřené sloupce materiálu — hrubší a jemnější; vpravo táž dvojice po promíchání a slehnutí: hladina směsi končí pod čárkovanou linkou prostého součtu vstupů, protože jemnější částice zapadly do mezer mezi hrubšími.',
+    caption:
+      'Součet vstupů není výsledná výška. Jemné částice zapadnou do mezer mezi hrubšími — proto se poměr odměřuje před promícháním a rezerva vede zvlášť.',
+    body:
+      'Objemové podíly se vztahují k jednotlivým materiálům **před promícháním**. Po spojení se jemnější částice mohou usadit mezi hrubšími a změní se uspořádání pórů. Ze součtu vstupních objemů proto nevznikne zaručeně stejný objem uložené a slehlé směsi.\n\nPro plánování používáme vypočtené množství jako společný základ. Při realizaci pak ověříme výšku a stav skutečně uloženého materiálu. Automatická přirážka bez znalosti konkrétní směsi by mohla být stejně zavádějící jako předpoklad, že neslehne vůbec. Případnou rezervu domluvíme podle materiálů a způsobu ukládání a vedeme ji odděleně od samotného poměru složek.\n\nStejné pravidlo platí pro pevné nosiče. **Tabulky počítají s objemem samotného biocharu.** Půl kubíku biocharu není totéž jako půl kubíku připraveného výrobku obsahujícího 0,4 m³ biocharu a 0,1 m³ kompostu. Pokud má recept obsahovat požadovaný objem samotného biocharu, musíme znát složení dodávky. Kompost přivezený spolu s ním se započítá zvlášť a nahradí odpovídající část minerálního základu. Podobně započítáme známý objem nosiče mykorhizního přípravku v místě aplikace.',
+  }),
 
   h3('Jak z kubíků získat tuny pro objednávku'),
   p('Pro převod potřebujeme sypnou hustotu, se kterou jsme se setkali při srovnání jedné tuny písku a zeminy. Do objemu zahrnuje i mezery mezi částicemi. Hustota samotného křemenného zrna by pro tento účel nebyla správným údajem: nasypaný písek není jednolitý kámen.'),
@@ -489,6 +544,7 @@ const body = root([
 
   table({
     heading: 'Jílovitý model: hlavní dodávkou je písek',
+    surface: 'krem',
     cols: ['Materiál v celém profilu', ['Na 50 m²', 'right'], ['Na 100 m²', 'right']],
     rows: [
       ['Přidaný písek', '≈ 9,5 m³ / 14,3 t', '≈ 19,0 m³ / 28,5 t'],
@@ -503,6 +559,7 @@ const body = root([
 
   table({
     heading: 'Hlinitý model: více původní půdy a menší zásah',
+    surface: 'krem',
     cols: ['Materiál v celém profilu', ['Na 50 m²', 'right'], ['Na 100 m²', 'right']],
     rows: [
       ['Přidaný písek', '≈ 4,4 m³ / 6,6 t', '≈ 8,8 m³ / 13,2 t'],
@@ -518,6 +575,7 @@ const body = root([
 
   table({
     heading: 'Písčitý model: bez dalšího písku, s větším podílem příměsí',
+    surface: 'krem',
     cols: ['Materiál v celém profilu', ['Na 50 m²', 'right'], ['Na 100 m²', 'right']],
     rows: [
       ['Další písek', '0 m³ / 0 t', '0 m³ / 0 t'],
@@ -533,6 +591,7 @@ const body = root([
   h3('Co udělá s objednávkou jiná dávka příměsi'),
   p('U písčité varianty lze porovnat tři dávky zeolitu. Biochar i Biovin v tomto přehledu zůstávají na pěti procentech horních 10 cm. Mění se pouze zeolit a odpovídající objem původní zeminy.'),
   table({
+    surface: 'krem',
     cols: ['Zeolit v horních 15 cm', ['Na 50 m²', 'right'], ['Na 100 m²', 'right']],
     rows: [
       ['5 % — nižší srovnávací varianta', '375 l / ≈ 0,30 t', '750 l / ≈ 0,60 t'],
@@ -543,6 +602,7 @@ const body = root([
   p('Při 5 % zeolitu zbývá v horní zóně 85 % minerálního základu a mezi 10 a 15 cm 95 %. Při 8 % je to 82 % nahoře a 92 % ve střední zóně. Při 10 % zbývá 80 % a 90 %. V celém profilu na 100 m² tak použijeme ', ['28,25 m³ zeminy při pěti procentech', BOLD], ', ', ['27,8 m³ při osmi procentech', BOLD], ' a ', ['27,5 m³ při deseti procentech', BOLD], '. Zeolit zabere právě tolik místa, kolik ubyde zemině. Hmotnosti v tabulce vycházejí z 0,80 t/m³.'),
   p('Také změnu biocharu lze přepočítat bez změny dávky ostatních příměsí. Místo, které biocharu přidáme nebo ubereme, se opačně promítne do minerálního základu.'),
   table({
+    surface: 'krem',
     cols: ['Biochar v horních 10 cm', ['Na 50 m²', 'right'], ['Na 100 m²', 'right']],
     rows: [
       ['1,5 % — úsporná varianta pro jíl a hlínu', '75 l / ≈ 15 kg *', '150 l / ≈ 30 kg *'],
@@ -584,11 +644,12 @@ const body = root([
      přesně k této čtveřici odstavců, ne do čela kapitoly. */
   split({
     blockName: 'Ukládání odspodu',
+    surface: 'krem',
     side: 'image-right',
     drawing: 'ukladani-odspodu',
     titleLevel: 'h3',
     title: 'Ukládat odspodu, míchat v každé zóně',
-    number: '06',
+    number: '10',
     alt: 'Tři kroky stavby profilu 30 cm pod sebou: nejprve spodních 15 cm minerálního základu, nad nimi čárkovaný obrys budoucích zón; pak přibude 5 cm se zeolitem; nakonec horních 10 cm plné směsi s biocharem, Biovinem a zeolitem. V každém kroku je nová zóna rovnoměrně promíchaná.',
     caption:
       'Vysvětlovali jsme odshora, ukládá se obráceně: základ, zóna se zeolitem, nahoře plná směs — a v každé zóně promíchané, žádná čistá patra.',
@@ -615,11 +676,12 @@ const body = root([
 
   split({
     blockName: 'První kořínek',
+    surface: 'krem',
     side: 'image-left',
     drawing: 'prvni-korinek',
     titleLevel: 'h3',
     title: 'První kořínek ještě nedosáhne do připravené zásoby',
-    number: '07',
+    number: '11',
     alt: 'Řez připraveným profilem 30 cm s měřítkem: čerstvě vzešlá tráva má kořínek jen asi 3 cm hluboko, kapka vody v hloubce 15 cm je označená čárkovaným prstencem jako nedosažitelná. Popisky připomínají, že se čerstvý výsev zalévá mělce a často a profil začne pracovat, až k němu kořeny dorostou.',
     caption:
       'Voda deset centimetrů pod prvním kořínkem je teď stejně nedosažitelná jako voda na druhé straně zahrady. Proto se čerstvý výsev zalévá jinak než zakořeněný trávník.',

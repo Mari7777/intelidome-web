@@ -6,6 +6,7 @@ import { cn } from '@/utilities/ui'
 
 export type TableBlockProps = {
   heading?: string | null
+  surface?: string | null
   width?: string | null
   columns?: { label?: string | null; align?: string | null; id?: string | null }[] | null
   rows?: { cells?: { value?: string | null; id?: string | null }[] | null; id?: string | null }[] | null
@@ -27,15 +28,28 @@ export const TableBlock: React.FC<TableBlockProps> = ({
   heading,
   note,
   rows,
+  surface,
   width,
 }) => {
   const sloupce = columns ?? []
   if (sloupce.length === 0) return null
 
-  return (
-    <div className={cn('rv id-table-block not-prose', width === 'edge' && 'id-edge', className)}>
-      {heading ? <h3 className="id-table__h">{nezlomitelneMezery(heading)}</h3> : null}
-      <TableWrap label={heading ?? `Tabulka: ${sloupce[0]?.label ?? ''}`}>
+  /*
+    Přehledová tabulka jako krémový PÁS nese posun povrchu (8.1 p. 3+5) —
+    v dlouhém článku vsazený blok rytmus neudělá. Jako pás nesmí `rv`
+    viset na kořeni (do obrazu by se vsouval celý povrch): kořen nese
+    skupinu a odhalují se jeho děti (6.3.2). Obsah pásu drží sloupec
+    podle `width` — pás si maluje povrch přes celé okno.
+  */
+  const jePas = surface === 'krem'
+  const koren = jePas
+    ? cn('id-table-block not-prose id-band id-band--cream id-band--self', className)
+    : cn('rv id-table-block not-prose', width === 'edge' && 'id-edge', className)
+
+  const obsah = (
+    <div className={jePas ? cn('id-table-band__inner', width !== 'edge' && 'id-table-band__inner--prose') : undefined}>
+      {heading ? <h3 className={cn('id-table__h', jePas && 'rv')}>{nezlomitelneMezery(heading)}</h3> : null}
+      <TableWrap className={jePas ? 'rv' : undefined} label={heading ?? `Tabulka: ${sloupce[0]?.label ?? ''}`}>
         <table className="id-table">
           <thead>
             <tr>
@@ -67,7 +81,13 @@ export const TableBlock: React.FC<TableBlockProps> = ({
           </tbody>
         </table>
       </TableWrap>
-      {note ? <p className="id-table__note">{nezlomitelneMezery(note)}</p> : null}
+      {note ? <p className={cn('id-table__note', jePas && 'rv')}>{nezlomitelneMezery(note)}</p> : null}
+    </div>
+  )
+
+  return (
+    <div className={koren} {...(jePas ? { 'data-rv-group': '' } : {})}>
+      {obsah}
     </div>
   )
 }

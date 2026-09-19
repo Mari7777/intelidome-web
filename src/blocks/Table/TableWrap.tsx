@@ -9,8 +9,9 @@ import React, { useEffect, useRef, useState } from 'react'
  * fokusovatelnou skupinu). Server vykreslí bez tabIndexu; po hydrataci
  * ho přidá měření a hlídá ho ResizeObserver na kontejneru i tabulce.
  */
-export const TableWrap: React.FC<{ label: string; children: React.ReactNode }> = ({
+export const TableWrap: React.FC<{ label: string; className?: string; children: React.ReactNode }> = ({
   children,
+  className,
   label,
 }) => {
   const ref = useRef<HTMLDivElement>(null)
@@ -29,7 +30,7 @@ export const TableWrap: React.FC<{ label: string; children: React.ReactNode }> =
 
   return (
     <div
-      className="id-table-wrap"
+      className={className ? `id-table-wrap ${className}` : 'id-table-wrap'}
       ref={ref}
       {...(roluje ? { tabIndex: 0, role: 'region', 'aria-label': label } : {})}
     >

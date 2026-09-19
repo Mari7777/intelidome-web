@@ -1656,3 +1656,45 @@ Jeden celek v bloku `table` (2026-09-19):
 Přejímka po balíku: layout-check 1024/1130/1280/1440/1990 OK,
 svg-labels 320/393/1440 = 7/7 kreseb OK, přetečení stránky 320/393
 false, tsc čistý.
+
+## Balík „dlouhé sloupce" (po kole 01) — kritický č. 4 + hustota hmot
+
+Partitura povrchů a obrazová hmota druhé půlky článku (2026-09-19):
+
+**Povrchy (kritický č. 4).** Nejdelší úsek bez posunu povrchu:
+**27 165 → 4 452 px na 1440** a **37 862 → 5 456 px na 393** (limit
+8.1 p. 3 = 6 000; sourozenec má na 393 dnes 6 863). Gramatika: krémové
+splity (nabíjení biocharu, kap. 04, jíl, slehnutí, kap. 06, kap. 07)
++ **přehledové tabulky jako krémové pásy** (zóny, tři modely, obě
+varianty — `table.surface: krem`, nové v DS, zapsáno do 8.1 p. 5 jako
+v2.8); dávková a referenční hustotní tabulka zůstávají bílé v próze.
+Obsidiany beze změny (kalkulátor + produktový pás). Pásová tabulka
+nese data-rv-group s .rv dětmi (žádná mrtvá skupina) a stínová
+afordance kryje krém přes --id-table-surface.
+
+**Hmoty (důležité nálezy hierarchie + rozložení).** Čtyři nové kresby
+ve splitech s h3 (16 → 20 hmot):
+- Obr. 02 „Nabitý vs. nenabitý biochar" (nabity-biochar) — díra
+  4 667 px v kap. 01 → 2 658 px
+- Obr. 03 „Mykorhizní vlákna" (mykorhizni-vlakna, řez půdou
+  s oříznutými kružnicemi dosahu) — táž díra, druhá půlka kap. 01
+- Obr. 07 „Minerální základ tří zahrad" (zaklad-tri-zahrad, 65/35 ·
+  30/70 · bez nákupu) — díra 4 011 px v próze zahrad → pryč
+- Obr. 08 „Slehnutí: méně než součet" (slehnuti-vstupu) — poslední
+  úsek 7 481→4 452 na 1440 a hmota do výkladu kap. 05
+Autorův text beze změny — splity nesou existující odstavce podkapitol
+(vzor kap. 06/07). Přečíslování Obr. 01–11 (foto 09). Strany splitů
+R L R L R L R L R L (sudý počet nových → kap. 06/07 na původních
+stranách).
+
+**Zbytková rezidua (vědomě):** díra 3 644 px na 1440 (balení + hnojivo
++ otevření kap. 06 — bez vynálezu dalšího obsahu nejde zaplnit)
+a mobilní díra 5 445 px (próza hlinité a písčité zahrady); průměr hmot
+1/2 153 px proti cíli ADR-006 1/1 300–1 600.
+
+Přejímka po balíku: layout-check 5 šířek (10 splitů R L…), svg-labels
+320/393/1440 vč. 4 nových kreseb (0 kolizí, 0 ořezů — po opravě kolize
+„dosah kořene" a ořezu popisku slehnutí), přetečení stránky false,
+tsc čistý. Mykorhiza překreslena do řezu půdou — #d8c9b4 kořen na
+krémovém panelu nebyl vidět (tentýž vztah barva ↔ podklad jako
+metařádek hera u článku 2).

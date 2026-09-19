@@ -1729,7 +1729,11 @@ export interface SplitBlock {
     | 'tri-zony-biovin'
     | 'tri-zahrady'
     | 'ukladani-odspodu'
-    | 'prvni-korinek';
+    | 'prvni-korinek'
+    | 'nabity-biochar'
+    | 'mykorhizni-vlakna'
+    | 'zaklad-tri-zahrad'
+    | 'slehnuti-vstupu';
   eyebrow?: string | null;
   title?: string | null;
   /**
@@ -1786,6 +1790,10 @@ export interface StatTilesBlock {
  */
 export interface TableBlock {
   heading?: string | null;
+  /**
+   * Přehledová tabulka smí nést posun povrchu jako krémový pás (8.1 p. 5); referenční tabulka v ose prózy zůstává na bílé.
+   */
+  surface?: ('bila' | 'krem') | null;
   /**
    * Číselné tabulky do tří sloupců patří na osu prózy; širší (dlouhé textové buňky) na osu edge.
    */

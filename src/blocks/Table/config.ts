@@ -13,6 +13,20 @@ export const DataTable: Block = {
   fields: [
     { name: 'heading', type: 'text', label: 'Titulek nad tabulkou (nepovinný)' },
     {
+      name: 'surface',
+      type: 'select',
+      defaultValue: 'bila',
+      label: 'Povrch',
+      admin: {
+        description:
+          'Přehledová tabulka smí nést posun povrchu jako krémový pás (8.1 p. 5); referenční tabulka v ose prózy zůstává na bílé.',
+      },
+      options: [
+        { label: 'Bílá (v toku textu)', value: 'bila' },
+        { label: 'Krémový pás', value: 'krem' },
+      ],
+    },
+    {
       name: 'width',
       type: 'select',
       defaultValue: 'prose',
