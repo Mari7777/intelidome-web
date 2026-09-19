@@ -1698,3 +1698,22 @@ Přejímka po balíku: layout-check 5 šířek (10 splitů R L…), svg-labels
 tsc čistý. Mykorhiza překreslena do řezu půdou — #d8c9b4 kořen na
 krémovém panelu nebyl vidět (tentýž vztah barva ↔ podklad jako
 metařádek hera u článku 2).
+
+## Dodatek balíku „dlouhé sloupce" — sekce písku (připomínka autora)
+
+Autor: pasáž písek → Biovin → biochar je pořád moc dlouhý sloupec.
+Sekce „Písek a zemina: o výsledku rozhodují i mezery" dostala split
+s novou kresbou **Obr. 02 „Praný vs. nepraný písek"** (prany-pisek) —
+kresba nese přímo tezi titulku: prach a jíl ucpou mezery (kapka stojí),
+praný je nechá volné (kapka projde, vzduch se vrátí). Tělo splitu =
+první čtyři odstavce sekce; „Proč křemičitý?", poznámka k nákupu
+a odstavec o zemině pokračují prózou.
+
+Jeden vložený split překlopil paritu stran: všech 9 splitů za pískem
+se zrcadlově otočilo (R L × 11 drží na všech šířkách). Obr.
+přečíslovány na 01–12 (foto 10). Mobilní díra kap. 01 4 074 → 3 563 px,
+hmot 21. Tři nové ořezy popisků na 320 opraveny lámáním řádků
+(pravý sloupec kreseb unese ~14 znaků, ne 20 — potřetí totéž poučení);
+kolize šipky s popiskem vyřešena posunem šipky, ne textu k legendě.
+Přejímka: svg-labels 12/12 na 320/393/1440, layout-check 3 šířky,
+partitura beze změny (max 4 452 / 5 851 px), přetečení false, tsc.

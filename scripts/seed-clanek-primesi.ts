@@ -233,11 +233,22 @@ const body = root([
       'Zajímavé je, že materiály mohou být v obou případech stejné: písek, původní zemina, biochar, Biovin a zeolit. Mění se jejich úloha i množství. Jílovité půdě potřebujeme otevřít cestu pro vzduch a přebytečnou vodu. Chudému písku naopak pomoci, aby část vody a živin u kořenů zůstala déle. A dobře fungující hlíně někdy prospějeme nejvíc tím, že do ní zbytečně nepřidáme další materiál.\n\nCílem je porozumět tomu, co má směs dělat. Přesná čísla ve výpočtu nám mají pomoci udržet zamýšlené poměry; při práci s navážkou se z nich nestává požadavek na vážení každého kilogramu.',
   }),
 
-  h3('Písek a zemina: o výsledku rozhodují i mezery'),
-  p('Písek působí jako nejprostší položka celé objednávky. Žádné složité jméno, žádný příslib biologického zázraku. Jen zrnka. Přesto právě jeho výběr a množství mohou rozhodnout o tom, zda směs získá vlastnosti, které od ní čekáme.'),
-  p('Písek je důležitý pro provzdušnění půdy: ve vhodném množství a zrnitosti pomáhá kyslíku pronikat ke kořenům. Musíme ale dávat pozor, kolik ho přimícháme a do jaké půdy. U písčité půdy by další písek znamenal zbytečné plýtvání penězi. Naopak malé množství písku přidané do jílovité půdy může směs ještě více zahustit, a zdravému růstu trávy tak dokonce uškodit.'),
-  p('V následujících příkladech používáme ', ['praný křemičitý písek s převahou zrn přibližně 0,25–1 mm', BOLD], '. Každá část tohoto označení má svůj důvod: praní omezuje nežádoucí jemné příměsi, křemen poskytuje odolná zrna a vhodná zrnitost pomáhá vytvářet prostředí pro pohyb vody a vzduchu.'),
-  p(['Proč praný? ', BOLD], 'Písek může obsahovat také prachové a jílovité částice. Ty jsou mnohem menší než samotná písková zrna a mohou vyplňovat mezery mezi nimi. Vysoký podíl jemných příměsí může omezit propustnost výsledné směsi a po odtoku vody v ní ponechat méně prostoru pro vzduch. Praním se jejich obsah snižuje. Do půdy tak nepřivážíme spolu s pískem zbytečně další jíl a prach, když právě jejich nadbytek potřebujeme řešit.'),
+  /* Sekce písku jako split (připomínka autora po balíku „dlouhé
+     sloupce": pasáž písek → biochar byla pořád stěna) — kresba mezer
+     nese přesně tezi titulku sekce. */
+  split({
+    blockName: 'Písek a zemina',
+    side: 'image-left',
+    drawing: 'prany-pisek',
+    titleLevel: 'h3',
+    title: 'Písek a zemina: o výsledku rozhodují i mezery',
+    number: '02',
+    alt: 'Dva trsy pískových zrn vedle sebe: v nepraném písku vyplňují mezery mezi zrny drobné částice prachu a jílu a kapka vody stojí na povrchu; v praném písku zůstaly mezery volné a kapka po čárkované cestě prochází dolů, takže se ke kořenům vrátí i vzduch.',
+    caption:
+      'Tytéž mezery, dva osudy. Prach a jíl v nepraném písku je ucpou; praný je nechá volné pro vodu a vzduch — proto se praní vyplatí.',
+    body:
+      'Písek působí jako nejprostší položka celé objednávky. Žádné složité jméno, žádný příslib biologického zázraku. Jen zrnka. Přesto právě jeho výběr a množství mohou rozhodnout o tom, zda směs získá vlastnosti, které od ní čekáme.\n\nPísek je důležitý pro provzdušnění půdy: ve vhodném množství a zrnitosti pomáhá kyslíku pronikat ke kořenům. Musíme ale dávat pozor, kolik ho přimícháme a do jaké půdy. U písčité půdy by další písek znamenal zbytečné plýtvání penězi. Naopak malé množství písku přidané do jílovité půdy může směs ještě více zahustit, a zdravému růstu trávy tak dokonce uškodit.\n\nV následujících příkladech používáme **praný křemičitý písek s převahou zrn přibližně 0,25–1 mm**. Každá část tohoto označení má svůj důvod: praní omezuje nežádoucí jemné příměsi, křemen poskytuje odolná zrna a vhodná zrnitost pomáhá vytvářet prostředí pro pohyb vody a vzduchu.\n\n**Proč praný?** Písek může obsahovat také prachové a jílovité částice. Ty jsou mnohem menší než samotná písková zrna a mohou vyplňovat mezery mezi nimi. Vysoký podíl jemných příměsí může omezit propustnost výsledné směsi a po odtoku vody v ní ponechat méně prostoru pro vzduch. Praním se jejich obsah snižuje. Do půdy tak nepřivážíme spolu s pískem zbytečně další jíl a prach, když právě jejich nadbytek potřebujeme řešit.',
+  }),
   p(['Proč křemičitý? ', BOLD], 'Křemen je tvrdý a vůči běžnému půdnímu prostředí chemicky odolný minerál. Jeho zrna se snadno nerozpadají a mohou dlouhodobě tvořit stabilní minerální kostru směsi.'),
   block({
     blockType: 'banner',
@@ -263,11 +274,11 @@ const body = root([
   split({
     blockName: 'Nabíjení biocharu',
     surface: 'krem',
-    side: 'image-left',
+    side: 'image-right',
     drawing: 'nabity-biochar',
     titleLevel: 'h3',
     title: 'Co koupit a jak biochar připravit',
-    number: '02',
+    number: '03',
     alt: 'Dvě zrna biocharu vedle sebe: nenabité má prázdné póry a šipky míří dovnitř — živiny si zpočátku bere z okolní půdy; nabité má póry naplněné živinami z kompostu a šipky míří ven ke kořenu. Dole připomínka, že samotná voda biochar jen navlhčí a že nad 10 % objemu kořeny ztrácejí vzduch.',
     caption:
       'Prázdná zásobárna se nejdřív plní — na účet trávy. Proto se biochar nabíjí kompostem předem; voda ho jen navlhčí.',
@@ -283,11 +294,11 @@ const body = root([
 
   split({
     blockName: 'Mykorhiza',
-    side: 'image-right',
+    side: 'image-left',
     drawing: 'mykorhizni-vlakna',
     titleLevel: 'h3',
     title: 'Mykorhiza: živí pomocníci potřebují vhodné podmínky',
-    number: '03',
+    number: '04',
     alt: 'Kořen rostliny s malou čárkovanou kružnicí vlastního dosahu; z kořene vybíhá jemná síť mykorhizních vláken k větší čárkované kružnici. Živiny na okraji velké kružnice jsou pro samotný kořen nedosažitelné — dosáhne na ně jen síť houby, která na oplátku čerpá cukry rostliny.',
     caption:
       'Vlákna houby sahají dál než kořen — příjem živin pokračuje i za jeho hranicí. Jestli to konkrétní zahradě pomůže, rozhodne výrobek a podmínky, ne typ půdy.',
@@ -299,11 +310,11 @@ const body = root([
   split({
     blockName: 'Kapitola 02',
     surface: 'krem',
-    side: 'image-left',
+    side: 'image-right',
     drawing: 'tuna-neni-kubik',
     eyebrow: 'Kapitola 02',
     title: 'Proč směs mícháme podle objemu, ne podle tun',
-    number: '04',
+    number: '05',
     alt: 'Vodorovné pruhy na společné ose ukazují, kolik místa zabere jedna tuna materiálu při modelové sypné hustotě: písek 0,67 m³, zemina 0,71 m³, zeolit 1,25 m³, Biovin 1,67 m³ a biochar celých 5 m³.',
     caption:
       'Jedna tuna, pětkrát jiný kus prostoru. Objemem se určuje poměr směsi, hmotností jen objednávka a doprava.',
@@ -327,11 +338,11 @@ const body = root([
   /* ── Kapitola 03 ─────────────────────────────────────────────── */
   split({
     blockName: 'Kapitola 03',
-    side: 'image-right',
+    side: 'image-left',
     drawing: 'tri-zony-biovin',
     eyebrow: 'Kapitola 03',
     title: 'Třicet centimetrů půdy jako prostor pro život',
-    number: '05',
+    number: '06',
     alt: 'Řez profilem 30 cm rozdělený do tří zón: 0 až 10 cm minerální základ s biocharem, Biovinem a zeolitem, kde žije nejvíc kořenů; 10 až 15 cm základ se zeolitem jako přechod; 15 až 30 cm jen minerální základ jako rezervoár vody a vzduchu. Přechody mezi zónami jsou plynulé, ne ostré.',
     caption:
       'Co kam patří. Drahé příměsi jen tam, kde žijí kořeny; spodní zóna je rezervoár vody a vzduchu — a přechody navazují, nejsou to patra dortu.',
@@ -350,11 +361,11 @@ const body = root([
   split({
     blockName: 'Kapitola 04',
     surface: 'krem',
-    side: 'image-left',
+    side: 'image-right',
     drawing: 'tri-zahrady',
     eyebrow: 'Kapitola 04',
     title: 'Tři zahrady: jaké poměry pro ně zvolit',
-    number: '06',
+    number: '07',
     alt: 'Skupinový sloupcový graf se třemi recepturami: u jílovité zahrady zeolit a biochar po 2 % a Biovin 2,5 %, u hlinité zeolit a biochar po 3 % a Biovin nula, u písčité zeolit 8 % a biochar s Biovinem po 5 %. Legenda nese stejné výplně jako sloupce; zbytek objemu vždy doplní minerální základ.',
     caption:
       'Tři zahrady, tři dávky. Nejvíc příměsí dostane chudý písek; dobře fungující hlína nepotřebuje skoro nic — a zbytek objemu vždy doplní minerální základ.',
@@ -397,11 +408,11 @@ const body = root([
   split({
     blockName: 'Jílovitá zahrada',
     surface: 'krem',
-    side: 'image-right',
+    side: 'image-left',
     drawing: 'zaklad-tri-zahrad',
     titleLevel: 'h3',
     title: 'Těžká jílovitá půda: kořeny potřebují vedle vody také vzduch',
-    number: '07',
+    number: '08',
     alt: 'Tři vodorovné pruhy ukazují poměr přidaného písku a původní zeminy v minerálním základu: jílovitá zahrada 65 % písku a 35 % zeminy, hlinitá 30 % písku a 70 % ornice, písčitá bez nákupu písku — 100 % původní zeminy. Poznámka připomíná, že pár lopat písku poměr nezmění a u těžkých jílů podklady uvádějí i 75 %.',
     caption:
       'Minerální základ tří zahrad. U jílu je přidaného písku většina, u dobré hlíny menšina a do písku se žádný nekupuje — příměsi si berou podíl zvlášť.',
@@ -467,7 +478,7 @@ const body = root([
   chapter('Od zvoleného poměru k dodávce: kolik materiálu zahrada potřebuje', 'Kapitola 05'),
   figure(
     'fig-dodavka-materialu.avif',
-    '09',
+    '10',
     'Objem spočítáme doma, hmotnost potvrdí dodavatel. Dodávka pak na zahradě zabere přesně tolik místa, kolik jí návrh vyhradil.',
     'bleed',
     false,
@@ -500,11 +511,11 @@ const body = root([
   split({
     blockName: 'Slehnutí vstupů',
     surface: 'krem',
-    side: 'image-left',
+    side: 'image-right',
     drawing: 'slehnuti-vstupu',
     titleLevel: 'h3',
     title: 'Receptura popisuje vstupy, povrch ukáže výsledek po slehnutí',
-    number: '08',
+    number: '09',
     alt: 'Vlevo dva zvlášť odměřené sloupce materiálu — hrubší a jemnější; vpravo táž dvojice po promíchání a slehnutí: hladina směsi končí pod čárkovanou linkou prostého součtu vstupů, protože jemnější částice zapadly do mezer mezi hrubšími.',
     caption:
       'Součet vstupů není výsledná výška. Jemné částice zapadnou do mezer mezi hrubšími — proto se poměr odměřuje před promícháním a rezerva vede zvlášť.',
@@ -645,11 +656,11 @@ const body = root([
   split({
     blockName: 'Ukládání odspodu',
     surface: 'krem',
-    side: 'image-right',
+    side: 'image-left',
     drawing: 'ukladani-odspodu',
     titleLevel: 'h3',
     title: 'Ukládat odspodu, míchat v každé zóně',
-    number: '10',
+    number: '11',
     alt: 'Tři kroky stavby profilu 30 cm pod sebou: nejprve spodních 15 cm minerálního základu, nad nimi čárkovaný obrys budoucích zón; pak přibude 5 cm se zeolitem; nakonec horních 10 cm plné směsi s biocharem, Biovinem a zeolitem. V každém kroku je nová zóna rovnoměrně promíchaná.',
     caption:
       'Vysvětlovali jsme odshora, ukládá se obráceně: základ, zóna se zeolitem, nahoře plná směs — a v každé zóně promíchané, žádná čistá patra.',
@@ -677,11 +688,11 @@ const body = root([
   split({
     blockName: 'První kořínek',
     surface: 'krem',
-    side: 'image-left',
+    side: 'image-right',
     drawing: 'prvni-korinek',
     titleLevel: 'h3',
     title: 'První kořínek ještě nedosáhne do připravené zásoby',
-    number: '11',
+    number: '12',
     alt: 'Řez připraveným profilem 30 cm s měřítkem: čerstvě vzešlá tráva má kořínek jen asi 3 cm hluboko, kapka vody v hloubce 15 cm je označená čárkovaným prstencem jako nedosažitelná. Popisky připomínají, že se čerstvý výsev zalévá mělce a často a profil začne pracovat, až k němu kořeny dorostou.',
     caption:
       'Voda deset centimetrů pod prvním kořínkem je teď stejně nedosažitelná jako voda na druhé straně zahrady. Proto se čerstvý výsev zalévá jinak než zakořeněný trávník.',

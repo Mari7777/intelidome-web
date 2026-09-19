@@ -1733,7 +1733,8 @@ export interface SplitBlock {
     | 'nabity-biochar'
     | 'mykorhizni-vlakna'
     | 'zaklad-tri-zahrad'
-    | 'slehnuti-vstupu';
+    | 'slehnuti-vstupu'
+    | 'prany-pisek';
   eyebrow?: string | null;
   title?: string | null;
   /**

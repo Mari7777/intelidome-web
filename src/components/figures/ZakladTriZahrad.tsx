@@ -24,7 +24,7 @@ const SIRKA = 350
 const VYSKA = 30
 
 export const ZakladTriZahrad: React.FC = () => (
-  <svg aria-hidden="true" className="block h-auto w-full" viewBox="0 0 520 508">
+  <svg aria-hidden="true" className="block h-auto w-full" viewBox="0 0 520 530">
     <text className="sv-lbl" x="40" y="34">Poměr v minerálním základu</text>
     {/* Pointa kresby (9.2 p. 3) je jedna: u jílu je písku většina. */}
     <text className="sv-val" x="480" y="40" textAnchor="end" style={{ fontSize: 24 }}>65/35</text>
@@ -67,6 +67,7 @@ export const ZakladTriZahrad: React.FC = () => (
     <text className="sv-val" x="236" y="432">původní zemina</text>
     <rect x="30" y="450" width="14" height="14" fill="#c2a052" opacity="0.45" stroke="#232830" strokeWidth="1.6" strokeLinejoin="round" />
     <text className="sv-val" x="54" y="462">původní písčitá zemina</text>
-    <text className="sv-lbl" x="30" y="496">Příměsi si z celkového objemu berou podíl zvlášť</text>
+    <text className="sv-lbl" x="30" y="496">Příměsi si z celkového objemu</text>
+    <text className="sv-lbl" x="30" y="516">berou podíl zvlášť</text>
   </svg>
 )

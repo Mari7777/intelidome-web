@@ -34,17 +34,18 @@ export const SlehnutiVstupu: React.FC = () => (
     <text className="sv-lbl" x="168" y="386">materiál</text>
 
     {/* ── vpravo: po promíchání a slehnutí ───────────────────── */}
-    <text className="sv-lbl" x="316" y="86">Po promíchání a slehnutí</text>
+    <text className="sv-lbl" x="316" y="78">Po promíchání</text>
+    <text className="sv-lbl" x="316" y="98">a slehnutí</text>
     {/* prostý součet vstupů (konstrukční linka) */}
-    <line x1="330" y1="120" x2="470" y2="120" stroke="#d5d3cc" strokeWidth="1.6" strokeDasharray="3 7" strokeLinecap="round" />
-    <text className="sv-lbl" x="330" y="112">prostý součet vstupů</text>
+    <line x1="330" y1="132" x2="470" y2="132" stroke="#d5d3cc" strokeWidth="1.6" strokeDasharray="3 7" strokeLinecap="round" />
+    <text className="sv-lbl" x="330" y="124">součet vstupů</text>
     {/* skutečná hladina směsi níž */}
     <rect x="342" y="158" width="116" height="182" fill="#6b5138" opacity="0.9" />
     <rect x="342" y="158" width="116" height="182" fill="url(#sv-jemne)" />
     <path d="M342 158 H458 V340 H342 Z" fill="none" stroke="#232830" strokeWidth="1.6" strokeLinejoin="round" />
     {/* rozdíl mezi součtem a hladinou */}
     <g fill="none" stroke="#232830" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M476 124 V152" />
+      <path d="M476 136 V152" />
       <path d="M471 145 l5 8 5 -8" />
     </g>
     <text className="sv-lbl" x="316" y="366">jemné částice</text>

@@ -54,6 +54,7 @@ export const Split: Block = {
         { label: 'Mykorhizní vlákna (dosah)', value: 'mykorhizni-vlakna' },
         { label: 'Minerální základ tří zahrad', value: 'zaklad-tri-zahrad' },
         { label: 'Slehnutí: méně než součet vstupů', value: 'slehnuti-vstupu' },
+        { label: 'Praný vs. nepraný písek (mezery)', value: 'prany-pisek' },
       ],
     },
     { name: 'eyebrow', type: 'text', label: 'Nadřádek' },
