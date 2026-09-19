@@ -64,7 +64,14 @@ export const IngredientsBlock: React.FC<IngredientsBlockProps> = ({
         />
       ) : null}
       <figcaption>
-        <strong className="id-ingredients__name">{nezlomitelneMezery(item.name ?? '')}</strong>
+        <span className="id-ingredients__namerow">
+          <strong className="id-ingredients__name">{nezlomitelneMezery(item.name ?? '')}</strong>
+          <span aria-hidden="true" className="id-ingredients__aff">
+            <svg fill="none" height="14" viewBox="0 0 14 14" width="14">
+              <path d="M3 5.2 7 9.2 11 5.2" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.6" />
+            </svg>
+          </span>
+        </span>
         <span className="id-ingredients__text">{nezlomitelneMezery(item.text ?? '')}</span>
         {item.note ? (
           <span className="id-ingredients__note">{nezlomitelneMezery(item.note)}</span>

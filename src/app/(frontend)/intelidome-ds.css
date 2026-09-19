@@ -439,22 +439,37 @@
   margin-top: 10px;
 }
 
-/* ── Panel s plnou sekcí vybrané složky ──────────────────── */
-.id-ingredients__panels {
-  display: grid;
-  margin-top: clamp(30px, 3.4vw, 46px);
+/* ── Panel s plnou sekcí vybrané složky ──────────────────────
+   Sloty panelů jsou přímo v mřížce karet. Na desktopu leží všechny
+   ve společné buňce pod kartami (výška nejvyššího → žádný skok);
+   na dotyku/úzkém okně je akordeon řadí CSS pořadím hned pod řádek
+   své karty a zavřené schová. */
+.id-ingredients__panel-slot {
+  grid-column: 1 / -1;
   border-top: 1px solid #dcdad4; /* hairline téhož povrchu (8.1 p. 1) */
   padding-top: clamp(26px, 3vw, 38px);
+  margin-top: clamp(10px, 1.4vw, 18px);
 }
-.id-ingredients__panel-slot {
-  grid-area: 1 / 1;
-  opacity: 0;
-  visibility: hidden;
-  transition: opacity 0.28s ease, visibility 0.28s;
+@media (hover: hover) and (min-width: 1130px) {
+  .id-ingredients__panel-slot {
+    grid-row: 2;
+  }
 }
-.id-ingredients__panel-slot.is-active {
-  opacity: 1;
-  visibility: visible;
+@media (hover: hover) and (min-width: 561px) and (max-width: 1129px) {
+  .id-ingredients__panel-slot {
+    grid-row: 3;
+  }
+}
+@media (hover: hover) and (min-width: 561px) {
+  .id-ingredients__panel-slot {
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.28s ease, visibility 0.28s;
+  }
+  .id-ingredients__panel-slot.is-active {
+    opacity: 1;
+    visibility: visible;
+  }
 }
 .id-ingredients__panel--s-obrazem {
   display: grid;
@@ -508,13 +523,91 @@
   text-underline-offset: 3px;
 }
 
+/* ── Akordeon (dotyk nebo ≤ 560 px): zavřený výchozí stav ────
+   Panel se otevírá hned pod řádkem své karty (CSS pořadí v mřížce),
+   klepnutí na otevřenou kartu zavírá. Výška se nemání animací
+   (layoutové animace zakázané, vzor FAQ) — jen obsah fade-in. */
+@media (hover: none), (max-width: 560px) {
+  .id-ingredients__tab:nth-child(1) {
+    order: 1;
+  }
+  .id-ingredients__tab:nth-child(2) {
+    order: 2;
+  }
+  .id-ingredients__tab:nth-child(3) {
+    order: 5;
+  }
+  .id-ingredients__tab:nth-child(4) {
+    order: 6;
+  }
+  .id-ingredients__panel-slot:nth-child(5) {
+    order: 3;
+  }
+  .id-ingredients__panel-slot:nth-child(6) {
+    order: 4;
+  }
+  .id-ingredients__panel-slot:nth-child(7) {
+    order: 7;
+  }
+  .id-ingredients__panel-slot:nth-child(8) {
+    order: 8;
+  }
+  .id-ingredients__panel-slot:not(.is-active),
+  .id-ingredients__grid.netknuto .id-ingredients__panel-slot {
+    display: none;
+  }
+  .id-ingredients__panel-slot.is-active .id-ingredients__panel {
+    animation: id-ingr-fade 0.22s ease;
+  }
+  /* kde jsem: otevřená karta plná, ostatní ztlumí popisky (bez blur) */
+  .id-ingredients__grid.ma-vybrano .id-ingredients__tab:not(.is-active) figcaption {
+    opacity: 0.55;
+  }
+  /* fotka v panelu nižší, ať sekce nezabere dvě obrazovky */
+  .id-ingredients__panel-img {
+    aspect-ratio: 4 / 3;
+  }
+}
+@keyframes id-ingr-fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+.id-ingredients__namerow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+.id-ingredients__aff {
+  display: inline-flex;
+  color: var(--id-ink-2);
+  transition: transform 0.24s ease;
+}
+.id-ingredients__tab.is-active .id-ingredients__aff {
+  transform: rotate(180deg);
+}
+/* šipková afordance patří akordeonu — na desktopu se skrývá */
+@media (hover: hover) and (min-width: 561px) {
+  .id-ingredients__aff {
+    display: none;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .id-ingredients__panel-slot,
   .id-ingredients__name::after,
   .id-ingredients__img,
   .id-ingredients__media::after,
-  .id-ingredients__item figcaption {
+  .id-ingredients__item figcaption,
+  .id-ingredients__aff {
     transition: none;
+  }
+  .id-ingredients__panel-slot.is-active .id-ingredients__panel {
+    animation: none;
   }
 }
 

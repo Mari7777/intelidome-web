@@ -1793,3 +1793,26 @@ partitura 4 452/5 456 px, přetečení false, tsc.
    akcentová čárka + panel.
 Přejímka: layout-check 1440 OK, svg-labels 393 11/11, přetečení
 320/393 false, tsc čistý.
+
+
+## Karta složek v3.2 — mobilní akordeon se zavřeným výchozím stavem
+
+Podle slovního návrhu schváleného autorem: na dotyku / ≤ 560 px se
+panel otevírá HNED POD ŘÁDKEM klepnuté karty (karty i sloty panelů
+v jedné mřížce, akordeonový režim je řadí CSS pořadím; zavřené sloty
+display:none — Google indexuje obsah akordeonů plnohodnotně).
+Výchozí stav ZAVŘENO (mobilní kapitola −1,1 k px, 393: 54 993 px);
+klepnutí na otevřenou kartu zavírá, afordance = šipka u jména
+(rotace 180° po otevření, na desktopu skrytá). „Kde jsem" na dotyku:
+akcentová čárka + ztlumené popisky ostatních (žádný blur — závoj
+zůstává hoverovým jazykem). Výška bez animace (vzor FAQ), obsah
+panelu fade-in 0,22 s, reduced-motion nic.
+
+Desktop beze změny (Biovin otevřený, hover přepíná, závoj+blur,
+společná buňka panelů). Bez skoku při načtení na obou: server rendruje
+otevřený Biovin + třídu `netknuto`, kterou mobilní CSS drží zavřeno
+do první interakce. Sémantika sjednocena na rozbalovací karty
+(role button + aria-expanded + region; tablist s vloženými panely
+by nebyl validní) — Enter/mezerník, fokus otevírá jen v hover režimu.
+Přejímka: layout-check 1440, svg-labels 320/393 bez chyb, partitura
+4 452 / 5 456 px, přetečení false, tsc.
