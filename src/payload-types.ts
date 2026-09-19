@@ -1856,6 +1856,10 @@ export interface IngredientsBlock {
       };
       [k: string]: unknown;
     } | null;
+    /**
+     * Materiál v kontextu půdy. Když chybí, panel může nést kresbu.
+     */
+    panelImage?: (number | null) | Media;
     drawing?: string | null;
     drawingAlt?: string | null;
     id?: string | null;

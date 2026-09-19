@@ -1776,3 +1776,20 @@ opacity, reduced-motion bez přechodu. Ukazatel výběru = akcentová
 překlopilo paritu: 7 splitů zrcadlově, R L ×10; Obr. přečíslovány
 01–11. Přejímky: svg-labels 11/11 ×3 šířky, layout-check ×3,
 partitura 4 452/5 456 px, přetečení false, tsc.
+
+
+## Karta složek v3.1 — fotky v panelech + závoj neaktivních (autor)
+
+1. Vedle textu každého panelu obraz: Biovin/biochar/zeolit dostaly
+   nové fotky „materiál v půdě" (panel-*.avif, táž série světla;
+   jiný záběr než karty — na prkně vs. v půdě), mykorhiza si drží
+   kresbu dosahu. Panel mřížka text + 420 px obraz.
+2. Znevýraznění ostatních karet při hoveru/fokusu: bílý závoj
+   rgba(255,255,255,.58) + blur(4px) + saturate(.85) + popisky na
+   0.48, přechod 0.32 s (filter/opacity; scale 1.03 schová průsvitný
+   okraj rozmazání pod ořez). Přes :has() na mřížce, jen
+   (hover: hover); fokus z klávesnice znevýrazňuje stejně;
+   reduced-motion bez přechodů. Na dotyku „kde jsem" dál nese
+   akcentová čárka + panel.
+Přejímka: layout-check 1440 OK, svg-labels 393 11/11, přetečení
+320/393 false, tsc čistý.

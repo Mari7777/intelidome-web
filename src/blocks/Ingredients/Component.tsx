@@ -23,6 +23,7 @@ export type IngredientsBlockProps = {
         note?: string | null
         title?: string | null
         detail?: DefaultTypedEditorState | null
+        panelImage?: (number | null) | Media
         drawing?: string | null
         drawingAlt?: string | null
         id?: string | null
@@ -77,13 +78,23 @@ export const IngredientsBlock: React.FC<IngredientsBlockProps> = ({
       item.drawing && item.drawing in DRAWINGS
         ? DRAWINGS[item.drawing as DrawingKey].portrait ?? DRAWINGS[item.drawing as DrawingKey].wide
         : null
+    const foto = item.panelImage && typeof item.panelImage === 'object' ? item.panelImage : null
+    const maObraz = Boolean(foto || Kresba)
     return (
-      <div className={cn('id-ingredients__panel', Kresba && 'id-ingredients__panel--s-kresbou')} key={item.id ?? item.name}>
+      <div className={cn('id-ingredients__panel', maObraz && 'id-ingredients__panel--s-obrazem')} key={item.id ?? item.name}>
         <div className="id-ingredients__panel-text">
           {item.title ? <h3>{nezlomitelneMezery(item.title)}</h3> : null}
           {item.detail ? <RichText data={item.detail} enableGutter={false} enableProse={false} /> : null}
         </div>
-        {Kresba ? (
+        {foto ? (
+          <figure className="id-ingredients__panel-fig">
+            <MediaComponent
+              imgClassName="id-ingredients__panel-img"
+              resource={foto}
+              size="(max-width: 1129px) 100vw, 420px"
+            />
+          </figure>
+        ) : Kresba ? (
           <figure aria-label={item.drawingAlt ?? undefined} className="id-ingredients__panel-fig" role="img">
             <Kresba />
           </figure>

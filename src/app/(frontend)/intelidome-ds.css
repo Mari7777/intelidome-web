@@ -366,6 +366,59 @@
 .id-ingredients__tab.is-active .id-ingredients__name::after {
   opacity: 1;
 }
+
+/* ── Kde se čtenář nachází: ostatní karty ustoupí ────────────
+   Při hoveru (nebo fokusu z klávesnice) na jedné kartě dostanou
+   ostatní bílý závoj a rozmazání — animovaně, jen transform-free
+   vlastnosti (filter, opacity). Jen zařízení s myší; na dotyku
+   stav „kde jsem" nese akcentová čárka a panel. */
+.id-ingredients__media {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--id-r-card, 20px);
+}
+.id-ingredients__media::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.58);
+  opacity: 0;
+  transition: opacity 0.32s ease;
+  pointer-events: none;
+}
+@media (hover: hover) {
+  .id-ingredients__img {
+    transition: filter 0.32s ease, transform 0.32s ease;
+  }
+  .id-ingredients__item figcaption {
+    transition: opacity 0.32s ease;
+  }
+  .id-ingredients__grid:has(> .id-ingredients__tab:hover)
+    .id-ingredients__tab:not(:hover)
+    .id-ingredients__img,
+  .id-ingredients__grid:has(> .id-ingredients__tab:focus-visible)
+    .id-ingredients__tab:not(:focus-visible)
+    .id-ingredients__img {
+    filter: blur(4px) saturate(0.85);
+    transform: scale(1.03); /* schová průsvitný okraj rozmazání pod ořez */
+  }
+  .id-ingredients__grid:has(> .id-ingredients__tab:hover)
+    .id-ingredients__tab:not(:hover)
+    .id-ingredients__media::after,
+  .id-ingredients__grid:has(> .id-ingredients__tab:focus-visible)
+    .id-ingredients__tab:not(:focus-visible)
+    .id-ingredients__media::after {
+    opacity: 1;
+  }
+  .id-ingredients__grid:has(> .id-ingredients__tab:hover)
+    .id-ingredients__tab:not(:hover)
+    figcaption,
+  .id-ingredients__grid:has(> .id-ingredients__tab:focus-visible)
+    .id-ingredients__tab:not(:focus-visible)
+    figcaption {
+    opacity: 0.48;
+  }
+}
 .id-ingredients__text {
   display: block;
   font-family: var(--id-f-body);
@@ -403,14 +456,14 @@
   opacity: 1;
   visibility: visible;
 }
-.id-ingredients__panel--s-kresbou {
+.id-ingredients__panel--s-obrazem {
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(300px, 420px);
   gap: clamp(28px, 4vw, 56px);
   align-items: start;
 }
 @media (max-width: 1129px) {
-  .id-ingredients__panel--s-kresbou {
+  .id-ingredients__panel--s-obrazem {
     grid-template-columns: 1fr;
   }
   .id-ingredients__panel-fig {
@@ -419,6 +472,13 @@
 }
 .id-ingredients__panel-fig {
   margin: 0;
+}
+.id-ingredients__panel-img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+  border-radius: var(--id-r-card, 20px);
 }
 .id-ingredients__panel-text h3 {
   font-family: var(--id-f-display);
@@ -450,7 +510,10 @@
 
 @media (prefers-reduced-motion: reduce) {
   .id-ingredients__panel-slot,
-  .id-ingredients__name::after {
+  .id-ingredients__name::after,
+  .id-ingredients__img,
+  .id-ingredients__media::after,
+  .id-ingredients__item figcaption {
     transition: none;
   }
 }

@@ -49,6 +49,13 @@ export const Ingredients: Block = {
           admin: { description: 'Plná sekce složky — zobrazí se po výběru karty.' },
         },
         {
+          name: 'panelImage',
+          type: 'upload',
+          relationTo: 'media',
+          label: 'Fotografie v panelu (vedle textu)',
+          admin: { description: 'Materiál v kontextu půdy. Když chybí, panel může nést kresbu.' },
+        },
+        {
           name: 'drawing',
           type: 'text',
           label: 'Kresba v panelu (klíč z registru, volitelné)',

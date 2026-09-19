@@ -207,6 +207,18 @@ const MEDIA: {
     alt: 'Detail mykorhizního přípravku: jemná béžová zrnka nosiče s drobnými úlomky kořínků na starém dřevěném prkně.',
   },
   {
+    filename: 'panel-biovin.avif',
+    alt: 'Pelety hroznového kompostu Biovin rozsypané na tmavé zahradní ornici, některé napůl zapravené a rozpadající se do půdy.',
+  },
+  {
+    filename: 'panel-biochar.avif',
+    alt: 'Černá porézní zrna biocharu promíchaná s hnědou drobtovitou zeminou — kontrast matné černi a hrud půdy.',
+  },
+  {
+    filename: 'panel-zeolit.avif',
+    alt: 'Světle šedozelená zrnka zeolitu rozptýlená mezi tmavými drobty zahradní půdy.',
+  },
+  {
     filename: 'fig-dodavka-materialu.avif',
     alt: 'Vysypaná dodávka materiálů na okraji zahrady: velká hromada písku, vedle menší hromada tmavé zeminy a srovnané pytle s příměsemi na paletě, kolem pás trávníku a večerní světlo.',
     focal: { focalX: 55, focalY: 55 },
@@ -289,6 +301,7 @@ const body = root([
         text: 'Hroznový kompost z matoliny. Přináší organickou hmotu a živiny, které se uvolňují postupně.',
         note: '0–10 cm · 0–5 % objemu',
         title: 'Biovin: cesta z vinice do kořenové vrstvy',
+        __panelFilename: 'panel-biovin.avif',
         detail: root([
           p('U další složky bychom původ pod trávníkem hledali těžko. ', ['Biovin je hroznový kompost', BOLD], ', organická příměs vyráběná z matoliny, která zůstává po zpracování hroznů. Řízenou přeměnou za přístupu vzduchu, označovanou jako aerobní humifikace, z ní vzniká materiál pro zlepšení půdy. Původ a způsob výroby popisuje ', link('https://www.biovin.at/', 'výrobce'), '.'),
           p('Do směsi přináší zpracovanou organickou hmotu a živiny. Představme si rozdíl mezi minerální kostrou půdy a jejím průběžným zásobováním: písek upravuje uspořádání částic, zatímco Biovin doplňuje organickou složku, se kterou dál pracují půdní organismy. Při jejím rozkladu se postupně uvolňují živiny dostupné rostlinám. Biovin proto využijeme nejen při přípravě půdy, ale v budoucnu také při hnojení trávníku.'),
@@ -301,6 +314,7 @@ const body = root([
         text: 'Porézní zásobárna vody a živin. Před zapravením se „nabíjí“ kompostem — jinak živiny nejdřív bere.',
         note: '0–10 cm · 2–5 % objemu',
         title: 'Biochar: drobné póry jako zásoba pro kořeny',
+        __panelFilename: 'panel-biochar.avif',
         detail: root([
           p('Při běžném spálení dřeva odchází velká část jeho uhlíku do ovzduší. Biochar vzniká jinak: surovina se zahřívá za omezeného přístupu kyslíku a část uhlíku zůstává v pevném porézním materiálu. Právě množství drobných prostorů uvnitř vysvětluje, proč může být zajímavou půdní příměsí. Jeho působení nespočívá jen v chemickém složení, ale také v této vnitřní stavbě.'),
           p('Můžeme si ho představit jako drobnou porézní zásobárnu rozptýlenou mezi zrnky zeminy. Jeho póry mohou zadržovat část vody a povrchy pomáhat s uchováním některých živin. V lehké písčité půdě se tato úloha hodí zvlášť: voda, která by jinak rychle prošla dál, může zčásti zůstat v kořenové vrstvě.'),
@@ -313,6 +327,7 @@ const body = root([
         text: 'Klinoptilolit 0,5–1 mm. Podrží draslík a formy dusíku, které by se vyplavily, a postupně je vrací kořenům.',
         note: '0–15 cm · 2–8 % objemu',
         title: 'Zeolit: některé živiny se mohou na chvíli zdržet',
+        __panelFilename: 'panel-zeolit.avif',
         detail: root([
           p('Zeolit umí zachytit část živin, podržet je a postupně je zase uvolňovat do půdy, kde je mohou využít kořeny trávy. Pomáhá tak například s uchováním draslíku a některých forem dusíku, které by se jinak mohly s vodou vyplavit.'),
           p('Můžeme si ho představit jako malou zásobárnu živin. Její kapacita není neomezená a neuchová všechny živiny stejně dobře, ale část výživy díky ní může zůstat v dosahu kořenů déle.'),
@@ -927,6 +942,22 @@ const run = async () => {
         delete item.__filename
         item.image = nalezeno.docs[0].id
         polozky.push(item)
+      }
+      for (const item of polozky) {
+        const panelSoubor = item.__panelFilename as string | undefined
+        if (!panelSoubor) continue
+        const nalezeno = await payload.find({
+          collection: 'media',
+          where: { filename: { equals: panelSoubor } },
+          limit: 1,
+          pagination: false,
+        })
+        delete item.__panelFilename
+        if (nalezeno.docs.length === 0) {
+          payload.logger.warn(`médium "${panelSoubor}" nenalezeno – panel bez fotky`)
+          continue
+        }
+        item.panelImage = nalezeno.docs[0].id
       }
       fields.items = polozky
       resolved.push(node)
