@@ -1717,3 +1717,22 @@ hmot 21. Tři nové ořezy popisků na 320 opraveny lámáním řádků
 kolize šipky s popiskem vyřešena posunem šipky, ne textu k legendě.
 Přejímka: svg-labels 12/12 na 320/393/1440, layout-check 3 šířky,
 partitura beze změny (max 4 452 / 5 851 px), přetečení false, tsc.
+
+## Karta složek (návrh autora, 2026-09-19)
+
+Autor: „Biovin, biochar, zeolit a mykorhiza patří k sobě — mohl by to
+být blok s textem a obrázky těch složek." Nový blok **`ingredients`**
+(Karta složek): krémový pás se čtyřmi kartami — fotka materiálu
+(macro na stejném prkně, jednotná série z nano_banana_pro, čtverce
+1200 px AVIF) + jméno + role 1–2 věty + „kam patří" (zóna · podíl,
+čísla z receptur článku). Stojí za sekcí písku jako vizuální
+rozcestník; autorovy podrobné sekce zůstávají pod ním beze změny.
+Texty karet jsou redakční zkratky (kandidát na copy-polish).
+
+Pás nese posun povrchu — první verze na bílé natáhla úsek kapitoly 01
+na 393 px na 6 769 px (přes limit); jako krémový pás úsek srovnal
+zpět (**4 453 px @1440, 5 456 px @393**). DESIGN 8.1 p. 5 rozšířeno:
+přehledový modul jako krémový pás = tabulka i karta složek (v2.8).
+Fotky: hairline žádný, radius 20 px (9.1), lazy + sizes 25vw/50vw.
+Přejímka: layout-check 3 šířky, svg-labels 12/12 @393, přetečení
+false, tsc čistý.

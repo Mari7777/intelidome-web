@@ -1824,6 +1824,27 @@ export interface TableBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "IngredientsBlock".
+ */
+export interface IngredientsBlock {
+  heading?: string | null;
+  lead?: string | null;
+  items: {
+    /**
+     * Čtvercový detail materiálu (9.1). Alt se bere z knihovny médií.
+     */
+    image: number | Media;
+    name: string;
+    text: string;
+    note?: string | null;
+    id?: string | null;
+  }[];
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'ingredients';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "BannerBlock".
  */
 export interface BannerBlock {

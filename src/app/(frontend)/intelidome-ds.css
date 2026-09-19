@@ -284,6 +284,83 @@
   background: var(--id-warn);
 }
 
+/* ── Karta složek `.id-ingredients` (blok `ingredients`) ─────
+   Žádné boxy ani stíny: holá fotografie s radiusem 20 px (9.1)
+   a text pod ní. Mřížka na ose edge — 4 sloupce, pod 1130 px 2. */
+.id-ingredients.id-band--self {
+  padding-block: var(--id-sect-y-sm);
+}
+.id-ingredients__h {
+  font-family: var(--id-f-display);
+  font-size: var(--id-t-h3, 22px);
+  font-weight: 600;
+  letter-spacing: -0.015em;
+  color: var(--id-ink);
+}
+.id-ingredients__lead {
+  font-family: var(--id-f-body);
+  font-size: 15px;
+  line-height: 1.55;
+  color: var(--id-ink-2);
+  max-width: var(--id-measure);
+  margin-top: 8px;
+}
+.id-ingredients__grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: clamp(20px, 2.6vw, 36px);
+  margin-top: 26px;
+}
+@media (max-width: 1129px) {
+  .id-ingredients__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+.id-ingredients__item {
+  margin: 0;
+}
+.id-ingredients__media {
+  display: block;
+}
+.id-ingredients__img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+  border-radius: var(--id-r-card, 20px);
+}
+.id-ingredients__item figcaption {
+  display: block;
+  padding-top: 12px;
+}
+.id-ingredients__name {
+  display: block;
+  font-family: var(--id-f-display);
+  font-size: 17px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--id-ink);
+}
+.id-ingredients__text {
+  display: block;
+  font-family: var(--id-f-body);
+  font-size: 15px;
+  line-height: 1.5;
+  letter-spacing: -0.01em;
+  color: var(--id-ink-2);
+  margin-top: 4px;
+}
+.id-ingredients__note {
+  display: block;
+  font-family: var(--id-f-display);
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--id-ink-2);
+  margin-top: 10px;
+}
+
 /* ── Datová tabulka `.id-table` (blok `table`) ──────────────────
    Hairliny žijí UVNITŘ komponenty (1. zásada); žádné karty ani stíny,
    řádky odděluje --id-line-soft, hlavičku --id-line. Číselné sloupce

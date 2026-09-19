@@ -27,6 +27,7 @@ import type {
   StatTilesBlock as StatTilesBlockProps,
   SummaryBandBlock as SummaryBandBlockProps,
   TableBlock as TableBlockProps,
+  IngredientsBlock as IngredientsBlockProps,
 } from '@/payload-types'
 import { BannerBlock } from '@/blocks/Banner/Component'
 import { CallToActionBlock } from '@/blocks/CallToAction/Component'
@@ -40,6 +41,7 @@ import { SplitBlock } from '@/blocks/Split/Component'
 import { StatTilesBlock } from '@/blocks/StatTiles/Component'
 import { SummaryBandBlock } from '@/blocks/SummaryBand/Component'
 import { TableBlock } from '@/blocks/Table/Component'
+import { IngredientsBlock } from '@/blocks/Ingredients/Component'
 import { nezlomitelneMezeryVeStromu } from '@/utilities/czechTypography'
 import { cn } from '@/utilities/ui'
 
@@ -60,6 +62,7 @@ type NodeTypes =
       | CtaBandBlockProps
       | FaqBlockProps
       | TableBlockProps
+      | IngredientsBlockProps
     >
 
 const internalDocToHref = ({ linkNode }: { linkNode: SerializedLinkNode }) => {
@@ -88,6 +91,7 @@ const jsxConverters: JSXConvertersFunction<NodeTypes> = ({ defaultConverters }) 
     calculator: ({ node }) => <CalculatorBlock {...node.fields} />,
     faq: ({ node }) => <FaqBlock {...node.fields} />,
     table: ({ node }) => <TableBlock {...node.fields} />,
+    ingredients: ({ node }) => <IngredientsBlock {...node.fields} />,
     mediaBlock: ({ node }) => (
       <MediaBlock
         className="id-edge"

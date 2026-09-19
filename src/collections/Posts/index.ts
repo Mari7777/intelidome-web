@@ -24,6 +24,7 @@ import { Figure } from '../../blocks/Figure/config'
 import { MediaBlock } from '../../blocks/MediaBlock/config'
 import { StatTiles } from '../../blocks/StatTiles/config'
 import { DataTable } from '../../blocks/Table/config'
+import { Ingredients } from '../../blocks/Ingredients/config'
 import { generatePreviewPath } from '../../utilities/generatePreviewPath'
 import { populateAuthors } from './hooks/populateAuthors'
 import { revalidateDelete, revalidatePost } from './hooks/revalidatePost'
@@ -114,6 +115,7 @@ export const Posts: CollectionConfig<'posts'> = {
                         Split,
                         StatTiles,
                         DataTable,
+                        Ingredients,
                         Banner,
                         Calculator,
                         ProductBand,

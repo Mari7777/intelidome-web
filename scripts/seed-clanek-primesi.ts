@@ -191,6 +191,22 @@ const MEDIA: {
     focal: { focalX: 50, focalY: 55, focalPortraitX: 50, focalPortraitY: 55 },
   },
   {
+    filename: 'slozka-biovin.avif',
+    alt: 'Detail hroznového kompostu Biovin: drobné tmavě hnědé pelety z matoliny na starém dřevěném prkně v teplém bočním světle.',
+  },
+  {
+    filename: 'slozka-biochar.avif',
+    alt: 'Detail biocharu: matně černá porézní zrna dřevěného uhlí velikosti dva až osm milimetrů na starém dřevěném prkně.',
+  },
+  {
+    filename: 'slozka-zeolit.avif',
+    alt: 'Detail zeolitu klinoptilolitu: světle šedozelená ostrá zrnka půl až jeden milimetr na starém dřevěném prkně.',
+  },
+  {
+    filename: 'slozka-mykorhiza.avif',
+    alt: 'Detail mykorhizního přípravku: jemná béžová zrnka nosiče s drobnými úlomky kořínků na starém dřevěném prkně.',
+  },
+  {
     filename: 'fig-dodavka-materialu.avif',
     alt: 'Vysypaná dodávka materiálů na okraji zahrady: velká hromada písku, vedle menší hromada tmavé zeminy a srovnané pytle s příměsemi na paletě, kolem pás trávníku a večerní světlo.',
     focal: { focalX: 55, focalY: 55 },
@@ -257,6 +273,42 @@ const body = root([
     content: root([p(['Poznámka k nákupu: ', BOLD], 'U betonářského písku se často výslovně nepíše, že je praný, přestože praný bývá — při jeho přípravě se běžně odstraňují jílovité a další nežádoucí jemné příměsi kvůli použití v betonu. Pokud tedy u betonářského písku není výslovně uvedeno, že je nepraný, většinou bývá praný; pro jistotu je dobré ověřit si tuto skutečnost u dodavatele.')]),
   }),
   p('Původní zemina mezitím dodává to, co samotnému písku chybí. Obsahuje jemnější částice, organickou hmotu a povrchy, na kterých se mohou zadržovat voda i některé živiny.'),
+
+  /* Karta složek (návrh autora): čtyři speciální příměsi patří k sobě —
+     fotka materiálu + role + kam v profilu patří. Texty karet jsou
+     redakční zkratky; podrobnosti nesou autorovy sekce pod blokem. */
+  block({
+    blockType: 'ingredients',
+    blockName: 'Karta složek',
+    heading: 'Čtyři pomocníci pohromadě',
+    lead: 'Každý si podrobně projdeme níže — tady je jejich role ve směsi na jeden pohled.',
+    items: [
+      {
+        __filename: 'slozka-biovin.avif',
+        name: 'Biovin',
+        text: 'Hroznový kompost z matoliny. Přináší organickou hmotu a živiny, které se uvolňují postupně.',
+        note: '0–10 cm · 0–5 % objemu',
+      },
+      {
+        __filename: 'slozka-biochar.avif',
+        name: 'Biochar',
+        text: 'Porézní zásobárna vody a živin. Před zapravením se „nabíjí“ kompostem — jinak živiny nejdřív bere.',
+        note: '0–10 cm · 2–5 % objemu',
+      },
+      {
+        __filename: 'slozka-zeolit.avif',
+        name: 'Zeolit',
+        text: 'Klinoptilolit 0,5–1 mm. Podrží draslík a formy dusíku, které by se vyplavily, a postupně je vrací kořenům.',
+        note: '0–15 cm · 2–8 % objemu',
+      },
+      {
+        __filename: 'slozka-mykorhiza.avif',
+        name: 'Mykorhiza',
+        text: 'Živé houby pro soužití s kořeny — vlákna rozšíří dosah příjmu živin. Volitelná, hlavně do převážně nové směsi.',
+        note: 'pod osivo · dávka dle návodu',
+      },
+    ],
+  }),
 
   h3('Biovin: cesta z vinice do kořenové vrstvy'),
   p('U další složky bychom původ pod trávníkem hledali těžko. ', ['Biovin je hroznový kompost', BOLD], ', organická příměs vyráběná z matoliny, která zůstává po zpracování hroznů. Řízenou přeměnou za přístupu vzduchu, označovanou jako aerobní humifikace, z ní vzniká materiál pro zlepšení půdy. Původ a způsob výroby popisuje ', link('https://www.biovin.at/', 'výrobce'), '.'),
@@ -856,6 +908,33 @@ const run = async () => {
   const resolved: Node[] = []
   for (const node of nodes) {
     const fields = (node as { fields?: Record<string, unknown> }).fields
+    /* Karta složek: obrázky se řeší per položka. */
+    if (fields?.blockType === 'ingredients' && Array.isArray(fields.items)) {
+      const polozky: Record<string, unknown>[] = []
+      for (const item of fields.items as Record<string, unknown>[]) {
+        const soubor = item.__filename as string | undefined
+        if (!soubor) {
+          polozky.push(item)
+          continue
+        }
+        const nalezeno = await payload.find({
+          collection: 'media',
+          where: { filename: { equals: soubor } },
+          limit: 1,
+          pagination: false,
+        })
+        if (nalezeno.docs.length === 0) {
+          payload.logger.warn(`médium "${soubor}" nenalezeno – složka vynechána`)
+          continue
+        }
+        delete item.__filename
+        item.image = nalezeno.docs[0].id
+        polozky.push(item)
+      }
+      fields.items = polozky
+      resolved.push(node)
+      continue
+    }
     const filename = fields?.__filename as string | undefined
     if (!filename) {
       resolved.push(node)
