@@ -1860,3 +1860,17 @@ DOM, fokus i čtecí pořadí beze změny. Po dočtení sekce nad mřížkou tak
 následují jako nabídka „kam dál". Po zavření se pořadí vrací. Desktop
 záměrně bez řazení — vybírá hover a karty by uskakovaly zpod kurzoru.
 Ověřeno: tap na Mykorhizu → vlevo nahoře, panel Mykorhiza.
+
+
+## Karta složek v3.7 — závoj na vybrané kartě (autor)
+
+Na dotyku dostává fotka AKTUÁLNĚ VYBRANÉ karty jemný bílý závoj
+(0,75 × 0,58 ≈ 43 % bílé) a lehké rozmazání blur(2px) saturate(.9)
+— její obsah už čtenář má otevřený nad mřížkou, karta je „spotřebovaná";
+ostatní tři zůstávají ostré jako další volby. Popisek vybrané s čárkou
+a šipkou drží plný kontrast (kotva). Ztlumení popisků ostatních
+odebráno — dva protichůdné signály najednou by mátly. Přechody 0,32 s
+(transition obrázku přesunut z hover media do základu), reduced-motion
+beze změny animací. Srovnání s desktopem: tam hover znevýrazňuje
+OSTATNÍ (výběr letmý), na dotyku ustupuje VYBRANÁ (výběr trvá) —
+dva režimy, jedna logika „ukaž, co je teď důležité".

@@ -339,6 +339,7 @@
   aspect-ratio: 1;
   object-fit: cover;
   border-radius: var(--id-r-card, 20px);
+  transition: filter 0.32s ease, transform 0.32s ease;
 }
 .id-ingredients__item figcaption {
   display: block;
@@ -387,9 +388,6 @@
   pointer-events: none;
 }
 @media (hover: hover) {
-  .id-ingredients__img {
-    transition: filter 0.32s ease, transform 0.32s ease;
-  }
   .id-ingredients__item figcaption {
     transition: opacity 0.32s ease;
   }
@@ -552,9 +550,16 @@
   .id-ingredients__panel-slot.is-active .id-ingredients__panel {
     animation: id-ingr-fade 0.22s ease;
   }
-  /* kde jsem: otevřená karta plná, ostatní ztlumí popisky (bez blur) */
-  .id-ingredients__grid.ma-vybrano .id-ingredients__tab:not(.is-active) figcaption {
-    opacity: 0.55;
+  /* kde jsem: fotka VYBRANÉ karty ustoupí pod jemný závoj s lehkým
+     rozmazáním — její obsah už čtenář má otevřený nad mřížkou;
+     ostatní tři zůstávají ostré jako další volby. Popisek vybrané
+     s čárkou a šipkou drží plný kontrast (kotva „tohle čtu"). */
+  .id-ingredients__tab.is-active .id-ingredients__img {
+    filter: blur(2px) saturate(0.9);
+    transform: scale(1.02);
+  }
+  .id-ingredients__tab.is-active .id-ingredients__media::after {
+    opacity: 0.75;
   }
   /* fotka v panelu nižší, ať sekce nezabere dvě obrazovky */
   .id-ingredients__panel-img {
