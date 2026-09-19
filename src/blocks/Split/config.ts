@@ -43,6 +43,13 @@ export const Split: Block = {
         { label: 'Třicet centimetrů (100 l vs. 300 l)', value: 'tricet-centimetru' },
         { label: 'Tři zóny profilu', value: 'tri-zony' },
         { label: 'Sedání půdy', value: 'sedani' },
+        /* Článek „Písek, biochar a další příměsi" */
+        { label: 'Dvě zahrady, jiný úkol', value: 'dve-zahrady' },
+        { label: 'Tuna není kubík', value: 'tuna-neni-kubik' },
+        { label: 'Tři zóny profilu (Biovin)', value: 'tri-zony-biovin' },
+        { label: 'Tři zahrady, tři dávky', value: 'tri-zahrady' },
+        { label: 'Ukládání odspodu', value: 'ukladani-odspodu' },
+        { label: 'První kořínek (dosah 3 cm)', value: 'prvni-korinek' },
       ],
     },
     { name: 'eyebrow', type: 'text', label: 'Nadřádek' },

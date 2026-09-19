@@ -1723,7 +1723,13 @@ export interface SplitBlock {
     | 'zkouska-vsaku'
     | 'tricet-centimetru'
     | 'tri-zony'
-    | 'sedani';
+    | 'sedani'
+    | 'dve-zahrady'
+    | 'tuna-neni-kubik'
+    | 'tri-zony-biovin'
+    | 'tri-zahrady'
+    | 'ukladani-odspodu'
+    | 'prvni-korinek';
   eyebrow?: string | null;
   title?: string | null;
   /**
@@ -1773,6 +1779,39 @@ export interface StatTilesBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'statTiles';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TableBlock".
+ */
+export interface TableBlock {
+  heading?: string | null;
+  /**
+   * Číselné tabulky do tří sloupců patří na osu prózy; širší (dlouhé textové buňky) na osu edge.
+   */
+  width?: ('prose' | 'edge') | null;
+  columns: {
+    label: string;
+    /**
+     * Čísla doprava.
+     */
+    align?: ('left' | 'right') | null;
+    id?: string | null;
+  }[];
+  rows: {
+    cells: {
+      value?: string | null;
+      id?: string | null;
+    }[];
+    id?: string | null;
+  }[];
+  /**
+   * Např. výpočetní předpoklad hustoty. Sází se drobně pod hairline.
+   */
+  note?: string | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'table';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

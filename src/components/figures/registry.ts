@@ -1,4 +1,5 @@
 import type React from 'react'
+import { createElement } from 'react'
 
 import { HlavaNaHlavu } from './HlavaNaHlavu'
 import { HlavaNaHlavuMobil } from './HlavaNaHlavuMobil'
@@ -16,6 +17,11 @@ import { ZkouskaVsaku } from './ZkouskaVsaku'
 import { TricetCentimetru } from './TricetCentimetru'
 import { TriZony } from './TriZony'
 import { Sedani } from './Sedani'
+import { DveZahrady } from './DveZahrady'
+import { TunaNeniKubik } from './TunaNeniKubik'
+import { TriZahrady } from './TriZahrady'
+import { UkladaniOdspodu } from './UkladaniOdspodu'
+import { PrvniKorinek } from './PrvniKorinek'
 
 export type Drawing = {
   /** Širokoúhlá sazba (viewBox 1080) — desktop a tablet. */
@@ -34,6 +40,8 @@ export type Drawing = {
  * Kresby jsou kód, ne obsah — v CMS se vybírá jen klíč. Díky tomu nejde
  * do databáze žádné SVG a nikde se nevolá `dangerouslySetInnerHTML`.
  */
+const TriZonyBiovin: React.FC = () => createElement(TriZony, { organika: 'Biovin' })
+
 export const DRAWINGS = {
   'korenova-zona': { wide: KorenovaZona, portrait: KorenovaZonaMobil },
   'kbelikovy-test': { wide: KbelikovyTest, portrait: KbelikovyTestPortret },
@@ -53,6 +61,17 @@ export const DRAWINGS = {
   'tricet-centimetru': { wide: TricetCentimetru, portrait: TricetCentimetru },
   'tri-zony': { wide: TriZony, portrait: TriZony },
   'sedani': { wide: Sedani, portrait: Sedani },
+  /*
+    Článek „Písek, biochar a další příměsi": stejná konvence — portrétová
+    sazba 520 px, registrace pod `wide` i `portrait`. `tri-zony-biovin`
+    je táž kresba tří zón s autorovým pojmenováním hroznového kompostu.
+  */
+  'dve-zahrady': { wide: DveZahrady, portrait: DveZahrady },
+  'tuna-neni-kubik': { wide: TunaNeniKubik, portrait: TunaNeniKubik },
+  'tri-zony-biovin': { wide: TriZonyBiovin, portrait: TriZonyBiovin },
+  'tri-zahrady': { wide: TriZahrady, portrait: TriZahrady },
+  'ukladani-odspodu': { wide: UkladaniOdspodu, portrait: UkladaniOdspodu },
+  'prvni-korinek': { wide: PrvniKorinek, portrait: PrvniKorinek },
 } satisfies Record<string, Drawing>
 
 export type DrawingKey = keyof typeof DRAWINGS

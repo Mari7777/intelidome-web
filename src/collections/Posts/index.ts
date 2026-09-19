@@ -23,6 +23,7 @@ import { Faq } from '../../blocks/Faq/config'
 import { Figure } from '../../blocks/Figure/config'
 import { MediaBlock } from '../../blocks/MediaBlock/config'
 import { StatTiles } from '../../blocks/StatTiles/config'
+import { DataTable } from '../../blocks/Table/config'
 import { generatePreviewPath } from '../../utilities/generatePreviewPath'
 import { populateAuthors } from './hooks/populateAuthors'
 import { revalidateDelete, revalidatePost } from './hooks/revalidatePost'
@@ -112,6 +113,7 @@ export const Posts: CollectionConfig<'posts'> = {
                         Figure,
                         Split,
                         StatTiles,
+                        DataTable,
                         Banner,
                         Calculator,
                         ProductBand,

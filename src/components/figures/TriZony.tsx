@@ -14,7 +14,9 @@ import React from 'react'
  * při měřítku 0,71). Id s prefixem `tz-`. Klidový stav v markupu: kapka ve
  * třetí zóně, všechny příměsi na svém místě.
  */
-export const TriZony: React.FC = () => (
+/** `organika`: článek 1 říká „Actino (dříve Biovin)", článek 2 o příměsích
+ * mluví o Biovinu — táž hrudka, jiné jméno na štítku. */
+export const TriZony: React.FC<{ organika?: string }> = ({ organika = 'Actino' }) => (
   <svg aria-hidden="true" className="block h-auto w-full" viewBox="0 60 520 452">
     <defs>
       {/* biochar = černé střípky, Actino = tmavě hnědé hrudky, zeolit = světlá hranatá zrna.
@@ -99,7 +101,7 @@ export const TriZony: React.FC = () => (
     {/* Pointa kresby (9.2 p. 3) je jedna: drahé příměsi patří do horních 10 cm. */}
     <text className="sv-val" x="316" y="130" style={{ fontSize: 24 }}>0–10 cm</text>
     <text className="sv-lbl" x="316" y="150">základ + biochar</text>
-    <text className="sv-lbl" x="316" y="170">+ Actino + zeolit</text>
+    <text className="sv-lbl" x="316" y="170">{`+ ${organika} + zeolit`}</text>
     <text className="sv-lbl" x="316" y="190">nejvíc kořenů</text>
 
     <text className="sv-val" x="316" y="216">10–15 cm</text>
@@ -120,7 +122,7 @@ export const TriZony: React.FC = () => (
     <path d="M32 412 l7 -4 4 5 -5 4 z" fill="#12161b" />
     <text className="sv-val" x="52" y="420">biochar</text>
     <circle cx="198" cy="416" r="4" fill="#54402c" />
-    <text className="sv-val" x="210" y="420">Actino</text>
+    <text className="sv-val" x="210" y="420">{organika}</text>
     <path d="M338 412 l6 -3 5 4 -1 6 -6 2 -5 -4 z" fill="#d5d3cc" stroke="#232830" strokeWidth="1.6" />
     <text className="sv-val" x="358" y="420">zeolit</text>
 

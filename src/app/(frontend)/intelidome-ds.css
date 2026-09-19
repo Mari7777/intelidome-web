@@ -284,6 +284,82 @@
   background: var(--id-warn);
 }
 
+/* ── Datová tabulka `.id-table` (blok `table`) ──────────────────
+   Hairliny žijí UVNITŘ komponenty (1. zásada); žádné karty ani stíny,
+   řádky odděluje --id-line-soft, hlavičku --id-line. Číselné sloupce
+   nesou tabular-nums a nezalamují se; na úzkém okně roluje vodorovně
+   jen vlastní kontejner tabulky, nikdy stránka. */
+.id-table-block {
+  font-family: var(--id-f-body);
+}
+.id-table__h {
+  font-family: var(--id-f-display);
+  font-size: 17px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--id-ink);
+  margin-bottom: 14px;
+}
+.id-table-wrap {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+.id-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 15px;
+  line-height: 1.45;
+  letter-spacing: -0.01em;
+  color: var(--id-ink);
+  font-variant-numeric: tabular-nums;
+}
+.id-table th,
+.id-table td {
+  padding: 12px 16px;
+  vertical-align: top;
+  text-align: left;
+}
+.id-table th:first-child,
+.id-table td:first-child {
+  padding-left: 0;
+}
+.id-table th:last-child,
+.id-table td:last-child {
+  padding-right: 0;
+}
+.id-table thead th {
+  font-family: var(--id-f-display);
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  line-height: 1.35;
+  color: var(--id-ink-2);
+  border-bottom: 1px solid var(--id-line);
+  padding-top: 0;
+}
+.id-table tbody th[scope='row'] {
+  font-weight: 600;
+}
+.id-table tbody tr + tr :is(th, td) {
+  border-top: 1px solid var(--id-line-soft);
+}
+.id-table .ta-r {
+  text-align: right;
+}
+.id-table tbody .ta-r {
+  white-space: nowrap;
+}
+.id-table__note {
+  font-size: 13.5px;
+  line-height: 1.5;
+  color: var(--id-ink-2);
+  border-top: 1px solid var(--id-line-soft);
+  padding-top: 12px;
+  margin-top: 2px;
+  max-width: var(--id-maxw-prose);
+}
+
 /* ── Motion (repo addition) ──────────────────────────────── */
 @media (prefers-reduced-motion: reduce) {
   .id-btn,
