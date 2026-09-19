@@ -1628,3 +1628,31 @@ rozpočtu (CTA obrazovka 5,04 %).
 
 mrtvá `data-rv-group` bez `.rv` dětí (pás nastupuje bez revealu);
 verdikt uvnitř pásu weight 400 vs. 500 (7.8).
+
+## Balík „tabulky" (po kole 01) — kritické č. 1 a č. 3 + koš B afordance
+
+Jeden celek v bloku `table` (2026-09-19):
+
+1. **Řádkový zápis pod 560 px** (kritický č. 1): sloupcové srovnání se
+   pod 560 px nevešlo ani u tří sloupců, tabulka dávek měla 70 % obsahu
+   mimo viewport. Buňky nesou hlavičku svého sloupce v `data-label`,
+   CSS pod 560 px skládá řádek pod sebe (položka = titulek skupiny,
+   hodnoty s uppercase návěstím z `::before`); `thead` mizí i pro
+   odečítač, jinak by hlavičky zněly dvakrát. Dlouhé hodnoty běží zleva
+   (prapor zprava vypadal rozsypaně), krátké drží vpravo space-between.
+   **Po opravě: 0/8 tabulek roluje na 393 i 320, stránka nepřetéká.**
+2. **Afordance přetečení** (koš B): měkký stín na hraně, za kterou obsah
+   pokračuje (radial 20 px / 0,20, krytý pruhy povrchu přes
+   `background-attachment: local` — na kraji rolování mizí). Platí pro
+   560–1129 px, kde edge tabulka ještě přetéká.
+3. **Míra poznámky** (kritický č. 3): `.id-table__note` max-width
+   `var(--id-measure)` (33 em = 446 px při 13,5 px).
+   **105 → max 71 znaků na řádek.**
+4. **Podmíněný tabindex** (koš B, výkon): wrap je nový klientský
+   `TableWrap` — `tabIndex` + `role="region"` + `aria-label` dostane
+   jen když skutečně přetéká. **1440: 0 tab stopů (bylo 8); 800: přesně
+   1 s pojmenovaným regionem.**
+
+Přejímka po balíku: layout-check 1024/1130/1280/1440/1990 OK,
+svg-labels 320/393/1440 = 7/7 kreseb OK, přetečení stránky 320/393
+false, tsc čistý.

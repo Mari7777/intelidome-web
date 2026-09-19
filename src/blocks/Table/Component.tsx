@@ -1,6 +1,7 @@
 import React from 'react'
 
 import { nezlomitelneMezery } from '@/utilities/czechTypography'
+import { TableWrap } from './TableWrap'
 import { cn } from '@/utilities/ui'
 
 export type TableBlockProps = {
@@ -34,7 +35,7 @@ export const TableBlock: React.FC<TableBlockProps> = ({
   return (
     <div className={cn('rv id-table-block not-prose', width === 'edge' && 'id-edge', className)}>
       {heading ? <h3 className="id-table__h">{nezlomitelneMezery(heading)}</h3> : null}
-      <div className="id-table-wrap" tabIndex={0}>
+      <TableWrap label={heading ?? `Tabulka: ${sloupce[0]?.label ?? ''}`}>
         <table className="id-table">
           <thead>
             <tr>
@@ -56,7 +57,7 @@ export const TableBlock: React.FC<TableBlockProps> = ({
                       {obsah}
                     </th>
                   ) : (
-                    <td key={cell.id ?? ci} className={doprava}>
+                    <td key={cell.id ?? ci} className={doprava} data-label={sloupce[ci]?.label ?? undefined}>
                       {obsah}
                     </td>
                   )
@@ -65,7 +66,7 @@ export const TableBlock: React.FC<TableBlockProps> = ({
             ))}
           </tbody>
         </table>
-      </div>
+      </TableWrap>
       {note ? <p className="id-table__note">{nezlomitelneMezery(note)}</p> : null}
     </div>
   )

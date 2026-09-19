@@ -303,6 +303,27 @@
 .id-table-wrap {
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
+  /* Afordance přetečení (kolo 01 čl. 3, koš B): měkký stín na hraně,
+     za kterou obsah pokračuje. Kryjí ho pruhy povrchu přisáté k obsahu
+     (background-attachment: local), takže na kraji rolování stín mizí.
+     Na jiném povrchu než bílém přenastavit --id-table-surface. */
+  background-image:
+    linear-gradient(90deg, var(--id-table-surface, var(--id-bg)) 40%, rgba(255, 255, 255, 0)),
+    linear-gradient(270deg, var(--id-table-surface, var(--id-bg)) 40%, rgba(255, 255, 255, 0)),
+    radial-gradient(farthest-side at 0 50%, rgba(10, 12, 15, 0.2), rgba(10, 12, 15, 0)),
+    radial-gradient(farthest-side at 100% 50%, rgba(10, 12, 15, 0.2), rgba(10, 12, 15, 0));
+  background-position:
+    left center,
+    right center,
+    left center,
+    right center;
+  background-size:
+    56px 100%,
+    56px 100%,
+    20px 100%,
+    20px 100%;
+  background-repeat: no-repeat;
+  background-attachment: local, local, scroll, scroll;
 }
 .id-table {
   width: 100%;
@@ -357,7 +378,70 @@
   border-top: 1px solid var(--id-line-soft);
   padding-top: 12px;
   margin-top: 2px;
-  max-width: var(--id-maxw-prose);
+  /* Míra, ne šířka boxu: 33 em při 13,5 px je 445 px (ADR-007 §3).
+     Na plných 700 px běžela poznámka 105 znaků na řádek (kolo 01). */
+  max-width: var(--id-measure);
+}
+
+/* ── Tabulka pod 560 px: řádkový zápis místo sloupců ─────────
+   Sloupcové srovnání se pod 560 px nevešlo ani u tří sloupců
+   (na 320 px klipovalo 22–27 % u všech tabulek) a tabulka dávek
+   měla 70 % obsahu mimo viewport (kolo 01, kritický nález).
+   Každý řádek se skládá pod sebe: položka jako titulek skupiny,
+   hodnoty s hlavičkou svého sloupce z data-label. `thead` mizí
+   i pro odečítač — hlavičky čte z ::before, jinak by zněly dvakrát. */
+@media (max-width: 560px) {
+  .id-table thead {
+    display: none;
+  }
+  .id-table,
+  .id-table tbody,
+  .id-table tr,
+  .id-table th,
+  .id-table td {
+    display: block;
+  }
+  .id-table tr {
+    padding-block: 14px;
+  }
+  .id-table tbody tr + tr {
+    border-top: 1px solid var(--id-line-soft);
+  }
+  .id-table tbody tr + tr :is(th, td) {
+    border-top: 0;
+  }
+  .id-table th,
+  .id-table td {
+    padding: 3px 0;
+  }
+  .id-table tbody th[scope='row'] {
+    padding: 0 0 7px;
+  }
+  .id-table td {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 2px 16px;
+  }
+  .id-table td::before {
+    content: attr(data-label);
+    font-family: var(--id-f-display);
+    font-size: 11.5px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    line-height: 1.5;
+    color: var(--id-ink-2);
+  }
+  /* Dlouhá hodnota se zalomí pod hlavičku a čte se jako odstavec —
+     zleva; krátkou drží vpravo space-between, ne text-align. */
+  .id-table .ta-r {
+    text-align: left;
+  }
+  .id-table tbody .ta-r {
+    white-space: normal;
+  }
 }
 
 /* ── Motion (repo addition) ──────────────────────────────── */
