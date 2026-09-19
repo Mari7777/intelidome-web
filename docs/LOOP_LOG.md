@@ -1874,3 +1874,74 @@ odebráno — dva protichůdné signály najednou by mátly. Přechody 0,32 s
 beze změny animací. Srovnání s desktopem: tam hover znevýrazňuje
 OSTATNÍ (výběr letmý), na dotyku ustupuje VYBRANÁ (výběr trvá) —
 dva režimy, jedna logika „ukaž, co je teď důležité".
+
+
+## Kolo 02 — 3 · 3 · 3 · 3 · 3 · 4 · 3, 3 kritické (2026-09-19)
+
+Stránka po balících „tabulky", „dlouhé sloupce" a kartě složek v3.7
+(commit 64b8ced). Snímky porota-c3-02 (52/93/53). Kalkulátor mimo kolo.
+
+| Lenz | Kolo 01 | Kolo 02 | Kritické |
+|---|---|---|---|
+| hierarchie | 3 (1 krit) | 3 (0) | — |
+| typografie | 3 (2 krit) | 3 (1) | hero H1 „a" (trvá z k. 01) |
+| pohyb | 3 | 3 (0) | — |
+| styl | 3 | 3 (0) | — |
+| slop | 4 | **3 (1)** | hero fotka = AI artefakt |
+| výkon | 3 | **4 (0)** | — |
+| rozložení | 3 (2 krit) | 3 (1) | prázdné sloupce splitů |
+
+**NEPROŠEL** — 3 kritické (bylo 5), skeptici všechny potvrdili.
+
+### Kritické
+1. **Hero H1 láme na spojce „a"** (typografie, A) — trvá z kola 01,
+   PostHero splitLines; zlom patří „Písek, biochar / a další příměsi".
+2. **Hero fotografie s AI artefaktem** (slop, A) — kolečko má 3 úchopy
+   na jedné viditelné rukojeti + rozteklou etiketu; kolo 01 to mělo
+   jako důležité (retuš), skeptik kola 02 potvrdil v masteru
+   i renderu. Souvisí: full-bleed dodávka (paleta se dvěma výškami
+   desky, pytle bez potisku) = důležitý.
+3. **Prázdné textové sloupce dvousloupců** (rozložení, A) — 5 z 10
+   splitů s pokrytím 35–68 % (nejhůř kap. 07: 224 px textu vs 641 px
+   kresby, 417 px prázdna > spouštěcí případ ADR-006).
+
+### Důležité (výběr, seskupeno)
+- **Kresby — mobil a kontrast:** popisky 6 kreseb 9,5 px @393 /
+  8,9 px @320 (pod mezí 10,2; svg-labels práh pod normou — koš B);
+  kresba mykorhizy v panelu složek 8,1 px @393; kořen #d8c9b4
+  v NabityBiochar na krému 1,49:1 (TÁŽ vada, kterou jsem u mykorhizy
+  už opravil podkladem ornice — nepřenesl jsem poučení do sesterské
+  kresby); legendy 4 kreseb nejsou pixelově shodné se vzory;
+  Obr. 10 bez legendy v panelu.
+- **Uppercase deformuje SI jednotky:** „0,67 M³" v Obr. 04 a „NA 50 M²"
+  v tabulkách (M = mega!); pravidlo uppercase labelů potřebuje výjimku
+  pro jednotky (koš B).
+- **Číslování figur:** Obr. 09 (foto) stojí v toku PŘED Obr. 08 — moje
+  chyba při přečíslování (foto mělo být 08, slehnutí 09).
+- **Pohyb — mrtvé skupiny:** dz-kapka stále bez keyframes (trvá);
+  kalkulátorový pás bez jediného vstupu; tabulkové pásy mají .rv
+  o úroveň hlouběji než skupinu (stagger se nevytvoří — má oprava
+  z balíku tabulek byla neúčinná!); mřížka karet složek bez staggeru.
+- **Výkon:** fig-dodavka 358 kB na mobilu (sizes 295vw → chybí
+  portrétová source varianta po vzoru hera); skip-link (koš B);
+  hero loading=lazy křehké.
+- **Typografie:** 43 párů číslo+„t"/„t/m³" bez NBSP (czechTypography
+  nezná — koš B, trvá); 2× ASCII uvozovka (trvá); h3 tři stupně
+  28/22/17 px v jedné úrovni; typografie nových bloků (ingredients,
+  table) není v DESIGN (koš B); en vs. em pomlčka (trvá).
+- **Rozložení:** tabulka dávek roluje i 561–1267 px (přeskládat dřív);
+  próza 3 860 px (ocas kap. 5 + otvírák kap. 6) a 3 555 px (hlína +
+  písek) bez hmoty — známá rezidua; pásy dvou šířek na 1990
+  (split-pásy w1360 vs. tabulkové w1990 — koš B, i sourozenec);
+  gap mřížky složek 36 px mimo tokeny (koš B).
+- **Slop:** 5 tabulkových pásů na mobilu = ~9 000 px stohovaných
+  řádků NA 50/100 M²; FAQ eyebrow pleonasmus; desktopový výchozí
+  stav karty složek bez závoje na nevybraných do prvního hoveru;
+  hint „najetím či klepnutím" i na dotyku.
+
+### Pokrok proti kolu 01
+Zavřeno: mobilní tabulky (0 rolujících), partitura (27 165→4 452 px),
+poznámky tabulek (105→71 zn.), hustota hmot v kap. 01/04, výkon 3→4
+(CLS 0,000, kontrasty AA+, karta složek a11y vzorná). Nově otevřeno:
+AI artefakty fotek povýšeny na kritické, kresby pod mobilní mezí,
+mrtvé reveal skupiny.
