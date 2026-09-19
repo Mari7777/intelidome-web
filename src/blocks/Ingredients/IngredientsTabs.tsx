@@ -27,6 +27,7 @@ export const IngredientsTabs: React.FC<{
   const [vybrano, setVybrano] = useState<number | null>(0)
   const [netknuto, setNetknuto] = useState(true)
   const [taby, setTaby] = useState(true)
+  const [dorolovat, setDorolovat] = useState<number | null>(null)
 
   useEffect(() => {
     const mq = matchMedia('(hover: hover) and (min-width: 561px)')
@@ -44,8 +45,25 @@ export const IngredientsTabs: React.FC<{
     }
     // akordeon: klepnutí na otevřenou kartu zavírá; `netknuto` znamená,
     // že serverový výchozí výběr ještě nikdo neotevřel
-    setVybrano(vybrano === i && !netknuto ? null : i)
+    const cil = vybrano === i && !netknuto ? null : i
+    setVybrano(cil)
+    // panel leží pod celou mřížkou — po otevření k němu doroluj,
+    // jinak se text objeví mimo zobrazovací plochu a tap působí
+    // jako do prázdna (při zavření se neroluje)
+    if (cil !== null) setDorolovat(cil)
   }
+
+  useEffect(() => {
+    if (dorolovat === null) return
+    const el = document.getElementById(`${uid}-p${dorolovat}`)
+    if (el) {
+      el.scrollIntoView({
+        behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth',
+        block: 'start',
+      })
+    }
+    setDorolovat(null)
+  }, [dorolovat, uid])
 
   const otevreno = (i: number) => vybrano === i && (taby || !netknuto)
 

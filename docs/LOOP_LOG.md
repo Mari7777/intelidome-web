@@ -1826,3 +1826,14 @@ order pryč — sloty jedou v DOM pořadí za kartami, tedy pod celou
 mřížkou 2×2). Zbytek akordeonu beze změny: zavřený výchozí stav,
 toggle, šipky, ztlumení popisků, fade-in, bez CLS. Ověřeno: panel
 pod poslední kartou, přetečení false, layout-check 1440 OK, tsc.
+
+
+## Karta složek v3.4 — dorolování k otevřenému panelu (autor)
+
+Autor: po tapnutí se text zobrazil mimo zobrazovací plochu — uživateli
+musí být celou dobu jasné, co se děje. Po otevření na dotyku stránka
+plynule doroluje k panelu (scrollIntoView smooth, cíl = titulek sekce
+pod plovoucí hlavičkou přes scroll-margin-top = anchor-offset + 4);
+pohyb sám nese kauzalitu „klepnutí → tohle se otevřelo". Při zavření
+a přepínání na desktopu se neroluje; prefers-reduced-motion = skok
+bez animace. Ověřeno: panel top 128 px po tapu, zavření bez posunu.
