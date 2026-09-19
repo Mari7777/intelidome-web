@@ -540,7 +540,7 @@ const body = root([
   chapter('Od zvoleného poměru k dodávce: kolik materiálu zahrada potřebuje', 'Kapitola 05'),
   figure(
     'fig-dodavka-materialu.avif',
-    '09',
+    '08',
     'Objem spočítáme doma, hmotnost potvrdí dodavatel. Dodávka pak na zahradě zabere přesně tolik místa, kolik jí návrh vyhradil.',
     'bleed',
     false,
@@ -577,7 +577,7 @@ const body = root([
     drawing: 'slehnuti-vstupu',
     titleLevel: 'h3',
     title: 'Receptura popisuje vstupy, povrch ukáže výsledek po slehnutí',
-    number: '08',
+    number: '09',
     alt: 'Vlevo dva zvlášť odměřené sloupce materiálu — hrubší a jemnější; vpravo táž dvojice po promíchání a slehnutí: hladina směsi končí pod čárkovanou linkou prostého součtu vstupů, protože jemnější částice zapadly do mezer mezi hrubšími.',
     caption:
       'Součet vstupů není výsledná výška. Jemné částice zapadnou do mezer mezi hrubšími — proto se poměr odměřuje před promícháním a rezerva vede zvlášť.',

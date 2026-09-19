@@ -70,7 +70,7 @@ export const PranyPisek: React.FC = () => (
     {/* ── legenda ────────────────────────────────────────────── */}
     <line x1="30" y1="398" x2="490" y2="398" stroke="#d5d3cc" strokeWidth="1.6" strokeDasharray="3 7" strokeLinecap="round" />
     <text className="sv-lbl" x="30" y="420">Co je co</text>
-    <circle cx="40" cy="444" r="10" fill="#c2a052" opacity="0.55" stroke="#232830" strokeWidth="1.6" />
+    <circle cx="40" cy="444" r="16" fill="#c2a052" opacity="0.55" stroke="#232830" strokeWidth="1.6" />
     <text className="sv-val" x="62" y="449">zrno písku</text>
     <circle cx="210" cy="444" r="2.6" fill="#6b5138" opacity="0.9" />
     <text className="sv-val" x="226" y="449">prach a jíl</text>

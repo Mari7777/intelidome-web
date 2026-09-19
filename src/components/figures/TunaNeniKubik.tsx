@@ -52,8 +52,11 @@ export const TunaNeniKubik: React.FC = () => (
         </text>
       </g>
     ))}
+    {/* Jednotka je hodnota, ne kategorie — sv-lbl by ji verzálkovalo na
+       fyzikálně chybné „M³" (M = mega). Stejný důvod platí pro popisky
+       pruhů níž (kolo 02, styl). */}
     <text
-      className="sv-lbl"
+      className="sv-val"
       x={X0 + 5 * KROK + 16}
       y={Y0 + (PRUHY.length - 1) * RADEK + VYSKA + 40}
     >
@@ -75,13 +78,15 @@ export const TunaNeniKubik: React.FC = () => (
             strokeWidth="1.6"
             strokeLinejoin="round"
           />
-          {/* Pointa kresby (9.2 p. 3) je jedna: tuna biocharu = 5 m³. */}
+          {/* Pointa kresby (9.2 p. 3) je jedna: tuna biocharu = 5 m³.
+             Text na tmavém pruhu nese --id-ink-dark (bílá), ne hex natvrdo
+             mimo tokeny (#f4f1ea nebyl v paletě — kolo 02, styl). */}
           <text
-            className={posledni ? 'sv-val' : 'sv-lbl'}
+            className="sv-val"
             x={posledni ? X0 + sirka - 12 : X0 + sirka + 10}
             y={y + VYSKA - 8}
             textAnchor={posledni ? 'end' : 'start'}
-            style={posledni ? { fontSize: 24, fill: '#f4f1ea' } : undefined}
+            style={posledni ? { fontSize: 24, fill: 'var(--id-ink-dark)' } : undefined}
           >
             {p.popisek}
           </text>

@@ -1859,6 +1859,23 @@ html {
   100% { transform: translateY(-26px); opacity: 0; }
 }
 
+/* Kapka padající jílovitou zahradou (dvě zahrady, Obr. 01) — jediná
+   zamýšlená smyčka kresby chyběla docela (kolo 02, pohyb): třída byla
+   v markupu, klidový snímek uprostřed dráhy, ale žádné keyframes.
+   Stejný vzor jako tz-kapka — kapka se objeví, projde a zmizí dřív,
+   než opustí ořez zóny. */
+.dz-kapka {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: dz-kapka 5s ease-in infinite;
+}
+@keyframes dz-kapka {
+  0% { transform: translateY(-70px); opacity: 0; }
+  10% { opacity: 0.9; }
+  88% { opacity: 0.9; }
+  100% { transform: translateY(90px); opacity: 0; }
+}
+
 /* Kapka procházející třemi zónami (tři zóny profilu) — dlouhý `fall`. */
 .tz-kapka {
   transform-box: fill-box;
@@ -2005,6 +2022,17 @@ html {
    sazba kresby), text ten širší — ale pořád pod mezí čitelnosti, ne přes
    celou šířku. Pod 900 px se skládá pod sebe a obraz jde vždy první,
    protože nese pointu, kterou text teprve rozvádí. */
+/* Krémový split (surface: krem) je PÁS — musí sedět na grid-column:full
+   jako každý jiný pás (8.1 p. 3/5), jinak `.id-band--self` dopočítá
+   padding-inline z vlastní šířky, která je ale JIŽ zúžená na edge (1360)
+   `.id-split`ovým pravidlem níž — vznikne dvojí zúžení: pás maluje krém
+   jen do 1360 (na 1990 zůstane 315 px bílé po stranách, kolo 02, styl)
+   a vnitřní dvousloupec dostane o 80 px méně místa (popisky kreseb padly
+   pod mobilní mez, kolo 02, hierarchie/styl). Specificita 3 tříd vítězí
+   nad `.id-split` (2 třídy) bez ohledu na pořadí v souboru. */
+.id-article > .id-split.id-band--self {
+  grid-column: full;
+}
 .id-article > .id-split {
   /* Sloupce jsou STEJNĚ široké (652 | 652) a zlom sedí v ose stránky.
      Dřív 0.82fr/1fr = 587 vs 700, tedy vlastní osa 64,5 px vedle té

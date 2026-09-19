@@ -119,16 +119,18 @@ export const TriZony: React.FC<{ organika?: string }> = ({ organika = 'Actino' }
     <line x1="30" y1="372" x2="490" y2="372" stroke="#d5d3cc" strokeWidth="1.6" strokeDasharray="3 7" strokeLinecap="round" />
     <text className="sv-lbl" x="30" y="394">Co je co</text>
 
-    <path d="M32 412 l7 -4 4 5 -5 4 z" fill="#12161b" />
+    {/* Značky legendy jsou pixelově shodné se vzorem v patternu výš —
+       táž značka nesmí mít v kresbě dva tvary (9.2 p. 10, kolo 02). */}
+    <path d="M32 414 l5 -3 3 4 -4 3 z" fill="#12161b" opacity="0.9" />
     <text className="sv-val" x="52" y="420">biochar</text>
-    <circle cx="198" cy="416" r="4" fill="#54402c" />
+    <circle cx="198" cy="416" r="2.6" fill="#54402c" />
     <text className="sv-val" x="210" y="420">{organika}</text>
-    <path d="M338 412 l6 -3 5 4 -1 6 -6 2 -5 -4 z" fill="#d5d3cc" stroke="#232830" strokeWidth="1.6" />
+    <path d="M338 412 l5 -2 4 3 -1 5 -5 2 -4 -3 z" fill="#d5d3cc" stroke="#232830" strokeWidth="1.6" />
     <text className="sv-val" x="358" y="420">zeolit</text>
 
     <rect x="30" y="439" width="14" height="14" rx="3" fill="#6b5138" opacity="0.9" />
     <text className="sv-val" x="52" y="450">základ</text>
-    <path d="M198 439 C 201 443, 203 446, 203 448.5 A 5 5 0 0 1 193 448.5 C 193 446, 195 443, 198 439 Z" fill="#2563eb" opacity="0.9" />
+    <path d="M198 437 C 202 443, 205 447, 205 451 A 7 7 0 0 1 191 451 C 191 447, 194 443, 198 437 Z" fill="#2563eb" opacity="0.9" />
     <text className="sv-val" x="210" y="450">voda</text>
 
     <text className="sv-lbl" x="30" y="482">Základ = vaše zemina,</text>

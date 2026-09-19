@@ -1,6 +1,25 @@
 import React from 'react'
 
 import { nezlomitelneMezery } from '@/utilities/czechTypography'
+
+/**
+ * Hlavička tabulky sází na uppercase label škále (DS 7.x) — jenže
+ * u jednotek m²/m³ z ní vznikne fyzikálně chybné „M²"/„M³" (M = mega,
+ * kolo 02, styl). Jednotka se obalí spanem, který uppercase vrátí zpět.
+ */
+const bezVelkychJednotek = (text: string): React.ReactNode => {
+  const casti = text.split(/(m[²³])/g)
+  if (casti.length === 1) return text
+  return casti.map((cast, i) =>
+    /^m[²³]$/.test(cast) ? (
+      <span key={i} style={{ textTransform: 'none' }}>
+        {cast}
+      </span>
+    ) : (
+      cast
+    ),
+  )
+}
 import { TableWrap } from './TableWrap'
 import { cn } from '@/utilities/ui'
 
@@ -47,7 +66,10 @@ export const TableBlock: React.FC<TableBlockProps> = ({
     : cn('rv id-table-block not-prose', width === 'edge' && 'id-edge', className)
 
   const obsah = (
-    <div className={jePas ? cn('id-table-band__inner', width !== 'edge' && 'id-table-band__inner--prose') : undefined}>
+    <div
+      className={jePas ? cn('id-table-band__inner', width !== 'edge' && 'id-table-band__inner--prose') : undefined}
+      {...(jePas ? { 'data-rv-group': '' } : {})}
+    >
       {heading ? <h3 className={cn('id-table__h', jePas && 'rv')}>{nezlomitelneMezery(heading)}</h3> : null}
       <TableWrap className={jePas ? 'rv' : undefined} label={heading ?? `Tabulka: ${sloupce[0]?.label ?? ''}`}>
         <table className="id-table">
@@ -55,7 +77,7 @@ export const TableBlock: React.FC<TableBlockProps> = ({
             <tr>
               {sloupce.map((col, i) => (
                 <th key={col.id ?? i} scope="col" className={col.align === 'right' ? 'ta-r' : undefined}>
-                  {nezlomitelneMezery(col.label ?? '')}
+                  {bezVelkychJednotek(nezlomitelneMezery(col.label ?? ''))}
                 </th>
               ))}
             </tr>
@@ -86,8 +108,9 @@ export const TableBlock: React.FC<TableBlockProps> = ({
   )
 
   return (
-    <div className={koren} {...(jePas ? { 'data-rv-group': '' } : {})}>
-      {obsah}
-    </div>
+    // Skupina musí sedět na PŘÍMÉM rodiči .rv dětí (Motion.tsx čte
+    // `:scope > .rv`) — na kořeni pásu byla o úroveň výš než h3/wrap/
+    // poznámka, takže stagger nikdy nevznikl (kolo 02, pohyb).
+    <div className={koren}>{obsah}</div>
   )
 }

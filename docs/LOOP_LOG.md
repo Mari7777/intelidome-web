@@ -2022,3 +2022,72 @@ kritické nálezy samy o sobě, jen součást souhrnného nálezu.
 
 Přejímka: layout-check 1440, svg-labels 393 11/11, přetečení 320/393
 false, partitura beze změny (4 452 / 5 456 px), tsc čistý.
+
+
+## Balík „sběrný kreseb" (po kole 02) — devět nálezů grafického stylu a pohybu
+
+Devět dílčích oprav z kola 02, seskupených do jednoho balíku podle
+společné kategorie (kresby, tabulky, karty).
+
+**Kořenová příčina mobilní mezery (klíčový nález):** krémové splity
+(`surface: krem`) měly DVOJITÉ zúžení — vlastní pravidlo `.id-split`
+je drží na `grid-column: edge` (1360 px), ale `.id-band--self` NA TOP
+toho přidávalo vlastní `padding-inline` počítaný, jako by span
+`grid-column: full` (celý viewport) — takže se odečetlo dalších 80 px,
+kresba dostala jen 329 px místo 369, a popisky spadly na 9,5 px @393.
+STEJNÁ vada bránila krémovým splitům malovat pozadí přes celý viewport
+na širokém okně (kolo 02, styl: „315 px bílé po stranách na 1990").
+Oprava: `.id-article > .id-split.id-band--self { grid-column: full; }`
+(specificita 3 tříd vyhraje nad `.id-split`ovým `edge` bez ohledu na
+pořadí v souboru) — padding-inline teď počítá ze SKUTEČNÉHO viewportu,
+takže vnitřní obsah vychází na stejných 1360 px jako nekrémové splity
+a pozadí sahá od hrany k hraně. Opravilo najednou DVA nálezy různých
+lenzů: popisky kreseb 9,5→10,6 px @393 na všech šesti postižených
+kresbách a krémový bleed na širokém okně.
+
+**Chybějící `id-figure-svg` v panelu karty složek:** kresba mykorhizy
+v panelu neměla obalovou třídu, která nese mobilní škálování (9.2 p. 3)
+— spadla na základní 12px bez ohledu na šířku. Doplněno; reálně
+otevřený panel teď měří 11 px na 320 i 393 (svg-labels.mjs měří
+zavřený/display:none stav skriptem bez interakce a hlásí zavádějící
+degenerované číslo — známé omezení nástroje pro interaktivní obsah,
+ne skutečná vada; ověřeno ručně v otevřeném stavu).
+
+**Mrtvé reveal skupiny (6.3.2):** `.rv` děti musí být PŘÍMÉ (`:scope
+> .rv`), ne o úroveň hlouběji.
+- Tabulkové pásy: `data-rv-group` byl na vnějším `.id-band` kořeni,
+  ale h3/wrap/poznámka byly vnořené v `.id-table-band__inner` —
+  skupina měla 0 přímých `.rv`. Přesunuto na vnitřní wrapper.
+- Karta složek: `.id-ingredients__grid` (přímý rodič 4 karet) neměla
+  `data-rv-group` vůbec — karty spadly na fallback jednotlivého
+  odhalení se stejným triggerem (unisono místo staggeru). Doplněno.
+
+**Ostatní:**
+- Obr. 08/09 prohozené pořadí (moje chyba z přečíslování) — foto
+  dodávky je teď 08 (nastupuje první), split slehnutí 09.
+- `M³`/`M²` z uppercase sazby: `.sv-lbl` i `.id-table thead th` verzálkují
+  fyzikálně (M = mega). TunaNeniKubik: popisky pruhů → `sv-val` (bez
+  uppercase, jak má hodnota s jednotkou být). Tabulky: nový
+  `bezVelkychJednotek()` v `TableBlock` obalí `m²`/`m³` spanem
+  `text-transform: none` uvnitř jinak uppercase hlavičky.
+- `#f4f1ea` (hex mimo tokeny) → `var(--id-ink-dark)` na pointě Obr. 04.
+- Kořen `#d8c9b4` v NabityBiochar byl na krému 1,49:1 — TÁŽ vada, kterou
+  MykorhizniVlakna už řešila podkladem; přidána malá záhonová plocha
+  s obrysem hmoty (9.2 p. 9) v hlavní scéně i legendě → 4,52:1. Živiny
+  `#54402c` v pórech na `#12161b` (1,86:1) dostaly tenký světlý lem
+  (fill beze změny, jen hranice čitelná).
+- Legendy pixelově sjednoceny se vzory (9.2 p. 10): TriZony biochar/
+  Biovin/zeolit, PranyPisek zrno (r 10→16, uvnitř rozsahu scény 14–17),
+  kapka vody v DveZahrady/TriZony/PrvniKorinek (A5→A7, shodně se
+  scénou ve všech třech).
+- Obr. 10 (UkladaniOdspodu) dostala legendu se stejnými značkami jako
+  vzory v patternech — dřív žádnou neměla.
+- Obr. 11 (PrvniKorinek): otevřený obrys hmoty uzavřen (`Z` — u tohoto
+  řezu horní hranu nenese drn, takže obrys nesmí chybět, na rozdíl od
+  kreseb s drnem, kde otevřený obrys je záměr).
+- `dz-kapka` (Obr. 01): deklarovaná třída konečně dostala keyframes
+  (padající kapka jílovitou zahradou, vzor `tz-kapka`, 5 s).
+
+Přejímka: layout-check 5 šířek (R L ×10 drží), svg-labels 320/393/1440
+(0 kolizí, 0 ořezů na všech viditelných kresbách), partitura beze
+změny, přetečení 320/393 false, tsc čistý.

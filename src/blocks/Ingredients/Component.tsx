@@ -103,7 +103,12 @@ export const IngredientsBlock: React.FC<IngredientsBlockProps> = ({
           </figure>
         ) : Kresba ? (
           <figure aria-label={item.drawingAlt ?? undefined} className="id-ingredients__panel-fig" role="img">
-            <Kresba />
+            {/* `id-figure-svg` chybělo — panel bez ní nedostal mobilní
+               škálování popisků (9.2 p. 3) a spadl na 8,1 px @393
+               (kolo 02, hierarchie + styl). */}
+            <div className="id-figure-svg">
+              <Kresba />
+            </div>
           </figure>
         ) : null}
       </div>

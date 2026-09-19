@@ -78,7 +78,7 @@ const Krok: React.FC<{ y0: number; faze: 1 | 2 | 3 }> = ({ y0, faze }) => {
 }
 
 export const UkladaniOdspodu: React.FC = () => (
-  <svg aria-hidden="true" className="block h-auto w-full" viewBox="0 0 520 584">
+  <svg aria-hidden="true" className="block h-auto w-full" viewBox="0 0 520 636">
     <Defs />
     {/* Pointa kresby (9.2 p. 3) je jedna: staví se odspodu nahoru. */}
     <text className="sv-val" x="40" y="38" style={{ fontSize: 24 }}>Odspodu nahoru</text>
@@ -103,5 +103,15 @@ export const UkladaniOdspodu: React.FC = () => (
 
     <text className="sv-lbl" x="40" y="546">V každé zóně promíchané —</text>
     <text className="sv-lbl" x="40" y="566">žádná čistá patra</text>
+
+    {/* ── legenda — vzory beze značky v panelu chyběly (9.2 p. 10,
+        kolo 02); pixelově shodné se vzory v patternech výš. ────── */}
+    <line x1="30" y1="590" x2="490" y2="590" stroke="#d5d3cc" strokeWidth="1.6" strokeDasharray="3 7" strokeLinecap="round" />
+    <path d="M32 610 l5 -3 3 4 -4 3 z" fill="#12161b" opacity="0.9" />
+    <text className="sv-val" x="52" y="616">biochar</text>
+    <circle cx="164" cy="612" r="2.6" fill="#54402c" />
+    <text className="sv-val" x="180" y="616">Biovin</text>
+    <path d="M280 610 l5 -2 4 3 -1 5 -5 2 -4 -3 z" fill="#d5d3cc" stroke="#232830" strokeWidth="1.6" />
+    <text className="sv-val" x="300" y="616">zeolit</text>
   </svg>
 )

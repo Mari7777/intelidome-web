@@ -76,7 +76,9 @@ export const DveZahrady: React.FC = () => (
     <path d="M398 454 l5 -2 4 3 -1 5 -5 2 -4 -3 z" fill="#d5d3cc" stroke="#232830" strokeWidth="1.6" />
     <text className="sv-val" x="420" y="463">zeolit</text>
 
-    <path d="M33 480 C 36 484, 38 487, 38 489.5 A 5 5 0 0 1 28 489.5 C 28 487, 30 484, 33 480 Z" fill="#2563eb" opacity="0.9" />
+    {/* Kapka legendy je pixelově shodná se scénou (A 7 7, ne zmenšené
+           A 5 5 — 9.2 p. 10, kolo 02). */}
+    <path d="M33 477 C 37 483, 40 487, 40 491 A 7 7 0 0 1 26 491 C 26 487, 29 483, 33 477 Z" fill="#2563eb" opacity="0.9" />
     <text className="sv-val" x="52" y="492">voda</text>
   </svg>
 )

@@ -52,7 +52,9 @@ export const PrvniKorinek: React.FC = () => (
     {/* hranice dosahu kořínků */}
     <line x1="80" y1="134" x2="290" y2="134" stroke="#d5d3cc" strokeWidth="1.6" strokeDasharray="3 7" strokeLinecap="round" />
 
-    <path d="M80 110 V350 H290 V110" fill="none" stroke="#232830" strokeWidth="1.6" strokeLinejoin="round" />
+    {/* Horní hranu tu nenese drn (čerstvý výsev, žádná travní vrstva) —
+        obrys se proto MUSÍ uzavřít, ne nechat otevřený (9.2 p. 9, kolo 02). */}
+    <path d="M80 110 V350 H290 V110 Z" fill="none" stroke="#232830" strokeWidth="1.6" strokeLinejoin="round" />
 
     {/* ── popisky vpravo ──────────────────────────────────────── */}
     <g stroke="#d5d3cc" strokeWidth="1.6" strokeDasharray="3 7" strokeLinecap="round">
@@ -79,7 +81,7 @@ export const PrvniKorinek: React.FC = () => (
     <line x1="30" y1="404" x2="490" y2="404" stroke="#d5d3cc" strokeWidth="1.6" strokeDasharray="3 7" strokeLinecap="round" />
     <rect x="30" y="424" width="14" height="14" rx="3" fill="#6b5138" opacity="0.9" />
     <text className="sv-val" x="52" y="435">připravená směs</text>
-    <path d="M228 424 C 231 428, 233 431, 233 433.5 A 5 5 0 0 1 223 433.5 C 223 431, 225 428, 228 424 Z" fill="#2563eb" opacity="0.9" />
+    <path d="M228 422 C 232 428, 235 432, 235 436 A 7 7 0 0 1 221 436 C 221 432, 224 428, 228 422 Z" fill="#2563eb" opacity="0.9" />
     <text className="sv-val" x="242" y="435">voda</text>
     <path d="M330 434 q3 -10 8 -15" fill="none" stroke="#3f7d4e" strokeWidth="1.6" strokeLinecap="round" />
     <text className="sv-val" x="350" y="435">výsev</text>

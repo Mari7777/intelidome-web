@@ -69,12 +69,17 @@ export const IngredientsTabs: React.FC<{
   const otevreno = (i: number) => vybrano === i && (taby || !netknuto)
 
   return (
+    // Vlastní reveal skupina: čtyři karty byly `.rv`, ale jejich přímý
+    // rodič (tahle mřížka) neměl `data-rv-group`, takže spadly na
+    // fallback pro nezařazené prvky — všechny odhalil týž trigger
+    // naráz místo staggeru 80 ms (kolo 02, pohyb; 6.3.2).
     <div
       className={cn(
         'id-ingredients__grid',
         netknuto && 'netknuto',
         vybrano !== null && !netknuto && 'ma-vybrano',
       )}
+      data-rv-group=""
     >
       {tabs.map((node, i) => (
         <div

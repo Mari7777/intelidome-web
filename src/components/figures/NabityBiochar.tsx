@@ -39,7 +39,10 @@ const Zrno: React.FC<{ x: number; y: number; plne: boolean; prefix: string }> = 
         <g key={`${prefix}-${i}`}>
           <circle cx={px} cy={py} r={r} fill="none" stroke="rgba(255,255,255,.38)" strokeWidth="1.6" />
           {plne ? (
-            <g fill="#54402c">
+            /* Živiny #54402c na zrnu #12161b měly 1,86:1 (kolo 02, styl);
+               tenký světlý lem drží hranici tvaru čitelnou, fill zůstává
+               týž token jako v legendě a na světlém podkladu jinde. */
+            <g fill="#54402c" stroke="#f6f5f2" strokeWidth="0.8">
               <circle cx={px - 2} cy={py - 1} r="2.6" />
               {r >= 8 ? <circle cx={px + 3} cy={py + 3} r="2.6" /> : null}
             </g>
@@ -81,6 +84,12 @@ export const NabityBiochar: React.FC = () => (
     {/* ── vpravo: nabitý dává ────────────────────────────────── */}
     <text className="sv-lbl" x="284" y="86">Nabitý kompostem</text>
     <Zrno x={296} y={104} plne prefix="nb-p" />
+    {/* Kořen #d8c9b4 potřebuje ornicový podklad, jinak je na krémovém
+       panelu prakticky neviditelný (1,49:1 — kolo 02, styl; táž vada,
+       kterou už řeší MykorhizniVlakna). Malá záhonová plocha s obrysem
+       hmoty (9.2 p. 9), ne holý floating blob. */}
+    <rect x="452" y="98" width="66" height="228" rx="6" fill="#6b5138" opacity="0.9" />
+    <path d="M452 98 H518 V326 H452 Z" fill="none" stroke="#232830" strokeWidth="1.6" strokeLinejoin="round" />
     {/* kořen vpravo a šipky VEN ke kořenu */}
     <path
       d="M488 120 C 486 160, 490 200, 487 240 C 485 268, 488 292, 486 312"
@@ -101,6 +110,7 @@ export const NabityBiochar: React.FC = () => (
     <text className="sv-lbl" x="30" y="398">Co je co</text>
     <circle cx="36" cy="420" r="2.6" fill="#54402c" />
     <text className="sv-val" x="52" y="425">živiny (kompost)</text>
+    <rect x="248" y="408" width="20" height="26" rx="3" fill="#6b5138" opacity="0.9" />
     <path d="M258 412 C 257 419, 259 425, 258 430" fill="none" stroke="#d8c9b4" strokeWidth="1.6" strokeLinecap="round" opacity="0.9" />
     <text className="sv-val" x="274" y="425">kořen</text>
 
