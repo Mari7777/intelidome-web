@@ -242,9 +242,11 @@ const body = root([
     ],
   }),
 
-  /* Úvod – autorův příběh dvou zahrad. Druhý a čtvrtý odstavec úvodu
-     nesou tezi kresby Obr. 01, proto stojí v jejím splitu. */
-  p('Představme si dvě sousední zahrady po stejném dešti. Na první se zemina lepí na boty a voda dlouho neodchází. Na druhé se po chvíli dá pohodlně chodit, jenže o několik suchých dnů později už tráva začíná strádat. Oběma zahradám chceme pomoci. Kdybychom ale na obě navezli stejnou směs ve stejném poměru, řešili bychom dva různé problémy jednou odpovědí.'),
+  /* Úvod – autorův příběh dvou zahrad. První, druhý a čtvrtý odstavec
+     úvodu nesou tezi kresby Obr. 01, proto stojí v jejím splitu (kolo 03:
+     samotný druhý+čtvrtý nechávaly split na 68 % pokrytí — první odstavec
+     navíc scénu přímo otevírá, patří tam obsahově stejně jako layoutově).
+     Třetí (plán článku) zůstává jediným samostatným odstavcem úvodu. */
   p('V tomto článku si nejprve představíme jednotlivé složky a vysvětlíme, co mohou v půdě změnit. Potom se podíváme, proč o směsi rozhoduje objem, přestože dodávka přijíždí v tunách, a jak příměsi rozmístit v kořenové vrstvě. Na třech modelových zahradách ukážeme vhodné rozdíly v dávkách. Teprve poté převedeme zvolený poměr na potřebné kubíky, tuny a balení pro vlastní plochu a projdeme míchání, uložení i založení trávníku.'),
 
   /* ── Kapitola 01 ─────────────────────────────────────────────── */
@@ -259,7 +261,7 @@ const body = root([
     caption:
       'Stejné pytle, opačná práce. Jílu příměsi otevírají cestu pro vodu a vzduch, písku pomáhají vodu a živiny podržet.',
     body:
-      'Zajímavé je, že materiály mohou být v obou případech stejné: písek, původní zemina, biochar, Biovin a zeolit. Mění se jejich úloha i množství. Jílovité půdě potřebujeme otevřít cestu pro vzduch a přebytečnou vodu. Chudému písku naopak pomoci, aby část vody a živin u kořenů zůstala déle. A dobře fungující hlíně někdy prospějeme nejvíc tím, že do ní zbytečně nepřidáme další materiál.\n\nCílem je porozumět tomu, co má směs dělat. Přesná čísla ve výpočtu nám mají pomoci udržet zamýšlené poměry; při práci s navážkou se z nich nestává požadavek na vážení každého kilogramu.',
+      'Představme si dvě sousední zahrady po stejném dešti. Na první se zemina lepí na boty a voda dlouho neodchází. Na druhé se po chvíli dá pohodlně chodit, jenže o několik suchých dnů později už tráva začíná strádat. Oběma zahradám chceme pomoci. Kdybychom ale na obě navezli stejnou směs ve stejném poměru, řešili bychom dva různé problémy jednou odpovědí.\n\nZajímavé je, že materiály mohou být v obou případech stejné: písek, původní zemina, biochar, Biovin a zeolit. Mění se jejich úloha i množství. Jílovité půdě potřebujeme otevřít cestu pro vzduch a přebytečnou vodu. Chudému písku naopak pomoci, aby část vody a živin u kořenů zůstala déle. A dobře fungující hlíně někdy prospějeme nejvíc tím, že do ní zbytečně nepřidáme další materiál.\n\nCílem je porozumět tomu, co má směs dělat. Přesná čísla ve výpočtu nám mají pomoci udržet zamýšlené poměry; při práci s navážkou se z nich nestává požadavek na vážení každého kilogramu.',
   }),
 
   /* Sekce písku jako split (připomínka autora po balíku „dlouhé
@@ -384,11 +386,10 @@ const body = root([
     caption:
       'Jedna tuna, pětkrát jiný kus prostoru. Objemem se určuje poměr směsi, hmotností jen objednávka a doprava.',
     body:
-      'Dodavatel pracuje s tunami, kubíky a počty balení. Kdo připravuje půdu, musí oba pohledy propojit. **Stejný objem neznamená stejnou hmotnost a stejná hmotnost neznamená stejný objem.** Proto nelze objemový recept jednoduše změnit na stejné poměry tun.\n\nPro názorné srovnání vezměme pouze modelové hodnoty: písek o sypné hustotě 1,5 t/m³ a zeminu o sypné hustotě 1,4 t/m³. **Sypná hustota** vyjadřuje, kolik váží určitý objem volně nasypaného materiálu, včetně mezer mezi jeho částicemi.',
+      'Dodavatel pracuje s tunami, kubíky a počty balení. Kdo připravuje půdu, musí oba pohledy propojit. **Stejný objem neznamená stejnou hmotnost a stejná hmotnost neznamená stejný objem.** Proto nelze objemový recept jednoduše změnit na stejné poměry tun.\n\nPro názorné srovnání vezměme pouze modelové hodnoty: písek o sypné hustotě 1,5 t/m³ a zeminu o sypné hustotě 1,4 t/m³. **Sypná hustota** vyjadřuje, kolik váží určitý objem volně nasypaného materiálu, včetně mezer mezi jeho částicemi.\n\nPři těchto předpokladech zabere **tuna písku přibližně 0,67 m³**, zatímco **tuna zeminy přibližně 0,71 m³**. Rozdíl není obrovský, ale při dodávce desítek tun už se projeví. U lehkého biocharu se sypnou hustotou 0,20 t/m³ je rozdíl ještě výraznější: **jedna tuna představuje asi 5 m³**. Tytéž tuny tedy mohou v připravované směsi obsadit velmi rozdílné místo.',
   }),
 
   h3('Tuna písku není stejný kus prostoru jako tuna hlíny'),
-  p('Při těchto předpokladech zabere ', ['tuna písku přibližně 0,67 m³', BOLD], ', zatímco ', ['tuna zeminy přibližně 0,71 m³', BOLD], '. Rozdíl není obrovský, ale při dodávce desítek tun už se projeví. U lehkého biocharu se sypnou hustotou 0,20 t/m³ je rozdíl ještě výraznější: ', ['jedna tuna představuje asi 5 m³', BOLD], '. Tytéž tuny tedy mohou v připravované směsi obsadit velmi rozdílné místo.'),
   p('Tyto hodnoty slouží k vysvětlení principu. Skutečná zemina může mít jinou hustotu než náš model a hmotnost všech materiálů ovlivňuje i jejich vlhkost. Rozhodující údaj pro objednávku proto později převezmeme od dodavatele pro materiál v dodávaném stavu.'),
   p(['Objemem určujeme poměr složek. Hmotností plánujeme objednávku, dopravu a manipulaci.', BOLD], ' Minerální základ složený ze 65 % písku a 35 % zeminy objemově tedy neznamená automaticky 65 tun písku a 35 tun zeminy. Čím rozdílnější jsou sypné hustoty, tím větší chyba by při takové záměně vznikla.'),
   p('Abyste nemuseli potřebné množství materiálu počítat ručně, připravili jsme pro vás kalkulátor. Stačí zadat plochu v metrech čtverečních, hloubku zapravení a objemový podíl jednotlivých materiálů v procentech. Získáte přehled potřebného objemu i orientační hmotnosti — tedy podklad pro objednávku a plánování dopravy. Hmotnost závisí na použité sypné hustotě, proto ji před nákupem ověřte u dodavatele.'),
@@ -759,9 +760,8 @@ const body = root([
     caption:
       'Voda deset centimetrů pod prvním kořínkem je teď stejně nedosažitelná jako voda na druhé straně zahrady. Proto se čerstvý výsev zalévá jinak než zakořeněný trávník.',
     body:
-      'Třiceticentimetrový profil je připravený, ale právě klíčící rostlina z něj zatím dokáže využívat jen malou část. Voda deset centimetrů pod prvním kořínkem může být v této chvíli stejně nedosažitelná jako voda na druhé straně zahrady.\n\nProto se režim čerstvého výsevu liší od režimu zakořeněného trávníku. Jemnou zálivkou udržujeme vlhké seťové lůžko; podle počasí ji můžeme opakovat v krátkých dávkách. S postupným růstem kořenů do hloubky se rostlinám otevírá další prostor a mění se i vhodný interval zavlažování.',
+      'Třiceticentimetrový profil je připravený, ale právě klíčící rostlina z něj zatím dokáže využívat jen malou část. Voda deset centimetrů pod prvním kořínkem může být v této chvíli stejně nedosažitelná jako voda na druhé straně zahrady.\n\nProto se režim čerstvého výsevu liší od režimu zakořeněného trávníku. Jemnou zálivkou udržujeme vlhké seťové lůžko; podle počasí ji můžeme opakovat v krátkých dávkách. S postupným růstem kořenů do hloubky se rostlinám otevírá další prostor a mění se i vhodný interval zavlažování.\n\n[Principy závlahy trávníků](https://extension.psu.edu/principles-of-turfgrass-irrigation) proto spojují dávku vody s vlastnostmi půdy i dosahem kořenů. Připravená zásoba má význam teprve tam, kde k ní rostlina získá přístup.',
   }),
-  p(link('https://extension.psu.edu/principles-of-turfgrass-irrigation', 'Principy závlahy trávníků'), ' proto spojují dávku vody s vlastnostmi půdy i dosahem kořenů. Připravená zásoba má význam teprve tam, kde k ní rostlina získá přístup.'),
 
   h3('První zelené čárky ještě nejsou hotový porost'),
   p('Ani jednotlivé trávy nevzcházejí současně. Jílek bývá rychlejší, zatímco lipnice může potřebovat několik týdnů. To, co se zazelená jako první, proto ještě nepředstavuje konečnou podobu porostu. Další rostliny mohou teprve přicházet na řadu.'),

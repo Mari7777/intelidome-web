@@ -2091,3 +2091,66 @@ ne skutečná vada; ověřeno ručně v otevřeném stavu).
 Přejímka: layout-check 5 šířek (R L ×10 drží), svg-labels 320/393/1440
 (0 kolizí, 0 ořezů na všech viditelných kresbách), partitura beze
 změny, přetečení 320/393 false, tsc čistý.
+
+
+## Kolo 03 — 4 · 3 · 4 · 4 · 4 · 4 · 2, jeden kritický (2026-09-19)
+
+Zadání výslovně žádalo neověřovat moje tvrzení o kole 02, ale měřit
+živě znovu jako první kolo. Snímky porota-c3-03 (52/91/51).
+
+| Lenz | Kolo 02 → 03 | Kritické |
+|---|---|---|
+| hierarchie | 3 → **4** | 0 |
+| typografie | 3 → 3 | 0 |
+| pohyb | 3 → **4** | 0 |
+| styl | 3 → **4** | 0 |
+| slop | 3 → **4** | 0 |
+| výkon | 4 → 4 | 0 |
+| rozložení | 3 → **2** | 6 → **1** (skeptik: 3 vyvráceno, 2 překlas.) |
+
+**NEPROŠEL** — rozložení jediné táhne skóre dolů. Šest „kritických"
+nálezů prošlo skeptikem s different výsledkem u každého:
+
+- **3 vyvráceno** (porotce měřil špatnou metodikou — tělo BEZ hlavičky
+  proti CELÉMU panelu): tvrzení o „composed pásmu 561–1129" (panel na
+  ose prózy je DESIGN.md 8.2b výslovně žádaný stav, ne vada), a moje
+  balík-3 opravy „Třicet centimetrů" (73 %) a „Tři zahrady" (82 %) —
+  OBĚ potvrzeny jako v pořádku, číslo 46 %/53 % bylo chybně spočítané.
+- **2 překlasifikováno** kritický → důležitý: „První kořínek" (skutečné
+  pokrytí 50 % ne 62 %, ale i tak HŮŘ než LOOP_LOG tvrdil — 322 px
+  prázdna, ne 287) a „Z čeho půdu skládáme" (68 %/216 px, beze změny
+  od kola 01 — vědomé reziduum z balíku 3).
+- **1 zůstal kritický**: „Proč směs mícháme podle objemu" (64 %,
+  244 px) — přesně ten split, který jsem v balíku 3 vědomě nechal
+  být kvůli h3 za ním.
+
+### Oprava (stejná relace, hned po kole)
+
+Všechny tři splity dorovnány — u dvou šlo o obsah, který jsem v balíku
+3 záměrně nechal kvůli h3/pořadí odstavců, teď vyřešeno beze změny
+pořadí čtení:
+
+| Split | Před kolem 03 | Po opravě |
+|---|---|---|
+| „Z čeho půdu skládáme" (i=0) | 68 % / 216 px | **91 % / 58 px** |
+| „Proč směs mícháme" (i=3, KRITICKÝ) | 64 % / 244 px | **87 % / 86 px** |
+| „První kořínek" (i=9) | 50 % / 322 px | **66 % / 219 px** |
+
+- **i=0**: první odstavec úvodu („Představme si dvě sousední
+  zahrady…") se přesunul DO splitu jako jeho nový první odstavec —
+  scénu ze sousedních zahrad teď otevírá přímo u kresby, kterou
+  ilustruje. Samostatný úvod před Kapitolou 01 zůstává jediný odstavec
+  (plán článku).
+- **i=3**: první odstavec za h3 („Při těchto předpokladech zabere
+  tuna písku…", bez odkazu) se přesunul DO splitu; h3 teď uvádí zbylé
+  odstavce („Tyto hodnoty slouží k vysvětlení principu…").
+- **i=9**: poslední zbylý odstavec (s odkazem na Principy závlahy
+  trávníků) se vtáhl pomocí markdown syntaxe z balíku 3.
+
+**Poučení o vedlejším efektu:** balík-4 oprava `grid-column: full` pro
+krémové splity (spravila mobilní mez popisků a krémový bleed) VEDLEJŠÍ
+efektem rozšířila textový sloupec z ~1280 na 1360 px — u „Prvního
+kořínku" to zkrátilo počet řádků, takže pokrytí kleslo z 55 % (balík 3)
+na 50 % (živě v kole 03), aniž bych se textu dotkl. Přejímka po
+opravě: layout-check 5 šířek (R L ×10), svg-labels 320/393/1440
+(12/12 OK), přetečení false, partitura beze změny.
