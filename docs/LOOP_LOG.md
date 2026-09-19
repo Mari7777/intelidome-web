@@ -1816,3 +1816,13 @@ do první interakce. Sémantika sjednocena na rozbalovací karty
 by nebyl validní) — Enter/mezerník, fokus otevírá jen v hover režimu.
 Přejímka: layout-check 1440, svg-labels 320/393 bez chyb, partitura
 4 452 / 5 456 px, přetečení false, tsc.
+
+
+## Karta složek v3.3 — mobil: karty pohromadě, text pod mřížkou
+
+Autor po zhlédnutí v3.2: lepší, když čtyři obrázky drží pohromadě
+a text se objevuje pod nimi. Odebráno řazení panelů pod řádky (CSS
+order pryč — sloty jedou v DOM pořadí za kartami, tedy pod celou
+mřížkou 2×2). Zbytek akordeonu beze změny: zavřený výchozí stav,
+toggle, šipky, ztlumení popisků, fade-in, bez CLS. Ověřeno: panel
+pod poslední kartou, přetečení false, layout-check 1440 OK, tsc.

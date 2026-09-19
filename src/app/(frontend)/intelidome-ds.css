@@ -524,34 +524,11 @@
 }
 
 /* ── Akordeon (dotyk nebo ≤ 560 px): zavřený výchozí stav ────
-   Panel se otevírá hned pod řádkem své karty (CSS pořadí v mřížce),
-   klepnutí na otevřenou kartu zavírá. Výška se nemání animací
-   (layoutové animace zakázané, vzor FAQ) — jen obsah fade-in. */
+   Čtyři karty drží pohromadě (rozhodnutí autora) a panel se otevírá
+   pod celou mřížkou; klepnutí na otevřenou kartu zavírá. Výška se
+   nemání animací (layoutové animace zakázané, vzor FAQ) — jen obsah
+   panelu fade-in. */
 @media (hover: none), (max-width: 560px) {
-  .id-ingredients__tab:nth-child(1) {
-    order: 1;
-  }
-  .id-ingredients__tab:nth-child(2) {
-    order: 2;
-  }
-  .id-ingredients__tab:nth-child(3) {
-    order: 5;
-  }
-  .id-ingredients__tab:nth-child(4) {
-    order: 6;
-  }
-  .id-ingredients__panel-slot:nth-child(5) {
-    order: 3;
-  }
-  .id-ingredients__panel-slot:nth-child(6) {
-    order: 4;
-  }
-  .id-ingredients__panel-slot:nth-child(7) {
-    order: 7;
-  }
-  .id-ingredients__panel-slot:nth-child(8) {
-    order: 8;
-  }
   .id-ingredients__panel-slot:not(.is-active),
   .id-ingredients__grid.netknuto .id-ingredients__panel-slot {
     display: none;

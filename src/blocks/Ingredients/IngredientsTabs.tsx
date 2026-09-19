@@ -9,9 +9,9 @@ import { cn } from '@/utilities/ui'
  * — desktop (hover, > 560 px): karty v řadě, všechny panely ve společné
  *   buňce pod nimi (výška nejvyššího → přepínání nehýbe stránkou);
  *   výchozí je otevřená první složka, vybírá hover, klik i fokus.
- * — dotyk / ≤ 560 px: akordeon se zavřeným výchozím stavem — panel se
- *   CSS pořadím otevírá hned pod řádkem klepnuté karty, klepnutí na
- *   tutéž kartu zavírá. Do první interakce drží třída `netknuto`
+ * — dotyk / ≤ 560 px: akordeon se zavřeným výchozím stavem — čtyři
+ *   karty drží pohromadě a panel se otevírá pod celou mřížkou,
+ *   klepnutí na tutéž kartu zavírá. Do první interakce drží třída `netknuto`
  *   všechny panely zavřené (server rendruje otevřený Biovin pro
  *   desktop, mobil tak nemá skok při načtení).
  * Sémantika: rozbalovací karty (role button + aria-expanded), panely
