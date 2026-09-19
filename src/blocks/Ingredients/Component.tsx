@@ -3,6 +3,7 @@ import React from 'react'
 import type { Media } from '@/payload-types'
 
 import { Media as MediaComponent } from '@/components/Media'
+import { IngredientCard } from './IngredientCard'
 import { nezlomitelneMezery } from '@/utilities/czechTypography'
 import { cn } from '@/utilities/ui'
 
@@ -47,23 +48,33 @@ export const IngredientsBlock: React.FC<IngredientsBlockProps> = ({
       {lead ? <p className="rv id-ingredients__lead">{nezlomitelneMezery(lead)}</p> : null}
       <div className="id-ingredients__grid">
         {items.map((item, i) => (
-          <figure className="rv id-ingredients__item" key={item.id ?? i}>
-            {item.image && typeof item.image === 'object' ? (
-              <MediaComponent
-                className="id-ingredients__media"
-                imgClassName="id-ingredients__img"
-                resource={item.image}
-                size="(max-width: 1129px) 50vw, 25vw"
-              />
-            ) : null}
+          <IngredientCard
+            className="rv id-ingredients__item"
+            key={item.id ?? i}
+            label={item.name ?? 'Složka'}
+          >
+            {/* Rám nese fotku a překryv s vlastnostmi (hover/fokus);
+                na dotykovém zařízení se překryv sází staticky pod jméno. */}
+            <div className="id-ingredients__frame">
+              {item.image && typeof item.image === 'object' ? (
+                <MediaComponent
+                  className="id-ingredients__media"
+                  imgClassName="id-ingredients__img"
+                  resource={item.image}
+                  size="(max-width: 1129px) 50vw, 25vw"
+                />
+              ) : null}
+              <div className="id-ingredients__overlay">
+                <span className="id-ingredients__text">{nezlomitelneMezery(item.text ?? '')}</span>
+                {item.note ? (
+                  <span className="id-ingredients__note">{nezlomitelneMezery(item.note)}</span>
+                ) : null}
+              </div>
+            </div>
             <figcaption>
               <strong className="id-ingredients__name">{nezlomitelneMezery(item.name ?? '')}</strong>
-              <span className="id-ingredients__text">{nezlomitelneMezery(item.text ?? '')}</span>
-              {item.note ? (
-                <span className="id-ingredients__note">{nezlomitelneMezery(item.note)}</span>
-              ) : null}
             </figcaption>
-          </figure>
+          </IngredientCard>
         ))}
       </div>
     </div>

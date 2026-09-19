@@ -1736,3 +1736,19 @@ přehledový modul jako krémový pás = tabulka i karta složek (v2.8).
 Fotky: hairline žádný, radius 20 px (9.1), lazy + sizes 25vw/50vw.
 Přejímka: layout-check 3 šířky, svg-labels 12/12 @393, přetečení
 false, tsc čistý.
+
+
+## Karta složek v2 — vlastnosti po najetí (návrh autora)
+
+Autor: text nemá stát pod obrázkovým pásmem, ale zobrazit se po najetí
+myší nad fotku. Karta = fotka + jméno (stále viditelné); vlastnosti
+a „kam patří" se vysunou přes fotku scrimem (9.1) po :hover
+**i :focus-within** — obsah schovaný jen za hover by nebyl přístupný
+z klávesnice (kritérium rubriky výkon). `IngredientCard` (klient) dává
+kartám tabIndex + role="group" + jméno JEN na zařízení s myší
+(matchMedia hover, vzor TableWrap). Na dotykovém zařízení a ≤ 560 px
+zůstává text staticky: pořadí fotka → jméno → text → poznámka drží
+`display: contents` na rámu. Přechod jen opacity 0,28 s; pod
+prefers-reduced-motion vypnutý. Text je v DOM vždy — odečítač ho čte
+bez interakce. Ověřeno: hover ✓, fokus s prstencem ✓ (4 tab stopy
+na 1440, 0 na dotyku), mobil statický ✓, přetečení false, tsc.

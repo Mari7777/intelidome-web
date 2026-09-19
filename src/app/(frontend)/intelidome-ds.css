@@ -319,6 +319,9 @@
 .id-ingredients__item {
   margin: 0;
 }
+.id-ingredients__frame {
+  position: relative;
+}
 .id-ingredients__media {
   display: block;
 }
@@ -348,7 +351,7 @@
   line-height: 1.5;
   letter-spacing: -0.01em;
   color: var(--id-ink-2);
-  margin-top: 4px;
+  margin-top: 6px;
 }
 .id-ingredients__note {
   display: block;
@@ -359,6 +362,65 @@
   letter-spacing: 0.14em;
   color: var(--id-ink-2);
   margin-top: 10px;
+}
+/* ── Vlastnosti po najetí (jen zařízení s myší, > 560 px) ────
+   Překryv přes fotku: scrim v mezích 9.1 (text na fotce jen bílý
+   s dostatečným krytím), odhaluje ho :hover i :focus-within —
+   klávesnice nesmí o obsah přijít. Na dotykovém zařízení blok
+   níže neplatí a text zůstává staticky pod jménem. */
+@media (hover: hover) and (min-width: 561px) {
+  .id-ingredients__overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    gap: 0;
+    padding: 18px;
+    border-radius: var(--id-r-card, 20px);
+    background: linear-gradient(to top, rgba(11, 13, 16, 0.84) 0%, rgba(11, 13, 16, 0.62) 55%, rgba(11, 13, 16, 0.28) 100%);
+    opacity: 0;
+    transition: opacity 0.28s ease;
+  }
+  .id-ingredients__item:hover .id-ingredients__overlay,
+  .id-ingredients__item:focus-within .id-ingredients__overlay,
+  .id-ingredients__item:focus-visible .id-ingredients__overlay {
+    opacity: 1;
+  }
+  .id-ingredients__overlay .id-ingredients__text {
+    color: var(--id-ink-dark);
+    margin-top: 0;
+  }
+  .id-ingredients__overlay .id-ingredients__note {
+    color: rgba(255, 255, 255, 0.72);
+  }
+}
+/* Dotykové zařízení (a okna ≤ 560 px): překryv se sází staticky —
+   pořadí fotka → jméno → text → poznámka drží flex s display:contents
+   na rámu (jméno je v DOM až za rámem kvůli hover režimu). */
+@media (hover: none), (max-width: 560px) {
+  .id-ingredients__item {
+    display: flex;
+    flex-direction: column;
+  }
+  .id-ingredients__frame {
+    display: contents;
+  }
+  .id-ingredients__media {
+    order: 1;
+  }
+  .id-ingredients__item figcaption {
+    order: 2;
+  }
+  .id-ingredients__overlay {
+    order: 3;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .id-ingredients__overlay {
+    transition: none;
+  }
 }
 
 /* ── Datová tabulka `.id-table` (blok `table`) ──────────────────

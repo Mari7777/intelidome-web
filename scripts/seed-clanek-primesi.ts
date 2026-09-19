@@ -281,7 +281,7 @@ const body = root([
     blockType: 'ingredients',
     blockName: 'Karta složek',
     heading: 'Čtyři pomocníci pohromadě',
-    lead: 'Každý si podrobně projdeme níže — tady je jejich role ve směsi na jeden pohled.',
+    lead: 'Každý si podrobně projdeme níže.',
     items: [
       {
         __filename: 'slozka-biovin.avif',
