@@ -1849,3 +1849,14 @@ tap na kartu → nahoru k titulku sekce → čtení dolů → karty (vybraná
 s čárkou a otočenou šipkou) → zbytek článku. Ověřeno: scrollY 5852→5593
 (nahoru), titulek pod hlavičkou, panel nad kartami, přetečení false.
 Desktop beze změny.
+
+
+## Karta složek v3.6 — vybraná složka první v čtveřici (autor)
+
+Na dotyku se aktuálně vybraná karta řadí v mřížce 2×2 na první pozici
+(vlevo nahoře): CSS order 0 vs. 1 pro ostatní — čistě vizuální pořadí,
+DOM, fokus i čtecí pořadí beze změny. Po dočtení sekce nad mřížkou tak
+čtenář scrolluje dolů a první karta potvrzuje, kde je; zbylé tři
+následují jako nabídka „kam dál". Po zavření se pořadí vrací. Desktop
+záměrně bez řazení — vybírá hover a karty by uskakovaly zpod kurzoru.
+Ověřeno: tap na Mykorhizu → vlevo nahoře, panel Mykorhiza.

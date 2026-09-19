@@ -537,6 +537,14 @@
     border-bottom: 1px solid #dcdad4;
     padding-bottom: clamp(20px, 5vw, 30px);
   }
+  /* Vybraná složka stojí v čtveřici první (vlevo nahoře) — pořadí
+     je jen vizuální (CSS order), DOM a čtecí pořadí se nemění. */
+  .id-ingredients__tab {
+    order: 1;
+  }
+  .id-ingredients__tab.is-active {
+    order: 0;
+  }
   .id-ingredients__panel-slot:not(.is-active),
   .id-ingredients__grid.netknuto .id-ingredients__panel-slot {
     display: none;
