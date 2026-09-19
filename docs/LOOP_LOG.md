@@ -1546,3 +1546,85 @@ scrimu pod 0,1.
 **Tím je koš B celý zavřený** — v `DESIGN.md` §14 nezůstal ani jeden
 otevřený bod. Přejímka: `layout-check` 1024/1130/1280/1440/1990,
 `svg-labels` 320/393/1440, oba články HTTP 200, `tsc` čistý.
+
+---
+
+# Článek 3 — „Písek, biochar a další příměsi" (design-loop)
+
+## Kolo 01 — 3 · 3 · 3 · 3 · 4 · 3 · 3, 5 kritických (2026-09-19)
+
+Stránka: `/posts/pisek-biochar-a-dalsi-primesi` (commit `e2513ff`).
+Porota = workflow 7 lenzů + skeptik ke každému kritickému nálezu;
+snímky `porota-c3-01` (48×1440, 88×393, 49×1990). **Vnitřek kalkulátoru
+mimo kolo** (dodělává se samostatně) — porota ho jen zaznamenala.
+
+| Lenz | Skóre | Kritické (před → po skeptikovi) |
+|---|---|---|
+| hierarchie | 3/5 | 1 → 1 |
+| typografie | 3/5 | 2 → 2 |
+| pohyb | 3/5 | 0 |
+| grafický styl | 3/5 | 0 |
+| slop | **4/5** | 0 |
+| výkon a přístupnost | 3/5 | 0 |
+| rozložení | 3/5 | 2 → 2 |
+
+**NEPROŠEL** — 5 kritických, skeptici žádný nevyvrátili (0 vyvráceno,
+0 překlasifikováno).
+
+### Kritické nálezy (vše potvrzeno měřením skeptika)
+
+1. **Tabulka dávek na mobilu nečitelná** (hierarchie, koš A): 4 sloupce
+   s nowrap hodnotami → min. šířka 1188 px; na 393 px je 70 % obsahu
+   mimo viewport (na 320 px 76 %) a `.id-table-wrap` nemá žádnou
+   afordanci rolování. Souvisí důležitý koš B: afordance přetečení
+   chybí všem 8 tabulkám (na 320 px klipuje 22–27 % u všech).
+2. **Hero H1 končí řádek spojkou „a"** (typografie, koš B): PostHero
+   `splitLines(headline, 16)` láme bez ohledu na jednopísmenné
+   předložky/spojky — na 393, 1440 i 1990.
+3. **Poznámka pod tabulkou 105 znaků/řádek** (typografie, koš B):
+   `.id-table__note` běží na plných 700 px při 13,5 px — chybí míra
+   33 em dle ADR-007 §3.
+4. **Partitura povrchů mlčí 27 043 px** (rozložení, koš A): mezi koncem
+   kalkulátorového pásu a produktovým pásem není jediný posun povrchu
+   (limit 8.1 p. 3 = 6 000 px; na 393 px úsek 37 068 px). Full-bleed
+   fotka posun povrchu nedělá.
+5. **Split kap. 07 ze 70 % prázdný** (rozložení, koš A): 189 px textu
+   vedle 641 px kresby — do splitu patří další odstavce podkapitoly,
+   nebo jiná sazba.
+
+### Důležité (výběr)
+
+- hustota obrazové hmoty: díry 4 667 px (kap. 01), 4 011 px (kap. 04),
+  3 481 px (kap. 05→06) proti cíli ADR-006 ~1/1 300–1 600 px (koš A)
+- textové sloupce splitů kap. 02/03/04 z 36–42 % prázdné (koš A)
+- `dz-kapka` v Obr. 01 nemá keyframes — jediná zamýšlená smyčka kresby
+  se nikdy nespustí (pohyb, koš A; chyba autora kresby)
+- Obr. 02: pointa „5 m³" hexem `#f4f1ea` mimo tokeny; popisky kresby ve
+  splitu na 393 px 9,5 px < floor 10 px (koš B: práh `svg-labels.mjs`
+  je pod normou 9.2 p. 3 a vadu nechytí)
+- TriZony: značky legendy o 20–54 % větší než v kresbě (9.2 p. 10)
+- hero fotka: generativní artefakt na koncovce rukojeti kolečka
+  (2 lenzy nezávisle; viditelný až od ~3× zvětšení → retuš)
+- full-bleed `sizes="295vw"` → telefon stahuje w=3840 (358 kB) místo
+  ~w=1920; hero `<img>` má `loading="lazy"` + `fetchpriority="high"`
+  (drží ho jen ruční preload)
+- kresby: 0/7 `<figure>` s `role="img"` + `aria-label` (DESIGN §9, 11.3)
+- czechTypography nezná jednotky „t" / „t/m³" → 47 z 298 párů
+  číslo–jednotka bez NBSP (koš B)
+- 2× ASCII uvozovka v FAQ; en vs. em pomlčka (CTA/feature vs. próza)
+
+### Koš B nasbíraný v kole 01
+
+afordance přetečení tabulek (DS), splitLines bez předložek (PostHero),
+míra `.id-table__note`, jednotky t/t/m³ v czechTypography, mobilní
+škálování popisků kreseb ve splitu + práh svg-labels pod normou,
+DESIGN 6.3.1 stále předepisuje autoAlpha (stránky se správně odchylují),
+6.6.3 march (10 8/18 vs. norma 3 9/−12), krémový pás-split = druhá osa
+ve složeném jednosloupci (i u sourozence), skip-link nekodifikován,
+šablona 8.2 pořád říká 3–5 kapitol, mobilní interpretace akcentového
+rozpočtu (CTA obrazovka 5,04 %).
+
+### Mimo kolo (kalkulátor — k samostatnému dodělání)
+
+mrtvá `data-rv-group` bez `.rv` dětí (pás nastupuje bez revealu);
+verdikt uvnitř pásu weight 400 vs. 500 (7.8).
