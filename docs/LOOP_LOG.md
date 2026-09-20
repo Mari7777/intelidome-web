@@ -2224,3 +2224,149 @@ přetečení, tsc čistý.
 - Obr. 08 popisek — porota si sama všimla, že „09 je fotografie" ze
   zadání už neplatí (přečíslováno v balíku 4); poznamenáno pro příště
   v zadání dalšího kola.
+
+## Kolo 05 — PROŠEL v ověřeném rozsahu (2026-09-20)
+
+Článek `/posts/pisek-biochar-a-dalsi-primesi`, nový průchod po změně
+pevných dávek na rozsahy. Samostatný skill `design-loop` nebyl v prostředí
+dostupný; použit zde uložený postup, aktuální DESIGN.md a ADR. Sedm oblastí
+posoudili tři nezávislí recenzenti v oddělených zadáních, s kontrolou zdrojů
+a nových snímků/měření. Nebyl potvrzen žádný kritický nález, proto nebylo
+potřeba samostatné skeptické kolo. Staré otevřené poznámky nejsou tímto
+zápisem automaticky uzavřeny.
+
+| Oblast | Před opravou → po opravě |
+|---|---|
+| Hierarchie | 4 → 4 |
+| Typografie | 3 → 4 |
+| Pohyb | 3 → 5 (v testovaném rozsahu) |
+| Grafický styl | 4 → 4 |
+| Slop | 5 → 5 |
+| Výkonové předpoklady a přístupnost | 3 → 4 |
+| Rozložení | 4 → 4 |
+
+### Opravy
+
+- Mobilní hlavičky tabulek jsou skutečný text místo `::before`: Archivo
+  12 px / 600, tracking 0,14 em. Stejně jako desktop zachovávají malé m²/m³.
+- Graf rozsahů má tabulární číslice a obnovenou výraznou hodnotu 8–10 se
+  spojnicí; žádný podíl se touto úpravou nezměnil.
+- Popisek Obr. 06 nyní přesně uvádí nulový Biovin v modelu udržované hlíny,
+  místo tvrzení, že hlína nepotřebuje skoro nic. Jedna hodnota aktualizována
+  v místním CMS (post 6, cs), se zálohou a kontrolou souběžné změny, i v seedu.
+- Fokus další karty již nepřepíná vybranou příměs. Enter/mezerník, klik a
+  hover fungují dál; Tab se dostane také k odkazům vybraného panelu.
+- SSR příměsí obsahuje všechny přístupné panely. Skládání, skrytí,
+  `inert` a tlačítková sémantika nastanou až po hydrataci přes `data-enhanced`.
+- Setrvačný scroll reaguje na změnu reduced-motion i pointeru během návštěvy:
+  uvolní listenery, zruší rAF a obnoví nativní scroll; návrat znovu aktivuje
+  chování od aktuální pozice. Fotografie příměsí již neanimují filtr.
+
+### Ověření
+
+- Živý lokální náhled přes CUA: 320, 393, 1024, 1130, 1280, 1440 a 1990 px.
+  Na všech nulový horizontální přesah stránky a žádný ořez viditelných SVG.
+  Upravený graf vizuálně ověřen na 320/393/1440; na 1440 také geometricky
+  bez překrytí jeho textových popisků. Mobilní tabulky ověřeny na 393.
+- Desktop klávesnice: Biovin → Enter → čtyřikrát Tab → odkaz výrobce,
+  přičemž Biovin zůstane otevřený. Mobil začíná po hydrataci s nulou
+  otevřených panelů, kliknutí na Biovin zobrazí právě jeden.
+- NoJS: skutečný ReactDOM SSR komponenty a skutečné CSS v izolované
+  statické fixture bez scriptů, desktop 1440 i mobil 393. Všechny čtyři
+  panely jsou v běžném toku, viditelné a bez inert/aria-hidden.
+- Test změn media queries: opravený scroll PASS; původní implementace
+  tentýž test nesplní při přepnutí na reduced-motion. Testuje také zrušení
+  rAF, opětovnou aktivaci, pointer, výchozí preference a cleanup.
+- `tsc --noEmit --incremental false` PASS, `git diff --check` PASS.
+- Plné povrchy: nejdelší mezera i bez započtení fotografie je 5746 px
+  (393), 4137 px (1024), 4424 px (1280), 4530 px (1440), tedy pod 6000 px.
+
+### Hranice a drobné rezervy
+
+Nejde o měření produkčních CWV/FPS ani kompletní audit odečítačem.
+Živá změna nastavení OS byla ověřena mock testem, nikoli přepnutím OS.
+NoJS ověření se týká komponenty s reálným CSS, nikoli celé Next stránky.
+Malé SVG labely na některých šířkách se scrollbarem zůstávají těsně pod
+10 px (nejmenší produktový label 9,17 px); dávkovací tabulka má povolený
+vnitřní horizontální posun. Ruční preload hero vynechává kandidáty
+750/1080 px, ale duplicitní přenos nebyl prokázán a tato část se neměnila.
+Předchozí známá chyba konfigurace ESLintu (circular JSON) nebyla tímto
+kolem řešena; TypeScript prošel.
+
+Dočasné důkazy, snímky, JSON měření, SSR fixture, test a záloha lokálního
+článku: `/tmp/design-loop-primesi-2026-09-20/`.
+
+## Kolo 06 — PROŠEL v ověřeném rozsahu (2026-09-20)
+
+Článek `/posts/pisek-biochar-a-dalsi-primesi`, další průchod po výměně
+hero fotografie za variantu s opraveným rýčem. Použit postup projektu,
+DESIGN.md a ADR; sedm oblastí rozděleno mezi tři nezávislé recenzenty.
+Potvrzené nálezy kontrastu a ovládání úzkého akordeonu byly posouzeny
+ještě nezávislým skeptikem. Po opravách nezůstal v testovaném rozsahu
+otevřený kritický nález. Starší poznámky mimo tento rozsah zůstávají platné.
+
+| Oblast | Před opravou → po opravě |
+|---|---|
+| Hierarchie | 4 → 4 |
+| Typografie | 3 → 4 |
+| Pohyb | 4 → 4 |
+| Grafický styl | 4 → 5 |
+| Slop | 5 → 5 |
+| Výkonové předpoklady a přístupnost | 3 → 4 |
+| Rozložení | 4 → 4 |
+
+### Opravy
+
+- Hero se při `priority` načítá `eager`; zachována explicitní volba
+  `loading` od volajícího. Ruční preload hlavního obrazu nyní přebírá
+  `srcSet` z `getImageProps` se stejnými vstupy jako výsledný NextImage.
+  Preload hlavního i portrétového zdroje odpovídá skutečnému obrázku.
+- Kontrast malého bílého textu nad H1 byl nedostatečný zejména na 320
+  a 1024 px. Pouze tento článek dostal silnější přechod nad světlým pískem:
+  54 % / 0,60; 59 % / 0,52; horní hranice zůstává 62 % odspodu.
+  Fotografie a mobilní portrét se v tomto kole neměnily.
+- SVG popisky mají skutečnou velikost nejméně 10 px v testovaných šířkách
+  včetně 15px scrollbaru. Upraveny úzké breakpointy a prostor kresby,
+  zvlášť produktová kresba a otevřený panel mykorhizy. Změna prostoru
+  příměsí míří pouze na SVG, fotografie zachovávají svůj ořez.
+- Dva řádky „dosah se / sítí houby“ dostaly větší odstup posunem prvního
+  o 4 jednotky SVG, aby se při některých měřítkách nedotýkaly jejich bbox.
+- Hover vybírá příměs pouze v režimu tabů. V úzkém okně s myší předtím
+  mouseenter panel otevřel a následný klik jej hned zavřel; nyní klik
+  akordeon spolehlivě otevírá a zavírá.
+
+### Ověření
+
+- Živá geometrie při 320, 360, 361, 375, 385, 386, 393, 560, 561, 1024,
+  1129, 1130, 1149, 1150, 1280, 1440 a 1990 px, také s otevřenou
+  mykorhizou: nulový horizontální přesah stránky, nulové vodorovné ořezy textů SVG,
+  žádné dvojice textových bbox s překryvem větším než 1 px v obou osách.
+  Nejmenší skutečná velikost popisku 10,004 px.
+- Hero ořezy a kontrast při 320/393/1024/1130/1280/1440/1990 px. Výpočet
+  ze zdrojového obrazu, aktuálního object-fit, polohy, rozměrů, gradientu
+  a barvy textu, doplněný odhadem pod tahy ze screenshotů. Konzervativní
+  minimum přes celé textové obdélníky po opravě 5,02 : 1.
+  Eyebrow: 320 px 2,73 → 6,38 : 1; 1024 px 2,42 → 5,02 : 1.
+  Vizuální recenzent potvrdil přirozený rýč i nerušivý přechod ztmavení.
+- 320 px s myší: první klik na Mykorhizu `aria-expanded=true`, druhý
+  `false`; Enter zavře a mezerník otevře. Na 1440 px klik na Biovin
+  zobrazí správný panel. Desktopový hover posouzen ve zdroji; samostatný
+  fyzický hover nebyl nástrojem simulován.
+- Nejdelší mezera mezi plnými barevnými plochami, i bez započtení fotek:
+  5746 px (393), 4137 px (1024), 4424 px (1280), 4530 px (1440).
+- `tsc --noEmit --incremental false` PASS, `git diff --check` PASS.
+  Obsah receptur, dávkování a CMS se tímto kolem neměnil.
+
+### Hranice ověření
+
+Kontrastní výpočet má omezení resamplingu a komprese; nejde o formální
+WCAG audit, audit odečítačem ani produkční CWV/FPS měření. NoJS a živé
+přepínání reduced-motion nebyly znovu testovány, relevantní implementace
+z kola 05 zůstala zachována. Známá chyba konfigurace ESLintu se neřešila.
+Opravy sdílených komponent byly živě ověřeny na tomto článku; ostatní
+články nebyly kompletně znovu auditovány.
+
+Dočasné důkazy, snímky, měření, výpočty kontrastu a patche:
+`/tmp/design-loop-primesi-round06/`; zejména `svg-open-final.json`,
+`hero-after-contrast-source.json`, `hero-after-contrast-glyph-estimate.json`,
+`loading-after.json` a `surfaces-after.json`.

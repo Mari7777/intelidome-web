@@ -28,7 +28,6 @@ export const InertiaScroll = ({ enabled = false }: { enabled?: boolean }) => {
 
     const fine = window.matchMedia('(pointer: fine)')
     const still = window.matchMedia('(prefers-reduced-motion: reduce)')
-    if (!fine.matches || still.matches) return
 
     let target = window.scrollY
     let raf = 0
@@ -129,19 +128,13 @@ export const InertiaScroll = ({ enabled = false }: { enabled?: boolean }) => {
       start()
     }
 
-    window.addEventListener('wheel', onWheel, { passive: false })
-    document.addEventListener('click', onAnchorClick)
-    window.addEventListener('scroll', onScroll, { passive: true })
-    window.addEventListener('resize', onResize)
-
-    // Setrvačník si dojezd řídí sám — nativní `scroll-behavior: smooth`
-    // by se s ním pral o týž pohyb.
     const root = document.documentElement
-    const puvodni = root.style.scrollBehavior
-    root.style.scrollBehavior = 'auto'
-    root.setAttribute('data-inertia', '')
+    let aktivni = false
+    let puvodni = root.style.scrollBehavior
 
-    return () => {
+    const zastav = () => {
+      if (!aktivni) return
+      aktivni = false
       root.style.scrollBehavior = puvodni
       root.removeAttribute('data-inertia')
       window.removeEventListener('wheel', onWheel)
@@ -149,6 +142,41 @@ export const InertiaScroll = ({ enabled = false }: { enabled?: boolean }) => {
       window.removeEventListener('scroll', onScroll)
       window.removeEventListener('resize', onResize)
       if (raf) cancelAnimationFrame(raf)
+      raf = 0
+      running = false
+    }
+
+    const podlePreference = () => {
+      // Nastavení se může změnit i uprostřed dojezdu. Nativní scroll musí
+      // ihned převzít řízení, včetně uvolnění wheel listeneru a rAF.
+      if (!fine.matches || still.matches) {
+        zastav()
+        return
+      }
+      if (aktivni) return
+      aktivni = true
+      target = window.scrollY
+      zapsano = window.scrollY
+      stagnace = 0
+      window.addEventListener('wheel', onWheel, { passive: false })
+      document.addEventListener('click', onAnchorClick)
+      window.addEventListener('scroll', onScroll, { passive: true })
+      window.addEventListener('resize', onResize)
+
+      // Setrvačník si dojezd řídí sám — nativní smooth by se s ním pral.
+      puvodni = root.style.scrollBehavior
+      root.style.scrollBehavior = 'auto'
+      root.setAttribute('data-inertia', '')
+    }
+
+    fine.addEventListener('change', podlePreference)
+    still.addEventListener('change', podlePreference)
+    podlePreference()
+
+    return () => {
+      fine.removeEventListener('change', podlePreference)
+      still.removeEventListener('change', podlePreference)
+      zastav()
     }
   }, [enabled])
 

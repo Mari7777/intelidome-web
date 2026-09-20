@@ -93,8 +93,11 @@ export const TableBlock: React.FC<TableBlockProps> = ({
                       {obsah}
                     </th>
                   ) : (
-                    <td key={cell.id ?? ci} className={doprava} data-label={sloupce[ci]?.label ?? undefined}>
-                      {obsah}
+                    <td key={cell.id ?? ci} className={doprava}>
+                      <span className="id-table__mobile-label">
+                        {bezVelkychJednotek(nezlomitelneMezery(sloupce[ci]?.label ?? ''))}
+                      </span>
+                      <span className="id-table__value">{obsah}</span>
                     </td>
                   )
                 })}

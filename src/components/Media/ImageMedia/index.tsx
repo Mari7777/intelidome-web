@@ -3,7 +3,7 @@
 import type { StaticImageData } from 'next/image'
 
 import { cn } from '@/utilities/ui'
-import NextImage from 'next/image'
+import NextImage, { getImageProps } from 'next/image'
 import React from 'react'
 
 import type { Props as MediaProps } from '../types'
@@ -102,7 +102,8 @@ export const ImageMedia: React.FC<MediaProps> = (props) => {
     }
   }
 
-  const loading = loadingFromProps || (!priority ? 'lazy' : undefined)
+  // A custom picture preload does not disable NextImage's default lazy loading.
+  const loading = loadingFromProps || (priority ? 'eager' : 'lazy')
 
   /*
     `sizes` popisuje, jak ŠIROKÝ bude slot na obrazovce — tedy délky (px, vw),
@@ -124,11 +125,19 @@ export const ImageMedia: React.FC<MediaProps> = (props) => {
         .map((w) => `/_next/image?url=${encodeURIComponent(portretSrc as string)}&w=${w}&q=72 ${w}w`)
         .join(', ')
     : undefined
+  // Use the same Next configuration and sizing inputs as the actual image;
+  // a hand-written list can preload a different candidate (e.g. 1200 vs 1080).
   const hlavniSrcSet =
-    typeof src === 'string' && src
-      ? [640, 828, 1200, 1920, 2048, 3840]
-          .map((w) => `/_next/image?url=${encodeURIComponent(src)}&w=${w}&q=72 ${w}w`)
-          .join(', ')
+    portretSrcSet && priority && typeof src === 'string' && src
+      ? getImageProps({
+          alt: alt || '',
+          fill,
+          height: !fill ? height : undefined,
+          width: !fill ? width : undefined,
+          quality: 72,
+          sizes,
+          src,
+        }).props.srcSet
       : undefined
 
   /*

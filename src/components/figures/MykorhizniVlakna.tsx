@@ -74,7 +74,7 @@ export const MykorhizniVlakna: React.FC = () => (
     <text className="sv-lbl" x="326" y="226">samotného</text>
     <text className="sv-lbl" x="326" y="246">kořene</text>
 
-    <text className="sv-val" x="326" y="294">dosah se</text>
+    <text className="sv-val" x="326" y="290">dosah se</text>
     <text className="sv-val" x="326" y="316">sítí houby</text>
     <text className="sv-lbl" x="326" y="338">živiny na okraji</text>
     <text className="sv-lbl" x="326" y="358">jsou mimo dosah</text>

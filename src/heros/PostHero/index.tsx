@@ -55,6 +55,7 @@ export const PostHero: React.FC<{ post: Post }> = ({ post }) => {
     <header
       className="id-hero relative flex min-h-[100svh] flex-col justify-end overflow-hidden bg-obsidian"
       data-surface="dark"
+      data-post-slug={post.slug}
     >
       {heroImage && typeof heroImage !== 'string' && (
         <div className="absolute inset-0">

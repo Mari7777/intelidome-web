@@ -286,9 +286,10 @@
 
 /* ── Karta složek `.id-ingredients` (blok `ingredients`) ─────
    Přehledový modul jako krémový pás. Karty (fotka + jméno + role)
-   jsou taby: výběr — hover, klepnutí, fokus, šipky — otevře v panelu
+   po hydrataci: hover, klepnutí či Enter/mezerník otevře v panelu
    pod kartami plnou sekci složky. Panely leží všechny v téže mřížkové
    buňce, takže přepínání nemění výšku stránky; neaktivní jsou inert.
+   Bez JS se všechny panely skládají pod kartami v běžném toku.
    Žádné boxy ani stíny: holá fotografie s radiusem 20 px (9.1). */
 .id-ingredients.id-band--self {
   padding-block: var(--id-sect-y-sm);
@@ -323,7 +324,7 @@
   border-radius: var(--id-r-card, 20px);
 }
 @media (hover: hover) {
-  .id-ingredients__tab {
+  :where(.id-ingredients__grid[data-enhanced]) .id-ingredients__tab {
     cursor: pointer;
   }
 }
@@ -339,7 +340,7 @@
   aspect-ratio: 1;
   object-fit: cover;
   border-radius: var(--id-r-card, 20px);
-  transition: filter 0.32s ease, transform 0.32s ease;
+  transition: transform 0.32s ease;
 }
 .id-ingredients__item figcaption {
   display: block;
@@ -391,27 +392,27 @@
   .id-ingredients__item figcaption {
     transition: opacity 0.32s ease;
   }
-  .id-ingredients__grid:has(> .id-ingredients__tab:hover)
+  .id-ingredients__grid:where([data-enhanced]):has(> .id-ingredients__tab:hover)
     .id-ingredients__tab:not(:hover)
     .id-ingredients__img,
-  .id-ingredients__grid:has(> .id-ingredients__tab:focus-visible)
+  .id-ingredients__grid:where([data-enhanced]):has(> .id-ingredients__tab:focus-visible)
     .id-ingredients__tab:not(:focus-visible)
     .id-ingredients__img {
     filter: blur(4px) saturate(0.85);
     transform: scale(1.03); /* schová průsvitný okraj rozmazání pod ořez */
   }
-  .id-ingredients__grid:has(> .id-ingredients__tab:hover)
+  .id-ingredients__grid:where([data-enhanced]):has(> .id-ingredients__tab:hover)
     .id-ingredients__tab:not(:hover)
     .id-ingredients__media::after,
-  .id-ingredients__grid:has(> .id-ingredients__tab:focus-visible)
+  .id-ingredients__grid:where([data-enhanced]):has(> .id-ingredients__tab:focus-visible)
     .id-ingredients__tab:not(:focus-visible)
     .id-ingredients__media::after {
     opacity: 1;
   }
-  .id-ingredients__grid:has(> .id-ingredients__tab:hover)
+  .id-ingredients__grid:where([data-enhanced]):has(> .id-ingredients__tab:hover)
     .id-ingredients__tab:not(:hover)
     figcaption,
-  .id-ingredients__grid:has(> .id-ingredients__tab:focus-visible)
+  .id-ingredients__grid:where([data-enhanced]):has(> .id-ingredients__tab:focus-visible)
     .id-ingredients__tab:not(:focus-visible)
     figcaption {
     opacity: 0.48;
@@ -452,22 +453,22 @@
   margin-top: clamp(10px, 1.4vw, 18px);
 }
 @media (hover: hover) and (min-width: 1130px) {
-  .id-ingredients__panel-slot {
+  :where(.id-ingredients__grid[data-enhanced]) .id-ingredients__panel-slot {
     grid-row: 2;
   }
 }
 @media (hover: hover) and (min-width: 561px) and (max-width: 1129px) {
-  .id-ingredients__panel-slot {
+  :where(.id-ingredients__grid[data-enhanced]) .id-ingredients__panel-slot {
     grid-row: 3;
   }
 }
 @media (hover: hover) and (min-width: 561px) {
-  .id-ingredients__panel-slot {
+  :where(.id-ingredients__grid[data-enhanced]) .id-ingredients__panel-slot {
     opacity: 0;
     visibility: hidden;
     transition: opacity 0.28s ease, visibility 0.28s;
   }
-  .id-ingredients__panel-slot.is-active {
+  :where(.id-ingredients__grid[data-enhanced]) .id-ingredients__panel-slot.is-active {
     opacity: 1;
     visibility: visible;
   }
@@ -539,21 +540,21 @@
    a vždy má pokračování: karty a zbytek článku. Klepnutí na otevřenou
    kartu zavírá. Výška se nemání animací (vzor FAQ), obsah fade-in. */
 @media (hover: none), (max-width: 560px) {
-  .id-ingredients__panel-slot {
+  :where(.id-ingredients__grid[data-enhanced]) .id-ingredients__panel-slot {
     order: -1;
     border-bottom: 1px solid #dcdad4;
     padding-bottom: clamp(20px, 5vw, 30px);
   }
   /* Vybraná složka stojí v čtveřici první (vlevo nahoře) — pořadí
      je jen vizuální (CSS order), DOM a čtecí pořadí se nemění. */
-  .id-ingredients__tab {
+  :where(.id-ingredients__grid[data-enhanced]) .id-ingredients__tab {
     order: 1;
   }
-  .id-ingredients__tab.is-active {
+  :where(.id-ingredients__grid[data-enhanced]) .id-ingredients__tab.is-active {
     order: 0;
   }
-  .id-ingredients__panel-slot:not(.is-active),
-  .id-ingredients__grid.netknuto .id-ingredients__panel-slot {
+  :where(.id-ingredients__grid[data-enhanced]) .id-ingredients__panel-slot:not(.is-active),
+  .id-ingredients__grid:where([data-enhanced]).netknuto .id-ingredients__panel-slot {
     display: none;
   }
   .id-ingredients__panel-slot.is-active .id-ingredients__panel {
@@ -596,6 +597,10 @@
 }
 .id-ingredients__tab.is-active .id-ingredients__aff {
   transform: rotate(180deg);
+}
+/* Bez hydratace jsou karty přehledem, nikoli nefunkčními ovladači. */
+.id-ingredients__grid:not([data-enhanced]) .id-ingredients__aff {
+  display: none;
 }
 /* šipková afordance patří akordeonu — na desktopu se skrývá */
 @media (hover: hover) and (min-width: 561px) {
@@ -738,8 +743,11 @@
    (na 320 px klipovalo 22–27 % u všech tabulek) a tabulka dávek
    měla 70 % obsahu mimo viewport (kolo 01, kritický nález).
    Každý řádek se skládá pod sebe: položka jako titulek skupiny,
-   hodnoty s hlavičkou svého sloupce z data-label. `thead` mizí
-   i pro odečítač — hlavičky čte z ::before, jinak by zněly dvakrát. */
+   hodnoty s vlastní viditelnou hlavičkou sloupce. `thead` mizí,
+   hlavička zůstává v buňce jako skutečný text včetně malých jednotek. */
+.id-table__mobile-label {
+  display: none;
+}
 @media (max-width: 560px) {
   .id-table thead {
     display: none;
@@ -774,13 +782,13 @@
     align-items: baseline;
     gap: 2px 16px;
   }
-  .id-table td::before {
-    content: attr(data-label);
+  .id-table__mobile-label {
+    display: block;
     font-family: var(--id-f-display);
-    font-size: 11.5px;
+    font-size: 12px;
     font-weight: 600;
     text-transform: uppercase;
-    letter-spacing: 0.1em;
+    letter-spacing: 0.14em;
     line-height: 1.5;
     color: var(--id-ink-2);
   }
@@ -893,6 +901,21 @@
     rgba(11, 13, 16, 0.74) 32%,
     rgba(11, 13, 16, 0.72) 46%,
     rgba(11, 13, 16, 0.4) 54%,
+    rgba(11, 13, 16, 0) 62%
+  );
+}
+
+/* This photograph places bright sand behind the eyebrow at narrower widths.
+   Keep this art-direction adjustment local; the clear upper edge stays at 62%. */
+.id-hero[data-post-slug='pisek-biochar-a-dalsi-primesi'] .id-hero__scrim {
+  background: linear-gradient(
+    to top,
+    rgba(11, 13, 16, 0.85) 0%,
+    rgba(11, 13, 16, 0.78) 18%,
+    rgba(11, 13, 16, 0.74) 32%,
+    rgba(11, 13, 16, 0.72) 46%,
+    rgba(11, 13, 16, 0.6) 54%,
+    rgba(11, 13, 16, 0.52) 59%,
     rgba(11, 13, 16, 0) 62%
   );
 }
@@ -2433,8 +2456,10 @@ html {
     font-size: 18px;
   }
 }
-/* Nejužší telefony (320–360): kresba klesá k 296 px, měřítko 0,57. */
-@media (max-width: 360px) {
+/* A 15px persistent scrollbar is included in the 10px rendered-label
+   floor. Extend the existing compact text scale through 385px; at 386px
+   the regular 15px label on a 347px drawing renders at 10.01px. */
+@media (max-width: 385px) {
   .id-figure-svg .sv-lbl {
     font-size: 18px;
     letter-spacing: 0.06em;
@@ -2442,5 +2467,41 @@ html {
   .id-figure-svg .sv-val {
     font-size: 21px;
   }
+  .id-split__figure > .id-figure-media {
+    padding: 8px;
+  }
+}
+/* The product drawing keeps the prose gutters and therefore needs a
+   separate label floor. Values retain their existing hierarchy. */
+@media (max-width: 360px) {
+  .id-band--obsidian .id-figure-svg .sv-lbl {
+    font-size: 20px;
+  }
+}
+@media (min-width: 386px) and (max-width: 560px) {
+  .id-band--obsidian .id-figure-svg .sv-lbl {
+    font-size: 16px;
+  }
+}
+/* At the first two-column widths, reserve more space for the drawing.
+   The 4vw column gap is still fluid here; at 1150px the unmodified
+   panel already provides a 435.5px drawing (10.05px labels). */
+@media (min-width: 1130px) and (max-width: 1149px) {
+  .id-split__figure > .id-figure-media {
+    padding-inline: 24px;
+  }
 }
 
+/* The open ingredient drawing needs the same mobile canvas as split
+   figures. Expand only SVG figures; ingredient photos keep their crop. */
+@media (max-width: 560px) {
+  .id-ingredients__panel-fig:has(> .id-figure-svg) {
+    max-width: none;
+    margin-inline: calc(12px - var(--id-gutter));
+  }
+}
+@media (max-width: 385px) {
+  .id-ingredients__panel-fig:has(> .id-figure-svg) {
+    margin-inline: calc(8px - var(--id-gutter));
+  }
+}
