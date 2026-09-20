@@ -474,7 +474,10 @@
 }
 .id-ingredients__panel--s-obrazem {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(300px, 420px);
+  /* 520 px = nominální šířka viewBoxu kreseb (9.2). Užší sloupec
+     (dřív 420) zmenšoval MykorhizniVlakna na 0,808× — pointa 19,4 px
+     místo 24, popisky pod mezí 10 px i na desktopu (kolo 04, styl). */
+  grid-template-columns: minmax(0, 1fr) minmax(300px, 520px);
   gap: clamp(28px, 4vw, 56px);
   align-items: start;
 }
@@ -876,17 +879,20 @@
    obraz se sotva znatelně usadí. */
 
 .id-hero__scrim {
-  /* 9.1 v2.7: scrim sahá do 62 % výšky, ne do 45 %. Eyebrow a první řádek
-     H1 leží na ~53 % výšky, tedy nad původním koncem přechodu — na holé
-     fotce dávaly 3,3–4,2:1. Průběh je proto plošší (čtyři zastávky),
-     aby fotka neztmavla plošně: v horní třetině je krytí pod 0,1 a snímek
-     zůstává nositelem emoce, ne texturou pod textem. */
+  /* 9.1 v2.9: nová hero fotka (kolo 04 článku 3) má na ~51 % výšky
+     odshora jasný hřeben pískové hromady (L 0,80 před scrimem) —
+     s předchozí křivkou tam kontrast textu klesal na 1,43:1. Křivka je
+     teď strmější mezi 30–56 % odspodu (kde leží první řádek H1), aby
+     efektivní jas v tom pásmu klesl pod 0,30 (potřeba pro bílý text
+     ≥3:1 na velkém písmu). Strop 62 % zůstává — horní třetina fotky je
+     stále bez scrimu. Ověřeno měřením na živé stránce (viz LOOP_LOG). */
   background: linear-gradient(
     to top,
-    rgba(11, 13, 16, 0.74) 0%,
-    rgba(11, 13, 16, 0.5) 22%,
-    rgba(11, 13, 16, 0.24) 42%,
-    rgba(11, 13, 16, 0.08) 54%,
+    rgba(11, 13, 16, 0.85) 0%,
+    rgba(11, 13, 16, 0.78) 18%,
+    rgba(11, 13, 16, 0.74) 32%,
+    rgba(11, 13, 16, 0.72) 46%,
+    rgba(11, 13, 16, 0.4) 54%,
     rgba(11, 13, 16, 0) 62%
   );
 }

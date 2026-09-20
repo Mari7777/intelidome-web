@@ -2154,3 +2154,73 @@ kořínku" to zkrátilo počet řádků, takže pokrytí kleslo z 55 % (balík 3
 na 50 % (živě v kole 03), aniž bych se textu dotkl. Přejímka po
 opravě: layout-check 5 šířek (R L ×10), svg-labels 320/393/1440
 (12/12 OK), přetečení false, partitura beze změny.
+
+
+## Kolo 04 — 4 · 4 · 4 · 3 · 5 · 3 · 4, dva kritické (2026-09-20)
+
+Zadání znovu žádalo neověřovat kolo 03, měřit živě od nuly. Snímky
+porota-c3-04 (51/92/52). Slop dosáhl 5/5 — poprvé u tohoto článku.
+
+| Lenz | Kolo 03 → 04 | Kritické |
+|---|---|---|
+| hierarchie | 3 → **4** | 0 |
+| typografie | 3 → **4** | 0 |
+| pohyb | 3 → **4** | 0 |
+| styl | 4 → 3 | 0 → **1** |
+| slop | 4 → **5** | 0 |
+| výkon | 4 → 3 | 0 → 2 (skeptik: 1 vyvráceno → **1** zůstal) |
+| rozložení | 2 → **4** | 1 → **0** ✓ |
+
+**Rozložení se konečně zavřelo** — oprava z kola 03 obstála (0 kritických,
+žádný split pod 96,7 % pokrytí). Skeptici zase odvedli práci: nález
+o chybějícím `tabindex` na `.id-table-wrap` byl **vyvrácen** — je to
+záměrný podmíněný mechanismus z kola 01 (tabindex jen když tabulka
+skutečně přetéká), porotce nenašel komentář v kódu, skeptik ho dohledal
+a nález zamítl jako neplatný.
+
+### Dva kritické (oba opraveny ve stejné relaci)
+
+1. **Kresba Mykorhiza v panelu karty složek zmenšená o 19 %** (styl):
+   kontejner byl `minmax(300px, 420px)` proti nominální šířce viewBoxu
+   520 px — pointa 19,4 px místo 24, popisky pod 10px floor i na
+   desktopu ≥1130 px (jiná příčina než mobilní floor z balíku 4 —
+   tam šlo o chybějící `.id-figure-svg` třídu, tady o samotný strop
+   kontejneru). Oprava: `minmax(300px, 420px)` → `minmax(300px, 520px)`
+   v `.id-ingredients__panel--s-obrazem`. Ověřeno: 520 px šířka,
+   popisek 14 px (bbox).
+
+2. **Hero titulek nečitelný nad světlým pískem** (výkon, skeptik
+   potvrdil nezávislým měřením 1,43–1,98:1 vs. cíl ≥3:1): nová hero
+   fotka (balík fotek po kole 02) má hřeben pískové hromady přesně
+   v pásmu, kde stojí první řádek H1 (51–77 % výšky). Scrim kalibrovaný
+   pro STAROU kompozici tam měl jen ~15% krytí. Přeměřeno přímo na
+   živé stránce (text skrytý přes opacity:0, pixelový sken pozadí,
+   sRGB→lineární luminance, WCAG kontrastní poměr) — nejjasnější bod
+   masky L=0,80 při y=455 (těsně pod horní hranou H1). Nová křivka
+   scrimu (v2.9): strmější mezi 18–54 % odspodu, strop 62 % beze změny
+   (horní třetina fotky zůstává čistá). Po opravě: **1,43:1 → 5,01:1**
+   na 1440 px (nejhorší bod), 8,28:1 na 393, 8,42:1 na 1990 — všechny
+   tři šířky s rezervou nad cílem. Fotka vizuálně nepůsobí plošně
+   ztmavlá (viz snímek).
+
+Přejímka: layout-check 1440, svg-labels 320/393/1440 (12/12), žádné
+přetečení, tsc čistý.
+
+### Zbývá (nekritické, žádné nebrání průchodu)
+
+- **Přestřel opačným směrem**: 3 splity opravené v kole 03 teď mají
+  TEXT delší než kresbu (91→109 %, 87→115 %, 66→152 % u „Prvního
+  kořínku") — nevzniká kritická vada (rozložení dalo 0 kritických),
+  ale hierarchie to zapsala jako důležitý nedodělek: nerovnováha jen
+  změnila stranu. Řešit až v samostatném průchodu, ne narychlo.
+- Mobilní ořez fotky dodávky ztrácí pytle z kompozice (styl, důležitý)
+- Hero `loading="lazy"` + `fetchPriority="high"` rozpor (trvá, koš B)
+- Skip-link (trvá, koš B)
+- NBSP chybí v `**tučném**` textu produktového pásu (ProductBand
+  renderStrong nevolá nezlomitelneMezery na tučné části) — nový nález
+- 2× ASCII uvozovka (trvá), h3 čtyři velikosti napříč bloky (trvá)
+- FAQ dvousloupec 44% prázdno pod leadem (kosmetický, i sourozenecký
+  článek), FAQ otevření bez přechodu (kosmetický)
+- Obr. 08 popisek — porota si sama všimla, že „09 je fotografie" ze
+  zadání už neplatí (přečíslováno v balíku 4); poznamenáno pro příště
+  v zadání dalšího kola.
