@@ -9,8 +9,10 @@
  *
  * Text je autorův, převzatý doslova. Drobné mechanické opravy předlohy
  * (utržená věta u Biovinu, osamocené „P", překlep „dborné", dvojtečka
- * bez konce tučného řezu) jsou vypsané v předávacím shrnutí. Číselné
- * tabulky předlohy nese nový blok `table` – nejsou kresbou, jsou daty.
+ * bez konce tučného řezu, zdvojená tečka u „kořen. .", čárkový spoj
+ * u „...bývá praný, pro jistotu..." změněný na středník) jsou vypsané
+ * v předávacím shrnutí. Číselné tabulky předlohy nese nový blok `table`
+ * – nejsou kresbou, jsou daty.
  *
  * REDAKČNÍ POZNÁMKA PŘEDLOHY (kap. 5): velký receptový kalkulátor NENÍ
  * součástí této verze a nikde se na něj neodkazuje. Kalkulátor slíbený
@@ -820,7 +822,7 @@ const body = root([
     features: [
       {
         title: 'Čidlo v namíchané vrstvě',
-        text: 'Měří vlhkost v hloubce, pro kterou jste směs navrhli – ne na povrchu, který vysychá první.',
+        text: 'Měří vlhkost v hloubce, pro kterou jste směs navrhli — ne na povrchu, který vysychá první.',
       },
       {
         title: 'Dávky podle směsi',
@@ -837,7 +839,7 @@ const body = root([
     blockType: 'ctaBand',
     blockName: 'Závěrečná výzva',
     title: 'Směs se pozná po dešti',
-    sub: 'Namíchali jste půdu, která umí vodu podržet i pustit dál. Chcete, aby se podle ní řídila i zálivka – každý sektor podle své směsi?',
+    sub: 'Namíchali jste půdu, která umí vodu podržet i pustit dál. Chcete, aby se podle ní řídila i zálivka — každý sektor podle své směsi?',
     buttonLabel: 'Objevit systém InteliDome',
     buttonHref: '/',
     ask: 'A otázka na závěr: víte, kolik místa zabere tuna materiálu, který se chystáte objednat?',
