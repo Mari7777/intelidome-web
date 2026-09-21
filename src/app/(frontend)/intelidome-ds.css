@@ -920,6 +920,33 @@
   );
 }
 
+/* Anchor this long title's scrim to the text frame. Short viewports and
+   wrapping content retain contrast without increasing the hero height. */
+.id-hero[data-post-slug='kalkulator-na-planovani-pudniho-profilu'] .id-hero__scrim {
+  background: none;
+}
+
+.id-hero[data-post-slug='kalkulator-na-planovani-pudniho-profilu'] > .container {
+  isolation: isolate;
+}
+
+.id-hero[data-post-slug='kalkulator-na-planovani-pudniho-profilu'] > .container::before {
+  content: '';
+  position: absolute;
+  inset-block: 0;
+  left: 50%;
+  width: 100vw;
+  transform: translateX(-50%);
+  z-index: -1;
+  pointer-events: none;
+  background: linear-gradient(
+    to bottom,
+    rgba(11, 13, 16, 0) 0,
+    rgba(11, 13, 16, 0.64) calc(clamp(96px, 14vw, 160px) - 8px),
+    rgba(11, 13, 16, 0.85) 100%
+  );
+}
+
 /* Art direction ořezu. Master je 21:9 se světlou oblohou nahoře vlevo —
    přesně tam, kde začíná textový blok. Posunem rámu dolů se pod text
    dostane tráva ve stínu, takže čitelnost vzniká z obrazu, ne z tmavení.

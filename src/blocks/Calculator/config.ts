@@ -19,6 +19,7 @@ export const Calculator: Block = {
         { label: 'Dávka a doba zálivky', value: 'davka' },
         { label: 'Zkouška vsakování — rychlost a verdikt', value: 'vsak' },
         { label: 'Příměs do půdy — litry, kilogramy, pytle', value: 'primesi' },
+        { label: 'Plánování půdního profilu — směs, dodávka a rozpočet', value: 'pudni-profil' },
       ],
     },
     {
@@ -26,7 +27,10 @@ export const Calculator: Block = {
       type: 'select',
       defaultValue: 'axis',
       label: 'Poloha na mřížce',
-      admin: { description: 'Mimoosové polohy se musí v článku střídat (ADR-006).' },
+      admin: {
+        condition: (_, siblingData) => siblingData?.kind !== 'pudni-profil',
+        description: 'Mimoosové polohy se musí v článku střídat (ADR-006).',
+      },
       options: [
         { label: 'Na ose (edge 40–1400)', value: 'axis' },
         { label: 'Vysunout doprava (370–1400)', value: 'offset-right' },
@@ -39,6 +43,7 @@ export const Calculator: Block = {
       defaultValue: 'panel',
       label: 'Povrch',
       admin: {
+        condition: (_, siblingData) => siblingData?.kind !== 'pudni-profil',
         description:
           'Pás nese posun povrchu (8.1 p. 3) — v dlouhém článku drží rytmus, který vsazené panely samy neudělají. Mezi dvěma obsidiany musí zůstat aspoň dvě světlé sekce (8.1 p. 2).',
       },
@@ -53,7 +58,7 @@ export const Calculator: Block = {
       defaultValue: false,
       label: 'Světlá varianta (krém) — jen pro vsazený panel',
       admin: {
-        condition: (_, siblingData) => siblingData?.surface !== 'band',
+        condition: (_, siblingData) => siblingData?.kind !== 'pudni-profil' && siblingData?.surface !== 'band',
         description: 'Zůstává kvůli starším článkům; nový obsah volí povrch výš.',
       },
     },

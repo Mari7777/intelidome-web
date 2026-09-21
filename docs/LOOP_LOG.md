@@ -2370,3 +2370,233 @@ Dočasné důkazy, snímky, měření, výpočty kontrastu a patche:
 `/tmp/design-loop-primesi-round06/`; zejména `svg-open-final.json`,
 `hero-after-contrast-source.json`, `hero-after-contrast-glyph-estimate.json`,
 `loading-after.json` a `surfaces-after.json`.
+
+# Článek s kalkulátorem půdního profilu
+
+## Kolo 01 — PROŠEL v ověřeném rozsahu (2026-09-21)
+
+URL: `/posts/kalkulator-na-planovani-pudniho-profilu`. Nový průchod po
+oddělení přípravy směsi a výsevu do samostatného článku. Použit postup
+projektu z tohoto logu, DESIGN.md a ADR-006; samostatný skill `design-loop`
+není v dostupné sadě. Dva nezávislí recenzenti posoudili sazbu a grafický
+styl, respektive přístupnost, pohyb a výkonové předpoklady. Root ověřil
+nálezy a opravy v živém lokálním náhledu. V tomto rozsahu nezůstal
+potvrzený blokující nález.
+
+| Oblast | Po opravách |
+|---|---|
+| Hierarchie | 4/5 |
+| Typografie | 4/5 |
+| Rozložení | 4/5 |
+| Grafický styl | 4/5 |
+| Slop | 4/5 |
+| Pohyb | 4/5 |
+| Přístupnost, ovládání a výkonové předpoklady | 4/5 |
+
+### Opravy
+
+- Kalkulátor nyní respektuje CMS nastavení `surface=band`. Tmavé zadání
+  a světlý řez používají osy článku místo dalšího vsazeného panelu.
+  Na šířce 393 px narostla výsledková tabulka z 256 na 296 px.
+- Výsledky zůstávají pod vstupy, jemně oddělené jiným tmavým povrchem.
+  Zachován sloupec „K objednání“ u každé příměsi i zarovnání podtržení
+  Actina s hloubkou profilu.
+- Tělo výsledkové tabulky používá 14,5 px, záhlaví uppercase 12 px.
+  Tag „Kalkulátor“ má neutrální textový vzhled bez tlačítkové pilulky.
+- Cenový sloupec se zobrazí po otevření cen nebo při zadaném ceníku;
+  výchozí mobilní výsledek neopakuje pět prázdných řádků „Cena —“.
+  Během editace zůstává sloupec viditelný i při nulových cenách.
+- Parser přijímá rozepsané `12,` a `12.` jako 12, přitom zachovává text
+  vstupu. Před opravou zmizela tabulka a cenové pole odskočilo z y=409
+  na y=-780; po opravě zůstává tabulka i pole ve viewportu. Neplatné
+  vícenásobné oddělovače zůstávají chybou.
+- Jediné explicitní polite shrnutí nově zahrnuje varování při platném
+  výsledku a dováženou zeminu v režimu Nová vrstva. Graf má textový popis
+  složení zón přes `aria-describedby`; vizuální receptura se nevrací.
+
+### Ověření
+
+- Šířky 320 / 393 / 1024 / 1130 / 1440 / 1990 px: nulový vodorovný
+  přesah. Nejmenší přepočtená velikost SVG textu celé stránky v tomto
+  vzorku přibližně 10 px. Desktopová podtržení mají rozdíl 0 px ve všech
+  třech režimech na 1130 i 1440 px.
+- Živě: otevření cen přes tlačítko a fokus prvního pole; `12,` a `12,5`
+  bez zániku výsledků; zachování cenového sloupce po zavření ceníku
+  s cenou; skrytí při zavřeném nulovém ceníku. Klávesa Tab z plochy
+  pokračuje na hloubku profilu.
+- Plocha 50 m² při výchozí receptuře dává 75 kg Actina, 120 kg zeolitu
+  a 100 l biocharu. Hlášení Zapravit obsahuje upozornění na zvýšení
+  terénu, Nová vrstva dováženou zeminu a profil 5 cm informaci o omezení
+  hloubek zapravení.
+- 11 případů parseru a SSR propojení popisu grafu PASS; stávajících
+  25 testů výpočtu PASS. `tsc --noEmit --incremental false` PASS,
+  `git diff --check` PASS. CMS obsah a matematické vztahy se neměnily.
+
+### Hranice ověření
+
+Jde o lokální vizuální a funkční kontrolu, nikoli produkční CWV/FPS
+měření nebo úplný audit čtečkou obrazovky. Reduced-motion byl v tomto
+kole zkontrolován ve zdroji, nastavení OS se neměnilo. ESLint nebyl
+spouštěn kvůli dříve známé chybě konfigurace. Starší poznámky mimo tento
+rozsah zůstávají platné.
+
+Důkazy, snímky, měření a staged změny:
+`/tmp/design-loop-profile-2026-09-21/`.
+
+## Kolo 02 — PROŠEL v ověřeném rozsahu (2026-09-21)
+
+Druhý průchod článkem `/posts/kalkulator-na-planovani-pudniho-profilu`.
+Dva nezávislí recenzenti znovu posoudili výsledkové stavy a čitelnost
+kresby. Potvrzené nálezy byly opraveny a ověřeny v lokálním prohlížeči.
+Přechod ze světlé kresby do úvodu výkladu má přiměřený odstup; neměnil se.
+
+| Oblast | Po opravách |
+|---|---|
+| Hierarchie | 4/5 |
+| Typografie | 4/5 |
+| Rozložení | 4/5 |
+| Grafický styl | 4/5 |
+| Slop | 4/5 |
+| Pohyb | 4/5 |
+| Přístupnost a ovládání | 4/5 |
+| Výkonové předpoklady | 4/5 |
+
+### Opravy
+
+- Při neplatné ceně nebo hustotě zůstává výsledková tabulka, součty
+  i tlačítko ceníku vykreslené. Neplatná množství ukazují pomlčky,
+  nikoli poslední platná čísla nebo nuly. Před opravou neplatná cena
+  odstranila všech pět řádků a posunula aktivní pole z y=415 na y=-710;
+  vymazaná hustota z y=471 na y=-202.
+- Hlavní pokyn rozlišuje prázdné zadání od neplatného. Chyba ceny
+  pojmenuje konkrétní materiál; validační popisky Actina odpovídají
+  názvu ve formuláři. Poměrový output má aria-live=off; slider si
+  zachoval aria-valuetext a souhrn jedinou explicitní polite oblast.
+- Jednotka hloubky pod oběma SVG se posunula mimo hnědé podloží,
+  viewBox získal prostor pro celý popisek. Před opravou se text
+  překrýval s podložím o přibližně 14 px na desktopu.
+- Šrafování objemu k odvozu má krémovou čáru tloušťky 1,6 místo
+  nevýrazné šedé. Hustota šrafování a význam kresby zůstávají stejné.
+
+### Ověření
+
+- Šířky viewportu 320 / 393 / 700 / 1130 / 1440 px: nulový vodorovný
+  přesah. Popisky pod kresbou mají skutečnou mezeru od podloží
+  6,875 až 12 px. Na desktopu zůstává Actino zarovnané s hloubkou;
+  rozdíl podtržení 0 px i při přepnutí všech tří režimů na 1440 px.
+- Živě na 393 px: neplatná cena drží 5 řádků a 15 pomlček, oprava
+  vrátí množství i cenu; stejné aktivní pole je viditelné (y=370/534).
+  Vymazaná hustota a její oprava drží 5 řádků, aktivní pole y=347/596.
+  Souhrn čte konkrétní chybu „Cena písku…“. Prázdná plocha zachovává
+  tabulku s pomlčkami a výzvu doplnit plochu a hloubku.
+- Platná plocha 50 m²: Actino 75 kg, zeolit 120 kg, biochar 100 l.
+  Ověřeny Udržet výšku, Zapravit a Nová vrstva; písčitá předvolba
+  správně nepřidává písek.
+- Nezávislý SSR check: invalid price/density/empty má vždy 5 řádků
+  bez falešných nul, validační hlášení identifikují všech 5 cen.
+  Porovnání 27 platných scénářů s výchozím zdrojem nezměnilo výsledky.
+  Stávajících 25 testů výpočtu PASS, TypeScript PASS, diff whitespace
+  check PASS. CMS obsah a matematické vztahy se neměnily.
+
+### Hranice ověření
+
+Poznámky a zalomení řádků při změně stavu stále způsobují menší posuny;
+ve zkoušených případech upravované pole zůstalo ve viewportu. Nejde
+o úplný audit čtečkou ani produkční CWV/FPS měření. Reduced-motion
+a nativní scroll ověřeny ve zdroji, nastavení OS se neměnilo. Známá
+chyba konfigurace ESLintu nebyla předmětem tohoto kola.
+
+Důkazy, snímky, staged soubory a přesný diff druhého kola:
+`/tmp/design-loop-profile-round02/`.
+
+## Kolo 03 — porota + sladění s `.id-calc` (2026-09-21)
+
+URL: `/posts/kalkulator-na-planovani-pudniho-profilu`. Nezávislý běh
+sedmi lenzů (Workflow, schema verdiktu + skeptik na každý kritický
+nález) proti právě dokončenému kalkulátoru `SoilProfileCalculator`
+(vlastní `.id-profile-calc` vrstva — CSS komentář ji výslovně
+prohlašuje za výjimku z 7.7). Cílem bylo posoudit, zda se nová
+komponenta i po kolech 01–02 (funkční/validační opravy, viz výše)
+drží sdíleného vizuálního jazyka `.id-calc`.
+
+| Oblast | Skóre poroty | Po opravách |
+|---|---|---|
+| Hierarchie | 2/5 (oba kritické nálezy skeptik vyvrátil — DOM/tab pořadí sedí, výsledek má strukturní kotvu) | neřešeno, viz níže |
+| Typografie | 4/5 | — |
+| Pohyb | 3/5 | částečně |
+| Grafický styl | 3/5 | opraveno |
+| Slop | 2/5 | opraveno |
+| Výkon a přístupnost | 4/5 | opraveno |
+| Rozložení | 4/5 | — |
+
+**0 potvrzených kritických nálezů** — 3 tvrzené kritické (dvousloupcové
+rozvržení obchází pořadí vstup→výstup; čtyři podobná modrá čísla bez
+kotvy; Biovin/Actino) skeptik zamítl: dvousloupec je zdokumentovaný
+vzor (7.7, §18) se zachovaným DOM/tab pořadím; výsledek má strukturní
+kotvu (posun povrchu + rámeček + nadpis „Výsledek", 3.7); pojmenování
+řeší DESIGN.md vůbec, je to obsahová otázka.
+
+### Opravy
+
+- **Biovin → Actino, sjednoceno napříč všemi třemi navazujícími
+  články** (rozhodnutí autora: skutečný rebrand, ne omyl). 46 výskytů
+  přejmenováno se správnou českou deklinací (Actino/Actina/Actinem);
+  zachovány oba odkazy na skutečného výrobce `biovin.at`. Gloska
+  „Actino (dříve Biovin)" doplněna při prvním výskytu v běžícím textu
+  článku 1 (kap. 1) a článku 3 (kap. 2) — kalkulátor už glosu nesl.
+  `ORIGINAL_META_DESCRIPTION` v `split-primesi-content.ts` opravena.
+- Aktivní segment (režim, typ půdy) je `background:accent, color:#fff`
+  místo krémové výplně — jediná plocha panelu, která nebyla modrá.
+- Zvýrazněná čísla (`__primary`, `__cost`, `__purchasevalue`) přešla
+  z `--id-accent-tint` na `--id-accent-dark`: tint je podle 3.4 vyhrazen
+  eyebrow/tagům/mikrotypografii, ne číselným hodnotám ≥ 20 px.
+- Štítek „Kalkulátor" změněn z neutrální šedé (`--id-ink-dark-2`) na
+  `--id-accent-tint` beze pilulky. DESIGN.md koš A bod 6 dokumentuje
+  přesně tento tvar jako už vyřešený: „bez pilulky i rámečku, **zůstal
+  jen hlas**" (3.8) — barva zůstat měla; kolo 01 ji spolu s pilulkou
+  omylem odstranilo, tímto vráceno.
+- Focus-visible prstenec sjednocen na 3px/3px (segmenty, textbutton,
+  summary) a 3px/6px (slider) v plném `--id-accent` místo 2px/4px
+  v `--id-accent-tint`; číselná pole dřív neměla žádný prstenec, teď mají.
+- Posuvník poměru implementuje 7.10 od nuly (vlastní stopa a palec
+  přes `::-webkit-slider-thumb`/`::-moz-range-thumb`, `--pct` gradient
+  vyplňovaný z Reactu, nevyplněná dráha `--id-line-dark` pro tmavý
+  kontext) — dřív běžel jako nativní OS prvek bez jakéhokoli stylu.
+- Podtržení vstupních řádků nahrazeno tokenem `--id-line-dark` místo
+  natvrdo `rgba(255,255,255,.24)`; rámeček upozornění `--id-r-md`
+  místo `--id-r-sm` (shodně s Calloutem, 7.8).
+- Doplněn souhrnný `.id-verdict--ok` řádek po dokončeném a bezchybném
+  výpočtu („Zadání je konzistentní. Materiály jsou připravené
+  k objednání.") — dřív žádný ze čtyř kalkulátorů webu tuto komponentu
+  nepostrádal, tenhle ano.
+
+### Neopravené (mimo rozsah tohoto kola)
+
+- Kalkulátor jako jediná velká sekce nedostává scroll-reveal (0/30 `.rv`).
+- Tažení slideru pod 4× CPU throttlem dělá 50–60ms long-tasky (přepočet
+  a překreslení SVG bez debounce/rAF gatingu).
+- Mobilní ořez jednotky „l" u „K objednání" (Biochar) na úzkých šířkách.
+- 4 měny (CZK/EUR/USD/GBP) bez přepočtu — UI přítěž bez doloženého účelu.
+- Legenda „Zemina"/„Actino" v řezu skoro nerozeznatelná (ΔRGB ≈ 31).
+- `.id-profile-calc` nemá v DESIGN.md žádnou zmínku, přestože se sama
+  v kódu prohlašuje za výjimku ze 7.7 — hrozí budoucí rozjetí.
+
+### Ověření
+
+- `tsc --noEmit --incremental false` PASS. 25/25 testů výpočtu PASS
+  (matematika se neměnila). `layout-check.mjs` beze změny proti stavu
+  před opravou (stejná známá chyba měřicího skriptu na jednomodulové
+  ose, ověřená už v kole poroty proti sourozeneckému článku).
+- Živě v lokálním náhledu na 1440 a 375 px: aktivní segmenty, štítek,
+  slider (stopa + palec + prstenec), zvýrazněná čísla a zelený verdikt
+  vizuálně potvrzeny na snímcích obrazovky.
+- Souběžná relace prováděla ve stejném okně nezávisle kola 01–02 (funkční
+  a validační opravy, viz výše) — funkčně se nepřekrývají s tímto kolem
+  kromě štítku (viz výše); kombinovaný stav ověřen společně.
+
+### Hranice ověření
+
+Neproběhl audit čtečkou obrazovky ani produkční CWV/FPS měření.
+Neopravené nálezy (výše) čekají na další kolo. Porota i oprava proběhly
+jako Workflow (7 agentů + skeptik), ne jako samostatný skill `design-loop`
+(v prostředí nedostupný).

@@ -1,12 +1,17 @@
 'use client'
 
 import React, { useId, useState } from 'react'
+import dynamic from 'next/dynamic'
 
 import { nezlomitelneMezery } from '@/utilities/czechTypography'
 import { cn } from '@/utilities/ui'
 
+const SoilProfileCalculator = dynamic(() =>
+  import('./SoilProfileCalculator').then((module) => module.SoilProfileCalculator),
+)
+
 export type CalculatorBlockProps = {
-  kind: 'prutok' | 'davka' | 'vsak' | 'primesi'
+  kind: 'prutok' | 'davka' | 'vsak' | 'primesi' | 'pudni-profil'
   /** Poloha na mřížce článku: na ose, nebo zrcadlený offset (ADR-006). */
   layout?: string | null
   /** `panel` = vsazený do sekce, `band` = celý pás (nese posun povrchu, 8.1 p. 3). */
@@ -58,6 +63,7 @@ export const CalculatorBlock: React.FC<CalculatorBlockProps> = ({
   surface,
 }) => {
   const uid = useId()
+  if (kind === 'pudni-profil') return <SoilProfileCalculator className={className} surface={surface} />
   /*
     Kalkulátor je buď vsazený PANEL ve světlé sekci (7.7), nebo celý PÁS —
     v dlouhém článku je pás jediné, co udělá posun povrchu (8.1 p. 3):

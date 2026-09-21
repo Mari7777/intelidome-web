@@ -53,6 +53,12 @@ export default async function Post({ params: paramsPromise }: Args) {
 
   if (!post) return <PayloadRedirects url={url} />
 
+  // A form-heavy planning tool keeps native scrolling (DESIGN.md 6.5).
+  const hasProfileCalculator = post.content.root.children.some((node) => {
+    const fields = node.fields as { blockType?: string; kind?: string } | undefined
+    return fields?.blockType === 'calculator' && fields.kind === 'pudni-profil'
+  })
+
   return (
     <main>
       <article>
@@ -65,7 +71,7 @@ export default async function Post({ params: paramsPromise }: Args) {
 
         {/* Nástupy sekcí + setrvačníkové brzdění: per-page opt-in dle 6.5,
             imerzivní obsah ano, formuláře a administrace nikdy. */}
-        <Motion inertia />
+        <Motion inertia={!hasProfileCalculator} />
 
         <PostHero post={post} />
 

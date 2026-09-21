@@ -1,9 +1,10 @@
 /**
- * Vloží článek „Písek, biochar a další příměsi: jak namíchat půdu pro
- * trávník" do LOKÁLNÍ databáze.
+ * Vloží tři navazující články o příměsích, plánování a přípravě půdní směsi
+ * do LOKÁLNÍ databáze. Původní autorský podklad níže se před zápisem
+ * vždy rozdělí sdílenou transformací; kapitoly 5–7 se do prvního nevracejí.
  * Spuštění:  npm run payload -- run scripts/seed-clanek-primesi.ts
  *
- * Idempotentní: když článek se stejným slugem existuje, přepíše ho.
+ * Idempotentní: aktualizuje všechny tři články podle jejich stabilních slugů.
  * Ostrý web se plní vlastním nasazením, ne tímhle skriptem – publikaci
  * dělá majitel v adminu.
  *
@@ -14,16 +15,19 @@
  * v předávacím shrnutí. Číselné tabulky předlohy nese nový blok `table`
  * – nejsou kresbou, jsou daty.
  *
- * REDAKČNÍ POZNÁMKA PŘEDLOHY (kap. 5): velký receptový kalkulátor NENÍ
- * součástí této verze a nikde se na něj neodkazuje. Kalkulátor slíbený
- * v kapitole 2 je existující `primesi` (plocha + hloubka + podíl →
- * litry, kilogramy, pytle) – přesně to, co odstavec popisuje.
+ * Finální obsah: první článek obsahuje kapitoly 1–4 bez kalkulátoru.
+ * Druhý začíná kalkulátorem `pudni-profil` a pokračuje původní
+ * kapitolou 5, nově číslovanou 1. Původní kapitoly 6 a 7 o práci
+ * se směsí, výsevu a první péči patří třetímu článku jako kapitoly 1–2.
+ * Topdressing se nevkládá.
  */
 import path from 'path'
 import { fileURLToPath } from 'url'
 import { existsSync } from 'fs'
-import { getPayload } from 'payload'
+import { createLocalReq, getPayload, type RequiredDataFromCollectionSlug } from 'payload'
 import config from '@payload-config'
+import { PREPARATION_TITLE, PREPARATION_SLUG, PREPARATION_META_DESCRIPTION } from './lib/split-profile-preparation'
+import { splitPrimesiContent, PROFILE_SLUG, PROFILE_TITLE, ORIGINAL_META_DESCRIPTION, PROFILE_META_DESCRIPTION } from './lib/split-primesi-content'
 
 const dirname = path.dirname(fileURLToPath(import.meta.url))
 
@@ -194,7 +198,7 @@ const MEDIA: {
   },
   {
     filename: 'slozka-biovin.avif',
-    alt: 'Detail hroznového kompostu Biovin: drobné tmavě hnědé pelety z matoliny na starém dřevěném prkně v teplém bočním světle.',
+    alt: 'Detail hroznového kompostu Actino: drobné tmavě hnědé pelety z matoliny na starém dřevěném prkně v teplém bočním světle.',
   },
   {
     filename: 'slozka-biochar.avif',
@@ -210,7 +214,7 @@ const MEDIA: {
   },
   {
     filename: 'panel-biovin.avif',
-    alt: 'Pelety hroznového kompostu Biovin rozsypané na tmavé zahradní ornici, některé napůl zapravené a rozpadající se do půdy.',
+    alt: 'Pelety hroznového kompostu Actino rozsypané na tmavé zahradní ornici, některé napůl zapravené a rozpadající se do půdy.',
   },
   {
     filename: 'panel-biochar.avif',
@@ -259,11 +263,11 @@ const body = root([
     eyebrow: 'Kapitola 01',
     title: 'Z čeho půdu skládáme a co která složka umí',
     number: '01',
-    alt: 'Dva řezy zeminou vedle sebe: v jílovité zahradě přimíchaný písek otevírá kapce vody cestu dolů, v písčité zahradě kapku drží zrna biocharu a zeolitu u kořenů. Dole legenda značek: písek, biochar, Biovin, zeolit a voda.',
+    alt: 'Dva řezy zeminou vedle sebe: v jílovité zahradě přimíchaný písek otevírá kapce vody cestu dolů, v písčité zahradě kapku drží zrna biocharu a zeolitu u kořenů. Dole legenda značek: písek, biochar, Actino, zeolit a voda.',
     caption:
       'Stejné pytle, opačná práce. Jílu příměsi otevírají cestu pro vodu a vzduch, písku pomáhají vodu a živiny podržet.',
     body:
-      'Představme si dvě sousední zahrady po stejném dešti. Na první se zemina lepí na boty a voda dlouho neodchází. Na druhé se po chvíli dá pohodlně chodit, jenže o několik suchých dnů později už tráva začíná strádat. Oběma zahradám chceme pomoci. Kdybychom ale na obě navezli stejnou směs ve stejném poměru, řešili bychom dva různé problémy jednou odpovědí.\n\nZajímavé je, že materiály mohou být v obou případech stejné: písek, původní zemina, biochar, Biovin a zeolit. Mění se jejich úloha i množství. Jílovité půdě potřebujeme otevřít cestu pro vzduch a přebytečnou vodu. Chudému písku naopak pomoci, aby část vody a živin u kořenů zůstala déle. A dobře fungující hlíně někdy prospějeme nejvíc tím, že do ní zbytečně nepřidáme další materiál.\n\nCílem je porozumět tomu, co má směs dělat. Přesná čísla ve výpočtu nám mají pomoci udržet zamýšlené poměry; při práci s navážkou se z nich nestává požadavek na vážení každého kilogramu.',
+      'Představme si dvě sousední zahrady po stejném dešti. Na první se zemina lepí na boty a voda dlouho neodchází. Na druhé se po chvíli dá pohodlně chodit, jenže o několik suchých dnů později už tráva začíná strádat. Oběma zahradám chceme pomoci. Kdybychom ale na obě navezli stejnou směs ve stejném poměru, řešili bychom dva různé problémy jednou odpovědí.\n\nZajímavé je, že materiály mohou být v obou případech stejné: písek, původní zemina, biochar, Actino (dříve Biovin) a zeolit. Mění se jejich úloha i množství. Jílovité půdě potřebujeme otevřít cestu pro vzduch a přebytečnou vodu. Chudému písku naopak pomoci, aby část vody a živin u kořenů zůstala déle. A dobře fungující hlíně někdy prospějeme nejvíc tím, že do ní zbytečně nepřidáme další materiál.\n\nCílem je porozumět tomu, co má směs dělat. Přesná čísla ve výpočtu nám mají pomoci udržet zamýšlené poměry; při práci s navážkou se z nich nestává požadavek na vážení každého kilogramu.',
   }),
 
   /* Sekce písku jako split (připomínka autora po balíku „dlouhé
@@ -302,14 +306,14 @@ const body = root([
     items: [
       {
         __filename: 'slozka-biovin.avif',
-        name: 'Biovin',
+        name: 'Actino',
         text: 'Hroznový kompost z matoliny. Přináší organickou hmotu a živiny, které se uvolňují postupně.',
         note: '0–10 cm · 0 nebo 2,5–10 % objemu',
-        title: 'Biovin: cesta z vinice do kořenové vrstvy',
+        title: 'Actino: cesta z vinice do kořenové vrstvy',
         __panelFilename: 'panel-biovin.avif',
         detail: root([
-          p('U další složky bychom původ pod trávníkem hledali těžko. ', ['Biovin je hroznový kompost', BOLD], ', organická příměs vyráběná z matoliny, která zůstává po zpracování hroznů. Řízenou přeměnou za přístupu vzduchu, označovanou jako aerobní humifikace, z ní vzniká materiál pro zlepšení půdy. Původ a způsob výroby popisuje ', link('https://www.biovin.at/', 'výrobce'), '.'),
-          p('Do směsi přináší zpracovanou organickou hmotu a živiny. Představme si rozdíl mezi minerální kostrou půdy a jejím průběžným zásobováním: písek upravuje uspořádání částic, zatímco Biovin doplňuje organickou složku, se kterou dál pracují půdní organismy. Při jejím rozkladu se postupně uvolňují živiny dostupné rostlinám. Biovin proto využijeme nejen při přípravě půdy, ale v budoucnu také při hnojení trávníku.'),
+          p('U další složky bychom původ pod trávníkem hledali těžko. ', ['Actino je hroznový kompost', BOLD], ', organická příměs vyráběná z matoliny, která zůstává po zpracování hroznů. Řízenou přeměnou za přístupu vzduchu, označovanou jako aerobní humifikace, z ní vzniká materiál pro zlepšení půdy. Původ a způsob výroby popisuje ', link('https://www.biovin.at/', 'výrobce'), '.'),
+          p('Do směsi přináší zpracovanou organickou hmotu a živiny. Představme si rozdíl mezi minerální kostrou půdy a jejím průběžným zásobováním: písek upravuje uspořádání částic, zatímco Actino doplňuje organickou složku, se kterou dál pracují půdní organismy. Při jejím rozkladu se postupně uvolňují živiny dostupné rostlinám. Actino proto využijeme nejen při přípravě půdy, ale v budoucnu také při hnojení trávníku.'),
           p('V našich třech zahradách mu vyhradíme jednoduchou úlohu. V těžké půdě s málo doplňovanou organickou hmotou použijeme menší podíl. V dobře udržované hlinité zahradě ho do základní směsi nepřidáváme. V chudém, rychle vysychajícím písku dostane větší prostor. Konkrétní dávky najdeme pohromadě u příkladů zahrad.'),
         ]),
       },
@@ -384,7 +388,7 @@ const body = root([
     eyebrow: 'Kapitola 02',
     title: 'Proč směs mícháme podle objemu, ne podle tun',
     number: '04',
-    alt: 'Vodorovné pruhy na společné ose ukazují, kolik místa zabere jedna tuna materiálu při modelové sypné hustotě: písek 0,67 m³, zemina 0,71 m³, zeolit 1,25 m³, Biovin 1,67 m³ a biochar celých 5 m³.',
+    alt: 'Vodorovné pruhy na společné ose ukazují, kolik místa zabere jedna tuna materiálu při modelové sypné hustotě: písek 0,67 m³, zemina 0,71 m³, zeolit 1,25 m³, Actino 1,67 m³ a biochar celých 5 m³.',
     caption:
       'Jedna tuna, pětkrát jiný kus prostoru. Objemem se určuje poměr směsi, hmotností jen objednávka a doprava.',
     body:
@@ -411,7 +415,7 @@ const body = root([
     eyebrow: 'Kapitola 03',
     title: 'Třicet centimetrů půdy jako prostor pro život',
     number: '05',
-    alt: 'Řez profilem 30 cm rozdělený do tří zón: 0 až 10 cm minerální základ s biocharem, Biovinem a zeolitem, kde žije nejvíc kořenů; 10 až 15 cm základ se zeolitem jako přechod; 15 až 30 cm jen minerální základ jako rezervoár vody a vzduchu. Přechody mezi zónami jsou plynulé, ne ostré.',
+    alt: 'Řez profilem 30 cm rozdělený do tří zón: 0 až 10 cm minerální základ s biocharem, Actinem a zeolitem, kde žije nejvíc kořenů; 10 až 15 cm základ se zeolitem jako přechod; 15 až 30 cm jen minerální základ jako rezervoár vody a vzduchu. Přechody mezi zónami jsou plynulé, ne ostré.',
     caption:
       'Co kam patří. Drahé příměsi jen tam, kde žijí kořeny; spodní zóna je rezervoár vody a vzduchu — a přechody navazují, nejsou to patra dortu.',
     body:
@@ -419,7 +423,7 @@ const body = root([
   }),
 
   h3('Horní část pomáhá začátku, hlubší umožní kořenům pokračovat'),
-  p('Nejpestřejší směs připravíme pro horních deset centimetrů. Zde bude biochar, zeolit a případně Biovin. Zeolit pokračuje také v zóně mezi ', ['10 a 15 cm', BOLD], '. Spodních ', ['15 cm, tedy zónu mezi 15 a 30 cm', BOLD], ', tvoří samotný minerální základ. Poskytuje kořenům další prostor a půdě další objem pro vodu a vzduch.'),
+  p('Nejpestřejší směs připravíme pro horních deset centimetrů. Zde bude biochar, zeolit a případně Actino. Zeolit pokračuje také v zóně mezi ', ['10 a 15 cm', BOLD], '. Spodních ', ['15 cm, tedy zónu mezi 15 a 30 cm', BOLD], ', tvoří samotný minerální základ. Poskytuje kořenům další prostor a půdě další objem pro vodu a vzduch.'),
   p('Dražší příměsi soustřeďujeme do horní části proto, že u trávníků bývá velká část kořenové aktivity blízko povrchu. Neznamená to, že kořeny v deseti centimetrech končí. Znamená to, že stejné množství každé příměsi nemusíme rozmisťovat do celé připravované hloubky. Jednotlivé zóny přitom navazují jako prostředí, kterým kořen postupuje dolů. To neznamená, že dražší příměsi nemůžeme zapracovat i hlouběji. Jejich přínos tam ale bývá menší, zatímco při zachování stejného podílu ve větším objemu půdy spotřeba materiálu i celkové náklady výrazně vzrostou.'),
   p('Hloubky tak máme vymezené. O tom, kolik které příměsi do nich připadne, rozhodne výchozí zahrada a vlastnost, kterou potřebujeme zlepšit.'),
 
@@ -432,9 +436,9 @@ const body = root([
     eyebrow: 'Kapitola 04',
     title: 'Tři zahrady: jaké poměry pro ně zvolit',
     number: '06',
-    alt: 'Graf rozsahů příměsí pro tři zahrady: u jílovité zeolit a biochar po 2–5 % a Biovin 2,5–5 %, u hlinité zeolit a biochar po 3–7 % a Biovin 0 %, u písčité zeolit 8–10 % a biochar s Biovinem po 5–10 %. Zvýrazněné části sloupců ukazují rozmezí mezi dolní a horní hranicí; zbytek objemu vždy doplní minerální základ.',
+    alt: 'Graf rozsahů příměsí pro tři zahrady: u jílovité zeolit a biochar po 2–5 % a Actino 2,5–5 %, u hlinité zeolit a biochar po 3–7 % a Actino 0 %, u písčité zeolit 8–10 % a biochar s Actinem po 5–10 %. Zvýrazněné části sloupců ukazují rozmezí mezi dolní a horní hranicí; zbytek objemu vždy doplní minerální základ.',
     caption:
-      'Tři zahrady, tři rozmezí dávek. Nejvíc příměsí dostane chudý písek; u udržované hlíny zůstává Biovin na 0 % — a zbytek objemu vždy doplní minerální základ.',
+      'Tři zahrady, tři rozmezí dávek. Nejvíc příměsí dostane chudý písek; u udržované hlíny zůstává Actino na 0 % — a zbytek objemu vždy doplní minerální základ.',
     body:
       'Tři půdní typy nám dávají dobrý začátek: **těžkou půdu potřebujeme zpřístupnit vodě a vzduchu, u hlinité zachovat vyvážený základ a písčité pomoci s uchováním vláhy**.\n\nNíže jsou **tři modelové receptury pro založení nebo výraznější obnovu trávníku**. Poskytují rozsahy podílů pro popsané situace, nikoli jeden univerzální recept. Základní postup je jednoduchý: vybereme odpovídající příklad, zkontrolujeme jeho podmínky, zvolíme konkrétní podíly v uvedených rozmezích a teprve potom spočítáme množství.\n\nPokud si nejsme jistí, jakou půdu na zahradě máme, pomůže nám ji rozpoznat článek [Krásný trávník začíná pod zemí](/posts/krasny-travnik-zacina-pod-zemi-2). Podle toho vybereme nejbližší příklad.',
   }),
@@ -454,7 +458,7 @@ const body = root([
     rows: [
       ['Zeolit, 0–15 cm', '2–5 % objemu', '3–7 % objemu', '8–10 % objemu'],
       ['Biochar, 0–10 cm', '2–5 % objemu', '3–7 % objemu', '5–10 % objemu'],
-      ['Biovin, 0–10 cm', '2,5–5 % objemu', '0 %', '5–10 % objemu'],
+      ['Actino, 0–10 cm', '2,5–5 % objemu', '0 %', '5–10 % objemu'],
       [
         'Samostatný mykorhizní přípravek',
         'Zvážit po přestavbě; dávka konkrétního výrobku',
@@ -482,7 +486,7 @@ const body = root([
     caption:
       'Minerální základ tří zahrad. U jílu je přidaného písku většina, u dobré hlíny menšina a do písku se žádný nekupuje — příměsi si berou podíl zvlášť.',
     body:
-      'Po dešti se lepí na boty, za sucha může ztvrdnout tak, že rýči pomáháme celou vahou těla. Mezi těmito dvěma stavy mají růst jemné kořeny. Jíl přitom není bezcenný materiál, kterého je potřeba se za každou cenu zbavit. Umí zadržovat vodu i živiny. Problém nastává tehdy, když uspořádání částic a zhutnění omezí vzduch a pohyb přebytečné vody.\n\nPro tento model používáme minerální základ složený objemově z **65 % písku a 35 % původní jílovité zeminy**. Vysoký podíl písku odpovídá tomu, že zde uvažujeme o výrazné změně minerální směsi. Zachovaná zemina dál přináší jemnější částice a schopnost vázat některé živiny.\n\nV této variantě počítáme s těžkou půdou, do které se dlouho nepřidávala organická hmota. Nejdříve uvolníme utužená místa a vyřešíme odtok přebytečné vody; teprve potom připravíme směs. **Zeolit i biochar volíme v rozmezí 2–5 %; Biovin v rozmezí 2,5–5 %**, vždy ve vymezených horních zónách. Jílové částice už pomáhají zachycovat živiny, proto použijeme méně zeolitu než v písčité zahradě. Biovin doplní organickou složku.',
+      'Po dešti se lepí na boty, za sucha může ztvrdnout tak, že rýči pomáháme celou vahou těla. Mezi těmito dvěma stavy mají růst jemné kořeny. Jíl přitom není bezcenný materiál, kterého je potřeba se za každou cenu zbavit. Umí zadržovat vodu i živiny. Problém nastává tehdy, když uspořádání částic a zhutnění omezí vzduch a pohyb přebytečné vody.\n\nPro tento model používáme minerální základ složený objemově z **65 % písku a 35 % původní jílovité zeminy**. Vysoký podíl písku odpovídá tomu, že zde uvažujeme o výrazné změně minerální směsi. Zachovaná zemina dál přináší jemnější částice a schopnost vázat některé živiny.\n\nV této variantě počítáme s těžkou půdou, do které se dlouho nepřidávala organická hmota. Nejdříve uvolníme utužená místa a vyřešíme odtok přebytečné vody; teprve potom připravíme směs. **Zeolit i biochar volíme v rozmezí 2–5 %; Actino v rozmezí 2,5–5 %**, vždy ve vymezených horních zónách. Jílové částice už pomáhají zachycovat živiny, proto použijeme méně zeolitu než v písčité zahradě. Actino doplní organickou složku.',
   }),
   p('Současně nesmíme zapomenout, že po přidání velkého množství písku už nepracujeme s původním jílem. Proto ani nízkou dávku zeolitu neodvozujeme slepě z názvu výchozí půdy: musí odpovídat chování nové směsi.'),
   p('Kořen postupující do hloubky opouští nejpestřejší část směsi, ale pod ní dál pokračuje stejný minerální základ. Pod deseti centimetry je méně organických příměsí; kořen však nemá zůstat odkázaný pouze na obohacenou horní zónu. I níže potřebuje prostředí, kterým může prorůstat za vodou.'),
@@ -494,16 +498,16 @@ const body = root([
   h3('Střední hlinitá půda: zachovat vyvážený základ'),
   p('Dobře fungující hlinitá půda mívá nenápadnou výhodu: člověk si její práce skoro nevšimne. Voda se vsákne, zemina se drobí a za sucha ještě nějakou vláhu uchová. Teprve srovnání s těžkým jílem nebo hrubým pískem ukáže, kolik starostí za nás taková půda řeší.'),
   p('V našem příkladu obnovujeme trávník na ', ['těžší hlinité půdě se zachovanou a udržovanou ornicí', BOLD], '. Horní úrodná vrstva tedy zůstává využitelná, ale směs chceme udělat lépe zpracovatelnou a propustnější. Minerální základ proto tvoří ', ['30 % přidaného písku a 70 % původní hlíny objemově', BOLD], '. Tento poměr patří k popsané přestavbě; dobře drobtovitou a propustnou hlínu jím nemusíme nahrazovat.'),
-  p(['Biovin v tomto základním hlinitém příkladu vynecháme. Biochar i zeolit volíme v rozmezí 3–7 %', BOLD], ' v jejich určených zónách. Tyto menší přídavky mají podpořit uchování vody a některých živin v nově promíchané půdě. Písek upravuje minerální základ, zatímco porézní příměsi pomáhají se zásobou vláhy; každá složka tedy dostává jiný úkol. Rozmezí 3–7 % je součástí tohoto modelu, nikoli důkazem, že každá hlína potřebuje více příměsí než každý jíl.'),
+  p(['Actino v tomto základním hlinitém příkladu vynecháme. Biochar i zeolit volíme v rozmezí 3–7 %', BOLD], ' v jejich určených zónách. Tyto menší přídavky mají podpořit uchování vody a některých živin v nově promíchané půdě. Písek upravuje minerální základ, zatímco porézní příměsi pomáhají se zásobou vláhy; každá složka tedy dostává jiný úkol. Rozmezí 3–7 % je součástí tohoto modelu, nikoli důkazem, že každá hlína potřebuje více příměsí než každý jíl.'),
   p('U hlíny se proto nejdříve zastavíme u otázky, zda popsanou přestavbu vůbec potřebujeme. Jestliže se voda vsakuje, zemina se ve vlhkém stavu snadno drobí a během běžné péče příliš rychle nevysychá, ponecháme ji. Urovnání, odstranění kamenů a uvolnění míst utužených technikou mohou být užitečnější než nová dodávka materiálu. Hlinitá půda je pro trávník dobrý výchozí stav a nemá smysl ji bez důvodu měnit.'),
   p('Samostatný mykorhizní přípravek v této základní variantě nenakupujeme. U zachované biologicky aktivní půdy nemáme důvod jeho přínos předpokládat automaticky. Jestliže ale rekonstrukce vytvoří převážně novou směs a rozhodneme se pro inokulaci — záměrné přidání živých hub — použijeme dávku vybraného výrobku.'),
-  p('U dobře fungující hlinité zahrady tak může být podíl nového písku, zeolitu i biocharu ', ['nula', BOLD], '. Minerálním základem zůstane původní půda. Jiná situace nastává, pokud máme sice hlinitou zeminu, ale dlouhodobě zanedbanou, bez doplňování organické hmoty. Pro tento případ lze jako variantu připravit ', ['2,5–5 % Biovinu v horních 10 cm', BOLD], '. Potřebný prostor získá ubráním části minerálního základu; množství spočítáme později. Ani tehdy z Biovinu neděláme lék na každý slabý trávník: pokud pod rýčem najdeme ztvrdlou vrstvu po bagru, prvním krokem je její rozrušení.'),
+  p('U dobře fungující hlinité zahrady tak může být podíl nového písku, zeolitu i biocharu ', ['nula', BOLD], '. Minerálním základem zůstane původní půda. Jiná situace nastává, pokud máme sice hlinitou zeminu, ale dlouhodobě zanedbanou, bez doplňování organické hmoty. Pro tento případ lze jako variantu připravit ', ['2,5–5 % Actina v horních 10 cm', BOLD], '. Potřebný prostor získá ubráním části minerálního základu; množství spočítáme později. Ani tehdy z Actina neděláme lék na každý slabý trávník: pokud pod rýčem najdeme ztvrdlou vrstvu po bagru, prvním krokem je její rozrušení.'),
 
   h3('Lehká písčitá půda: prodloužit dobu, po kterou mají kořeny z čeho čerpat'),
   p('Do lehké písčité půdy se příjemně zaboří rýč. V červenci už však její vlastnosti nemusejí být stejně příjemné pro trávník. Voda jí snadno prochází, vzduch obvykle nechybí, ale zásoba dostupná kořenům se rychle vyčerpává. Některé rozpuštěné živiny navíc pokračují s vodou hlouběji, než kam právě dosahují kořeny.'),
-  p(['Další písek sem nepřidáváme.', BOLD], ' Minerální kostra je písčitá už na začátku. Chceme proto doplnit schopnost půdy hospodařit s vodou a živinami: biochar a zeolit mají posílit zásobní vlastnosti horní části, Biovin přináší organickou složku a výživu.'),
+  p(['Další písek sem nepřidáváme.', BOLD], ' Minerální kostra je písčitá už na začátku. Chceme proto doplnit schopnost půdy hospodařit s vodou a živinami: biochar a zeolit mají posílit zásobní vlastnosti horní části, Actino přináší organickou složku a výživu.'),
   p('Nulové množství písku v tabulce neznamená půdu bez písku. Znamená nulový nákup dalšího písku; ten stávající zůstává součástí původní zeminy.'),
-  p('Předpokládáme zde půdu chudou na organickou hmotu, s malou zásobou živin a rychlým vysycháním. Proto volíme ', ['8–10 % zeolitu v horních 15 cm a po 5–10 % biocharu a Biovinu v horních 10 cm', BOLD], '. Konkrétní dávku v každém rozmezí zvolíme podle vlastností půdy a dodaných materiálů. S tímto návrhem počítáme pro chudou písčitou půdu bez pravidelného doplňování kompostu.'),
+  p('Předpokládáme zde půdu chudou na organickou hmotu, s malou zásobou živin a rychlým vysycháním. Proto volíme ', ['8–10 % zeolitu v horních 15 cm a po 5–10 % biocharu a Actina v horních 10 cm', BOLD], '. Konkrétní dávku v každém rozmezí zvolíme podle vlastností půdy a dodaných materiálů. S tímto návrhem počítáme pro chudou písčitou půdu bez pravidelného doplňování kompostu.'),
   p('Na tomto příkladu je dobře vidět, proč nelze příměs hodnotit odděleně od půdy. Tentýž biochar vstupuje do odlišných podmínek. U jílu musíme hlídat dostatek vzduchu a odvod přebytečné vody. U písku nás více zajímá, zda pomůže prodloužit dobu, po kterou zůstává voda dostupná. Materiál si přináší své vlastnosti, ale jeho užitek se projeví až ve směsi, do které ho vložíme.'),
   p('Pokud při zakládání vzniká převážně nová písčitá směs s malým podílem biologicky aktivní půdy, lze zvážit mykorhizní přípravek. Tak jako u předchozích příkladů dávkujeme dle doporučení výrobce bez souvislosti s typem půdy.'),
 
@@ -516,9 +520,9 @@ const body = root([
     rows: [
       [
         '0–10 cm',
-        '85–93,5 % základu + 2–5 % biocharu + 2,5–5 % Biovinu + 2–5 % zeolitu',
+        '85–93,5 % základu + 2–5 % biocharu + 2,5–5 % Actina + 2–5 % zeolitu',
         '86–94 % základu + 3–7 % biocharu + 3–7 % zeolitu',
-        '70–82 % základu + 5–10 % biocharu + 5–10 % Biovinu + 8–10 % zeolitu',
+        '70–82 % základu + 5–10 % biocharu + 5–10 % Actina + 8–10 % zeolitu',
       ],
       ['10–15 cm', '95–98 % základu + 2–5 % zeolitu', '93–97 % základu + 3–7 % zeolitu', '90–92 % základu + 8–10 % zeolitu'],
       ['15–30 cm', '100 % základu', '100 % základu', '100 % základu'],
@@ -528,7 +532,7 @@ const body = root([
 
   h3('Kdy dávku upravit a kdy příměs vynechat'),
   p('Pro první přípravu zvolíme podíly v rozmezích odpovídající zahrady. Pokud chceme snížit náklady nebo porovnat dvě směsi na malé ploše, můžeme začít u dolní hranice a jednotlivé dávky upravovat v uvedeném rozmezí. Není nutné zkoušet všechny kombinace. Vždy měníme jednu dávku a prostor, který jí přidáme či ubereme, vyrovnáme opačnou změnou minerálního základu.'),
-  p('U písčité zahrady pracujeme s ', ['8–10 % zeolitu v horních 15 cm', BOLD], '. Dolní hranice znamená menší spotřebu, horní je možností k ověření na velmi hrubé, rychle vysychající půdě; není to automaticky lepší recept. Biochar i Biovin zůstávají v rozmezí 5–10 % horních 10 cm.'),
+  p('U písčité zahrady pracujeme s ', ['8–10 % zeolitu v horních 15 cm', BOLD], '. Dolní hranice znamená menší spotřebu, horní je možností k ověření na velmi hrubé, rychle vysychající půdě; není to automaticky lepší recept. Biochar i Actino zůstávají v rozmezí 5–10 % horních 10 cm.'),
   p('U biocharu porovnáváme dávky v rozmezí 2–5 % horních 10 cm pro jílovitou zahradu, 3–7 % pro hlinitou a 5–10 % pro písčitou. Místo uvolněné biocharem zaujme minerální základ; ostatní příměsi zůstávají stejné, pokud současně neměníme i jejich návrh. Poloviční dávka nemusí znamenat poloviční účinek a více materiálu nezaručuje úměrně větší užitek. Výsledek vzniká ze souhry celé půdy.'),
   p('U těžké půdy nejprve odstraníme utužení a překážky odtoku vody. U lehké půdy při srovnání sledujeme, jestli směs mezi zálivkami vysychá pomaleji. Tím dostává změna dávky konkrétní měřítko: řešíme vlastnost, kterou jsme chtěli upravit. Samotné přidání dražšího materiálu ještě neznamená lepší výsledek.'),
 
@@ -564,7 +568,7 @@ const body = root([
   h3('Příměsi nejprve získají svůj podíl, minerální základ tvoří zbytek'),
   p('Potřebný objem příměsi vypočteme z objemu zóny, do které přijde:'),
   p(['Objem příměsi = objem příslušné zóny × její objemový podíl.', BOLD]),
-  p('U písčitého příkladu na 100 m² má horních 15 cm objem 15 m³. Rozmezí 8–10 % zeolitu tedy znamená ', ['1,2–1,5 m³', BOLD], ', modelově přibližně ', ['0,96–1,20 t', BOLD], '. Biochar i Biovin patří pouze do horních 10 cm, tedy do 10 m³. Rozmezí 5–10 % znamená pro každý z nich ', ['0,5–1,0 m³', BOLD], '. Hmotnost těchto stejně velkých podílů se však bude lišit: s našimi výpočetními hustotami asi ', ['0,10–0,20 t biocharu a 0,30–0,60 t Biovinu', BOLD], '.'),
+  p('U písčitého příkladu na 100 m² má horních 15 cm objem 15 m³. Rozmezí 8–10 % zeolitu tedy znamená ', ['1,2–1,5 m³', BOLD], ', modelově přibližně ', ['0,96–1,20 t', BOLD], '. Biochar i Actino patří pouze do horních 10 cm, tedy do 10 m³. Rozmezí 5–10 % znamená pro každý z nich ', ['0,5–1,0 m³', BOLD], '. Hmotnost těchto stejně velkých podílů se však bude lišit: s našimi výpočetními hustotami asi ', ['0,10–0,20 t biocharu a 0,30–0,60 t Actina', BOLD], '.'),
   p('V celém písčitém profilu na 100 m² příměsi zaujmou ', ['2,2–3,5 m³', BOLD], ' a původní zemina ', ['26,5–27,8 m³', BOLD], '. V jílovitém a hlinitém modelu zaujmou příměsi shodně ', ['0,75–1,75 m³', BOLD], ', ale s jiným složením. Pro minerální základ v obou případech zbývá ', ['28,25–29,25 m³', BOLD], '. Vyšší objem příměsí vždy spojíme s nižším objemem základu, aby celkem zůstalo 30 m³.'),
   p('Teprve tento zbytek rozdělíme mezi písek a zeminu. U jílovitého příkladu použijeme poměr 65/35, u hlinitého 30/70. Kdybychom nejprve objednali písek a zeminu pro celý profil a příměsi přidali navrch, změnili bychom celkové množství i poměry. Přidat například dalších 12,5 % původního objemu ke kompletnímu základu neznamená vytvořit směs s původně zamýšlenými podíly.'),
   p('Rozdíl mezi základem a celou směsí je patrný i nahoře v jílovité variantě: minerální základ zaujímá 85–93,5 % objemu a písek tvoří 65 % tohoto základu. V celé horní směsi tak přidaný písek představuje přibližně ', ['55,3–60,8 %', BOLD], '. Zbytek prostoru patří zemině a ostatním složkám. Přesné krajní výsledky násobení jsou 55,25 % a 60,775 %, ale pro skutečné míchání nemá smysl usilovat o přesnost na tisíciny procenta. Podstatné je nezaměnit podíl v základu za podíl v celé směsi.'),
@@ -600,10 +604,10 @@ const body = root([
       ['Praný písek', '1,50 t/m³ = 1,50 kg/l', '0,67 m³'],
       ['Původní zemina', '1,40 t/m³ = 1,40 kg/l', '0,71 m³'],
       ['Zeolit', '0,80 t/m³ = 0,80 kg/l', '1,25 m³'],
-      ['Biovin', '0,60 t/m³ = 0,60 kg/l', '1,67 m³'],
+      ['Actino', '0,60 t/m³ = 0,60 kg/l', '1,67 m³'],
       ['Biochar', '0,20 t/m³ = 0,20 kg/l *', '5 m³ *'],
     ],
-    note: '* Pouze počtový předpoklad. U zeminy používáme ve všech třech zahradách stejnou orientační hodnotu pro srovnání; skutečná jílovitá, hlinitá i písčitá zemina se mohou lišit. U Biovinu podklady uvádějí přibližně 0,60–0,65 t/m³. Hustota 0,20 t/m³ u biocharu není deklarací každého výrobku ani potvrzenou hustotou již obohaceného materiálu.',
+    note: '* Pouze počtový předpoklad. U zeminy používáme ve všech třech zahradách stejnou orientační hodnotu pro srovnání; skutečná jílovitá, hlinitá i písčitá zemina se mohou lišit. U Actina podklady uvádějí přibližně 0,60–0,65 t/m³. Hustota 0,20 t/m³ u biocharu není deklarací každého výrobku ani potvrzenou hustotou již obohaceného materiálu.',
   }),
   p('Pro představu, jak velkou chybu může způsobit záměna jednotek: jeden kubík písku v tomto modelu váží 1,5 t, jeden kubík biocharu 0,2 t. Pokud namísto stejných objemů přivezeme po jedné tuně, získáme asi 0,67 m³ písku a 5 m³ biocharu. Z objemového poměru jedna ku jedné se stane směs, v níž biochar zabírá přibližně ', ['88 % součtu vstupních objemů', BOLD], '. Stejná hmotnost tedy vůbec nezajistila stejný podíl v půdě.'),
   p('A obráceně: vyhradíme-li biocharu pět procent z 10 m³ vstupních surovin, vždy jde o 0,5 m³. Tento objem může podle skutečné sypné hustoty a vlhkosti dodávky vážit například 0,10 nebo 0,20 t. Požadovaný objemový podíl zůstává stejný, přestože se změní hmotnost na dodacím listu.'),
@@ -626,7 +630,7 @@ const body = root([
       ['Přidaný písek', '≈ 9,2–9,5 m³ / 13,8–14,3 t', '≈ 18,4–19,0 m³ / 27,5–28,5 t'],
       ['Původní jílovitá zemina k ponechání', '≈ 4,9–5,1 m³ / 6,9–7,2 t', '≈ 9,9–10,2 m³ / 13,8–14,3 t'],
       ['Biochar v horních 10 cm, 2–5 %', '100–250 l / ≈ 20–50 kg *', '200–500 l / ≈ 40–100 kg *'],
-      ['Biovin v horních 10 cm, 2,5–5 %', '125–250 l / ≈ 75–150 kg', '250–500 l / ≈ 150–300 kg'],
+      ['Actino v horních 10 cm, 2,5–5 %', '125–250 l / ≈ 75–150 kg', '250–500 l / ≈ 150–300 kg'],
       ['Zeolit v horních 15 cm, 2–5 %', '150–375 l / ≈ 120–300 kg', '300–750 l / ≈ 240–600 kg'],
     ],
     note: '* Výpočetní předpoklad 0,20 t/m³. Sloupce uvádějí objem a orientační hmotnost.',
@@ -641,13 +645,13 @@ const body = root([
       ['Přidaný písek', '≈ 4,2–4,4 m³ / 6,4–6,6 t', '≈ 8,5–8,8 m³ / 12,7–13,2 t'],
       ['Původní hlinitá zemina k ponechání', '≈ 9,9–10,2 m³ / 13,8–14,3 t', '≈ 19,8–20,5 m³ / 27,7–28,7 t'],
       ['Biochar v horních 10 cm, 3–7 %', '150–350 l / ≈ 30–70 kg *', '300–700 l / ≈ 60–140 kg *'],
-      ['Biovin v horních 10 cm', '0 l / 0 kg', '0 l / 0 kg'],
+      ['Actino v horních 10 cm', '0 l / 0 kg', '0 l / 0 kg'],
       ['Zeolit v horních 15 cm, 3–7 %', '225–525 l / ≈ 180–420 kg', '450–1 050 l / ≈ 360–840 kg'],
     ],
     note: '* Výpočetní předpoklad 0,20 t/m³. Sloupce uvádějí objem a orientační hmotnost.',
   }),
   p('Na sto metrech čtverečních nové složky teoreticky nahrazují přibližně ', ['9,5–10,2 m³ původní zeminy', BOLD], '. Ani třicetiprocentní podíl písku v minerálním základu proto není malá dodávka, když ho rozpočítáme na celou plochu a hloubku. Pokud písek není potřeba, jeho prostor zaujme původní půda a tuto položku neobjednáváme.'),
-  p('U hlíny s nedostatkem organické hmoty jsme připustili variantu s 2,5–5 % Biovinu v horních 10 cm. Pro 100 m² jde o ', ['0,25–0,50 m³, tedy 250–500 litrů a modelově 0,15–0,30 t Biovinu', BOLD], '. O tento objem se zmenší minerální základ: u poměru 30/70 ubude 0,075–0,150 m³ písku a 0,175–0,350 m³ hlíny, tedy 75–150 a 175–350 litrů. Tento doplňkový přepočet neplatí současně s nulovou položkou Biovinu v základní tabulce; popisuje alternativu pro jiný výchozí stav půdy.'),
+  p('U hlíny s nedostatkem organické hmoty jsme připustili variantu s 2,5–5 % Actina v horních 10 cm. Pro 100 m² jde o ', ['0,25–0,50 m³, tedy 250–500 litrů a modelově 0,15–0,30 t Actina', BOLD], '. O tento objem se zmenší minerální základ: u poměru 30/70 ubude 0,075–0,150 m³ písku a 0,175–0,350 m³ hlíny, tedy 75–150 a 175–350 litrů. Tento doplňkový přepočet neplatí současně s nulovou položkou Actina v základní tabulce; popisuje alternativu pro jiný výchozí stav půdy.'),
 
   table({
     heading: 'Písčitý model: bez dalšího písku, s větším podílem příměsí',
@@ -657,7 +661,7 @@ const body = root([
       ['Další písek', '0 m³ / 0 t', '0 m³ / 0 t'],
       ['Původní písčitá zemina k ponechání', '13,25–13,9 m³ / ≈ 18,6–19,5 t', '26,5–27,8 m³ / ≈ 37,1–38,9 t'],
       ['Biochar v horních 10 cm, 5–10 %', '250–500 l / ≈ 50–100 kg *', '500–1 000 l / ≈ 100–200 kg *'],
-      ['Biovin v horních 10 cm, 5–10 %', '250–500 l / ≈ 150–300 kg', '500–1 000 l / ≈ 300–600 kg'],
+      ['Actino v horních 10 cm, 5–10 %', '250–500 l / ≈ 150–300 kg', '500–1 000 l / ≈ 300–600 kg'],
       ['Zeolit v horních 15 cm, 8–10 %', '600–750 l / ≈ 480–600 kg', '1 200–1 500 l / ≈ 960–1 200 kg'],
     ],
     note: '* Výpočetní předpoklad 0,20 t/m³. Sloupce uvádějí objem a orientační hmotnost.',
@@ -675,7 +679,7 @@ const body = root([
       ['8–10 % — písčitá zahrada', '600–750 l / ≈ 0,48–0,60 t', '1 200–1 500 l / ≈ 0,96–1,20 t'],
     ],
   }),
-  p('U písčité zahrady při 8–10 % zeolitu a po 5–10 % biocharu a Biovinu zbývá v horních 10 cm 70–82 % minerálního základu a mezi 10 a 15 cm 90–92 %. V celém profilu na 100 m² použijeme ', ['26,5–27,8 m³ původní zeminy', BOLD], '. Horní hranice množství zeminy odpovídá dolním hranicím všech tří příměsí a naopak. Pokud měníme pouze zeolit, dávky biocharu a Biovinu ponecháme na zvolených hodnotách. Hmotnosti zeolitu v tabulce vycházejí z 0,80 t/m³.'),
+  p('U písčité zahrady při 8–10 % zeolitu a po 5–10 % biocharu a Actina zbývá v horních 10 cm 70–82 % minerálního základu a mezi 10 a 15 cm 90–92 %. V celém profilu na 100 m² použijeme ', ['26,5–27,8 m³ původní zeminy', BOLD], '. Horní hranice množství zeminy odpovídá dolním hranicím všech tří příměsí a naopak. Pokud měníme pouze zeolit, dávky biocharu a Actina ponecháme na zvolených hodnotách. Hmotnosti zeolitu v tabulce vycházejí z 0,80 t/m³.'),
   p('Také změnu biocharu lze přepočítat bez změny dávky ostatních příměsí. Místo, které biocharu přidáme nebo ubereme, se opačně promítne do minerálního základu.'),
   table({
     surface: 'krem',
@@ -690,15 +694,15 @@ const body = root([
 
   h3('Menší balení a mykorhiza: jiná jednotka, stejná potřeba správného podkladu'),
   p('Velké minerální dodávky plánujeme v kubících a tunách. U výrobků prodávaných v pytlích potřebujeme i počet balení. Například zeolit pro jílovitou variantu na 100 m² představuje ', ['0,30–0,75 m³ a při 0,8 t/m³ přibližně 0,24–0,60 t', BOLD], ', tedy 12–30 dvacetikilových pytlů podle zvoleného podílu 2–5 %. Biochar prodávaný po litrech lze objednat přímo podle objemu; hmotnost stále potřebujeme pro dopravu.'),
-  p('U Biovinu pro jílovitou variantu na 100 m² vychází ', ['250–500 litrů a orientačně 150–300 kg', BOLD], '. Pokud skutečná hmotnost dodávky odpovídá tomuto přepočtu, potřebujeme 8–15 dvacetikilových pytlů. Písčitá varianta potřebuje ', ['500–1 000 litrů a orientačně 300–600 kg', BOLD], ', tedy 15–30 takových pytlů. Konkrétní počet vychází ze zvoleného podílu v rozmezí. Při jiné hmotnosti litru se změní i počet balení; potřebné litry pro zvolený podíl zůstávají stejné. Počet pytlů proto před nákupem ověříme podle údajů dodavatele a zaokrouhlíme nahoru.'),
+  p('U Actina pro jílovitou variantu na 100 m² vychází ', ['250–500 litrů a orientačně 150–300 kg', BOLD], '. Pokud skutečná hmotnost dodávky odpovídá tomuto přepočtu, potřebujeme 8–15 dvacetikilových pytlů. Písčitá varianta potřebuje ', ['500–1 000 litrů a orientačně 300–600 kg', BOLD], ', tedy 15–30 takových pytlů. Konkrétní počet vychází ze zvoleného podílu v rozmezí. Při jiné hmotnosti litru se změní i počet balení; potřebné litry pro zvolený podíl zůstávají stejné. Počet pytlů proto před nákupem ověříme podle údajů dodavatele a zaokrouhlíme nahoru.'),
   p('Nakoupená rezerva slouží k dokončení práce, nemusíme ji automaticky celou zapracovat. Hlavním vodítkem zůstává zvolený poměr. U mnohatunové směsi se soustředíme na přiměřené množství a rovnoměrné promíchání, nikoli na jednotlivé kilogramy.'),
   p('Mykorhizní přípravek počítáme podle plochy a skutečného návodu. Dávka ', ['100 g/m²', BOLD], ' pro běžné založení při použití uvedeného TurfCompu znamená ', ['5 kg na 50 m² a 10 kg na 100 m²', BOLD], ', ať jej v dané situaci použijeme u jílu, hlíny nebo písku. Pokud ho u hlinitého modelu nezařadíme, nákup zůstává nulový. Pro jiný výrobek s dávkou například ', ['150 g/m²', BOLD], ' by výpočet činil ', ['7,5 a 15 kg', BOLD], '. Jde pouze o přepočet jiného návodu, nikoli o mezistupeň určený určitému půdnímu typu.'),
   p('Tyto hmotnosti patří celému přípravku. Litry jeho nosiče nelze doplnit bez sypné hustoty nebo údaje o objemu balení. Je-li objem známý, nahradí odpovídající část minerálního základu v mělké zóně aplikace. Proto ho základní tabulky bez těchto údajů automaticky nezahrnují.'),
 
-  h3('Biovin započítáme také při výběru hnojiva'),
-  p('Biovin spolu s organickou hmotou přináší živiny. Ty se uvolňují postupně, takže hmotnost přidaného Biovinu nelze zaměnit za okamžitou dávku hnojiva pro mladé rostliny. Pro zakládání trávníku je ale důležité, že už jsme část výživy do půdy vložili. Obsah živin uvádí ', link('https://www.biovin.at/files/opensauce/downloads/Greenkeeperinfo.pdf', 'produktový list výrobce'), '.'),
-  p('Praktický postup je jednoduchý: ', ['startovací hnojivo vybíráme současně s Biovinem a dodavateli sdělíme, kolik Biovinu do půdy zapracujeme a na jak velkou plochu', BOLD], '. U jílovitého příkladu je to podle zvoleného podílu orientačně 150–300 kg na 100 m², u písčitého 300–600 kg na 100 m². Dodavateli sdělíme konkrétní plánované množství v tomto rozmezí. Pokud s biocharem přidáváme kompost, uvedeme také jeho množství. Požádáme o doporučení startovacího hnojiva a dávky pro tuto kombinaci, kterou potom dodržíme.'),
-  p('Tento krok předejde jednoduché chybě: nespojíme bez rozmyslu několik plných hnojivých dávek, jako by každá byla jediným zdrojem výživy. Zároveň nepředpokládáme, že Biovin automaticky zajistí vše, co bude trávník po celou sezonu potřebovat. Další péči přizpůsobíme zvolenému hnojivému programu a vývoji porostu.'),
+  h3('Actino započítáme také při výběru hnojiva'),
+  p('Actino spolu s organickou hmotou přináší živiny. Ty se uvolňují postupně, takže hmotnost přidaného Actina nelze zaměnit za okamžitou dávku hnojiva pro mladé rostliny. Pro zakládání trávníku je ale důležité, že už jsme část výživy do půdy vložili. Obsah živin uvádí ', link('https://www.biovin.at/files/opensauce/downloads/Greenkeeperinfo.pdf', 'produktový list výrobce'), '.'),
+  p('Praktický postup je jednoduchý: ', ['startovací hnojivo vybíráme současně s Actinem a dodavateli sdělíme, kolik Actina do půdy zapracujeme a na jak velkou plochu', BOLD], '. U jílovitého příkladu je to podle zvoleného podílu orientačně 150–300 kg na 100 m², u písčitého 300–600 kg na 100 m². Dodavateli sdělíme konkrétní plánované množství v tomto rozmezí. Pokud s biocharem přidáváme kompost, uvedeme také jeho množství. Požádáme o doporučení startovacího hnojiva a dávky pro tuto kombinaci, kterou potom dodržíme.'),
+  p('Tento krok předejde jednoduché chybě: nespojíme bez rozmyslu několik plných hnojivých dávek, jako by každá byla jediným zdrojem výživy. Zároveň nepředpokládáme, že Actino automaticky zajistí vše, co bude trávník po celou sezonu potřebovat. Další péči přizpůsobíme zvolenému hnojivému programu a vývoji porostu.'),
   p('Objednávka tak má dva důležité podklady: kolik prostoru jednotlivé suroviny ve směsi zaujmou a co do ní kromě svého objemu přinesou. Jakmile je máme, můžeme plánovat dodávky a práci podle velikosti zahrady, přístupové cesty a místa pro manipulaci.'),
 
   /* ── Kapitola 06 ─────────────────────────────────────────────── */
@@ -725,7 +729,7 @@ const body = root([
     titleLevel: 'h3',
     title: 'Ukládat odspodu, míchat v každé zóně',
     number: '10',
-    alt: 'Tři kroky stavby profilu 30 cm pod sebou: nejprve spodních 15 cm minerálního základu, nad nimi čárkovaný obrys budoucích zón; pak přibude 5 cm se zeolitem; nakonec horních 10 cm plné směsi s biocharem, Biovinem a zeolitem. V každém kroku je nová zóna rovnoměrně promíchaná.',
+    alt: 'Tři kroky stavby profilu 30 cm pod sebou: nejprve spodních 15 cm minerálního základu, nad nimi čárkovaný obrys budoucích zón; pak přibude 5 cm se zeolitem; nakonec horních 10 cm plné směsi s biocharem, Actinem a zeolitem. V každém kroku je nová zóna rovnoměrně promíchaná.',
     caption:
       'Vysvětlovali jsme odshora, ukládá se obráceně: základ, zóna se zeolitem, nahoře plná směs — a v každé zóně promíchané, žádná čistá patra.',
     body:
@@ -791,7 +795,7 @@ const body = root([
       {
         question: 'Do jaké hloubky patří jednotlivé příměsi?',
         answer: mini(
-          'V modelovém profilu 30 cm dostane horních 10 cm plnou směs s biocharem, zeolitem a případně Biovinem, zóna 10 až 15 cm už jen zeolit a spodních 15 cm tvoří samotný minerální základ. Dražší příměsi se soustřeďují nahoru, kde bývá nejvíc kořenové aktivity; zóny přitom mají navazovat, ne se skládat jako ostrá patra.',
+          'V modelovém profilu 30 cm dostane horních 10 cm plnou směs s biocharem, zeolitem a případně Actinem (dříve Biovin), zóna 10 až 15 cm už jen zeolit a spodních 15 cm tvoří samotný minerální základ. Dražší příměsi se soustřeďují nahoru, kde bývá nejvíc kořenové aktivity; zóny přitom mají navazovat, ne se skládat jako ostrá patra.',
         ),
       },
       {
@@ -848,7 +852,20 @@ const body = root([
 /* ── Zápis ──────────────────────────────────────────────────────── */
 
 const run = async () => {
-  const payload = await getPayload({ config })
+  const databaseURL = new URL(process.env.DATABASE_URL || '')
+  if (!['localhost', '127.0.0.1'].includes(databaseURL.hostname) || databaseURL.port !== '5433' || databaseURL.pathname !== '/intelidome_web') {
+    throw new Error('Tento seed smí běžet pouze nad lokální databází webu na portu 5433.')
+  }
+  if (process.env.BLOB_READ_WRITE_TOKEN) throw new Error('Tento seed vyžaduje lokální úložiště médií.')
+  const localConfig = await config
+  if (localConfig.db) {
+    localConfig.db = { ...localConfig.db, init: ((original) => (args) => {
+      const adapter = original(args)
+      ;(adapter as typeof adapter & { push?: boolean }).push = false
+      return adapter
+    })(localConfig.db.init) }
+  }
+  const payload = await getPayload({ config: localConfig })
 
   /* Fotografie: nahrát, když v knihovně nejsou. Zdroj je složka
      `zdroje-informaci/fotky/`, která není v gitu (stejně jako public/media). */
@@ -990,47 +1007,69 @@ const run = async () => {
     pagination: false,
   })
 
-  const data = {
-    title: 'Písek, biochar a další příměsi: jak namíchat půdu pro trávník',
-    slug: SLUG,
-    _status: 'published' as const,
-    heroImage: hero.docs[0]?.id,
-    content: body,
-    publishedAt: '2026-09-19T08:00:00.000Z',
-    meta: {
-      image: hero.docs[0]?.id,
-      title: 'Písek, biochar a příměsi: jak namíchat půdu pro trávník',
-      description:
-        'Jak namíchat půdu pro trávník: co umí písek, biochar, Biovin a zeolit, proč se směs míchá podle objemu, a kolik materiálu objednat pro vlastní zahradu.',
-    },
+  const splitContent = splitPrimesiContent(body)
+  const preparationHero = await payload.find({ collection: 'media', where: { filename: { equals: 'fig-ryci-vidle.avif' } }, limit: 1, depth: 0 })
+  if (!preparationHero.docs[0]) throw new Error('Chybí existující médium fig-ryci-vidle.avif pro článek o přípravě směsi.')
+  const transactionID = await payload.db.beginTransaction()
+  if (!transactionID) throw new Error('Zápis všech tří článků vyžaduje transakci.')
+  const req = await createLocalReq({ locale: 'cs', context: { disableRevalidate: true }, req: { transactionID } }, payload)
+  const savePost = async (data: RequiredDataFromCollectionSlug<'posts'>) => {
+    const found = await payload.find({ collection: 'posts', where: { slug: { equals: data.slug } }, limit: 1, depth: 0, locale: 'cs', draft: false, req })
+    return found.docs[0]
+      ? payload.update({ collection: 'posts', id: found.docs[0].id, data, depth: 0, locale: 'cs', draft: false, req, context: { disableRevalidate: true } })
+      : payload.create({ collection: 'posts', data, depth: 0, locale: 'cs', draft: false, req, context: { disableRevalidate: true } })
   }
-
-  const existing = await payload.find({
-    collection: 'posts',
-    where: { slug: { equals: SLUG } },
-    limit: 1,
-    draft: true,
-    pagination: false,
-  })
-
-  if (existing.docs.length > 0) {
-    const id = existing.docs[0].id
-    await payload.update({
-      collection: 'posts',
-      id,
-      data,
-      draft: false,
-      context: { disableRevalidate: true },
+  try {
+    const original = await savePost({
+      title: 'Písek, biochar a další příměsi: jak namíchat půdu pro trávník',
+      slug: SLUG,
+      generateSlug: false,
+      _status: 'published',
+      heroImage: hero.docs[0]?.id,
+      content: splitContent.original,
+      publishedAt: '2026-09-19T08:00:00.000Z',
+      meta: { image: hero.docs[0]?.id, title: 'Písek, biochar a příměsi: jak namíchat půdu pro trávník', description: ORIGINAL_META_DESCRIPTION },
     })
-    payload.logger.info(`Článek aktualizován (id ${id}) – /posts/${SLUG}`)
-  } else {
-    const created = await payload.create({
-      collection: 'posts',
-      data,
-      draft: false,
-      context: { disableRevalidate: true },
+    const existingProfile = await payload.find({ collection: 'posts', where: { slug: { equals: PROFILE_SLUG } }, limit: 1, depth: 0, locale: 'cs', req })
+    const profile = await savePost({
+      title: PROFILE_TITLE,
+      slug: PROFILE_SLUG,
+      generateSlug: false,
+      _status: 'published',
+      heroImage: splitContent.profileHero,
+      content: splitContent.profile,
+      publishedAt: existingProfile.docs[0]?.publishedAt ?? new Date().toISOString(),
+      authors: original.authors?.map((author) => typeof author === 'object' ? author.id : author),
+      categories: original.categories?.map((category) => typeof category === 'object' ? category.id : category),
+      meta: { title: PROFILE_TITLE, image: splitContent.profileHero, description: PROFILE_META_DESCRIPTION },
     })
-    payload.logger.info(`Článek vytvořen (id ${created.id}) – /posts/${SLUG}`)
+    const existingPreparation = await payload.find({ collection: 'posts', where: { slug: { equals: PREPARATION_SLUG } }, limit: 1, depth: 0, locale: 'cs', req })
+    const preparation = await savePost({
+      title: PREPARATION_TITLE,
+      slug: PREPARATION_SLUG,
+      generateSlug: false,
+      _status: 'published',
+      heroImage: preparationHero.docs[0].id,
+      content: splitContent.preparation,
+      publishedAt: existingPreparation.docs[0]?.publishedAt ?? new Date().toISOString(),
+      authors: original.authors?.map((author) => typeof author === 'object' ? author.id : author),
+      categories: original.categories?.map((category) => typeof category === 'object' ? category.id : category),
+      meta: { title: PREPARATION_TITLE, image: preparationHero.docs[0].id, description: PREPARATION_META_DESCRIPTION },
+    })
+    // Link after creation: the collection's self-exclusion filter requires a post ID.
+    const articles = [original, profile, preparation]
+    for (const article of articles) {
+      const existingRelated = (article.relatedPosts ?? []).map((post) => typeof post === 'object' ? post.id : post)
+      const otherArticles = articles.filter((other) => other.id !== article.id).map((other) => other.id)
+      await payload.update({ collection: 'posts', id: article.id, data: { relatedPosts: [...new Set([...existingRelated, ...otherArticles])] }, locale: 'cs', req, context: { disableRevalidate: true } })
+    }
+    await payload.db.commitTransaction(transactionID)
+    payload.logger.info(`Články aktualizovány: /posts/${SLUG}, /posts/${PROFILE_SLUG} a /posts/${PREPARATION_SLUG}`)
+  } catch (error) {
+    await payload.db.rollbackTransaction(transactionID)
+    throw error
+  } finally {
+    await payload.destroy()
   }
 
   process.exit(0)

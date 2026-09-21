@@ -1898,7 +1898,7 @@ export interface BannerBlock {
  * via the `definition` "CalculatorBlock".
  */
 export interface CalculatorBlock {
-  kind: 'prutok' | 'davka' | 'vsak' | 'primesi';
+  kind: 'prutok' | 'davka' | 'vsak' | 'primesi' | 'pudni-profil';
   /**
    * Mimoosové polohy se musí v článku střídat (ADR-006).
    */
