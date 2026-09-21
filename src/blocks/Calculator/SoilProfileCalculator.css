@@ -248,6 +248,7 @@
   text-wrap: pretty;
 }
 .id-profile-calc .id-profile-calc__error { color: #f2b96b; }
+.id-profile-calc__results .id-profile-calc__hint { margin-top: 6px; }
 .id-profile-calc__ratio {
   display: grid;
   grid-template-columns: minmax(0,1fr) auto;
@@ -369,13 +370,13 @@
 .id-profile-calc__table tbody th { font-weight: 600; }
 .id-profile-calc__table td > span:last-child { overflow-wrap: anywhere; }
 .id-profile-calc__mobilelabel { display: none; }
-.id-profile-calc .id-profile-calc__totals { margin-top: 20px; }
+.id-profile-calc .id-profile-calc__totals { margin-top: 12px; }
 .id-profile-calc__totals > div {
   display: flex;
   justify-content: space-between;
   align-items: baseline;
   gap: 16px;
-  padding: 14px 0;
+  padding: 11px 0;
   border-top: 1px solid rgba(255,255,255,.14);
 }
 .id-profile-calc__totals dt { max-width: 60%; color: var(--id-ink-dark-2, #9ba1a8); font-size: 14.5px; }
@@ -390,7 +391,7 @@
 }
 .id-profile-calc__totals dd > small {
   display: block;
-  margin-top: 4px;
+  margin-top: 2px;
   color: var(--id-ink-dark-2, #9ba1a8);
   font-family: var(--id-f-body);
   font-size: 13.5px;
@@ -422,8 +423,8 @@
   outline-offset: 3px;
 }
 .id-profile-calc .id-profile-calc__transport {
-  margin-top: 20px;
-  padding-top: 16px;
+  margin-top: 12px;
+  padding-top: 10px;
   border-top: 1px solid rgba(255,255,255,.14);
   color: var(--id-ink-dark-2, #9ba1a8);
   font-size: 13.5px;
@@ -435,6 +436,12 @@
   font-size: 14.5px;
 }
 .id-profile-calc__issues > li + li { margin-top: 8px; }
+/* Kompaktnejsi verdikt jen v tomto kalkulatoru — sdilena .id-verdict
+   ma jinde na webu vlastni rozestup, tady zabirala prilis vysky. */
+.id-profile-calc .id-verdict {
+  margin-top: 14px;
+  padding: 12px 18px;
+}
 .id-profile-calc .id-profile-calc__notice {
   margin-top: 20px;
   padding: 16px;
