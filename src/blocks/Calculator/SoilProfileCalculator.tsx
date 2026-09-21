@@ -449,13 +449,13 @@ export function SoilProfileCalculator({ className, surface }: { className?: stri
     pricesDetails.current.open = true
     window.requestAnimationFrame(() => pricesDetails.current?.querySelector<HTMLInputElement>('input[type="text"]')?.focus())
   }
-  const field = (key: NumberKey, label: string, unit: string, hint?: string, prominent = false, context?: string) => (
+  const field = (key: NumberKey, label: string, unit: string, hint?: string, prominent = false, context?: string, idKey?: string) => (
     <NumberField
       context={context}
       error={issueFor(key)}
       hint={hint}
-      id={uid + '-' + key}
-      key={key}
+      id={uid + '-' + (idKey ?? key)}
+      key={idKey ?? key}
       label={label}
       onChange={(value) => updateNumber(key, value)}
       prominent={prominent}
@@ -570,22 +570,22 @@ export function SoilProfileCalculator({ className, surface }: { className?: stri
               <div className="id-profile-calc__additionlist">
                 <fieldset className="id-profile-calc__amendment">
                   <legend>Písek</legend>
-                  <p className="id-profile-calc__hint" id={uid + '-sand-hint'}>
-                    Zbytek minerálního základu po odečtení příměsí, podle zvoleného poměru.
-                  </p>
-                  <div className="id-profile-calc__purchase">
-                    <label htmlFor={uid + '-sand-amount'}>K objednání</label>
-                    <output
-                      aria-describedby={uid + '-sand-hint'}
-                      aria-label="K objednání — Písek"
-                      aria-live="off"
-                      className="id-profile-calc__purchasevalue"
-                      htmlFor={['area', 'depth', 'ratio', 'loss', 'rhoS'].map((key) => uid + '-' + key).join(' ')}
-                      id={uid + '-sand-amount'}
-                    >
-                      <strong>{ready ? format(calculation.delivery.sand.tonnes) : '—'}</strong>
-                      <span> t</span>
-                    </output>
+                  <div className="id-profile-calc__additiongrid">
+                    {field('ratio', 'Podíl', '%', undefined, false, 'Písek', 'sand-podil')}
+                    {field('depth', 'Do hloubky', 'cm', undefined, false, 'Písek', 'sand-do-hloubky')}
+                    <div className="id-profile-calc__purchase">
+                      <label htmlFor={uid + '-sand-amount'}>K objednání</label>
+                      <output
+                        aria-label="K objednání — Písek"
+                        aria-live="off"
+                        className="id-profile-calc__purchasevalue"
+                        htmlFor={['area', 'depth', 'ratio', 'loss', 'rhoS'].map((key) => uid + '-' + key).join(' ')}
+                        id={uid + '-sand-amount'}
+                      >
+                        <strong>{ready ? format(calculation.delivery.sand.tonnes) : '—'}</strong>
+                        <span> t</span>
+                      </output>
+                    </div>
                   </div>
                 </fieldset>
                 <fieldset className="id-profile-calc__amendment">
