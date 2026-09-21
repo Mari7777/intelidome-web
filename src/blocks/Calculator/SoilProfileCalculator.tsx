@@ -569,6 +569,26 @@ export function SoilProfileCalculator({ className, surface }: { className?: stri
               </p>
               <div className="id-profile-calc__additionlist">
                 <fieldset className="id-profile-calc__amendment">
+                  <legend>Písek</legend>
+                  <p className="id-profile-calc__hint" id={uid + '-sand-hint'}>
+                    Zbytek minerálního základu po odečtení příměsí, podle zvoleného poměru.
+                  </p>
+                  <div className="id-profile-calc__purchase">
+                    <label htmlFor={uid + '-sand-amount'}>K objednání</label>
+                    <output
+                      aria-describedby={uid + '-sand-hint'}
+                      aria-label="K objednání — Písek"
+                      aria-live="off"
+                      className="id-profile-calc__purchasevalue"
+                      htmlFor={['area', 'depth', 'ratio', 'loss', 'rhoS'].map((key) => uid + '-' + key).join(' ')}
+                      id={uid + '-sand-amount'}
+                    >
+                      <strong>{ready ? format(calculation.delivery.sand.tonnes) : '—'}</strong>
+                      <span> t</span>
+                    </output>
+                  </div>
+                </fieldset>
+                <fieldset className="id-profile-calc__amendment">
                   <legend>Actino <span>(dříve Biovin)</span></legend>
                   <div className="id-profile-calc__additiongrid">
                     {field('biovin', 'Podíl', '%', undefined, false, 'Actino')}
