@@ -607,7 +607,7 @@ export function SoilProfileCalculator({ className, surface }: { className?: stri
             <div className="id-profile-calc__primary">
               <span>Písek k objednání</span>
               <strong>{ready ? typography(volume(calculation.delivery.sand.m3)) : '—'}</strong>
-              <p>{ready ? typography('Přibližně ' + mass(calculation.delivery.sand.kg)) : calculation.status === 'invalid' ? 'Opravte označené údaje.' : 'Doplňte plochu a hloubku.'}</p>
+              <p>{ready ? typography('≈ ' + mass(calculation.delivery.sand.kg)) : calculation.status === 'invalid' ? 'Opravte označené údaje.' : 'Doplňte plochu a hloubku.'}</p>
             </div>
           </div>
           <MaterialTable calculation={calculation} currency={currency} ready={ready} showPrices={hasEnteredPrices || pricesOpen} />

@@ -331,7 +331,7 @@
   min-width: 0;
   color: var(--id-accent-dark, #60a5fa);
   font-family: var(--id-f-display);
-  font-size: clamp(28px, 2.5vw, 34px);
+  font-size: clamp(30px, 3.4vw, 46px);
   font-weight: 600;
   line-height: 1.08;
   letter-spacing: -.02em;

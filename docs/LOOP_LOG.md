@@ -2688,3 +2688,57 @@ ne jen podobnost.
 
 Neproběhl audit čtečkou obrazovky ani produkční CWV/FPS měření. Slider
 pod CPU throttlem a 4 měny zůstávají vědomě neopravené (viz výše).
+
+## Kolo 05 — ✅ PROŠEL (2026-09-21)
+
+URL: `/posts/kalkulator-na-planovani-pudniho-profilu`. Sedm lenzů
+(Workflow), tentokrát s výslovným upozorněním na vzorec z kol 03–04:
+lenz Hierarchie dvakrát dal 2/5 na nálezu, který skeptik pak vyvrátil.
+Porota byla požádána, ať skóre neopírá o nálezy, co u skeptika stejně
+nemají šanci obstát.
+
+| Oblast | Skóre |
+|---|---|
+| Hierarchie | 4/5 |
+| Typografie | 4/5 |
+| Pohyb | 5/5 |
+| Grafický styl | 5/5 |
+| Slop | 4/5 |
+| Výkon a přístupnost | 5/5 |
+| Rozložení | 5/5 |
+
+**Žádný kritický nález vůbec nebyl vznesen** — poprvé v tomto kalkulátoru
+nebylo potřeba ani kolo skeptika. Kola 03–04 živě reovařena a drží beze
+zbytku (i po opakovaném varování na souběžnou relaci).
+
+### Opravy
+
+- Hero číslo výsledku (`.id-profile-calc__primary > strong`) bylo pod
+  ~1120 px šířky vizuálně nerozeznatelné od tří dílčích „K objednání"
+  hodnot (28px = 28px). DESIGN.md 7.7 pro hero předepisuje viditelně
+  větší řez; sjednoceno na `clamp(30px, 3.4vw, 46px)`, přesně jako
+  sesterský `.id-calc__orow--hero .id-calc__ov`.
+- Viditelný zápis přibližné hmotnosti sjednocen na „≈" (byl „Přibližně
+  28,52 t" vedle „≈ 27,67 t" a „Hmotnost ≈" v témže panelu — zmiňováno
+  potřetí od kola 03). Slovní tvar „přibližně" zůstal beze změny
+  v souvislé větě screen-reader shrnutí, kde symbol nesedí.
+
+### Neopravené (beze změny závažnosti, zaznamenáno potřetí)
+
+Mobilní jednotka „l" u Biocharu bez rezervy od okraje; segmentovaný
+přepínač měny vizuálně slibuje paritu s funkčními přepínači, ale
+nepřepočítává; legenda Zemina/Actino skoro nerozeznatelná; slider pod
+4× CPU throttlem dělá long-tasky. Dva nové, čistě dokumentační nálezy
+(DESIGN.md 7.10/11.3 popisuje jiný vzor pro slider output/aria-live,
+než jaký je živě ověřen jako funkčně správný) — navrženo opravit prózu
+DESIGN.md, ne kód; mimo rozsah tohoto kola.
+
+### Ověření
+
+`tsc --noEmit --incremental false` PASS, 26/26 testů PASS. Živě:
+hero číslo viditelně větší než vedlejší hodnoty na 1440 i 375 px;
+zápis „≈ 28,52 t" vedle hero, „přibližně" beze změny v aria-live
+shrnutí. `layout-check.mjs` beze změny proti stavu před opravou.
+
+**Design-loop na tomto kalkulátoru uzavřen — 3 kola po sobě 0 kritických,
+kolo 05 prošlo bez jediného vzneseného kritického nálezu.**
