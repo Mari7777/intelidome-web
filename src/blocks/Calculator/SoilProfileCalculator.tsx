@@ -43,6 +43,10 @@ const MATERIAL_NAMES: Record<Material, string> = {
 const MATERIAL_COLORS: Record<Material, string> = {
   sand: '#c2a052', soil: '#6b5138', char: '#12161b', biovin: '#54402c', zeolit: '#d5d3cc',
 }
+/** Legible text over each zone-drawing fill (contrast pair, not a new material color). */
+const MATERIAL_LABEL_INK: Record<Material, string> = {
+  sand: '#232830', soil: '#fff', char: '#fff', biovin: '#fff', zeolit: '#232830',
+}
 const SYMBOLS: Record<Currency, string> = { CZK: 'Kč', EUR: '€', USD: '$', GBP: '£' }
 const CURRENCIES: Currency[] = ['CZK', 'EUR', 'USD', 'GBP']
 const PRICE_UNITS: Record<Material, string> = {
@@ -209,12 +213,18 @@ function MaterialTable({
   showPrices: boolean
   ready: boolean
 }) {
+  const depthFor = (material: Material): number | null => {
+    if (!ready) return null
+    if (material === 'sand' || material === 'soil') return calculation.finalDepth
+    return calculation.incorporationDepths[material]
+  }
   return (
     <table className="id-profile-calc__table" role="table">
       <caption>Materiály k objednání</caption>
       <thead role="rowgroup">
         <tr role="row">
           <th role="columnheader" scope="col">Materiál</th>
+          <th role="columnheader" scope="col">Do hloubky</th>
           <th role="columnheader" scope="col">Objem</th>
           <th role="columnheader" scope="col">Hmotnost ≈</th>
           {showPrices && <th role="columnheader" scope="col">Cena</th>}
@@ -223,9 +233,14 @@ function MaterialTable({
       <tbody role="rowgroup">
         {MATERIALS.map((material) => {
           const quantity = calculation.delivery[material]
+          const depth = depthFor(material)
           return (
             <tr key={material} role="row">
               <th role="rowheader" scope="row">{MATERIAL_NAMES[material]}</th>
+              <td role="cell">
+                <span className="id-profile-calc__mobilelabel">Do hloubky</span>
+                <span>{depth != null ? typography(format(depth) + ' cm') : '—'}</span>
+              </td>
               <td role="cell">
                 <span className="id-profile-calc__mobilelabel">Objem</span>
                 <span>{ready ? typography(volume(quantity.m3)) : '—'}</span>
@@ -294,7 +309,7 @@ function ProfileDrawing({ calculation, input, uid }: {
                 <path d="M0 9 9 0" fill="none" stroke="var(--id-cream, #f6f5f2)" strokeWidth="1.6" />
               </pattern>
             </defs>
-            <rect fill="#54402c" height="24" width="220" x="40" y={bottom} />
+            <rect fill="#232830" height="24" width="220" x="40" y={bottom} />
             <rect
               fill={newLayer ? 'none' : '#6b5138'}
               height={input.depth * scale}
@@ -328,7 +343,7 @@ function ProfileDrawing({ calculation, input, uid }: {
           <h4>{input.mode === 'mix' ? 'Po zapravení' : 'Připravená směs'}</h4>
           <p className="id-profile-calc__sr" id={uid + '-zones-description'}>{typography(zonesDescription)}</p>
           <svg aria-describedby={uid + '-zones-description'} aria-label={chartLabel} role="img" viewBox="0 0 320 292">
-            <rect fill="#54402c" height="24" width="220" x="40" y={bottom} />
+            <rect fill="#232830" height="24" width="220" x="40" y={bottom} />
             {calculation.zones.map((zone) => {
               let x = 40
               const y = top + zone.from * scale
@@ -339,14 +354,24 @@ function ProfileDrawing({ calculation, input, uid }: {
                     const width = zone.litresPer100[material] * 2.2
                     const start = x
                     x += width
-                    return width > 0 ? <rect
-                      fill={MATERIAL_COLORS[material]}
-                      height={height}
-                      key={material}
-                      width={width}
-                      x={start}
-                      y={y}
-                    /> : null
+                    if (width <= 0) return null
+                    const canLabel = width >= 34 && height >= 22
+                    return (
+                      <React.Fragment key={material}>
+                        <rect fill={MATERIAL_COLORS[material]} height={height} width={width} x={start} y={y} />
+                        {canLabel && (
+                          <text
+                            className="id-profile-calc__svg-zonelabel"
+                            fill={MATERIAL_LABEL_INK[material]}
+                            textAnchor="middle"
+                            x={start + width / 2}
+                            y={y + height / 2 + 4}
+                          >
+                            {format(zone.litresPer100[material], 0)}%
+                          </text>
+                        )}
+                      </React.Fragment>
+                    )
                   })}
                   {zone.from > 0 && <>
                     <line stroke="#fff" strokeDasharray="4 5" strokeWidth="1.6" x1="40" x2="260" y1={y} y2={y} />
@@ -370,11 +395,20 @@ function ProfileDrawing({ calculation, input, uid }: {
           <span aria-hidden="true" style={{ backgroundColor: MATERIAL_COLORS[material] }} />
           {MATERIAL_NAMES[material]}
         </li>)}
+        {!newLayer && input.mode === 'keep' && calculation.removeM3 > 0 && <li>
+          <span aria-hidden="true" className="id-profile-calc__legend-hatch" />
+          Odvezená zemina
+        </li>}
       </ul>
       <figcaption>
-        Složky se v každé zóně promíchávají. Barevné pruhy ukazují objemové podíly,
-        nikoli oddělené vrstvy materiálů. Řez zobrazuje čistou recepturu bez objednávkové rezervy;
-        výslednou výšku po slehnutí ověřte na místě.
+        <strong>{newLayer ? 'Připravený prostor' : 'Stávající půda'}</strong> je nerozlišená —
+        {!newLayer && input.mode === 'keep' && calculation.removeM3 > 0
+          ? ' šrafovaná část se odveze, zbytek zůstane a přijme novou směs.'
+          : newLayer ? ' vše se navezne nově.' : ' zůstává na místě a přijme novou směs.'}
+        {' '}<strong>{input.mode === 'mix' ? 'Po zapravení' : 'Připravená směs'}</strong> ukazuje
+        složení po zónách: barevné pruhy jsou objemové podíly promíchané v celé zóně,
+        nikoli oddělené vrstvy materiálů. Řez zobrazuje čistou recepturu bez objednávkové
+        rezervy; výslednou výšku po slehnutí ověřte na místě.
       </figcaption>
     </figure>
   )
@@ -625,14 +659,16 @@ export function SoilProfileCalculator({ className, surface }: { className?: stri
           </AlignedInputColumns>
         </div>
 
-        <div className="id-profile-calc__results" role="group" aria-labelledby={uid + '-results-title'}>
-          <div className="id-profile-calc__resultshead">
-            <h3 className="id-profile-calc__parttitle" id={uid + '-results-title'}>Výsledek</h3>
-            <div className="id-profile-calc__primary">
+        <details className="id-profile-calc__results" open>
+          <summary>
+            Výsledek
+            <span>{ready ? typography(volume(calculation.delivery.sand.m3) + ' písku') : 'zatím nespočítáno'}</span>
+          </summary>
+          <div className="id-profile-calc__resultsbody">
+          <div className="id-profile-calc__primary">
               <span>Písek k objednání</span>
               <strong>{ready ? typography(volume(calculation.delivery.sand.m3)) : '—'}</strong>
               <p>{ready ? typography('≈ ' + mass(calculation.delivery.sand.kg)) : calculation.status === 'invalid' ? 'Opravte označené údaje.' : 'Doplňte plochu a hloubku.'}</p>
-            </div>
           </div>
           <MaterialTable calculation={calculation} currency={currency} ready={ready} showPrices={hasEnteredPrices || pricesOpen} />
           <dl className="id-profile-calc__totals">
@@ -690,8 +726,8 @@ export function SoilProfileCalculator({ className, surface }: { className?: stri
               <span>Zadání je konzistentní. Materiály jsou připravené k objednání.</span>
             </div>
           )}
-
-        </div>
+          </div>
+        </details>
 
         <details className="id-profile-calc__details" onToggle={(event) => setPricesOpen(event.currentTarget.open)} ref={pricesDetails}>
           <summary>Ceny materiálů <span>{hasEnteredPrices ? SYMBOLS[currency] : 'zatím nezadané'}</span></summary>
