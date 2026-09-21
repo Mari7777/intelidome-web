@@ -185,7 +185,7 @@
   letter-spacing: -.02em;
   overflow-wrap: anywhere;
 }
-.id-profile-calc__purchasevalue > span { font-size: 15px; }
+.id-profile-calc__purchasevalue > span { padding-right: 2px; font-size: 15px; }
 
 .id-profile-calc__additionlist { display: grid; gap: 24px; margin-top: 24px; padding-top: var(--id-profile-addition-offset, 0px); }
 .id-profile-calc .id-profile-calc__amendment > legend {
@@ -585,5 +585,11 @@
     animation: none !important;
     transition: none !important;
     scroll-behavior: auto !important;
+  }
+  /* Vendor slider pseudo-elementy nejsou potomci ani ::before/::after,
+     univerzální selektor výše je nezasáhne (Kolo 06, lenz Pohyb). */
+  .id-profile-calc__ratio input[type="range"]::-webkit-slider-thumb,
+  .id-profile-calc__ratio input[type="range"]::-moz-range-thumb {
+    transition: none !important;
   }
 }

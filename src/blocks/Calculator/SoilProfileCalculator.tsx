@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useEffect, useId, useLayoutEffect, useMemo, useRef, useState } from 'react'
+import React, { useDeferredValue, useEffect, useId, useLayoutEffect, useMemo, useRef, useState } from 'react'
 
 import { nezlomitelneMezery } from '@/utilities/czechTypography'
 import { cn } from '@/utilities/ui'
@@ -396,7 +396,11 @@ export function SoilProfileCalculator({ className, surface }: { className?: stri
     mode, soil, currency,
     prices: Object.fromEntries(MATERIALS.map((key) => [key, prices[currency][key].trim() === '' ? 0 : parseNumber(prices[currency][key])])) as SoilProfileInput['prices'],
   }), [raw, mode, soil, currency, prices])
-  const calculation = useMemo(() => calculateSoilProfile(input), [input])
+  /* Slider tažení pod zátěží porušovalo INP rozpočet DESIGN.md 6.8 (handler > 50 ms):
+     přepočet zón a SVG řezu je drahý. Vizuální pozice palce (--pct) čte `input` přímo
+     a zůstává okamžitá; jen tento těžký výstup smí zaostat o snímek za skutečným vstupem. */
+  const deferredInput = useDeferredValue(input)
+  const calculation = useMemo(() => calculateSoilProfile(deferredInput), [deferredInput])
   const ready = calculation.status === 'ready'
   const hasEnteredPrices = MATERIALS.some((material) => parseNumber(prices[currency][material]) > 0)
   const issueFor = (field: string) => calculation.issues.find((issue) =>

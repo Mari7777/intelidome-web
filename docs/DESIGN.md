@@ -852,7 +852,7 @@ Mapování `--light`: ink-dark-2→ink-2 (labely, jednotka, popisky); line-dark�
 
 | Prvek | Spec |
 |---|---|
-| Label | f-display, 600, 12px, ls:.12em, uppercase, ink-dark-2, mb:10px |
+| Label | f-display, 600, 12px, ls:.14em, uppercase, ink-dark-2, mb:10px |
 | Pole `__field` | mb:26px; řádek input+jednotka flex, gap:12px, align-items:center |
 | input[type=number] | transparent, jen border-bottom:2px solid line-dark; border-radius:0; f-display 600 clamp(30px,3.4vw,44px); ls:-.02em; tabular-nums; padding:2px 0 8px; max-width:220px; color:inherit; inputmode="decimal" |
 | Focus inputu | outline:none; border-color:accent (podtržení = focus indikátor) |

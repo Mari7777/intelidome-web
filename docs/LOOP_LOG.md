@@ -2742,3 +2742,84 @@ shrnutí. `layout-check.mjs` beze změny proti stavu před opravou.
 
 **Design-loop na tomto kalkulátoru uzavřen — 3 kola po sobě 0 kritických,
 kolo 05 prošlo bez jediného vzneseného kritického nálezu.**
+
+## Kolo 06 — 0 kritických, INP fix a výkonová hygiena (2026-09-21)
+
+URL: `/posts/kalkulator-na-planovani-pudniho-profilu`. Mezi kolem 05
+a tímto kolem přibyly tři vlastní úpravy (mimo porotu): řádek Písek
+ve stejném formátu Podíl/Do hloubky/K objednání jako příměsi s obousměrnou
+vazbou na Poměr a Hloubku profilu, a kompaktnější výsledková sekce.
+Porota některé snímky/skripty z předchozího kola cituje ze stavu PŘED
+těmito úpravami — dvě tvrzené kritické proto skeptik zamítl mj. i na
+základě chybějících/neplatných důkazů, ne jen věcně.
+
+| Oblast | Skóre |
+|---|---|
+| Hierarchie | 2/5 (jediný nález skeptik vyvrátil — chybná premisa počtu hodnot, neexistující snímek) |
+| Typografie | 5/5 |
+| Pohyb | 4/5 |
+| Grafický styl | 5/5 |
+| Slop | 2/5 (jeden nález skeptik vyvrátil, jeden potvrzen jako důležitý) |
+| Výkon a přístupnost | 4/5 |
+| Rozložení | 5/5 |
+
+**0 potvrzených kritických.** Zamítnuto: (1) hero vs. tři „K objednání"
+na mobilu — skeptik ukázal 4, ne 3, hodnoty v citovaném důkazu a
+citovaný screenshot na disku neexistuje; strukturní kontext (karta
+Výsledek s vlastním nadpisem) navíc hierarchii nese i bez rozdílu
+velikosti. (2) Přepínač měny „tiše maže zadanou cenu" — je uvnitř
+vlastního sbaleného `<details>`, který uživatel musí otevřít sám, se
+sousedícím vysvětlujícím textem; DESIGN.md sdílení komponenty mezi
+sémanticky odlišnými přepínači nezakazuje.
+
+### Opravy
+
+- **INP: tažení posuvníku poměru pod 4× CPU throttlem porušovalo
+  DESIGN.md 6.8 (žádný handler > 50 ms) — 21/21 událostí nad limitem,
+  medián 58 ms.** Přepočet zón a SVG řezu (`calculateSoilProfile`)
+  teď běží nad `useDeferredValue(input)` místo přímo nad `input`;
+  vizuální pozice palce (`--pct`) čte `input` beze změny, takže zůstává
+  okamžitá. Živě přeměřeno stejnou metodikou (Playwright + CDP
+  throttle 4×): medián 58→32 ms, událostí nad 50 ms 21/21→9/21 —
+  reálné zlepšení, ne úplné odstranění (zbytek by vyžadoval hlubší
+  restrukturalizaci komponenty, mimo rozsah tohoto kola).
+- Reduced-motion blok cílí univerzální selektor `*`, který podle
+  specifikace CSS nezasáhne vendor pseudo-elementy palce
+  (`::-webkit-slider-thumb`/`::-moz-range-thumb`) — doplněn explicitní
+  řádek, aby hover-scale 1→1,12 skutečně zmizel pod
+  `prefers-reduced-motion: reduce`.
+- Jednotka za hodnotou „K objednání" (např. „200 l") dřív dosedala na
+  hranu vlastního kontejneru bez rezervy (0 px) — přidáno 2 px
+  `padding-right`, hygiena proti budoucímu posunu, ne oprava aktuálně
+  viditelné vady (živě neprokázána, viz níže).
+- DESIGN.md §7.7 řádek „Label" psal `ls:.12em`, zatímco §4.3 bod 5
+  (kanonické pravidlo, potvrzené i živou implementací obou kalkulátorů)
+  žádá `.14em` — opravena stará hodnota v próze, kód se neměnil.
+
+### Přehodnoceno, ne opraveno (produktové/designové rozhodnutí)
+
+**Legenda „Zemina"/„Actino" — počtvrté potvrzeno beze změny (ΔRGB 31,
+poměr jasu 1,33:1 vs. 12,12:1 u Biochar/Zeolit ve stejné legendě),
+oba nezávislé lenzy (grafický styl i slop) letos povýšily na
+důležitý.** Hlubší příčina: barvy pocházejí z tokenů `--id-soil`/
+`--id-soil-deep` (DESIGN.md 3.6), které jsou dokumentované **výhradně
+pro vrstvy jednoho řezu půdou** (ornice/podloží), ne pro odlišení dvou
+nesouvisejících materiálů — Actino zde nese barvu, která sémanticky
+znamená „hlubší vrstva téže zeminy", ne „jiná surovina". Oprava
+vyžaduje buď nový token v DESIGN.md 3.6/9.2 (design-systémové
+rozhodnutí, ne kód), nebo texturní/obrysové odlišení místo barvy —
+obojí přesahuje rozsah tohoto kola, ponecháno na rozhodnutí uživatele.
+
+### Ověření
+
+`tsc --noEmit --incremental false` PASS, 26/26 testů PASS (matematika
+beze změny). Živě: přepnutí Podílu písku na 50 % nejdřív okamžitě
+posune slider a přepínač půdy na „Vlastní", K objednání dokreslí
+o zlomek sekundy později (deferred, ne bug — zachyceno mezi dvěma
+snímky). `layout-check.mjs` beze změny proti stavu před opravou.
+
+### Hranice ověření
+
+INP oprava snižuje, neodstraňuje problém pod silnou zátěží CPU —
+zbytek by vyžadoval hlubší refaktor (izolace SVG podstromu, debounce
+raw stavu). Barevná legenda zůstává nevyřešená, čeká na rozhodnutí.
