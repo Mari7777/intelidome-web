@@ -3,6 +3,7 @@
 import React, { useEffect, useId, useLayoutEffect, useMemo, useRef, useState } from 'react'
 
 import { nezlomitelneMezery } from '@/utilities/czechTypography'
+import { cn } from '@/utilities/ui'
 
 import {
   calculateSoilProfile,
@@ -627,7 +628,7 @@ export function SoilProfileCalculator({ className, surface }: { className?: stri
             <div><dt>Modelová výška</dt><dd>{ready ? typography(format(calculation.finalDepth) + ' cm') : '—'}
               <small>{ready ? typography(volume(calculation.finalVolume) + ' surovin pro profil') : '—'}</small>
             </dd></div>
-            <div className="id-profile-calc__cost">
+            <div className={cn('id-profile-calc__cost', ready && calculation.hasPrices && 'id-profile-calc__cost--set')}>
               <dt>{!ready || calculation.missingPrices.length ? 'Součet zadaných cen' : 'Materiál celkem'}</dt>
               <dd>{ready ? calculation.hasPrices ? typography(money(calculation.totalCost, currency)) : 'Ceny nezadané' : '—'}</dd>
             </div>

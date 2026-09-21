@@ -2600,3 +2600,91 @@ Neproběhl audit čtečkou obrazovky ani produkční CWV/FPS měření.
 Neopravené nálezy (výše) čekají na další kolo. Porota i oprava proběhly
 jako Workflow (7 agentů + skeptik), ne jako samostatný skill `design-loop`
 (v prostředí nedostupný).
+
+## Kolo 04 — ověření oprav kola 03 + dva nové nálezy (2026-09-21)
+
+URL: `/posts/kalkulator-na-planovani-pudniho-profilu`. Sedm lenzů znovu
+(Workflow + skeptik), tentokrát s úkolem ověřit ŽIVĚ, že se opravy kola 03
+skutečně projevily na běžící stránce (ne jen v diffu), a přehodnotit dřív
+vědomě neopravené body. Explicitně upozorněno na riziko souběžné relace.
+
+| Oblast | Skóre |
+|---|---|
+| Hierarchie | 2/5 (jediný tvrzený kritický nález skeptik vyvrátil — viz níže) |
+| Typografie | 4/5 |
+| Pohyb | 5/5 |
+| Grafický styl | 5/5 |
+| Slop | 4/5 |
+| Výkon a přístupnost | 5/5 |
+| Rozložení | 5/5 |
+
+**0 potvrzených kritických.** Jediné tvrzení („čtyři vizuálně stejně
+důležitá modrá čísla na jedné obrazovce") skeptik zamítl: sestavil ho
+z uměle vynucené scroll pozice, která při běžném čtení nenastává (hero
+výsledek je při přirozeném scrollu 175 px mimo viewport, když jsou
+vidět tři dílčí „K objednání"); navíc `--id-accent-dark` je podle
+DESIGN.md 3.4 obecný token pro „akcentový text < 30 px", ne barva
+vyhrazená jednomu hero číslu.
+
+Kolo 03 živě potvrzeno beze zbytku (accent na segmentech, accent-dark
+na číslech, accent-tint bez pilulky na štítku — **nevrátilo se ani po
+souběžné relaci**, custom slider dle 7.10, focus-ring 3px/3px a 3px/6px,
+verdikt používá sdílenou `.id-verdict--ok` třídu). Grafický styl 5/5
+navíc porovnal `.id-profile-calc` živě s nezávislým `.id-calc` panelem
+na jiné stránce — identické barvy potvrzují skutečnou rodinovou shodu,
+ne jen podobnost.
+
+### Opravy
+
+- Vedlejší efekt kola 03: `.id-profile-calc__cost dd` (součet cen)
+  barvil `--id-accent-dark` i stav „Ceny nezadané" (placeholder, ne
+  výsledek) — stejně silně jako skutečná čísla nad ním. Přidán modifier
+  `--set`, který se připojí jen když je `calculation.hasPrices` true;
+  bez něj řádek zůstává `--id-ink-dark-2`, shodně se sourozeneckým
+  stavovým textem „zatím nezadané".
+- `nezlomitelneMezery` (sdílená utilita, DESIGN.md 4.3) chránila
+  pevnou mezerou cm/kg/l/m²/m³/min/%, ale ne jednotku „t" (tuny) ani
+  měnové symboly Kč/€/$/£, které tento kalkulátor jako první na webu
+  používá. Doplněno do `JEDNOTKA_SLOVO` (t, Kč, tun\p{L}*) a
+  `JEDNOTKA_SYMBOL` (€, $, £), se stejnou `(?!\p{L})` hranicí jako
+  ostatní zkratky — ověřeno, že nepohltí slova jako „typy" nebo
+  „trávníky". Dosud latentní vada (nezjištěno skutečné zalomení
+  v testovaných šířkách), teď stejně ošetřená jako ostatní jednotky.
+
+### Neopravené (přehodnoceno, beze změny závažnosti)
+
+- Legenda „Zemina"/„Actino" skoro nerozeznatelná (ΔRGB 31,02) — kód
+  barev se v kole 03 i 04 nedotkl.
+- Mobilní ořez jednotky „l" u „K objednání" (Biochar).
+- Tažení slideru pod 4× CPU throttlem: 21 z 30 kroků nad 50 ms,
+  medián ~65 ms (přepočet + překreslení SVG bez debounce/rAF).
+- Zápis „Přibližně" vs. „≈" pro touž přibližnou hodnotu v jednom
+  panelu (2× slovo, 4× symbol) — kosmetické, nesjednoceno.
+- **Nově pojmenované, ne nově vzniklé:** segmentovaný přepínač měn
+  teď vizuálně vypadá stejně „plnohodnotně" jako přepínač režimu/typu
+  půdy, ale mezi měnami nic nepřepočítává (hint v kódu na to
+  upozorňuje, přepínač samotný ne). Mimo rozsah tohoto kola — jde
+  o produktové rozhodnutí (dopočítat kurz, nebo přepínač vizuálně
+  odlišit), ne o rychlou opravu tokenu.
+- Poznámka mimo rozsah opravy: DESIGN.md 7.7/3.4 textově předepisuje
+  pro hero číslo `.id-calc` plný `--id-accent` (#2563eb), ale živá
+  implementace (`.id-calc` i `.id-profile-calc`) shodně používá
+  `--id-accent-dark` — dokumentace zaostává za ověřenou praxí, ne
+  chyba úpravy. Navrženo opravit prózu DESIGN.md, ne kód.
+
+### Ověření
+
+- `tsc --noEmit --incremental false` PASS. Celá sada 26/26 testů PASS
+  (matematika a nová regex utilita se testují nepřímo, chování ověřeno
+  ručním skriptem s 9 případy včetně negativních — „typy", „trávníky",
+  „tucty" správně BEZ pevné mezery).
+- Živě: zadání ceny písku (5000 Kč/t) přepnulo „Ceny nezadané" (šedá)
+  na „142 594 Kč" (modrá) — obě větve modifier třídy potvrzeny na
+  běžící stránce, ne jen v CSS.
+- `layout-check.mjs` beze změny proti stavu před opravou (stejná známá
+  chyba měřicího skriptu na jednomodulové ose).
+
+### Hranice ověření
+
+Neproběhl audit čtečkou obrazovky ani produkční CWV/FPS měření. Slider
+pod CPU throttlem a 4 měny zůstávají vědomě neopravené (viz výše).

@@ -397,7 +397,8 @@
   font-weight: 400;
   line-height: 1.5;
 }
-.id-profile-calc__cost dd { color: var(--id-accent-dark, #60a5fa); }
+.id-profile-calc__cost dd { color: var(--id-ink-dark-2, #9ba1a8); }
+.id-profile-calc__cost--set dd { color: var(--id-accent-dark, #60a5fa); }
 .id-profile-calc__textbutton {
   display: inline-flex;
   align-items: center;
