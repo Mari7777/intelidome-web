@@ -261,11 +261,14 @@ function MaterialTable({
    se změní výška terénu. Zvolený způsob je zvýrazněný. */
 const MODE_ORDER: Mode[] = ['keep', 'mix', 'new']
 const MODE_TITLES: Record<Mode, string> = { keep: 'Udržet výšku', mix: 'Zapravit', new: 'Nová vrstva' }
+/** Jediný zdroj popisků: přepínač v zadání i přepínač nad kresbou musí říkat totéž. */
+const MODE_OPTIONS = MODE_ORDER.map((value) => ({ value, label: MODE_TITLES[value] }))
 const PANEL = { before: 14, after: 178, width: 130, terrain: 130, strip: 16, height: 268 }
 
-function ProfileDrawing({ calculation, input, uid }: {
+function ProfileDrawing({ calculation, input, onModeChange, uid }: {
   calculation: Result
   input: SoilProfileInput
+  onModeChange: (mode: Mode) => void
   uid: string
 }) {
   /* Ostatní dva způsoby se počítají ze stejného zadání, jen s jiným režimem —
@@ -303,19 +306,18 @@ function ProfileDrawing({ calculation, input, uid }: {
   }
   const tagY = bottom + PANEL.strip + 22
   const arrowY = terrain + depth * scale / 2
-  /* Vedle sebe sdílejí všechny tři řezy jeden výřez (linka terénu na téže výšce,
-     prázdné místo nad ní se ořízne jen o to, co nepotřebuje ani navýšení).
-     Pod sebou (≤ 1129 px) si každý řez ořízne vlastní prázdný vršek — jinak by
-     Udržet výšku i Nová vrstva nesly stejnou díru jako navýšení u Zapravit. */
+  /* Měřítko je společné všem třem způsobům a šířka výřezu je vždy 320, takže
+     bloky mají ve všech způsobech stejnou vykreslenou velikost — porovnatelnost
+     drží měřítko, ne rám. Výřez si proto každý způsob ořízne shora sám: prázdné
+     místo nad terénem potřebuje jen Zapravit, kde se terén zvedá. */
   const viewTopFor = (lift: number) => Math.max(0, Math.floor(terrain - lift - 30))
-  const sharedTop = viewTopFor(rise * scale)
 
-  const profile = (mode: Mode, top: number, className: string) => {
+  const profile = (mode: Mode, top: number) => {
     const afterTop = mode === 'mix' ? terrain - rise * scale : terrain
     const mixId = uid + '-' + mode + '-mix'
     const outId = uid + '-' + mode + '-out'
     return (
-      <svg aria-label={labels[mode]} className={className} role="img" viewBox={'0 ' + top + ' 320 ' + (PANEL.height - top)}>
+      <svg aria-label={labels[mode]} role="img" viewBox={'0 ' + top + ' 320 ' + (PANEL.height - top)}>
         <defs>
           <pattern height="12" id={mixId} patternUnits="userSpaceOnUse" width="12">
             <circle cx="3" cy="3" fill="#c2a052" r="1.5" />
@@ -376,23 +378,20 @@ function ProfileDrawing({ calculation, input, uid }: {
     <figure className="id-profile-calc__drawing">
       <h3>Jak se profil změní</h3>
       <p className="id-profile-calc__drawing-lead">
-        {typography('Stejné zadání — ' + format(input.area) + ' m² a ' + format(depth) + ' cm — připravené třemi způsoby ve společném měřítku. Liší se tím, co se odveze, co se doveze a jak se změní výška terénu.')}
+        {typography('Stejné zadání — ' + format(input.area) + ' m² a ' + format(depth) + ' cm — ve třech způsobech přípravy. Přepínejte je a sledujte, co se odveze, co se doveze a jak se změní výška terénu. Všechny tři kreslíme ve stejném měřítku, takže jsou porovnatelné; přepínač je týž jako „Co dělám" v zadání.')}
       </p>
-      <div className="id-profile-calc__modes">
-        {MODE_ORDER.map((mode) => {
-          const active = mode === input.mode
-          return (
-            <div aria-current={active ? 'true' : undefined} className={cn('id-profile-calc__mode', active && 'is-active')} key={mode}>
-              <h4>
-                {MODE_TITLES[mode]}
-                {active && <span className="id-profile-calc__mode-chosen">zvoleno</span>}
-              </h4>
-              {profile(mode, sharedTop, 'id-profile-calc__mode-wide')}
-              {profile(mode, viewTopFor(mode === 'mix' ? rise * scale : 0), 'id-profile-calc__mode-stack')}
-              <p>{typography(notes[mode])}</p>
-            </div>
-          )
-        })}
+      {/* Přepínač zrcadlí „Co dělám" v zadání — týž stav, jen druhé ovládání.
+          Vlastní `name`, jinak by si obě skupiny přepisovaly výběr. */}
+      <Choices
+        legend="Způsob přípravy"
+        name={uid + '-drawing-mode'}
+        onChange={onModeChange}
+        options={MODE_OPTIONS}
+        value={input.mode}
+      />
+      <div className="id-profile-calc__mode">
+        {profile(input.mode, viewTopFor(input.mode === 'mix' ? rise * scale : 0))}
+        <p>{typography(notes[input.mode])}</p>
       </div>
       <ul aria-label="Značky v řezu" className="id-profile-calc__legend">
         <li><span aria-hidden="true" className="id-profile-calc__legend-soil" />stávající zemina</li>
@@ -543,11 +542,7 @@ export function SoilProfileCalculator({ className, surface }: { className?: stri
                 legend="Co dělám"
                 name={uid + '-mode'}
                 onChange={setMode}
-                options={[
-                  { value: 'keep', label: 'Udržet výšku' },
-                  { value: 'mix', label: 'Zapravit' },
-                  { value: 'new', label: 'Nová vrstva' },
-                ]}
+                options={MODE_OPTIONS}
                 value={mode}
               />
               <p className="id-profile-calc__modehint">{typography(MODE_HINTS[mode])}</p>
@@ -810,7 +805,7 @@ export function SoilProfileCalculator({ className, surface }: { className?: stri
         )}
       </div>
 
-      <ProfileDrawing calculation={calculation} input={input} uid={uid} />
+      <ProfileDrawing calculation={calculation} input={input} onModeChange={setMode} uid={uid} />
       <p aria-atomic="true" aria-live="polite" className="id-profile-calc__sr" role="status">
         {typography(announcement)}
       </p>
