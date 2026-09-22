@@ -10,7 +10,6 @@ import {
   INPUT_DEFAULTS,
   SOIL_PRESETS,
   type Amendment,
-  type ProfileZone,
   type SoilProfileInput,
 } from './soilProfileMath'
 import './SoilProfileCalculator.css'
@@ -41,112 +40,6 @@ type RawPrices = Record<Currency, Record<Material, string>>
 const MATERIALS: Material[] = ['sand', 'soil', 'char', 'biovin', 'zeolit']
 const MATERIAL_NAMES: Record<Material, string> = {
   sand: 'Písek', soil: 'Zemina', char: 'Biochar', biovin: 'Actino', zeolit: 'Zeolit',
-}
-const MATERIAL_COLORS: Record<Material, string> = {
-  sand: '#c2a052', soil: '#6b5138', char: '#12161b', biovin: '#54402c', zeolit: '#d5d3cc',
-}
-/** Legible text over each zone-drawing fill (contrast pair, not a new material color). */
-const MATERIAL_LABEL_INK: Record<Material, string> = {
-  sand: '#232830', soil: '#fff', char: '#fff', biovin: '#fff', zeolit: '#232830',
-}
-
-/* Příměsi tvoří 2–3 % objemu: jako proporční pruh by měřily 4–6 jednotek z 220
-   a v řezu zmizely. Kreslí se proto jako rozptýlené částice týmž jazykem jako
-   ilustrace TriZony v článku — biochar černý střípek, Actino hnědá hrudka,
-   zeolit světlé hranaté zrno. Součet ploch částic v zóně odpovídá objemovému
-   podílu (PARTICLE_AREA ≈ plocha jedné značky v jednotkách viewBoxu), velikost
-   zrna je schematická. Rozmístění je deterministické (seed = zóna + materiál),
-   takže se při tažení posuvníku částice jen přidávají a ubírají, nepřeskakují. */
-const AMENDMENTS: Amendment[] = ['char', 'biovin', 'zeolit']
-const PROFILE_X = 40
-const PROFILE_W = 220
-const PARTICLE_AREA = 43
-const PARTICLE_CELL = 11
-const PARTICLE_JITTER = 1.6
-const PARTICLE_SCALE = 1.2
-type Particle = { material: Amendment; x: number; y: number }
-
-const seededRandom = (seed: number) => () => {
-  seed = (seed + 0x6d2b79f5) | 0
-  let t = Math.imul(seed ^ (seed >>> 15), 1 | seed)
-  t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t
-  return ((t ^ (t >>> 14)) >>> 0) / 4294967296
-}
-
-function scatterParticles(
-  zone: ProfileZone, index: number, y0: number, height: number, avoid: { x: number; y: number }[],
-): Particle[] {
-  if (height < 8) return []
-  const rows = Math.max(1, Math.floor(height / PARTICLE_CELL))
-  const cols = PROFILE_W / PARTICLE_CELL
-  const cellHeight = height / rows
-  const centre = (cell: number) => ({
-    x: PROFILE_X + (cell % cols + 0.5) * PARTICLE_CELL,
-    y: y0 + (Math.floor(cell / cols) + 0.5) * cellHeight,
-  })
-  /* Buňky pod procentním popiskem písku/zeminy zůstávají prázdné, aby zůstal čitelný. */
-  const cells = Array.from({ length: rows * cols }, (_, cell) => cell).filter((cell) => {
-    const c = centre(cell)
-    return !avoid.some((a) => Math.abs(a.x - c.x) < 24 && Math.abs(a.y - c.y) < 14)
-  })
-  const taken = new Set<number>()
-  const particles: Particle[] = []
-  AMENDMENTS.forEach((material, order) => {
-    const random = seededRandom(index * 1013 + order * 97 + 7)
-    const sequence = [...cells]
-    for (let i = sequence.length - 1; i > 0; i--) {
-      const j = Math.floor(random() * (i + 1))
-      ;[sequence[i], sequence[j]] = [sequence[j], sequence[i]]
-    }
-    const wanted = Math.round(zone.litresPer100[material] / 100 * PROFILE_W * height / PARTICLE_AREA)
-    let placed = 0
-    for (const cell of sequence) {
-      if (placed >= wanted) break
-      if (taken.has(cell)) continue
-      taken.add(cell)
-      const c = centre(cell)
-      const jitterX = ((cell * 7919) % 97) / 96 - 0.5
-      const jitterY = ((cell * 104729) % 89) / 88 - 0.5
-      particles.push({
-        material,
-        x: c.x + jitterX * PARTICLE_JITTER,
-        y: c.y + jitterY * Math.max(0, Math.min(PARTICLE_JITTER, cellHeight - 9)),
-      })
-      placed++
-    }
-  })
-  return particles
-}
-
-/** One amendment mark; the same shapes serve as swatches in the zone table. */
-function ParticleMark({ material, x = 0, y = 0 }: { material: Amendment; x?: number; y?: number }) {
-  const transform = 'translate(' + x + ' ' + y + ') scale(' + PARTICLE_SCALE + ')'
-  if (material === 'char') {
-    return <path d="M-3.6 -0.4 0.2 -3.4 3.6 -1.2 1.4 3.4 -2.6 2.6Z" fill="#12161b" opacity="0.9" transform={transform} />
-  }
-  if (material === 'biovin') {
-    return <circle fill="#54402c" r="2.9" stroke="#232830" strokeWidth={1.6 / PARTICLE_SCALE} transform={transform} />
-  }
-  return (
-    <path
-      d="M-3.6 -1 -0.6 -3.2 3 -1.8 3.4 1.8 0.4 3.4 -3.2 2Z"
-      fill="#d5d3cc"
-      stroke="#232830"
-      strokeLinejoin="round"
-      strokeWidth={1.6 / PARTICLE_SCALE}
-      transform={transform}
-    />
-  )
-}
-
-function Swatch({ material }: { material: Material }) {
-  return (
-    <svg aria-hidden="true" className="id-profile-calc__swatch" viewBox="-8 -8 16 16">
-      {material === 'sand' || material === 'soil'
-        ? <rect fill={MATERIAL_COLORS[material]} height="13" stroke="#232830" strokeWidth="1.6" width="13" x="-6.5" y="-6.5" />
-        : <g transform="scale(1.15)"><ParticleMark material={material} /></g>}
-    </svg>
-  )
 }
 const SYMBOLS: Record<Currency, string> = { CZK: 'Kč', EUR: '€', USD: '$', GBP: '£' }
 const CURRENCIES: Currency[] = ['CZK', 'EUR', 'USD', 'GBP']
@@ -362,174 +255,156 @@ function MaterialTable({
   )
 }
 
-/** Display quantities without implying separate strata for individual ingredients. */
+/* Tři způsoby přípravy téhož profilu vedle sebe, každý jako před → po ve
+   společném měřítku. Kresba záměrně neukazuje složení směsi (to nese výsledek
+   kalkulátoru) — jen to, čím se způsoby liší: co se odveze, co se doveze a jak
+   se změní výška terénu. Zvolený způsob je zvýrazněný. */
+const MODE_ORDER: Mode[] = ['keep', 'mix', 'new']
+const MODE_TITLES: Record<Mode, string> = { keep: 'Udržet výšku', mix: 'Zapravit', new: 'Nová vrstva' }
+const PANEL = { before: 14, after: 178, width: 130, terrain: 130, strip: 16, height: 268 }
+
 function ProfileDrawing({ calculation, input, uid }: {
   calculation: Result
   input: SoilProfileInput
   uid: string
 }) {
-  if (calculation.status !== 'ready') {
+  /* Ostatní dva způsoby se počítají ze stejného zadání, jen s jiným režimem —
+     výpočet je levný, drahé bylo jen dřívější vykreslování složení. */
+  const variants = useMemo(() => Object.fromEntries(MODE_ORDER.map((mode) => [
+    mode, mode === input.mode ? calculation : calculateSoilProfile({ ...input, mode }),
+  ])) as Record<Mode, Result>, [calculation, input])
+  if (calculation.status !== 'ready' || MODE_ORDER.some((mode) => variants[mode].status !== 'ready')) {
     return (
       <section className="id-profile-calc__drawing id-profile-calc__drawing--empty">
         <h3>Jak se profil změní</h3>
-        <p>Doplňte platné zadání. Řez pak porovná původní a připravený profil včetně hloubek zapravení.</p>
+        <p>Doplňte platné zadání. Řez pak porovná tři způsoby přípravy: co se odveze, co se doveze a jak se změní výška terénu.</p>
       </section>
     )
   }
-  const finalDepth = calculation.finalDepth
-  const scale = 180 / Math.max(input.depth, finalDepth, 1)
-  const bottom = 234
-  const top = bottom - finalDepth * scale
-  const beforeTop = bottom - input.depth * scale
-  const newLayer = input.mode === 'new'
-  const chartLabel = newLayer
-    ? 'Nová vrstva do hloubky ' + format(finalDepth) + ' centimetrů.'
-    : 'Zadaná hloubka ' + format(input.depth) + ' centimetrů, modelová hloubka '
-      + format(finalDepth) + ' centimetrů. '
-      + (input.mode === 'mix' ? 'Objemově odpovídá zvýšení o ' + format(calculation.rise) + ' centimetrů.' : 'Model zachovává zadanou výšku.')
-  const usedMaterials = MATERIALS.filter((material) => calculation.zones.some((zone) => zone.litresPer100[material] > 0))
-  const depthTick = (y: number) => <line stroke="#232830" strokeLinecap="round" strokeWidth="1.6" x1="262" x2="270" y1={y} y2={y} />
+  const depth = input.depth
+  const rise = Math.max(0, variants.mix.rise)
+  /* Společné měřítko: hloubka se vejde do 90 jednotek, navýšení terénu do 120. */
+  const scale = Math.min(90 / Math.max(depth, 1), 120 / Math.max(rise, 1))
+  const terrain = PANEL.terrain
+  const bottom = terrain + depth * scale
+  const removedHeight = variants.keep.initialVolume > 0
+    ? depth * scale * variants.keep.removeM3 / variants.keep.initialVolume
+    : 0
+  const newVolume = input.area * depth / 100
+  const notes: Record<Mode, string> = {
+    keep: 'Odvezete ' + volume(variants.keep.removeM3) + ' zeminy; výška terénu zůstává.',
+    mix: 'Nic neodvážíte; terén se zvedne o ' + format(rise, 1) + ' cm.',
+    new: 'Vše dovezete: ' + volume(newVolume) + ' směsi do připraveného prostoru.',
+  }
+  const labels: Record<Mode, string> = {
+    keep: 'Udržet výšku: před — stávající zemina, horní část k odvozu; po — směs do původní výšky terénu.',
+    mix: 'Zapravit: před — stávající zemina; po — směs vyšší o ' + format(rise, 1) + ' centimetrů nad úrovní terénu.',
+    new: 'Nová vrstva: před — připravený prázdný prostor; po — směs do úrovně terénu.',
+  }
+  const tagY = bottom + PANEL.strip + 22
+  const arrowY = terrain + depth * scale / 2
+  /* Vedle sebe sdílejí všechny tři řezy jeden výřez (linka terénu na téže výšce,
+     prázdné místo nad ní se ořízne jen o to, co nepotřebuje ani navýšení).
+     Pod sebou (≤ 1129 px) si každý řez ořízne vlastní prázdný vršek — jinak by
+     Udržet výšku i Nová vrstva nesly stejnou díru jako navýšení u Zapravit. */
+  const viewTopFor = (lift: number) => Math.max(0, Math.floor(terrain - lift - 30))
+  const sharedTop = viewTopFor(rise * scale)
+
+  const profile = (mode: Mode, top: number, className: string) => {
+    const afterTop = mode === 'mix' ? terrain - rise * scale : terrain
+    const mixId = uid + '-' + mode + '-mix'
+    const outId = uid + '-' + mode + '-out'
+    return (
+      <svg aria-label={labels[mode]} className={className} role="img" viewBox={'0 ' + top + ' 320 ' + (PANEL.height - top)}>
+        <defs>
+          <pattern height="12" id={mixId} patternUnits="userSpaceOnUse" width="12">
+            <circle cx="3" cy="3" fill="#c2a052" r="1.5" />
+            <circle cx="9" cy="8" fill="#c2a052" r="1.5" />
+          </pattern>
+          <pattern height="9" id={outId} patternUnits="userSpaceOnUse" width="9">
+            <path d="M0 9 9 0" fill="none" stroke="var(--id-cream, #f6f5f2)" strokeWidth="1.6" />
+          </pattern>
+        </defs>
+        {/* úroveň terénu — společná vztažná linka obou řezů */}
+        <line stroke="#d5d3cc" strokeDasharray="3 7" strokeLinecap="round" strokeWidth="1.6" x1="8" x2="312" y1={terrain} y2={terrain} />
+        <rect fill="#54402c" height={PANEL.strip} opacity="0.88" width={PANEL.width} x={PANEL.before} y={bottom} />
+        <rect fill="#54402c" height={PANEL.strip} opacity="0.88" width={PANEL.width} x={PANEL.after} y={bottom} />
+
+        {/* před */}
+        {mode === 'new' ? (
+          <>
+            <rect fill="none" height={depth * scale} stroke="#232830" strokeDasharray="4 5" strokeWidth="1.6" width={PANEL.width} x={PANEL.before} y={terrain} />
+            {depth * scale >= 34 && <>
+              <text className="id-profile-calc__svg-tag" textAnchor="middle" x={PANEL.before + PANEL.width / 2} y={arrowY - 2}>připravený</text>
+              <text className="id-profile-calc__svg-tag" textAnchor="middle" x={PANEL.before + PANEL.width / 2} y={arrowY + 13}>prostor</text>
+            </>}
+          </>
+        ) : (
+          <>
+            <rect fill="#6b5138" height={depth * scale} opacity="0.9" width={PANEL.width} x={PANEL.before} y={terrain} />
+            {mode === 'keep' && removedHeight > 0 && <>
+              <rect fill={'url(#' + outId + ')'} height={removedHeight} opacity="0.7" width={PANEL.width} x={PANEL.before} y={terrain} />
+              <text className="id-profile-calc__svg-tag" textAnchor="middle" x={PANEL.before + PANEL.width / 2} y={terrain - 8}>odvoz</text>
+            </>}
+            <path d={'M' + PANEL.before + ' ' + terrain + ' V' + bottom + ' H' + (PANEL.before + PANEL.width) + ' V' + terrain} fill="none" stroke="#232830" strokeLinejoin="round" strokeWidth="1.6" />
+            <line stroke="#3f7d4e" strokeWidth="4" x1={PANEL.before} x2={PANEL.before + PANEL.width} y1={terrain} y2={terrain} />
+          </>
+        )}
+
+        {/* šipka před → po */}
+        <path d={'M150 ' + arrowY + ' H167 M162 ' + (arrowY - 5) + ' L168 ' + arrowY + ' L162 ' + (arrowY + 5)} fill="none" stroke="#232830" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.6" />
+
+        {/* po */}
+        <rect fill="#6b5138" height={bottom - afterTop} opacity="0.9" width={PANEL.width} x={PANEL.after} y={afterTop} />
+        <rect fill={'url(#' + mixId + ')'} height={bottom - afterTop} width={PANEL.width} x={PANEL.after} y={afterTop} />
+        <path d={'M' + PANEL.after + ' ' + afterTop + ' V' + bottom + ' H' + (PANEL.after + PANEL.width) + ' V' + afterTop} fill="none" stroke="#232830" strokeLinejoin="round" strokeWidth="1.6" />
+        <line stroke="#3f7d4e" strokeWidth="4" x1={PANEL.after} x2={PANEL.after + PANEL.width} y1={afterTop} y2={afterTop} />
+        {mode === 'mix' && rise > 0 && <>
+          <path d={'M166 ' + afterTop + ' H174 M170 ' + afterTop + ' V' + terrain + ' M166 ' + terrain + ' H174'} fill="none" stroke="#232830" strokeLinecap="round" strokeWidth="1.6" />
+          <text className="id-profile-calc__svg-rise" textAnchor="end" x="160" y={(afterTop + terrain) / 2 + 6}>
+            {typography('+' + format(rise, 1) + ' cm')}
+          </text>
+        </>}
+
+        <text className="id-profile-calc__svg-tag" textAnchor="middle" x={PANEL.before + PANEL.width / 2} y={tagY}>před</text>
+        <text className="id-profile-calc__svg-tag" textAnchor="middle" x={PANEL.after + PANEL.width / 2} y={tagY}>po</text>
+      </svg>
+    )
+  }
+
   return (
     <figure className="id-profile-calc__drawing">
       <h3>Jak se profil změní</h3>
-      <p className="id-profile-calc__drawing-lead">{typography(chartLabel)}</p>
-      <div className="id-profile-calc__profiles">
-        <div className="id-profile-calc__profile">
-          <h4>{newLayer ? 'Připravený prostor' : 'Stávající půda'}</h4>
-          <svg
-            aria-label={newLayer ? 'Prostor pro novou vrstvu.' : 'Původní půda, hloubka ' + format(input.depth) + ' centimetrů.'}
-            role="img"
-            viewBox="0 0 320 292"
-          >
-            <defs>
-              <pattern height="9" id={uid + '-removed'} patternUnits="userSpaceOnUse" width="9">
-                <path d="M0 9 9 0" fill="none" stroke="var(--id-cream, #f6f5f2)" strokeWidth="1.6" />
-              </pattern>
-            </defs>
-            <rect fill="#232830" height="24" width="220" x="40" y={bottom} />
-            <rect
-              fill={newLayer ? 'none' : '#6b5138'}
-              height={input.depth * scale}
-              stroke="#232830"
-              strokeDasharray={newLayer ? '4 5' : undefined}
-              strokeWidth="1.6"
-              width="220"
-              x="40"
-              y={beforeTop}
-            />
-            {!newLayer && input.mode === 'keep' && calculation.removeM3 > 0 && (
-              <rect
-                fill={'url(#' + uid + '-removed)'}
-                height={input.depth * scale * calculation.removeM3 / calculation.initialVolume}
-                opacity="0.7"
-                width="220"
-                x="40"
-                y={beforeTop}
-              />
-            )}
-            <line stroke="#3f7d4e" strokeWidth="4" x1="40" x2="260" y1={beforeTop} y2={beforeTop} />
-            {depthTick(beforeTop)}
-            {depthTick(bottom)}
-            <text className="id-profile-calc__svg-label" textAnchor="end" x="310" y={beforeTop + 5}>0</text>
-            <text className="id-profile-calc__svg-label" textAnchor="end" x="310" y={bottom + 5}>{format(input.depth, 0)}</text>
-            <text className="id-profile-calc__svg-note" textAnchor="middle" x="150" y="282">hloubka v cm (≈)</text>
-          </svg>
-          {input.mode === 'keep' && <p className="id-profile-calc__drawing-note">
-            {typography('Šrafování: objem k odvozu ' + volume(calculation.removeM3) + '.')}
-          </p>}
-        </div>
-        <div className="id-profile-calc__profile">
-          <h4>{input.mode === 'mix' ? 'Po zapravení' : 'Připravená směs'}</h4>
-          <svg aria-describedby={uid + '-zones'} aria-label={chartLabel} role="img" viewBox="0 0 320 292">
-            <rect fill="#232830" height="24" width="220" x="40" y={bottom} />
-            {calculation.zones.map((zone, index) => {
-              const y = top + zone.from * scale
-              const height = (zone.to - zone.from) * scale
-              /* Šířka pruhů = poměr písku a zeminy (minerální základ); příměsi leží
-                 jako značky přes celou zónu, protože jsou v ní promíchané. */
-              const base = zone.litresPer100.sand + zone.litresPer100.soil
-              const sandWidth = base > 0 ? PROFILE_W * zone.litresPer100.sand / base : 0
-              const segments = ([
-                { material: 'sand', x: PROFILE_X, width: sandWidth },
-                { material: 'soil', x: PROFILE_X + sandWidth, width: PROFILE_W - sandWidth },
-              ] as { material: Material; x: number; width: number }[]).filter((segment) => segment.width > 0)
-              const labels = segments
-                .filter((segment) => segment.width >= 34 && height >= 22)
-                .map((segment) => ({ material: segment.material, x: segment.x + segment.width / 2, y: y + height / 2 }))
-              const particles = scatterParticles(zone, index, y, height, labels)
-              return (
-                <g key={zone.from + '-' + zone.to}>
-                  {segments.map((segment) => (
-                    <rect fill={MATERIAL_COLORS[segment.material]} height={height} key={segment.material} width={segment.width} x={segment.x} y={y} />
-                  ))}
-                  {particles.map((particle, i) => <ParticleMark key={i} {...particle} />)}
-                  {labels.map((label) => (
-                    <text
-                      className="id-profile-calc__svg-zonelabel"
-                      fill={MATERIAL_LABEL_INK[label.material]}
-                      key={label.material}
-                      textAnchor="middle"
-                      x={label.x}
-                      y={label.y + 4}
-                    >
-                      {format(zone.litresPer100[label.material], 0)}%
-                    </text>
-                  ))}
-                  {zone.from > 0 && <>
-                    <line stroke="#fff" strokeDasharray="4 5" strokeWidth="1.6" x1="40" x2="260" y1={y} y2={y} />
-                    {height >= 25 && y - top >= 25 && bottom - y >= 25 && <>
-                      {depthTick(y)}
-                      <text className="id-profile-calc__svg-label" textAnchor="end" x="310" y={y + 5}>{format(zone.from, 1)}</text>
-                    </>}
-                  </>}
-                </g>
-              )
-            })}
-            <rect fill="none" height={finalDepth * scale} stroke="#232830" strokeLinejoin="round" strokeWidth="1.6" width="220" x="40" y={top} />
-            <line stroke="#3f7d4e" strokeWidth="4" x1="40" x2="260" y1={top} y2={top} />
-            {depthTick(top)}
-            {depthTick(bottom)}
-            <text className="id-profile-calc__svg-label" textAnchor="end" x="310" y={top + 5}>0</text>
-            <text className="id-profile-calc__svg-label" textAnchor="end" x="310" y={bottom + 5}>{format(finalDepth, 0)}</text>
-            <text className="id-profile-calc__svg-note" textAnchor="middle" x="150" y="282">hloubka v cm (≈)</text>
-          </svg>
-          <table className="id-profile-calc__zones" id={uid + '-zones'}>
-            <caption>Podíly objemu v zónách</caption>
-            <thead>
-              <tr>
-                <th scope="col">Složka</th>
-                {calculation.zones.map((zone) => (
-                  <th key={zone.from} scope="col">{typography(format(zone.from, 0) + '–' + format(zone.to, 0) + ' cm')}</th>
-                ))}
-              </tr>
-            </thead>
-            <tbody>
-              {usedMaterials.map((material) => (
-                <tr key={material}>
-                  <th scope="row"><Swatch material={material} />{MATERIAL_NAMES[material]}</th>
-                  {calculation.zones.map((zone) => (
-                    <td key={zone.from}>
-                      {zone.litresPer100[material] > 0
-                        ? typography(format(zone.litresPer100[material], 1) + ' %')
-                        : <><span aria-hidden="true">—</span><span className="id-profile-calc__sr">0 %</span></>}
-                    </td>
-                  ))}
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+      <p className="id-profile-calc__drawing-lead">
+        {typography('Stejné zadání — ' + format(input.area) + ' m² a ' + format(depth) + ' cm — připravené třemi způsoby ve společném měřítku. Liší se tím, co se odveze, co se doveze a jak se změní výška terénu.')}
+      </p>
+      <div className="id-profile-calc__modes">
+        {MODE_ORDER.map((mode) => {
+          const active = mode === input.mode
+          return (
+            <div aria-current={active ? 'true' : undefined} className={cn('id-profile-calc__mode', active && 'is-active')} key={mode}>
+              <h4>
+                {MODE_TITLES[mode]}
+                {active && <span className="id-profile-calc__mode-chosen">zvoleno</span>}
+              </h4>
+              {profile(mode, sharedTop, 'id-profile-calc__mode-wide')}
+              {profile(mode, viewTopFor(mode === 'mix' ? rise * scale : 0), 'id-profile-calc__mode-stack')}
+              <p>{typography(notes[mode])}</p>
+            </div>
+          )
+        })}
       </div>
+      <ul aria-label="Značky v řezu" className="id-profile-calc__legend">
+        <li><span aria-hidden="true" className="id-profile-calc__legend-soil" />stávající zemina</li>
+        <li><span aria-hidden="true" className="id-profile-calc__legend-mix" />směs — zemina, písek a příměsi promíchané</li>
+        <li><span aria-hidden="true" className="id-profile-calc__legend-hatch" />odvoz</li>
+      </ul>
       <figcaption>
-        <strong>{newLayer ? 'Připravený prostor' : 'Stávající půda'}</strong> je nerozlišená —
-        {!newLayer && input.mode === 'keep' && calculation.removeM3 > 0
-          ? ' šrafovaná část se odveze, zbytek zůstane a přijme novou směs.'
-          : newLayer ? ' vše se navezne nově.' : ' zůstává na místě a přijme novou směs.'}
-        {' '}<strong>{input.mode === 'mix' ? 'Po zapravení' : 'Připravená směs'}</strong> ukazuje
-        složení po zónách: šířka pruhů je poměr písku a zeminy, rozptýlené značky jsou
-        příměsi promíchané v celé zóně — jejich plocha odpovídá objemovému podílu,
-        velikost zrna je schematická. Nejde o oddělené vrstvy materiálů. Řez zobrazuje
-        čistou recepturu bez objednávkové rezervy; výslednou výšku po slehnutí ověřte na místě.
+        Řez záměrně neukazuje složení směsi — to nese výsledek kalkulátoru.
+        {' '}<strong>Udržet výšku</strong> odveze část zeminy a její objem nahradí písek s příměsmi.
+        {' '}<strong>Zapravit</strong> nic neodváží, přidaný objem zvedne terén.
+        {' '}<strong>Nová vrstva</strong> vše doveze do připraveného prostoru.
+        Výslednou výšku po slehnutí ověřte na místě.
       </figcaption>
     </figure>
   )
