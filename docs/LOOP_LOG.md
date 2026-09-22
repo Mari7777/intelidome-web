@@ -3295,3 +3295,15 @@ hloubky v celém kalkulátoru; nápověda rozlišuje příměsi a písek; míra 
 33 em; u Písčité hero „Zeolit k objednání 1,2 m³"; fokus nad kresbou bez
 překryvu; ve vynucených barvách má vybraná pilulka Highlight pozadí proti
 průhledné nevybrané.
+
+### Rozhodnutí autora po kole 10 (2026-09-22)
+
+- **Čtyři hodnoty „K objednání" zůstávají v akcentu.** Tím je uzavřen spor
+  „panel má pět akcentových čísel", který kola 04, 06 a 07 zamítla a kolo 10
+  potvrdilo. **Příští porota ho nemá hlásit** — je to vědomé produktové
+  rozhodnutí: hodnoty jsou výstupy, na které se panel ptá („kolik navézt").
+- Odečet hloubky v řádku Písek sází týž recept jako „K objednání" (číslo
+  v akcentu 28 px, jednotka menší), takže řádek čte jako jeden celek.
+  Poznámka „Řídí ji pole „Hloubka profilu" v zadání" je pryč: dědila 28px
+  písmo hodnoty (selektor `__readout > p` chytil oba odstavce) a autor ji
+  shledal zbytečnou.

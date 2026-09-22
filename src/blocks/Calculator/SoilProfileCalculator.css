@@ -187,14 +187,6 @@
   letter-spacing: .14em;
   text-transform: uppercase;
 }
-.id-profile-calc .id-profile-calc__readout > p {
-  font-family: var(--id-f-display);
-  font-size: 28px;
-  font-weight: 600;
-  line-height: 1.2;
-  letter-spacing: -.02em;
-  color: var(--id-ink-dark-2, #9ba1a8);
-}
 .id-profile-calc__segments {
   display: flex;
   flex-wrap: wrap;

@@ -859,8 +859,12 @@ export function SoilProfileCalculator({ className, surface }: { className?: stri
                         popiskem, jen menší, a zápis do něj tiše přepsal celý model. */}
                     <div className="id-profile-calc__field id-profile-calc__readout">
                       <span>{mode === 'mix' ? 'Původní hloubka' : 'Hloubka profilu'}</span>
-                      <p>{typography(format(input.depth) + ' cm')}</p>
-                      <p className="id-profile-calc__hint">{typography('Řídí ji pole ' + (mode === 'mix' ? '„Původní hloubka“' : '„Hloubka profilu“') + ' v zadání.')}</p>
+                      {/* Odečet sází tentýž recept jako „K objednání“ vedle (číslo v akcentu,
+                          jednotka menší), aby řádek Písek četl jako jeden celek. */}
+                      <p className="id-profile-calc__purchasevalue">
+                        <strong>{format(input.depth)}</strong>
+                        <span>cm</span>
+                      </p>
                     </div>
                     <div className="id-profile-calc__purchase">
                       <label htmlFor={uid + '-sand-amount'}>K objednání</label>
