@@ -16,8 +16,10 @@
  * – nejsou kresbou, jsou daty.
  *
  * Finální obsah: první článek obsahuje kapitoly 1–4 bez kalkulátoru.
- * Druhý začíná kalkulátorem `pudni-profil` a pokračuje původní
- * kapitolou 5, nově číslovanou 1. Původní kapitoly 6 a 7 o práci
+ * Druhý začíná krémovým souhrnem a úvodem; teprve za nimi stojí
+ * kalkulátor `pudni-profil` (8.1 p. 2 a p. 4: po obsidianovém hero
+ * nesmí hned následovat další obsidian) a původní kapitola 5, nově
+ * číslovaná 1. Původní kapitoly 6 a 7 o práci
  * se směsí, výsevu a první péči patří třetímu článku jako kapitoly 1–2.
  * Topdressing se nevkládá.
  */

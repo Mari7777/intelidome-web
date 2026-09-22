@@ -3030,3 +3030,99 @@ tahle porota neviděla — kolo 09 je musí prověřit stejně, jako kolo 08
 prověřilo kótu. Poučení dvou kol po sobě: **oprava prázdného místa
 přidáním obsahu je dražší než oprava přeskupením** — kóta vyplnila
 díru a stála pět lenzů, dvousloupec díru zmenšil beze slova navíc.
+
+## Starší nálezy z kol 07 a 08 — vyřešeny mimo kolo (2026-09-22)
+
+Autor si vyžádal, ať se doberou všechny nálezy, které zůstaly ležet po kolech
+07 a 08. Postup: devět skupin nálezů dostalo vlastního agenta (diagnóza proti
+skutečnému kódu + přesný patch) a každý patch pak oponenta, který ověřoval
+aplikovatelnost kotev, dopad mimo stránku a soulad s DESIGN.md. Z 42 navržených
+změn se aplikovalo 37 plus čtyři ruční úpravy; **pět změn oponent zamítl**.
+
+### Zamítnuto oponentem (a proč to stojí za zápis)
+
+- **ScrollTrigger.refresh() při změně výšky dokumentu.** Nález „po zkrácení
+  stránky zůstávají sekce v opacity 0" byl **měřicí artefakt**: oponent naměřil
+  0 z 30 neodkrytých `.rv` ve dvanácti bězích (1440 i 393 px, s gestem i bez,
+  plynulé rolování i skok na konec), zatímco původní měření vidělo 6 z 30.
+  Rezerva mezi posledním spouštěčem a koncem rolování je 1026 px, takže po
+  zkrácení o 861 px nemá co uváznout. Patch by navíc porušil DESIGN.md 6.3.0
+  („refresh jen po fonts.ready + load; nikdy v resize handleru").
+- **Čtyři zápisy do DESIGN.md o kontrastu obrysů.** Patch chtěl zapsat, že
+  `--id-line-dark` má 2,09:1; oponent spočítal **1,45:1** (token je
+  `rgba(255,255,255,0.14)`, 2,09:1 patří natvrdo psané `.24`). Do závazného
+  dokumentu nepíšeme čísla, která neprošla druhou rukou.
+- **Rezerva ve výřezu kresby** (neúčinná: `Math.max(0, …)` ji u „Zapravit"
+  stejně srazí na nulu, naměřeno bitově stejných 503,6 px se změnou i bez ní).
+
+### Opraveno
+
+**Pohyb a layout.** Nápověda typu půdy i nápověda způsobu přípravy jsou teď
+mřížkový stoh všech variant, takže blok měří nejdelší větu při AKTUÁLNÍ šířce.
+Posuvník poměru se na mobilu při první změně posouval o 20,2 px (nápověda nad
+ním narostla z 2 na 3 řádky), přepnutí způsobu posouvalo pole zadání o 22,5 px.
+Naměřeno po opravě: **0,0 px v obou případech**. `min-height` by díru udělal
+i tam, kde dnes žádná není; stoh rezervuje jen to, co je při dané šířce potřeba.
+
+**Mikrointerakce.** Segmenty přepínače měly přechod 0,18 s (pod pásmem 200-400 ms
+z 6.2) a nevybrané dlaždice nad kresbou obrys 1,28:1 proti krému (11.1 žádá 3:1).
+Teď tokeny pohybu a `--id-ink-3` s 3,32:1; hover míří jen na nevybrané dlaždice,
+aby nepřebíjel stav `:checked`. Menu kalkulátoru dostalo hover odezvu beze změny
+layoutu.
+
+**Kresba.** Drn byl 4px čára bez hrany, jediný tah mimo rozsah 1,5-2,5 px z 9.2
+p. 2. Teď je to pás s hranou `#2e6440` jako ve všech ostatních řezech článku;
+po opravě má kresba **jen tahy 1,6 px**. Legenda drn vypisuje („travní drn"),
+takže se přestala tvářit úplně.
+
+**Popiska a nadpisy.** Popiska kresby měla jiný hairline (rgba čerň) než obě
+číslované popisky na téže stránce (`--id-mist`); sjednoceno. Dva sourozenecké
+h3 měly 24 a 32 px — oba teď sázejí roli `subtitle`, a DESIGN.md 4.2 dostal
+větu, která tuhle roli pojmenovává (bez ní si každá komponenta vybrala vlastní
+stupeň). Číslo „Obr. NN" kresba nedostala: čísluje se ručně v Payloadu a
+kalkulátor není blok `figure`, takže nemá odkud číslo vzít.
+
+**Texty.** Souhrn „Vše dovezete: 30 m³" ignoroval objednávkovou rezervu, zatímco
+tabulka hlásila 42,85 m³. Popiska figury potřetí opakovala výklad tří způsobů;
+teď nese jen to, co nikde jinde není. Řádek dovozu písku dostal české číslovky
+(1 pytel / 2 pytle / 5 pytlů) přes novou sdílenou utilitu `plural` a nabízí jen
+balení, která pro dané množství dávají smysl (big bag 1-10 t, ne 29 kusů).
+
+**Sdílené komponenty.** „Související články" sázely H2 24 px / lh 1,333, tedy
+mimo škálu 4.2 a nad strop line-heightu z 4.3 p. 7; teď 52 px / 1,05 / balance
+jako ostatní sekční nadpisy. Titulek karty 18 px / 1,556 → **17 px / 1,3** podle
+7.5, perex na token `body-sm`. Dopad je na všech stránkách, kde se karty
+používají, a je to v obou případech návrat do škály.
+
+**Česká sazba.** Vztahové znaky mezi slovy (`:`, `×`, `÷`) se lámaly na konec
+řádku. Nové pravidlo `OPERATORY` je drží pevnou mezerou a podmínkou je mezera
+PŘED znakem, takže běžná dvojtečka („Pozor: voda"), čas („14:30") ani
+„https://…" pravidlem neprojdou. Ověřeno sedmi případy včetně negativních.
+
+**Partitura stránky.** Stránka otevírala 2099 px obsidianu v kuse (hero + panel
+kalkulátoru) proti 8.1 p. 2 („dva obsidiany nikdy za sebou") a p. 4 („po
+obsidianovém hero vždy krém"). Krémový souhrn se přesunul mezi hero a kalkulátor,
+tedy na místo, které mu dává šablona 8.2. Změna je v seederu, ne v DB; projeví
+se příkazem `npm run payload -- run scripts/seed-clanek-primesi.ts`, který ale
+přepíše ruční úpravy všech tří článků v adminu.
+
+**Přístupnost.** Osm `output[for]` mířilo na pole, která existují jen v rozbalené
+sekci Podrobnosti; teď se seznam skládá z právě namontovaných polí (naměřeno 0
+visících odkazů). Panel „Jak výpočet číst" byl osamělý sloupec 586 px v pásu
+1360 px; teď drží pravou osu 1400 a míru řádku uvnitř sloupců.
+
+### Ověření
+
+`tsc` PASS, 26/26 testů PASS. Živě na 1440 i 393 px: pořadí povrchů
+hero(obsidian) → souhrn(krém) → kalkulátor(obsidian); skok při přepnutí způsobu
+0 px; skok posuvníku na mobilu 0 px; 0 visících `output[for]`; panel nápovědy
+40..1400; H2 52/1,05, karta 17/1,3, perex 14,5/1,55; v kresbě jen tahy 1,6 px;
+legenda pět položek včetně drnu; přetok 0.
+
+### Zbývá
+
+Nezasaženo zůstává to, co si oponenti vyžádali nechat autorovi: číslo „Obr. NN"
+u kresby kalkulátoru (chce zásah do dat a rozhodnutí, jestli se má kresba
+komponenty vůbec číslovat), blok Souvisejících článků stojící na ose 1376 px,
+kterou ADR-006 zrušil, a chybějící krémová sekce po hero u třetího článku
+trojice `jak-pripravit-a-ulozit-smes`.

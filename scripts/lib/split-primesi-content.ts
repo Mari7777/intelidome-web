@@ -94,11 +94,16 @@ export function splitPrimesiContent(input: unknown) {
     faqItem('Mám automaticky přidat rezervu na slehnutí?', 'Součet vstupních objemů nezaručuje stejný objem po promíchání a uložení. Výšku kontrolujeme při realizaci a případnou rezervu domluvíme podle konkrétních materiálů a způsobu práce. Vedeme ji odděleně od poměru složek, aby nezměnila zamýšlenou recepturu.'),
     clone(oldFaq.fields.items[4]),
   ]
+  /* Partitura 8.1: po obsidianovém hero musí přijít krém (p. 4) a mezi dvěma
+     obsidiany stojí nejméně dvě světlé sekce (p. 2). Panel kalkulátoru je
+     obsidian, proto před ním jde krémový souhrn a bílá próza úvodu; sám
+     kalkulátor je až čtvrtým uzlem. Pořadí uzlů je jediné místo, kde se
+     povrchy článku řadí, a nese i lepší výklad: odstavce nástroj uvedou. */
   const profile = [
-    block({ blockType: 'calculator', blockName: PROFILE_TITLE, kind: 'pudni-profil', surface: 'band', layout: 'axis' }),
     block({ blockType: 'summaryBand', blockName: 'Plán od objemu po výsev', lead: 'Nejdříve zvolíme, jakou půdu chceme připravit. Kalkulátor pak převede plochu, hloubky a podíly na množství materiálů. *Při práci hlídáme také skutečné promíchání, odtok vody a slehnutí povrchu.*', tiles: [{ value: 'm³', label: 'objemy surovin pro zvolený profil' }, { value: 't', label: 'hmotnosti podle sypných hustot' }, { value: '3', unit: 'zóny', label: 'navazující kořenové prostředí' }, { value: '2–6', unit: 'týdnů', label: 'orientační čas na slehnutí' }] }),
     p('Kalkulátor slouží k plánování založení nebo výraznější obnovy trávníku. Výklad níže navazuje na článek ', link(`/posts/${ORIGINAL_SLUG}`, 'Písek, biochar a další příměsi: jak namíchat půdu pro trávník'), ', kde najdete účel materiálů, modelové rozsahy dávek a podmínky pro jílovitou, hlinitou a písčitou zahradu. Nejprve vybereme vhodné složení; čísla ve výpočtu pak pomáhají naplánovat dodávku a práci.'),
     p('Příklady v článku počítají s profilem 30 cm: horních 10 cm obsahuje plnou směs, v zóně 10–15 cm zůstává zeolit a spodních 15 cm tvoří minerální základ. U jílovité varianty dělíme tento základ objemově 65/35 mezi písek a původní zeminu, u hlinité 30/70 a u písčité další písek nepřidáváme. Jde o modely k porovnání, nikoli povinnou hloubku výkopu nebo univerzální recept. Kalkulátor umožňuje přizpůsobit zvolenou hloubku a poměry skutečné zahradě.'),
+    block({ blockType: 'calculator', blockName: PROFILE_TITLE, kind: 'pudni-profil', surface: 'band', layout: 'axis' }),
     ...moved,
   ]
   const final = splitProfilePreparationContent(

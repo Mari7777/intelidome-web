@@ -11,6 +11,10 @@
 .id-profile-calc *::after { box-sizing: border-box; }
 .id-profile-calc :is(h2, h3, h4, p, figure, fieldset, dl, dd, ul) { margin: 0; }
 .id-profile-calc :is(fieldset, legend) { padding: 0; border: 0; }
+/* Inline <strong> je v SF Pro semibold, ne bold (4.1). Váhu si dosud určoval
+   každý výskyt zvlášť, takže popiska kresby zůstala jediným textem stránky
+   ve váze 700. Jedno pravidlo pro celou komponentu to drží i do budoucna. */
+.id-profile-calc strong { font-weight: 600; }
 .id-profile-calc .id-profile-calc__panel {
   padding: clamp(24px, 4vw, 52px);
   color: var(--id-ink-dark, #fff);
@@ -96,9 +100,18 @@
   font: inherit;
   text-align: left;
   cursor: pointer;
-  transition: border-color .2s var(--id-ease, ease);
+  transition: border-color var(--id-dur-micro, .25s) var(--id-ease, ease);
 }
 .id-profile-calc__menuitem.is-open { border-bottom-color: var(--id-accent, #2563eb); }
+/* Menu je jediná cesta k výsledku, a tak musí na najetí odpovědět. Mění se
+   jen barva už rezervovaného 2px rámečku, takže se nehýbe layout (7.0);
+   akcent zůstává vyhrazený otevřené položce, hover bere neutrální tón
+   (4,05:1 na obsidianu). Na dotyku by hover zůstal viset a četl se jako
+   druhá otevřená záložka, proto media dotaz. */
+@media (hover: hover) {
+  .id-profile-calc__menuitem:hover { border-bottom-color: var(--id-ink-dark-3, #6c737b); }
+  .id-profile-calc__menuitem.is-open:hover { border-bottom-color: var(--id-accent, #2563eb); }
+}
 .id-profile-calc__menutitle {
   display: inline-flex;
   align-items: center;
@@ -136,14 +149,17 @@
   border: 1px solid var(--id-line-dark-soft);
   border-radius: var(--id-r-card);
 }
+/* Mezititulek uvnitř bloku sází roli subtitle (4.2), stejně jako h3 v próze
+   a `.id-split__h3`; vlastní titulek kalkulátoru je h2. Dřív měly sourozenecké
+   h3 24 px a 32 px, takže kresba vypadala nadřazeně vstupům. */
 .id-profile-calc .id-profile-calc__parttitle {
   margin-bottom: 24px;
   color: var(--id-ink-dark);
   font-family: var(--id-f-display);
-  font-size: 24px;
-  font-weight: 600;
-  line-height: 1.2;
-  letter-spacing: -.02em;
+  font-size: var(--id-t-subtitle, clamp(21px, 2.6vw, 28px));
+  font-weight: 500;
+  line-height: 1.25;
+  letter-spacing: -.015em;
 }
 .id-profile-calc .id-profile-calc__choices > legend,
 .id-profile-calc .id-profile-calc__additions > legend,
@@ -186,14 +202,19 @@
   width: 100%;
   min-height: 44px;
   padding: 10px 14px;
-  border: 1px solid rgba(255,255,255,.24);
+  /* Obrys nevybrané pilulky je jediné, co ji prozradí jako ovladač, takže
+     nesmí stát na hairline tokenu (line-dark 2,09:1). Nese třetí inkoust
+     svého povrchu: 4,05:1 na obsidianu (11.1 non-text, min 3:1). */
+  border: 1px solid var(--id-ink-dark-3, #6c737b);
   border-radius: 999px;
   font-family: var(--id-f-display);
   font-size: 14.5px;
   font-weight: 500;
   line-height: 1.3;
   text-align: center;
-  transition: background-color .18s ease, border-color .18s ease, color .18s ease;
+  transition: background-color var(--id-dur-micro, .25s) var(--id-ease, ease),
+              border-color var(--id-dur-micro, .25s) var(--id-ease, ease),
+              color var(--id-dur-micro, .25s) var(--id-ease, ease);
 }
 .id-profile-calc__segments input:checked + span {
   color: #fff;
@@ -311,6 +332,16 @@
 }
 .id-profile-calc .id-profile-calc__error { color: #f2b96b; }
 .id-profile-calc__results .id-profile-calc__hint { margin-top: 6px; }
+/* Stoh nápověd: varianty sdílejí jedno pole mřížky, takže výška bloku je
+   výška nejdelší věty při dané šířce a přepnutí předvolby nehne
+   posuvníkem pod sebou. Skrývá se `visibility` (ne `display`), aby
+   neaktivní varianty držely stejnou šířku a sázely se stejně. */
+.id-profile-calc__hintstack {
+  display: grid;
+  min-width: 0;
+}
+.id-profile-calc__hintstack > * { grid-area: 1 / 1; }
+.id-profile-calc__hintstack > [aria-hidden="true"] { visibility: hidden; }
 .id-profile-calc__ratio {
   display: grid;
   grid-template-columns: minmax(0,1fr) auto;
@@ -506,8 +537,24 @@
 .id-profile-calc__detailsbody { padding: 24px 0 12px; }
 .id-profile-calc__detailsbody > .id-profile-calc__choices { margin-bottom: 28px; }
 .id-profile-calc__detailsbody > p { max-width: var(--id-measure, 33em); }
-.id-profile-calc .id-profile-calc__help { max-width: var(--id-measure, 33em); padding: 24px 0 16px; color: var(--id-ink-dark-2, #9ba1a8); font-size: 15px; }
-.id-profile-calc__help > p + p { margin-top: 18px; }
+/* Nápověda je próza v pásu 1360, ne úzký sloupec. Míra se podle ADR-007
+   sází pravým odsazením uvnitř sloupce, ne zúžením boxu; zúžený box
+   držel 495 px a 865 px pásu vpravo zůstalo prázdných (porota 07 a 08).
+   Dva sloupce 652 | 56 | 652 jsou tytéž osy jako Zadání nad menu. */
+.id-profile-calc .id-profile-calc__help {
+  display: grid;
+  grid-template-columns: minmax(0,1fr) minmax(0,1fr);
+  gap: 24px var(--id-gap-col, 56px);
+  align-items: start;
+  padding: 24px 0 16px;
+  color: var(--id-ink-dark-2, #9ba1a8);
+  font-size: 15px;
+}
+.id-profile-calc__help > p {
+  min-width: 0;
+  padding-right: max(0px, calc(100% - var(--id-measure, 33em)));
+  text-wrap: pretty;
+}
 .id-profile-calc__help strong { color: var(--id-ink-dark, #fff); font-weight: 600; }
 .id-profile-calc .id-profile-calc__drawing {
   padding: clamp(20px, 3vw, 40px);
@@ -516,12 +563,14 @@
   background: var(--id-cream, #f6f5f2);
   border-radius: var(--id-r-card, 20px);
 }
+/* Týž stupeň jako `__parttitle`: obojí je h3 pod h2 kalkulátoru (4.2). */
 .id-profile-calc .id-profile-calc__drawing h3 {
   font-family: var(--id-f-display);
-  font-size: clamp(24px, 3vw, 32px);
-  font-weight: 600;
-  line-height: 1.2;
-  letter-spacing: -.02em;
+  font-size: var(--id-t-subtitle, clamp(21px, 2.6vw, 28px));
+  font-weight: 500;
+  line-height: 1.25;
+  letter-spacing: -.015em;
+  text-wrap: balance;
 }
 .id-profile-calc .id-profile-calc__drawing-lead,
 .id-profile-calc .id-profile-calc__drawing--empty p {
@@ -534,8 +583,9 @@
 /* Jeden způsob přípravy najednou; přepínač nad kresbou zrcadlí „Co dělám" v zadání.
    Měřítko je společné, takže bloky mají ve všech způsobech stejnou velikost;
    vyšší je jen rám u Zapravit, kde se terén zvedá nad svou úroveň. */
-/* Segmenty jsou psané pro tmavý panel; na krému přebarvit jen klidový stav —
-   vybraný i hover si drží vlastní pravidla (vyšší specifičnost v základu). */
+/* Segmenty jsou psané pro tmavý panel; na krému se přebarvuje klidový stav
+   i hover (modrý tint je stavěný na obsidian a na krému má jen 1,65:1).
+   Vybraný stav si drží vlastní pravidlo z tmavého základu. */
 /* Segmenty rostou do šířky kontejneru; v pásu 1360 px by byly dvakrát větší
    než jejich dvojče v zadání, proto lícují s kresbou pod sebou. */
 .id-profile-calc__drawing .id-profile-calc__choices { max-width: 480px; margin-top: 24px; }
@@ -543,8 +593,14 @@
 .id-profile-calc__drawing .id-profile-calc__segments span {
   color: var(--id-ink, #1d1d1f);
   background: rgba(255,255,255,.7);
-  border-color: var(--id-line-cream, #dcdad4);
+  /* Třetí inkoust krému: 3,32:1 proti krému a 3,53:1 proti vlastní výplni;
+     hairline --id-line-cream měl 1,28:1 (11.1 non-text, min 3:1). */
+  border-color: var(--id-ink-3, #86868b);
 }
+/* Hover na krému nese plný akcent (4,74:1); tint ze základu by kontrast
+   proti klidovému stavu naopak snížil. Míří jen na NEVYBRANÉ dlaždice, aby
+   pravidlo nepřebíjelo stav `:checked`, který má vyšší nárok. */
+.id-profile-calc__drawing .id-profile-calc__segments label:hover input:not(:checked) + span { border-color: var(--id-accent, #2563eb); }
 /* Kresba stojí na levé ose figury (8.2a) a text jí dělá druhý sloupec, aby
    pás nezůstal ze dvou třetin prázdný (porota 08, rozložení + hierarchie). */
 .id-profile-calc__mode {
@@ -596,13 +652,18 @@
   .id-profile-calc__svg-legend { font-size: 13.5px; }
   .id-profile-calc__svg-rise { font-size: 24px; }
 }
+/* Popiska kresby drží kontrakt figury (7.12 a 9.2 p. 7): hairline --id-mist,
+   padding-top 14, margin-top 16, 13,5 px / 1,45. Od popisek „Obr. NN" na téže
+   stránce se pak liší jedině tím, že nemá číslo: kresba je část komponenty,
+   ne blok figure, číslování je ruční pole v Payloadu a obsah kresby se mění
+   se zadáním čtenáře, takže není na co odkazovat. */
 .id-profile-calc__drawing figcaption {
-  margin-top: 24px;
-  padding-top: 16px;
-  border-top: 1px solid var(--id-line, rgba(0,0,0,.12));
+  margin-top: 16px;
+  padding-top: 14px;
+  border-top: 1px solid var(--id-mist, #e8e7e3);
   color: var(--id-ink-2, #5b5e63);
   font-size: 13.5px;
-  line-height: 1.5;
+  line-height: 1.45;
   max-width: 30em;
 }
 .id-profile-calc .id-profile-calc__noscript { padding: 20px; margin-bottom: 20px; background: var(--id-cream); }
@@ -619,6 +680,7 @@
 .id-profile-calc--band .id-profile-calc__drawing { margin-top: 0; }
 @media (max-width: 1129px) {
   .id-profile-calc__inputgrid { grid-template-columns: minmax(0,1fr); }
+  .id-profile-calc .id-profile-calc__help { grid-template-columns: minmax(0,1fr); }
   .id-profile-calc__mode { grid-template-columns: minmax(0,1fr); gap: 20px; }
   .id-profile-calc__additionlist { padding-top: 0; }
   .id-profile-calc__detailgrid, .id-profile-calc__pricegrid { grid-template-columns: repeat(2,minmax(0,1fr)); }

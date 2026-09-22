@@ -255,6 +255,8 @@ Vše přes `clamp()` — žádné breakpointové skoky velikostí. Písmo Archiv
 
 > `--id-t-stat-xl` nemá v článku užití: kalkulátor stojí v panelu 652 px, kde by 64 px přeteklo na dva řádky, a sází proto vlastní stupeň ze 7.7. Token se drží pro landing page, kde má sekce šířku 1360.
 
+> **Role, ne tag (v2.8).** `title-sm` patří titulkům karet. **Mezititulek `h3` pod titulkem kapitoly nebo bloku sází roli `subtitle`** (500, `clamp(21px, 2.6vw, 28px)`): tak to dělá `.prose.id-article > h3` i `.id-split__h3` a po kole 08 i oba mezititulky půdního kalkulátoru. Vlastní titulek komponenty, který je `h3` sám o sobě (7.7 `.id-calc__head`), si stupeň určuje ve svém receptu. Bez téhle věty si každá nová komponenta vybrala vlastní stupeň: v kalkulátoru byly pro jednu úroveň dva (24 a 32 px).
+
 ### 4.3 Pravidla sazby
 
 1. **Váhy:** display role vždy **600 — nikdy víc** (vědomé rozhodnutí InteliDome; předlohy sázejí displaye ještě lehčí, proto je 700+ absolutní zákaz). 500 = subtitle a základní chip; buttony 600 (7.2, `--id-t-btn`). 700 výhradně do 13,5px (zvýraznění v datových tabulkách) — nikdy titulky ani body.

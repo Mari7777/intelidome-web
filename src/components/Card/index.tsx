@@ -63,14 +63,22 @@ export const Card: React.FC<{
           </div>
         )}
         {titleToUse && (
-          <h3 className="font-display text-lg font-semibold tracking-tight text-[var(--id-ink)]">
+          /* Kartový titulek podle DESIGN.md 7.5, kde stupeň karty stojí:
+             `.id-card--dark-outline` 17 px, `.id-step` 16,5 px. `text-lg`
+             (18 px / lh 1,556) byl mimo škálu 4.2 a nad stropem line-heightu
+             1,25 (4.3 p. 7). Roli `title-sm` sem nebereme: je vázaná na vw,
+             kdežto karta se v třísloupcové mřížce s rostoucím oknem zužuje. */
+          <h3 className="font-[family-name:var(--id-f-display)] text-[17px] leading-[1.3] font-semibold tracking-[-0.01em] text-[var(--id-ink)]">
             <Link className="no-underline" href={href} ref={link.ref}>
               {titleToUse}
             </Link>
           </h3>
         )}
         {description && (
-          <div className="mt-2 text-[15px] leading-normal text-[var(--id-ink-2)]">
+          /* Perex karty sází token body-sm ze škály 4.2 (14,5 / 1,55 / −0,006em),
+             ne volných 15px s Tailwindím `leading-normal`; táž dvojice jako
+             `.id-feature__text` pod titulkem karty. */
+          <div className="mt-2 text-[length:var(--id-t-body-sm)] leading-[1.55] tracking-[-0.006em] text-[var(--id-ink-2)]">
             {description && <p>{sanitizedDescription}</p>}
           </div>
         )}

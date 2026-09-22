@@ -2,7 +2,7 @@
 
 import React, { useDeferredValue, useEffect, useId, useLayoutEffect, useMemo, useRef, useState } from 'react'
 
-import { nezlomitelneMezery } from '@/utilities/czechTypography'
+import { nezlomitelneMezery, plural } from '@/utilities/czechTypography'
 import { cn } from '@/utilities/ui'
 
 import {
@@ -37,6 +37,19 @@ type NumberKey = typeof NUMBER_KEYS[number]
 type RawNumbers = Record<NumberKey, string>
 type RawPrices = Record<Currency, Record<Material, string>>
 
+/* Pole, která se montují teprve s otevřenou sekcí „Podrobnosti o směsi".
+   Jeden seznam slouží k vykreslení panelu i k sestavení `output[for]`;
+   kdyby se ty dva rozešly, vznikly by odkazy na id mimo dokument. */
+const DETAIL_FIELDS: Array<[NumberKey, string, string, string]> = [
+  ['loss', 'Rezerva na sesednutí', '%', 'Výchozí 0 %. Dovoz = čistá receptura ÷ (1 − rezerva).'],
+  ['rhoS', 'Hustota písku', 'kg/l', 'Výchozí 1,50 kg/l; ověřte u dodavatele.'],
+  ['rhoZ', 'Hustota zeminy', 'kg/l', 'Výchozí 1,40 kg/l; půdy se liší.'],
+  ['rhoZe', 'Hustota zeolitu', 'kg/l', 'Výchozí 0,80 kg/l; sypná hustota.'],
+  ['rhoB', 'Hustota Actina', 'kg/l', 'Výchozí 0,60 kg/l; podklady uvádějí 0,60–0,65.'],
+  ['rhoC', 'Hustota biocharu', 'kg/l', '0,20 kg/l je počtový předpoklad. Vlhký výrobek může být těžší; cenu zadávejte za litr.'],
+]
+const DETAIL_KEYS: string[] = DETAIL_FIELDS.map(([key]) => key)
+
 const MATERIALS: Material[] = ['sand', 'soil', 'char', 'biovin', 'zeolit']
 const MATERIAL_NAMES: Record<Material, string> = {
   sand: 'Písek', soil: 'Zemina', char: 'Biochar', biovin: 'Actino', zeolit: 'Zeolit',
@@ -69,6 +82,19 @@ const mass = (kg: number): string =>
 const money = (value: number, currency: Currency): string =>
   format(value, currency === 'CZK' ? 0 : 2) + ' ' + SYMBOLS[currency]
 const typography = nezlomitelneMezery
+
+/* Balení nabízíme jen v rozsahu, ve kterém se opravdu objednává: pytle do dvou
+   palet, big bag od jednoho celého kusu do deseti (výš už je to sklápěč),
+   sklápěč od jednoho plného nákladu.
+   Dřív nabídka hlásila 1 141 pytlů u 28,5 t i celý sklápěč u 365 kg písku. */
+const sandDeliveryOptions = ({ delivery, sandTransport }: Result): string[] => {
+  const tonnes = delivery.sand.tonnes
+  return [
+    tonnes >= 1 && tonnes <= 10 ? plural(sandTransport.bigBags1t, 'big bag', 'big bagy', 'big bagů') + ' po 1 t' : '',
+    tonnes <= 2 ? plural(sandTransport.bags25kg, 'pytel', 'pytle', 'pytlů') + ' po 25 kg' : '',
+    tonnes >= 3 ? plural(sandTransport.trucks3t, 'sklápěč', 'sklápěče', 'sklápěčů') + ' po 3 t' : '',
+  ].filter(Boolean)
+}
 
 /** Preserve unfinished decimal input, including the Czech decimal comma. */
 const parseNumber = (raw: string): number => {
@@ -169,6 +195,30 @@ function AlignedInputColumns({ children }: { children: React.ReactNode }) {
   return <div className="id-profile-calc__inputgrid" ref={gridRef}>{children}</div>
 }
 
+/**
+ * Nápověda, která se mění s ovladačem nad sebou, nesmí hýbat ovladačem
+ * pod sebou (DESIGN.md 6.8: finální layout box od prvního paintu).
+ * Varianty proto leží všechny v jednom poli mřížky, takže blok je vysoký
+ * jako nejdelší z nich při AKTUÁLNÍ šířce okna. Kde se věty vejdou na
+ * stejný počet řádků (naměřeno od 430 px výš), nezůstane žádné prázdné
+ * místo; pevné `min-height` by šířku nevidělo a díru udělalo vždy.
+ */
+function HintStack<T extends string>({ className, options, value }: {
+  className: string
+  options: Record<T, string>
+  value: T
+}) {
+  return (
+    <div className="id-profile-calc__hintstack">
+      {(Object.keys(options) as T[]).map((key) => (
+        <p aria-hidden={key === value ? undefined : true} className={className} key={key}>
+          {typography(options[key])}
+        </p>
+      ))}
+    </div>
+  )
+}
+
 function Choices<T extends string>({
   legend, name, value, options, onChange,
 }: {
@@ -265,7 +315,10 @@ const MODE_ORDER: Mode[] = ['keep', 'mix', 'new']
 const MODE_TITLES: Record<Mode, string> = { keep: 'Udržet výšku', mix: 'Zapravit', new: 'Nová vrstva' }
 /** Jediný zdroj popisků: přepínač v zadání i přepínač nad kresbou musí říkat totéž. */
 const MODE_OPTIONS = MODE_ORDER.map((value) => ({ value, label: MODE_TITLES[value] }))
-const PANEL = { before: 14, after: 178, width: 130, terrain: 130, strip: 16, height: 268 }
+/* `drn`: travní pás nad hmotou. 9 j. se při měřítku kresby (320 j. → 480 px)
+   vykreslí 13,5 px na 1440 a 9,9 px na 393 — tedy stejně silně jako drn
+   v ostatních řezech článku (TriZony, TricetCentimetru: 14 / 9,9 px). */
+const PANEL = { before: 14, after: 178, width: 130, terrain: 130, strip: 16, height: 268, drn: 9 }
 
 function ProfileDrawing({ calculation, input, onModeChange, uid }: {
   calculation: Result
@@ -312,7 +365,6 @@ function ProfileDrawing({ calculation, input, onModeChange, uid }: {
   const removedHeight = variants.keep.initialVolume > 0
     ? depth * scale * variants.keep.removeM3 / variants.keep.initialVolume
     : 0
-  const newVolume = input.area * depth / 100
   /* Co se v kresbě pro zvolený způsob opravdu vykreslí. Texty i legenda se
      řídí těmito příznaky — dřív slibovaly šrafu a kótu i tam, kde v kresbě
      žádné nebyly (nulový odvoz, nulové navýšení). */
@@ -346,7 +398,11 @@ function ProfileDrawing({ calculation, input, onModeChange, uid }: {
   const notes: Record<Mode, string> = {
     keep: 'Odvezete ' + volume(calculation.removeM3) + ' zeminy; výška terénu zůstává.',
     mix: 'Nic neodvážíte; terén se zvedne o ' + format(rise, 1) + ' cm.',
-    new: 'Vše dovezete: ' + volume(newVolume) + ' směsi do připraveného prostoru.',
+    /* „Dovezete" je dovoz, ne objem prostoru: při rezervě 30 % se do profilu
+       o 30 m³ veze 42,86 m³. Číslo proto bere ze skutečného dovozu, tedy
+       z téhož zdroje jako tabulka materiálů. */
+    new: 'Vše dovezete: ' + volume(importedM3) + ' směsi'
+      + (calculation.reserveFactor > 1 ? ' včetně rezervy' : '') + ' do připraveného prostoru.',
   }
   const labels: Record<Mode, string> = {
     keep: 'Udržet výšku: před — stávající zemina' + (removes ? ', horní část k odvozu' : '')
@@ -359,8 +415,12 @@ function ProfileDrawing({ calculation, input, onModeChange, uid }: {
   /* Legenda leží UVNITŘ kresby (vzor TriZony). Jen tak je značka v legendě
      pixelově shodná se značkou v řezu při jakémkoli měřítku — jako HTML se
      vzorky rozcházely v rozteči, obrysu i odstínu (9.2 p. 10, úroveň 2). */
-  type Znacka = 'soil' | 'space' | 'blend' | 'out' | 'sub'
+  type Znacka = 'drn' | 'soil' | 'space' | 'blend' | 'out' | 'sub'
+  /* Drn je v řezu ve všech třech způsobech (vždy aspoň na bloku „po“), proto
+     v legendě bez podmínky. Na bloku „před“ u Nové vrstvy chybí záměrně: tam
+     je vykopaný prostor, který povrch teprve dostane. */
   const legenda: { znacka: Znacka; popis: string }[] = [
+    { znacka: 'drn', popis: 'travní drn' },
     ...(input.mode === 'new'
       ? [{ znacka: 'space' as Znacka, popis: 'připravený prostor' }]
       : [{ znacka: 'soil' as Znacka, popis: 'stávající zemina' }]),
@@ -382,23 +442,44 @@ function ProfileDrawing({ calculation, input, onModeChange, uid }: {
 
   const mixId = uid + '-blend'
   const outId = uid + '-out'
-  /* Jedna značka = jeden recept, sdílený řezem i legendou. */
-  const znacka = (kind: Znacka, x: number, y: number, w: number, h: number, key?: string) => {
+  /* Drn: zelený pás NAD hmotou, zespodu uzavřený hranou #2e6440 — týž recept
+     jako TriZony a TricetCentimetru. `y` je úroveň povrchu, pás leží nad ní.
+     Stébla velkých kreseb se sem nevejdou: u Zapravit zbývá nad pásem 1 j.
+     rámu, kdežto stéblo měří 13. */
+  const drnPas = (x: number, y: number, w: number) => (
+    <>
+      <rect fill="#3f7d4e" height={PANEL.drn} width={w} x={x} y={y - PANEL.drn} />
+      <path d={'M' + x + ' ' + y + ' H' + (x + w)} fill="none" stroke="#2e6440" strokeWidth="1.6" vectorEffect="non-scaling-stroke" />
+    </>
+  )
+  /* Jedna značka = jeden recept, sdílený řezem i legendou. `sDrnem` položí na
+     hmotu drn; obrys pak nemá horní hranu (tvar V…H…V), protože tu už nese
+     zelená — dvojitý tah by ji ztmavil (DESIGN.md 9.2 p. 9). */
+  const znacka = (kind: Znacka, x: number, y: number, w: number, h: number, sDrnem = false) => {
+    if (kind === 'drn') {
+      /* Ve vzorku legendy je pás stejně silný jako v řezu (9.2 p. 10, úroveň 2),
+         jen vycentrovaný ve výšce řádku. */
+      return drnPas(x, y + (h + PANEL.drn) / 2, w)
+    }
     if (kind === 'space') {
-      return <rect fill="none" height={h} key={key} stroke="#232830" strokeDasharray="4 5" strokeWidth="1.6" vectorEffect="non-scaling-stroke" width={w} x={x} y={y} />
+      return <rect fill="none" height={h} stroke="#232830" strokeDasharray="4 5" strokeWidth="1.6" vectorEffect="non-scaling-stroke" width={w} x={x} y={y} />
     }
     if (kind === 'sub') {
-      return <g key={key}>
+      return <g>
         <rect fill="#54402c" height={h} opacity="0.88" width={w} x={x} y={y} />
         <rect fill="none" height={h} stroke="#232830" strokeWidth="1.6" vectorEffect="non-scaling-stroke" width={w} x={x} y={y} />
       </g>
     }
+    const obrys = sDrnem
+      ? <path d={'M' + x + ' ' + (y - PANEL.drn) + ' V' + (y + h) + ' H' + (x + w) + ' V' + (y - PANEL.drn)} fill="none" stroke="#232830" strokeLinejoin="round" strokeWidth="1.6" vectorEffect="non-scaling-stroke" />
+      : <rect fill="none" height={h} stroke="#232830" strokeWidth="1.6" vectorEffect="non-scaling-stroke" width={w} x={x} y={y} />
     return (
-      <g key={key}>
+      <g>
         <rect fill="#6b5138" height={h} opacity="0.9" width={w} x={x} y={y} />
         {kind === 'blend' && <rect fill={'url(#' + mixId + ')'} height={h} width={w} x={x} y={y} />}
         {kind === 'out' && <rect fill={'url(#' + outId + ')'} height={h} opacity="0.7" width={w} x={x} y={y} />}
-        <rect fill="none" height={h} stroke="#232830" strokeWidth="1.6" vectorEffect="non-scaling-stroke" width={w} x={x} y={y} />
+        {sDrnem && drnPas(x, y, w)}
+        {obrys}
       </g>
     )
   }
@@ -454,12 +535,12 @@ function ProfileDrawing({ calculation, input, onModeChange, uid }: {
             </>
           ) : (
             <>
-              {znacka('soil', PANEL.before, terrain, PANEL.width, depth * scale)}
+              {znacka('soil', PANEL.before, terrain, PANEL.width, depth * scale, true)}
               {removes && <>
                 <rect fill={'url(#' + outId + ')'} height={removedHeight} opacity="0.7" width={PANEL.width} x={PANEL.before} y={terrain} />
-                <text className="id-profile-calc__svg-tag" textAnchor="middle" x={PANEL.before + PANEL.width / 2} y={terrain - 8}>odvoz</text>
+                {/* Popisek nad drnem, ne v něm — pás zabral 9 j. nad terénem. */}
+                <text className="id-profile-calc__svg-tag" textAnchor="middle" x={PANEL.before + PANEL.width / 2} y={terrain - PANEL.drn - 8}>odvoz</text>
               </>}
-              <line stroke="#3f7d4e" strokeWidth="4" vectorEffect="non-scaling-stroke" x1={PANEL.before} x2={PANEL.before + PANEL.width} y1={terrain} y2={terrain} />
             </>
           )}
 
@@ -467,8 +548,7 @@ function ProfileDrawing({ calculation, input, onModeChange, uid }: {
           <path d={'M150 ' + arrowY + ' H167 M162 ' + (arrowY - 5) + ' L168 ' + arrowY + ' L162 ' + (arrowY + 5)} fill="none" stroke="#232830" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.6" vectorEffect="non-scaling-stroke" />
 
           {/* po */}
-          {znacka(blended ? 'blend' : 'soil', PANEL.after, lifts ? terrain - rise * scale : terrain, PANEL.width, bottom - (lifts ? terrain - rise * scale : terrain))}
-          <line stroke="#3f7d4e" strokeWidth="4" vectorEffect="non-scaling-stroke" x1={PANEL.after} x2={PANEL.after + PANEL.width} y1={lifts ? terrain - rise * scale : terrain} y2={lifts ? terrain - rise * scale : terrain} />
+          {znacka(blended ? 'blend' : 'soil', PANEL.after, lifts ? terrain - rise * scale : terrain, PANEL.width, bottom - (lifts ? terrain - rise * scale : terrain), true)}
           {lifts && <>
             <path d={'M166 ' + (terrain - rise * scale) + ' H174 M170 ' + (terrain - rise * scale) + ' V' + terrain + ' M166 ' + terrain + ' H174'} fill="none" stroke="#232830" strokeLinecap="round" strokeWidth="1.6" vectorEffect="non-scaling-stroke" />
             <text className="id-profile-calc__svg-rise" textAnchor="end" x="160" y={(terrain - rise * scale + terrain) / 2 + 6}>
@@ -496,11 +576,11 @@ function ProfileDrawing({ calculation, input, onModeChange, uid }: {
           <p className="id-profile-calc__mode-outcome">{typography(notes[input.mode])}</p>
         </div>
       </div>
+      {/* Popiska nese jednu pointu (9.2 p. 7): co kresba neukazuje. Rekapitulaci
+          tří způsobů vypustila porota kola 09 jako třetí výklad téhož mechanismu
+          (přepínač i komentář nad ní je mají). */}
       <figcaption>
         Řez záměrně neukazuje složení směsi — to nese výsledek kalkulátoru.
-        {' '}<strong>Udržet výšku</strong> odveze část zeminy a její objem nahradí písek s příměsmi.
-        {' '}<strong>Zapravit</strong> nic neodváží, přidaný objem zvedne terén.
-        {' '}<strong>Nová vrstva</strong> vše doveze do připraveného prostoru.
         Výslednou výšku po slehnutí ověřte na místě.
       </figcaption>
     </figure>
@@ -605,6 +685,15 @@ export function SoilProfileCalculator({ className, surface }: { className?: stri
     />
   )
 
+  /* `output[for]` je podle HTML seznam IDREFs v témže stromu. Rezerva
+     a hustoty se montují až s otevřenou sekcí Podrobnosti, proto se ze
+     seznamu zdrojů při zavřené sekci vypouštějí; jinak osm odkazů míří
+     do prázdna. Skrývat pole místo odmontování by bylo horší: skrytá
+     pole zůstanou mimo strom přístupnosti a šest řízených vstupů by se
+     překreslovalo při každém úhozu. */
+  const sourceIds = (keys: string[]) =>
+    keys.filter((key) => open === 'details' || !DETAIL_KEYS.includes(key)).map((key) => uid + '-' + key).join(' ')
+
   const purchaseQuantity = (material: Amendment) => (
     <div className="id-profile-calc__purchase">
       <label htmlFor={uid + '-purchase-' + material}>K objednání</label>
@@ -612,7 +701,7 @@ export function SoilProfileCalculator({ className, surface }: { className?: stri
         aria-label={'K objednání — ' + MATERIAL_NAMES[material]}
         aria-live="off"
         className="id-profile-calc__purchasevalue"
-        htmlFor={['area', 'depth', 'ratio', material, material + 'Depth', 'loss', material === 'biovin' ? 'rhoB' : material === 'zeolit' ? 'rhoZe' : 'rhoC'].map((key) => uid + '-' + key).join(' ')}
+        htmlFor={sourceIds(['area', 'depth', 'ratio', material, material + 'Depth', 'loss', material === 'biovin' ? 'rhoB' : material === 'zeolit' ? 'rhoZe' : 'rhoC'])}
         id={uid + '-purchase-' + material}
       >
         <strong>{purchaseAmount(material)}</strong>
@@ -651,7 +740,7 @@ export function SoilProfileCalculator({ className, surface }: { className?: stri
                 options={MODE_OPTIONS}
                 value={mode}
               />
-              <p className="id-profile-calc__modehint">{typography(MODE_HINTS[mode])}</p>
+              <HintStack className="id-profile-calc__modehint" options={MODE_HINTS} value={mode} />
               <p className="id-profile-calc__hint id-profile-calc__example">Výchozí model: 100 m² a 30 cm. Přepište jej podle své zahrady.</p>
               <div className="id-profile-calc__fieldgrid">
                 {field('area', 'Plocha', 'm²', 'Velikost upravované plochy.', true)}
@@ -669,15 +758,15 @@ export function SoilProfileCalculator({ className, surface }: { className?: stri
                 ]}
                 value={soil}
               />
-              <p className="id-profile-calc__hint">{typography(SOIL_HINTS[soil])}</p>
+              <HintStack className="id-profile-calc__hint" options={SOIL_HINTS} value={soil} />
               <p className="id-profile-calc__hint">
                 Předvolby nastaví dolní hranice rozsahů příměsí. Úpravou poměru nebo příměsí přejdete na vlastní recepturu.
               </p>
 
               <div className="id-profile-calc__ratio">
-                <label htmlFor={uid + '-ratio'}>Poměr písek : zemina</label>
+                <label htmlFor={uid + '-ratio'}>{typography('Poměr písek : zemina')}</label>
                 <output aria-live="off" htmlFor={uid + '-ratio'}>
-                  {format(input.ratio, 0)} : {format(100 - input.ratio, 0)}
+                  {typography(format(input.ratio, 0) + ' : ' + format(100 - input.ratio, 0))}
                 </output>
                 <input
                   aria-describedby={[uid + '-ratio-hint', issueFor('ratio') && uid + '-ratio-error'].filter(Boolean).join(' ')}
@@ -718,7 +807,7 @@ export function SoilProfileCalculator({ className, surface }: { className?: stri
                         aria-label="K objednání — Písek"
                         aria-live="off"
                         className="id-profile-calc__purchasevalue"
-                        htmlFor={['area', 'depth', 'ratio', 'loss', 'rhoS'].map((key) => uid + '-' + key).join(' ')}
+                        htmlFor={sourceIds(['area', 'depth', 'ratio', 'loss', 'rhoS'])}
                         id={uid + '-sand-amount'}
                       >
                         <strong>{ready ? format(calculation.delivery.sand.tonnes) : '—'}</strong>
@@ -762,7 +851,10 @@ export function SoilProfileCalculator({ className, surface }: { className?: stri
 
         <div aria-label="Výsledek a nastavení výpočtu" className="id-profile-calc__menu" role="group">
           {([
-            { key: 'results', title: 'Výsledek', hint: ready ? typography(volume(calculation.delivery.sand.m3) + ' písku') : 'zatím nespočítáno' },
+            /* Hint neopakuje veličinu, kterou zadání ukazuje o kus výš v objednací
+               jednotce („Písek k objednání 28,52 t"); táž veličina ve dvou jednotkách
+               na jedné obrazovce mate. Říká, co je uvnitř, jako zbylá dvě tlačítka. */
+            { key: 'results', title: 'Výsledek', hint: ready ? typography('rozpis k objednání') : 'zatím nespočítáno' },
             { key: 'prices', title: 'Ceny materiálů', hint: hasEnteredPrices ? SYMBOLS[currency] : 'zatím nezadané' },
             { key: 'details', title: 'Podrobnosti o směsi', hint: 'rezerva a hustoty' },
             { key: 'help', title: 'Jak výpočet číst' },
@@ -827,10 +919,7 @@ export function SoilProfileCalculator({ className, surface }: { className?: stri
               {typography('Objednávka obsahuje rezervu ' + format(input.loss) + ' %. Rezerva navyšuje jen dovážený materiál.')}
             </p>}
             {calculation.delivery.sand.kg > 0 && <p className="id-profile-calc__transport">
-              {typography('Dovoz písku: ' + format(calculation.sandTransport.bigBags1t, 0)
-                + '× big bag po 1 t, nebo ' + format(calculation.sandTransport.bags25kg, 0)
-                + ' pytlů po 25 kg, nebo ' + format(calculation.sandTransport.trucks3t, 0)
-                + ' nákladů po 3 t.')}
+              {typography('Dovoz písku: ' + sandDeliveryOptions(calculation).join(', nebo ') + '.')}
             </p>}
 
           </>}
@@ -883,20 +972,14 @@ export function SoilProfileCalculator({ className, surface }: { className?: stri
         {open === 'details' && (
           <div aria-labelledby={uid + '-menu-details'} className="id-profile-calc__detailsbody" id={uid + '-panel-details'} role="region">
             <div className="id-profile-calc__detailgrid">
-              {field('loss', 'Rezerva na sesednutí', '%', 'Výchozí 0 %. Dovoz = čistá receptura ÷ (1 − rezerva).')}
-              {field('rhoS', 'Hustota písku', 'kg/l', 'Výchozí 1,50 kg/l; ověřte u dodavatele.')}
-              {field('rhoZ', 'Hustota zeminy', 'kg/l', 'Výchozí 1,40 kg/l; půdy se liší.')}
-              {field('rhoZe', 'Hustota zeolitu', 'kg/l', 'Výchozí 0,80 kg/l; sypná hustota.')}
-              {field('rhoB', 'Hustota Actina', 'kg/l', 'Výchozí 0,60 kg/l; podklady uvádějí 0,60–0,65.')}
-              {field('rhoC', 'Hustota biocharu', 'kg/l', '0,20 kg/l je počtový předpoklad. Vlhký výrobek může být těžší; cenu zadávejte za litr.')}
+              {DETAIL_FIELDS.map(([key, label, unit, hint]) => field(key, label, unit, hint))}
             </div>
           </div>
         )}
 
         {open === 'help' && (
           <div aria-labelledby={uid + '-menu-help'} className="id-profile-calc__help" id={uid + '-panel-help'} role="region">
-            <p><strong>Objem je základ.</strong> Plocha v m² × hloubka v cm ÷ 100 dává objem vrstvy v m³.
-              Procenta příměsí se počítají z objemu příslušné zóny. Poměr písek : zemina se uplatní až na zbývající minerální základ.</p>
+            <p><strong>Objem je základ.</strong> {typography('Plocha v m² × hloubka v cm ÷ 100 dává objem vrstvy v m³. Procenta příměsí se počítají z objemu příslušné zóny. Poměr písek : zemina se uplatní až na zbývající minerální základ.')}</p>
             <p><strong>Udržet výšku:</strong> odváží se část původní zeminy, kterou nahradí nové složky.
               <strong> Zapravit:</strong> zemina zůstává a dovoz zvyšuje objem i výšku profilu.
               <strong> Nová vrstva:</strong> nakupují se všechny složky včetně zeminy.</p>

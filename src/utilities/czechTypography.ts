@@ -22,6 +22,13 @@ const TISICE = /(\d)[ \t](?=\d{3}(?!\d))/g
 const ROZSAH = /(\d)–(?=\d)/g
 /* Rovnice se nesmí zlomit za „=" a odkaz „Obr. 05" za tečkou. */
 const ROVNITKO = /[ \t]+=[ \t]+/g
+/* Vztahový znak obklopený mezerami je operátor, ne interpunkce, a drží řádek
+   pohromadě stejně jako „=": „písek : zemina", „zóny × její podíl", „v cm ÷ 100".
+   Podmínkou je mezera PŘED znakem — česká věta má dvojtečku vždy přisazenou ke
+   slovu („Pozor: voda"), takže běžnou dvojtečku, čas „14:30" ani „https://…"
+   pravidlo nevidí. Mezery se jen nahrazují, nikdy nedoplňují; KRAT zůstává
+   zvlášť, protože u číslic („3×3") je naopak doplnit musí. */
+const OPERATORY = /[ \t]+([:×÷])[ \t]+/g
 const OBRAZEK = /\bObr\.[ \t]+(?=\d)/g
 const KRAT = /(\d)[ \t]*×[ \t]*(?=\d)/g
 
@@ -34,7 +41,18 @@ export const nezlomitelneMezery = (text: string): string =>
     .replace(ROZSAH, '$1–\u2060')
     .replace(KRAT, '$1\u00a0×\u00a0')
     .replace(ROVNITKO, '\u00a0=\u00a0')
+    .replace(OPERATORY, '\u00a0$1\u00a0')
     .replace(OBRAZEK, 'Obr.\u00a0')
+
+/**
+ * České číslovky: 1 pytel, 2 pytle, 5 pytlů. Čeština má tři tvary, ne dva
+ * jako angličtina; bez toho vzniká v textech „1 nákladů". Číslo sází česky,
+ * tisíce pevnou mezerou, takže výstup jde rovnou do věty.
+ */
+export const plural = (count: number, one: string, few: string, many: string): string => {
+  const whole = Math.abs(Math.round(count))
+  return whole.toLocaleString('cs-CZ') + ' ' + (whole === 1 ? one : whole >= 2 && whole <= 4 ? few : many)
+}
 
 /**
  * Projde Lexical strom a doplní pevné mezery do všech textových uzlů.

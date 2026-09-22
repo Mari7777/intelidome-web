@@ -16,12 +16,17 @@ export type RelatedPostsProps = {
 export const RelatedPosts: React.FC<RelatedPostsProps> = (props) => {
   const { className, docs, introContent } = props
 
+  // Výchozí nadpis je sekční H2, tedy role `title` ze škály 4.2 — doslova týž
+  // zápis jako v blocích Chapter, Faq, Split a ProductBand. `text-2xl` stál mimo
+  // škálu a jeho line-height 1,333 nad stropem 1,25 pro display role (4.3 p. 7);
+  // chybělo i `text-wrap: balance` (4.3 p. 3). Větev s introContent jede přes
+  // `.prose h2`, kde stupeň `title` platí už dnes — ta se nemění.
   return (
     <div className={clsx('lg:container', className)}>
       {introContent ? (
         <RichText data={introContent} enableGutter={false} />
       ) : (
-        <h2 className="font-display mb-6 text-2xl font-semibold tracking-tight text-[var(--id-ink)]">
+        <h2 className="mb-6 font-[family-name:var(--id-f-display)] text-[length:var(--id-t-title)] leading-[1.05] font-semibold tracking-[-0.025em] text-[var(--id-ink)] [text-wrap:balance]">
           Související články
         </h2>
       )}
