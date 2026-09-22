@@ -639,9 +639,13 @@ export function SoilProfileCalculator({ className, surface }: { className?: stri
   /* Slider tažení pod zátěží porušovalo INP rozpočet DESIGN.md 6.8 (handler > 50 ms):
      přepočet zón a SVG řezu je drahý. Vizuální pozice palce (--pct) čte `input` přímo
      a zůstává okamžitá; jen tento těžký výstup smí zaostat o snímek za skutečným vstupem. */
+  /* Hero panelu ukazuje materiál s největším dovozem, ne natvrdo písek: u
+     předvolby Písčitá se písek nepřidává a největší číslo panelu bylo „0 l“. */
   const deferredInput = useDeferredValue(input)
   const calculation = useMemo(() => calculateSoilProfile(deferredInput), [deferredInput])
   const ready = calculation.status === 'ready'
+  const hlavniMaterial = MATERIALS.reduce((nej, material) =>
+    calculation.delivery[material].m3 > calculation.delivery[nej].m3 ? material : nej, 'sand' as Material)
   const hasEnteredPrices = MATERIALS.some((material) => parseNumber(prices[currency][material]) > 0)
   const issueFor = (field: string) => calculation.issues.find((issue) =>
     issue.field === field && issue.severity === 'error',
@@ -672,7 +676,7 @@ export function SoilProfileCalculator({ className, surface }: { className?: stri
   /* Plovoucí lišta překrývá horních ~124 px okna. Prohlížeč prvek, který už
      je uvnitř viewportu, při fokusu neposouvá, takže `scroll-margin-top` na
      ovladače nestačí: Tab na pole pod lištou skončil ze 70 % pod ní. */
-  const panelRef = useRef<HTMLDivElement>(null)
+  const panelRef = useRef<HTMLElement>(null)
   useEffect(() => {
     const panel = panelRef.current
     if (!panel) return
@@ -765,13 +769,14 @@ export function SoilProfileCalculator({ className, surface }: { className?: stri
     <section
       aria-labelledby={uid + '-title'}
       className={['id-profile-calc', 'not-prose', surface === 'band' ? 'id-profile-calc--band id-band' : 'id-edge', className].filter(Boolean).join(' ')}
+      ref={panelRef}
     >
       <noscript>
         <p className="id-profile-calc__noscript">
           Pro přepočet zapněte JavaScript. Popis režimů, zadání a vysvětlení výpočtu zůstávají dostupné níže.
         </p>
       </noscript>
-      <div className="id-profile-calc__panel" data-surface="dark" ref={panelRef}>
+      <div className="id-profile-calc__panel" data-surface="dark">
         <header className="id-profile-calc__heading">
           <div>
             <p className="id-profile-calc__eyebrow">Půdní profil</p>
@@ -842,16 +847,21 @@ export function SoilProfileCalculator({ className, surface }: { className?: stri
             <fieldset className="id-profile-calc__additions">
               <legend>Příměsi a hloubka zapravení</legend>
               <p className="id-profile-calc__hint">
-                Podíl počítáme z objemu půdy od povrchu do zadané hloubky. Každou příměs můžete zapravit jinak hluboko.
+                {typography('Podíl příměsi počítáme z objemu půdy od povrchu do zadané hloubky a každou z nich můžete zapravit jinak hluboko. Podíl písku platí z minerálního základu, tedy z objemu, který po příměsích zbyde, a sahá do hloubky celého profilu.')}
               </p>
               <div className="id-profile-calc__additionlist">
                 <fieldset className="id-profile-calc__amendment">
                   <legend>Písek</legend>
                   <div className="id-profile-calc__additiongrid">
                     {field('ratio', 'Podíl', '%', undefined, false, 'Písek', 'sand-podil')}
-                    {/* Týž popisek jako u hlavního pole hloubky: „Do hloubky“ se v režimu
-                        Zapravit tloukl s tabulkou, kde písek sahá do modelové výšky profilu. */}
-                    {field('depth', mode === 'mix' ? 'Původní hloubka' : 'Hloubka profilu', 'cm', undefined, false, 'Písek', 'sand-do-hloubky')}
+                    {/* Hloubka písku je táž veličina jako hloubka profilu, takže je tu
+                        jen odečtem. Dřív to bylo druhé editovatelné pole se stejným
+                        popiskem, jen menší, a zápis do něj tiše přepsal celý model. */}
+                    <div className="id-profile-calc__field id-profile-calc__readout">
+                      <span>{mode === 'mix' ? 'Původní hloubka' : 'Hloubka profilu'}</span>
+                      <p>{typography(format(input.depth) + ' cm')}</p>
+                      <p className="id-profile-calc__hint">{typography('Řídí ji pole ' + (mode === 'mix' ? '„Původní hloubka“' : '„Hloubka profilu“') + ' v zadání.')}</p>
+                    </div>
                     <div className="id-profile-calc__purchase">
                       <label htmlFor={uid + '-sand-amount'}>K objednání</label>
                       <output
@@ -928,9 +938,9 @@ export function SoilProfileCalculator({ className, surface }: { className?: stri
         {open === 'results' && (
           <div aria-labelledby={uid + '-menu-results'} className="id-profile-calc__results" id={uid + '-panel-results'} role="region">
           <div className="id-profile-calc__primary">
-              <span>Písek k objednání</span>
-              <strong>{ready ? typography(volume(calculation.delivery.sand.m3)) : '—'}</strong>
-              <p>{ready ? typography('≈ ' + mass(calculation.delivery.sand.kg)) : calculation.status === 'invalid' ? 'Opravte označené údaje.' : 'Doplňte plochu a hloubku.'}</p>
+              <span>{typography(MATERIAL_NAMES[hlavniMaterial] + ' k objednání')}</span>
+              <strong>{ready ? typography(volume(calculation.delivery[hlavniMaterial].m3)) : '—'}</strong>
+              <p>{ready ? typography('≈ ' + mass(calculation.delivery[hlavniMaterial].kg)) : calculation.status === 'invalid' ? 'Opravte označené údaje.' : 'Doplňte plochu a hloubku.'}</p>
           </div>
           <MaterialTable calculation={calculation} currency={currency} ready={ready} showPrices={hasEnteredPrices || pricesOpen} />
           <dl className="id-profile-calc__totals">

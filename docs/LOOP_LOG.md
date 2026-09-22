@@ -3214,3 +3214,84 @@ podtržení pole rgb(108,115,123).
 Zkrácení legendy je ústupek: kdo čte jen kresbu, se složení směsi z ní už
 nedozví. Je to vědomá volba ve prospěch toho, aby text nevybíhal z okna;
 kolo 10 ať posoudí, jestli „promíchaná směs" jako klíč stačí.
+
+## Kolo 10 — první kolo bez kaskády regresí (2026-09-22)
+
+URL: `/posts/kalkulator-na-planovani-pudniho-profilu`. Kolo proběhlo dvoufázově:
+nejdřív se dobralo jedenáct nálezů, které kolo 09 nechalo ležet (všechny už
+změřené a potvrzené skeptikem, commit `f5862bb`), a teprve nad opraveným stavem
+se pustila porota.
+
+| Oblast | Skóre |
+|---|---|
+| Hierarchie | 2/5 |
+| Typografie | 2/5 |
+| Pohyb | 3/5 |
+| Grafický styl | 3/5 |
+| Slop | 2/5 |
+| Výkon a přístupnost | 3/5 |
+| Rozložení | **4/5** |
+
+**11 nálezů prošlo skeptikem, z toho 1 kritický a 1 regrese** (proti kolu 09:
+18 nálezů, 4 kritické, 7 regresí). Rozložení dosáhlo na průchozí známku poprvé
+za celou smyčku. Dva nálezy hierarchie skeptik vyvrátil.
+
+Odpověď na otázku, kterou si kolo 09 samo položilo: **zkrácená legenda jako klíč
+barev STAČÍ.** Lenz hierarchie to ověřil bodově („každá výplň v řezu má svůj
+řádek, řádky jdou v pořadí vrstev, výčet složek nese komentář a popis pro
+odečítač a figcaption sám říká, že řez složení záměrně neukazuje") a naměřil,
+že popisky se na devíti šířkách 320 až 1440 px vykreslují 10,5 až 12,7 px
+a nikde nepřetékají.
+
+### Opravy
+
+- **KRITICKÝ: nápověda nad seznamem příměsí platila pro tři složky ze čtyř.**
+  Nad fieldsetem stálo „Podíl počítáme z objemu půdy od povrchu do zadané
+  hloubky. Každou příměs můžete zapravit jinak hluboko", ale první položkou
+  seznamu je Písek, který příměs není: jeho podíl se počítá z minerálního
+  základu (naměřeno 19,01 m³ = 63,4 % z 30 m³, ne 65 %) a jeho hloubka je
+  hloubka celého profilu. Nápověda teď obě pravidla rozlišuje.
+- **Dvě editovatelná pole pro jednu veličinu.** Řádek Písek měl vlastní pole
+  „Hloubka profilu" (28 px) svázané obousměrně s hlavním polem (40 px): zápis
+  do malého pole tiše přepsal celý model a dovoz písku spadl z 28,52 t na
+  13,89 t, aniž by uživatel sáhl na zadání. Teď je v řádku Písek odečet
+  s poznámkou, které pole hodnotu řídí.
+- **U předvolby Písčitá bylo největší číslo panelu „0 l" písku**, ačkoli
+  nápověda té předvolby sama říká „Další písek se nepřidává". Hero teď ukazuje
+  materiál s největším dovozem (naměřeno: Zeolit 1,2 m³).
+- **Výstražný seznam běžel 106 znaků na řádek** jako jediný text panelu bez
+  míry; doplněna `var(--id-measure)`.
+- **Dorovnání fokusu pod plovoucí lištou pokrývalo jen panel**, ne přepínač nad
+  kresbou (zakryto 29 px). Posluchač se přesunul na kořen bloku.
+- **Ve vynucených barvách zmizel stav vybrané pilulky** u všech přepínačů
+  (rozdíl 1,00:1, nativní radio je 1×1 px s opacity 0). Doplněna větev
+  `@media (forced-colors: active)` se systémovými barvami.
+
+### Přehodnoceno, neopraveno
+
+**„Panel má pět akcentových čísel, systém povoluje jediné"** — lenz grafického
+stylu potvrzen skeptikem, ale tentýž nález **zamítla kola 04, 06 i 07**
+s odůvodněním, že čtyři hodnoty „K objednání" nejsou zadání, ale výstupy, na
+které se panel ptá, a že `--id-accent-dark` je podle 3.4 obecný token pro
+akcentový text pod 30 px, ne barva vyhrazená jedinému číslu. Kolo 10 přichází
+s jiným argumentem (počet akcentových ROLÍ, ne odstín), takže spor je otevřený.
+Odebrat akcent hlavnímu výstupu panelu je produktové rozhodnutí; **čeká na
+autora**, ať smyčka nezačne čtvrtý nález přehazovat sem a tam.
+
+### Neopravené (do kola 11)
+
+Starší: tělo článku bez kapitol v title škále; pravý sloupec figury z 72 až 81 %
+prázdný; přepnutí způsobu posouvá obsah o 150 px. Nové kosmetické: hmota
+„k odvozu" nemá v řezu obrys, ačkoli vzorek v legendě ho má; legenda sází třetím
+stylem popisku; obrys segmentu 1 px místo 1,5 px; značka směsi má dvě hustoty
+rastru; číselný závěr figury je nejmenší text bloku; zlom 1023 px rozešel osy
+v pásmu 1024 až 1129 px; dorovnávací kód sloupců zadání je mrtvý; článek jede
+na gutteru 20 px.
+
+### Ověření
+
+`tsc` PASS, 26/26 testů PASS, `layout-check.mjs` 5 kontrol OK. Živě: jediné pole
+hloubky v celém kalkulátoru; nápověda rozlišuje příměsi a písek; míra výstrah
+33 em; u Písčité hero „Zeolit k objednání 1,2 m³"; fokus nad kresbou bez
+překryvu; ve vynucených barvách má vybraná pilulka Highlight pozadí proti
+průhledné nevybrané.

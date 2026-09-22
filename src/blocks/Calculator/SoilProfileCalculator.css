@@ -176,6 +176,25 @@
   letter-spacing: .14em;
   text-transform: uppercase;
 }
+.id-profile-calc__readout > span {
+  display: block;
+  margin-bottom: 10px;
+  color: var(--id-ink-dark-2, #9ba1a8);
+  font-family: var(--id-f-display);
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.5;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+}
+.id-profile-calc .id-profile-calc__readout > p {
+  font-family: var(--id-f-display);
+  font-size: 28px;
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: -.02em;
+  color: var(--id-ink-dark-2, #9ba1a8);
+}
 .id-profile-calc__segments {
   display: flex;
   flex-wrap: wrap;
@@ -222,6 +241,14 @@
   border-color: var(--id-accent, #2563eb);
 }
 .id-profile-calc__segments label:hover span { border-color: var(--id-accent-tint, #93c5fd); }
+@media (forced-colors: active) {
+  .id-profile-calc__segments span { border-color: ButtonBorder; }
+  .id-profile-calc__segments input:checked + span {
+    background: Highlight;
+    color: HighlightText;
+    border-color: Highlight;
+  }
+}
 .id-profile-calc__segments input:focus-visible + span {
   outline: 3px solid var(--id-accent, #2563eb);
   outline-offset: 3px;
@@ -514,6 +541,7 @@
   font-size: 13.5px;
 }
 .id-profile-calc .id-profile-calc__issues {
+  max-width: var(--id-measure, 33em);
   padding-left: 20px;
   margin-top: 20px;
   color: #f2b96b;
