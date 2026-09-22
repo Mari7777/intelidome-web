@@ -5,7 +5,7 @@
  * viset na konci řádku. Řeší se tady, ne v obsahu — autor článku nemá
  * psát nezlomitelné mezery ručně a při každé změně šířky je přepočítávat.
  */
-const PREDLOZKY = /(?<=^|[\s(„"\u2018\u201e\u00a0])([ksvzoutiaISVZOUKAI])[ \t]+/g
+const PREDLOZKY = /(?<=^|[\s(„"\u2018\u201e\u00a0])([ksvzouiaISVZOUKAI])[ \t]+/g
 
 /* Číslo a jednotka patří k sobě: „15 cm", „4 cm/h", „0,8 kg/l", „200 litrů",
    „22 min", „28,52 t", „1 234 Kč". Slovní jednotky jen celé slovo (`\p{L}`

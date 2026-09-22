@@ -21,7 +21,7 @@ export async function Footer() {
           <Logo decorative height={19} />
         </Link>
 
-        <nav className="flex flex-col md:flex-row gap-4">
+        <nav aria-label="Navigace v patičce" className="flex flex-col md:flex-row gap-4">
           {navItems.map(({ link }, i) => {
             return (
               <CMSLink

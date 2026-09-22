@@ -633,8 +633,11 @@
 }
 .id-table__h {
   font-family: var(--id-f-display);
+  /* Mezititulek tabulky je nadpis, ne odstavec: bez vlastního řádkování dědil
+     1,65 z prózy a četl se jako tučná věta (4.3 p. 7: display nikdy nad 1,25). */
   font-size: 17px;
   font-weight: 600;
+  line-height: 1.25;
   letter-spacing: -0.01em;
   color: var(--id-ink);
   margin-bottom: 14px;

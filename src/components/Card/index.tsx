@@ -1,4 +1,5 @@
 'use client'
+import { nezlomitelneMezery } from '@/utilities/czechTypography'
 import { cn } from '@/utilities/ui'
 import useClickableCard from '@/utilities/useClickableCard'
 import Link from 'next/link'
@@ -26,7 +27,11 @@ export const Card: React.FC<{
 
   const hasCategories = categories && Array.isArray(categories) && categories.length > 0
   const titleToUse = titleFromProps || title
-  const sanitizedDescription = description?.replace(/\s/g, ' ') // replace non-breaking space with white space
+  /* Karta je jediný text webu mimo lexikální strom, takže si českou sazbu musí
+     zajistit sama. Původní řádek dělal pravý opak: `/\s/` v JS zahrnuje U+00A0,
+     takže pevné mezery MAZAL a na 320 px visely v obou kartách jednopísmenné
+     spojky na konci řádku. */
+  const sanitizedDescription = description ? nezlomitelneMezery(description) : description
   const href = `/${relationTo}/${slug}`
 
   return (

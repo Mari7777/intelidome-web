@@ -61,7 +61,7 @@ const PRICE_UNITS: Record<Material, string> = {
 }
 const MODE_HINTS: Record<Mode, string> = {
   keep: 'Část zeminy předem odvezete. Písek a příměsi pak nahradí její objem, aby zadaná výška terénu zůstala.',
-  mix: 'Písek a příměsi zapravíte do stávající zeminy, kterou neodvážíte. Modelová výška profilu proto bude vyšší; zóny se počítají od jeho nového povrchu.',
+  mix: 'Písek a příměsi zapravíte do zeminy, kterou neodvážíte. Profil proto bude vyšší a zóny se počítají od nového povrchu.',
   new: 'Písek, zeminu i příměsi dovezete. Novou vrstvu uložíte po zónách na připravené podloží.',
 }
 const SOIL_HINTS: Record<Soil, string> = {
@@ -398,20 +398,30 @@ function ProfileDrawing({ calculation, input, onModeChange, uid }: {
     new: 'Nejdřív připravíte prostor, tedy vykopete nebo srovnáte podloží do hloubky profilu. Pak do něj navezete hotovou směs — ' + dovoz + ' — až po úroveň terénu.',
   }
   const notes: Record<Mode, string> = {
-    keep: 'Odvezete ' + volume(calculation.removeM3) + ' zeminy; výška terénu zůstává.',
-    mix: 'Nic neodvážíte; terén se zvedne o ' + format(rise, 1) + ' cm.',
+    /* Nulové zadání: „Odvezete 0 l" a „zvedne se o 0 cm" si protiřečily
+       s komentářem nad sebou, který správně říkal, že se nic neveze. */
+    keep: removes
+      ? 'Odvezete ' + volume(calculation.removeM3) + ' zeminy; výška terénu zůstává.'
+      : 'Neodvážíte nic; výška terénu zůstává.',
+    mix: lifts
+      ? 'Nic neodvážíte; terén se zvedne o ' + format(rise, 1) + ' cm.'
+      : 'Nic neodvážíte; výška terénu se nemění.',
     /* „Dovezete" je dovoz, ne objem prostoru: při rezervě 30 % se do profilu
        o 30 m³ veze 42,86 m³. Číslo proto bere ze skutečného dovozu, tedy
        z téhož zdroje jako tabulka materiálů. */
     new: 'Vše dovezete: ' + volume(importedM3) + ' směsi'
       + (calculation.reserveFactor > 1 ? ' včetně rezervy' : '') + ' do připraveného prostoru.',
   }
+  /* Popis pro odečítač se skládá z týchž příznaků jako kresba, jinak tvrdí
+     „směs" i tam, kde se nic nedováží a blok „po" je prostá zemina. */
+  const poBlok = blended ? 'směs (' + slozkySmesi + ')' : 'tatáž zemina'
   const labels: Record<Mode, string> = {
-    keep: 'Udržet výšku: před — stávající zemina' + (removes ? ', horní část k odvozu' : '')
-      + '; po — ' + (blended ? 'směs (' + slozkySmesi + ')' : 'tatáž zemina') + ' do původní výšky terénu.',
-    mix: 'Zapravit: před — stávající zemina; po — směs'
+    keep: 'Udržet výšku: před — stávající zemina'
+      + (removes ? (calculation.keepM3 > 0 ? ', horní část k odvozu' : ', celá k odvozu') : '')
+      + '; po — ' + poBlok + ' do původní výšky terénu.',
+    mix: 'Zapravit: před — stávající zemina; po — ' + poBlok
       + (lifts ? ' vyšší o ' + format(rise, 1) + ' centimetrů nad úrovní terénu.' : ' v původní výšce terénu.'),
-    new: 'Nová vrstva: před — připravený prázdný prostor; po — směs do úrovně terénu.',
+    new: 'Nová vrstva: před — připravený prázdný prostor; po — ' + poBlok + ' do úrovně terénu.',
   }
 
   /* Legenda leží UVNITŘ kresby (vzor TriZony). Jen tak je značka v legendě
@@ -460,8 +470,21 @@ function ProfileDrawing({ calculation, input, onModeChange, uid }: {
   const znacka = (kind: Znacka, x: number, y: number, w: number, h: number, sDrnem = false) => {
     if (kind === 'drn') {
       /* Ve vzorku legendy je pás stejně silný jako v řezu (9.2 p. 10, úroveň 2),
-         jen vycentrovaný ve výšce řádku. */
-      return drnPas(x, y + (h + PANEL.drn) / 2, w)
+         jen vycentrovaný ve výšce řádku — včetně svislých konců, kterými pás
+         v řezu shora uzavírá hmotu, jinak značka není pixelově shodná. */
+      const paty = y + (h + PANEL.drn) / 2
+      return (
+        <>
+          {drnPas(x, paty, w)}
+          <path
+            d={'M' + x + ' ' + (paty - PANEL.drn) + ' V' + paty + ' M' + (x + w) + ' ' + (paty - PANEL.drn) + ' V' + paty}
+            fill="none"
+            stroke="#232830"
+            strokeWidth="1.6"
+            vectorEffect="non-scaling-stroke"
+          />
+        </>
+      )
     }
     if (kind === 'space') {
       return <rect fill="none" height={h} stroke="#232830" strokeDasharray="4 5" strokeWidth="1.6" vectorEffect="non-scaling-stroke" width={w} x={x} y={y} />
@@ -646,6 +669,30 @@ export function SoilProfileCalculator({ className, surface }: { className?: stri
   /* Živá oblast patří odpovědi na uživatelův zásah, ne načtení stránky: dřív
      odečítač přečetl 221 znaků souhrnu sám od sebe, zatímco čtenář byl ještě
      u titulku článku (porota 08, přístupnost). První průchod se proto přeskočí. */
+  /* Plovoucí lišta překrývá horních ~124 px okna. Prohlížeč prvek, který už
+     je uvnitř viewportu, při fokusu neposouvá, takže `scroll-margin-top` na
+     ovladače nestačí: Tab na pole pod lištou skončil ze 70 % pod ní. */
+  const panelRef = useRef<HTMLDivElement>(null)
+  useEffect(() => {
+    const panel = panelRef.current
+    if (!panel) return
+    const onFocus = (event: FocusEvent) => {
+      const target = event.target as HTMLElement | null
+      if (!target?.matches('input, button, select, textarea, [tabindex]')) return
+      const offset = parseFloat(getComputedStyle(document.documentElement)
+        .getPropertyValue('--id-anchor-offset')) || 124
+      const rect = target.getBoundingClientRect()
+      const chybi = offset + 12 - rect.top
+      if (chybi <= 0) return
+      window.scrollBy({
+        top: -chybi,
+        behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth',
+      })
+    }
+    panel.addEventListener('focusin', onFocus)
+    return () => panel.removeEventListener('focusin', onFocus)
+  }, [])
+
   useEffect(() => {
     if (!zasahl.current) return
     const timer = window.setTimeout(() => setAnnouncement(summary), 400)
@@ -724,7 +771,7 @@ export function SoilProfileCalculator({ className, surface }: { className?: stri
           Pro přepočet zapněte JavaScript. Popis režimů, zadání a vysvětlení výpočtu zůstávají dostupné níže.
         </p>
       </noscript>
-      <div className="id-profile-calc__panel" data-surface="dark">
+      <div className="id-profile-calc__panel" data-surface="dark" ref={panelRef}>
         <header className="id-profile-calc__heading">
           <div>
             <p className="id-profile-calc__eyebrow">Půdní profil</p>
