@@ -2932,3 +2932,101 @@ nezavedly nové vady — zvlášť neutrální kótu v prázdném prostoru
 zadáních. Skóre 2/5 u šesti lenzů je hluboký propad proti kolu 06
 (0 kritických); poučení je v tom, že osm úprav bez poroty za sebou
 znamenalo osm úprav bez měření.
+
+## Kolo 08 — 14 regresí po kole 07, kóta cizího způsobu zrušena (2026-09-22)
+
+URL: `/posts/kalkulator-na-planovani-pudniho-profilu`. Porota dostala
+v zadání výslovný úkol ověřit šest prvků, které zavedlo kolo 07, a
+u každého nálezu rozhodnout, jestli jde o **regresi**, nebo o starší
+vadu; skeptik to pak prověřoval i proti tomuto logu a proti `git show`.
+
+| Oblast | Skóre |
+|---|---|
+| Hierarchie | 2/5 |
+| Typografie | 2/5 |
+| Pohyb | 2/5 |
+| Grafický styl | 3/5 |
+| Slop | 2/5 |
+| Výkon a přístupnost | 3/5 |
+| Rozložení | 2/5 |
+
+**24 nálezů prošlo skeptikem, z toho 3 kritické a 14 REGRESÍ.** Tohle
+je hlavní výsledek kola: většinu vad zavedla oprava předchozího kola.
+Kolo 07 si přitom samo do „Hranic ověření" napsalo, že novou kótu
+v prázdném prostoru musí prověřit kolo 08 — předpověď vyšla.
+
+### Zrušeno: šedá kóta „+X cm / při zapravení"
+
+Nápad vyplnit prostor nad terénem kótou nezvoleného způsobu odmítlo
+**pět nezávislých lenzů** a skeptik ho potvrdil jako kritický:
+
+- **Kolize popisků ve dvou ze tří předvoleb půdy.** Hlinitá vykreslila
+  „odvoz" a „při zapravení" přes sebe jako jeden řetězec (10,1 × 13,4 px
+  na 1440, 43,6 × 13,5 px na mobilu); Písčitá položila popisek na hnědý
+  blok v kontrastu 1,1:1 (78–84 % délky popisku). DESIGN.md 9.2 p. 3
+  kolize text × text jmenovitě zakazuje.
+- **Nejhlasitější číslo v kresbě patřilo způsobu, který uživatel
+  nezvolil**, zatímco číslo zvoleného způsobu v kresbě nebylo vůbec.
+- Kóta srážela kresbu zvoleného způsobu na 9,5 px, zaváděla čtvrtý
+  typografický stupeň, měla linky v kontrastu 1,37:1 a v přístupném
+  jméně chyběla úplně.
+
+Kóta je pryč i s konstantním rámem, který existoval jen kvůli ní. Rám
+se vrátil k ořezu podle zvoleného způsobu; zbylý posun okolí při
+přepnutí (22,5 px) skeptik snížil na kosmetický.
+
+### Další opravy
+
+- **Komentář lhal, když se odváží celý profil** (kritický, slop). Při
+  100 % písku a nulových příměsích tvrdil „horní část" a „zbylou
+  zeminu", ačkoli šrafa pokrývala celý blok a `keepM3` bylo 0. Texty
+  i legenda teď jmenují jen materiály s kladným dovozem
+  (`Odvezete celou stávající zeminu … a nahradíte ji … — písek, biochar,
+  actino a zeolit`), závorka legendy se skládá ze skutečných složek.
+- **Klik na „Zapravit" zhasnul i ovládání** (důležitý, slop). Prázdný
+  stav si teď nechá přepínač způsobů a místo obecné výzvy vypíše
+  konkrétní hlášku z `calculation.issues` („Při podílu písku 98 % a více
+  použijte režim Nová vrstva.").
+- **Stupně písma v kresbě se vázaly na šířku okna, ne na měřítko
+  kresby** (důležitý ×2). Na zlomu 560 px skákal popisek na 16,5 px,
+  tedy výš než odstavec figury, a na 320 px padal na 9,6 px. Kresba má
+  teď vlastní `container-type: inline-size` a tři prahy odvozené od
+  měřítka viewBoxu. Naměřeno napříč 320–1920 px: **10,5 až 12,7 px**
+  (dřív 9,6 až 16,5).
+- **Legenda uvnitř kresby sázela tělovým písmem** (důležitý) — jediný
+  text v kresbách článku mimo display rodinu. Teď Archivo 600.
+- **Pás figury byl vysoký 1214 px a obsah držel levých 36 % šířky**
+  (důležitý ×2, 865 px prázdna = 63,6 % pásu). Kresba a text jsou teď
+  dva sloupce: kresba 40..520, komentář a závěr 560..1055. Výška figury
+  1214 → 950 px.
+- **Živá oblast vyhlásila 221 znaků souhrnu hned po načtení stránky**
+  (důležitý, přístupnost), zatímco čtenář byl 1 855 px nad kalkulátorem.
+  Ohlašuje se až po skutečném zásahu uživatele (příznak se zapíná
+  v obsluze polí, přepínačů a ceníku, ne přepočtem odvozeného stavu).
+
+### Neopravené (do kola 09)
+
+Starší, neregresní: blok „Související články" mimo škálu 4.2; stránka
+otevírá dvěma obsidiány za sebou; první dotek posuvníku posune sám
+posuvník o 20,2 px na mobilu; reveal nechává po zkrácení stránky
+sekce v `opacity: 0`; týž mechanismus vysvětlený třikrát; panel „Jak
+výpočet číst" bez mřížky. Kosmetické: zelená linka terénu chybí
+v legendě, drn bez hrany #2e6440, popiska bez „Obr. NN", vztahové znaky
+se lámou na konec řádku, visící `output[for]` na pole ve sbalené sekci.
+
+### Ověření
+
+`tsc` PASS, 26/26 testů PASS. Živě (Playwright): 0 kolizí popisků přes
+3 předvolby půdy × 3 způsoby; živá oblast po načtení prázdná a po změně
+plochy naplněná; prázdný stav drží přepínač a konkrétní důvod; komentář
+i legenda při 100 % písku jmenují skutečné materiály; kresba 40..520
+a text 560..1055; popisky 10,5–12,7 px na 320/360/393/500/560/768/1024/
+1130/1440/1920 px, přetok 0 na všech. `layout-check.mjs` beze změny.
+
+### Hranice ověření
+
+Dvousloupcová sazba figury a container query jsou nové prvky, které
+tahle porota neviděla — kolo 09 je musí prověřit stejně, jako kolo 08
+prověřilo kótu. Poučení dvou kol po sobě: **oprava prázdného místa
+přidáním obsahu je dražší než oprava přeskupením** — kóta vyplnila
+díru a stála pět lenzů, dvousloupec díru zmenšil beze slova navíc.

@@ -545,14 +545,23 @@
   background: rgba(255,255,255,.7);
   border-color: var(--id-line-cream, #dcdad4);
 }
-.id-profile-calc__mode { margin-top: 20px; }
-/* Kresba stojí na levé ose figury, ne na plovoucím středu pásu (8.2a). */
-.id-profile-calc__mode > svg { display: block; width: 100%; max-width: 480px; height: auto; overflow: visible; }
+/* Kresba stojí na levé ose figury (8.2a) a text jí dělá druhý sloupec, aby
+   pás nezůstal ze dvou třetin prázdný (porota 08, rozložení + hierarchie). */
+.id-profile-calc__mode {
+  display: grid;
+  grid-template-columns: minmax(0, 480px) minmax(0, var(--id-measure, 33em));
+  gap: 40px;
+  align-items: start;
+  margin-top: 20px;
+}
+.id-profile-calc__mode-canvas { min-width: 0; max-width: 480px; container-type: inline-size; }
+.id-profile-calc__mode-text { min-width: 0; }
+.id-profile-calc__mode-canvas > svg { display: block; width: 100%; height: auto; overflow: visible; }
 /* Pod řezem: komentář, co se stane (věta k obrázku), a pod ním číselný závěr.
    Obojí je běžný text, takže vlevo na ose figury a v míře prózy (4.3 p. 4). */
 .id-profile-calc .id-profile-calc__mode-story {
   max-width: var(--id-measure, 33em);
-  margin-top: 16px;
+  margin-top: 0;
   font-size: 15px;
   line-height: 1.55;
   text-wrap: pretty;
@@ -570,17 +579,22 @@
    jako u ostatních kreseb článku (9.2 p. 3). Pod 560 px měřítko klesá k 1,05,
    proto se deklarace zvedá, aby vykreslený stupeň zůstal nad 10 px. */
 .id-profile-calc__svg-tag { fill: var(--id-ink-2, #5b5e63); font-family: var(--id-f-display); font-size: 8px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; }
-.id-profile-calc__svg-legend { fill: var(--id-ink-2, #5b5e63); font-family: var(--id-f-body); font-size: 9px; }
-/* Stín třetího způsobu: prostor nad terénem drží rám kvůli „Zapravit“, proto
-   v ostatních dvou způsobech nese kótu toho, oč by profil vystoupil. Neutrální
-   tón, aby akcent zůstal jen u zvoleného způsobu (9.2 p. 1). */
-.id-profile-calc__svg-ghost { fill: var(--id-ink-2, #5b5e63); font-family: var(--id-f-display); font-size: 12px; font-weight: 600; }
+.id-profile-calc__svg-legend { fill: var(--id-ink-2, #5b5e63); font-family: var(--id-f-display); font-weight: 600; font-size: 9px; }
 .id-profile-calc__svg-rise { fill: var(--id-accent, #2563eb); font-family: var(--id-f-display); font-size: 16px; font-weight: 600; }
-@media (max-width: 560px) {
-  .id-profile-calc__svg-tag { font-size: 11px; }
-  .id-profile-calc__svg-legend { font-size: 12px; }
+@container (max-width: 479px) {
+  .id-profile-calc__svg-tag { font-size: 9px; }
+  .id-profile-calc__svg-legend { font-size: 10.1px; }
+  .id-profile-calc__svg-rise { font-size: 18px; }
+}
+@container (max-width: 399px) {
+  .id-profile-calc__svg-tag { font-size: 10px; }
+  .id-profile-calc__svg-legend { font-size: 11.3px; }
   .id-profile-calc__svg-rise { font-size: 20px; }
-  .id-profile-calc__svg-ghost { font-size: 15px; }
+}
+@container (max-width: 332px) {
+  .id-profile-calc__svg-tag { font-size: 12px; }
+  .id-profile-calc__svg-legend { font-size: 13.5px; }
+  .id-profile-calc__svg-rise { font-size: 24px; }
 }
 .id-profile-calc__drawing figcaption {
   margin-top: 24px;
@@ -605,6 +619,7 @@
 .id-profile-calc--band .id-profile-calc__drawing { margin-top: 0; }
 @media (max-width: 1129px) {
   .id-profile-calc__inputgrid { grid-template-columns: minmax(0,1fr); }
+  .id-profile-calc__mode { grid-template-columns: minmax(0,1fr); gap: 20px; }
   .id-profile-calc__additionlist { padding-top: 0; }
   .id-profile-calc__detailgrid, .id-profile-calc__pricegrid { grid-template-columns: repeat(2,minmax(0,1fr)); }
 }

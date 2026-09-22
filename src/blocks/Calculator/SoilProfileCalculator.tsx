@@ -282,10 +282,22 @@ function ProfileDrawing({ calculation, input, onModeChange, uid }: {
      způsobů neplatil — při 100 % písku tak platný „Udržet výšku" zhasl kvůli
      „Zapravit" a panel vedle něj přitom hlásil konzistentní zadání. */
   if (calculation.status !== 'ready') {
+    /* Když zadání sedí a neplatí jen zvolený způsob, ovládání nesmí zmizet
+       spolu s kresbou a výzva nesmí žádat doplnění hotového zadání. */
+    const duvod = calculation.issues.find((issue) => issue.severity === 'error')?.message
     return (
       <section className="id-profile-calc__drawing id-profile-calc__drawing--empty">
         <h3>Jak se profil změní</h3>
-        <p>Doplňte platné zadání. Řez pak ukáže, co se u zvoleného způsobu odveze, co se doveze a jak se změní výška terénu.</p>
+        <p>{typography(duvod
+          ? duvod + ' Řez se vrátí, jakmile bude zvolený způsob pro toto zadání platit.'
+          : 'Doplňte platné zadání. Řez pak ukáže, co se u zvoleného způsobu odveze, co se doveze a jak se změní výška terénu.')}</p>
+        <Choices
+          legend="Způsob přípravy"
+          name={uid + '-drawing-mode'}
+          onChange={onModeChange}
+          options={MODE_OPTIONS}
+          value={input.mode}
+        />
       </section>
     )
   }
@@ -304,19 +316,32 @@ function ProfileDrawing({ calculation, input, onModeChange, uid }: {
   /* Co se v kresbě pro zvolený způsob opravdu vykreslí. Texty i legenda se
      řídí těmito příznaky — dřív slibovaly šrafu a kótu i tam, kde v kresbě
      žádné nebyly (nulový odvoz, nulové navýšení). */
-  const importedM3 = MATERIALS.reduce((sum, material) => sum + calculation.delivery[material].m3, 0)
+  const dovazene = MATERIALS.filter((material) => calculation.delivery[material].m3 > 0)
+  const importedM3 = dovazene.reduce((sum, material) => sum + calculation.delivery[material].m3, 0)
   const blended = importedM3 > 0
+  /* Závorka legendy vypisuje jen to, co se opravdu dováží — „zemina + písek +
+     příměsi“ lhalo, kdykoli byl některý podíl nulový (porota 08, slop). */
+  const slozkySmesi = [
+    ...(input.mode === 'keep' && calculation.keepM3 > 0 ? ['zbylá zemina'] : []),
+    ...dovazene.map((material) => MATERIAL_NAMES[material].toLowerCase()),
+  ].join(' + ')
   const removes = input.mode === 'keep' && removedHeight > 0
   const lifts = input.mode === 'mix' && rise > 0
 
+  /* Materiály jmenujeme podle skutečného dovozu, ne podle šablony. */
+  const dovoz = dovazene.length
+    ? dovazene.map((material) => MATERIAL_NAMES[material].toLowerCase()).join(', ').replace(/, ([^,]*)$/, ' a $1')
+    : 'nic'
   const stories: Record<Mode, string> = {
-    keep: removes
-      ? 'Horní část stávající zeminy odvezete (šrafovaná část). Do uvolněného místa přijde písek s příměsmi a promíchá se se zbylou zeminou, povrch proto zůstane tam, kde byl.'
-      : 'Při tomto zadání se nic neodváží ani nedováží: příměsi ani písek si nevezmou žádný objem navíc, takže zemina zůstane, jak je.',
+    keep: !removes
+      ? 'Při tomto zadání se nic neodváží ani nedováží: příměsi ani písek si nevezmou žádný objem navíc, takže zemina zůstane, jak je.'
+      : calculation.keepM3 > 0
+        ? 'Horní část stávající zeminy odvezete (šrafovaná část). Do uvolněného místa přijde ' + dovoz + ' a promíchá se se zbylou zeminou, povrch proto zůstane tam, kde byl.'
+        : 'Odvezete celou stávající zeminu z této hloubky (šrafovaná část) a nahradíte ji tím, co dovezete — ' + dovoz + '. Povrch proto zůstane tam, kde byl.',
     mix: lifts
-      ? 'Nic neodvážíte. Písek a příměsi zapravíte do celé stávající zeminy, objem tím naroste a povrch vystoupí nad okolní terén o výšku kóty.'
+      ? 'Nic neodvážíte. Do celé stávající zeminy zapravíte ' + dovoz + ', objem tím naroste a povrch vystoupí nad okolní terén o výšku kóty.'
       : 'Nic neodvážíte a při tomto zadání se ani nic nedováží, takže objem zůstává a povrch se nezvedne.',
-    new: 'Nejdřív připravíte prostor, tedy vykopete nebo srovnáte podloží do hloubky profilu. Pak do něj navezete hotovou směs ze zeminy, písku a příměsí až po úroveň terénu.',
+    new: 'Nejdřív připravíte prostor, tedy vykopete nebo srovnáte podloží do hloubky profilu. Pak do něj navezete hotovou směs — ' + dovoz + ' — až po úroveň terénu.',
   }
   const notes: Record<Mode, string> = {
     keep: 'Odvezete ' + volume(calculation.removeM3) + ' zeminy; výška terénu zůstává.',
@@ -324,7 +349,8 @@ function ProfileDrawing({ calculation, input, onModeChange, uid }: {
     new: 'Vše dovezete: ' + volume(newVolume) + ' směsi do připraveného prostoru.',
   }
   const labels: Record<Mode, string> = {
-    keep: 'Udržet výšku: před — stávající zemina' + (removes ? ', horní část k odvozu' : '') + '; po — směs do původní výšky terénu.',
+    keep: 'Udržet výšku: před — stávající zemina' + (removes ? ', horní část k odvozu' : '')
+      + '; po — ' + (blended ? 'směs (' + slozkySmesi + ')' : 'tatáž zemina') + ' do původní výšky terénu.',
     mix: 'Zapravit: před — stávající zemina; po — směs'
       + (lifts ? ' vyšší o ' + format(rise, 1) + ' centimetrů nad úrovní terénu.' : ' v původní výšce terénu.'),
     new: 'Nová vrstva: před — připravený prázdný prostor; po — směs do úrovně terénu.',
@@ -338,23 +364,13 @@ function ProfileDrawing({ calculation, input, onModeChange, uid }: {
     ...(input.mode === 'new'
       ? [{ znacka: 'space' as Znacka, popis: 'připravený prostor' }]
       : [{ znacka: 'soil' as Znacka, popis: 'stávající zemina' }]),
-    ...(blended ? [{ znacka: 'blend' as Znacka, popis: 'směs (zemina + písek + příměsi)' }] : []),
+    ...(blended ? [{ znacka: 'blend' as Znacka, popis: 'směs (' + slozkySmesi + ')' }] : []),
     ...(removes ? [{ znacka: 'out' as Znacka, popis: 'k odvozu' }] : []),
     { znacka: 'sub', popis: 'podloží' },
   ]
   const LEGENDA_RADEK = 22
   const legendaTop = bottom + PANEL.strip + 38
-  /* Rám drží všechny tři způsoby stejný: tolik řádků legendy, kolik jich má
-     nejbohatší způsob, a prostor nad terénem podle navýšení u „Zapravit“.
-     Přepnutí tak vymění obsah bez posunu obsahu pod kresbou (porota 07, pohyb). */
-  const radkuLegendy = (mode: Mode): number => {
-    const variant = variants[mode]
-    if (variant.status !== 'ready') return 0
-    const imported = MATERIALS.reduce((sum, material) => sum + variant.delivery[material].m3, 0)
-    return 2 + (imported > 0 ? 1 : 0) + (mode === 'keep' && variant.removeM3 > 0 ? 1 : 0)
-  }
-  const maxRadku = Math.max(legenda.length, ...MODE_ORDER.map(radkuLegendy))
-  const svgBottom = legendaTop + maxRadku * LEGENDA_RADEK
+  const svgBottom = legendaTop + legenda.length * LEGENDA_RADEK
 
   const tagY = bottom + PANEL.strip + 22
   const arrowY = terrain + depth * scale / 2
@@ -362,7 +378,7 @@ function ProfileDrawing({ calculation, input, onModeChange, uid }: {
      bloky mají ve všech způsobech stejnou vykreslenou velikost — porovnatelnost
      drží měřítko, ne rám. Výřez si proto každý způsob ořízne shora sám: prázdné
      místo nad terénem potřebuje jen Zapravit, kde se terén zvedá. */
-  const viewTop = Math.max(0, Math.floor(terrain - rise * scale - 30))
+  const viewTop = Math.max(0, Math.floor(terrain - (lifts ? rise * scale : 0) - 30))
 
   const mixId = uid + '-blend'
   const outId = uid + '-out'
@@ -406,6 +422,7 @@ function ProfileDrawing({ calculation, input, onModeChange, uid }: {
       />
       <div className="id-profile-calc__mode">
         <p className="id-profile-calc__sr" id={uid + '-znacky'}>{typography('Značky v řezu: ' + popisZnacek)}</p>
+        <div className="id-profile-calc__mode-canvas">
         <svg
           aria-describedby={uid + '-znacky'}
           aria-label={labels[input.mode]}
@@ -449,37 +466,6 @@ function ProfileDrawing({ calculation, input, onModeChange, uid }: {
           {/* šipka před → po */}
           <path d={'M150 ' + arrowY + ' H167 M162 ' + (arrowY - 5) + ' L168 ' + arrowY + ' L162 ' + (arrowY + 5)} fill="none" stroke="#232830" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.6" vectorEffect="non-scaling-stroke" />
 
-          {/* Prostor nad terénem si drží rám kvůli „Zapravit“. V ostatních dvou
-              způsobech proto není prázdný: čárkovaná linka ukazuje, kam by profil
-              vystoupil, kdyby se zapravovalo — srovnání funguje i bez přepnutí. */}
-          {!lifts && rise > 0 && variants.mix.status === 'ready' && <>
-            <line
-              stroke="#d5d3cc"
-              strokeDasharray="3 7"
-              strokeLinecap="round"
-              strokeWidth="1.6"
-              vectorEffect="non-scaling-stroke"
-              x1={PANEL.after}
-              x2={PANEL.after + PANEL.width}
-              y1={terrain - rise * scale}
-              y2={terrain - rise * scale}
-            />
-            <path
-              d={'M166 ' + (terrain - rise * scale) + ' H174 M170 ' + (terrain - rise * scale) + ' V' + terrain + ' M166 ' + terrain + ' H174'}
-              fill="none"
-              stroke="#d5d3cc"
-              strokeLinecap="round"
-              strokeWidth="1.6"
-              vectorEffect="non-scaling-stroke"
-            />
-            <text className="id-profile-calc__svg-ghost" textAnchor="end" x="160" y={terrain - rise * scale / 2 - 4}>
-              {typography('+' + format(rise, 1) + ' cm')}
-            </text>
-            <text className="id-profile-calc__svg-tag" textAnchor="end" x="160" y={terrain - rise * scale / 2 + 12}>
-              při zapravení
-            </text>
-          </>}
-
           {/* po */}
           {znacka(blended ? 'blend' : 'soil', PANEL.after, lifts ? terrain - rise * scale : terrain, PANEL.width, bottom - (lifts ? terrain - rise * scale : terrain))}
           <line stroke="#3f7d4e" strokeWidth="4" vectorEffect="non-scaling-stroke" x1={PANEL.after} x2={PANEL.after + PANEL.width} y1={lifts ? terrain - rise * scale : terrain} y2={lifts ? terrain - rise * scale : terrain} />
@@ -504,8 +490,11 @@ function ProfileDrawing({ calculation, input, onModeChange, uid }: {
             )
           })}
         </svg>
-        <p className="id-profile-calc__mode-story">{typography(stories[input.mode])}</p>
-        <p className="id-profile-calc__mode-outcome">{typography(notes[input.mode])}</p>
+        </div>
+        <div className="id-profile-calc__mode-text">
+          <p className="id-profile-calc__mode-story">{typography(stories[input.mode])}</p>
+          <p className="id-profile-calc__mode-outcome">{typography(notes[input.mode])}</p>
+        </div>
       </div>
       <figcaption>
         Řez záměrně neukazuje složení směsi — to nese výsledek kalkulátoru.
@@ -530,6 +519,8 @@ export function SoilProfileCalculator({ className, surface }: { className?: stri
      pod řádkem menu, ne pod sebou. Klepnutí na otevřenou ji zase sbalí. */
   const [open, setOpen] = useState<Section | null>(null)
   const pricesPanel = useRef<HTMLDivElement>(null)
+  /* Odečítač slyší souhrn až po uživatelově zásahu, ne po načtení stránky. */
+  const zasahl = useRef(false)
   const pricesOpen = open === 'prices'
   const toggleSection = (key: Section) => setOpen((previous) => (previous === key ? null : key))
 
@@ -568,16 +559,22 @@ export function SoilProfileCalculator({ className, surface }: { className?: stri
       + (calculation.issues.length ? ' ' + calculation.issues.map((issue) => issue.message).join(' ') : '')
     : calculation.issues.map((issue) => issue.message).join(' ') || 'Zadejte plochu a hloubku.'
 
+  /* Živá oblast patří odpovědi na uživatelův zásah, ne načtení stránky: dřív
+     odečítač přečetl 221 znaků souhrnu sám od sebe, zatímco čtenář byl ještě
+     u titulku článku (porota 08, přístupnost). První průchod se proto přeskočí. */
   useEffect(() => {
+    if (!zasahl.current) return
     const timer = window.setTimeout(() => setAnnouncement(summary), 400)
     return () => window.clearTimeout(timer)
   }, [summary])
 
   const updateNumber = (key: NumberKey, value: string) => {
+    zasahl.current = true
     setRaw((previous) => ({ ...previous, [key]: value }))
     if (['ratio', 'biovin', 'char', 'zeolit'].includes(key)) setSoil('vlastni')
   }
   const changeSoil = (nextSoil: Soil) => {
+    zasahl.current = true
     setSoil(nextSoil)
     if (nextSoil === 'vlastni') return
     const preset = SOIL_PRESETS[nextSoil]
@@ -650,7 +647,7 @@ export function SoilProfileCalculator({ className, surface }: { className?: stri
               <Choices
                 legend="Co dělám"
                 name={uid + '-mode'}
-                onChange={setMode}
+                onChange={(next) => { zasahl.current = true; setMode(next) }}
                 options={MODE_OPTIONS}
                 value={mode}
               />
@@ -856,7 +853,7 @@ export function SoilProfileCalculator({ className, surface }: { className?: stri
             <Choices
               legend="Měna"
               name={uid + '-currency'}
-              onChange={setCurrency}
+              onChange={(next) => { zasahl.current = true; setCurrency(next) }}
               options={CURRENCIES.map((value) => ({ value, label: SYMBOLS[value] }))}
               value={currency}
             />
@@ -867,10 +864,10 @@ export function SoilProfileCalculator({ className, surface }: { className?: stri
                 id={uid + '-price-' + material}
                 key={material}
                 label={MATERIAL_NAMES[material]}
-                onChange={(value) => setPrices((previous) => ({
+                onChange={(value) => { zasahl.current = true; setPrices((previous) => ({
                   ...previous,
                   [currency]: { ...previous[currency], [material]: value },
-                }))}
+                })) }}
                 unit={SYMBOLS[currency] + '/' + PRICE_UNITS[material]}
                 value={prices[currency][material]}
               />)}
@@ -916,7 +913,7 @@ export function SoilProfileCalculator({ className, surface }: { className?: stri
         )}
       </div>
 
-      <ProfileDrawing calculation={calculation} input={input} onModeChange={setMode} uid={uid} />
+      <ProfileDrawing calculation={calculation} input={input} onModeChange={(next) => { zasahl.current = true; setMode(next) }} uid={uid} />
       <p aria-atomic="true" aria-live="polite" className="id-profile-calc__sr" role="status">
         {typography(announcement)}
       </p>
