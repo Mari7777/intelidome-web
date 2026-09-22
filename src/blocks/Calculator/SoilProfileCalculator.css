@@ -69,29 +69,48 @@
 .id-profile-calc__additions,
 .id-profile-calc__results,
 .id-profile-calc__field { min-width: 0; }
-/* Zavreno: stejny plochy radek jako ostatni tri akordeony
-   (.id-profile-calc__details) — zadna vlastni karta, jen hairline
-   nad radkem. Otevreno: povysi se na kartu, ktera nese hlavni vysledek. */
-.id-profile-calc__results {
+/* Sbalene hlavicky (Vysledek, Ceny materialu, Podrobnosti o smesi,
+   Jak vypocet cist) stoji vedle sebe jako menu; obsah se rozbali pod
+   celym radkem v plne sirce. Nativni <details> to neumi (obsah je
+   uvnitr hlavicky), proto tlacitka s aria-expanded a rizene panely. */
+.id-profile-calc__menu {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 32px;
   margin-top: 28px;
   border-top: 1px solid rgba(255,255,255,.16);
+  border-bottom: 1px solid rgba(255,255,255,.16);
 }
-.id-profile-calc__results > summary {
-  padding: 22px 0;
-  cursor: pointer;
-  list-style: none;
+.id-profile-calc__menuitem {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+  min-height: 44px;
+  margin-bottom: -1px;
+  padding: 18px 0 16px;
+  border: 0;
+  border-bottom: 2px solid transparent;
+  background: transparent;
   color: var(--id-ink-dark, #fff);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  transition: border-color .2s var(--id-ease, ease);
+}
+.id-profile-calc__menuitem.is-open { border-bottom-color: var(--id-accent, #2563eb); }
+.id-profile-calc__menutitle {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
   font-family: var(--id-f-display);
   font-size: 19px;
   font-weight: 500;
   line-height: 1.4;
 }
-.id-profile-calc__results > summary::-webkit-details-marker { display: none; }
-/* display:flex na <summary> potlacuje nativni ::marker (ruzne napric
-   prohlizeci) — vlastni sipka pred titulkem, stejna barva jako u
-   ostatnich akordeonu (.id-profile-calc__details > summary::marker). */
-.id-profile-calc__results-title { display: inline-flex; align-items: center; gap: 10px; }
-.id-profile-calc__results-title::before {
+/* Sipka: vpravo = sbaleno, dolu = rozbaleno; barva shodna s markerem
+   akordeonu jinde na webu. */
+.id-profile-calc__menutitle::before {
   content: '';
   flex: none;
   width: 8px;
@@ -101,39 +120,22 @@
   transform: rotate(-45deg);
   transition: transform .2s var(--id-ease, ease);
 }
-.id-profile-calc__results[open] > summary .id-profile-calc__results-title::before {
-  transform: rotate(45deg);
-}
-.id-profile-calc__results > summary .id-profile-calc__results-glance {
-  margin-left: 8px;
+.id-profile-calc__menuitem.is-open .id-profile-calc__menutitle::before { transform: rotate(45deg); }
+.id-profile-calc__menuhint {
+  padding-left: 18px;
   color: var(--id-ink-dark-2, #9ba1a8);
   font-family: var(--id-f-body);
   font-size: 13.5px;
   font-weight: 400;
-  letter-spacing: normal;
+  line-height: 1.4;
 }
-.id-profile-calc__results[open] {
-  margin-top: 36px;
+.id-profile-calc__results {
+  margin-top: 24px;
   padding: clamp(20px, 2.4vw, 28px);
   background: var(--id-obsidian-2);
   border: 1px solid var(--id-line-dark-soft);
-  border-top: 1px solid var(--id-line-dark-soft);
   border-radius: var(--id-r-card);
 }
-.id-profile-calc__results[open] > summary {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 12px 24px;
-  padding: 0 0 16px;
-  margin-bottom: 20px;
-  border-bottom: 1px solid var(--id-line-dark);
-  font-size: 24px;
-  font-weight: 600;
-  letter-spacing: -.02em;
-}
-.id-profile-calc__results[open] > summary .id-profile-calc__results-glance { margin-left: 0; }
 .id-profile-calc .id-profile-calc__parttitle {
   margin-bottom: 24px;
   color: var(--id-ink-dark);
@@ -466,8 +468,7 @@
   cursor: pointer;
 }
 .id-profile-calc__textbutton:focus-visible,
-.id-profile-calc__details > summary:focus-visible,
-.id-profile-calc__results > summary:focus-visible {
+.id-profile-calc__menuitem:focus-visible {
   outline: 3px solid var(--id-accent, #2563eb);
   outline-offset: 3px;
 }
@@ -499,28 +500,10 @@
   color: #f2b96b;
   font-size: 14.5px;
 }
-.id-profile-calc__details { border-top: 1px solid rgba(255,255,255,.16); margin-top: 28px; }
-.id-profile-calc__details > summary {
-  padding: 22px 0;
-  cursor: pointer;
-  font-family: var(--id-f-display);
-  font-size: 19px;
-  font-weight: 500;
-  line-height: 1.4;
-  text-wrap: pretty;
-}
-.id-profile-calc__details > summary::marker { color: var(--id-accent-tint, #93c5fd); }
-.id-profile-calc__details > summary > span {
-  margin-left: 8px;
-  color: var(--id-ink-dark-2, #9ba1a8);
-  font-family: var(--id-f-body);
-  font-size: 13.5px;
-  font-weight: 400;
-}
-.id-profile-calc__detailsbody { padding: 4px 0 12px; }
+.id-profile-calc__detailsbody { padding: 24px 0 12px; }
 .id-profile-calc__detailsbody > .id-profile-calc__choices { margin-bottom: 28px; }
 .id-profile-calc__detailsbody > p { max-width: 65ch; }
-.id-profile-calc .id-profile-calc__help { max-width: 62ch; padding-bottom: 16px; color: var(--id-ink-dark-2, #9ba1a8); font-size: 15px; }
+.id-profile-calc .id-profile-calc__help { max-width: 62ch; padding: 24px 0 16px; color: var(--id-ink-dark-2, #9ba1a8); font-size: 15px; }
 .id-profile-calc__help > p + p { margin-top: 18px; }
 .id-profile-calc__help strong { color: var(--id-ink-dark, #fff); font-weight: 600; }
 .id-profile-calc .id-profile-calc__drawing {
@@ -629,7 +612,8 @@
   .id-profile-calc__segments span { padding-inline: 10px; }
   .id-profile-calc__ratio { grid-template-columns: minmax(0,1fr); }
   .id-profile-calc__ratio output { grid-row: 2; }
-  .id-profile-calc__details > summary > span { display: block; margin: 4px 0 0 20px; }
+  .id-profile-calc__menu { gap: 0 20px; }
+  .id-profile-calc__menuitem { flex: 1 1 calc(50% - 10px); min-width: 0; }
   .id-profile-calc__totals > div { flex-wrap: wrap; }
   .id-profile-calc__totals dt { max-width: 100%; }
   .id-profile-calc__totals dd { margin-left: auto; }

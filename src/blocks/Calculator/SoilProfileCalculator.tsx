@@ -27,6 +27,7 @@ type Soil = SoilProfileInput['soil']
 type Currency = SoilProfileInput['currency']
 type Material = keyof SoilProfileInput['prices']
 type Result = ReturnType<typeof calculateSoilProfile>
+type Section = 'results' | 'prices' | 'details' | 'help'
 
 const NUMBER_KEYS = [
   'area', 'depth', 'ratio', 'biovin', 'zeolit', 'char', 'biovinDepth', 'zeolitDepth', 'charDepth',
@@ -422,8 +423,10 @@ export function SoilProfileCalculator({ className, surface }: { className?: stri
   const [currency, setCurrency] = useState<Currency>(INPUT_DEFAULTS.currency)
   const [prices, setPrices] = useState<RawPrices>(initialPrices)
   const [announcement, setAnnouncement] = useState('')
-  const [pricesOpen, setPricesOpen] = useState(false)
-  const pricesDetails = useRef<HTMLDetailsElement>(null)
+  const [open, setOpen] = useState<Record<Section, boolean>>({ results: false, prices: false, details: false, help: false })
+  const pricesPanel = useRef<HTMLDivElement>(null)
+  const pricesOpen = open.prices
+  const toggleSection = (key: Section) => setOpen((previous) => ({ ...previous, [key]: !previous[key] }))
 
   const input = useMemo<SoilProfileInput>(() => ({
     ...Object.fromEntries(NUMBER_KEYS.map((key) => [key, (key === 'area' || key === 'depth') && raw[key].trim() === '' ? 0 : parseNumber(raw[key])])) as Record<NumberKey, number>,
@@ -482,10 +485,8 @@ export function SoilProfileCalculator({ className, surface }: { className?: stri
     }))
   }
   const openPrices = () => {
-    if (!pricesDetails.current) return
-    setPricesOpen(true)
-    pricesDetails.current.open = true
-    window.requestAnimationFrame(() => pricesDetails.current?.querySelector<HTMLInputElement>('input[type="text"]')?.focus())
+    setOpen((previous) => ({ ...previous, prices: true }))
+    window.requestAnimationFrame(() => pricesPanel.current?.querySelector<HTMLInputElement>('input[type="text"]')?.focus())
   }
   const field = (key: NumberKey, label: string, unit: string, hint?: string, prominent = false, context?: string, idKey?: string) => (
     <NumberField
@@ -659,12 +660,30 @@ export function SoilProfileCalculator({ className, surface }: { className?: stri
           </AlignedInputColumns>
         </div>
 
-        <details className="id-profile-calc__results">
-          <summary>
-            <span className="id-profile-calc__results-title">Výsledek</span>
-            <span className="id-profile-calc__results-glance">{ready ? typography(volume(calculation.delivery.sand.m3) + ' písku') : 'zatím nespočítáno'}</span>
-          </summary>
-          <div className="id-profile-calc__resultsbody">
+        <div aria-label="Výsledek a nastavení výpočtu" className="id-profile-calc__menu" role="group">
+          {([
+            { key: 'results', title: 'Výsledek', hint: ready ? typography(volume(calculation.delivery.sand.m3) + ' písku') : 'zatím nespočítáno' },
+            { key: 'prices', title: 'Ceny materiálů', hint: hasEnteredPrices ? SYMBOLS[currency] : 'zatím nezadané' },
+            { key: 'details', title: 'Podrobnosti o směsi', hint: 'rezerva a hustoty' },
+            { key: 'help', title: 'Jak výpočet číst' },
+          ] as { key: Section; title: string; hint?: string }[]).map((item) => (
+            <button
+              aria-controls={open[item.key] ? uid + '-panel-' + item.key : undefined}
+              aria-expanded={open[item.key]}
+              className={cn('id-profile-calc__menuitem', open[item.key] && 'is-open')}
+              id={uid + '-menu-' + item.key}
+              key={item.key}
+              onClick={() => toggleSection(item.key)}
+              type="button"
+            >
+              <span className="id-profile-calc__menutitle">{item.title}</span>
+              {item.hint && <span className="id-profile-calc__menuhint">{item.hint}</span>}
+            </button>
+          ))}
+        </div>
+
+        {open.results && (
+          <div aria-labelledby={uid + '-menu-results'} className="id-profile-calc__results" id={uid + '-panel-results'} role="region">
           <div className="id-profile-calc__primary">
               <span>Písek k objednání</span>
               <strong>{ready ? typography(volume(calculation.delivery.sand.m3)) : '—'}</strong>
@@ -727,11 +746,10 @@ export function SoilProfileCalculator({ className, surface }: { className?: stri
             </div>
           )}
           </div>
-        </details>
+        )}
 
-        <details className="id-profile-calc__details" onToggle={(event) => setPricesOpen(event.currentTarget.open)} ref={pricesDetails}>
-          <summary>Ceny materiálů <span>{hasEnteredPrices ? SYMBOLS[currency] : 'zatím nezadané'}</span></summary>
-          <div className="id-profile-calc__detailsbody">
+        {open.prices && (
+          <div aria-labelledby={uid + '-menu-prices'} className="id-profile-calc__detailsbody" id={uid + '-panel-prices'} ref={pricesPanel} role="region">
             <Choices
               legend="Měna"
               name={uid + '-currency'}
@@ -760,11 +778,10 @@ export function SoilProfileCalculator({ className, surface }: { className?: stri
               Zadejte ceny dodavatele; dopravu a odvoz zeminy kalkulátor neoceňuje.
             </p>
           </div>
-        </details>
+        )}
 
-        <details className="id-profile-calc__details">
-          <summary>Podrobnosti o směsi <span>rezerva a hustoty</span></summary>
-          <div className="id-profile-calc__detailsbody">
+        {open.details && (
+          <div aria-labelledby={uid + '-menu-details'} className="id-profile-calc__detailsbody" id={uid + '-panel-details'} role="region">
             <div className="id-profile-calc__detailgrid">
               {field('loss', 'Rezerva na sesednutí', '%', 'Výchozí 0 %. Dovoz = čistá receptura ÷ (1 − rezerva).')}
               {field('rhoS', 'Hustota písku', 'kg/l', 'Výchozí 1,50 kg/l; ověřte u dodavatele.')}
@@ -774,11 +791,10 @@ export function SoilProfileCalculator({ className, surface }: { className?: stri
               {field('rhoC', 'Hustota biocharu', 'kg/l', '0,20 kg/l je počtový předpoklad. Vlhký výrobek může být těžší; cenu zadávejte za litr.')}
             </div>
           </div>
-        </details>
+        )}
 
-        <details className="id-profile-calc__details">
-          <summary>Jak výpočet číst</summary>
-          <div className="id-profile-calc__help">
+        {open.help && (
+          <div aria-labelledby={uid + '-menu-help'} className="id-profile-calc__help" id={uid + '-panel-help'} role="region">
             <p><strong>Objem je základ.</strong> Plocha v m² × hloubka v cm ÷ 100 dává objem vrstvy v m³.
               Procenta příměsí se počítají z objemu příslušné zóny. Poměr písek : zemina se uplatní až na zbývající minerální základ.</p>
             <p><strong>Udržet výšku:</strong> odváží se část původní zeminy, kterou nahradí nové složky.
@@ -794,7 +810,7 @@ export function SoilProfileCalculator({ className, surface }: { className?: stri
             <p>Předvolby jsou výchozí modelové receptury. Vhodnost písku, příměsí a konkrétního poměru závisí na půdě,
               podloží a vlastnostech dodaných materiálů. Před úpravou celé plochy ověřte směs na menším vzorku.</p>
           </div>
-        </details>
+        )}
       </div>
 
       <ProfileDrawing calculation={calculation} input={input} uid={uid} />
