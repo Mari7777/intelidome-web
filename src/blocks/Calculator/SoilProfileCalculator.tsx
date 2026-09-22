@@ -423,10 +423,12 @@ export function SoilProfileCalculator({ className, surface }: { className?: stri
   const [currency, setCurrency] = useState<Currency>(INPUT_DEFAULTS.currency)
   const [prices, setPrices] = useState<RawPrices>(initialPrices)
   const [announcement, setAnnouncement] = useState('')
-  const [open, setOpen] = useState<Record<Section, boolean>>({ results: false, prices: false, details: false, help: false })
+  /* Jedna otevřená sekce najednou: obsah se ukazuje vždy na témže místě
+     pod řádkem menu, ne pod sebou. Klepnutí na otevřenou ji zase sbalí. */
+  const [open, setOpen] = useState<Section | null>(null)
   const pricesPanel = useRef<HTMLDivElement>(null)
-  const pricesOpen = open.prices
-  const toggleSection = (key: Section) => setOpen((previous) => ({ ...previous, [key]: !previous[key] }))
+  const pricesOpen = open === 'prices'
+  const toggleSection = (key: Section) => setOpen((previous) => (previous === key ? null : key))
 
   const input = useMemo<SoilProfileInput>(() => ({
     ...Object.fromEntries(NUMBER_KEYS.map((key) => [key, (key === 'area' || key === 'depth') && raw[key].trim() === '' ? 0 : parseNumber(raw[key])])) as Record<NumberKey, number>,
@@ -485,7 +487,7 @@ export function SoilProfileCalculator({ className, surface }: { className?: stri
     }))
   }
   const openPrices = () => {
-    setOpen((previous) => ({ ...previous, prices: true }))
+    setOpen('prices')
     window.requestAnimationFrame(() => pricesPanel.current?.querySelector<HTMLInputElement>('input[type="text"]')?.focus())
   }
   const field = (key: NumberKey, label: string, unit: string, hint?: string, prominent = false, context?: string, idKey?: string) => (
@@ -668,9 +670,9 @@ export function SoilProfileCalculator({ className, surface }: { className?: stri
             { key: 'help', title: 'Jak výpočet číst' },
           ] as { key: Section; title: string; hint?: string }[]).map((item) => (
             <button
-              aria-controls={open[item.key] ? uid + '-panel-' + item.key : undefined}
-              aria-expanded={open[item.key]}
-              className={cn('id-profile-calc__menuitem', open[item.key] && 'is-open')}
+              aria-controls={open === item.key ? uid + '-panel-' + item.key : undefined}
+              aria-expanded={open === item.key}
+              className={cn('id-profile-calc__menuitem', open === item.key && 'is-open')}
               id={uid + '-menu-' + item.key}
               key={item.key}
               onClick={() => toggleSection(item.key)}
@@ -682,7 +684,7 @@ export function SoilProfileCalculator({ className, surface }: { className?: stri
           ))}
         </div>
 
-        {open.results && (
+        {open === 'results' && (
           <div aria-labelledby={uid + '-menu-results'} className="id-profile-calc__results" id={uid + '-panel-results'} role="region">
           <div className="id-profile-calc__primary">
               <span>Písek k objednání</span>
@@ -748,7 +750,7 @@ export function SoilProfileCalculator({ className, surface }: { className?: stri
           </div>
         )}
 
-        {open.prices && (
+        {open === 'prices' && (
           <div aria-labelledby={uid + '-menu-prices'} className="id-profile-calc__detailsbody" id={uid + '-panel-prices'} ref={pricesPanel} role="region">
             <Choices
               legend="Měna"
@@ -780,7 +782,7 @@ export function SoilProfileCalculator({ className, surface }: { className?: stri
           </div>
         )}
 
-        {open.details && (
+        {open === 'details' && (
           <div aria-labelledby={uid + '-menu-details'} className="id-profile-calc__detailsbody" id={uid + '-panel-details'} role="region">
             <div className="id-profile-calc__detailgrid">
               {field('loss', 'Rezerva na sesednutí', '%', 'Výchozí 0 %. Dovoz = čistá receptura ÷ (1 − rezerva).')}
@@ -793,7 +795,7 @@ export function SoilProfileCalculator({ className, surface }: { className?: stri
           </div>
         )}
 
-        {open.help && (
+        {open === 'help' && (
           <div aria-labelledby={uid + '-menu-help'} className="id-profile-calc__help" id={uid + '-panel-help'} role="region">
             <p><strong>Objem je základ.</strong> Plocha v m² × hloubka v cm ÷ 100 dává objem vrstvy v m³.
               Procenta příměsí se počítají z objemu příslušné zóny. Poměr písek : zemina se uplatní až na zbývající minerální základ.</p>
