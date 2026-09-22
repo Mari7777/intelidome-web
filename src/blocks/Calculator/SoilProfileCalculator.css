@@ -83,6 +83,7 @@
   justify-content: space-between;
   gap: 12px 24px;
   cursor: pointer;
+  list-style: none;
   color: var(--id-ink-dark, #fff);
   font-family: var(--id-f-display);
   font-size: 24px;
@@ -90,8 +91,25 @@
   line-height: 1.2;
   letter-spacing: -.02em;
 }
-.id-profile-calc__results > summary::marker { color: var(--id-accent-tint, #93c5fd); }
-.id-profile-calc__results > summary > span {
+.id-profile-calc__results > summary::-webkit-details-marker { display: none; }
+/* display:flex na <summary> potlacuje nativni ::marker (ruzne napric
+   prohlizeci) — vlastni sipka pred titulkem, stejna barva jako u
+   ostatnich akordeonu (.id-profile-calc__details > summary::marker). */
+.id-profile-calc__results-title { display: inline-flex; align-items: center; gap: 10px; }
+.id-profile-calc__results-title::before {
+  content: '';
+  flex: none;
+  width: 8px;
+  height: 8px;
+  border-right: 2px solid var(--id-accent-tint, #93c5fd);
+  border-bottom: 2px solid var(--id-accent-tint, #93c5fd);
+  transform: rotate(-45deg);
+  transition: transform .2s var(--id-ease, ease);
+}
+.id-profile-calc__results[open] > summary .id-profile-calc__results-title::before {
+  transform: rotate(45deg);
+}
+.id-profile-calc__results > summary .id-profile-calc__results-glance {
   color: var(--id-ink-dark-2, #9ba1a8);
   font-family: var(--id-f-body);
   font-size: 13.5px;
