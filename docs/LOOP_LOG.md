@@ -3307,3 +3307,70 @@ průhledné nevybrané.
   Poznámka „Řídí ji pole „Hloubka profilu" v zadání" je pryč: dědila 28px
   písmo hodnoty (selektor `__readout > p` chytil oba odstavce) a autor ji
   shledal zbytečnou.
+
+## Kolo 11 — nejlepší kolo od kola 07 (2026-09-22)
+
+URL: `/posts/kalkulator-na-planovani-pudniho-profilu`. Porota dostala rozhodnutí
+autora (akcent „K objednání") mezi uzavřené věci a instrukci neopírat skóre
+o odložené nálezy ani o nálezy, které skeptik pravděpodobně vyvrátí.
+
+| Oblast | Skóre |
+|---|---|
+| Hierarchie | 3/5 |
+| Typografie | **4/5** |
+| Pohyb | 3/5 |
+| Grafický styl | 3/5 |
+| Slop | 2/5 |
+| Výkon a přístupnost | 2/5 |
+| Rozložení | **4/5** |
+
+**8 nálezů prošlo skeptikem, z toho 1 kritický** (kolo 10: 11 / 1). Dva lenzy
+na průchozí známce. Jediný nález hierarchie (odečet hloubky v režimu Zapravit)
+skeptik vyvrátil.
+
+### Opravy
+
+- **KRITICKÝ: ve vynucených barvách byl text vybrané volby neviditelný (1:1).**
+  Regrese po opravě z kola 10: `color: HighlightText` — Chromium ve vynucených
+  barvách kreslí za text čitelnostní podklad v barvě Canvas a HighlightText na
+  něm splyne. Barva textu se už nenastavuje; stav nese pozadí Highlight a obrys
+  3 px. Ověřeno snímkem v tmavém i světlém kontrastním motivu, ne jen
+  getComputedStyle.
+- **Dorovnání fokusu posouvalo stránku i po kliknutí** (regrese z kola 10):
+  pilulka ujela zpod kurzoru. Fokus z ukazatele se teď přeskočí (příznak
+  z `pointerdown`, `:focus-visible` nestačí, textová pole ho mají i po
+  kliknutí) a zakrytá zóna se bere ze skutečného obdélníku kapsle, jen kde se
+  s ní prvek kryje i vodorovně. Naměřeno: klik 0 px, Tab na pole pod lištou
+  končí 12 px pod ní.
+- **Kóta „+2,2 cm" (pointa kresby v akcentu) ležela přes drn a zeminu bloku
+  „před"** při malém navýšení (předvolba Písčitá, průnik 65 × 23 px). Kóta se
+  drží nejníž nad drnem bloku „před"; naměřen průnik 0.
+- **Řez nazýval jediný materiál „promíchanou směsí"** (čistá zemina v Nové
+  vrstvě, čistý písek po úplném odvozu). Směs je teď až od dvou složek bloku
+  „po" (ponechaná zemina se počítá); jediný materiál má vlastní značku
+  a jméno („dovezená zemina", „písek" v barvě #c2a052, s legendou v témže
+  panelu podle 9.2 p. 10, úroveň 2) a texty ho skloňují („navezete zeminu",
+  „30 m³ zeminy").
+- Kosmetické, levné: nulový dovoz — hero „K objednání: nic", verdikt „nic se
+  neobjednává", bez věty o rezervě; souhrn pro odečítač začíná tímtéž
+  materiálem jako hero a nulové dovozy vynechá; Actino s velkým A i uvnitř
+  věty; lead kresby zavírá uvozovky českou „; dráha posuvníku je vidět
+  i ve vynucených barvách.
+
+### Poučení z ověřování
+
+Dvakrát jsem naměřil „skok" 152 a 1 968 px po kliknutí — v obou případech
+artefakt: měřil jsem uprostřed setrvačníkového dojezdu po vlastním `scrollTo`
+a klik netrefil pilulku (`pointerdown` na `HTML`). Záznam volání `scrollBy`/
+`scrollTo` ukázal, že kalkulátor sám nescrolluje. **Před měřením posunu vždy
+počkat na ustálení scrollY a klikat lokátorem, ne souřadnicí.**
+
+### Zbývá
+
+Kosmetické z kola 11: hero a „K objednání" v jiné primární jednotce (m³ proti
+t/kg/l), pořadí materiálů se mezi zadáním a výsledkem liší, panel „Jak výpočet
+číst" a titulek menu obcházejí českou sazbu, perexy karet končí jediným slovem,
+odkazy v těle ve váze 500, hmota „k odvozu" bez obrysu, obrys segmentu 1 px,
+dvě hustoty rastru směsi, odečet v řádku Písek se na 320 px zalomí, mrtvý kód
+AlignedInputColumns. Plus tři odložené (kapitoly, pravý sloupec figury, posun
+při přepnutí).

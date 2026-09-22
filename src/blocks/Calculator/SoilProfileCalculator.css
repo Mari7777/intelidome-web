@@ -233,12 +233,20 @@
   border-color: var(--id-accent, #2563eb);
 }
 .id-profile-calc__segments label:hover span { border-color: var(--id-accent-tint, #93c5fd); }
+/* Vynucené barvy: stav vybrané pilulky nese pozadí Highlight a silnější
+   obrys. Barvu textu NEnastavujeme — Chromium za text kreslí čitelnostní
+   podklad v barvě Canvas a HighlightText na něm měl kontrast 1:1 (porota 11). */
 @media (forced-colors: active) {
   .id-profile-calc__segments span { border-color: ButtonBorder; }
   .id-profile-calc__segments input:checked + span {
     background: Highlight;
-    color: HighlightText;
-    border-color: Highlight;
+    border: 3px solid Highlight;
+  }
+  /* Dráha posuvníku je gradient, který vynucené barvy zahodí; kreslí se proto
+     systémovou barvou s vypnutou úpravou jen na tomto prvku. */
+  .id-profile-calc .id-profile-calc__ratio input[type='range'] {
+    forced-color-adjust: none;
+    background: linear-gradient(CanvasText, CanvasText) 0 50% / 100% 2px no-repeat;
   }
 }
 .id-profile-calc__segments input:focus-visible + span {

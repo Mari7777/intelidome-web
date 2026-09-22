@@ -82,6 +82,15 @@ const mass = (kg: number): string =>
 const money = (value: number, currency: Currency): string =>
   format(value, currency === 'CZK' ? 0 : 2) + ' ' + SYMBOLS[currency]
 const typography = nezlomitelneMezery
+/* Názvy materiálů uvnitř věty: malým písmenem, jen obchodní název Actino
+   zůstává s velkým A. Tvary pád podle místa ve větě. */
+const MATERIAL_WORD: Record<Material, { nom: string; acc: string; gen: string }> = {
+  sand: { nom: 'písek', acc: 'písek', gen: 'písku' },
+  soil: { nom: 'zemina', acc: 'zeminu', gen: 'zeminy' },
+  char: { nom: 'biochar', acc: 'biochar', gen: 'biocharu' },
+  biovin: { nom: 'Actino', acc: 'Actino', gen: 'Actina' },
+  zeolit: { nom: 'zeolit', acc: 'zeolit', gen: 'zeolitu' },
+}
 
 /* Balení nabízíme jen v rozsahu, ve kterém se opravdu objednává: pytle do dvou
    palet, big bag od jednoho celého kusu do deseti (výš už je to sklápěč),
@@ -370,21 +379,27 @@ function ProfileDrawing({ calculation, input, onModeChange, uid }: {
      žádné nebyly (nulový odvoz, nulové navýšení). */
   const dovazene = MATERIALS.filter((material) => calculation.delivery[material].m3 > 0)
   const importedM3 = dovazene.reduce((sum, material) => sum + calculation.delivery[material].m3, 0)
-  const blended = importedM3 > 0
+  /* Blok „po" je směs jen tehdy, když má aspoň dvě složky (ponechaná zemina
+     se počítá). Čistou zeminu v Nové vrstvě nebo čistý písek po úplném odvozu
+     dřív řez nazýval „promíchanou směsí". */
+  const ponechanaZemina = input.mode !== 'new' && calculation.keepM3 > 0
+  const pocetSlozek = (ponechanaZemina ? 1 : 0) + dovazene.length
+  const blended = importedM3 > 0 && pocetSlozek >= 2
+  const jediny: Material | null = !blended && dovazene.length === 1 && !ponechanaZemina ? dovazene[0] : null
   /* Závorka legendy vypisuje jen to, co se opravdu dováží — „zemina + písek +
      příměsi“ lhalo, kdykoli byl některý podíl nulový (porota 08, slop). */
   const slozkySmesi = [
     ...(input.mode !== 'new' && calculation.keepM3 > 0
       ? [input.mode === 'keep' ? 'zbylá zemina' : 'stávající zemina']
       : []),
-    ...dovazene.map((material) => MATERIAL_NAMES[material].toLowerCase()),
+    ...dovazene.map((material) => MATERIAL_WORD[material].nom),
   ].join(' + ')
   const removes = input.mode === 'keep' && removedHeight > 0
   const lifts = input.mode === 'mix' && rise > 0
 
   /* Materiály jmenujeme podle skutečného dovozu, ne podle šablony. */
   const dovoz = dovazene.length
-    ? dovazene.map((material) => MATERIAL_NAMES[material].toLowerCase()).join(', ').replace(/, ([^,]*)$/, ' a $1')
+    ? dovazene.map((material) => MATERIAL_WORD[material].acc).join(', ').replace(/, ([^,]*)$/, ' a $1')
     : 'nic'
   const stories: Record<Mode, string> = {
     keep: !removes
@@ -395,7 +410,8 @@ function ProfileDrawing({ calculation, input, onModeChange, uid }: {
     mix: lifts
       ? 'Nic neodvážíte. Do celé stávající zeminy zapravíte ' + dovoz + ', objem tím naroste a povrch vystoupí nad okolní terén o výšku kóty.'
       : 'Nic neodvážíte a při tomto zadání se ani nic nedováží, takže objem zůstává a povrch se nezvedne.',
-    new: 'Nejdřív připravíte prostor, tedy vykopete nebo srovnáte podloží do hloubky profilu. Pak do něj navezete hotovou směs — ' + dovoz + ' — až po úroveň terénu.',
+    new: 'Nejdřív připravíte prostor, tedy vykopete nebo srovnáte podloží do hloubky profilu. Pak do něj navezete '
+      + (jediny ? MATERIAL_WORD[jediny].acc : 'hotovou směs — ' + dovoz + ' —') + ' až po úroveň terénu.',
   }
   const notes: Record<Mode, string> = {
     /* Nulové zadání: „Odvezete 0 l" a „zvedne se o 0 cm" si protiřečily
@@ -409,12 +425,12 @@ function ProfileDrawing({ calculation, input, onModeChange, uid }: {
     /* „Dovezete" je dovoz, ne objem prostoru: při rezervě 30 % se do profilu
        o 30 m³ veze 42,86 m³. Číslo proto bere ze skutečného dovozu, tedy
        z téhož zdroje jako tabulka materiálů. */
-    new: 'Vše dovezete: ' + volume(importedM3) + ' směsi'
+    new: 'Vše dovezete: ' + volume(importedM3) + ' ' + (jediny ? MATERIAL_WORD[jediny].gen : 'směsi')
       + (calculation.reserveFactor > 1 ? ' včetně rezervy' : '') + ' do připraveného prostoru.',
   }
   /* Popis pro odečítač se skládá z týchž příznaků jako kresba, jinak tvrdí
      „směs" i tam, kde se nic nedováží a blok „po" je prostá zemina. */
-  const poBlok = blended ? 'směs (' + slozkySmesi + ')' : 'tatáž zemina'
+  const poBlok = blended ? 'směs (' + slozkySmesi + ')' : jediny ? MATERIAL_WORD[jediny].nom : 'tatáž zemina'
   const labels: Record<Mode, string> = {
     keep: 'Udržet výšku: před — stávající zemina'
       + (removes ? (calculation.keepM3 > 0 ? ', horní část k odvozu' : ', celá k odvozu') : '')
@@ -427,7 +443,9 @@ function ProfileDrawing({ calculation, input, onModeChange, uid }: {
   /* Legenda leží UVNITŘ kresby (vzor TriZony). Jen tak je značka v legendě
      pixelově shodná se značkou v řezu při jakémkoli měřítku — jako HTML se
      vzorky rozcházely v rozteči, obrysu i odstínu (9.2 p. 10, úroveň 2). */
-  type Znacka = 'drn' | 'soil' | 'space' | 'blend' | 'out' | 'sub'
+  type Znacka = 'drn' | 'soil' | 'sand' | 'space' | 'blend' | 'out' | 'sub'
+  /* Značka bloku „po": směs, nebo prostá hmota jediného materiálu. */
+  const poZnacka: Znacka = blended ? 'blend' : jediny === 'sand' ? 'sand' : jediny && jediny !== 'soil' ? 'blend' : 'soil'
   /* Drn je v řezu ve všech třech způsobech (vždy aspoň na bloku „po“), proto
      v legendě bez podmínky. Na bloku „před“ u Nové vrstvy chybí záměrně: tam
      je vykopaný prostor, který povrch teprve dostane. */
@@ -437,6 +455,9 @@ function ProfileDrawing({ calculation, input, onModeChange, uid }: {
       ? [{ znacka: 'space' as Znacka, popis: 'připravený prostor' }]
       : [{ znacka: 'soil' as Znacka, popis: 'stávající zemina' }]),
     ...(blended ? [{ znacka: 'blend' as Znacka, popis: 'promíchaná směs' }] : []),
+    ...(jediny && !(jediny === 'soil' && input.mode !== 'new')
+      ? [{ znacka: poZnacka, popis: jediny === 'soil' ? 'dovezená zemina' : MATERIAL_WORD[jediny].nom }]
+      : []),
     ...(removes ? [{ znacka: 'out' as Znacka, popis: 'k odvozu' }] : []),
     { znacka: 'sub', popis: 'podloží' },
   ]
@@ -500,7 +521,7 @@ function ProfileDrawing({ calculation, input, onModeChange, uid }: {
       : <rect fill="none" height={h} stroke="#232830" strokeWidth="1.6" vectorEffect="non-scaling-stroke" width={w} x={x} y={y} />
     return (
       <g>
-        <rect fill="#6b5138" height={h} opacity="0.9" width={w} x={x} y={y} />
+        <rect fill={kind === 'sand' ? '#c2a052' : '#6b5138'} height={h} opacity="0.9" width={w} x={x} y={y} />
         {kind === 'blend' && <rect fill={'url(#' + mixId + ')'} height={h} width={w} x={x} y={y} />}
         {kind === 'out' && <rect fill={'url(#' + outId + ')'} height={h} opacity="0.7" width={w} x={x} y={y} />}
         {sDrnem && drnPas(x, y, w)}
@@ -517,7 +538,7 @@ function ProfileDrawing({ calculation, input, onModeChange, uid }: {
     <figure className="id-profile-calc__drawing">
       <h3>Jak se profil změní</h3>
       <p className="id-profile-calc__drawing-lead">
-        {typography('Stejné zadání — ' + format(input.area) + ' m² a ' + format(depth) + ' cm — ve třech způsobech přípravy. Přepínejte je a sledujte, co se odveze, co se doveze a jak se změní výška terénu. Všechny tři kreslíme ve stejném měřítku, takže jsou porovnatelné; přepínač je týž jako „Co dělám" v zadání.')}
+        {typography('Stejné zadání — ' + format(input.area) + ' m² a ' + format(depth) + ' cm — ve třech způsobech přípravy. Přepínejte je a sledujte, co se odveze, co se doveze a jak se změní výška terénu. Všechny tři kreslíme ve stejném měřítku, takže jsou porovnatelné; přepínač je týž jako „Co dělám“ v zadání.')}
       </p>
       {/* Přepínač zrcadlí „Co dělám" v zadání — týž stav, jen druhé ovládání.
           Vlastní `name`, jinak by si obě skupiny přepisovaly výběr. */}
@@ -575,10 +596,12 @@ function ProfileDrawing({ calculation, input, onModeChange, uid }: {
           <path d={'M150 ' + arrowY + ' H167 M162 ' + (arrowY - 5) + ' L168 ' + arrowY + ' L162 ' + (arrowY + 5)} fill="none" stroke="#232830" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.6" vectorEffect="non-scaling-stroke" />
 
           {/* po */}
-          {znacka(blended ? 'blend' : 'soil', PANEL.after, lifts ? terrain - rise * scale : terrain, PANEL.width, bottom - (lifts ? terrain - rise * scale : terrain), true)}
+          {znacka(poZnacka, PANEL.after, lifts ? terrain - rise * scale : terrain, PANEL.width, bottom - (lifts ? terrain - rise * scale : terrain), true)}
           {lifts && <>
             <path d={'M166 ' + (terrain - rise * scale) + ' H174 M170 ' + (terrain - rise * scale) + ' V' + terrain + ' M166 ' + terrain + ' H174'} fill="none" stroke="#232830" strokeLinecap="round" strokeWidth="1.6" vectorEffect="non-scaling-stroke" />
-            <text className="id-profile-calc__svg-rise" textAnchor="end" x="160" y={(terrain - rise * scale + terrain) / 2 + 6}>
+            {/* Při malém navýšení by střed kóty padl do drnu bloku „před“ (x 14–144),
+                proto nejníž nad jeho drn. */}
+            <text className="id-profile-calc__svg-rise" textAnchor="end" x="160" y={Math.min((terrain - rise * scale + terrain) / 2 + 6, terrain - PANEL.drn - 6)}>
               {typography('+' + format(rise, 1) + ' cm')}
             </text>
           </>}
@@ -646,6 +669,7 @@ export function SoilProfileCalculator({ className, surface }: { className?: stri
   const ready = calculation.status === 'ready'
   const hlavniMaterial = MATERIALS.reduce((nej, material) =>
     calculation.delivery[material].m3 > calculation.delivery[nej].m3 ? material : nej, 'sand' as Material)
+  const nicSeNeveze = ready && MATERIALS.every((material) => calculation.delivery[material].m3 <= 0)
   const hasEnteredPrices = MATERIALS.some((material) => parseNumber(prices[currency][material]) > 0)
   const issueFor = (field: string) => calculation.issues.find((issue) =>
     issue.field === field && issue.severity === 'error',
@@ -656,14 +680,16 @@ export function SoilProfileCalculator({ className, surface }: { className?: stri
     return ready ? format(material === 'char' ? quantity.litres : quantity.kg, 1) : '—'
   }
 
+  /* Souhrn pro odečítač začíná tímtéž materiálem jako hero a nulové dovozy
+     vynechává; dřív první slyšel „Písek k objednání: 0 l“ (porota 11). */
   const summary = ready
-    ? 'Písek k objednání: ' + volume(calculation.delivery.sand.m3)
-      + ', přibližně ' + mass(calculation.delivery.sand.kg)
-      + (mode === 'new' ? '. Zemina k objednání: ' + volume(calculation.delivery.soil.m3)
-        + ', přibližně ' + mass(calculation.delivery.soil.kg) : '')
-      + '. ' + (['biovin', 'zeolit', 'char'] as const).map((material) =>
-        MATERIAL_NAMES[material] + ' k objednání: ' + purchaseAmount(material) + ' ' + PRICE_UNITS[material],
-      ).join(', ')
+    ? (nicSeNeveze ? 'Při tomto zadání se nic nedováží' : [...MATERIALS]
+      .filter((material) => calculation.delivery[material].m3 > 0)
+      .sort((a, b) => calculation.delivery[b].m3 - calculation.delivery[a].m3)
+      .map((material) => MATERIAL_NAMES[material] + ' k objednání: ' + (material === 'sand' || material === 'soil'
+        ? volume(calculation.delivery[material].m3) + ', přibližně ' + mass(calculation.delivery[material].kg)
+        : purchaseAmount(material as Amendment) + ' ' + PRICE_UNITS[material]))
+      .join('. '))
       + '. Modelová výška profilu ' + format(calculation.finalDepth) + ' centimetrů. '
       + (mode === 'keep' ? 'Zemina k odvozu ' + volume(calculation.removeM3) + '. ' : '')
       + (calculation.hasPrices ? 'Zadané ceny materiálů celkem ' + money(calculation.totalCost, currency) + '.' : 'Ceny zatím nejsou zadané.')
@@ -680,21 +706,35 @@ export function SoilProfileCalculator({ className, surface }: { className?: stri
   useEffect(() => {
     const panel = panelRef.current
     if (!panel) return
+    /* Fokus z myši nebo dotyku se nesrovnává: ovladač by ujel zpod kurzoru.
+       `:focus-visible` nestačí, textová pole ho mají i po kliknutí, proto
+       příznak z `pointerdown`, který spotřebuje nejbližší `focusin`. */
+    let zUkazatele = false
+    const onPointer = () => { zUkazatele = true }
     const onFocus = (event: FocusEvent) => {
       const target = event.target as HTMLElement | null
+      if (zUkazatele) { zUkazatele = false; return }
       if (!target?.matches('input, button, select, textarea, [tabindex]')) return
-      const offset = parseFloat(getComputedStyle(document.documentElement)
-        .getPropertyValue('--id-anchor-offset')) || 124
       const rect = target.getBoundingClientRect()
+      /* Zakrytá zóna podle skutečné kapsle, jen tam, kde se s ní prvek kryje
+         i vodorovně; bez kapsle záloha podle tokenu. */
+      const kapsle = document.querySelector('.id-capsule')?.getBoundingClientRect()
+      const offset = kapsle
+        ? (rect.right > kapsle.left && rect.left < kapsle.right ? kapsle.bottom : 0)
+        : parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--id-anchor-offset')) || 124
       const chybi = offset + 12 - rect.top
-      if (chybi <= 0) return
+      if (!offset || chybi <= 0) return
       window.scrollBy({
         top: -chybi,
         behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth',
       })
     }
+    panel.addEventListener('pointerdown', onPointer)
     panel.addEventListener('focusin', onFocus)
-    return () => panel.removeEventListener('focusin', onFocus)
+    return () => {
+      panel.removeEventListener('pointerdown', onPointer)
+      panel.removeEventListener('focusin', onFocus)
+    }
   }, [])
 
   useEffect(() => {
@@ -942,9 +982,9 @@ export function SoilProfileCalculator({ className, surface }: { className?: stri
         {open === 'results' && (
           <div aria-labelledby={uid + '-menu-results'} className="id-profile-calc__results" id={uid + '-panel-results'} role="region">
           <div className="id-profile-calc__primary">
-              <span>{typography(MATERIAL_NAMES[hlavniMaterial] + ' k objednání')}</span>
-              <strong>{ready ? typography(volume(calculation.delivery[hlavniMaterial].m3)) : '—'}</strong>
-              <p>{ready ? typography('≈ ' + mass(calculation.delivery[hlavniMaterial].kg)) : calculation.status === 'invalid' ? 'Opravte označené údaje.' : 'Doplňte plochu a hloubku.'}</p>
+              <span>{typography(nicSeNeveze ? 'K objednání' : MATERIAL_NAMES[hlavniMaterial] + ' k objednání')}</span>
+              <strong>{ready ? nicSeNeveze ? 'nic' : typography(volume(calculation.delivery[hlavniMaterial].m3)) : '—'}</strong>
+              <p>{ready ? nicSeNeveze ? 'Při tomto zadání se nic nedováží.' : typography('≈ ' + mass(calculation.delivery[hlavniMaterial].kg)) : calculation.status === 'invalid' ? 'Opravte označené údaje.' : 'Doplňte plochu a hloubku.'}</p>
           </div>
           <MaterialTable calculation={calculation} currency={currency} ready={ready} showPrices={hasEnteredPrices || pricesOpen} />
           <dl className="id-profile-calc__totals">
@@ -980,7 +1020,7 @@ export function SoilProfileCalculator({ className, surface }: { className?: stri
                   : 'Cena zahrnuje všechny dovážené materiály.'))
                 : 'Množství platí i bez cen. Nulová cena se do součtu nezahrnuje.'}
             </p>
-            {input.loss > 0 && <p className="id-profile-calc__hint">
+            {input.loss > 0 && !nicSeNeveze && <p className="id-profile-calc__hint">
               {typography('Objednávka obsahuje rezervu ' + format(input.loss) + ' %. Rezerva navyšuje jen dovážený materiál.')}
             </p>}
             {calculation.delivery.sand.kg > 0 && <p className="id-profile-calc__transport">
@@ -996,7 +1036,9 @@ export function SoilProfileCalculator({ className, surface }: { className?: stri
           {ready && calculation.issues.length === 0 && (
             <div aria-live="polite" className="id-verdict id-verdict--ok" role="status">
               <Ok />
-              <span>Zadání je konzistentní. Materiály jsou připravené k objednání.</span>
+              <span>{nicSeNeveze
+                ? 'Zadání je konzistentní. Při tomto zadání se nic neobjednává.'
+                : 'Zadání je konzistentní. Materiály jsou připravené k objednání.'}</span>
             </div>
           )}
           </div>
