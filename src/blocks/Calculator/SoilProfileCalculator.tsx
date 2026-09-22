@@ -659,7 +659,7 @@ export function SoilProfileCalculator({ className, surface }: { className?: stri
           </AlignedInputColumns>
         </div>
 
-        <details className="id-profile-calc__results" open>
+        <details className="id-profile-calc__results">
           <summary>
             <span className="id-profile-calc__results-title">Výsledek</span>
             <span className="id-profile-calc__results-glance">{ready ? typography(volume(calculation.delivery.sand.m3) + ' písku') : 'zatím nespočítáno'}</span>
