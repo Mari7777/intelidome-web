@@ -10,6 +10,7 @@ import {
   INPUT_DEFAULTS,
   SOIL_PRESETS,
   type Amendment,
+  type ProfileZone,
   type SoilProfileInput,
 } from './soilProfileMath'
 import './SoilProfileCalculator.css'
@@ -47,6 +48,105 @@ const MATERIAL_COLORS: Record<Material, string> = {
 /** Legible text over each zone-drawing fill (contrast pair, not a new material color). */
 const MATERIAL_LABEL_INK: Record<Material, string> = {
   sand: '#232830', soil: '#fff', char: '#fff', biovin: '#fff', zeolit: '#232830',
+}
+
+/* Příměsi tvoří 2–3 % objemu: jako proporční pruh by měřily 4–6 jednotek z 220
+   a v řezu zmizely. Kreslí se proto jako rozptýlené částice týmž jazykem jako
+   ilustrace TriZony v článku — biochar černý střípek, Actino hnědá hrudka,
+   zeolit světlé hranaté zrno. Součet ploch částic v zóně odpovídá objemovému
+   podílu (PARTICLE_AREA ≈ plocha jedné značky v jednotkách viewBoxu), velikost
+   zrna je schematická. Rozmístění je deterministické (seed = zóna + materiál),
+   takže se při tažení posuvníku částice jen přidávají a ubírají, nepřeskakují. */
+const AMENDMENTS: Amendment[] = ['char', 'biovin', 'zeolit']
+const PROFILE_X = 40
+const PROFILE_W = 220
+const PARTICLE_AREA = 43
+const PARTICLE_CELL = 11
+const PARTICLE_JITTER = 1.6
+const PARTICLE_SCALE = 1.2
+type Particle = { material: Amendment; x: number; y: number }
+
+const seededRandom = (seed: number) => () => {
+  seed = (seed + 0x6d2b79f5) | 0
+  let t = Math.imul(seed ^ (seed >>> 15), 1 | seed)
+  t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t
+  return ((t ^ (t >>> 14)) >>> 0) / 4294967296
+}
+
+function scatterParticles(
+  zone: ProfileZone, index: number, y0: number, height: number, avoid: { x: number; y: number }[],
+): Particle[] {
+  if (height < 8) return []
+  const rows = Math.max(1, Math.floor(height / PARTICLE_CELL))
+  const cols = PROFILE_W / PARTICLE_CELL
+  const cellHeight = height / rows
+  const centre = (cell: number) => ({
+    x: PROFILE_X + (cell % cols + 0.5) * PARTICLE_CELL,
+    y: y0 + (Math.floor(cell / cols) + 0.5) * cellHeight,
+  })
+  /* Buňky pod procentním popiskem písku/zeminy zůstávají prázdné, aby zůstal čitelný. */
+  const cells = Array.from({ length: rows * cols }, (_, cell) => cell).filter((cell) => {
+    const c = centre(cell)
+    return !avoid.some((a) => Math.abs(a.x - c.x) < 24 && Math.abs(a.y - c.y) < 14)
+  })
+  const taken = new Set<number>()
+  const particles: Particle[] = []
+  AMENDMENTS.forEach((material, order) => {
+    const random = seededRandom(index * 1013 + order * 97 + 7)
+    const sequence = [...cells]
+    for (let i = sequence.length - 1; i > 0; i--) {
+      const j = Math.floor(random() * (i + 1))
+      ;[sequence[i], sequence[j]] = [sequence[j], sequence[i]]
+    }
+    const wanted = Math.round(zone.litresPer100[material] / 100 * PROFILE_W * height / PARTICLE_AREA)
+    let placed = 0
+    for (const cell of sequence) {
+      if (placed >= wanted) break
+      if (taken.has(cell)) continue
+      taken.add(cell)
+      const c = centre(cell)
+      const jitterX = ((cell * 7919) % 97) / 96 - 0.5
+      const jitterY = ((cell * 104729) % 89) / 88 - 0.5
+      particles.push({
+        material,
+        x: c.x + jitterX * PARTICLE_JITTER,
+        y: c.y + jitterY * Math.max(0, Math.min(PARTICLE_JITTER, cellHeight - 9)),
+      })
+      placed++
+    }
+  })
+  return particles
+}
+
+/** One amendment mark; the same shapes serve as swatches in the zone table. */
+function ParticleMark({ material, x = 0, y = 0 }: { material: Amendment; x?: number; y?: number }) {
+  const transform = 'translate(' + x + ' ' + y + ') scale(' + PARTICLE_SCALE + ')'
+  if (material === 'char') {
+    return <path d="M-3.6 -0.4 0.2 -3.4 3.6 -1.2 1.4 3.4 -2.6 2.6Z" fill="#12161b" opacity="0.9" transform={transform} />
+  }
+  if (material === 'biovin') {
+    return <circle fill="#54402c" r="2.9" stroke="#232830" strokeWidth={1.6 / PARTICLE_SCALE} transform={transform} />
+  }
+  return (
+    <path
+      d="M-3.6 -1 -0.6 -3.2 3 -1.8 3.4 1.8 0.4 3.4 -3.2 2Z"
+      fill="#d5d3cc"
+      stroke="#232830"
+      strokeLinejoin="round"
+      strokeWidth={1.6 / PARTICLE_SCALE}
+      transform={transform}
+    />
+  )
+}
+
+function Swatch({ material }: { material: Material }) {
+  return (
+    <svg aria-hidden="true" className="id-profile-calc__swatch" viewBox="-8 -8 16 16">
+      {material === 'sand' || material === 'soil'
+        ? <rect fill={MATERIAL_COLORS[material]} height="13" stroke="#232830" strokeWidth="1.6" width="13" x="-6.5" y="-6.5" />
+        : <g transform="scale(1.15)"><ParticleMark material={material} /></g>}
+    </svg>
+  )
 }
 const SYMBOLS: Record<Currency, string> = { CZK: 'Kč', EUR: '€', USD: '$', GBP: '£' }
 const CURRENCIES: Currency[] = ['CZK', 'EUR', 'USD', 'GBP']
@@ -287,12 +387,8 @@ function ProfileDrawing({ calculation, input, uid }: {
     : 'Zadaná hloubka ' + format(input.depth) + ' centimetrů, modelová hloubka '
       + format(finalDepth) + ' centimetrů. '
       + (input.mode === 'mix' ? 'Objemově odpovídá zvýšení o ' + format(calculation.rise) + ' centimetrů.' : 'Model zachovává zadanou výšku.')
-  const zonesDescription = 'Složení připravené směsi podle hloubky od povrchu. ' + calculation.zones.map((zone) =>
-    'Od ' + format(zone.from) + ' do ' + format(zone.to) + ' centimetrů: '
-      + MATERIALS.filter((material) => zone.litresPer100[material] > 0).map((material) =>
-        MATERIAL_NAMES[material] + ' ' + format(zone.litresPer100[material]) + ' % objemu',
-      ).join(', ') + '.',
-  ).join(' ')
+  const usedMaterials = MATERIALS.filter((material) => calculation.zones.some((zone) => zone.litresPer100[material] > 0))
+  const depthTick = (y: number) => <line stroke="#232830" strokeLinecap="round" strokeWidth="1.6" x1="262" x2="270" y1={y} y2={y} />
   return (
     <figure className="id-profile-calc__drawing">
       <h3>Jak se profil změní</h3>
@@ -331,7 +427,9 @@ function ProfileDrawing({ calculation, input, uid }: {
                 y={beforeTop}
               />
             )}
-            <line stroke="#3f7d4e" strokeWidth="3" x1="40" x2="260" y1={beforeTop} y2={beforeTop} />
+            <line stroke="#3f7d4e" strokeWidth="4" x1="40" x2="260" y1={beforeTop} y2={beforeTop} />
+            {depthTick(beforeTop)}
+            {depthTick(bottom)}
             <text className="id-profile-calc__svg-label" textAnchor="end" x="310" y={beforeTop + 5}>0</text>
             <text className="id-profile-calc__svg-label" textAnchor="end" x="310" y={bottom + 5}>{format(input.depth, 0)}</text>
             <text className="id-profile-calc__svg-note" textAnchor="middle" x="150" y="282">hloubka v cm (≈)</text>
@@ -342,74 +440,96 @@ function ProfileDrawing({ calculation, input, uid }: {
         </div>
         <div className="id-profile-calc__profile">
           <h4>{input.mode === 'mix' ? 'Po zapravení' : 'Připravená směs'}</h4>
-          <p className="id-profile-calc__sr" id={uid + '-zones-description'}>{typography(zonesDescription)}</p>
-          <svg aria-describedby={uid + '-zones-description'} aria-label={chartLabel} role="img" viewBox="0 0 320 292">
+          <svg aria-describedby={uid + '-zones'} aria-label={chartLabel} role="img" viewBox="0 0 320 292">
             <rect fill="#232830" height="24" width="220" x="40" y={bottom} />
-            {calculation.zones.map((zone) => {
-              let x = 40
+            {calculation.zones.map((zone, index) => {
               const y = top + zone.from * scale
               const height = (zone.to - zone.from) * scale
+              /* Šířka pruhů = poměr písku a zeminy (minerální základ); příměsi leží
+                 jako značky přes celou zónu, protože jsou v ní promíchané. */
+              const base = zone.litresPer100.sand + zone.litresPer100.soil
+              const sandWidth = base > 0 ? PROFILE_W * zone.litresPer100.sand / base : 0
+              const segments = ([
+                { material: 'sand', x: PROFILE_X, width: sandWidth },
+                { material: 'soil', x: PROFILE_X + sandWidth, width: PROFILE_W - sandWidth },
+              ] as { material: Material; x: number; width: number }[]).filter((segment) => segment.width > 0)
+              const labels = segments
+                .filter((segment) => segment.width >= 34 && height >= 22)
+                .map((segment) => ({ material: segment.material, x: segment.x + segment.width / 2, y: y + height / 2 }))
+              const particles = scatterParticles(zone, index, y, height, labels)
               return (
                 <g key={zone.from + '-' + zone.to}>
-                  {MATERIALS.map((material) => {
-                    const width = zone.litresPer100[material] * 2.2
-                    const start = x
-                    x += width
-                    if (width <= 0) return null
-                    const canLabel = width >= 34 && height >= 22
-                    return (
-                      <React.Fragment key={material}>
-                        <rect fill={MATERIAL_COLORS[material]} height={height} width={width} x={start} y={y} />
-                        {canLabel && (
-                          <text
-                            className="id-profile-calc__svg-zonelabel"
-                            fill={MATERIAL_LABEL_INK[material]}
-                            textAnchor="middle"
-                            x={start + width / 2}
-                            y={y + height / 2 + 4}
-                          >
-                            {format(zone.litresPer100[material], 0)}%
-                          </text>
-                        )}
-                      </React.Fragment>
-                    )
-                  })}
+                  {segments.map((segment) => (
+                    <rect fill={MATERIAL_COLORS[segment.material]} height={height} key={segment.material} width={segment.width} x={segment.x} y={y} />
+                  ))}
+                  {particles.map((particle, i) => <ParticleMark key={i} {...particle} />)}
+                  {labels.map((label) => (
+                    <text
+                      className="id-profile-calc__svg-zonelabel"
+                      fill={MATERIAL_LABEL_INK[label.material]}
+                      key={label.material}
+                      textAnchor="middle"
+                      x={label.x}
+                      y={label.y + 4}
+                    >
+                      {format(zone.litresPer100[label.material], 0)}%
+                    </text>
+                  ))}
                   {zone.from > 0 && <>
                     <line stroke="#fff" strokeDasharray="4 5" strokeWidth="1.6" x1="40" x2="260" y1={y} y2={y} />
-                    {height >= 25 && y - top >= 25 && bottom - y >= 25 && (
+                    {height >= 25 && y - top >= 25 && bottom - y >= 25 && <>
+                      {depthTick(y)}
                       <text className="id-profile-calc__svg-label" textAnchor="end" x="310" y={y + 5}>{format(zone.from, 1)}</text>
-                    )}
+                    </>}
                   </>}
                 </g>
               )
             })}
-            <rect fill="none" height={finalDepth * scale} stroke="#232830" strokeWidth="1.6" width="220" x="40" y={top} />
+            <rect fill="none" height={finalDepth * scale} stroke="#232830" strokeLinejoin="round" strokeWidth="1.6" width="220" x="40" y={top} />
             <line stroke="#3f7d4e" strokeWidth="4" x1="40" x2="260" y1={top} y2={top} />
+            {depthTick(top)}
+            {depthTick(bottom)}
             <text className="id-profile-calc__svg-label" textAnchor="end" x="310" y={top + 5}>0</text>
             <text className="id-profile-calc__svg-label" textAnchor="end" x="310" y={bottom + 5}>{format(finalDepth, 0)}</text>
             <text className="id-profile-calc__svg-note" textAnchor="middle" x="150" y="282">hloubka v cm (≈)</text>
           </svg>
+          <table className="id-profile-calc__zones" id={uid + '-zones'}>
+            <caption>Podíly objemu v zónách</caption>
+            <thead>
+              <tr>
+                <th scope="col">Složka</th>
+                {calculation.zones.map((zone) => (
+                  <th key={zone.from} scope="col">{typography(format(zone.from, 0) + '–' + format(zone.to, 0) + ' cm')}</th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              {usedMaterials.map((material) => (
+                <tr key={material}>
+                  <th scope="row"><Swatch material={material} />{MATERIAL_NAMES[material]}</th>
+                  {calculation.zones.map((zone) => (
+                    <td key={zone.from}>
+                      {zone.litresPer100[material] > 0
+                        ? typography(format(zone.litresPer100[material], 1) + ' %')
+                        : <><span aria-hidden="true">—</span><span className="id-profile-calc__sr">0 %</span></>}
+                    </td>
+                  ))}
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
       </div>
-      <ul className="id-profile-calc__legend" aria-label="Barvy složek">
-        {MATERIALS.map((material) => <li key={material}>
-          <span aria-hidden="true" style={{ backgroundColor: MATERIAL_COLORS[material] }} />
-          {MATERIAL_NAMES[material]}
-        </li>)}
-        {!newLayer && input.mode === 'keep' && calculation.removeM3 > 0 && <li>
-          <span aria-hidden="true" className="id-profile-calc__legend-hatch" />
-          Odvezená zemina
-        </li>}
-      </ul>
       <figcaption>
         <strong>{newLayer ? 'Připravený prostor' : 'Stávající půda'}</strong> je nerozlišená —
         {!newLayer && input.mode === 'keep' && calculation.removeM3 > 0
           ? ' šrafovaná část se odveze, zbytek zůstane a přijme novou směs.'
           : newLayer ? ' vše se navezne nově.' : ' zůstává na místě a přijme novou směs.'}
         {' '}<strong>{input.mode === 'mix' ? 'Po zapravení' : 'Připravená směs'}</strong> ukazuje
-        složení po zónách: barevné pruhy jsou objemové podíly promíchané v celé zóně,
-        nikoli oddělené vrstvy materiálů. Řez zobrazuje čistou recepturu bez objednávkové
-        rezervy; výslednou výšku po slehnutí ověřte na místě.
+        složení po zónách: šířka pruhů je poměr písku a zeminy, rozptýlené značky jsou
+        příměsi promíchané v celé zóně — jejich plocha odpovídá objemovému podílu,
+        velikost zrna je schematická. Nejde o oddělené vrstvy materiálů. Řez zobrazuje
+        čistou recepturu bez objednávkové rezervy; výslednou výšku po slehnutí ověřte na místě.
       </figcaption>
     </figure>
   )
