@@ -3126,3 +3126,91 @@ u kresby kalkulátoru (chce zásah do dat a rozhodnutí, jestli se má kresba
 komponenty vůbec číslovat), blok Souvisejících článků stojící na ose 1376 px,
 kterou ADR-006 zrušil, a chybějící krémová sekce po hero u třetího článku
 trojice `jak-pripravit-a-ulozit-smes`.
+
+## Kolo 09 — legenda uvnitř SVG se ukázala jako past (2026-09-22)
+
+URL: `/posts/kalkulator-na-planovani-pudniho-profilu`. Porota dostala v zadání
+devět prvků, které se od kola 08 změnily, a u každého nálezu rozhodovala, jestli
+jde o regresi. Podklady poprvé obsahovaly i **snímky jiných stránek** (výpis
+článků a dva sousední články), protože poslední dávka sáhla do sdílených
+komponent.
+
+| Oblast | Skóre |
+|---|---|
+| Hierarchie | 2/5 |
+| Typografie | 2/5 |
+| Pohyb | 3/5 |
+| Grafický styl | 2/5 |
+| Slop | 2/5 |
+| Výkon a přístupnost | 2/5 |
+| Rozložení | 2/5 |
+
+**18 nálezů prošlo skeptikem, z toho 4 kritické a 7 regresí.** Tři ze čtyř
+kritických mířily na jedno místo: legendu uvnitř SVG.
+
+### Poučení kola: text uvnitř SVG neumí zalomit řádek
+
+Legenda se do kresby stěhovala v kole 07, aby byla pixelově shodná se značkami
+(9.2 p. 10). Dobrání starších nálezů jí pak dalo dynamickou závorku se složkami
+směsi. Spojení obojího vyrobilo řádek „směs (zbylá zemina + písek + biochar +
+actino + zeolit)", který **v SVG nemá jak zalomit**: na 360 px vybíhal 32 px za
+okraj okna a končil uprostřed slova, na 371 px a užších ho prahová změna stupně
+prodloužila ještě o 50 px. `overflow: visible` znamená, že text neuteče pod ořez,
+ale z okna.
+
+Oprava nepřidává mechaniku, ubírá tvrzení: **legenda je klíč barev, ne
+receptura.** Řádek zní „promíchaná směs" a výčet složek nese komentář pod
+kresbou a popis pro odečítač, tedy místa, kde se text smí zalomit. Naměřeno po
+opravě na devíti šířkách 320-1440 px: rezerva do pravé hrany viewBoxu 171 až
+217 jednotek, stupeň legendy 10,5 až 12,7 px (podlaha 9.2 p. 3 je 10 px).
+
+Tím padl i třetí kritický nález: v režimu „Zapravit" závorka **zamlčovala
+stávající zeminu**, která tvoří 34,7 % nakresleného bloku. Podmínka počítala jen
+s režimem „Udržet výšku". Popis pro odečítač teď v obou režimech jmenuje
+i zeminu.
+
+### Další opravy
+
+- **Perex karty byl nejmenší text stránky s nejdelší mírou** (98 znaků na řádek
+  proti 81 u prózy) — kritický nález ve sdílené komponentě, který zavedla
+  minulá dávka tím, že kartu zúžila na 17/1,3, ale perexu míru nedala. Teď
+  `max-w-[var(--id-measure)]`, naměřeno 479 px = 33 em.
+- **Pásový titulek kalkulátoru byl jediný pod stupněm title**: 40 px proti 52 px
+  u kapitoly, FAQ, produktového pásu, CTA i Souvisejících článků. Stupeň 40 px
+  ve škále 4.2 vůbec není. Teď `--id-t-title`; naměřeno šest H2 po 52 px.
+- **Figura stála na vlastních osách** 480|561 s mezerou 40 px, zatímco zadání
+  i nápověda v témže panelu mají 652|652 a mezeru 56 px. Teď sdílí mřížku:
+  kresba 40..520, text 748..1400, tedy na ose, kterou panel už používá.
+- **Na 1024 px se dvousloupec rozpadal** a pás zůstával ze 43 % prázdný, protože
+  zlom byl na 1129 px. Posunut na 1023 px; naměřeno 451|451 bez přetoku.
+- **Podtržení vstupních polí mělo kontrast 1,45:1**, přitom je to jediný znak,
+  že jde o pole. Token `--id-line-dark` je hairline, ne obrys ovladače; teď
+  `--id-ink-dark-3` (4,05:1), shodně s obrysem segmentu opraveným minule.
+- Legenda sázela třetí stupeň (13,5 px) vedle popisků 12 px; sjednoceno.
+
+### Neopravené (do kola 10)
+
+Strukturální: tělo článku nese 13 366 px bez jediného nadpisu v title škále
+(devět mezititulků 28 px proti šabloně 8.2, která žádá 3-5 kapitol s eyebrow).
+Karty jako jediný text webu obcházejí českou sazbu (komponenta si pevné mezery
+sama maže). Mezititulky tří tabulek sázejí 17 px s řádkováním 1,65. Dvě ze čtyř
+dlaždic souhrnu nenesou číslo, jen jednotku ve stupni čísla. Fokus na poli
+„Podíl — Písek" končí ze 70 % pod plovoucí lištou (scroll-margin-top nepomůže,
+prohlížeč prvek uvnitř viewportu neposouvá). Kosmetické: vzorek „travní drn"
+není pixelově shodný s drnem v řezu, aria-label kresby popisuje jiný stav,
+pod nápovědou způsobu zbývá 22 px prázdna, pás kalkulátoru je jediný blok
+stránky bez nástupu.
+
+### Ověření
+
+`tsc` PASS, 26/26 testů PASS, `layout-check.mjs` na 1440 beze změny. Živě:
+legenda se vejde do viewBoxu na 320/360/371/375/393/430/768/1024/1440 px;
+v režimu Zapravit jmenuje popis značek i stávající zeminu; šest H2 po 52 px;
+mřížka figury 652|652 shodná se zadáním; na 1024 px dvousloupec bez přetoku;
+podtržení pole rgb(108,115,123).
+
+### Hranice ověření
+
+Zkrácení legendy je ústupek: kdo čte jen kresbu, se složení směsi z ní už
+nedozví. Je to vědomá volba ve prospěch toho, aby text nevybíhal z okna;
+kolo 10 ať posoudí, jestli „promíchaná směs" jako klíč stačí.

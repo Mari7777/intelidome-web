@@ -78,7 +78,7 @@ export const Card: React.FC<{
           /* Perex karty sází token body-sm ze škály 4.2 (14,5 / 1,55 / −0,006em),
              ne volných 15px s Tailwindím `leading-normal`; táž dvojice jako
              `.id-feature__text` pod titulkem karty. */
-          <div className="mt-2 text-[length:var(--id-t-body-sm)] leading-[1.55] tracking-[-0.006em] text-[var(--id-ink-2)]">
+          <div className="mt-2 text-[length:var(--id-t-body-sm)] leading-[1.55] tracking-[-0.006em] text-[var(--id-ink-2)] max-w-[var(--id-measure)]">
             {description && <p>{sanitizedDescription}</p>}
           </div>
         )}

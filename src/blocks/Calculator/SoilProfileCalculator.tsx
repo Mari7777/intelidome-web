@@ -374,7 +374,9 @@ function ProfileDrawing({ calculation, input, onModeChange, uid }: {
   /* Závorka legendy vypisuje jen to, co se opravdu dováží — „zemina + písek +
      příměsi“ lhalo, kdykoli byl některý podíl nulový (porota 08, slop). */
   const slozkySmesi = [
-    ...(input.mode === 'keep' && calculation.keepM3 > 0 ? ['zbylá zemina'] : []),
+    ...(input.mode !== 'new' && calculation.keepM3 > 0
+      ? [input.mode === 'keep' ? 'zbylá zemina' : 'stávající zemina']
+      : []),
     ...dovazene.map((material) => MATERIAL_NAMES[material].toLowerCase()),
   ].join(' + ')
   const removes = input.mode === 'keep' && removedHeight > 0
@@ -424,7 +426,7 @@ function ProfileDrawing({ calculation, input, onModeChange, uid }: {
     ...(input.mode === 'new'
       ? [{ znacka: 'space' as Znacka, popis: 'připravený prostor' }]
       : [{ znacka: 'soil' as Znacka, popis: 'stávající zemina' }]),
-    ...(blended ? [{ znacka: 'blend' as Znacka, popis: 'směs (' + slozkySmesi + ')' }] : []),
+    ...(blended ? [{ znacka: 'blend' as Znacka, popis: 'promíchaná směs' }] : []),
     ...(removes ? [{ znacka: 'out' as Znacka, popis: 'k odvozu' }] : []),
     { znacka: 'sub', popis: 'podloží' },
   ]
@@ -484,7 +486,9 @@ function ProfileDrawing({ calculation, input, onModeChange, uid }: {
     )
   }
 
-  const popisZnacek = legenda.map((item) => item.popis).join(', ') + '.'
+  const popisZnacek = legenda.map((item) => item.popis === 'promíchaná směs'
+    ? 'promíchaná směs (' + slozkySmesi + ')'
+    : item.popis).join(', ') + '.'
 
   return (
     <figure className="id-profile-calc__drawing">
