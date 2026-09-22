@@ -69,27 +69,22 @@
 .id-profile-calc__additions,
 .id-profile-calc__results,
 .id-profile-calc__field { min-width: 0; }
+/* Zavreno: stejny plochy radek jako ostatni tri akordeony
+   (.id-profile-calc__details) — zadna vlastni karta, jen hairline
+   nad radkem. Otevreno: povysi se na kartu, ktera nese hlavni vysledek. */
 .id-profile-calc__results {
-  margin-top: 36px;
-  padding: clamp(20px, 2.4vw, 28px);
-  background: var(--id-obsidian-2);
-  border: 1px solid var(--id-line-dark-soft);
-  border-radius: var(--id-r-card);
+  margin-top: 28px;
+  border-top: 1px solid rgba(255,255,255,.16);
 }
 .id-profile-calc__results > summary {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 12px 24px;
+  padding: 22px 0;
   cursor: pointer;
   list-style: none;
   color: var(--id-ink-dark, #fff);
   font-family: var(--id-f-display);
-  font-size: 24px;
-  font-weight: 600;
-  line-height: 1.2;
-  letter-spacing: -.02em;
+  font-size: 19px;
+  font-weight: 500;
+  line-height: 1.4;
 }
 .id-profile-calc__results > summary::-webkit-details-marker { display: none; }
 /* display:flex na <summary> potlacuje nativni ::marker (ruzne napric
@@ -110,17 +105,35 @@
   transform: rotate(45deg);
 }
 .id-profile-calc__results > summary .id-profile-calc__results-glance {
+  margin-left: 8px;
   color: var(--id-ink-dark-2, #9ba1a8);
   font-family: var(--id-f-body);
   font-size: 13.5px;
   font-weight: 400;
   letter-spacing: normal;
 }
-.id-profile-calc__results[open] > summary {
-  margin-bottom: 20px;
-  padding-bottom: 16px;
-  border-bottom: 1px solid var(--id-line-dark);
+.id-profile-calc__results[open] {
+  margin-top: 36px;
+  padding: clamp(20px, 2.4vw, 28px);
+  background: var(--id-obsidian-2);
+  border: 1px solid var(--id-line-dark-soft);
+  border-top: 1px solid var(--id-line-dark-soft);
+  border-radius: var(--id-r-card);
 }
+.id-profile-calc__results[open] > summary {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px 24px;
+  padding: 0 0 16px;
+  margin-bottom: 20px;
+  border-bottom: 1px solid var(--id-line-dark);
+  font-size: 24px;
+  font-weight: 600;
+  letter-spacing: -.02em;
+}
+.id-profile-calc__results[open] > summary .id-profile-calc__results-glance { margin-left: 0; }
 .id-profile-calc .id-profile-calc__parttitle {
   margin-bottom: 24px;
   color: var(--id-ink-dark);
