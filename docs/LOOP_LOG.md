@@ -2823,3 +2823,112 @@ snímky). `layout-check.mjs` beze změny proti stavu před opravou.
 INP oprava snižuje, neodstraňuje problém pod silnou zátěží CPU —
 zbytek by vyžadoval hlubší refaktor (izolace SVG podstromu, debounce
 raw stavu). Barevná legenda zůstává nevyřešená, čeká na rozhodnutí.
+
+## Kolo 07 — propad po přepsání figury: 5 kritických (2026-09-22)
+
+URL: `/posts/kalkulator-na-planovani-pudniho-profilu`. Mezi kolem 06
+a tímto kolem přibylo 8 vlastních úprav bez poroty: sbalovací menu
+(Výsledek / Ceny / Podrobnosti / Nápověda) s nejvýš jednou otevřenou
+sekcí, řádek Písek ve formátu příměsí a hlavně **úplné přepsání figury
+„Jak se profil změní"** — z kresby složení směsi po zónách na srovnání
+tří způsobů přípravy s přepínačem, který zrcadlí „Co dělám" v zadání.
+Porota: 7 nezávislých lenzů, každý nález se závažností kritický nebo
+důležitý pak prošel adversariálním skeptikem (33 agentů celkem).
+
+| Oblast | Skóre |
+|---|---|
+| Hierarchie | 2/5 (jediný kritický skeptik vyvrátil, čtyři důležité snížil na kosmetické) |
+| Typografie | 2/5 |
+| Pohyb | 2/5 |
+| Grafický styl | 2/5 |
+| Slop | 2/5 |
+| Výkon a přístupnost | 3/5 |
+| Rozložení | 2/5 |
+
+**25 nálezů prošlo skeptikem, z toho 5 kritických a 10 důležitých.**
+Tři z pěti kritických seděly přímo v nové figuře, dva v pravdivosti
+čísel. Zamítnuto mimo jiné: „panel nemá ve výchozím stavu výsledek" —
+skeptik ukázal, že čtyři hodnoty „K objednání" (28 px, accent-dark) na
+otázku panelu odpovídají živě a že sbalený Výsledek je čtyřikrát
+vyžádané rozhodnutí autora z téhož dne; tentýž nález padl už v kole 04
+a 06.
+
+### Opravy — balík „figura mluví pravdu, drží osu a sazbu"
+
+- **Figura zhasínala kvůli cizímu způsobu** (kritický, slop + pohyb).
+  `ProfileDrawing` se vypínal, když kterýkoli ze tří způsobů nebyl
+  `ready`. Při 100 % písku tak platný „Udržet výšku" zmizel kvůli
+  neplatnému „Zapravit" a panel o kus výš přitom hlásil zelené „Zadání
+  je konzistentní"; posuvník tažený do krajní polohy zkracoval stránku
+  o 653 px. Podmínka teď váže jen na zvolený způsob a navýšení terénu
+  se z neplatného „Zapravit" nebere jako měřítko.
+- **Legenda nebyla shodná se značkami v kresbě** (kritický, styl).
+  HTML vzorky se lišily roztečí (2,25×), tloušťkou obrysu (2,4×)
+  i odstínem — vzorek „stávající zemina" byl barevně blíž nepopsanému
+  podloží než zemině, kterou pojmenovával. Legenda se přesunula
+  **dovnitř SVG** (vzor `TriZony`), takže sdílí tytéž patterny, obrysy
+  i měřítko z definice. Navíc je dynamická: vypisuje jen značky, které
+  se pro zvolený způsob opravdu vykreslily (9.2 p. 10, úroveň 2).
+- **Kresba byla vysázená v 1,5× měřítku článku** (důležitý, styl
+  + typografie). Popisky vycházely 19,5 px proti 12 px a klíčová
+  hodnota 27 px proti 24 px ve zbytku článku. Stupně jsou teď
+  deklarované tak, aby po vynásobení měřítkem daly **12 px a 24 px**;
+  pod 560 px se deklarace zvedá, aby vykreslený stupeň zůstal nad 10 px
+  (naměřeno 12,0 px na 1440 a 12,1 px na 393). Obrysy dostaly
+  `vector-effect: non-scaling-stroke`, takže drží 1,6 px jako ostatní
+  kresby místo aby se škálovaly na 2,4 px.
+- **Kresba byla 480px ostrůvek s plovoucí osou** (kritický, rozložení).
+  Levá hrana putovala 272 / 325 / 480 / 720 px podle šířky okna, zatímco
+  nadpis, lead i popiska držely osu 40. Kresba teď stojí na ose 40,
+  přepínač nad ní lícuje s její šířkou (dřív byl v pásu 1360 px dvakrát
+  větší než jeho dvojče v zadání) a komentář i číselný závěr jsou vlevo
+  místo na střed (4.3 p. 4: body text se necentruje).
+- **Míra řádku 88–107 znaků** (kritický, typografie). Hinty panelu
+  neměly `max-width` vůbec, figcaption měl 76ch a nejmenší text stránky
+  tak měl nejdelší míru. Všechny textové odstavce kalkulátoru dostaly
+  jedinou míru `var(--id-measure)`; popiska figury 30em stejně jako
+  popiska fotografie na téže stránce. Naměřeno 47–66 znaků, dřív až 107.
+- **Komentář sliboval šrafu a kótu, které se nevykreslily** (důležitý,
+  slop). Při nulovém odvozu a nulovém navýšení texty mluvily o prvcích,
+  které v kresbě nebyly. Komentáře, popis pro odečítač i vzorek směsi
+  se teď řídí příznaky `removes` / `lifts` / `blended`, tedy tím, co se
+  opravdu nakreslilo.
+- **Přepnutí způsobu posouvalo obsah o 127–150 px** (důležitý, pohyb).
+  Rám je konstantní ve všech třech způsobech (naměřeno 504 px u všech).
+  Prázdno nad terénem, které rám drží kvůli „Zapravit", není prázdné:
+  v ostatních dvou způsobech nese **neutrální kótu „+56,5 cm / při
+  zapravení"**, takže srovnání funguje i bez přepnutí a akcent zůstává
+  jen u zvoleného způsobu (9.2 p. 1).
+- **„Do hloubky" u písku: 30 cm v zadání proti 86,46 cm ve výsledku**
+  (kritický, slop). Týž popisek, týž materiál, 2,9× jiné číslo. Pole
+  v řádku Písek se v režimu Zapravit jmenuje „Původní hloubka" jako
+  hlavní pole hloubky; v tabulce navíc materiál s nulovým dovozem
+  (Zemina) už nehlásí hloubku dovozu, ale pomlčku.
+
+### Neopravené (zbývá do dalšího kola)
+
+Panel „Jak výpočet číst" zůstává osamělým sloupcem v pásu 1360 px
+(míru dostal, mřížku ne). Kosmetické po skeptikovi: menu bez hover
+odezvy, figura bez čísla „Obr. NN", dva sourozenecké H3 různé
+velikosti, duplicita písku (28,52 t v zadání vs. 19,01 m³ v hintu),
+plurály v řádku „Dovoz písku", závěr „Vše dovezete" bez objednávkové
+rezervy, obrys nevybraných dlaždic přepínače pod mezí non-text 3:1.
+
+### Ověření
+
+`tsc --noEmit --incremental false` PASS, 26/26 testů PASS. Živě
+(Playwright, 1440 a iPhone 14 Pro): figura při 100 % písku v režimu
+Udržet výšku zůstává vykreslená; popisky 12,0 / 12,1 px; výšky SVG
+504 px ve všech třech způsobech; osy h3/lead/přepínač/kresba/komentář
+/závěr/popiska všechny začínají na 40; míry 47–66 znaků; řádek Písek
+hlásí „Původní hloubka = 30" a tabulka u Zeminy pomlčku; mobil bez
+vodorovného přetečení. `layout-check.mjs` na 1440 beze změny.
+
+### Hranice ověření
+
+Porota měřila stav před opravami; kolo 08 musí ověřit, že opravy
+nezavedly nové vady — zvlášť neutrální kótu v prázdném prostoru
+(nový prvek, který porota neviděla) a dynamickou legendu v krajních
+zadáních. Skóre 2/5 u šesti lenzů je hluboký propad proti kolu 06
+(0 kritických); poučení je v tom, že osm úprav bez poroty za sebou
+znamenalo osm úprav bez měření.

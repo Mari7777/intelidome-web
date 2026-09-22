@@ -209,6 +209,8 @@ function MaterialTable({
 }) {
   const depthFor = (material: Material): number | null => {
     if (!ready) return null
+    /* Co se nedováží, nemá hloubku dovozu — dřív tu Zemina hlásila 86,46 cm u 0 l. */
+    if (calculation.delivery[material].m3 <= 0) return null
     if (material === 'sand' || material === 'soil') return calculation.finalDepth
     return calculation.incorporationDepths[material]
   }
@@ -276,16 +278,21 @@ function ProfileDrawing({ calculation, input, onModeChange, uid }: {
   const variants = useMemo(() => Object.fromEntries(MODE_ORDER.map((mode) => [
     mode, mode === input.mode ? calculation : calculateSoilProfile({ ...input, mode }),
   ])) as Record<Mode, Result>, [calculation, input])
-  if (calculation.status !== 'ready' || MODE_ORDER.some((mode) => variants[mode].status !== 'ready')) {
+  /* Kresba se řídí ZVOLENÝM způsobem. Dřív se vypínala, když kterýkoli ze tří
+     způsobů neplatil — při 100 % písku tak platný „Udržet výšku" zhasl kvůli
+     „Zapravit" a panel vedle něj přitom hlásil konzistentní zadání. */
+  if (calculation.status !== 'ready') {
     return (
       <section className="id-profile-calc__drawing id-profile-calc__drawing--empty">
         <h3>Jak se profil změní</h3>
-        <p>Doplňte platné zadání. Řez pak porovná tři způsoby přípravy: co se odveze, co se doveze a jak se změní výška terénu.</p>
+        <p>Doplňte platné zadání. Řez pak ukáže, co se u zvoleného způsobu odveze, co se doveze a jak se změní výška terénu.</p>
       </section>
     )
   }
   const depth = input.depth
-  const rise = Math.max(0, variants.mix.rise)
+  /* Navýšení terénu je vlastnost „Zapravit"; když ten pro dané zadání neplatí,
+     nesmí svým neplatným číslem určovat měřítko ostatních dvou způsobů. */
+  const rise = variants.mix.status === 'ready' ? Math.max(0, variants.mix.rise) : 0
   /* Společné měřítko: hloubka se vejde do 90 jednotek, navýšení terénu do 120. */
   const scale = Math.min(90 / Math.max(depth, 1), 120 / Math.max(rise, 1))
   const terrain = PANEL.terrain
@@ -294,92 +301,93 @@ function ProfileDrawing({ calculation, input, onModeChange, uid }: {
     ? depth * scale * variants.keep.removeM3 / variants.keep.initialVolume
     : 0
   const newVolume = input.area * depth / 100
-  /* Co se v kresbě stane (před → po) a co z toho pro zadání plyne. Komentář
-     mluví o tom, co je vidět; čísla nese až druhý řádek. */
+  /* Co se v kresbě pro zvolený způsob opravdu vykreslí. Texty i legenda se
+     řídí těmito příznaky — dřív slibovaly šrafu a kótu i tam, kde v kresbě
+     žádné nebyly (nulový odvoz, nulové navýšení). */
+  const importedM3 = MATERIALS.reduce((sum, material) => sum + calculation.delivery[material].m3, 0)
+  const blended = importedM3 > 0
+  const removes = input.mode === 'keep' && removedHeight > 0
+  const lifts = input.mode === 'mix' && rise > 0
+
   const stories: Record<Mode, string> = {
-    keep: 'Horní část stávající zeminy odvezete (šrafovaná část). Do uvolněného místa přijde písek s příměsmi a promíchá se se zbylou zeminou — povrch zůstane tam, kde byl.',
-    mix: 'Nic neodvážíte. Písek a příměsi zapravíte do celé stávající zeminy, objem tím naroste a povrch vystoupí nad okolní terén o výšku kóty.',
-    new: 'Nejdřív připravíte prostor — vykopete nebo srovnáte podloží do hloubky profilu. Pak do něj navezete hotovou směs ze zeminy, písku a příměsí až po úroveň terénu.',
+    keep: removes
+      ? 'Horní část stávající zeminy odvezete (šrafovaná část). Do uvolněného místa přijde písek s příměsmi a promíchá se se zbylou zeminou, povrch proto zůstane tam, kde byl.'
+      : 'Při tomto zadání se nic neodváží ani nedováží: příměsi ani písek si nevezmou žádný objem navíc, takže zemina zůstane, jak je.',
+    mix: lifts
+      ? 'Nic neodvážíte. Písek a příměsi zapravíte do celé stávající zeminy, objem tím naroste a povrch vystoupí nad okolní terén o výšku kóty.'
+      : 'Nic neodvážíte a při tomto zadání se ani nic nedováží, takže objem zůstává a povrch se nezvedne.',
+    new: 'Nejdřív připravíte prostor, tedy vykopete nebo srovnáte podloží do hloubky profilu. Pak do něj navezete hotovou směs ze zeminy, písku a příměsí až po úroveň terénu.',
   }
   const notes: Record<Mode, string> = {
-    keep: 'Odvezete ' + volume(variants.keep.removeM3) + ' zeminy; výška terénu zůstává.',
+    keep: 'Odvezete ' + volume(calculation.removeM3) + ' zeminy; výška terénu zůstává.',
     mix: 'Nic neodvážíte; terén se zvedne o ' + format(rise, 1) + ' cm.',
     new: 'Vše dovezete: ' + volume(newVolume) + ' směsi do připraveného prostoru.',
   }
   const labels: Record<Mode, string> = {
-    keep: 'Udržet výšku: před — stávající zemina, horní část k odvozu; po — směs do původní výšky terénu.',
-    mix: 'Zapravit: před — stávající zemina; po — směs vyšší o ' + format(rise, 1) + ' centimetrů nad úrovní terénu.',
+    keep: 'Udržet výšku: před — stávající zemina' + (removes ? ', horní část k odvozu' : '') + '; po — směs do původní výšky terénu.',
+    mix: 'Zapravit: před — stávající zemina; po — směs'
+      + (lifts ? ' vyšší o ' + format(rise, 1) + ' centimetrů nad úrovní terénu.' : ' v původní výšce terénu.'),
     new: 'Nová vrstva: před — připravený prázdný prostor; po — směs do úrovně terénu.',
   }
+
+  /* Legenda leží UVNITŘ kresby (vzor TriZony). Jen tak je značka v legendě
+     pixelově shodná se značkou v řezu při jakémkoli měřítku — jako HTML se
+     vzorky rozcházely v rozteči, obrysu i odstínu (9.2 p. 10, úroveň 2). */
+  type Znacka = 'soil' | 'space' | 'blend' | 'out' | 'sub'
+  const legenda: { znacka: Znacka; popis: string }[] = [
+    ...(input.mode === 'new'
+      ? [{ znacka: 'space' as Znacka, popis: 'připravený prostor' }]
+      : [{ znacka: 'soil' as Znacka, popis: 'stávající zemina' }]),
+    ...(blended ? [{ znacka: 'blend' as Znacka, popis: 'směs (zemina + písek + příměsi)' }] : []),
+    ...(removes ? [{ znacka: 'out' as Znacka, popis: 'k odvozu' }] : []),
+    { znacka: 'sub', popis: 'podloží' },
+  ]
+  const LEGENDA_RADEK = 22
+  const legendaTop = bottom + PANEL.strip + 38
+  /* Rám drží všechny tři způsoby stejný: tolik řádků legendy, kolik jich má
+     nejbohatší způsob, a prostor nad terénem podle navýšení u „Zapravit“.
+     Přepnutí tak vymění obsah bez posunu obsahu pod kresbou (porota 07, pohyb). */
+  const radkuLegendy = (mode: Mode): number => {
+    const variant = variants[mode]
+    if (variant.status !== 'ready') return 0
+    const imported = MATERIALS.reduce((sum, material) => sum + variant.delivery[material].m3, 0)
+    return 2 + (imported > 0 ? 1 : 0) + (mode === 'keep' && variant.removeM3 > 0 ? 1 : 0)
+  }
+  const maxRadku = Math.max(legenda.length, ...MODE_ORDER.map(radkuLegendy))
+  const svgBottom = legendaTop + maxRadku * LEGENDA_RADEK
+
   const tagY = bottom + PANEL.strip + 22
   const arrowY = terrain + depth * scale / 2
   /* Měřítko je společné všem třem způsobům a šířka výřezu je vždy 320, takže
      bloky mají ve všech způsobech stejnou vykreslenou velikost — porovnatelnost
      drží měřítko, ne rám. Výřez si proto každý způsob ořízne shora sám: prázdné
      místo nad terénem potřebuje jen Zapravit, kde se terén zvedá. */
-  const viewTopFor = (lift: number) => Math.max(0, Math.floor(terrain - lift - 30))
+  const viewTop = Math.max(0, Math.floor(terrain - rise * scale - 30))
 
-  const profile = (mode: Mode, top: number) => {
-    const afterTop = mode === 'mix' ? terrain - rise * scale : terrain
-    const mixId = uid + '-' + mode + '-mix'
-    const outId = uid + '-' + mode + '-out'
+  const mixId = uid + '-blend'
+  const outId = uid + '-out'
+  /* Jedna značka = jeden recept, sdílený řezem i legendou. */
+  const znacka = (kind: Znacka, x: number, y: number, w: number, h: number, key?: string) => {
+    if (kind === 'space') {
+      return <rect fill="none" height={h} key={key} stroke="#232830" strokeDasharray="4 5" strokeWidth="1.6" vectorEffect="non-scaling-stroke" width={w} x={x} y={y} />
+    }
+    if (kind === 'sub') {
+      return <g key={key}>
+        <rect fill="#54402c" height={h} opacity="0.88" width={w} x={x} y={y} />
+        <rect fill="none" height={h} stroke="#232830" strokeWidth="1.6" vectorEffect="non-scaling-stroke" width={w} x={x} y={y} />
+      </g>
+    }
     return (
-      <svg aria-label={labels[mode]} role="img" viewBox={'0 ' + top + ' 320 ' + (PANEL.height - top)}>
-        <defs>
-          <pattern height="12" id={mixId} patternUnits="userSpaceOnUse" width="12">
-            <circle cx="3" cy="3" fill="#c2a052" r="1.5" />
-            <circle cx="9" cy="8" fill="#c2a052" r="1.5" />
-          </pattern>
-          <pattern height="9" id={outId} patternUnits="userSpaceOnUse" width="9">
-            <path d="M0 9 9 0" fill="none" stroke="var(--id-cream, #f6f5f2)" strokeWidth="1.6" />
-          </pattern>
-        </defs>
-        {/* úroveň terénu — společná vztažná linka obou řezů */}
-        <line stroke="#d5d3cc" strokeDasharray="3 7" strokeLinecap="round" strokeWidth="1.6" x1="8" x2="312" y1={terrain} y2={terrain} />
-        <rect fill="#54402c" height={PANEL.strip} opacity="0.88" width={PANEL.width} x={PANEL.before} y={bottom} />
-        <rect fill="#54402c" height={PANEL.strip} opacity="0.88" width={PANEL.width} x={PANEL.after} y={bottom} />
-
-        {/* před */}
-        {mode === 'new' ? (
-          <>
-            <rect fill="none" height={depth * scale} stroke="#232830" strokeDasharray="4 5" strokeWidth="1.6" width={PANEL.width} x={PANEL.before} y={terrain} />
-            {depth * scale >= 34 && <>
-              <text className="id-profile-calc__svg-tag" textAnchor="middle" x={PANEL.before + PANEL.width / 2} y={arrowY - 2}>připravený</text>
-              <text className="id-profile-calc__svg-tag" textAnchor="middle" x={PANEL.before + PANEL.width / 2} y={arrowY + 13}>prostor</text>
-            </>}
-          </>
-        ) : (
-          <>
-            <rect fill="#6b5138" height={depth * scale} opacity="0.9" width={PANEL.width} x={PANEL.before} y={terrain} />
-            {mode === 'keep' && removedHeight > 0 && <>
-              <rect fill={'url(#' + outId + ')'} height={removedHeight} opacity="0.7" width={PANEL.width} x={PANEL.before} y={terrain} />
-              <text className="id-profile-calc__svg-tag" textAnchor="middle" x={PANEL.before + PANEL.width / 2} y={terrain - 8}>odvoz</text>
-            </>}
-            <path d={'M' + PANEL.before + ' ' + terrain + ' V' + bottom + ' H' + (PANEL.before + PANEL.width) + ' V' + terrain} fill="none" stroke="#232830" strokeLinejoin="round" strokeWidth="1.6" />
-            <line stroke="#3f7d4e" strokeWidth="4" x1={PANEL.before} x2={PANEL.before + PANEL.width} y1={terrain} y2={terrain} />
-          </>
-        )}
-
-        {/* šipka před → po */}
-        <path d={'M150 ' + arrowY + ' H167 M162 ' + (arrowY - 5) + ' L168 ' + arrowY + ' L162 ' + (arrowY + 5)} fill="none" stroke="#232830" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.6" />
-
-        {/* po */}
-        <rect fill="#6b5138" height={bottom - afterTop} opacity="0.9" width={PANEL.width} x={PANEL.after} y={afterTop} />
-        <rect fill={'url(#' + mixId + ')'} height={bottom - afterTop} width={PANEL.width} x={PANEL.after} y={afterTop} />
-        <path d={'M' + PANEL.after + ' ' + afterTop + ' V' + bottom + ' H' + (PANEL.after + PANEL.width) + ' V' + afterTop} fill="none" stroke="#232830" strokeLinejoin="round" strokeWidth="1.6" />
-        <line stroke="#3f7d4e" strokeWidth="4" x1={PANEL.after} x2={PANEL.after + PANEL.width} y1={afterTop} y2={afterTop} />
-        {mode === 'mix' && rise > 0 && <>
-          <path d={'M166 ' + afterTop + ' H174 M170 ' + afterTop + ' V' + terrain + ' M166 ' + terrain + ' H174'} fill="none" stroke="#232830" strokeLinecap="round" strokeWidth="1.6" />
-          <text className="id-profile-calc__svg-rise" textAnchor="end" x="160" y={(afterTop + terrain) / 2 + 6}>
-            {typography('+' + format(rise, 1) + ' cm')}
-          </text>
-        </>}
-
-        <text className="id-profile-calc__svg-tag" textAnchor="middle" x={PANEL.before + PANEL.width / 2} y={tagY}>před</text>
-        <text className="id-profile-calc__svg-tag" textAnchor="middle" x={PANEL.after + PANEL.width / 2} y={tagY}>po</text>
-      </svg>
+      <g key={key}>
+        <rect fill="#6b5138" height={h} opacity="0.9" width={w} x={x} y={y} />
+        {kind === 'blend' && <rect fill={'url(#' + mixId + ')'} height={h} width={w} x={x} y={y} />}
+        {kind === 'out' && <rect fill={'url(#' + outId + ')'} height={h} opacity="0.7" width={w} x={x} y={y} />}
+        <rect fill="none" height={h} stroke="#232830" strokeWidth="1.6" vectorEffect="non-scaling-stroke" width={w} x={x} y={y} />
+      </g>
     )
   }
+
+  const popisZnacek = legenda.map((item) => item.popis).join(', ') + '.'
 
   return (
     <figure className="id-profile-calc__drawing">
@@ -397,15 +405,108 @@ function ProfileDrawing({ calculation, input, onModeChange, uid }: {
         value={input.mode}
       />
       <div className="id-profile-calc__mode">
-        {profile(input.mode, viewTopFor(input.mode === 'mix' ? rise * scale : 0))}
+        <p className="id-profile-calc__sr" id={uid + '-znacky'}>{typography('Značky v řezu: ' + popisZnacek)}</p>
+        <svg
+          aria-describedby={uid + '-znacky'}
+          aria-label={labels[input.mode]}
+          role="img"
+          viewBox={'0 ' + viewTop + ' 320 ' + (svgBottom - viewTop)}
+        >
+          <defs>
+            <pattern height="12" id={mixId} patternUnits="userSpaceOnUse" width="12">
+              <circle cx="3" cy="3" fill="#c2a052" r="1.5" />
+              <circle cx="9" cy="8" fill="#c2a052" r="1.5" />
+            </pattern>
+            <pattern height="9" id={outId} patternUnits="userSpaceOnUse" width="9">
+              <path d="M0 9 9 0" fill="none" stroke="var(--id-cream, #f6f5f2)" strokeWidth="1.6" vectorEffect="non-scaling-stroke" />
+            </pattern>
+          </defs>
+          {/* úroveň terénu — společná vztažná linka obou řezů */}
+          <line stroke="#d5d3cc" strokeDasharray="3 7" strokeLinecap="round" strokeWidth="1.6" vectorEffect="non-scaling-stroke" x1="8" x2="312" y1={terrain} y2={terrain} />
+          {znacka('sub', PANEL.before, bottom, PANEL.width, PANEL.strip)}
+          {znacka('sub', PANEL.after, bottom, PANEL.width, PANEL.strip)}
+
+          {/* před */}
+          {input.mode === 'new' ? (
+            <>
+              {znacka('space', PANEL.before, terrain, PANEL.width, depth * scale)}
+              {depth * scale >= 34 && <>
+                <text className="id-profile-calc__svg-tag" textAnchor="middle" x={PANEL.before + PANEL.width / 2} y={arrowY - 2}>připravený</text>
+                <text className="id-profile-calc__svg-tag" textAnchor="middle" x={PANEL.before + PANEL.width / 2} y={arrowY + 13}>prostor</text>
+              </>}
+            </>
+          ) : (
+            <>
+              {znacka('soil', PANEL.before, terrain, PANEL.width, depth * scale)}
+              {removes && <>
+                <rect fill={'url(#' + outId + ')'} height={removedHeight} opacity="0.7" width={PANEL.width} x={PANEL.before} y={terrain} />
+                <text className="id-profile-calc__svg-tag" textAnchor="middle" x={PANEL.before + PANEL.width / 2} y={terrain - 8}>odvoz</text>
+              </>}
+              <line stroke="#3f7d4e" strokeWidth="4" vectorEffect="non-scaling-stroke" x1={PANEL.before} x2={PANEL.before + PANEL.width} y1={terrain} y2={terrain} />
+            </>
+          )}
+
+          {/* šipka před → po */}
+          <path d={'M150 ' + arrowY + ' H167 M162 ' + (arrowY - 5) + ' L168 ' + arrowY + ' L162 ' + (arrowY + 5)} fill="none" stroke="#232830" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.6" vectorEffect="non-scaling-stroke" />
+
+          {/* Prostor nad terénem si drží rám kvůli „Zapravit“. V ostatních dvou
+              způsobech proto není prázdný: čárkovaná linka ukazuje, kam by profil
+              vystoupil, kdyby se zapravovalo — srovnání funguje i bez přepnutí. */}
+          {!lifts && rise > 0 && variants.mix.status === 'ready' && <>
+            <line
+              stroke="#d5d3cc"
+              strokeDasharray="3 7"
+              strokeLinecap="round"
+              strokeWidth="1.6"
+              vectorEffect="non-scaling-stroke"
+              x1={PANEL.after}
+              x2={PANEL.after + PANEL.width}
+              y1={terrain - rise * scale}
+              y2={terrain - rise * scale}
+            />
+            <path
+              d={'M166 ' + (terrain - rise * scale) + ' H174 M170 ' + (terrain - rise * scale) + ' V' + terrain + ' M166 ' + terrain + ' H174'}
+              fill="none"
+              stroke="#d5d3cc"
+              strokeLinecap="round"
+              strokeWidth="1.6"
+              vectorEffect="non-scaling-stroke"
+            />
+            <text className="id-profile-calc__svg-ghost" textAnchor="end" x="160" y={terrain - rise * scale / 2 - 4}>
+              {typography('+' + format(rise, 1) + ' cm')}
+            </text>
+            <text className="id-profile-calc__svg-tag" textAnchor="end" x="160" y={terrain - rise * scale / 2 + 12}>
+              při zapravení
+            </text>
+          </>}
+
+          {/* po */}
+          {znacka(blended ? 'blend' : 'soil', PANEL.after, lifts ? terrain - rise * scale : terrain, PANEL.width, bottom - (lifts ? terrain - rise * scale : terrain))}
+          <line stroke="#3f7d4e" strokeWidth="4" vectorEffect="non-scaling-stroke" x1={PANEL.after} x2={PANEL.after + PANEL.width} y1={lifts ? terrain - rise * scale : terrain} y2={lifts ? terrain - rise * scale : terrain} />
+          {lifts && <>
+            <path d={'M166 ' + (terrain - rise * scale) + ' H174 M170 ' + (terrain - rise * scale) + ' V' + terrain + ' M166 ' + terrain + ' H174'} fill="none" stroke="#232830" strokeLinecap="round" strokeWidth="1.6" vectorEffect="non-scaling-stroke" />
+            <text className="id-profile-calc__svg-rise" textAnchor="end" x="160" y={(terrain - rise * scale + terrain) / 2 + 6}>
+              {typography('+' + format(rise, 1) + ' cm')}
+            </text>
+          </>}
+
+          <text className="id-profile-calc__svg-tag" textAnchor="middle" x={PANEL.before + PANEL.width / 2} y={tagY}>před</text>
+          <text className="id-profile-calc__svg-tag" textAnchor="middle" x={PANEL.after + PANEL.width / 2} y={tagY}>po</text>
+
+          {/* legenda v měřítku kresby */}
+          {legenda.map((item, index) => {
+            const y = legendaTop + index * LEGENDA_RADEK
+            return (
+              <g key={item.znacka}>
+                {znacka(item.znacka, PANEL.before, y, 16, 16)}
+                <text className="id-profile-calc__svg-legend" x={PANEL.before + 24} y={y + 12}>{typography(item.popis)}</text>
+              </g>
+            )
+          })}
+        </svg>
         <p className="id-profile-calc__mode-story">{typography(stories[input.mode])}</p>
         <p className="id-profile-calc__mode-outcome">{typography(notes[input.mode])}</p>
       </div>
-      <ul aria-label="Značky v řezu" className="id-profile-calc__legend">
-        <li><span aria-hidden="true" className="id-profile-calc__legend-soil" />stávající zemina</li>
-        <li><span aria-hidden="true" className="id-profile-calc__legend-mix" />směs — zemina, písek a příměsi promíchané</li>
-        <li><span aria-hidden="true" className="id-profile-calc__legend-hatch" />odvoz</li>
-      </ul>
       <figcaption>
         Řez záměrně neukazuje složení směsi — to nese výsledek kalkulátoru.
         {' '}<strong>Udržet výšku</strong> odveze část zeminy a její objem nahradí písek s příměsmi.
@@ -611,7 +712,9 @@ export function SoilProfileCalculator({ className, surface }: { className?: stri
                   <legend>Písek</legend>
                   <div className="id-profile-calc__additiongrid">
                     {field('ratio', 'Podíl', '%', undefined, false, 'Písek', 'sand-podil')}
-                    {field('depth', 'Do hloubky', 'cm', undefined, false, 'Písek', 'sand-do-hloubky')}
+                    {/* Týž popisek jako u hlavního pole hloubky: „Do hloubky“ se v režimu
+                        Zapravit tloukl s tabulkou, kde písek sahá do modelové výšky profilu. */}
+                    {field('depth', mode === 'mix' ? 'Původní hloubka' : 'Hloubka profilu', 'cm', undefined, false, 'Písek', 'sand-do-hloubky')}
                     <div className="id-profile-calc__purchase">
                       <label htmlFor={uid + '-sand-amount'}>K objednání</label>
                       <output
