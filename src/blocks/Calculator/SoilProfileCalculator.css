@@ -542,12 +542,22 @@
 }
 .id-profile-calc__mode { margin-top: 20px; }
 .id-profile-calc__mode > svg { display: block; width: 100%; max-width: 480px; height: auto; margin-inline: auto; overflow: visible; }
-.id-profile-calc .id-profile-calc__mode > p {
-  margin-top: 12px;
+/* Pod řezem: komentář, co se stane (věta k obrázku), a pod ním číselný závěr. */
+.id-profile-calc .id-profile-calc__mode-story {
+  max-width: 56ch;
+  margin: 16px auto 0;
   font-size: 15px;
+  line-height: 1.55;
+  text-align: center;
+  text-wrap: balance;
+}
+.id-profile-calc .id-profile-calc__mode-outcome {
+  margin-top: 8px;
+  font-size: 13.5px;
   line-height: 1.5;
   text-align: center;
-  text-wrap: pretty;
+  color: var(--id-ink-2, #5b5e63);
+  font-variant-numeric: tabular-nums;
 }
 .id-profile-calc__svg-tag { fill: var(--id-ink-2, #5b5e63); font-family: var(--id-f-display); font-size: 13px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; }
 .id-profile-calc__svg-rise { fill: var(--id-accent, #2563eb); font-family: var(--id-f-display); font-size: 18px; font-weight: 600; }

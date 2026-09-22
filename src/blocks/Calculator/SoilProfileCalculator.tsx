@@ -294,6 +294,13 @@ function ProfileDrawing({ calculation, input, onModeChange, uid }: {
     ? depth * scale * variants.keep.removeM3 / variants.keep.initialVolume
     : 0
   const newVolume = input.area * depth / 100
+  /* Co se v kresbě stane (před → po) a co z toho pro zadání plyne. Komentář
+     mluví o tom, co je vidět; čísla nese až druhý řádek. */
+  const stories: Record<Mode, string> = {
+    keep: 'Horní část stávající zeminy odvezete (šrafovaná část). Do uvolněného místa přijde písek s příměsmi a promíchá se se zbylou zeminou — povrch zůstane tam, kde byl.',
+    mix: 'Nic neodvážíte. Písek a příměsi zapravíte do celé stávající zeminy, objem tím naroste a povrch vystoupí nad okolní terén o výšku kóty.',
+    new: 'Nejdřív připravíte prostor — vykopete nebo srovnáte podloží do hloubky profilu. Pak do něj navezete hotovou směs ze zeminy, písku a příměsí až po úroveň terénu.',
+  }
   const notes: Record<Mode, string> = {
     keep: 'Odvezete ' + volume(variants.keep.removeM3) + ' zeminy; výška terénu zůstává.',
     mix: 'Nic neodvážíte; terén se zvedne o ' + format(rise, 1) + ' cm.',
@@ -391,7 +398,8 @@ function ProfileDrawing({ calculation, input, onModeChange, uid }: {
       />
       <div className="id-profile-calc__mode">
         {profile(input.mode, viewTopFor(input.mode === 'mix' ? rise * scale : 0))}
-        <p>{typography(notes[input.mode])}</p>
+        <p className="id-profile-calc__mode-story">{typography(stories[input.mode])}</p>
+        <p className="id-profile-calc__mode-outcome">{typography(notes[input.mode])}</p>
       </div>
       <ul aria-label="Značky v řezu" className="id-profile-calc__legend">
         <li><span aria-hidden="true" className="id-profile-calc__legend-soil" />stávající zemina</li>
