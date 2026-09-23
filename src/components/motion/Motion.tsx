@@ -38,6 +38,14 @@ export const Motion = ({ inertia = false }: { inertia?: boolean }) => {
     // Přihlásí se bráně z layoutu, aby ta neodkryla obsah pod rukama.
     document.documentElement.dataset.motion = 'ready'
 
+    const kotva = window.location.hash
+    let kotvaCil: HTMLElement | null = null
+    try {
+      kotvaCil = kotva ? document.getElementById(decodeURIComponent(kotva.slice(1))) : null
+    } catch {
+      kotvaCil = null
+    }
+
     const mm = gsap.matchMedia()
 
     mm.add('(prefers-reduced-motion: no-preference)', () => {
@@ -58,9 +66,20 @@ export const Motion = ({ inertia = false }: { inertia?: boolean }) => {
         clearProps: 'transform',
       }
 
+      /*
+        Sekce, na kterou míří kotva z adresy, se neodhaluje: posun o 30 px
+        by prohlížeč při dojezdu ke kotvě započítal a po doběhu revealu by
+        nadpis ujel nad cíl. Čtenář, který přišel odkazem, ji má vidět hned.
+      */
+      const cilKotvy = (el: HTMLElement) => Boolean(kotvaCil && el.contains(kotvaCil))
+
       // Samostatné prvky — vše, co není potomkem skupiny.
       document.querySelectorAll<HTMLElement>('.rv').forEach((el) => {
         if (el.parentElement?.hasAttribute('data-rv-group')) return
+        if (cilKotvy(el)) {
+          gsap.set(el, { opacity: 1 })
+          return
+        }
         gsap.fromTo(el, HIDDEN, {
           ...SHOWN,
           scrollTrigger: { trigger: el, start: 'top 88%', once: true },
@@ -71,6 +90,10 @@ export const Motion = ({ inertia = false }: { inertia?: boolean }) => {
       document.querySelectorAll<HTMLElement>('[data-rv-group]').forEach((group) => {
         const children = group.querySelectorAll<HTMLElement>(':scope > .rv')
         if (!children.length) return
+        if (cilKotvy(group)) {
+          gsap.set(children, { opacity: 1 })
+          return
+        }
         gsap.fromTo(children, HIDDEN, {
           ...SHOWN,
           stagger: { each: 0.08, from: 'start' },
@@ -90,8 +113,41 @@ export const Motion = ({ inertia = false }: { inertia?: boolean }) => {
     document.fonts?.ready.then(refresh)
     window.addEventListener('load', refresh)
 
+    /*
+      Příchod přes odkaz s kotvou: prohlížeč ke kotvě jede plynule
+      (html { scroll-behavior: smooth }) a refresh ScrollTriggeru tu jízdu
+      uprostřed přeruší — stránka zůstala tisíce px před cílem (porota
+      kola 01 článku o přípravě směsi). Po každém refreshi během načítání
+      proto kotvu dorovnáme okamžitě, dokud čtenář sám nezasáhl.
+    */
+    let zasah = false
+    let konec = document.readyState === 'complete' ? performance.now() + 1500 : Infinity
+    const oznac = () => {
+      zasah = true
+    }
+    const poNacteni = () => {
+      konec = performance.now() + 1500
+    }
+    const ZASAHY = ['wheel', 'touchstart', 'keydown', 'pointerdown'] as const
+    ZASAHY.forEach((typ) => window.addEventListener(typ, oznac, { passive: true }))
+    window.addEventListener('load', poNacteni)
+    const dorovnej = () => {
+      const cil = kotvaCil
+      if (!cil || zasah || performance.now() > konec) return
+      // Poloha z layoutu, ne z getBoundingClientRect: odhalovaná sekce je
+      // v tu chvíli ještě posunutá o 30 px (reveal), po doběhu by ujela.
+      let y = 0
+      for (let el: HTMLElement | null = cil; el; el = el.offsetParent as HTMLElement | null) y += el.offsetTop
+      const odsazeni = parseFloat(getComputedStyle(cil).scrollMarginTop) || 0
+      window.scrollTo({ top: Math.max(0, y - odsazeni), behavior: 'instant' })
+    }
+    ScrollTrigger.addEventListener('refresh', dorovnej)
+
     return () => {
       window.removeEventListener('load', refresh)
+      window.removeEventListener('load', poNacteni)
+      ZASAHY.forEach((typ) => window.removeEventListener(typ, oznac))
+      ScrollTrigger.removeEventListener('refresh', dorovnej)
       mm.revert()
     }
   }, [])

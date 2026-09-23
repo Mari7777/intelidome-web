@@ -3451,3 +3451,95 @@ regrese, obě z dorovnání fokusu v kole 11.
 `layout-check` beze změny (známý falešný poplach jednorázových os).
 Komentáře prošly všechny tři předvolby × tři způsoby a krajní zadání
 (100 % písku + zeolit, drobné zapravení 0,02 cm, nulový dovoz).
+
+---
+
+# Článek „Jak připravit a uložit směs“ (/posts/jak-pripravit-a-ulozit-smes)
+
+Třetí článek série o půdě pod trávník, vzniklý rozdělením 21. 9. Porota ho
+v kole 01 viděla poprvé.
+
+## Hero: menší stroj (2026-09-23, před kolem 01)
+
+Autor: rotavátor na hero fotce vypadal, jako by kopal metr do hloubky, přitom
+bere nejvýš 30 cm. První pokus (rozšíření scény na 4:3, postava na 32 %
+výšky) autor odmítl: **zahradník má zůstat stejně velký, menší má být jen
+stroj.** Druhý pokus: úprava původní fotky (nano_banana_pro, reference =
+master), dvě varianty; vybrána A (motor u kolen, rotor ≈ 30 cm mělce v kypré
+půdě; varianta B měla rotor nad zemí, jako by stroj nepracoval). Master
+3840 × 1629, portrét 1080 × 1920 z plné výšky se středem na postavě se
+strojem. Fokál 85/50, portrétový fokál 72/50 (85 na šířkách 561+ na výšku
+vyřízl celého člověka). Zálohy a varianty:
+`zdroje-informaci/fotky/kandidati-priprava/`.
+
+## Kolo 01 — rám série a kotvy (2026-09-23)
+
+| Oblast | Skóre |
+|---|---|
+| Hierarchie | 2/5 |
+| Typografie | **4/5** |
+| Pohyb | 2/5 |
+| Grafický styl | 2/5 |
+| Slop | 2/5 |
+| Výkon a přístupnost | 2/5 |
+| Rozložení | 2/5 |
+
+**17 nálezů prošlo skeptikem, z toho 4 kritické.** Porota hodnotila hero
+ještě s rozšířenou fotkou (první pokus), nálezy k fotce jsou přeměřené na
+živé.
+
+### Opravy
+
+- **KRITICKÉ (Rozložení): próza nalepená na hero (0 px) a 6 574 px bílé na
+  393 px** (strop 8.1 p. 3 je 6 000). Obojí z dnešního přepisu kapitoly 01,
+  který odebral krémový split „ukládání odspodu“, a z chybějícího rámu
+  série. Nový **krémový souhrn** za hero (lead z úvodního odstavce, dlaždice
+  30 cm / 2–6 týdnů / 25–30 g/m² / 8–10 cm), **nová kresba
+  `michani-od-hloubky`** (tři průchody: základ do 30 cm → zeolit do 15 cm →
+  biochar a Actino do 10 cm; „Potom už nefrézovat do hloubky“) v krémovém
+  splitu místo h3 a próza, **CTA pás** místo osiřelého odstavce mezi FAQ
+  a Souvisejícími. Nejdelší bílá: 393 px 6 574 → 2 619, 1440 px 4 779 → 2 080.
+  Shrnující čtvrtý odstavec je za pásem (v těle splitu přerůstal kresbu
+  o 40 %).
+- **KRITICKÝ (Pohyb): přímý odkaz s kotvou končil 60 až 4 800 px od cíle.**
+  Dvě příčiny za sebou: (1) prohlížeč jel ke kotvě plynule (`html {
+  scroll-behavior: smooth }`) k cíli spočítanému před dokončením layoutu
+  a refresh ScrollTriggeru jízdu přerušil; (2) cílová sekce měla v tu chvíli
+  posun revealu 30 px, se kterým prohlížeč počítal. Plynulé posouvání se
+  zapíná až 1,5 s po `load` (třída `plynule` z layoutu), sekce s cílem
+  kotvy se při načtení neodhaluje a po každém refreshi během načítání se
+  kotva dorovná z polohy v layoutu (`offsetTop`, ne `getBoundingClientRect`),
+  dokud čtenář nezasáhne. Naměřeno 8 z 8: nadpis přesně na 124 px. Platí pro
+  všechny stránky.
+- **KRITICKÝ (Výkon): eyebrow na telefonu 2,6:1** (393 × 660; 1280 × 720:
+  3,1). Na nízkých oknech stál v 58–60 % odspodu, kde scrim 9.1 mizí. Scrim
+  ukotvený k textovému bloku jako u kalkulátoru. Naměřeno maskou glyfů
+  (nejsvětlejší bod): eyebrow 8,8 až 11,4:1 na 360 × 640 až 1440 × 900.
+- **Telefon stahoval hero dvakrát** (portrét + nepoužitý master w=3840,
+  264 kB): preloady byly dětmi `<picture>`; stojí teď před ním. iPhone 14
+  Pro i Pixel 7 stahují jen portrét (80 kB).
+- **Obr. 02 (dřív 01): text „deset centimetrů pod kořínkem“, kresba 12 cm.**
+  Kapka posunutá na 13 cm (3 + 10), štítek i alt sjednocené.
+- Opakování „ne patra, ne kbelíky“: z úvodu (teď lead souhrnu) a z odstavce
+  o dodávkách vypuštěno, v těle zůstává pod míchacím splitem a ve FAQ.
+  Dlouhá pomlčka v těle splitu nahrazena půlčtverčíkem.
+
+### Neopraveno, čeká na autora
+
+- **Kapsle hlavičky na telefonu zakrývá temeno zahradníka** (důležitý).
+  Portrét má postavu přes celou výšku; řešení je přidat nebe nad hlavu, ale
+  postava by na telefonu byla asi o 15 % menší — v rozporu s „stejně veliký“.
+- **Studené zatažené světlo hera proti teplému nízkému slunci sester**
+  (důležitý, ~7 000 K proti ~4 200 K). Přegradování změní náladu fotky,
+  kterou autor právě schválil.
+- Kosmetické: dvě kapitoly místo tří (první péče bez vlastní kapitoly),
+  titulek kapitoly 01 parafrázuje H1, pětkrát ohlášený obsah, pozůstatky
+  po rozdělení („mezi zahradami“, „u zdejšího modelu“), FAQ opisuje tělo,
+  zeolit „20 cm“ bez opory v modelu, split pod 1130 px má titulek 66 px od
+  kresby, odkazy v těle 500, tracking popisků 0,08 em na telefonu.
+
+### Ověření
+
+`tsc` čistý, 26 testů, `svg-labels` 0 kolizí a 0 ořezů na 320/393/1440
+(obě kresby, min 10,5 px), `layout-check` 393/1024/1440/1920 beze změny
+(známý falešný poplach jednorázových os), střídání splitů R L.

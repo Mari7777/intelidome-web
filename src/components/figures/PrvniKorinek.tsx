@@ -21,20 +21,20 @@ export const PrvniKorinek: React.FC = () => (
     <g stroke="#232830" strokeWidth="1.6" strokeLinecap="round">
       <line x1="56" y1="110" x2="68" y2="110" />
       <line x1="56" y1="134" x2="68" y2="134" />
-      <line x1="56" y1="230" x2="68" y2="230" />
+      <line x1="56" y1="214" x2="68" y2="214" />
       <line x1="56" y1="350" x2="68" y2="350" />
     </g>
     <text className="sv-val" x="50" y="115" textAnchor="end">0 cm</text>
     <text className="sv-val" x="50" y="139" textAnchor="end">3</text>
-    <text className="sv-val" x="50" y="235" textAnchor="end">15</text>
+    <text className="sv-val" x="50" y="219" textAnchor="end">13</text>
     <text className="sv-val" x="50" y="355" textAnchor="end">30</text>
 
     {/* ── řez ─────────────────────────────────────────────────── */}
     <g clipPath="url(#pk-rez)">
       <rect x="80" y="110" width="210" height="240" fill="#6b5138" opacity="0.9" />
-      {/* kapka v hloubce 15 cm — mimo dosah kořínku */}
-      <path d="M185 218 C 189 224, 192 228, 192 232 A 7 7 0 0 1 178 232 C 178 228, 181 224, 185 218 Z" fill="#2563eb" opacity="0.9" />
-      <circle cx="185" cy="226" r="22" fill="none" stroke="#d5d3cc" strokeWidth="1.6" strokeDasharray="3 7" />
+      {/* kapka ve 13 cm, deset centimetrů pod kořínkem — mimo jeho dosah */}
+      <path d="M185 202 C 189 208, 192 212, 192 216 A 7 7 0 0 1 178 216 C 178 212, 181 208, 185 202 Z" fill="#2563eb" opacity="0.9" />
+      <circle cx="185" cy="210" r="22" fill="none" stroke="#d5d3cc" strokeWidth="1.6" strokeDasharray="3 7" />
     </g>
 
     {/* mladé rostlinky na povrchu */}
@@ -59,7 +59,7 @@ export const PrvniKorinek: React.FC = () => (
     {/* ── popisky vpravo ──────────────────────────────────────── */}
     <g stroke="#d5d3cc" strokeWidth="1.6" strokeDasharray="3 7" strokeLinecap="round">
       <line x1="290" y1="128" x2="308" y2="128" />
-      <line x1="290" y1="226" x2="308" y2="226" />
+      <line x1="290" y1="210" x2="308" y2="210" />
       <line x1="290" y1="320" x2="308" y2="320" />
     </g>
     {/* Pointa kresby (9.2 p. 3) je jedna: kořínek má zatím jen ~3 cm. */}
@@ -67,10 +67,10 @@ export const PrvniKorinek: React.FC = () => (
     <text className="sv-lbl" x="316" y="142">dosah čerstvého</text>
     <text className="sv-lbl" x="316" y="162">kořínku</text>
 
-    <text className="sv-val" x="316" y="222">voda v 15 cm</text>
-    <text className="sv-lbl" x="316" y="244">teď mimo dosah,</text>
-    <text className="sv-lbl" x="316" y="264">zalévá se mělce</text>
-    <text className="sv-lbl" x="316" y="284">a často</text>
+    <text className="sv-val" x="316" y="206">voda ve 13 cm</text>
+    <text className="sv-lbl" x="316" y="228">teď mimo dosah,</text>
+    <text className="sv-lbl" x="316" y="248">zalévá se mělce</text>
+    <text className="sv-lbl" x="316" y="268">a často</text>
 
     <text className="sv-val" x="316" y="316">profil 30 cm</text>
     <text className="sv-lbl" x="316" y="338">začne pracovat,</text>

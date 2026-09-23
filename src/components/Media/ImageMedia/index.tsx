@@ -122,7 +122,9 @@ export const ImageMedia: React.FC<MediaProps> = (props) => {
      3840), jinak optimalizátor vrátí 400 „width is not allowed". */
   const portretSrcSet = portretSrc
     ? [640, 750, 828, 1080, 1200]
-        .map((w) => `/_next/image?url=${encodeURIComponent(portretSrc as string)}&w=${w}&q=72 ${w}w`)
+        .map(
+          (w) => `/_next/image?url=${encodeURIComponent(portretSrc as string)}&w=${w}&q=72 ${w}w`,
+        )
         .join(', ')
     : undefined
   // Use the same Next configuration and sizing inputs as the actual image;
@@ -149,8 +151,11 @@ export const ImageMedia: React.FC<MediaProps> = (props) => {
   */
   const vlastniPreload = Boolean(portretSrcSet && priority)
 
+  /* Preloady stojí PŘED <picture>, ne v něm: jako děti <picture> spouštěly
+     na telefonu i stažení nepoužitého masteru w=3840 (porota kola 01
+     článku o přípravě směsi, 264 kB navíc). */
   return (
-    <picture className={cn(pictureClassName)}>
+    <>
       {vlastniPreload ? (
         <>
           <link
@@ -171,25 +176,31 @@ export const ImageMedia: React.FC<MediaProps> = (props) => {
           />
         </>
       ) : null}
-      {portretSrcSet ? (
-        <source media="(orientation: portrait) and (max-width: 560px)" sizes="100vw" srcSet={portretSrcSet} />
-      ) : null}
-      <NextImage
-        alt={alt || ''}
-        className={cn(imgClassName)}
-        fill={fill}
-        height={!fill ? height : undefined}
-        placeholder="blur"
-        blurDataURL={placeholderBlur}
-        priority={vlastniPreload ? undefined : priority}
-        fetchPriority={priority ? 'high' : undefined}
-        quality={72}
-        loading={loading}
-        sizes={sizes}
-        src={src}
-        style={Object.keys(focal).length ? (focal as React.CSSProperties) : undefined}
-        width={!fill ? width : undefined}
-      />
-    </picture>
+      <picture className={cn(pictureClassName)}>
+        {portretSrcSet ? (
+          <source
+            media="(orientation: portrait) and (max-width: 560px)"
+            sizes="100vw"
+            srcSet={portretSrcSet}
+          />
+        ) : null}
+        <NextImage
+          alt={alt || ''}
+          className={cn(imgClassName)}
+          fill={fill}
+          height={!fill ? height : undefined}
+          placeholder="blur"
+          blurDataURL={placeholderBlur}
+          priority={vlastniPreload ? undefined : priority}
+          fetchPriority={priority ? 'high' : undefined}
+          quality={72}
+          loading={loading}
+          sizes={sizes}
+          src={src}
+          style={Object.keys(focal).length ? (focal as React.CSSProperties) : undefined}
+          width={!fill ? width : undefined}
+        />
+      </picture>
+    </>
   )
 }

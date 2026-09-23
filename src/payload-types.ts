@@ -1734,7 +1734,8 @@ export interface SplitBlock {
     | 'mykorhizni-vlakna'
     | 'zaklad-tri-zahrad'
     | 'slehnuti-vstupu'
-    | 'prany-pisek';
+    | 'prany-pisek'
+    | 'michani-od-hloubky';
   eyebrow?: string | null;
   title?: string | null;
   /**

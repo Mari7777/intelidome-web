@@ -43,6 +43,8 @@ export default async function RootLayout({ children }: { children: React.ReactNo
               // zůstal by obsah navždy neviditelný. Po 3 s se proto brána sama
               // otevře, pokud se pohyb nepřihlásil.
               "document.documentElement.classList.add('js');" +
+              "addEventListener('load',function(){setTimeout(function(){" +
+              "document.documentElement.classList.add('plynule')},1500)});" +
               "setTimeout(function(){var d=document.documentElement;" +
               "if(d.dataset.motion!=='ready')d.classList.remove('js')},3000)",
           }}

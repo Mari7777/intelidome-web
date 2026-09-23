@@ -926,16 +926,21 @@
 }
 
 /* Anchor this long title's scrim to the text frame. Short viewports and
-   wrapping content retain contrast without increasing the hero height. */
-.id-hero[data-post-slug='kalkulator-na-planovani-pudniho-profilu'] .id-hero__scrim {
+   wrapping content retain contrast without increasing the hero height.
+   Článek o přípravě směsi: na nízkých oknech (telefon 393×660, 1280×720)
+   stál eyebrow v 58–60 % odspodu, kde scrim 9.1 už mizí (2,6:1). */
+.id-hero[data-post-slug='kalkulator-na-planovani-pudniho-profilu'] .id-hero__scrim,
+.id-hero[data-post-slug='jak-pripravit-a-ulozit-smes'] .id-hero__scrim {
   background: none;
 }
 
-.id-hero[data-post-slug='kalkulator-na-planovani-pudniho-profilu'] > .container {
+.id-hero[data-post-slug='kalkulator-na-planovani-pudniho-profilu'] > .container,
+.id-hero[data-post-slug='jak-pripravit-a-ulozit-smes'] > .container {
   isolation: isolate;
 }
 
-.id-hero[data-post-slug='kalkulator-na-planovani-pudniho-profilu'] > .container::before {
+.id-hero[data-post-slug='kalkulator-na-planovani-pudniho-profilu'] > .container::before,
+.id-hero[data-post-slug='jak-pripravit-a-ulozit-smes'] > .container::before {
   content: '';
   position: absolute;
   inset-block: 0;
@@ -1282,8 +1287,11 @@
 }
 
 /* Programový scroll ze scroll-cue má být plynulý (6.5) — deklarativně,
-   bez JS; při reduced-motion se vypne spolu se vším ostatním. */
-html {
+   bez JS; při reduced-motion se vypne spolu se vším ostatním.
+   Zapíná se až po načtení (třída `plynule` z layoutu): příchod odkazem
+   s kotvou jinak jel plynule k cíli spočítanému před dokončením layoutu,
+   refresh ScrollTriggeru jízdu přerušil a stránka skončila mimo kotvu. */
+html.plynule {
   scroll-behavior: smooth;
 }
 @media (prefers-reduced-motion: reduce) {

@@ -55,6 +55,7 @@ export const Split: Block = {
         { label: 'Minerální základ tří zahrad', value: 'zaklad-tri-zahrad' },
         { label: 'Slehnutí: méně než součet vstupů', value: 'slehnuti-vstupu' },
         { label: 'Praný vs. nepraný písek (mezery)', value: 'prany-pisek' },
+        { label: 'Míchání od hloubky k povrchu (základ 30 → zeolit 15 → biochar a Actino 10 cm)', value: 'michani-od-hloubky' },
       ],
     },
     { name: 'eyebrow', type: 'text', label: 'Nadřádek' },

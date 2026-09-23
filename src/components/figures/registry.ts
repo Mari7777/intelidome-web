@@ -27,6 +27,7 @@ import { MykorhizniVlakna } from './MykorhizniVlakna'
 import { ZakladTriZahrad } from './ZakladTriZahrad'
 import { SlehnutiVstupu } from './SlehnutiVstupu'
 import { PranyPisek } from './PranyPisek'
+import { MichaniOdHloubky } from './MichaniOdHloubky'
 
 export type Drawing = {
   /** Širokoúhlá sazba (viewBox 1080) — desktop a tablet. */
@@ -82,6 +83,7 @@ export const DRAWINGS = {
   'zaklad-tri-zahrad': { wide: ZakladTriZahrad, portrait: ZakladTriZahrad },
   'slehnuti-vstupu': { wide: SlehnutiVstupu, portrait: SlehnutiVstupu },
   'prany-pisek': { wide: PranyPisek, portrait: PranyPisek },
+  'michani-od-hloubky': { wide: MichaniOdHloubky, portrait: MichaniOdHloubky },
 } satisfies Record<string, Drawing>
 
 export type DrawingKey = keyof typeof DRAWINGS
