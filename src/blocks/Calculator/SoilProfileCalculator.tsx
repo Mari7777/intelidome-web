@@ -346,13 +346,17 @@ function ProfileDrawing({ calculation, input, onModeChange, uid }: {
   if (calculation.status !== 'ready') {
     /* Když zadání sedí a neplatí jen zvolený způsob, ovládání nesmí zmizet
        spolu s kresbou a výzva nesmí žádat doplnění hotového zadání. */
-    const duvod = calculation.issues.find((issue) => issue.severity === 'error')?.message
+    const chyba = calculation.issues.find((issue) => issue.severity === 'error')
     return (
       <section className="id-profile-calc__drawing id-profile-calc__drawing--empty">
         <h3>Jak se profil změní</h3>
-        <p>{typography(duvod
-          ? duvod + ' Řez se vrátí, jakmile bude zvolený způsob pro toto zadání platit.'
-          : 'Doplňte platné zadání. Řez pak ukáže, co se u zvoleného způsobu odveze, co se doveze a jak se změní výška terénu.')}</p>
+        {/* Na způsobu závisí jen chyba poměru; u chyby pole přepínač nepomůže
+            a věta o způsobu posílala čtenáře k němu (porota 12). */}
+        <p>{typography(!chyba
+          ? 'Doplňte platné zadání. Řez pak ukáže, co se u zvoleného způsobu odveze, co se doveze a jak se změní výška terénu.'
+          : chyba.code === 'mix-ratio'
+            ? chyba.message + ' Řez se vrátí, jakmile bude zvolený způsob pro toto zadání platit.'
+            : chyba.message + ' Řez se vrátí, až údaj opravíte.')}</p>
         <Choices
           legend="Způsob přípravy"
           name={uid + '-drawing-mode'}
@@ -386,6 +390,10 @@ function ProfileDrawing({ calculation, input, onModeChange, uid }: {
   const pocetSlozek = (ponechanaZemina ? 1 : 0) + dovazene.length
   const blended = importedM3 > 0 && pocetSlozek >= 2
   const jediny: Material | null = !blended && dovazene.length === 1 && !ponechanaZemina ? dovazene[0] : null
+  /* Směs bez jakékoli zeminy (100 % písku + příměsi) stála na hnědém podkladu
+     ornice, i když v ní žádná zemina není (porota 12, 9.2 p. 10): podklad je
+     pak písek a zrna příměsí tmavá. */
+  const smesBezZeminy = blended && !ponechanaZemina && !dovazene.includes('soil')
   /* Závorka legendy vypisuje jen to, co se opravdu dováží — „zemina + písek +
      příměsi“ lhalo, kdykoli byl některý podíl nulový (porota 08, slop). */
   const slozkySmesi = [
@@ -395,23 +403,60 @@ function ProfileDrawing({ calculation, input, onModeChange, uid }: {
     ...dovazene.map((material) => MATERIAL_WORD[material].nom),
   ].join(' + ')
   const removes = input.mode === 'keep' && removedHeight > 0
-  const lifts = input.mode === 'mix' && rise > 0
+  /* Navýšení se posuzuje zaokrouhlené, jak ho kresba vypíše: při 0,02 cm
+     kóta hlásila „+0 cm“ a komentář „vystoupí o výšku kóty“ (porota 12). */
+  const vyskaNavyseni = format(rise, 1)
+  const lifts = input.mode === 'mix' && vyskaNavyseni !== '0'
 
   /* Materiály jmenujeme podle skutečného dovozu, ne podle šablony. */
-  const dovoz = dovazene.length
-    ? dovazene.map((material) => MATERIAL_WORD[material].acc).join(', ').replace(/, ([^,]*)$/, ' a $1')
-    : 'nic'
+  const vycet = (slova: string[]) => slova.join(', ').replace(/, ([^,]*)$/, ' a $1')
+  const dovoz = dovazene.length ? vycet(dovazene.map((material) => MATERIAL_WORD[material].acc)) : 'nic'
+  /* Kam co patří. Písek a zemina tvoří minerální základ v celé hloubce,
+     příměsi jen svou zónu od povrchu. Komentář dřív tvrdil, že se příměsi
+     zapraví „do celé stávající zeminy“, a čtenář by je rozmíchal do celých
+     30 cm, tedy 2–3× zředěné proti výpočtu (porota 12, slop). */
+  const velke = (text: string) => text.charAt(0).toUpperCase() + text.slice(1)
+  const zaklad = dovazene.filter((material) => material === 'sand' || material === 'soil')
+  const zony = [...dovazene.filter((material): material is Amendment => material !== 'sand' && material !== 'soil')
+    .reduce((skupiny, material) => {
+      const hloubka = calculation.incorporationDepths[material]
+      const celou = hloubka >= calculation.finalDepth - 0.005
+      const klic = celou ? 'celou' : format(hloubka)
+      const skupina = skupiny.get(klic) ?? { hloubka, celou, slova: [] as string[] }
+      skupina.slova.push(MATERIAL_WORD[material].nom)
+      return skupiny.set(klic, skupina)
+    }, new Map<string, { hloubka: number; celou: boolean; slova: string[] }>()).values()]
+    .sort((a, b) => a.hloubka - b.hloubka)
+  const zakladVeta = zaklad.length === 0
+    ? ''
+    : input.mode === 'mix'
+      ? 'Písek zapravíte do celé stávající zeminy'
+      : input.mode === 'keep' && calculation.keepM3 > 0
+        ? (zaklad.includes('sand') ? 'Písek promícháte se zbylou zeminou v celé hloubce' : '')
+        : velke(vycet(zaklad.map((material) => MATERIAL_WORD[material].acc))) + ' navezete v celé hloubce'
+  /* „Actino a biochar zapravíte 10 cm hluboko, zeolit 15 cm“ — sloveso jen
+     u první zóny, a jen když ho už nenese věta o písku. */
+  const zonyText = zony.map((zona, index) => vycet(zona.slova)
+    + (index === 0 && !zakladVeta ? ' zapravíte ' : ' ')
+    + (zona.celou ? 'po celé hloubce' : format(zona.hloubka) + ' cm' + (index === 0 ? ' hluboko' : ''))).join(', ')
+  const zonyVeta = !zonyText ? '' : zakladVeta ? 'příměsi jen do své zóny: ' + zonyText : velke(zonyText)
+  const rozvrh = [zakladVeta, zonyVeta].filter(Boolean).join(', ') + (zakladVeta || zonyVeta ? '.' : '')
   const stories: Record<Mode, string> = {
     keep: !removes
       ? 'Při tomto zadání se nic neodváží ani nedováží: příměsi ani písek si nevezmou žádný objem navíc, takže zemina zůstane, jak je.'
-      : calculation.keepM3 > 0
-        ? 'Horní část stávající zeminy odvezete (šrafovaná část). Do uvolněného místa přijde ' + dovoz + ' a promíchá se se zbylou zeminou, povrch proto zůstane tam, kde byl.'
-        : 'Odvezete celou stávající zeminu z této hloubky (šrafovaná část) a nahradíte ji tím, co dovezete — ' + dovoz + '. Povrch proto zůstane tam, kde byl.',
+      : (calculation.keepM3 > 0
+        ? 'Horní část stávající zeminy odvezete (šrafovaná část) a uvolněné místo zaplní to, co dovezete, takže povrch zůstane tam, kde byl. '
+        : 'Odvezete celou stávající zeminu z této hloubky (šrafovaná část) a nahradíte ji tím, co dovezete, takže povrch zůstane tam, kde byl. ')
+        + rozvrh,
     mix: lifts
-      ? 'Nic neodvážíte. Do celé stávající zeminy zapravíte ' + dovoz + ', objem tím naroste a povrch vystoupí nad okolní terén o výšku kóty.'
-      : 'Nic neodvážíte a při tomto zadání se ani nic nedováží, takže objem zůstává a povrch se nezvedne.',
-    new: 'Nejdřív připravíte prostor, tedy vykopete nebo srovnáte podloží do hloubky profilu. Pak do něj navezete '
-      + (jediny ? MATERIAL_WORD[jediny].acc : 'hotovou směs — ' + dovoz + ' —') + ' až po úroveň terénu.',
+      ? 'Nic neodvážíte. ' + rozvrh + ' Objem tím naroste a povrch vystoupí nad okolní terén o výšku kóty.'
+      : dovazene.length
+        ? 'Nic neodvážíte. ' + rozvrh + ' Objem naroste jen nepatrně, takže se povrch prakticky nezvedne.'
+        : 'Nic neodvážíte a při tomto zadání se ani nic nedováží, takže objem zůstává a povrch se nezvedne.',
+    new: 'Nejdřív připravíte prostor, tedy vykopete nebo srovnáte podloží do hloubky profilu. '
+      + (jediny || zony.length === 0
+        ? 'Pak do něj navezete ' + (jediny ? MATERIAL_WORD[jediny].acc : dovoz) + ' až po úroveň terénu.'
+        : 'Pak ho zaplníte až po úroveň terénu. ' + rozvrh),
   }
   const notes: Record<Mode, string> = {
     /* Nulové zadání: „Odvezete 0 l" a „zvedne se o 0 cm" si protiřečily
@@ -420,7 +465,7 @@ function ProfileDrawing({ calculation, input, onModeChange, uid }: {
       ? 'Odvezete ' + volume(calculation.removeM3) + ' zeminy; výška terénu zůstává.'
       : 'Neodvážíte nic; výška terénu zůstává.',
     mix: lifts
-      ? 'Nic neodvážíte; terén se zvedne o ' + format(rise, 1) + ' cm.'
+      ? 'Nic neodvážíte; terén se zvedne o ' + vyskaNavyseni + ' cm.'
       : 'Nic neodvážíte; výška terénu se nemění.',
     /* „Dovezete" je dovoz, ne objem prostoru: při rezervě 30 % se do profilu
        o 30 m³ veze 42,86 m³. Číslo proto bere ze skutečného dovozu, tedy
@@ -436,7 +481,9 @@ function ProfileDrawing({ calculation, input, onModeChange, uid }: {
       + (removes ? (calculation.keepM3 > 0 ? ', horní část k odvozu' : ', celá k odvozu') : '')
       + '; po — ' + poBlok + ' do původní výšky terénu.',
     mix: 'Zapravit: před — stávající zemina; po — ' + poBlok
-      + (lifts ? ' vyšší o ' + format(rise, 1) + ' centimetrů nad úrovní terénu.' : ' v původní výšce terénu.'),
+      /* „o 2,2 centimetrů“ je špatně (desetinné číslo chce „centimetru“);
+         značku odečítač přečte ve správném tvaru sám. */
+      + (lifts ? ' vyšší o ' + vyskaNavyseni + ' cm nad úrovní terénu.' : ' v původní výšce terénu.'),
     new: 'Nová vrstva: před — připravený prázdný prostor; po — ' + poBlok + ' do úrovně terénu.',
   }
 
@@ -471,7 +518,11 @@ function ProfileDrawing({ calculation, input, onModeChange, uid }: {
      bloky mají ve všech způsobech stejnou vykreslenou velikost — porovnatelnost
      drží měřítko, ne rám. Výřez si proto každý způsob ořízne shora sám: prázdné
      místo nad terénem potřebuje jen Zapravit, kde se terén zvedá. */
-  const viewTop = Math.max(0, Math.floor(terrain - (lifts ? rise * scale : 0) - 30))
+  /* Malé navýšení: popisek kóty by vlevo od ní visel nad blokem „před“ a četl
+     se jako jeho popisek (porota 12), proto jde nad drn bloku „po“, jehož
+     výšku měří. Nad terénem pak potřebuje víc místa. */
+  const malaKota = lifts && rise * scale < 2 * (PANEL.drn + 12)
+  const viewTop = Math.max(0, Math.floor(terrain - (lifts ? rise * scale : 0) - (malaKota ? 42 : 30)))
 
   const mixId = uid + '-blend'
   const outId = uid + '-out'
@@ -521,7 +572,15 @@ function ProfileDrawing({ calculation, input, onModeChange, uid }: {
       : <rect fill="none" height={h} stroke="#232830" strokeWidth="1.6" vectorEffect="non-scaling-stroke" width={w} x={x} y={y} />
     return (
       <g>
-        <rect fill={kind === 'sand' ? '#c2a052' : '#6b5138'} height={h} opacity="0.9" width={w} x={x} y={y} />
+        {/* Písek plošně s krytím okrové hmoty Obr. 02 téhož článku (0,55). */}
+        <rect
+          fill={kind === 'sand' || (kind === 'blend' && smesBezZeminy) ? '#c2a052' : '#6b5138'}
+          height={h}
+          opacity={kind === 'sand' || (kind === 'blend' && smesBezZeminy) ? 0.55 : 0.9}
+          width={w}
+          x={x}
+          y={y}
+        />
         {kind === 'blend' && <rect fill={'url(#' + mixId + ')'} height={h} width={w} x={x} y={y} />}
         {kind === 'out' && <rect fill={'url(#' + outId + ')'} height={h} opacity="0.7" width={w} x={x} y={y} />}
         {sDrnem && drnPas(x, y, w)}
@@ -560,8 +619,8 @@ function ProfileDrawing({ calculation, input, onModeChange, uid }: {
         >
           <defs>
             <pattern height="12" id={mixId} patternUnits="userSpaceOnUse" width="12">
-              <circle cx="3" cy="3" fill="#c2a052" r="1.5" />
-              <circle cx="9" cy="8" fill="#c2a052" r="1.5" />
+              <circle cx="3" cy="3" fill={smesBezZeminy ? '#232830' : '#c2a052'} r="1.5" />
+              <circle cx="9" cy="8" fill={smesBezZeminy ? '#232830' : '#c2a052'} r="1.5" />
             </pattern>
             <pattern height="9" id={outId} patternUnits="userSpaceOnUse" width="9">
               <path d="M0 9 9 0" fill="none" stroke="var(--id-cream, #f6f5f2)" strokeWidth="1.6" vectorEffect="non-scaling-stroke" />
@@ -599,10 +658,13 @@ function ProfileDrawing({ calculation, input, onModeChange, uid }: {
           {znacka(poZnacka, PANEL.after, lifts ? terrain - rise * scale : terrain, PANEL.width, bottom - (lifts ? terrain - rise * scale : terrain), true)}
           {lifts && <>
             <path d={'M166 ' + (terrain - rise * scale) + ' H174 M170 ' + (terrain - rise * scale) + ' V' + terrain + ' M166 ' + terrain + ' H174'} fill="none" stroke="#232830" strokeLinecap="round" strokeWidth="1.6" vectorEffect="non-scaling-stroke" />
-            {/* Při malém navýšení by střed kóty padl do drnu bloku „před“ (x 14–144),
-                proto nejníž nad jeho drn. */}
-            <text className="id-profile-calc__svg-rise" textAnchor="end" x="160" y={Math.min((terrain - rise * scale + terrain) / 2 + 6, terrain - PANEL.drn - 6)}>
-              {typography('+' + format(rise, 1) + ' cm')}
+            <text
+              className="id-profile-calc__svg-rise"
+              textAnchor={malaKota ? 'start' : 'end'}
+              x={malaKota ? PANEL.after + 4 : 160}
+              y={malaKota ? terrain - rise * scale - PANEL.drn - 6 : (terrain - rise * scale + terrain) / 2 + 6}
+            >
+              {typography('+' + vyskaNavyseni + ' cm')}
             </text>
           </>}
 
@@ -690,9 +752,9 @@ export function SoilProfileCalculator({ className, surface }: { className?: stri
         ? volume(calculation.delivery[material].m3) + ', přibližně ' + mass(calculation.delivery[material].kg)
         : purchaseAmount(material as Amendment) + ' ' + PRICE_UNITS[material]))
       .join('. '))
-      + '. Modelová výška profilu ' + format(calculation.finalDepth) + ' centimetrů. '
-      + (mode === 'keep' ? 'Zemina k odvozu ' + volume(calculation.removeM3) + '. ' : '')
-      + (calculation.hasPrices ? 'Zadané ceny materiálů celkem ' + money(calculation.totalCost, currency) + '.' : 'Ceny zatím nejsou zadané.')
+      + '. Modelová výška profilu ' + format(calculation.finalDepth, 1) + ' cm. '
+      + (mode === 'keep' && calculation.removeM3 > 0 ? 'Zemina k odvozu ' + volume(calculation.removeM3) + '. ' : '')
+      + (nicSeNeveze ? '' : calculation.hasPrices ? 'Zadané ceny materiálů celkem ' + money(calculation.totalCost, currency) + '.' : 'Ceny zatím nejsou zadané.')
       + (calculation.issues.length ? ' ' + calculation.issues.map((issue) => issue.message).join(' ') : '')
     : calculation.issues.map((issue) => issue.message).join(' ') || 'Zadejte plochu a hloubku.'
 
@@ -708,14 +770,28 @@ export function SoilProfileCalculator({ className, surface }: { className?: stri
     if (!panel) return
     /* Fokus z myši nebo dotyku se nesrovnává: ovladač by ujel zpod kurzoru.
        `:focus-visible` nestačí, textová pole ho mají i po kliknutí, proto
-       příznak z `pointerdown`, který spotřebuje nejbližší `focusin`. */
+       příznak z `pointerdown`, který spotřebuje nejbližší `focusin`. Klik, který
+       fokus nepřenese (druhý klik do pole, dvojklik, klik do textu), by příznak
+       nechal nabitý a spolkl by příští fokus z klávesnice (porota 12) — proto ho
+       shodí i dokončený klik a jakákoli klávesa. */
     let zUkazatele = false
+    let shodit = 0
     const onPointer = () => { zUkazatele = true }
+    const onClick = () => {
+      window.clearTimeout(shodit)
+      shodit = window.setTimeout(() => { zUkazatele = false })
+    }
+    const onKey = () => { zUkazatele = false }
     const onFocus = (event: FocusEvent) => {
       const target = event.target as HTMLElement | null
       if (zUkazatele) { zUkazatele = false; return }
       if (!target?.matches('input, button, select, textarea, [tabindex]')) return
-      const rect = target.getBoundingClientRect()
+      /* Rádio je skryté 1 × 1 px v rohu pilulky; měří se viditelná pilulka,
+         jinak pilulka zasahující do kapsle jen pravou částí zůstala pod ní. */
+      const viditelny = target.matches('input[type="radio"]') && target.nextElementSibling instanceof HTMLElement
+        ? target.nextElementSibling
+        : target
+      const rect = viditelny.getBoundingClientRect()
       /* Zakrytá zóna podle skutečné kapsle, jen tam, kde se s ní prvek kryje
          i vodorovně; bez kapsle záloha podle tokenu. */
       const kapsle = document.querySelector('.id-capsule')?.getBoundingClientRect()
@@ -730,10 +806,15 @@ export function SoilProfileCalculator({ className, surface }: { className?: stri
       })
     }
     panel.addEventListener('pointerdown', onPointer)
+    panel.addEventListener('click', onClick)
     panel.addEventListener('focusin', onFocus)
+    document.addEventListener('keydown', onKey, true)
     return () => {
+      window.clearTimeout(shodit)
       panel.removeEventListener('pointerdown', onPointer)
+      panel.removeEventListener('click', onClick)
       panel.removeEventListener('focusin', onFocus)
+      document.removeEventListener('keydown', onKey, true)
     }
   }, [])
 
@@ -948,7 +1029,7 @@ export function SoilProfileCalculator({ className, surface }: { className?: stri
               </div>
               <p className="id-profile-calc__hint">
                 Kilogramy jsou orientační podle nastavených hustot.
-                {input.loss > 0 && typography(' Množství k objednání zahrnuje rezervu ' + format(input.loss) + ' %.')}
+                {input.loss > 0 && !nicSeNeveze && typography(' Množství k objednání zahrnuje rezervu ' + format(input.loss) + ' %.')}
               </p>
             </fieldset>
           </AlignedInputColumns>
@@ -959,7 +1040,7 @@ export function SoilProfileCalculator({ className, surface }: { className?: stri
             /* Hint neopakuje veličinu, kterou zadání ukazuje o kus výš v objednací
                jednotce („Písek k objednání 28,52 t"); táž veličina ve dvou jednotkách
                na jedné obrazovce mate. Říká, co je uvnitř, jako zbylá dvě tlačítka. */
-            { key: 'results', title: 'Výsledek', hint: ready ? typography('rozpis k objednání') : 'zatím nespočítáno' },
+            { key: 'results', title: 'Výsledek', hint: ready ? 'rozpis k objednání' : 'zatím nespočítáno' },
             { key: 'prices', title: 'Ceny materiálů', hint: hasEnteredPrices ? SYMBOLS[currency] : 'zatím nezadané' },
             { key: 'details', title: 'Podrobnosti o směsi', hint: 'rezerva a hustoty' },
             { key: 'help', title: 'Jak výpočet číst' },
@@ -973,8 +1054,8 @@ export function SoilProfileCalculator({ className, surface }: { className?: stri
               onClick={() => toggleSection(item.key)}
               type="button"
             >
-              <span className="id-profile-calc__menutitle">{item.title}</span>
-              {item.hint && <span className="id-profile-calc__menuhint">{item.hint}</span>}
+              <span className="id-profile-calc__menutitle">{typography(item.title)}</span>
+              {item.hint && <span className="id-profile-calc__menuhint">{typography(item.hint)}</span>}
             </button>
           ))}
         </div>
@@ -986,9 +1067,11 @@ export function SoilProfileCalculator({ className, surface }: { className?: stri
               <strong>{ready ? nicSeNeveze ? 'nic' : typography(volume(calculation.delivery[hlavniMaterial].m3)) : '—'}</strong>
               <p>{ready ? nicSeNeveze ? 'Při tomto zadání se nic nedováží.' : typography('≈ ' + mass(calculation.delivery[hlavniMaterial].kg)) : calculation.status === 'invalid' ? 'Opravte označené údaje.' : 'Doplňte plochu a hloubku.'}</p>
           </div>
-          <MaterialTable calculation={calculation} currency={currency} ready={ready} showPrices={hasEnteredPrices || pricesOpen} />
+          {/* Nulový dovoz: tabulka pěti nul, „odvoz 0 l“ a výzva k cenám říkaly
+              totéž co jedno „nic“ v heru, na telefonu na 800 px (porota 12). */}
+          {!nicSeNeveze && <MaterialTable calculation={calculation} currency={currency} ready={ready} showPrices={hasEnteredPrices || pricesOpen} />}
           <dl className="id-profile-calc__totals">
-            {mode === 'keep' && <>
+            {mode === 'keep' && !nicSeNeveze && <>
               <div>
                 <dt>Zemina k odvozu</dt>
                 <dd>{ready ? typography(volume(calculation.removeM3)) : '—'}
@@ -999,28 +1082,29 @@ export function SoilProfileCalculator({ className, surface }: { className?: stri
             </>}
             {mode === 'mix' && <>
               <div><dt>Zemina ponechaná na místě</dt><dd>{ready ? typography(volume(calculation.keepM3)) : '—'}</dd></div>
-              <div><dt>Zvýšení terénu</dt><dd>{ready ? typography('+ ' + format(calculation.rise) + ' cm') : '—'}</dd></div>
+              {/* Táž přesnost a týž zápis jako kóta v kresbě (porota 12). */}
+              <div><dt>Zvýšení terénu</dt><dd>{ready ? typography(format(calculation.rise, 1) === '0' ? '0 cm' : '+' + format(calculation.rise, 1) + ' cm') : '—'}</dd></div>
             </>}
-            <div><dt>Modelová výška</dt><dd>{ready ? typography(format(calculation.finalDepth) + ' cm') : '—'}
+            <div><dt>Modelová výška</dt><dd>{ready ? typography(format(calculation.finalDepth, 1) + ' cm') : '—'}
               <small>{ready ? typography(volume(calculation.finalVolume) + ' surovin pro profil') : '—'}</small>
             </dd></div>
-            <div className={cn('id-profile-calc__cost', ready && calculation.hasPrices && 'id-profile-calc__cost--set')}>
+            {!nicSeNeveze && <div className={cn('id-profile-calc__cost', ready && calculation.hasPrices && 'id-profile-calc__cost--set')}>
               <dt>{!ready || calculation.missingPrices.length ? 'Součet zadaných cen' : 'Materiál celkem'}</dt>
               <dd>{ready ? calculation.hasPrices ? typography(money(calculation.totalCost, currency)) : 'Ceny nezadané' : '—'}</dd>
-            </div>
+            </div>}
           </dl>
-          <button className="id-profile-calc__textbutton" onClick={openPrices} type="button">
+          {!nicSeNeveze && <button className="id-profile-calc__textbutton" onClick={openPrices} type="button">
             {hasEnteredPrices ? 'Upravit ceny materiálů' : 'Zadat ceny materiálů'} <span aria-hidden="true">↓</span>
-          </button>
-          {ready && <>
+          </button>}
+          {ready && !nicSeNeveze && <>
             <p className="id-profile-calc__hint">
-              {calculation.hasPrices
-                ? typography('Bez dopravy a odvozu. ' + (calculation.missingPrices.length
+              {typography(calculation.hasPrices
+                ? 'Bez dopravy a odvozu. ' + (calculation.missingPrices.length
                   ? 'Neoceněné materiály: ' + calculation.missingPrices.map((key) => MATERIAL_NAMES[key]).join(', ') + '.'
-                  : 'Cena zahrnuje všechny dovážené materiály.'))
-                : 'Množství platí i bez cen. Nulová cena se do součtu nezahrnuje.'}
+                  : 'Cena zahrnuje všechny dovážené materiály.')
+                : 'Množství platí i bez cen. Nulová cena se do součtu nezahrnuje.')}
             </p>
-            {input.loss > 0 && !nicSeNeveze && <p className="id-profile-calc__hint">
+            {input.loss > 0 && <p className="id-profile-calc__hint">
               {typography('Objednávka obsahuje rezervu ' + format(input.loss) + ' %. Rezerva navyšuje jen dovážený materiál.')}
             </p>}
             {calculation.delivery.sand.kg > 0 && <p className="id-profile-calc__transport">
@@ -1034,11 +1118,13 @@ export function SoilProfileCalculator({ className, surface }: { className?: stri
             </ul>
           )}
           {ready && calculation.issues.length === 0 && (
-            <div aria-live="polite" className="id-verdict id-verdict--ok" role="status">
+            /* Bez vlastní živé oblasti: změnu už ohlásí souhrn, odečítač
+               jinak slyšel tutéž zprávu dvakrát za sebou (porota 12). */
+            <div className="id-verdict id-verdict--ok">
               <Ok />
-              <span>{nicSeNeveze
-                ? 'Zadání je konzistentní. Při tomto zadání se nic neobjednává.'
-                : 'Zadání je konzistentní. Materiály jsou připravené k objednání.'}</span>
+              <span>{typography(nicSeNeveze
+                ? 'Zadání je konzistentní.'
+                : 'Zadání je konzistentní. Materiály jsou připravené k objednání.')}</span>
             </div>
           )}
           </div>
@@ -1087,18 +1173,15 @@ export function SoilProfileCalculator({ className, surface }: { className?: stri
         {open === 'help' && (
           <div aria-labelledby={uid + '-menu-help'} className="id-profile-calc__help" id={uid + '-panel-help'} role="region">
             <p><strong>Objem je základ.</strong> {typography('Plocha v m² × hloubka v cm ÷ 100 dává objem vrstvy v m³. Procenta příměsí se počítají z objemu příslušné zóny. Poměr písek : zemina se uplatní až na zbývající minerální základ.')}</p>
-            <p><strong>Udržet výšku:</strong> odváží se část původní zeminy, kterou nahradí nové složky.
-              <strong> Zapravit:</strong> zemina zůstává a dovoz zvyšuje objem i výšku profilu.
-              <strong> Nová vrstva:</strong> nakupují se všechny složky včetně zeminy.</p>
-            <p><strong>Hustota mění hmotnost, nikoli poměr.</strong> Litr materiálu vynásobený sypnou hustotou v kg/l
-              dává kilogramy. Pro objednávku hmotnost ověřte u dodavatele.</p>
-            <p><strong>Každá příměs má vlastní hloubku.</strong> Nastavíte ji vedle jejího podílu, vždy od povrchu.
-              Pokud je profil mělčí, započítáme příměs jen do skutečné hloubky profilu.
-              V režimu Zapravit se hloubka měří od nového povrchu.</p>
-            <p><strong>Rezerva patří k objednávce.</strong> Zeminu ponechanou na místě nezvětšuje.
-              Receptura a řez zůstávají v čistých objemech; slehnutí a výslednou výšku ověřte při realizaci.</p>
-            <p>Předvolby jsou výchozí modelové receptury. Vhodnost písku, příměsí a konkrétního poměru závisí na půdě,
-              podloží a vlastnostech dodaných materiálů. Před úpravou celé plochy ověřte směs na menším vzorku.</p>
+            {/* Běžný text panelu prochází českou sazbou jako zbytek kalkulátoru;
+                dřív na konci řádků visela „a“, „v“ i „V“ (porota 11 a 12). */}
+            <p><strong>Udržet výšku:</strong> {typography('odváží se část původní zeminy, kterou nahradí nové složky.')}
+              <strong> Zapravit:</strong> {typography('zemina zůstává a dovoz zvyšuje objem i výšku profilu.')}
+              <strong> Nová vrstva:</strong> {typography('nakupují se všechny složky včetně zeminy.')}</p>
+            <p><strong>Hustota mění hmotnost, nikoli poměr.</strong> {typography('Litr materiálu vynásobený sypnou hustotou v kg/l dává kilogramy. Pro objednávku hmotnost ověřte u dodavatele.')}</p>
+            <p><strong>Každá příměs má vlastní hloubku.</strong> {typography('Nastavíte ji vedle jejího podílu, vždy od povrchu. Pokud je profil mělčí, započítáme příměs jen do skutečné hloubky profilu. V režimu Zapravit se hloubka měří od nového povrchu.')}</p>
+            <p><strong>Rezerva patří k objednávce.</strong> {typography('Zeminu ponechanou na místě nezvětšuje. Receptura a řez zůstávají v čistých objemech; slehnutí a výslednou výšku ověřte při realizaci.')}</p>
+            <p>{typography('Předvolby jsou výchozí modelové receptury. Vhodnost písku, příměsí a konkrétního poměru závisí na půdě, podloží a vlastnostech dodaných materiálů. Před úpravou celé plochy ověřte směs na menším vzorku.')}</p>
           </div>
         )}
       </div>

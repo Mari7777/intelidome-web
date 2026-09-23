@@ -93,11 +93,13 @@ export default async function Post({ params: paramsPromise }: Args) {
         {/*
           Kotva musí viset na skutečném elementu: `ConvertRichText`
           z Payloadu props nepropouští, takže `id` na RichText se tiše
-          zahodilo a šipka v heru mířila do prázdna.
+          zahodilo a šipka v heru mířila do prázdna. Kotva je prázdná
+          značka PŘED tělem, ne obal kolem něj: fokusovatelný obal přebíral
+          fokus po každém kliknutí do textu a další Tab pak odskočil na
+          začátek článku, u kalkulátoru o 0,7–2,7 tisíce px (porota 12).
         */}
-        <div className="id-anchor-target" id="obsah" tabIndex={-1}>
-          <RichText className="id-article" data={post.content} enableGutter={false} />
-        </div>
+        <div className="id-anchor-target" id="obsah" tabIndex={-1} />
+        <RichText className="id-article" data={post.content} enableGutter={false} />
 
         {post.relatedPosts && post.relatedPosts.length > 0 && (
           <div className="container pb-16">

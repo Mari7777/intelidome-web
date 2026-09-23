@@ -3374,3 +3374,80 @@ odkazy v těle ve váze 500, hmota „k odvozu" bez obrysu, obrys segmentu 1 px,
 dvě hustoty rastru směsi, odečet v řádku Písek se na 320 px zalomí, mrtvý kód
 AlignedInputColumns. Plus tři odložené (kapitoly, pravý sloupec figury, posun
 při přepnutí).
+
+## Kolo 12 — kritický nález v textu, ne v kresbě (2026-09-23)
+
+| Oblast | Skóre |
+|---|---|
+| Hierarchie | **4/5** |
+| Typografie | **4/5** |
+| Pohyb | 3/5 |
+| Grafický styl | 3/5 |
+| Slop | 2/5 |
+| Výkon a přístupnost | 3/5 |
+| Rozložení | **4/5** |
+
+**9 nálezů prošlo skeptikem, z toho 1 kritický** (kolo 11: 8 / 1); čtyři
+z devíti skeptik snížil na kosmetické. Tři lenzy na průchozí známce,
+hierarchie poprvé od kola 06 bez jediného důležitého nálezu. Dvě potvrzené
+regrese, obě z dorovnání fokusu v kole 11.
+
+### Opravy
+
+- **KRITICKÝ: komentář u kresby tvrdil, že se příměsi zapraví „do celé
+  stávající zeminy“** (Zapravit) a že Nová vrstva je „hotová směs až po
+  úroveň terénu“. Výpočet je dává jen do svých zón (Actino a biochar 10 cm,
+  zeolit 15 cm); čtenář podle komentáře by je rozmíchal do celého profilu,
+  2–3× zředěné. Nápověda režimu přitom mluvila o zónách — dva texty jedné
+  komponenty si protiřečily. Starší vada (kolo 08), ne regrese. Komentář se
+  teď skládá z `incorporationDepths`: „Písek zapravíte do celé stávající
+  zeminy, příměsi jen do své zóny: biochar a Actino 10 cm hluboko, zeolit
+  15 cm.“ Zóna oříznutá hloubkou profilu se jmenuje „po celé hloubce“.
+- **Regrese: příznak z `pointerdown` zůstal nabitý**, když klik fokus
+  nepřenesl (dvojklik, druhý klik do pole, druhé tažení), a spolkl příští
+  fokus z klávesnice — pole skončilo pod kapslí. Příznak teď shodí i
+  dokončený klik (`setTimeout` po `click`, aby fokus z labelu stihl přijít)
+  a jakákoli klávesa. Naměřeno: dvojklik + Shift+Tab → pole na 86 px.
+- **Regrese: dorovnání měřilo skryté rádio 1 × 1 px**, ne viditelnou
+  pilulku; pilulky zasahující do kapsle jen pravou částí (Nová vrstva,
+  Vlastní, €) zůstaly až z 88 % pod ní. Měří se sourozenecký `span`.
+  Naměřeno: šipka na Novou vrstvu → pilulka na 86 px.
+- **Klik do textu přesunul fokus na obal `#obsah`** (tabindex −1 kolem celého
+  těla článku, od a47ee02) a další Tab odskočil o 0,7–2,7 tisíce px na
+  začátek článku. Kotva je teď prázdný prvek PŘED tělem; platí pro všechny
+  články. Naměřeno: klik na „Zadání“ + Tab → další ovladač, posun 0; šipka
+  v heru dál vede do článku.
+- **Titulek menu „Podrobnosti o směsi“ nechával „o“ na konci řádku** na
+  360–414 px. Titulky i nápovědy menu, panel „Jak výpočet číst“, verdikt
+  a nápověda cen prochází `nezlomitelneMezery`.
+- Kosmetické, levné: kóta malého navýšení stojí nad drnem bloku „po“, ne
+  nad blokem „před“; „+0 cm“ při drobném zapravení zmizelo (příznak navýšení
+  se bere ze zaokrouhlené hodnoty, řádek „Zvýšení terénu“ má touž přesnost
+  a zápis jako kóta); nulový dovoz ukazuje jen hero, výšku a verdikt „Zadání
+  je konzistentní.“ (bez tabulky nul, odvozu 0 l, cen a věty o rezervě
+  i v zadání); verdikt nemá vlastní živou oblast (ohlašuje souhrn); souhrn
+  vynechá nulový odvoz; prázdný stav kresby posílá k přepínači jen u chyby
+  poměru; směs bez zeminy má pískový podklad s tmavými zrny; písek plošně
+  s krytím 0,55 jako okrová hmota Obr. 02; pilulky 14 px / 600 podle Seg;
+  kresba ve vynucených barvách nese svůj krém (tmavý motiv: popisky 3,23:1).
+
+### Neopraveno
+
+- **Rámec skupiny `.id-seg` (7.7)** — vybraná pilulka má siluetu primárního
+  tlačítka. Recept je `inline-flex` bez zalomení; čtyři typy půdy se na
+  320 px do jednoho rámce nevejdou. Potřebuje rozhodnutí, jak skupina
+  zalamuje.
+- Pás kalkulátoru bez nástupu (kolo 09, kosmetické) — nástroj má být vidět
+  hned.
+- Zlom figury 1024–1129 px — záměrný posun z kola 09, čeká na autora.
+- Kosmetické z kola 11: hero v m³ proti „K objednání“ v t/kg/l, pořadí
+  materiálů mezi zadáním a výsledkem, perexy karet s jedním slovem, odkazy
+  v těle 500, „k odvozu“ bez obrysu, odečet v řádku Písek na 320 px, mrtvý
+  kód AlignedInputColumns.
+
+### Ověření
+
+`tsc` čistý, 26 testů, `svg-labels` 0 kolizí a 0 ořezů na 320/393/1440,
+`layout-check` beze změny (známý falešný poplach jednorázových os).
+Komentáře prošly všechny tři předvolby × tři způsoby a krajní zadání
+(100 % písku + zeolit, drobné zapravení 0,02 cm, nulový dovoz).
