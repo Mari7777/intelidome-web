@@ -1746,10 +1746,10 @@ export interface SplitBlock {
       )
     | null;
   /**
-   * Nahrajte ořez v poměru rámu (4:5 nebo 1:1), ne 21:9 master — rám se jinak plní ~3× širším obrazem. Alt se bere z knihovny médií.
+   * Nahrajte ořez v poměru rámu (4:5, 1:1 nebo 2:3), ne 21:9 master — rám se jinak plní ~3× širším obrazem. Alt se bere z knihovny médií.
    */
   photo?: (number | null) | Media;
-  photoRatio?: ('4:5' | '1:1') | null;
+  photoRatio?: ('4:5' | '1:1' | '2:3') | null;
   eyebrow?: string | null;
   title?: string | null;
   /**

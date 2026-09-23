@@ -72,7 +72,7 @@ export const Split: Block = {
       label: 'Fotografie místo kresby',
       admin: {
         description:
-          'Nahrajte ořez v poměru rámu (4:5 nebo 1:1), ne 21:9 master — rám se jinak plní ~3× širším obrazem. Alt se bere z knihovny médií.',
+          'Nahrajte ořez v poměru rámu (4:5, 1:1 nebo 2:3), ne 21:9 master — rám se jinak plní ~3× širším obrazem. Alt se bere z knihovny médií.',
         condition: (_, siblingData) => !siblingData?.drawing,
       },
     },
@@ -85,6 +85,7 @@ export const Split: Block = {
       options: [
         { label: 'Na výšku 4:5', value: '4:5' },
         { label: 'Čtverec 1:1', value: '1:1' },
+        { label: 'Vysoký 2:3 (dlouhý text vedle fotky)', value: '2:3' },
       ],
     },
     { name: 'eyebrow', type: 'text', label: 'Nadřádek' },

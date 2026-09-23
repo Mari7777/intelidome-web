@@ -3622,3 +3622,79 @@ Zapsáno do DESIGN.md 8.2b p. 8 (v2.10) a ADR-006 dodatek 2.
 L R L R L, text : obraz 0,64–0,84 (1440), nejdelší bílá ≤ 3 521 px, kotvy
 11/11 na 124 px, `svg-labels` 0 kolizí (min 10,6 px), `layout-check`
 0 jednorázových os.
+
+---
+
+# Článek s kalkulátorem — rytmus obraz/text (/posts/kalkulator-na-planovani-pudniho-profilu)
+
+## Přestavba na rytmus obraz/text (2026-09-23)
+
+Majitel: „uprav stejným způsobem i tento článek" (DESIGN.md 8.2b p. 8).
+Vše mezi krémovým souhrnem a FAQ přestaví `applyProfileRhythm`
+(scripts/lib/profile-rhythm.ts) podle `profile-rhythm-content.ts`:
+dvousloupce, pás kalkulátoru hned za kapitolou „Co zadat", tabulka
+příkladu na bílé, předěl přes celou šířku (přívěs se zeminou místo
+zdvojené fotky hera) a CTA složené doslova z posledního odstavce. Text
+autora jen rozdělený na hranicích vět; přestavba spadne, když se text
+nebo nadpisy liší znak po znaku. 4 nové kresby výpočtů (podíl z vlastní
+hloubky, odečet příměsí, písek podle předvolby, rezerva dělením) prošly
+oponentem. Commit af67bdb.
+
+## Kolo 01 (2026-09-23)
+
+| Oblast | Skóre |
+|---|---|
+| Hierarchie | **4/5** |
+| Typografie | 3/5 |
+| Pohyb | 3/5 |
+| Grafický styl | 3/5 |
+| Slop | 3/5 |
+| Výkon a přístupnost | 3/5 |
+| Rozložení | 2/5 |
+
+**0 kritických**, skeptikem prošlo 7 nálezů (6 důležitých, 1 snížený).
+
+### Opravy
+
+- **Reveal pod kalkulátorem mimo obrazovku** (pohyb): rozbalené panely
+  kalkulátoru mění výšku o +300 až +1 350 px, spouštěče drží staré
+  pozice. Motion.tsx hlídá výšku `.id-article` přes ResizeObserver
+  a přepočítá ScrollTrigger nejvýš jednou za snímek.
+- **Obr. 04 obracel barevný klíč** (styl, slop; dva nálezy): hrubší =
+  písek (okrová), jemnější = zemina (hnědá), směs = písek s hnědými
+  tečkami v mezerách (nasetý rozsyp, ne tapeta). Jména hmot pod sloupci,
+  stejná šířka sloupců, linka součtu leží přesně na 174 + 94, pata
+  s větou ve verzálkách zrušena, pointa je kóta „hladina po slehnutí".
+- **„PLOCHA 100 M²", „DO 15 CM"** (typografie): Obr. 03 sází jednotky
+  v tspan `.sv-val` bez verzálek, jen štítek zůstává `.sv-lbl`.
+- **Hero 320 kB na retina** (výkon): master fig-dodavka-materialu
+  přeexportován na 2 880 px (jako ostatní 21:9 mastery), portrétová
+  varianta 1304 × 1630.
+- **K01 na 1130–1205 px: text 136 % fotky** (rozložení): pokus
+  rozdělit K01 na dva splity s novou kresbou dal poměr 0,49 (prázdná
+  kresba), vrácen. Místo toho rám 2:3 (`photoRatio: '2:3'`,
+  `.id-split__foto--vysoka`) a nová vysoká fotka měření plochy.
+  Poměr text : obraz 0,90–1,15 na 1130, 0,65–0,91 na 1440.
+- **Dvě obrazové hmoty vlevo za sebou** (rozložení, sníženo): K01 přepnut
+  na image-right → R | patka L | R L R L [tab] R | předěl | L R.
+  `layout-check` nově počítá do střídání i kresbu patky kalkulátoru
+  (jen ≥ 1130 px, pod tím se dvousloupec skládá pod sebe).
+- Kosmetické: bílý proužek mezi krémovým pásem a předělem zrušen švem;
+  popisky Obr. 03, 04, 05, 08, 09 a předělu přepsány jako klíč ke
+  čtení obrazu (neopakují tělo, předěl nesahá na tabulku o 2 275 px výš).
+
+### Neopraveno (kosmetické)
+
+Odkaz „↑ Do kalkulátoru" z pozdějších kapitol, pojistka `.rv:focus-within`
+proti inline stylu GSAP, `sizes="33vw"` karet Souvisejících článků,
+re-reveal po návratu z reduce, trigger krémových splitů od paddingu pásu,
+tuny v Obr. 06 dvojím zápisem, mezery h3 v hlavě 24 vs 14 px a odstavců
+18 vs 22 px (koš B), prázdný displej váhy na fotce Obr. 08, kapitola 04
+krém | bílá | krém kvůli tabulce.
+
+### Ověření
+
+`tsc`, seed s kontrolou textu (97/97 vět, 8/8 nadpisů), na 393/1024/1130/
+1440/1920: volná próza 0, střídání R L R L R L R L R (≥ 1130), kotvy
+11/11 na 124 px, `svg-labels` 0 kolizí (min 10,5 px), `layout-check`
+0 jednorázových os.

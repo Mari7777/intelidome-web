@@ -14,7 +14,7 @@ export type SplitBlockProps = {
   drawing?: string | null
   /** Fotka místo kresby — ořez v poměru rámu, ne 21:9 master. */
   photo?: MediaType | number | null
-  photoRatio?: '4:5' | '1:1' | null
+  photoRatio?: '4:5' | '1:1' | '2:3' | null
   eyebrow?: string | null
   title?: string | null
   titleLevel?: 'h2' | 'h3' | null
@@ -133,6 +133,7 @@ export const SplitBlock: React.FC<SplitBlockProps> = ({
             className={cn(
               'id-figure-media id-split__foto',
               photoRatio === '1:1' && 'id-split__foto--ctverec',
+              photoRatio === '2:3' && 'id-split__foto--vysoka',
             )}
           >
             <Media

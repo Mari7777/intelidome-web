@@ -645,7 +645,7 @@ const body = root([
     titleLevel: 'h3',
     title: 'Receptura popisuje vstupy, povrch ukáže výsledek po slehnutí',
     number: '09',
-    alt: 'Vlevo dva zvlášť odměřené sloupce materiálu — hrubší a jemnější; vpravo táž dvojice po promíchání a slehnutí: hladina směsi končí pod čárkovanou linkou prostého součtu vstupů, protože jemnější částice zapadly do mezer mezi hrubšími.',
+    alt: 'Vlevo dva zvlášť odměřené sloupce: vyšší s hrubším pískem a nižší s jemnější zeminou. Vpravo stejně široký sloupec jejich směsi po promíchání a slehnutí: písek s drobnými částicemi zeminy v mezerách. Čárkovaná linka nad ním leží ve výšce obou vstupů dohromady. Hladina směsi končí pod ní, protože jemnější částice zapadly do mezer mezi hrubšími.',
     caption:
       'Součet vstupů není výsledná výška. Jemné částice zapadnou do mezer mezi hrubšími — proto se poměr odměřuje před promícháním a rezerva vede zvlášť.',
     body:

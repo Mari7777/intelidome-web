@@ -18,7 +18,7 @@ export type RhythmSection = {
   continues?: boolean
   drawing?: string
   photo?: string
-  photoRatio?: '4:5' | '1:1'
+  photoRatio?: '4:5' | '1:1' | '2:3'
   alt?: string
   caption: string
   body: string[]

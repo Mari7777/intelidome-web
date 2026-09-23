@@ -59,8 +59,16 @@ const d = await p.evaluate((W) => {
     zrcadla,
     mimoosove: mimo.map((m) => `${m.strana} ${m.l}..${m.r} ${m.jmeno}`),
     // Když jsou moduly souměrné, střídání nese sazba UVNITŘ nich.
-    stranyDvousloupcu: [...clanek.querySelectorAll('.id-split')]
-      .map((s) => (s.classList.contains('id-split--right') ? 'R' : 'L'))
+    // Kresba v patce kalkulátoru je taky strana obrazu (stojí vlevo) —
+    // bez ní by přejímka neviděla dvě hmoty vlevo za sebou kolem pásu.
+    stranyDvousloupcu: [...clanek.querySelectorAll(innerWidth >= 1130 ? '.id-split, .id-profile-calc__mode-canvas' : '.id-split')]
+      .map((s) => {
+        if (s.classList.contains('id-profile-calc__mode-canvas')) {
+          const b = s.getBoundingClientRect()
+          return b.left + b.width / 2 < innerWidth / 2 ? 'L' : 'R'
+        }
+        return s.classList.contains('id-split--right') ? 'R' : 'L'
+      })
       .join(''),
     stridavost: mimo.length > 1 ? +(zmen / (mimo.length - 1)).toFixed(2) : null,
   }
@@ -81,7 +89,9 @@ console.log(
     : `${zeleno(d.stridavost === 1)} střídavost mimoosových hmot: ${d.stridavost}`,
 )
 const sd = d.stranyDvousloupcu
-if (sd.length > 1) {
+// Pod 1130 px se dvousloupec skládá pod sebe — strany nejsou vidět.
+if (W < 1130 && sd.length > 1) console.log('OK   střídání dvousloupců: neměří se (pod 1130 px složeno pod sebe)')
+else if (sd.length > 1) {
   let z = 0
   for (let i = 1; i < sd.length; i++) if (sd[i] !== sd[i - 1]) z++
   const stridaSe = z === sd.length - 1

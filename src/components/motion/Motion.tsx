@@ -143,6 +143,28 @@ export const Motion = ({ inertia = false }: { inertia?: boolean }) => {
     window.addEventListener('load', refresh)
 
     /*
+      Obsah, který mění výšku (rozbalené panely kalkulátoru: +300 až +1 350 px),
+      posune všechno pod sebou, ale spouštěče revealu drží staré pozice —
+      sekce pod kalkulátorem se odhalovaly mimo obrazovku (porota článku
+      s kalkulátorem). Změna výšky článku proto přepočítá spouštěče,
+      nejvýš jednou za snímek.
+    */
+    let vyska = 0
+    let snimek = 0
+    const hlidac = new ResizeObserver((zaznamy) => {
+      const nova = Math.round(zaznamy[0]?.contentRect.height ?? 0)
+      if (!vyska || nova === vyska) {
+        vyska = nova
+        return
+      }
+      vyska = nova
+      cancelAnimationFrame(snimek)
+      snimek = requestAnimationFrame(refresh)
+    })
+    const clanek = document.querySelector('.id-article')
+    if (clanek) hlidac.observe(clanek)
+
+    /*
       Příchod přes odkaz s kotvou: prohlížeč ke kotvě jede plynule
       (html { scroll-behavior: smooth }) a refresh ScrollTriggeru tu jízdu
       uprostřed přeruší — stránka zůstala tisíce px před cílem (porota
@@ -180,6 +202,8 @@ export const Motion = ({ inertia = false }: { inertia?: boolean }) => {
       window.removeEventListener('scroll', sleduj)
       omezeny.removeEventListener('change', predZmenou)
       ScrollTrigger.removeEventListener('refresh', vrat)
+      hlidac.disconnect()
+      cancelAnimationFrame(snimek)
       mm.revert()
     }
   }, [])

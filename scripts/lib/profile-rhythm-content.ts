@@ -14,13 +14,13 @@ import type { RhythmSection } from './preparation-rhythm-content'
 export const PROFILE_RHYTHM_SECTIONS: RhythmSection[] = [
   {
     "id": "K01",
-    "side": "image-left",
+    "side": "image-right",
     "surface": "bila",
     "eyebrow": "Kapitola 01",
     "title": "Co zadat do kalkulátoru půdy pod trávník",
     "titleLevel": "h2",
     "photo": "fig-mereni-plochy.avif",
-    "photoRatio": "4:5",
+    "photoRatio": "2:3",
     "caption": "Do výpočtu patří jen plocha, kterou skutečně upravíte; cesta a záhon zůstávají mimo pásmo.",
     "body": [
       "Nejprve rozhodněte, co vaše půda potřebuje změnit. Výchozí předvolby slouží k porovnání možností, nejsou univerzálním doporučením pro každou zahradu. Účel surovin a rozsahy jejich podílů vysvětluje článek [Písek, biochar a další příměsi: jak namíchat půdu pro trávník](/posts/pisek-biochar-a-dalsi-primesi).",
@@ -56,7 +56,7 @@ export const PROFILE_RHYTHM_SECTIONS: RhythmSection[] = [
     "titleLevel": "h2",
     "drawing": "podil-z-vlastni-hloubky",
     "alt": "Dva řezy profilem 30 cm pod plochou 100 m² se stejným podílem zeolitu 2 %. Vlevo leží zeolit jen ve vrstvě 0–15 cm: jeho zóna má 15 m³ a 2 % z ní jsou 0,30 m³, tedy 300 litrů. Vpravo pro srovnání tatáž dvě procenta v celých 30 cm: z 30 m³ je to 0,60 m³, tedy 600 litrů, dvojnásobek. Dole pomůcka: vrstva vysoká 1 cm na ploše 1 m² má 10 litrů.",
-    "caption": "Zeolit do 15 cm počítáme z 15 m³ jeho zóny, ne z celých 30 m³: 2 % dají 300 litrů.",
+    "caption": "Vlevo zóna zeolitu 0–15 cm, vpravo pro srovnání totéž procento v celém profilu. Deska dole je pomůcka pro odhad objemu.",
     "body": [
       "Základní vztah je objem = plocha × hloubka v metrech. Pro 100 m² a 30 cm tedy počítáme 100 × 0,30 = 30 m³. Jeden kubík představuje 1 000 litrů. Praktická pomůcka: vrstva vysoká 1 cm na ploše 1 m² má objem 10 litrů.",
       "Podíl příměsi se vztahuje k objemu od povrchu do její vlastní hloubky. Například zeolit při 2 % do 15 cm na ploše 100 m²: 100 × 0,15 × 0,02 = 0,30 m³, tedy 300 litrů. Nepočítáme jej ze všech 30 m³ profilu. Také Actino a biochar mají svůj výpočet podle zadané hloubky."
@@ -68,13 +68,14 @@ export const PROFILE_RHYTHM_SECTIONS: RhythmSection[] = [
     "surface": "bila",
     "continues": true,
     "drawing": "slehnuti-vstupu",
-    "caption": "Poměr stanovujeme z odměřených vstupů. Výšku po promíchání a slehnutí ověříme na zahradě.",
+    "caption": "Čárkovaná linka ukazuje prostý součet obou vstupů. Slehlá směs může skončit pod ní, když jemné částice zeminy zapadnou do mezer v písku. Poměr proto odměřujeme ze vstupů a výšku ověříme na zahradě.",
     "body": [
       "Příměsi zabírají část připravovaného objemu. Teprve zbývající minerální základ dělíme mezi písek a zeminu. Poměr 65/35 proto znamená 65 % písku a 35 % zeminy z tohoto zbytku, nikoli dalších 65 % písku nad celou směs. V horní části mohou být současně všechny tři příměsi, hlouběji už jen některé.",
       "### Proč 30 m³ surovin nemusí dát 30 m³ slehlé směsi",
       "Objemové podíly odměřujeme **před promícháním**. Jemnější částice mohou zapadnout mezi hrubší a při ukládání se mění póry. Součet vstupů proto nezaručuje stejný objem po slehnutí.",
       "Výpočet dává základ pro plánování dodávky. Skutečnou výšku kontrolujte při práci; rezervu zvolte podle materiálů a způsobu ukládání. V objednávce ji veďte odděleně, aby nezměnila zamýšlený poměr složek."
-    ]
+    ],
+    "alt": "Vlevo dva zvlášť odměřené sloupce: vyšší s hrubším pískem a nižší s jemnější zeminou. Vpravo stejně široký sloupec jejich směsi po promíchání a slehnutí: písek s drobnými částicemi zeminy v mezerách. Čárkovaná linka nad ním leží ve výšce obou vstupů dohromady. Hladina směsi končí pod ní, protože jemnější částice zapadly do mezer mezi hrubšími."
   },
   {
     "id": "K04",
@@ -85,7 +86,7 @@ export const PROFILE_RHYTHM_SECTIONS: RhythmSection[] = [
     "titleLevel": "h2",
     "drawing": "odecet-primesi",
     "alt": "Tři vodorovné pruhy po 30 m³ na společném měřítku. První je celý profil 100 m² × 30 cm. Ve druhém si příměsi vezmou místo jako první; jejich tenký proužek ukazuje výřez pod pruhem zvětšený 27×: Actino 0,25, zeolit 0,30 a biochar 0,20 m³, dohromady 0,75 m³. Zbývá 29,25 m³ minerálního základu. Ve třetím se základ dělí v poměru 65/35 na 19,01 m³ písku k dovozu a 10,24 m³ zeminy, která zůstane.",
-    "caption": "Příměsi si z 30 m³ vezmou 0,75 m³ jako první; zbylých 29,25 m³ dělí poměr 65/35 na písek k dovozu a zeminu, která zůstane.",
+    "caption": "Tři kroky na jednom měřítku: celý profil, příměsi zvětšené ve výřezu, dělení minerálního základu na písek a zeminu.",
     "body": [
       "Uvažujme výraznou přestavbu, pro kterou jste po posouzení půdy zvolili písčitější směs. Nastavte 100 m², profil 30 cm, režim „Udržet výšku“ a nulovou rezervu. Minerální základ rozdělte 65/35 mezi písek a původní zeminu. Actino zaujímá 2,5 % do 10 cm, zeolit 2 % do 15 cm a předem živinami obohacený biochar 2 % do 10 cm. To odpovídá výchozí jílovité předvolbě.",
       "Příměsi zaberou 0,25 + 0,30 + 0,20 = 0,75 m³. Z původních 30 m³ zbývá 29,25 m³ minerálního základu. Jeho 65 % tvoří 19,0125 m³ písku a 35 % představuje 10,2375 m³ ponechané zeminy. Čísla v přehledu jsou zaokrouhlená; pro kontrolu součtu používejte nezaokrouhlené hodnoty.",
@@ -118,7 +119,7 @@ export const PROFILE_RHYTHM_SECTIONS: RhythmSection[] = [
     "titleLevel": "h2",
     "photo": "fig-vazeni-kbeliku.avif",
     "photoRatio": "4:5",
-    "caption": "Sypná hustota v malém: deset litrů volně nasypaného písku váží při 1,5 t/m³ kolem 15 kg.",
+    "caption": "Kbelík s deseti litry volně nasypaného písku: při sypné hustotě 1,5 t/m³ váží kolem 15 kg.",
     "body": [
       "Objem určuje poměr směsi, prodejní jednotka určuje objednávku. Převod na hmotnost používá sypnou hustotu, tedy hmotnost volně nasypaného materiálu včetně mezer mezi částicemi. Platí hmotnost = objem × sypná hustota. V našem příkladu tak 19,0125 m³ písku při 1,5 t/m³ představuje přibližně 28,52 t.",
       "Písek běžně plánujeme v tunách, Actino a zeolit v kilogramech, biochar v litrech. Konkrétní balení ověřte u výrobku. Pokud například zvolený zeolit koupíte v pytlích po 20 kg, potřebných 240 kg znamená 12 pytlů. Neúplný počet balení zaokrouhlete nahoru; přebytek není pokyn automaticky zvýšit dávku ve směsi.",
@@ -133,7 +134,7 @@ export const PROFILE_RHYTHM_SECTIONS: RhythmSection[] = [
     "continues": true,
     "drawing": "rezerva-deleni",
     "alt": "Dva pruhy biocharu ve stejném měřítku pod vzorcem objednávka = čisté množství ÷ (1 − rezerva/100); čárkovaná linka značí potřebu směsi 200 litrů. Horní: 200 ÷ 0,9, tedy objednávka přibližně 222 litrů; z ní 10 % úbytku, asi 22 litrů, a do směsi zbude 200 litrů. Spodní: 200 plus 10 % je 220 litrů; po úbytku 10 % zbude 198 litrů, o dva méně, než směs potřebuje.",
-    "caption": "Rezerva 10 % se počítá z dodaného množství: 200 l ÷ 0,9 ≈ 222 l. Prosté přičtení dá 220 l a po úbytku by dva litry chyběly.",
+    "caption": "Šrafovaná část je úbytek z dodávky, čárkovaná linka potřeba směsi. Po úbytku ji dosáhne jen horní objednávka.",
     "body": [
       "Rezerva navyšuje jen dovážené množství a nemění čistý poměr směsi, ponechanou zeminu ani odvoz. Kalkulátor používá vztah objednávka = čisté množství ÷ (1 − rezerva/100). Při 10 % tedy 200 litrů vyžaduje přibližně 222 litrů k objednání. Tato volba není prosté přičtení 10 %; umožňuje pokrýt uvažovaný úbytek z dodaného množství.",
       "Cenu zadávejte v jednotkách uvedených u příslušného pole a podle skutečné nabídky. Orientační součet materiálů není rozpočtem celé realizace: zvlášť připočtěte dopravu, vykládku, odvoz a uložení zeminy i práci.",
@@ -148,7 +149,7 @@ export const PROFILE_RHYTHM_ORDER = ["K01", "KALK", "K02", "K03", "K03b", "K04",
 
 export const PROFILE_BLEED = {
   "filename": "fig-odvoz-zeminy.avif",
-  "caption": "Třetí úkol výpočtu je odvoz. Vytěžená zemina se nakypří, proto její objem na korbě ověřte až při nakládce."
+  "caption": "Odvoz počítáme z původního profilu; vytěžená zemina se na korbě nakypří, objem proto ověřte až při nakládce."
 }
 
 /** CTA složené doslova z posledního autorova odstavce (i35); odkaz „InteliDome" přechází na tlačítko. */

@@ -2421,6 +2421,11 @@ html.plynule {
 .id-article > * + .id-figure--bleed {
   margin-top: var(--id-rhythm-band);
 }
+/* Krémový pás a fotka přes celou šířku se potkají švem jako dva pásy —
+   jinak mezi nimi zůstal bílý proužek 64–115 px (porota, rozložení). */
+.id-article > .id-band + .id-figure--bleed {
+  margin-top: 0;
+}
 .id-article > .id-figure--bleed + :is(p, ul, ol) {
   margin-top: 44px;
 }
@@ -2590,6 +2595,9 @@ html.plynule {
 }
 .id-split__figure > .id-split__foto--ctverec {
   aspect-ratio: 1 / 1;
+}
+.id-split__figure > .id-split__foto--vysoka {
+  aspect-ratio: 2 / 3;
 }
 .id-split__foto img {
   object-position: var(--id-focal, 50% 50%);

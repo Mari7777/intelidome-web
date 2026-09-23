@@ -21,9 +21,17 @@ import { calculateSoilProfile, INPUT_DEFAULTS, SOIL_PRESETS } from '@/blocks/Cal
  * boky obou řezů (x 80/232 a 318/470, rozestup 238 = 7 dlaždic) do mezer
  * mezi zrny s vůlí ~1,4 k obrysu; stupnice visí vlevo jako ve vzorech.
  *
+ * Jednotky nikdy v `.sv-lbl`: uppercase z nich dělá „M²" (mega) a „CM".
+ * Záhlaví i štítky pod řezy jsou proto jeden `<text class="sv-val">` se
+ * slovní částí v `<tspan class="sv-lbl">` (vzor `rezerva-deleni`) — hodnota
+ * s jednotkou uppercase nezdědí. V záhlaví jsou hodnoty dvě (2 % a 100 m²),
+ * aby podíl měl tutéž typografickou roli jako ve výpočtech pod řezy.
+ *
  * Portrétová sazba 520 px, id s prefixem `pv-`. Řádek srovnání „30 m³ × 2 %
- * = 600 l" má 19 znaků, ale v sazbě 21 jednotek končí na x ~494 (≤ 520);
- * ostatní popisky ≤ 14 znaků. Statická kresba.
+ * = 600 l" má 19 znaků, ale v sazbě 21 jednotek končí na x ~494 (≤ 520).
+ * Štítek pod řezem nese hodnotu `.sv-val`, takže řádky pod řezy mají rozteč
+ * 29 / 31 (ne 27 / 30): při 21 jednotkách zůstane mezi rámci textů ≥ 4.
+ * Statická kresba.
  */
 
 const PLOCHA = 100 // m²
@@ -68,7 +76,7 @@ const Zrno: React.FC<{ x: number; y: number }> = ({ x, y }) => (
 const REZY = [LX, RX] as const
 
 export const PodilZVlastniHloubky: React.FC = () => (
-  <svg aria-hidden="true" className="block h-auto w-full" viewBox="0 0 520 440">
+  <svg aria-hidden="true" className="block h-auto w-full" viewBox="0 0 520 446">
     <defs>
       {/* Pixelově shodné s `mh-zeolit`; jen posunutý počátek dlaždice. */}
       <pattern id="pv-zeolit" x="78" y={VZOR_Y} width="34" height={DLAZDICE} patternUnits="userSpaceOnUse">
@@ -85,7 +93,13 @@ export const PodilZVlastniHloubky: React.FC = () => (
       </mask>
     </defs>
 
-    <text className="sv-lbl" x={LX} y="34">{`Stejná ${cislo(PODIL)} % zeolitu · plocha ${PLOCHA} m²`}</text>
+    {/* Podíl i plocha jsou hodnoty: 2 % má tutéž roli jako pod řezy. */}
+    <text className="sv-val" x={LX} y="34">
+      <tspan className="sv-lbl">{'Stejná '}</tspan>
+      {`${cislo(PODIL)} %`}
+      <tspan className="sv-lbl">{' zeolitu · plocha '}</tspan>
+      {`${PLOCHA} m²`}
+    </text>
 
     {/* ── společná stupnice ───────────────────────────────────── */}
     <line x1="62" y1={T} x2="62" y2={B} stroke="#d5d3cc" strokeWidth="1.6" strokeDasharray="3 7" strokeLinecap="round" />
@@ -111,21 +125,27 @@ export const PodilZVlastniHloubky: React.FC = () => (
     </g>
 
     {/* ── výpočet pod řezy ────────────────────────────────────── */}
-    <text className="sv-lbl" x={LX} y={B + 24}>do 15 cm</text>
-    <text className="sv-val" x={LX} y={B + 51}>{`${cislo(VLEVO.zonaM3)} m³ × ${cislo(PODIL)} %`}</text>
+    <text className="sv-val" x={LX} y={B + 26}>
+      <tspan className="sv-lbl">{'do '}</tspan>
+      15 cm
+    </text>
+    <text className="sv-val" x={LX} y={B + 55}>{`${cislo(VLEVO.zonaM3)} m³ × ${cislo(PODIL)} %`}</text>
     {/* Pointa kresby (9.2 p. 3) je jedna a jako jediná má vlastní řádek. */}
-    <text className="sv-val" x={LX} y={B + 81} style={{ fontSize: 24 }}>{`${VLEVO.litry} l`}</text>
+    <text className="sv-val" x={LX} y={B + 86} style={{ fontSize: 24 }}>{`${VLEVO.litry} l`}</text>
 
     {/* Srovnání „kdyby" — jeden řádek hodnoty, žádné samostatné číslo. */}
-    <text className="sv-lbl" x={RX} y={B + 24}>kdyby do 30 cm</text>
-    <text className="sv-val" x={RX} y={B + 51}>{`${cislo(VPRAVO.zonaM3)} m³ × ${cislo(PODIL)} % = ${VPRAVO.litry} l`}</text>
+    <text className="sv-val" x={RX} y={B + 26}>
+      <tspan className="sv-lbl">{'kdyby do '}</tspan>
+      30 cm
+    </text>
+    <text className="sv-val" x={RX} y={B + 55}>{`${cislo(VPRAVO.zonaM3)} m³ × ${cislo(PODIL)} % = ${VPRAVO.litry} l`}</text>
 
     {/* ── legenda, pak pomůcka (9.2 p. 10) ────────────────────── */}
-    <line x1="30" y1="395" x2="490" y2="395" stroke="#d5d3cc" strokeWidth="1.6" strokeDasharray="3 7" strokeLinecap="round" />
-    <Zrno x={32} y={418} />
-    <text className="sv-val" x="52" y="424">zeolit</text>
+    <line x1="30" y1="401" x2="490" y2="401" stroke="#d5d3cc" strokeWidth="1.6" strokeDasharray="3 7" strokeLinecap="round" />
+    <Zrno x={32} y={424} />
+    <text className="sv-val" x="52" y="430">zeolit</text>
     {/* deska 1 cm v měřítku řezů */}
-    <rect x="150" y="415" width="80" height={CM} fill="#6b5138" fillOpacity="0.9" stroke="#232830" strokeWidth="1.6" strokeLinejoin="round" />
-    <text className="sv-val" x="242" y="424">1 m² × 1 cm = 10 l</text>
+    <rect x="150" y="421" width="80" height={CM} fill="#6b5138" fillOpacity="0.9" stroke="#232830" strokeWidth="1.6" strokeLinejoin="round" />
+    <text className="sv-val" x="242" y="430">1 m² × 1 cm = 10 l</text>
   </svg>
 )
