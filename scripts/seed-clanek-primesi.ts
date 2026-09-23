@@ -230,6 +230,26 @@ const MEDIA: {
     filename: 'fig-mlady-porost.avif',
     alt: 'Mladý trávník krátce po vzejití: tenká světle zelená stébla různé výšky, mezi nimi ještě prosvítá tmavá půda.',
   },
+  /* Rytmus obraz/text článku s kalkulátorem (2026-09-23): ořezy 4:5 v poměru
+     rámu splitu + předěl 21:9 s portrétem; zdroje v kandidati-kalkulator. */
+  {
+    filename: 'fig-mereni-plochy.avif',
+    alt: 'Žluté měřicí pásmo natažené od dřevěného kolíku přes uhrabanou plochu budoucího trávníku; vlevo štěrková cesta, vpravo záhon s trvalkami, oba mimo měřenou plochu, vzadu dřevěný plot v teplém světle.',
+  },
+  {
+    filename: 'fig-lat-u-chodniku.avif',
+    alt: 'Hliníková lať položená z dlážděného chodníku přes obrubník na čerstvě nakypřenou zeminu, která leží výš než dlažba; pod latí nad chodníkem zůstává mezera, v pozadí dřevěný plot a keře.',
+  },
+  {
+    filename: 'fig-vazeni-kbeliku.avif',
+    alt: 'Černý kbelík zarovnaný světlým pískem stojí na plošinové váze na prknech dřevěné terasy; v pozadí rozostřený trávník a dřevěný prknový plot v teplém světle.',
+  },
+  {
+    filename: 'fig-odvoz-zeminy.avif',
+    portret: 'fig-odvoz-zeminy-portret.avif',
+    alt: 'Malý přívěs s pozinkovanými bočnicemi stojí u otevřené branky v dřevěném prknovém plotě, naložený hroudami vytěžené šedohnědé jílovité zeminy; v popředí schod mezi trávníkem a odkrytým jílem.',
+    focal: { focalX: 66, focalY: 50 },
+  },
   {
     filename: 'fig-pripravena-plocha.avif',
     portret: 'fig-pripravena-plocha-portret.avif',
@@ -1050,12 +1070,12 @@ const run = async () => {
   const splitContent = splitPrimesiContent(body)
   /* Obrazy nového rytmu vznikají až při rozdělení, tedy po převodu názvů
      souborů výš. Chybějící fotka je chyba, ne tichý výpadek oddílu. */
-  for (const node of splitContent.preparation.root.children as Node[]) {
+  for (const node of [...splitContent.preparation.root.children, ...splitContent.profile.root.children] as Node[]) {
     const fields = (node as { fields?: Record<string, unknown> }).fields
     const soubor = (fields?.__photo ?? (fields?.blockType === 'figure' ? fields?.__filename : undefined)) as string | undefined
     if (!fields || !soubor) continue
     const nalezeno = await payload.find({ collection: 'media', where: { filename: { equals: soubor } }, limit: 1, pagination: false })
-    if (!nalezeno.docs[0]) throw new Error(`Chybí médium ${soubor} pro článek o přípravě směsi.`)
+    if (!nalezeno.docs[0]) throw new Error(`Chybí médium ${soubor} pro rozdělené články.`)
     if (fields.__photo) {
       delete fields.__photo
       fields.photo = nalezeno.docs[0].id

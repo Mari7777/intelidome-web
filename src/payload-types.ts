@@ -1739,6 +1739,10 @@ export interface SplitBlock {
         | 'michani-od-hloubky'
         | 'kontrola-sondou'
         | 'mykorhiza-pod-osivem'
+        | 'podil-z-vlastni-hloubky'
+        | 'odecet-primesi'
+        | 'pisek-podle-predvolby'
+        | 'rezerva-deleni'
       )
     | null;
   /**

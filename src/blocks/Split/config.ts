@@ -59,6 +59,10 @@ export const Split: Block = {
         { label: 'Míchání od hloubky k povrchu (základ 30 → zeolit 15 → biochar a Actino 10 cm)', value: 'michani-od-hloubky' },
         { label: 'Kontrola sondou (ve své hloubce / hromádka / až na dno)', value: 'kontrola-sondou' },
         { label: 'Mykorhiza pod osivem (stejná dávka, jiné místo)', value: 'mykorhiza-pod-osivem' },
+        { label: 'Podíl z vlastní hloubky (2 % do 15 cm = 300 l)', value: 'podil-z-vlastni-hloubky' },
+        { label: 'Odečet příměsí od profilu (30 → 29,25 m³ → 65/35)', value: 'odecet-primesi' },
+        { label: 'Písek k dovozu podle předvolby', value: 'pisek-podle-predvolby' },
+        { label: 'Rezerva se dělí, nepřičítá (222 l)', value: 'rezerva-deleni' },
       ],
     },
     {

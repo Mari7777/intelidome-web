@@ -1,6 +1,7 @@
 /** Shared content split for the local seed and the one-time CMS migration. */
 import { splitProfilePreparationContent } from './split-profile-preparation'
 import { buildProfilePlanningContent, PROFILE_TITLE } from './profile-planning-content'
+import { applyProfileRhythm } from './profile-rhythm'
 export { PROFILE_TITLE, PROFILE_META_TITLE, PROFILE_META_DESCRIPTION } from './profile-planning-content'
 export const ORIGINAL_SLUG = 'pisek-biochar-a-dalsi-primesi'
 export const PROFILE_SLUG = 'kalkulator-na-planovani-pudniho-profilu'
@@ -110,5 +111,5 @@ export function splitPrimesiContent(input: unknown) {
     { ...source, root: { ...source.root, children: profile } },
     { ...source, root: { ...source.root, children: original } },
   )
-  return { ...final, profile: buildProfilePlanningContent(final.profile), preparationMovedNodeCount: final.movedNodeCount, movedNodeCount: moved.length, profileHero: moved.find((n) => n.fields?.blockType === 'figure')?.fields?.image }
+  return { ...final, profile: applyProfileRhythm(buildProfilePlanningContent(final.profile)), preparationMovedNodeCount: final.movedNodeCount, movedNodeCount: moved.length, profileHero: moved.find((n) => n.fields?.blockType === 'figure')?.fields?.image }
 }
