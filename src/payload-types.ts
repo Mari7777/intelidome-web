@@ -1713,29 +1713,39 @@ export interface SplitBlock {
   /**
    * Do úzkého sloupce patří jen kresba s portrétovou sazbou — panoramatická by měla popisky pod 5 px.
    */
-  drawing:
-    | 'korenova-zona'
-    | 'kbelikovy-test'
-    | 'hlava-na-hlavu'
-    | 'ridici-smycka'
-    | 'hmatovy-test'
-    | 'pudni-profil'
-    | 'zkouska-vsaku'
-    | 'tricet-centimetru'
-    | 'tri-zony'
-    | 'sedani'
-    | 'dve-zahrady'
-    | 'tuna-neni-kubik'
-    | 'tri-zony-biovin'
-    | 'tri-zahrady'
-    | 'ukladani-odspodu'
-    | 'prvni-korinek'
-    | 'nabity-biochar'
-    | 'mykorhizni-vlakna'
-    | 'zaklad-tri-zahrad'
-    | 'slehnuti-vstupu'
-    | 'prany-pisek'
-    | 'michani-od-hloubky';
+  drawing?:
+    | (
+        | 'korenova-zona'
+        | 'kbelikovy-test'
+        | 'hlava-na-hlavu'
+        | 'ridici-smycka'
+        | 'hmatovy-test'
+        | 'pudni-profil'
+        | 'zkouska-vsaku'
+        | 'tricet-centimetru'
+        | 'tri-zony'
+        | 'sedani'
+        | 'dve-zahrady'
+        | 'tuna-neni-kubik'
+        | 'tri-zony-biovin'
+        | 'tri-zahrady'
+        | 'ukladani-odspodu'
+        | 'prvni-korinek'
+        | 'nabity-biochar'
+        | 'mykorhizni-vlakna'
+        | 'zaklad-tri-zahrad'
+        | 'slehnuti-vstupu'
+        | 'prany-pisek'
+        | 'michani-od-hloubky'
+        | 'kontrola-sondou'
+        | 'mykorhiza-pod-osivem'
+      )
+    | null;
+  /**
+   * Nahrajte ořez v poměru rámu (4:5 nebo 1:1), ne 21:9 master — rám se jinak plní ~3× širším obrazem. Alt se bere z knihovny médií.
+   */
+  photo?: (number | null) | Media;
+  photoRatio?: ('4:5' | '1:1') | null;
   eyebrow?: string | null;
   title?: string | null;
   /**
@@ -1743,12 +1753,16 @@ export interface SplitBlock {
    */
   titleLevel?: ('h2' | 'h3') | null;
   /**
-   * Odstavce oddělte prázdným řádkem. **Tučně** takto.
+   * Jen pro blok bez titulku se stejným povrchem jako blok nad ním: místo pásové mezery dostane modulovou, takže se oba čtou jako jeden oddíl.
+   */
+  continues?: boolean | null;
+  /**
+   * Odstavce oddělte prázdným řádkem. **Tučně** takto. Řádek začínající „### “ je mezititulek (h3).
    */
   body: string;
   number?: string | null;
   caption: string;
-  alt: string;
+  alt?: string | null;
   /**
    * Krém nese posun povrchu (8.1 p. 3). Mezi dvěma krémovými pásy má zůstat aspoň jedna bílá sekce.
    */

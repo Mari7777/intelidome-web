@@ -91,13 +91,14 @@ export const ImageMedia: React.FC<MediaProps> = (props) => {
 
     // Portrétový ořez: telefon na výšku jinak stahuje celý 21:9 master
     // a přes 75 % plochy zahodí (koš B). Zdroj je už oříznutý na fokál,
-    // takže se NESMÍ ořezávat podruhé — proto `--id-focal-portrait: center`.
+    // takže se NESMÍ ořezávat podruhé. Střed svislého zdroje se použije
+    // jen pod breakpointem, ve kterém jej <picture> skutečně načítá.
     const portrait = (resource as { portrait?: unknown }).portrait
     if (portrait && typeof portrait === 'object' && 'url' in portrait) {
       const p = portrait as { url?: string | null; updatedAt?: string | null }
       if (p.url) {
         portretSrc = getMediaUrl(p.url, p.updatedAt ?? cacheTag)
-        focal['--id-focal-portrait'] = 'center'
+        focal['--id-focal-portrait-asset'] = 'center'
       }
     }
   }

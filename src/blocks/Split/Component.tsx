@@ -1,6 +1,8 @@
 import React from 'react'
 
+import { Media } from '@/components/Media'
 import { DRAWINGS, type Drawing, type DrawingKey } from '@/components/figures/registry'
+import type { Media as MediaType } from '@/payload-types'
 import { nezlomitelneMezery } from '@/utilities/czechTypography'
 import { slugify } from '@/utilities/slugify'
 import { cn } from '@/utilities/ui'
@@ -9,14 +11,19 @@ export type SplitBlockProps = {
   /** `krem` = kapitola stojí na krémovém pásu (posun povrchu, 8.1 p. 3). */
   surface?: string | null
   side: 'image-left' | 'image-right'
-  drawing: string
+  drawing?: string | null
+  /** Fotka místo kresby — ořez v poměru rámu, ne 21:9 master. */
+  photo?: MediaType | number | null
+  photoRatio?: '4:5' | '1:1' | null
   eyebrow?: string | null
   title?: string | null
   titleLevel?: 'h2' | 'h3' | null
+  /** Pokračuje oddíl nad sebou: modulová mezera místo pásové. */
+  continues?: boolean | null
   body: string
   number?: string | null
   caption: string
-  alt: string
+  alt?: string | null
   id?: string | null
   blockName?: string | null
   blockType?: 'split'
@@ -43,17 +50,21 @@ export const SplitBlock: React.FC<SplitBlockProps> = ({
   body,
   caption,
   className,
+  continues,
   drawing,
   eyebrow,
   number,
+  photo,
+  photoRatio,
   side,
   surface,
   title,
   titleLevel,
 }) => {
-  const entry: Drawing | undefined = DRAWINGS[drawing as DrawingKey]
+  const entry: Drawing | undefined = drawing ? DRAWINGS[drawing as DrawingKey] : undefined
   const Kresba = entry?.portrait ?? entry?.wide
-  if (!Kresba) return null
+  const fotka = !Kresba && photo && typeof photo === 'object' ? photo : null
+  if (!Kresba && !fotka) return null
 
   const paragraphs = body.split(/\n{2,}/).map((p) => p.trim()).filter(Boolean)
   const label = formatFigureNumber(number)
@@ -70,6 +81,7 @@ export const SplitBlock: React.FC<SplitBlockProps> = ({
       className={cn(
         'id-split not-prose',
         side === 'image-right' && 'id-split--right',
+        continues && 'id-split--pokracovani',
         surface === 'krem' && 'id-band id-band--cream id-band--self',
         className,
       )}
@@ -88,7 +100,7 @@ export const SplitBlock: React.FC<SplitBlockProps> = ({
 
           {title ? (
             Titulek === 'h3' ? (
-              <h3 className="id-split__h3 mb-[18px]" id={anchor}>
+              <h3 className="id-split__h3" id={anchor}>
                 {nezlomitelneMezery(title)}
               </h3>
             ) : (
@@ -104,15 +116,34 @@ export const SplitBlock: React.FC<SplitBlockProps> = ({
       ) : null}
 
       <figure className="id-split__figure rv">
-        <div
-          aria-label={alt}
-          className="id-figure-media rounded-[var(--id-r-card)] bg-[var(--id-cream,var(--id-bg-2))] p-[clamp(16px,3vw,40px)]"
-          role="img"
-        >
-          <div className="id-figure-svg">
-            <Kresba />
+        {Kresba ? (
+          <div
+            aria-label={alt ?? undefined}
+            className="id-figure-media rounded-[var(--id-r-card)] bg-[var(--id-cream,var(--id-bg-2))] p-[clamp(16px,3vw,40px)]"
+            role="img"
+          >
+            <div className="id-figure-svg">
+              <Kresba />
+            </div>
           </div>
-        </div>
+        ) : (
+          /* Fotka stojí v témž slotu jako panel kresby (652 na 1440,
+             700 složeně, okraj k okraji na telefonu), bez krémového rámu. */
+          <div
+            className={cn(
+              'id-figure-media id-split__foto',
+              photoRatio === '1:1' && 'id-split__foto--ctverec',
+            )}
+          >
+            <Media
+              htmlElement={null}
+              resource={fotka}
+              size="(min-width: 1440px) 652px, (min-width: 1130px) calc(50vw - 68px), (min-width: 561px) min(700px, 100vw), 100vw"
+              pictureClassName="block h-full w-full"
+              imgClassName="block m-0 h-full w-full object-cover"
+            />
+          </div>
+        )}
         <figcaption className="mt-[16px] flex items-baseline gap-[10px] border-t-[1px] border-[var(--id-mist)] pt-[14px] text-[13.5px] leading-[1.45] text-[var(--id-ink-2)]">
           {label && (
             <b className="font-[family-name:var(--id-f-display)] text-[11.5px] font-semibold tracking-[0.06em] whitespace-nowrap text-[var(--id-ink)] uppercase">
@@ -127,11 +158,21 @@ export const SplitBlock: React.FC<SplitBlockProps> = ({
 
       <div className="id-split__body rv">
         <div className="space-y-[18px]">
-          {paragraphs.map((paragraph) => (
-            <p className="id-split__p" key={paragraph.slice(0, 40)}>
-              {renderStrong(paragraph)}
-            </p>
-          ))}
+          {paragraphs.map((paragraph) =>
+            paragraph.startsWith('### ') ? (
+              <h3
+                className="id-split__h3 id-split__body-h3"
+                id={slugify(paragraph.slice(4)) || undefined}
+                key={paragraph.slice(0, 40)}
+              >
+                {nezlomitelneMezery(paragraph.slice(4))}
+              </h3>
+            ) : (
+              <p className="id-split__p" key={paragraph.slice(0, 40)}>
+                {renderStrong(paragraph)}
+              </p>
+            ),
+          )}
         </div>
       </div>
     </section>

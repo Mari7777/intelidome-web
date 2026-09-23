@@ -222,3 +222,28 @@ na pravém dorazu, takže obě poloviny mají tentýž rytmus. Pod zlomem
 zůstává pevná šířka: `flex-basis: auto` u `input[type=number]` tam zvedá
 min-content stopu sloupce a rozbil by reflow na 320 px (WCAG 1.4.10) —
 ověřeno, přetok 58 px.
+
+
+---
+
+## Dodatek 2 (23. 9. 2026) — žádná próza ve středovém sloupci
+
+Majitel u článku „Jak připravit a uložit směs": *„jsou tam příliš dlouhé
+odstavce textu, klidně můžeme jít obrázek text, text obrázek, ale inspiruj
+se zlatými standardy. Sloupeček textu ve středu monitoru je špatně."*
+
+Dodatek 1 udělal dvousloupec z **kapitoly s kresbou**, ale zbytek kapitoly
+zůstal v próze 700 na ose — u článků série o půdě to byly tisíce px úzkého
+sloupce. Rozhodnutí: **každý úsek textu stojí vedle vlastního obrazu**
+(DESIGN.md 8.2b p. 8, v2.10). Plán vybrala porota tří návrhů (fotografie
+nese rytmus / kresba vykládá / rytmus čtení) — vyhrála fotografie tam, kde
+se pracuje, kresba tam, kde rozhodují centimetry.
+
+Naměřeno na článku o přípravě (1440 px): próza na ose 23 uzlů → 0,
+střídání R L R L R L R | předěl | L R L, text : obraz 0,67–0,82 (vzor
+0,57–0,75), nejdelší bílá 2 703 px, `layout-check` 2 osy, 2 šířky,
+0 jednorázových os; nejdelší odstavec 655 → 378 znaků. Cena: stránka
+10 256 → 13 760 px (telefon 13 109 → 18 959).
+
+Blok split dostal fotku (`photo`, `photoRatio`), pokračování (`continues`)
+a mezititulek v těle; seeder hlídá, že text a nadpisy zůstaly znak po znaku.

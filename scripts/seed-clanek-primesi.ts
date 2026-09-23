@@ -18,8 +18,8 @@
  * Finální obsah: první článek obsahuje kapitoly 1–4 bez kalkulátoru.
  * Druhý začíná krémovým souhrnem a úvodem; teprve za nimi stojí
  * kalkulátor `pudni-profil` (8.1 p. 2 a p. 4: po obsidianovém hero
- * nesmí hned následovat další obsidian) a původní kapitola 5, nově
- * číslovaná 1. Původní kapitoly 6 a 7 o práci
+ * nesmí hned následovat další obsidian) a stručný průvodce výpočtem se společným zdrojem
+ * v lib/profile-planning-content.ts. Původní kapitoly 6 a 7 o práci
  * se směsí, výsevu a první péči patří třetímu článku jako kapitoly 1–2.
  * Topdressing se nevkládá.
  */
@@ -29,7 +29,7 @@ import { existsSync } from 'fs'
 import { createLocalReq, getPayload, type RequiredDataFromCollectionSlug } from 'payload'
 import config from '@payload-config'
 import { PREPARATION_TITLE, PREPARATION_SLUG, PREPARATION_META_DESCRIPTION } from './lib/split-profile-preparation'
-import { splitPrimesiContent, PROFILE_SLUG, PROFILE_TITLE, ORIGINAL_META_DESCRIPTION, PROFILE_META_DESCRIPTION } from './lib/split-primesi-content'
+import { splitPrimesiContent, PROFILE_SLUG, PROFILE_TITLE, PROFILE_META_TITLE, ORIGINAL_META_DESCRIPTION, PROFILE_META_DESCRIPTION } from './lib/split-primesi-content'
 
 const dirname = path.dirname(fileURLToPath(import.meta.url))
 
@@ -197,6 +197,44 @@ const MEDIA: {
     portret: 'hero-primesi-portret.avif',
     alt: 'Připravené hromady materiálů na zahradě před mícháním směsi pro trávník: světlý praný písek, tmavá prosátá zemina a menší hromádka černého biocharu vedle sebe, rýč zapíchnutý do hromady zeminy, vzadu nízké večerní slunce.',
     focal: { focalX: 50, focalY: 55, focalPortraitX: 50, focalPortraitY: 55 },
+  },
+  {
+    filename: 'hero-priprava-smesi-higgsfield.avif',
+    portret: 'hero-priprava-smesi-higgsfield-portret.avif',
+    alt: 'Zahradník v teplém světle podvečerního slunce promíchává písek s ornicí malým rotavátorem na připravované ploše pro nový trávník.',
+    focal: { focalX: 85, focalY: 50, focalPortraitX: 72, focalPortraitY: 50 },
+  },
+  /* Rytmus obraz/text článku o přípravě (2026-09-23): ořezy v poměru rámu
+     splitu (1:1 / 4:5), zdroje a varianty v kandidati-priprava/rytmus. */
+  {
+    filename: 'fig-dodavka-materialu-ctverec.avif',
+    alt: 'Vysypaná dodávka materiálů na plachtě na okraji trávníku: hromada písku, hromada tmavé zeminy a stoh papírových pytlů s příměsemi, v pozadí dřevěný plot.',
+  },
+  {
+    filename: 'fig-ryc-zahon-ctverec.avif',
+    alt: 'Rýč zaražený do zpracovávané půdy v nízkém teplém slunci; vpředu leží světlá udusaná vrstva rozlámaná na hroudy.',
+  },
+  {
+    filename: 'fig-useky.avif',
+    alt: 'Rozkypřená plocha zahrady vyznačená provázkem na nízkých kolících; v pruhu stojí v pravidelných rozestupech tři stejné hromádky světlého písku.',
+  },
+  {
+    filename: 'fig-louze.avif',
+    alt: 'Urovnaná, čerstvě zalitá zemina; v mělké prohlubni stojí louže a odráží teplé večerní světlo.',
+  },
+  {
+    filename: 'fig-osivo-luzko.avif',
+    alt: 'Travní osivo zblízka na jemném, lehce přiváleném seťovém lůžku se stopou válce: štíhlá světlá zrna leží naplocho na tmavé půdě, v pozadí rozostřený trávník a dřevěný plot.',
+  },
+  {
+    filename: 'fig-mlady-porost.avif',
+    alt: 'Mladý trávník krátce po vzejití: tenká světle zelená stébla různé výšky, mezi nimi ještě prosvítá tmavá půda.',
+  },
+  {
+    filename: 'fig-pripravena-plocha.avif',
+    portret: 'fig-pripravena-plocha-portret.avif',
+    alt: 'Urovnané, slehlé seťové lůžko mezi trávníkem a dřevěným plotem v nízkém večerním světle; na jeho okraji stojí papírový pytel osiva.',
+    focal: { focalX: 36, focalY: 60 },
   },
   {
     filename: 'slozka-biovin.avif',
@@ -1010,8 +1048,24 @@ const run = async () => {
   })
 
   const splitContent = splitPrimesiContent(body)
-  const preparationHero = await payload.find({ collection: 'media', where: { filename: { equals: 'fig-ryci-vidle.avif' } }, limit: 1, depth: 0 })
-  if (!preparationHero.docs[0]) throw new Error('Chybí existující médium fig-ryci-vidle.avif pro článek o přípravě směsi.')
+  /* Obrazy nového rytmu vznikají až při rozdělení, tedy po převodu názvů
+     souborů výš. Chybějící fotka je chyba, ne tichý výpadek oddílu. */
+  for (const node of splitContent.preparation.root.children as Node[]) {
+    const fields = (node as { fields?: Record<string, unknown> }).fields
+    const soubor = (fields?.__photo ?? (fields?.blockType === 'figure' ? fields?.__filename : undefined)) as string | undefined
+    if (!fields || !soubor) continue
+    const nalezeno = await payload.find({ collection: 'media', where: { filename: { equals: soubor } }, limit: 1, pagination: false })
+    if (!nalezeno.docs[0]) throw new Error(`Chybí médium ${soubor} pro článek o přípravě směsi.`)
+    if (fields.__photo) {
+      delete fields.__photo
+      fields.photo = nalezeno.docs[0].id
+    } else {
+      delete fields.__filename
+      fields.image = nalezeno.docs[0].id
+    }
+  }
+  const preparationHero = await payload.find({ collection: 'media', where: { filename: { equals: 'hero-priprava-smesi-higgsfield.avif' } }, limit: 1, depth: 0 })
+  if (!preparationHero.docs[0]) throw new Error('Chybí existující médium hero-priprava-smesi-higgsfield.avif pro článek o přípravě směsi.')
   const transactionID = await payload.db.beginTransaction()
   if (!transactionID) throw new Error('Zápis všech tří článků vyžaduje transakci.')
   const req = await createLocalReq({ locale: 'cs', context: { disableRevalidate: true }, req: { transactionID } }, payload)
@@ -1043,7 +1097,7 @@ const run = async () => {
       publishedAt: existingProfile.docs[0]?.publishedAt ?? new Date().toISOString(),
       authors: original.authors?.map((author) => typeof author === 'object' ? author.id : author),
       categories: original.categories?.map((category) => typeof category === 'object' ? category.id : category),
-      meta: { title: PROFILE_TITLE, image: splitContent.profileHero, description: PROFILE_META_DESCRIPTION },
+      meta: { title: PROFILE_META_TITLE, image: splitContent.profileHero, description: PROFILE_META_DESCRIPTION },
     })
     const existingPreparation = await payload.find({ collection: 'posts', where: { slug: { equals: PREPARATION_SLUG } }, limit: 1, depth: 0, locale: 'cs', req })
     const preparation = await savePost({

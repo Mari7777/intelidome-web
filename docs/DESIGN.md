@@ -2,7 +2,7 @@
 
 _Prověřeno 3 adversárními kontrolami: 41 nálezů, 37 zapracováno, 4 zamítnuty jako vkusové. Poté ručně překlopeno na paletu Tech Blue + Emerald (rozhodnutí 22. 8. 2026) s přepočtem všech kontrastů._
 
-**Verze:** 2.9 · **Datum:** 2026-09-23 · **Platí pro:** www.intelidome.com / intelidome.cz (Next.js + Tailwind CSS + GSAP)
+**Verze:** 2.10 · **Datum:** 2026-09-23 · **Platí pro:** www.intelidome.com / intelidome.cz (Next.js + Tailwind CSS + GSAP)
 **Primární reference:** [Sonos](https://styles.refero.design/style/8d315332-6267-4dc0-a14c-e8b49c26b0e1) · **Sekundární:** [Eight Sleep](https://styles.refero.design/style/e4e8fe86-47ed-4ddd-a6c6-2c28eae9aabe), [Samara](https://styles.refero.design/style/934a61aa-50ff-4e90-852b-4ad0b8262d54)
 
 > **Esence:** Teplý papír za dne, obsidian po setmění — a jeden modrý pulz.
@@ -1094,7 +1094,7 @@ Prototyp hydraulika-zahrady.html; kapitol 3–5.
 | 0 | Header | frosted capsule | prompt 4; kategorie uprostřed, pill-button „Objevit systém" |
 | 1 | Hero | obsidian, min-height 100svh | prompt 1; meta = čas čtení · počet kalkulátorů · InteliDome Journal |
 | 2 | Souhrn | krém | summary-lead Archivo na velikosti --id-t-subtitle w500 lh 1.38 (role leadu, ne titulku), na ose prózy 700 px (`--id-maxw-prose`; ADR-006 zrušil track `wide`, §15 p. 2), klíčová fráze v `<em>` akcentem --id-accent (na krému 4,74:1 = AA, 11.1); 4 stat-tiles (prompt 3) |
-| 3…N | Kapitoly 01–0N | bílá | eyebrow „Kapitola NN" + sec-title (title škála); 1 SVG figura v krémovém panelu s figcaption „Obr. NN", **sázená asymetricky dle 8.2b**; volitelně kalkulátor (max 2/článek, prompt 2), krémové demo (max 1), step-karty 4× |
+| 3…N | Kapitoly 01–0N | bílá / krém střídavě | eyebrow „Kapitola NN" + sec-title (title škála) **uvnitř prvního dvousloupce**; každý úsek textu = dvousloupec obraz/text dle **8.2b p. 8** (v2.10: žádná próza ve středovém sloupci), kresba s figcaption „Obr. NN" nebo fotka ze série; volitelně kalkulátor (max 2/článek, prompt 2), krémové demo (max 1), step-karty 4× |
 | N+1 | Produktový pás | obsidian | eyebrow + titulek; prose #9ba1a8, `<strong>` bílým; `.id-2col` = `1fr 1fr` (652 | 652, gap `--id-gap-col` 56, zlom v ose 720 — ADR-006); 3 feature karty **pod prózou v levém sloupci**, ne v řadě pod pásem (vyrovnávají výšku diagramu — jinak 42 % prázdna, kolo 05) |
 | N+2 | CTA | bílá, centrovaná | prompt 6 (logo, H2, sub, btn-blue se šipkou, otázka čtenáři) |
 | N+3 | Footer | bílá | hairline top; logo 19px + meta 13.5px --id-ink-2 |
@@ -1190,17 +1190,36 @@ Lexicalu se vedle sebe postavit nedají.
 | Odsazení | margin-block clamp(64px,8vw,104px) |
 | Pod 1130 px | jeden sloupec v pořadí **titulek → obraz → tělo** (v2.3); panel kresby na šířce prózy, ne na `edge` — kresba 520 by v 944 px plavala |
 
-5. **Próza kapitoly běží na dvou osách** — tělo dvousloupce ve sloupci
-   652 px, zbytek kapitoly v próze 700 px. Je to vědomá cena za „půl na
-   půl" sazbu; čtyři alternativy jsou změřené a horší (§15). Nehledat
-   řešení znovu — kresba 520 a próza 700 se na společnou osu do 1360
-   nevejdou.
+5. ~~**Próza kapitoly běží na dvou osách**~~ — **zrušeno v2.10 (p. 8)**:
+   próza mimo dvousloupec už v kapitole nestojí, takže druhá osa textu
+   odpadla. (Historie: tělo dvousloupce 652, zbytek kapitoly v próze 700;
+   čtyři alternativy změřené v §15.)
 6. **Střídání se počítá přes všechny obrazové bloky**, ne zvlášť pro
    dvousloupce a zvlášť pro figury. Dvě sousední hmoty nikdy na téže straně;
    full-bleed rytmus resetuje. Referenční pořadí článku:
    `vlevo → vpravo → vlevo → full-bleed → vpravo`.
 7. Kresba potřebuje **portrétovou variantu**, má-li jít do dvousloupce.
    Bez ní patří do asymetrické figury, kde má šířku.
+8. **Žádná próza ve středovém sloupci (v2.10, rozhodnutí majitele
+   23. 9. 2026, ADR-006 dodatek 2).** Majitel: „Sloupeček textu ve středu
+   monitoru je špatně" a „příliš dlouhé odstavce". Každý úsek textu kapitoly
+   stojí ve dvousloupci **vedle vlastního obrazu**; strany se střídají bez
+   výjimky, kapitolu otevírá eyebrow „Kapitola NN" + H2 **uvnitř** prvního
+   dvousloupce (blok chapter se nepoužívá). Na ose prózy 700 zůstává jen
+   lead souhrnu, centrované CTA, FAQ a popisek předělu.
+   - **Obraz:** fotka tam, kde se pracuje (nálada, materiál, místo), kresba
+     tam, kde rozhodují čísla. Fotka ve dvousloupci je **ořez v poměru rámu**
+     (4:5 nebo 1:1, zdroj ≥ 1304 px) bez krémového panelu, slot 652
+     (700 složeně, okraj k okraji na telefonu); 21:9 master do rámu nepatří
+     (~3× širší stahování). Fotky článku tvoří **sérii** (jedna zahrada,
+     jedno světlo).
+   - **Délka:** odstavec ≤ ~380 znaků (≈ 3 věty); autorův text se jen dělí
+     na hranicích vět. Tělo dvousloupce ≈ 65–120 % výšky obrazu s popiskem.
+   - **Pokračování oddílu** bez titulku (`continues`) dostane modulovou
+     mezeru `--id-rhythm` místo pásové; **mezititulek** uvnitř těla je h3
+     (řádek „### "), 44 px nad / 14 px pod.
+   - Přejímka: v `.id-article` není přímý potomek `p` ani `h3`; střídání
+     R/L přes všechny splity; `layout-check` bez jednorázových os.
 
 ### 8.3 Šablona: Landing page
 

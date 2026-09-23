@@ -25,8 +25,9 @@ export const Split: Block = {
     {
       name: 'drawing',
       type: 'select',
-      required: true,
       label: 'Kresba',
+      validate: (value: unknown, { siblingData }: { siblingData: Record<string, unknown> }) =>
+        value || siblingData?.photo ? true : 'Vyberte kresbu, nebo nahrajte fotografii.',
       admin: {
         description:
           'Do úzkého sloupce patří jen kresba s portrétovou sazbou — panoramatická by měla popisky pod 5 px.',
@@ -56,6 +57,30 @@ export const Split: Block = {
         { label: 'Slehnutí: méně než součet vstupů', value: 'slehnuti-vstupu' },
         { label: 'Praný vs. nepraný písek (mezery)', value: 'prany-pisek' },
         { label: 'Míchání od hloubky k povrchu (základ 30 → zeolit 15 → biochar a Actino 10 cm)', value: 'michani-od-hloubky' },
+        { label: 'Kontrola sondou (ve své hloubce / hromádka / až na dno)', value: 'kontrola-sondou' },
+        { label: 'Mykorhiza pod osivem (stejná dávka, jiné místo)', value: 'mykorhiza-pod-osivem' },
+      ],
+    },
+    {
+      name: 'photo',
+      type: 'upload',
+      relationTo: 'media',
+      label: 'Fotografie místo kresby',
+      admin: {
+        description:
+          'Nahrajte ořez v poměru rámu (4:5 nebo 1:1), ne 21:9 master — rám se jinak plní ~3× širším obrazem. Alt se bere z knihovny médií.',
+        condition: (_, siblingData) => !siblingData?.drawing,
+      },
+    },
+    {
+      name: 'photoRatio',
+      type: 'select',
+      defaultValue: '4:5',
+      label: 'Poměr rámu fotografie',
+      admin: { condition: (_, siblingData) => Boolean(siblingData?.photo) },
+      options: [
+        { label: 'Na výšku 4:5', value: '4:5' },
+        { label: 'Čtverec 1:1', value: '1:1' },
       ],
     },
     { name: 'eyebrow', type: 'text', label: 'Nadřádek' },
@@ -72,15 +97,31 @@ export const Split: Block = {
       ],
     },
     {
+      name: 'continues',
+      type: 'checkbox',
+      label: 'Pokračuje oddíl nad sebou',
+      admin: {
+        description:
+          'Jen pro blok bez titulku se stejným povrchem jako blok nad ním: místo pásové mezery dostane modulovou, takže se oba čtou jako jeden oddíl.',
+      },
+    },
+    {
       name: 'body',
       type: 'textarea',
       required: true,
       label: 'Text',
-      admin: { description: 'Odstavce oddělte prázdným řádkem. **Tučně** takto.' },
+      admin: { description: 'Odstavce oddělte prázdným řádkem. **Tučně** takto. Řádek začínající „### “ je mezititulek (h3).' },
     },
     { name: 'number', type: 'text', label: 'Číslo obrázku', admin: { placeholder: '01' } },
     { name: 'caption', type: 'text', required: true, label: 'Popisek' },
-    { name: 'alt', type: 'text', required: true, label: 'Popis kresby pro odečítač' },
+    {
+      name: 'alt',
+      type: 'text',
+      label: 'Popis kresby pro odečítač',
+      validate: (value: unknown, { siblingData }: { siblingData: Record<string, unknown> }) =>
+        value || !siblingData?.drawing ? true : 'Kresba potřebuje popis pro odečítač (9.2 p. 8).',
+      admin: { condition: (_, siblingData) => Boolean(siblingData?.drawing) },
+    },
     {
       name: 'surface',
       type: 'select',

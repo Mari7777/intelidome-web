@@ -975,6 +975,13 @@
     object-position: var(--id-focal-portrait, var(--id-focal, 70% 36%));
   }
 }
+@media (orientation: portrait) and (max-width: 560px) {
+  /* Samostatný svislý zdroj už je oříznutý; jeho střed použijeme jen tam,
+     kde se skutečně načítá. Na širší výšku platí fokální bod masteru. */
+  .id-hero__img {
+    object-position: var(--id-focal-portrait-asset, var(--id-focal-portrait, var(--id-focal, 70% 36%)));
+  }
+}
 
 .id-hero__title {
   font-family: var(--id-f-display);
@@ -2185,6 +2192,10 @@ html.plynule {
 .id-split__p strong {
   font-weight: 600;
 }
+/* Mezititulek uvnitř těla splitu (8.2a: próza → h3 44 px, h3 → próza 14 px). */
+.id-split__body .id-split__body-h3 {
+  margin-block: 44px 14px;
+}
 @media (max-width: 1129px) {
   .id-article > .id-split {
     grid-column: edge;
@@ -2212,6 +2223,23 @@ html.plynule {
     grid-row: 3;
     width: 100%;
     margin-inline: auto;
+  }
+  /* Složeně odděluje titulek od obrazu jen row-gap (24/34 px); s maržemi
+     hlavy stál titulek dál od svého obrazu než od předchozího oddílu. */
+  .id-split__head,
+  .id-split__head > :last-child {
+    margin-bottom: 0;
+  }
+  /* Pokračování nemá hlavu — bez prázdného prvního řádku a jeho row-gap
+     by modulová mezera narostla na pásovou (porota kola 02). */
+  .id-split--pokracovani {
+    grid-template-rows: auto auto;
+  }
+  .id-split--pokracovani > .id-split__figure {
+    grid-row: 1;
+  }
+  .id-split--pokracovani > .id-split__body {
+    grid-row: 2;
   }
 }
 
@@ -2369,6 +2397,12 @@ html.plynule {
 .id-article > :is(.id-band, .id-split) + *,
 .id-article > * + :is(.id-band, .id-split) {
   margin-top: var(--id-rhythm-band);
+}
+/* Pokračování oddílu (split bez titulku, týž povrch): modulová mezera,
+   ne pásová — jinak se druhá půlka oddílu čte jako nový nepojmenovaný
+   oddíl. Specificita (0,4,0) přebije pásové pravidlo výš. */
+.id-article > .id-split + .id-split.id-split--pokracovani {
+  margin-top: var(--id-rhythm);
 }
 /* Předěl kapitoly je pásový vždy, ne jen po pásu — jinak má tentýž šev
    dvě míry podle toho, co kapitole předchází. */
@@ -2541,6 +2575,29 @@ html.plynule {
 @media (min-width: 1130px) and (max-width: 1149px) {
   .id-split__figure > .id-figure-media {
     padding-inline: 24px;
+  }
+}
+
+/* Fotka ve splitu (8.2b): týž slot jako panel kresby, bez krémového
+   rámu a paddingu. Zdroj je ořez v poměru rámu, takže `sizes` = šířka
+   slotu. Na telefonu k okrajům obrazovky jako panel kresby, bez radiusu. */
+.id-split__figure > .id-split__foto {
+  overflow: hidden;
+  aspect-ratio: 4 / 5;
+  padding: 0;
+  border-radius: var(--id-r-card);
+  background: var(--id-cream, var(--id-bg-2));
+}
+.id-split__figure > .id-split__foto--ctverec {
+  aspect-ratio: 1 / 1;
+}
+.id-split__foto img {
+  object-position: var(--id-focal, 50% 50%);
+}
+@media (max-width: 560px) {
+  .id-split__figure > .id-split__foto {
+    padding: 0;
+    border-radius: 0;
   }
 }
 

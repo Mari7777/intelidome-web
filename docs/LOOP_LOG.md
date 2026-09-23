@@ -3543,3 +3543,82 @@ ještě s rozšířenou fotkou (první pokus), nálezy k fotce jsou přeměřen�
 `tsc` čistý, 26 testů, `svg-labels` 0 kolizí a 0 ořezů na 320/393/1440
 (obě kresby, min 10,5 px), `layout-check` 393/1024/1440/1920 beze změny
 (známý falešný poplach jednorázových os), střídání splitů R L.
+
+## Přestavba na rytmus obraz/text (2026-09-23, po kole 01)
+
+Majitel: *„jsou tam příliš dlouhé odstavce textu, klidně obrázek text, text
+obrázek, ale inspiruj se zlatými standardy. Sloupeček textu ve středu
+monitoru je špatně."* Plán vybrala porota tří návrhů (fotografie nese
+rytmus 22 b. / rytmus čtení 18 / kresba vykládá 15) + syntéza s roubováním.
+Zapsáno do DESIGN.md 8.2b p. 8 (v2.10) a ADR-006 dodatek 2.
+
+- Deset dvousloupců R L R L R L R | předěl (fotka) | L R L; 23 uzlů prózy
+  ze středového sloupce → 0; kapitoly = eyebrow + H2 uvnitř splitu.
+- Odstavce autora jen rozdělené na hranicích vět (98/98 vět, 10/10
+  nadpisů, 6/6 tučných, 5/5 odkazů); nejdelší 655 → 378 znaků. Obsah je
+  datový modul `scripts/lib/preparation-rhythm-content.ts` vygenerovaný
+  z ověřeného plánu; `applyPreparationRhythm` přestavbu odmítne, když se
+  text nebo pořadí nadpisů liší (pomlčky – a — bere jako týž glyf).
+- Blok split: fotka místo kresby (`photo`, `photoRatio` 4:5/1:1, slot 652),
+  pokračování bez titulku (`continues`, modulová mezera), mezititulek
+  „### " v těle.
+- Obrazy: 6 fotek ve splitech (ořezy fig-dodavka-materialu-ctverec,
+  fig-ryc-zahon-ctverec + nové fig-useky, fig-louze, fig-osivo-luzko,
+  fig-mlady-porost), předěl fig-pripravena-plocha (+ portrét 4:5), 4 kresby
+  (michani-od-hloubky, nové **kontrola-sondou** a **mykorhiza-pod-osivem**,
+  prvni-korinek). Fotka vidlí vyřazena (známý AI artefakt). Nové kresby
+  prošly oponentem: zeolit ve vývrtu „až na dno" na polovinu, ne čtvrtinu;
+  kořínky mykorhizy 3,5 cm jako v prvni-korinek; legenda „kontakt" pro
+  jediný akcent.
+- Hero: menší stroj (edit původní fotky) + teplé podvečerní světlo
+  (nové nasvícení, 6 000 → 4 180 K), obojí na přání majitele.
+
+## Kolo 02 — první kolo bez kritického nálezu (2026-09-23)
+
+| Oblast | Skóre |
+|---|---|
+| Hierarchie | **4/5** |
+| Typografie | **4/5** |
+| Pohyb | 3/5 |
+| Grafický styl | 3/5 |
+| Slop | 2/5 |
+| Výkon a přístupnost | 3/5 |
+| Rozložení | 3/5 |
+
+**0 kritických**, skeptikem prošlo 6 nálezů (4 důležité, 2 snížené).
+
+### Opravy
+
+- **Osivo ve dvou podobách a AI zrna** (styl): Obr. 09 přegenerováno —
+  štíhlá travní semena naplocho na přiváleném lůžku se stopou válce;
+  z předělu Obr. 08 vymazána semena velikosti 2–3 cm i světlý hrudovitý pás.
+- **Popisek Obr. 09 tvrdil opak fotky** (slop): přepsán podle fotky i těla.
+  Popisky Obr. 01, 02, 03, 06 a předělu už neopakují tělo ani titulek
+  kapitoly 02; pointa kresby Obr. 04 je „30 → 15 → 10 cm" místo věty,
+  která zdvojovala H3.
+- **Hero 274 kB na retina desktopu** (výkon, limit 260): master hera
+  i předělu 2 880 px s lehkým potlačením šumu → 191 kB / 203 kB (w=3840
+  vrací 2 880, Next nezvětšuje). Světlo, stroj ani postava beze změny.
+- **Živé přepnutí prefers-reduced-motion házelo na začátek článku**
+  (pohyb; i na vzorovém článku): GSAP po revertu zapíše scroll 0 a reaguje
+  dřív než jakýkoli náš posluchač — Motion.tsx drží poslední známou pozici
+  ze scrollu a po refreshi ji vrátí. Naměřeno: 6 343 → 6 343 oběma směry.
+- Složený split (≤ 1129): titulek k obrazu jen row-gap; pokračování bez
+  prázdného řádku hlavy (modulová mezera, ne pásová). Titulek h3 v hlavě
+  splitu bez vlastní marže (24 px podle 5.1, dřív 42). `sizes` fotek ve
+  splitu popisují plynulý slot 1130–1439.
+
+### Neopraveno
+
+- Hero je jiná zahrada (kovový plot) než série (prknový plot) — rozhodnutí
+  majitele. Kosmetické: tón půdy Obr. 03 světlejší než zbytek série, odraz
+  v louži sytější než plot, Obr. 10 prázdno ve viewBoxu, pointa 24 px
+  se na telefonu neškáluje (koš B), mezera odstavců 18 vs 22 px (koš B),
+  zeolit v plné směsi kreseb řidší než v samostatné vrstvě.
+
+### Ověření
+
+`tsc`, seed s kontrolou textu, na 393/1024/1440: volná próza 0, R L R L R
+L R L R L, text : obraz 0,64–0,84 (1440), nejdelší bílá ≤ 3 521 px, kotvy
+11/11 na 124 px, `svg-labels` 0 kolizí (min 10,6 px), `layout-check`
+0 jednorázových os.

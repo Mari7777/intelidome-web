@@ -69,8 +69,8 @@ const Krok: React.FC<{ y0: number; krok: 1 | 2 | 3 }> = ({ y0, krok }) => {
 export const MichaniOdHloubky: React.FC = () => (
   <svg aria-hidden="true" className="block h-auto w-full" viewBox="0 0 520 716">
     <Defs />
-    {/* Pointa kresby (9.2 p. 3) je jedna: každý další průchod jde mělčeji. */}
-    <text className="sv-val" x="40" y="40" style={{ fontSize: 24 }}>Nejdřív hloubka, pak mělčeji</text>
+    {/* Pointa kresby (9.2 p. 3): hloubky tří průchodů — věta by jen zdvojila H3 vedle. */}
+    <text className="sv-val" x="40" y="40" style={{ fontSize: 24 }}>30 → 15 → 10 cm</text>
 
     <text className="sv-lbl" x="40" y="92">1 · Zemina a písek</text>
     <Krok y0={104} krok={1} />

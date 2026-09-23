@@ -46,6 +46,35 @@ export const Motion = ({ inertia = false }: { inertia?: boolean }) => {
       kotvaCil = null
     }
 
+    /*
+      Živé přepnutí prefers-reduced-motion: GSAP revertuje kontext a jeho
+      refresh zapíše scroll 0 — čtenář skončil na začátku článku (porota
+      kola 02). GSAP reaguje na změnu dřív než my, takže pozici neumíme
+      přečíst v okamžiku změny; držíme proto poslední známou ze scrollu
+      (událost scroll přijde až po přepisu) a po refreshi ji vrátíme.
+    */
+    const omezeny = window.matchMedia('(prefers-reduced-motion: reduce)')
+    let posledniY = window.scrollY
+    let drzetPozici: number | null = null
+    const sleduj = () => {
+      if (drzetPozici === null) posledniY = window.scrollY
+    }
+    const vrat = () => {
+      if (drzetPozici === null) return
+      window.scrollTo({ top: drzetPozici, behavior: 'instant' })
+    }
+    const predZmenou = () => {
+      drzetPozici = posledniY
+      vrat()
+      requestAnimationFrame(() => requestAnimationFrame(() => {
+        vrat()
+        drzetPozici = null
+      }))
+    }
+    window.addEventListener('scroll', sleduj, { passive: true })
+    omezeny.addEventListener('change', predZmenou)
+    ScrollTrigger.addEventListener('refresh', vrat)
+
     const mm = gsap.matchMedia()
 
     mm.add('(prefers-reduced-motion: no-preference)', () => {
@@ -148,6 +177,9 @@ export const Motion = ({ inertia = false }: { inertia?: boolean }) => {
       window.removeEventListener('load', poNacteni)
       ZASAHY.forEach((typ) => window.removeEventListener(typ, oznac))
       ScrollTrigger.removeEventListener('refresh', dorovnej)
+      window.removeEventListener('scroll', sleduj)
+      omezeny.removeEventListener('change', predZmenou)
+      ScrollTrigger.removeEventListener('refresh', vrat)
       mm.revert()
     }
   }, [])
