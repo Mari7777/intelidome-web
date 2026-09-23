@@ -2,7 +2,7 @@
 
 _Prověřeno 3 adversárními kontrolami: 41 nálezů, 37 zapracováno, 4 zamítnuty jako vkusové. Poté ručně překlopeno na paletu Tech Blue + Emerald (rozhodnutí 22. 8. 2026) s přepočtem všech kontrastů._
 
-**Verze:** 2.7 · **Datum:** 2026-09-14 · **Platí pro:** www.intelidome.com / intelidome.cz (Next.js + Tailwind CSS + GSAP)
+**Verze:** 2.9 · **Datum:** 2026-09-23 · **Platí pro:** www.intelidome.com / intelidome.cz (Next.js + Tailwind CSS + GSAP)
 **Primární reference:** [Sonos](https://styles.refero.design/style/8d315332-6267-4dc0-a14c-e8b49c26b0e1) · **Sekundární:** [Eight Sleep](https://styles.refero.design/style/e4e8fe86-47ed-4ddd-a6c6-2c28eae9aabe), [Samara](https://styles.refero.design/style/934a61aa-50ff-4e90-852b-4ad0b8262d54)
 
 > **Esence:** Teplý papír za dne, obsidian po setmění — a jeden modrý pulz.
@@ -86,6 +86,23 @@ Barvy existují **výhradně** jako tokeny `--id-*`; hex natvrdo v komponentě =
 
 Dále v2 mění (rozhodnutí 22. 8. 2026, sjednocení s aplikací): `--id-accent` `#0071e3` → `#2563eb`, `--id-accent-deep` `#0058b8` → `#1d4ed8`, `--id-green` `#1d8a4e` → `#047857`, `--id-green-soft` `#f3f8f5` → `#ecfdf5`; nový token `--id-emerald` `#10b981`. Vše ostatní z v1 (`--id-ink`, radiusy, stíny, `--id-ease`, warn/danger) beze změny.
 
+**v2.9 — doladění palety (rozhodnutí majitele 23. 9. 2026).** Kotvy (`--id-accent`, `--id-emerald`, `--id-green`, krém, obsidian, `--id-ink`, zemité tóny, linky) beze změny. Mění se 10 hodnot:
+
+| Token | v2.0–2.8 | v2.9 | Důvod |
+|-|-|-|-|
+| `--id-ink-2` | `#5b5e63` | `#595650` | jediná studená šeď na teplém papíře → teplá osa krému; o stupeň tmavší, aby držel krok nad ink-3 |
+| `--id-ink-3` | `#86868b` | `#716e68` | dřív 3,62 / 3,32:1 — metadata a hinty 12–13,5 px porušovaly AA; nově 5,08 / 4,66 |
+| `--id-ink-dark-3` | `#6c737b` | `#7c828b` | na obsidian-2 3,74 → 4,64 |
+| `--id-green-soft` | `#ecfdf5` | `rgba(16, 185, 129, 0.09)` | plná máta svítila na krému jako samolepka; průhledný tón má světlost krému |
+| `--id-warn` | `#b76a00` | `#995b00` | medový bronz téhož odstínu; poprvé smí být text (5,45 bílá / 5,00 krém / 4,61 na warn-soft přes krém) |
+| `--id-warn-soft` | `rgba(183, 106, 0, 0.09)` | `rgba(232, 161, 61, 0.12)` | pigment z jasného stupně = čistý medový podklad místo zakalené béžové |
+| `--id-warn-tint` | `#f2b96b` | `#f6c85f` | šafrán; v noci lépe odlišený od mentolového OK |
+| `--id-danger` | `#c0392b` | `#a21723` | flat-UI cihla z v1 → hluboký karmín o stupeň tmavší než warn (7,83 bílá) |
+| `--id-danger-soft` | `rgba(192, 57, 43, 0.08)` | `rgba(228, 92, 90, 0.08)` | čistý korál místo zakalené cihly; chyba na podkladu přes krém 4,45 → 6,59 |
+| `--id-danger-bright` | `#e6604f` | `#e45c5a` | jeden odstín chyby ve dne i v noci |
+
+**Logika rodin (v2.9):** každá barevná rodina má tmavý textový stupeň pro papír, `-bright` pro výplně, grafy a ikony v noci, `-tint` pro text v noci a `-soft` podklad = pigment rodiny s alfou, jejíž výsledek nad bílou má světlost krému. Den (inkousty, stavové podklady) leží na teplé ose krému, noc (obsidian, akcent, tmavé šedé) na modré ose. Nová pravidla komponent: text na `--id-accent-soft` píše `--id-accent-deep` (3.4); ikona stavu se plní podle povrchu (3.4, 7.8). Porota 4 návrhů a 3 hodnotitelů; stav „pozor" × „chyba" je pro deuteranopii rozlišitelný jen o málo lépe než dřív, proto dál platí: stav nikdy nenese jen barva.
+
 ### 3.2 Světlá rodina — canvas a inkoust
 
 | Hodnota | Token | Role |
@@ -94,8 +111,8 @@ Dále v2 mění (rozhodnutí 22. 8. 2026, sjednocení s aplikací): `--id-accent
 | `#f6f5f2` | `--id-cream` (alias `--id-bg-2`) | souhrny, demo bloky, tinted karty |
 | `#ffffff` | `--id-surface` | karty a panely na canvasu i krému |
 | `#1d1d1f` | `--id-ink` | primární text, titulky, ikony na světlém; ne CTA (akce = modrá) |
-| `#5b5e63` | `--id-ink-2` | sekundární text, leady, popisky karet |
-| `#86868b` | `--id-ink-3` | terciární text, placeholder, metadata, figcaption; nikdy souvislé odstavce |
+| `#595650` | `--id-ink-2` | sekundární text, leady, popisky karet (teplá osa krému, v2.9) |
+| `#716e68` | `--id-ink-3` | terciární text, placeholder, metadata, hinty, figcaption; nikdy souvislé odstavce (v2.9: AA i pro malý text — 5,08 bílá / 4,66 krém) |
 
 ### 3.3 Tmavá rodina — obsidian (nová ve v2)
 
@@ -107,7 +124,7 @@ Filmové tmavé pásy (Eight Sleep): modročerná, **nikdy čistá `#000000`**.
 | `#14171c` | `--id-obsidian-2` | zvednutý panel/karta v tmavém pásu (hloubka posunem povrchu, ne stínem) |
 | `#ffffff` | `--id-ink-dark` | titulky a primární text na obsidianu |
 | `#9ba1a8` | `--id-ink-dark-2` | podtexty, popisky, řádky kalkulátoru |
-| `#6c737b` | `--id-ink-dark-3` | metadata, disabled; nikdy odstavce |
+| `#7c828b` | `--id-ink-dark-3` | metadata, disabled, funkční obrysy ovladačů; nikdy odstavce (v2.9: 5,02 obsidian / 4,64 obsidian-2) |
 
 ### 3.4 Akcent a sémantika
 
@@ -115,23 +132,25 @@ Filmové tmavé pásy (Eight Sleep): modročerná, **nikdy čistá `#000000`**.
 |-|-|-|
 | `#2563eb` | `--id-accent` | **jediný chromatický akcent UI**: primární CTA, odkazy, focus ring, eyebrow, aktivní stavy (bílý text na akcentu 5,17:1 = AA) |
 | `#1d4ed8` | `--id-accent-deep` | hover/pressed akcentu na světlém |
-| `rgba(37, 99, 235, 0.10)` | `--id-accent-soft` | ghost hover, focus glow, info callout — jediná povolená „plocha" akcentu |
+| `rgba(37, 99, 235, 0.10)` | `--id-accent-soft` | ghost hover, focus glow, info callout — jediná povolená „plocha" akcentu — **text na něm vždy `--id-accent-deep`** (5,36:1 přes krém; plný akcent jen 4,13, v2.9) |
 | `#60a5fa` | `--id-accent-dark` | odkazy a akcentový text < 30px na tmavém (`#2563eb` na `#0b0d10` 3,8:1 — na malý text málo; tato 7,65:1); klíčová čísla ≥ 30px (hero kalkulátoru 7.7) smí plný accent (AA large, 11.1) |
 | `#93c5fd` | `--id-accent-tint` | eyebrow, uppercase tagy/mikrotypografie a hover odkazů na tmavém (10,8:1) |
-| `#047857` | `--id-green` | výhradně stav: verdikt OK, success badge — stavový TEXT na světlém (5,48:1 bílá / 5,03:1 krém = AA); nikdy dekorace ani CTA |
-| `#10b981` | `--id-emerald` | brandová Emerald z aplikace: výplně, grafy, lišty vlhkosti, ikony, checkmarky — **nikdy text** (na bílé jen 2,54:1) |
-| `#ecfdf5` | `--id-green-soft` | podklad success badge/callout |
+| `#047857` | `--id-green` | výhradně stav: verdikt OK, success badge — stavový TEXT na světlém (5,48:1 bílá / 5,03:1 krém = AA); nikdy dekorace ani CTA; od v2.9 i výplň ikony stavu na světlém (bílý glyf 5,48:1) |
+| `#10b981` | `--id-emerald` | brandová Emerald z aplikace: výplně, grafy, lišty vlhkosti, ikony, checkmarky — **nikdy text** (na bílé jen 2,54:1); ikona stavu na světlém se jím neplní (bílý glyf 2,54:1) — tam --id-green |
+| `rgba(16, 185, 129, 0.09)` | `--id-green-soft` | podklad success badge, callout a verdiktu — světlost krému; green text na něm 5,05 bílá / 4,66 krém (v2.9) |
 | `#6ee7b7` | `--id-green-tint` | text verdiktu OK na obsidianovém panelu (7.8) |
-| `#34d399` | `--id-green-bright` | grafy/glyfy na obsidianu (10,1:1); v textu se nepoužívá |
-| `#b76a00` | `--id-warn` | stav „pozor" na světlém |
-| `rgba(183, 106, 0, 0.09)` | `--id-warn-soft` | podklad warn badge/callout |
-| `#f2b96b` | `--id-warn-tint` | text verdiktu „pozor" na obsidianovém panelu (7.8) |
-| `#e8a13d` | `--id-warn-bright` | rezerva pro grafy/glyfy na obsidianu; v komponentách se nepoužívá |
-| `#c0392b` | `--id-danger` | chyby, destruktivní akce |
-| `rgba(192, 57, 43, 0.08)` | `--id-danger-soft` | podklad chybového stavu |
-| `#e6604f` | `--id-danger-bright` | chybový stav na obsidianu |
+| `#34d399` | `--id-green-bright` | grafy/glyfy na obsidianu (10,1:1); v textu se nepoužívá; od v2.9 výplň ikony OK v tmavém verdiktu (glyf #0b0d10, 10,1:1) |
+| `#995b00` | `--id-warn` | stav „pozor" na světlém — od v2.9 smí být text (5,45 bílá / 5,00 krém / 4,61 na warn-soft přes krém); výplň ikony stavu na světlém |
+| `rgba(232, 161, 61, 0.12)` | `--id-warn-soft` | podklad warn badge, callout a verdiktu — pigment z warn-bright, světlost krému; alfa nejvýš .12 (warn text přes krém 4,61) |
+| `#f6c85f` | `--id-warn-tint` | text verdiktu „pozor" na obsidianovém panelu (7.8; 12,37:1 obsidian / 11,42:1 obsidian-2) |
+| `#e8a13d` | `--id-warn-bright` | grafy a glyfy na obsidianu; od v2.9 i výplň ikony „pozor" v tmavém verdiktu (glyf #0b0d10, 8,9:1) |
+| `#a21723` | `--id-danger` | chyby, destruktivní akce — hluboký karmín (7,83 bílá / 7,18 krém; bílý text na tlačítku 7,83); na obsidianu nikdy (2,49:1) — tam danger-bright |
+| `rgba(228, 92, 90, 0.08)` | `--id-danger-soft` | podklad chybového stavu — pigment z danger-bright (danger text přes krém 6,59) |
+| `#e45c5a` | `--id-danger-bright` | chybový stav na obsidianu (5,54:1); tmavá chybová tinta nejvýš rgba(228,92,90,.10) (4,59:1 přes obsidian-2) |
 
 V jedné komponentě **max jedna** sémantická barva; nikdy nesoupeří s modrou v téže komponentě.
+
+**Ikona stavu (v2.9):** na světlém výplň textovým stupněm rodiny (ok `--id-green`, warn `--id-warn`, danger `--id-danger`, info `--id-accent`) + bílý glyf; na obsidianu výplň stupněm `-bright` (ok `--id-green-bright`, warn `--id-warn-bright`, info `--id-accent-dark`) + glyf `#0b0d10`. Emerald jako výplň ikony na světlém nestačí (bílý glyf 2,54:1).
 
 ### 3.5 Hairlines
 
@@ -691,7 +710,7 @@ Na obsidianu focus ring zůstává accent — #2563eb je na #0b0d10 jako obrys z
 |---|---|---|---|
 | `--primary` | accent | #fff | box-shadow:0 12px 32px rgba(37,99,235,.35) (glow); pozadí se NEmění |
 | `--secondary` | cream | ink | background:mist (#e8e7e3) |
-| `--ghost` (světlý) | transparent | accent | background:accent-soft |
+| `--ghost` (světlý) | transparent | accent | background:accent-soft, color:accent-deep (plný akcent na accent-soft jen 4,49:1 — v2.9) |
 | `--ghost-dark` | transparent, border:1.5px solid line-dark | #fff | border-color:#fff |
 
 **Tmavě:** `--primary` beze změny; `--ghost-dark` = jediný sekundární button na obsidianu; `--secondary` a světlý `--ghost` tam nepatří.
@@ -750,11 +769,11 @@ Na obsidianu focus ring zůstává accent — #2563eb je na #0b0d10 jako obrys z
 | Padding / radius | 7px 14px / r-pill |
 | `--outline-accent` (tag) | f-display 600 11.5px, ls:.14em, uppercase, color:accent, border:1.5px solid accent, transparent, padding:6px 14px, nowrap |
 
-**Badge:** f-body 600, 12px, ls:.01em, padding:5px 12px, radius pill. Varianty: `--success` green na green-soft; `--warn` warn na warn-soft; `--danger` danger na danger-soft; `--info` accent na accent-soft.
+**Badge:** f-body 600, 12px, ls:.01em, padding:5px 12px, radius pill. Varianty: `--success` green na green-soft; `--warn` warn na warn-soft; `--danger` danger na danger-soft; `--info` accent-deep na accent-soft (v2.9: plný akcent na soft přes krém jen 4,13:1).
 
 **Stavy:** neinteraktivní.
 
-**Tmavě:** chip → color:ink-dark-2, border:1px solid line-dark, transparent pozadí; `--outline-accent` → text i border accent-tint (#93c5fd) — plný akcent je na obsidianu pro 11.5px text 3,8:1 = pod AA (stejné pravidlo jako eyebrow, 7.3). Badge tinty: `--success` green-tint (#6ee7b7) na rgba(16,185,129,.14), `--warn` warn-tint (#f2b96b) na rgba(183,106,0,.16).
+**Tmavě:** chip → color:ink-dark-2, border:1px solid line-dark, transparent pozadí; `--outline-accent` → text i border accent-tint (#93c5fd) — plný akcent je na obsidianu pro 11.5px text 3,8:1 = pod AA (stejné pravidlo jako eyebrow, 7.3). Badge tinty: `--success` green-tint (#6ee7b7) na rgba(16,185,129,.14), `--warn` warn-tint (#f6c85f) na rgba(232,161,61,.14).
 
 Snippet: viz 7.2.
 
@@ -895,12 +914,12 @@ Mapování `--light`: ink-dark-2→ink-2 (labely, jednotka, popisky); line-dark�
 |---|---|
 | Layout | flex; gap:12px; align-items:flex-start; radius r-md (14px); padding:16px 20px |
 | Typografie | 14.5px, 500, lh:1.5 |
-| Ikona `.ic` | kruh 22px, flex:none, mt:1px, výplň dle varianty: ok = --id-emerald (na tmavém splňuje non-text 3:1), warn = --id-warn, info = --id-accent; uvnitř bílý glyf (check/vykřičník) 12px, stroke 2px |
+| Ikona `.ic` | kruh 22px, flex:none, mt:1px; glyf (check/vykřičník) 12px, stroke 2px, barva `currentColor` z `.ic`. **Tmavý (výchozí):** výplň stupněm -bright — ok --id-green-bright, warn --id-warn-bright, info --id-accent-dark — glyf #0b0d10. **Světlý:** výplň textovým stupněm — ok --id-green, warn --id-warn, info --id-accent — glyf #fff (3.4, v2.9) |
 | `--ok` tmavý | rgba(16,185,129,.14) / green-tint (#6ee7b7) |
-| `--warn` tmavý | rgba(183,106,0,.16) / warn-tint (#f2b96b) |
-| `--ok` světlý | rgba(16,185,129,.10) / text --id-green #047857 (nad tintovaným podkladem 4,99:1 na bílé, 4,61:1 na krému = AA); ikona `.ic` výplň --id-emerald |
-| `--warn` světlý | rgba(183,106,0,.10) / text ink — warn 4,14:1 = pod AA; barvu nese ikona `.ic` a pozadí |
-| `--info` (oba) | accent-soft / accent (tmavý text accent-tint) |
+| `--warn` tmavý | rgba(232,161,61,.14) / warn-tint (#f6c85f) |
+| `--ok` světlý | --id-green-soft / text --id-green (5,05:1 přes bílou, 4,66:1 přes krém = AA); ikona `.ic` výplň --id-green |
+| `--warn` světlý | --id-warn-soft / text --id-warn (5,00:1 přes bílou, 4,61:1 přes krém = AA, v2.9); ikona `.ic` výplň --id-warn |
+| `--info` (oba) | accent-soft / accent-deep (tmavý: text accent-tint) |
 
 Změna ok ↔ warn = výměna třídy; přechod background .3s, color .3s. Dynamický verdikt má aria-live="polite".
 
@@ -912,7 +931,7 @@ Změna ok ↔ warn = výměna třídy; přechod background .3s, color .3s. Dynam
 
 ```css
 .id-verdict{display:flex;gap:12px;align-items:flex-start;border-radius:var(--id-r-md);padding:16px 20px;transition:background .3s,color .3s}
-.id-verdict--ok{background:rgba(16,185,129,.10);color:var(--id-green)} /* světlý verdikt: text #047857 = AA (11.1); ikona .ic výplň --id-emerald */
+.id-verdict--ok{background:var(--id-green-soft);color:var(--id-green)} /* světlý verdikt: text #047857 = AA (11.1); ikona .ic výplň --id-green + bílý glyf (v2.9) */
 ```
 
 ### 7.9 Interaktivní demo blok `.id-demo`
@@ -923,7 +942,7 @@ Změna ok ↔ warn = výměna třídy; přechod background .3s, color .3s. Dynam
 |---|---|
 | Panel | cream; radius r-card; padding:clamp(24px,3.4vw,44px); margin:56px 0 8px |
 | Horní řádek | flex space-between center, gap:18px, wrap, mb:8px; titulek clamp(19px,2.2vw,26px), 600, ls:-.02em |
-| Čip `__read` | f-display, 600, 14px, radius pill, padding:9px 20px, nowrap, přechod background .3s, color .3s, aria-live="polite"; stavy: `--ok` rgba(16,185,129,.12)/text --id-green (4,9:1 nad tintovaným podkladem = AA), `--warn` rgba(183,106,0,.12)/text ink (warn 3,7:1 nad tintem = pod AA pro 14px text, 11.1 — stav nese pozadí čipu), `--info` accent-soft/accent |
+| Čip `__read` | f-display, 600, 14px, radius pill, padding:9px 20px, nowrap, přechod background .3s, color .3s, aria-live="polite"; stavy (v2.9, z tokenů): `--ok` green-soft / text --id-green (4,66:1 přes krém), `--warn` warn-soft / text --id-warn (4,61:1 přes krém), `--info` accent-soft / accent-deep (5,36:1) |
 | SVG scéna | width:100%, aria-hidden="true" (význam nese čip a label), animace dle kap. 6 |
 | Ovládání `__ctrl` | flex center, gap:20px, mt:22px; pod 640px flex-wrap:wrap |
 | Label ovladače | f-display, 600, 12px, ls:.12em, uppercase, ink-2, nowrap |
@@ -967,7 +986,7 @@ Snippet: CSS 1:1 z tabulky (kontext 7.9).
 | Error (`--error`) | border i hint danger; hláška s role="alert" |
 | Disabled | globální kontrakt (opacity .45) |
 
-**Tmavě:** input background:transparent, border:1px solid line-dark, text #fff, placeholder ink-dark-2, label #fff; focus stejný (accent border + ring rgba(37,99,235,.25)).
+**Tmavě:** input background:transparent, border:1px solid line-dark, text #fff, placeholder ink-dark-2, label #fff; focus stejný (accent border + ring rgba(37,99,235,.25)). Chyba na tmavém (v2.9): border i hint `--id-danger-bright` (#e45c5a), případná tinta nejvýš rgba(228,92,90,.10); `--id-danger` na obsidianu nikdy (2,49:1).
 
 Snippet: viz 7.7.
 
@@ -1245,15 +1264,15 @@ Technická kresba: obrys, žádné 3D ani stínování; jediné gradienty dva ra
 | Vodní tinty | #3b82f6, #60a5fa, #93c5fd |
 | Kořeny | #d8c9b4 op .8, stroke 1.6px |
 | HW světlý / tmavý | #232830 / #12161b + stroke rgba(255,255,255,.18–.22) |
-| Slunce / teplo | #b76a00, op .55–.85 |
-| Rovnoměrnost / OK | #047857 |
+| Slunce / teplo | #b76a00, op .55–.85 — ilustrační okr, od v2.9 odpojený od stavového `--id-warn` (#995b00) |
+| Rovnoměrnost / OK | #047857 — nikdy přímo na plochu trávy #3f7d4e (ΔE jen 3,9); vždy s popiskem nebo na krémovém podkladu (v2.9) |
 | Konstr. linky sv. / tm. | #d5d3cc (osy, kružnice) / rgba(255,255,255,.12–.14) (zem) |
 
 **Pravidla:**
 
 1. Jeden akcent na figuru: #2563eb = voda/aktivní bod, nikdy 2 nesouvisející modré motivy (tinty = týž motiv).
 2. Stroke 1.5–2.5px, default 1.6px, linecap round; pomocné kružnice a osy dasharray 3 7 #d5d3cc.
-3. Popisky .sv-lbl: Archivo 12px w600 uppercase ls .1em, fill #5b5e63 / #9ba1a8 (tmavý); hodnoty `.sv-val` 15 px w600 ink. **Klíčová hodnota (pointa kresby) 24 px w600 — jeden stupeň pro všechny kresby článku** (v2.4; porota článku 2 našla 20/22/24/26/30 px v šesti kresbách). Kresba se škáluje s viewBoxem: na ≤ 560 px se `.sv-lbl/.sv-val` zvětšují na 15/18 px (≤ 360: 18/21) a vykreslené minimum je 10 px; přejímka `scripts/svg-labels.mjs` hlídá kolize text × text i značka × text a ořez o panel.
+3. Popisky .sv-lbl: Archivo 12px w600 uppercase ls .1em, fill #595650 (= --id-ink-2, v2.9) / #9ba1a8 (tmavý); hodnoty `.sv-val` 15 px w600 ink. **Klíčová hodnota (pointa kresby) 24 px w600 — jeden stupeň pro všechny kresby článku** (v2.4; porota článku 2 našla 20/22/24/26/30 px v šesti kresbách). Kresba se škáluje s viewBoxem: na ≤ 560 px se `.sv-lbl/.sv-val` zvětšují na 15/18 px (≤ 360: 18/21) a vykreslené minimum je 10 px; přejímka `scripts/svg-labels.mjs` hlídá kolize text × text i značka × text a ořez o panel.
 4. Keyframes: kapky 2.6–3.2 s, ripples 4.6 s, plnění 5 s, rotace 5.5–7 s, paprsky 26 s; bodová rotace vždy SMIL animateTransform rotate „a cx cy" (fill-box = rotace kolem bboxu).
 5. reduced-motion: jednotně dle kontraktu 6.7 a 6.6.4 — animation: none (platí klidový stav z markup) + JS remove všech SMIL uzlů (animateTransform, animate, animateMotion); žádné zkracování na 0,01 ms u animation.
 6. ViewBox: plná šířka 1080×300–430, poloviční 480–560; figura v krémovém panelu (padding clamp(16px,3vw,40px)).
@@ -1317,7 +1336,7 @@ Wordmark „inteliDome"; zdroj Obrázky/logo/final/intelidome-logo.svg, ořez na
 3. Žádná čistá černá #000000 — tmavý povrch vždy modročerný #0b0d10.
 4. Akcent nikdy plošně — žádná modrá pozadí, gradienty, dekorativní tvary, modré ilustrace.
 5. Žádné studiové packshoty na bílém, žádné pózování do kamery.
-6. Žádné další chromatické barvy: #047857 / #b76a00 / #c0392b jen stavové (verdikt, dostupnost, chyba).
+6. Žádné další chromatické barvy: #047857 / #995b00 / #a21723 jen stavové (verdikt, dostupnost, chyba).
 7. Dva obsidiany za sebou a obsidian >35 % výšky zakázány (8.1).
 8. Dekorativní bordery nad 1.5px zakázány (výjimky: input underline 2px, slider thumb 2.5px, focus ring 3px).
 9. Stíny těžší než --id-shadow-lg a barevné zakázány — výjimka jen CTA glow (12.1).
@@ -1325,7 +1344,7 @@ Wordmark „inteliDome"; zdroj Obrázky/logo/final/intelidome-logo.svg, ořez na
 11. Lh dle 4.2: display-xl/display/title nikdy nad 1.05, title-sm nad 1.12, subtitle nad 1.25; body nikdy nad 1.7.
 12. Bodová rotace v SVG nikdy přes CSS transform-origin — vždy SMIL rotate(a cx cy) (9.2 p. 4).
 13. Setrvačníkový scroll nikdy na touch ani při prefers-reduced-motion.
-14. Text #86868b pod 24px na světlém nikdy (11.1) — jen placeholder.
+14. Text v akcentu na `--id-accent-soft` nikdy — vždy `--id-accent-deep` (3.4, v2.9). Dřívější zákaz #86868b pod 24 px padl s paletou v2.9: `--id-ink-3` #716e68 má 5,08:1.
 15. Žádné emoji; žádné ikonové fonty.
 
 ## 11. Přístupnost
@@ -1336,11 +1355,13 @@ Wordmark „inteliDome"; zdroj Obrázky/logo/final/intelidome-logo.svg, ořez na
 |---|---|---|---|---|
 | #1d1d1f | #ffffff | 16.83:1 | AAA/AAA | body/titulky bílá |
 | #1d1d1f | #f6f5f2 | 15.44:1 | AAA/AAA | text krém |
-| #5b5e63 | #f6f5f2 | 5.97:1 | AA/AAA | sekundární, figcaption |
-| #5b5e63 | #ffffff | 6.51:1 | AA/AAA | sekundární bílá |
-| #86868b | #ffffff | 3.62:1 | ✗/AA | placeholder / text ≥24px (≥18.5px bold) |
+| #595650 | #f6f5f2 | 6.71:1 | AA/AAA | sekundární, figcaption |
+| #595650 | #ffffff | 7.31:1 | AAA/AAA | sekundární bílá |
+| #716e68 | #ffffff | 5.08:1 | AA/AAA | metadata, hint, placeholder |
+| #716e68 | #f6f5f2 | 4.66:1 | AA/AAA | metadata na krému |
 | #ffffff | #0b0d10 | 19.46:1 | AAA/AAA | text tmavý |
 | #9ba1a8 | #0b0d10 | 7.47:1 | AAA/AAA | sekundární tmavý |
+| #7c828b | #14171c | 4.64:1 | AA/AAA | metadata v panelu obsidian-2 |
 | #93c5fd | #0b0d10 | 10.79:1 | AAA/AAA | eyebrow tmavý |
 | #ffffff | #2563eb | 5.17:1 | AA/AAA | primární CTA |
 | #2563eb | #ffffff | 5.17:1 | AA/AAA | odkazy, eyebrow bílá |
@@ -1350,13 +1371,20 @@ Wordmark „inteliDome"; zdroj Obrázky/logo/final/intelidome-logo.svg, ořez na
 | #047857 | #ffffff | 5.48:1 | AA/AAA | stavový text OK na světlém |
 | #047857 | #f6f5f2 | 5.03:1 | AA/AAA | stavový text OK na krému |
 | #10b981 | #ffffff | 2.54:1 | ✗/✗ | jen výplně/grafy/ikony — text zakázán |
-| #b76a00 | #ffffff | 4.14:1 | ✗/AA | jen ikona/pozadí a text ≥24px — nikdy běžný text |
+| #995b00 | #ffffff | 5.45:1 | AA/AAA | stavový text „pozor" na bílé |
+| #995b00 | #f6f5f2 | 5.00:1 | AA/AAA | „pozor" na krému |
+| #995b00 | warn-soft přes krém | 4.61:1 | AA/AAA | badge a verdikt „pozor" |
+| #a21723 | #ffffff | 7.83:1 | AAA/AAA | chybový text; bílý text na destruktivním tlačítku |
+| #a21723 | danger-soft přes krém | 6.59:1 | AA/AAA | badge chyby |
+| #047857 | green-soft přes krém | 4.66:1 | AA/AAA | badge a verdikt OK |
+| #1d4ed8 | accent-soft přes krém | 5.36:1 | AA/AAA | text info badge a verdiktu; hover ghost (5,82 přes bílou) |
+| #e45c5a | #0b0d10 | 5.54:1 | AA/AAA | chyba na tmavém |
 | #6ee7b7 | #0b0d10 | 12.77:1 | AAA/AAA | verdikt ok, tmavý kalkulátor |
-| #f2b96b | #0b0d10 | 11.05:1 | AAA/AAA | verdikt warn, tmavý kalkulátor |
+| #f6c85f | #0b0d10 | 12.37:1 | AAA/AAA | verdikt warn, tmavý kalkulátor |
 
 \* Velký text: ≥24px, nebo ≥18.66px při w≥700 (Archivo 600 od 19px ber jako běžný).
 
-Non-text (WCAG 1.4.11, min 3:1): #2563eb proti bílé 5.17, krému 4.74, obsidianu 3.76 — vyhovuje všude. #10b981 proti bílé 2.54 — jako samostatný funkční glyf na světlém nedostačuje; emerald výplně vždy párovat s ink/green textem nebo obrysem.
+Non-text (WCAG 1.4.11, min 3:1): #2563eb proti bílé 5.17, krému 4.74, obsidianu 3.76 — vyhovuje všude. #10b981 proti bílé 2.54 — jako samostatný funkční glyf na světlém nedostačuje; emerald výplně vždy párovat s ink/green textem nebo obrysem. Proto ikona stavu na světlém plní `--id-green` (bílý glyf 5,48:1) a na tmavém stupeň `-bright` s glyfem #0b0d10 (v2.9).
 
 ### 11.2 Focus
 
@@ -1408,10 +1436,10 @@ Viditelný `<label for>` u inputů; segmented = buttony s aria-pressed v role=gr
 ### 12.1 Quick Reference
 
 ```
-TEXT --id-ink #1d1d1f · --id-ink-2 #5b5e63 · --id-ink-3 #86868b
+TEXT --id-ink #1d1d1f · --id-ink-2 #595650 · --id-ink-3 #716e68
 NA TMAVÉM #ffffff · --id-ink-dark-2 #9ba1a8 · eyebrow #93c5fd · hairline rgba(255,255,255,.14)
 AKCENT --id-accent #2563eb · hover/deep #1d4ed8 · soft rgba(37,99,235,.10)
-SÉMANTIKA green (text) #047857 · emerald (výplně/grafy) #10b981 · warn #b76a00 · danger #c0392b
+SÉMANTIKA green (text) #047857 · emerald (výplně/grafy) #10b981 · warn #995b00 · danger #a21723 · -soft = pigment s alfou (světlost krému)
 HAIRLINES --id-line rgba(0,0,0,.12) · --id-line-soft rgba(0,0,0,.07)
 FONTY display 'Archivo' 500/600/700 (Google Fonts, latin-ext) · body -apple-system, BlinkMacSystemFont,
   'SF Pro Text', 'Segoe UI', 'Helvetica Neue', Arial, sans-serif
@@ -1431,19 +1459,19 @@ POHYB --id-ease cubic-bezier(.22,.61,.36,1) · reveal .8s translateY(30px)→0 +
 Hero dle 8.2 ř. 1: obsah dole (padding 72px); eyebrow dle Do 14 (#93c5fd). H1 display-xl bílá max 12ch, řádky v overflow-hidden spanech translateY(110 %)→0 za 1 s, 2. řádek delay 120 ms; podtext ≤600px 17–19px #9ba1a8, fade-in 1 s delay .55 s; meta 12.5px uppercase .12em #9ba1a8 (--id-ink-dark-2 — tmavší šedé na obsidianu padají pod AA, 11.1). SVG postřikovač s ripples (aria-hidden); scroll-cue kruh 52px vpravo dole, border 1.5px tmavá hairline, s aria-labelem.
 
 **2 — Kalkulátor**
-Panel dle 8.1 p. 5 na #0b0d10; grid 2 sloupce gap clamp(28px,4vw,64px), pod 820px 1 sloupec; hlavička: H3 clamp(20px,2.4vw,28px) w600 bílá + pill tag (text i border #93c5fd --id-accent-tint, border 1.5px, text 11.5px uppercase .14em — tmavá varianta 7.4), pod ní tmavá hairline. Vstupy: label 12px uppercase #9ba1a8 s for; input number jen border-bottom 2px tmavá hairline, Archivo w600 clamp(30px,3.4vw,44px), focus #2563eb, jednotka 18px; výstupy aria-live=polite: label 14px / hodnota w600 clamp(20px,2.2vw,28px), hairline oddělené, hero výstup clamp(30px,3.4vw,46px) #2563eb. Verdikt: radius 14px, padding 16px 20px: ok = rgba(16,185,129,.14) + #6ee7b7 + ikona 22px --id-emerald #10b981 (tmavá #047857 by na tmavém podkladu nesplnila non-text 3:1); warn = rgba(183,106,0,.16) + #f2b96b.
+Panel dle 8.1 p. 5 na #0b0d10; grid 2 sloupce gap clamp(28px,4vw,64px), pod 820px 1 sloupec; hlavička: H3 clamp(20px,2.4vw,28px) w600 bílá + pill tag (text i border #93c5fd --id-accent-tint, border 1.5px, text 11.5px uppercase .14em — tmavá varianta 7.4), pod ní tmavá hairline. Vstupy: label 12px uppercase #9ba1a8 s for; input number jen border-bottom 2px tmavá hairline, Archivo w600 clamp(30px,3.4vw,44px), focus #2563eb, jednotka 18px; výstupy aria-live=polite: label 14px / hodnota w600 clamp(20px,2.2vw,28px), hairline oddělené, hero výstup clamp(30px,3.4vw,46px) #2563eb. Verdikt: radius 14px, padding 16px 20px: ok = rgba(16,185,129,.14) + #6ee7b7 + ikona 22px --id-green-bright #34d399 s glyfem #0b0d10; warn = rgba(232,161,61,.14) + #f6c85f + ikona --id-warn-bright #e8a13d s glyfem #0b0d10 (ikona stavu 3.4, v2.9).
 
 **3 — Stat tiles**
-4 stat-tiles na krému: grid repeat(4,1fr), nad řadou border-top 1px #dcdad4, dlaždice border-left 1px #dcdad4 (první bez), padding 28px 26px 4px (dtto vlevo). Číslo stat škála w600 ls −.02em #1d1d1f; jednotka dle Do 7 (w600 #5b5e63); popisek 13px #5b5e63 lh 1.45. Pod 820px grid 2×2 s hairline i vodorovně; bez karet a stínů.
+4 stat-tiles na krému: grid repeat(4,1fr), nad řadou border-top 1px #dcdad4, dlaždice border-left 1px #dcdad4 (první bez), padding 28px 26px 4px (dtto vlevo). Číslo stat škála w600 ls −.02em #1d1d1f; jednotka dle Do 7 (w600 #595650); popisek 13px #595650 lh 1.45. Pod 820px grid 2×2 s hairline i vodorovně; bez karet a stínů.
 
 **4 — Frosted header**
-Capsule: fixed, inset 18px 0 auto, wrapper pointer-events none / chip auto; chip rgba(255,255,255,.90), blur(18px), border 1px var(--id-line-soft), radius 980px (--id-r-pill), padding 10px 12px 10px 24px, stín 0 8px 30px rgba(10,12,15,.10), gap 26px. Logo dle 9.4 (maskované SVG, 21px, #1d1d1f, aria-label), focus ring 2.5px #2563eb offset 4px; kategorie 12.5px Archivo 600 uppercase .1em #5b5e63 (pod 640px skrýt). Pill button #1d1d1f, bílý 13.5px Archivo 600, padding 9px 18px, hover #2563eb za 250 ms.
+Capsule: fixed, inset 18px 0 auto, wrapper pointer-events none / chip auto; chip rgba(255,255,255,.90), blur(18px), border 1px var(--id-line-soft), radius 980px (--id-r-pill), padding 10px 12px 10px 24px, stín 0 8px 30px rgba(10,12,15,.10), gap 26px. Logo dle 9.4 (maskované SVG, 21px, #1d1d1f, aria-label), focus ring 2.5px #2563eb offset 4px; kategorie 12.5px Archivo 600 uppercase .1em #595650 (pod 640px skrýt). Pill button #1d1d1f, bílý 13.5px Archivo 600, padding 9px 18px, hover #2563eb za 250 ms.
 
 **5 — Feature karta na tmavé**
 Karta na #0b0d10: průhledná, border 1px tmavá hairline, padding 28px 26px 30px; nahoře akcentní ikona dle 9.3 (kruh 44px, stroke 1.8px); titulek Archivo 17px w600 bílý ls −.01em; text 14.5px #9ba1a8 lh 1.55. Hover border-color rgba(255,255,255,.4) + translateY(−4px), transition .35–.4 s; tři karty grid repeat(3,1fr) gap 14px, pod 820px 1 sloupec; bez stínů a výplní.
 
 **6 — CTA sekce**
-CTA na bílé, centrovaná, padding dle 8.1 p. 6; logo dle 9.4 (#1d1d1f, výška CTA); H2 clamp(36px,6vw,76px) w600, lh 1.02, ls −.03em, max 16ch; podtext max 560px clamp(16px,1.5vw,18.5px) #5b5e63. Primární pill 980px (--id-r-pill) dle Do 3, šipka 15px; hover translateY(−2px) + CTA glow; focus ring dle 11.2. Otázka čtenáři: border-top 1px var(--id-line-soft), padding-top 44px, max 720px, clamp(19px,2.2vw,26px) w500 #5b5e63, tučná část #1d1d1f.
+CTA na bílé, centrovaná, padding dle 8.1 p. 6; logo dle 9.4 (#1d1d1f, výška CTA); H2 clamp(36px,6vw,76px) w600, lh 1.02, ls −.03em, max 16ch; podtext max 560px clamp(16px,1.5vw,18.5px) #595650. Primární pill 980px (--id-r-pill) dle Do 3, šipka 15px; hover translateY(−2px) + CTA glow; focus ring dle 11.2. Otázka čtenáři: border-top 1px var(--id-line-soft), padding-top 44px, max 720px, clamp(19px,2.2vw,26px) w500 #595650, tučná část #1d1d1f.
 
 ---
 
@@ -1468,11 +1496,11 @@ Kompletní tokenová vrstva v2.0 ke zkopírování. Hodnoty jsou 1:1 s kapitolam
 
   /* ---- ink ---- */
   --id-ink: #1d1d1f;
-  --id-ink-2: #5b5e63;
-  --id-ink-3: #86868b;
+  --id-ink-2: #595650;
+  --id-ink-3: #716e68;
   --id-ink-dark: #ffffff;
   --id-ink-dark-2: #9ba1a8;
-  --id-ink-dark-3: #6c737b;
+  --id-ink-dark-3: #7c828b;
 
   /* ---- brand ---- */
   --id-accent: #2563eb;
@@ -1482,16 +1510,16 @@ Kompletní tokenová vrstva v2.0 ke zkopírování. Hodnoty jsou 1:1 s kapitolam
   --id-accent-tint: #93c5fd;           /* eyebrow, uppercase tagy a hover odkazů na obsidianu (3.4) */
   --id-green: #047857;                 /* stavový text OK na světlém (AA) */
   --id-emerald: #10b981;               /* výplně, grafy, ikony — nikdy text (3.4) */
-  --id-green-soft: #ecfdf5;
+  --id-green-soft: rgba(16, 185, 129, 0.09);  /* světlost krému (v2.9) */
   --id-green-bright: #34d399;
   --id-green-tint: #6ee7b7;
-  --id-warn: #b76a00;
-  --id-warn-soft: rgba(183, 106, 0, 0.09);
+  --id-warn: #995b00;
+  --id-warn-soft: rgba(232, 161, 61, 0.12);
   --id-warn-bright: #e8a13d;
-  --id-warn-tint: #f2b96b;
-  --id-danger: #c0392b;
-  --id-danger-soft: rgba(192, 57, 43, 0.08);
-  --id-danger-bright: #e6604f;
+  --id-warn-tint: #f6c85f;
+  --id-danger: #a21723;
+  --id-danger-soft: rgba(228, 92, 90, 0.08);
+  --id-danger-bright: #e45c5a;
   /* zemité tóny — výhradně SVG ilustrace (9.2) */
   --id-soil: #6b5138;
   --id-soil-deep: #54402c;

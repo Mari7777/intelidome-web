@@ -33,7 +33,7 @@ const fmt = (value: number, decimals = 1): string =>
 const Ok = () => (
   <span className="ic">
     <svg aria-hidden="true" fill="none" height="12" viewBox="0 0 12 12" width="12">
-      <path d="M2.5 6.2 4.8 8.5 9.5 3.8" stroke="#fff" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" />
+      <path d="M2.5 6.2 4.8 8.5 9.5 3.8" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" />
     </svg>
   </span>
 )
@@ -41,8 +41,8 @@ const Ok = () => (
 const Warn = () => (
   <span className="ic">
     <svg aria-hidden="true" fill="none" height="12" viewBox="0 0 12 12" width="12">
-      <path d="M6 2.6v4" stroke="#fff" strokeLinecap="round" strokeWidth="2" />
-      <circle cx="6" cy="9" fill="#fff" r="1.1" />
+      <path d="M6 2.6v4" stroke="currentColor" strokeLinecap="round" strokeWidth="2" />
+      <circle cx="6" cy="9" fill="currentColor" r="1.1" />
     </svg>
   </span>
 )

@@ -82,10 +82,10 @@ export const TriZahrady: React.FC = () => (
               <path d={`M${x} ${BASE} V${horniY} H${x + SIRKA} V${BASE}`} fill="none" stroke="#232830" strokeWidth="1.6" strokeLinejoin="round" />
               <line x1={x} y1={dolniY} x2={x + SIRKA} y2={dolniY} stroke="#232830" strokeWidth="1.6" />
               {mi > 0 && (
-                <line x1={x + SIRKA / 2} y1={horniY - 3} x2={x + SIRKA / 2} y2={popisekY + 5} stroke="#5b5e63" strokeWidth="1" />
+                <line x1={x + SIRKA / 2} y1={horniY - 3} x2={x + SIRKA / 2} y2={popisekY + 5} stroke="#595650" strokeWidth="1" />
               )}
               {hlavniRozsah && (
-                <line x1={x - 8} y1={popisekY + 3} x2={x} y2={horniY} stroke="#5b5e63" strokeWidth="1" />
+                <line x1={x - 8} y1={popisekY + 3} x2={x} y2={horniY} stroke="#595650" strokeWidth="1" />
               )}
               <text
                 className={hlavniRozsah ? 'sv-val' : 'sv-lbl id-tnum'}

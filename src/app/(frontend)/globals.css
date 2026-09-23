@@ -83,7 +83,7 @@
   --muted: var(--id-bg-2);
   --muted-foreground: var(--id-ink-2);
   --accent: var(--id-accent-soft);
-  --accent-foreground: var(--id-accent);
+  --accent-foreground: var(--id-accent-deep); /* text na accent-soft (DESIGN 3.4, v2.9) */
   --destructive: var(--id-danger);
   --destructive-foreground: #ffffff;
   --border: var(--id-line-soft);

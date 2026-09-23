@@ -109,7 +109,7 @@
    (4,05:1 na obsidianu). Na dotyku by hover zůstal viset a četl se jako
    druhá otevřená záložka, proto media dotaz. */
 @media (hover: hover) {
-  .id-profile-calc__menuitem:hover { border-bottom-color: var(--id-ink-dark-3, #6c737b); }
+  .id-profile-calc__menuitem:hover { border-bottom-color: var(--id-ink-dark-3, #7c828b); }
   .id-profile-calc__menuitem.is-open:hover { border-bottom-color: var(--id-accent, #2563eb); }
 }
 .id-profile-calc__menutitle {
@@ -216,7 +216,7 @@
   /* Obrys nevybrané pilulky je jediné, co ji prozradí jako ovladač, takže
      nesmí stát na hairline tokenu (line-dark 2,09:1). Nese třetí inkoust
      svého povrchu: 4,05:1 na obsidianu (11.1 non-text, min 3:1). */
-  border: 1px solid var(--id-ink-dark-3, #6c737b);
+  border: 1px solid var(--id-ink-dark-3, #7c828b);
   border-radius: 999px;
   font-family: var(--id-f-display);
   /* Písmo podle receptu Seg (7.7): 600 / 14 px. */
@@ -326,7 +326,7 @@
   align-items: baseline;
   gap: 8px;
   padding-bottom: 8px;
-  border-bottom: 2px solid var(--id-ink-dark-3, #6c737b);
+  border-bottom: 2px solid var(--id-ink-dark-3, #7c828b);
 }
 .id-profile-calc__inputrow:focus-within { border-color: var(--id-accent, #2563eb); }
 .id-profile-calc__inputrow > input {
@@ -349,7 +349,7 @@
   outline: 3px solid var(--id-accent, #2563eb);
   outline-offset: 3px;
 }
-.id-profile-calc__inputrow > input[aria-invalid="true"] { color: #f2b96b; }
+.id-profile-calc__inputrow > input[aria-invalid="true"] { color: var(--id-warn-tint, #f6c85f); }
 .id-profile-calc__field--large .id-profile-calc__inputrow > input { font-size: clamp(30px, 3vw, 40px); }
 .id-profile-calc__inputrow > span {
   flex-shrink: 0;
@@ -365,7 +365,7 @@
   line-height: 1.5;
   text-wrap: pretty;
 }
-.id-profile-calc .id-profile-calc__error { color: #f2b96b; }
+.id-profile-calc .id-profile-calc__error { color: var(--id-warn-tint, #f6c85f); }
 .id-profile-calc__results .id-profile-calc__hint { margin-top: 6px; }
 /* Stoh nápověd: varianty sdílejí jedno pole mřížky, takže výška bloku je
    výška nejdelší věty při dané šířce a přepnutí předvolby nehne
@@ -552,7 +552,7 @@
   max-width: var(--id-measure, 33em);
   padding-left: 20px;
   margin-top: 20px;
-  color: #f2b96b;
+  color: var(--id-warn-tint, #f6c85f);
   font-size: 14.5px;
 }
 .id-profile-calc__issues > li + li { margin-top: 8px; }
@@ -565,9 +565,9 @@
 .id-profile-calc .id-profile-calc__notice {
   margin-top: 20px;
   padding: 16px;
-  border: 1px solid rgba(242,185,107,.4);
+  border: 1px solid rgba(246,200,95,.4);
   border-radius: var(--id-r-md, 14px);
-  color: #f2b96b;
+  color: var(--id-warn-tint, #f6c85f);
   font-size: 14.5px;
 }
 .id-profile-calc__detailsbody { padding: 24px 0 12px; }
@@ -625,13 +625,13 @@
 /* Segmenty rostou do šířky kontejneru; v pásu 1360 px by byly dvakrát větší
    než jejich dvojče v zadání, proto lícují s kresbou pod sebou. */
 .id-profile-calc__drawing .id-profile-calc__choices { max-width: 480px; margin-top: 24px; }
-.id-profile-calc__drawing .id-profile-calc__choices > legend { color: var(--id-ink-2, #5b5e63); }
+.id-profile-calc__drawing .id-profile-calc__choices > legend { color: var(--id-ink-2, #595650); }
 .id-profile-calc__drawing .id-profile-calc__segments span {
   color: var(--id-ink, #1d1d1f);
   background: rgba(255,255,255,.7);
   /* Třetí inkoust krému: 3,32:1 proti krému a 3,53:1 proti vlastní výplni;
      hairline --id-line-cream měl 1,28:1 (11.1 non-text, min 3:1). */
-  border-color: var(--id-ink-3, #86868b);
+  border-color: var(--id-ink-3, #716e68);
 }
 /* Hover na krému nese plný akcent (4,74:1); tint ze základu by kontrast
    proti klidovému stavu naopak snížil. Míří jen na NEVYBRANÉ dlaždice, aby
@@ -663,15 +663,15 @@
   margin-top: 8px;
   font-size: 13.5px;
   line-height: 1.5;
-  color: var(--id-ink-2, #5b5e63);
+  color: var(--id-ink-2, #595650);
   font-variant-numeric: tabular-nums;
 }
 /* Stupně jsou deklarované v jednotkách viewBoxu; kresba se vykresluje v 1,5×
    (320 j. → 480 px), takže 8 j. = 12 px popisku a 16 j. = 24 px klíčové hodnoty
    jako u ostatních kreseb článku (9.2 p. 3). Pod 560 px měřítko klesá k 1,05,
    proto se deklarace zvedá, aby vykreslený stupeň zůstal nad 10 px. */
-.id-profile-calc__svg-tag { fill: var(--id-ink-2, #5b5e63); font-family: var(--id-f-display); font-size: 8px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; }
-.id-profile-calc__svg-legend { fill: var(--id-ink-2, #5b5e63); font-family: var(--id-f-display); font-weight: 600; font-size: 8px; }
+.id-profile-calc__svg-tag { fill: var(--id-ink-2, #595650); font-family: var(--id-f-display); font-size: 8px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; }
+.id-profile-calc__svg-legend { fill: var(--id-ink-2, #595650); font-family: var(--id-f-display); font-weight: 600; font-size: 8px; }
 .id-profile-calc__svg-rise { fill: var(--id-accent, #2563eb); font-family: var(--id-f-display); font-size: 16px; font-weight: 600; }
 @container (max-width: 479px) {
   .id-profile-calc__svg-tag { font-size: 9px; }
@@ -697,7 +697,7 @@
   margin-top: 16px;
   padding-top: 14px;
   border-top: 1px solid var(--id-mist, #e8e7e3);
-  color: var(--id-ink-2, #5b5e63);
+  color: var(--id-ink-2, #595650);
   font-size: 13.5px;
   line-height: 1.45;
   max-width: 30em;

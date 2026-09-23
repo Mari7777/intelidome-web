@@ -27,11 +27,11 @@ svg = svg
 const bg = mode === 'dark' ? '#0b0d10' : '#f6f5f2'
 const html = `<!doctype html><meta charset="utf-8"><style>
   @import url('https://fonts.googleapis.com/css2?family=Archivo:wght@500..700&display=swap');
-  :root{--id-ink:#1d1d1f;--id-ink-2:#5b5e63;--id-ink-3:#86868b;--id-cream:#f6f5f2;
+  :root{--id-ink:#1d1d1f;--id-ink-2:#595650;--id-ink-3:#716e68;--id-cream:#f6f5f2;
         --id-bg:#fff;--id-obsidian:#0b0d10;--id-accent:#2563eb;--id-accent-tint:#93c5fd}
   body{margin:0;background:${bg};padding:40px;font-family:Archivo,sans-serif}
   svg{display:block;width:100%;height:auto}
-  .sv-lbl{font-family:Archivo,sans-serif;font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;fill:${mode === 'dark' ? '#9ba1a8' : '#5b5e63'}}
+  .sv-lbl{font-family:Archivo,sans-serif;font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;fill:${mode === 'dark' ? '#9ba1a8' : '#595650'}}
   .sv-val{font-family:Archivo,sans-serif;font-size:15px;font-weight:600;letter-spacing:-.01em;font-variant-numeric:tabular-nums;fill:${mode === 'dark' ? '#ffffff' : '#1d1d1f'}}
 </style>${svg}`
 

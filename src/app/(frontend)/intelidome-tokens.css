@@ -1,4 +1,4 @@
-/* InteliDome Web design tokens v2.0 (2026-08-22) — generated from DESIGN.md.
+/* InteliDome Web design tokens v2.9 (2026-09-23) — generated from DESIGN.md.
    Zdroj pravdy je DESIGN.md; tento soubor needitovat ručně. */
 
 :root {
@@ -15,11 +15,11 @@
 
   /* ---- ink ---- */
   --id-ink: #1d1d1f;
-  --id-ink-2: #5b5e63;
-  --id-ink-3: #86868b;
+  --id-ink-2: #595650;
+  --id-ink-3: #716e68;
   --id-ink-dark: #ffffff;
   --id-ink-dark-2: #9ba1a8;
-  --id-ink-dark-3: #6c737b;
+  --id-ink-dark-3: #7c828b;
 
   /* ---- brand ---- */
   --id-accent: #2563eb;
@@ -29,16 +29,16 @@
   --id-accent-tint: #93c5fd;           /* eyebrow, uppercase tagy a hover odkazů na obsidianu (3.4) */
   --id-green: #047857;                 /* stavový text OK na světlém (AA) */
   --id-emerald: #10b981;               /* výplně, grafy, ikony — nikdy text (3.4) */
-  --id-green-soft: #ecfdf5;
+  --id-green-soft: rgba(16, 185, 129, 0.09);  /* světlost krému (v2.9) */
   --id-green-bright: #34d399;
   --id-green-tint: #6ee7b7;
-  --id-warn: #b76a00;
-  --id-warn-soft: rgba(183, 106, 0, 0.09);
+  --id-warn: #995b00;
+  --id-warn-soft: rgba(232, 161, 61, 0.12);
   --id-warn-bright: #e8a13d;
-  --id-warn-tint: #f2b96b;
-  --id-danger: #c0392b;
-  --id-danger-soft: rgba(192, 57, 43, 0.08);
-  --id-danger-bright: #e6604f;
+  --id-warn-tint: #f6c85f;
+  --id-danger: #a21723;
+  --id-danger-soft: rgba(228, 92, 90, 0.08);
+  --id-danger-bright: #e45c5a;
   /* zemité tóny — výhradně SVG ilustrace (9.2) */
   --id-soil: #6b5138;
   --id-soil-deep: #54402c;

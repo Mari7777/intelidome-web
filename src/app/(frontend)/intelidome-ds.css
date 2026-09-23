@@ -55,6 +55,8 @@
 }
 .id-btn--ghost:hover {
   background: var(--id-accent-soft);
+  /* Plný akcent má na accent-soft jen 4,49:1 — text na soft vždy deep (3.4, v2.9). */
+  color: var(--id-accent-deep);
 }
 .id-btn--secondary {
   background: var(--id-bg-2);
@@ -189,7 +191,7 @@
   background: var(--id-danger-soft);
 }
 .id-badge--info {
-  color: var(--id-accent);
+  color: var(--id-accent-deep);
   background: var(--id-accent-soft);
 }
 
@@ -1470,8 +1472,8 @@ html {
   max-width: 28em;
   font-size: var(--id-t-body-sm);
   line-height: 1.55;
-  /* --id-ink-3 (#86868b) má na bílé 3,62:1 — pod mezí pro běžný text.
-     Sekundární role na bílé je --id-ink-2 = 6,51:1 (tabulka 11.1). */
+  /* Role je sekundární text → --id-ink-2 (7,31:1 na bílé, tabulka 11.1).
+     --id-ink-3 je od v2.9 také AA, ale patří jen metadatům. */
   color: var(--id-ink-2);
   text-wrap: pretty;
 }
@@ -1490,7 +1492,7 @@ html {
   font-weight: 600;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  fill: #5b5e63;
+  fill: #595650;
 }
 .sv-val {
   font-family: var(--id-f-display);
@@ -1801,6 +1803,9 @@ html {
     background 0.3s,
     color 0.3s;
 }
+/* Ikona stavu (DESIGN.md 3.4, v2.9): glyf kreslí currentColor. Na tmavém
+   výplň stupněm -bright + glyf v barvě obsidianu, na světlém výplň
+   textovým stupněm + bílý glyf. */
 .id-verdict .ic {
   display: flex;
   flex: none;
@@ -1810,31 +1815,40 @@ html {
   height: 22px;
   margin-top: 1px;
   border-radius: 50%;
+  color: var(--id-obsidian, #0b0d10);
 }
 .id-verdict--ok {
   background: rgba(16, 185, 129, 0.14);
   color: var(--id-green-tint, #6ee7b7);
 }
 .id-verdict--ok .ic {
-  background: var(--id-emerald, #10b981);
+  background: var(--id-green-bright, #34d399);
 }
 .id-verdict--warn {
-  background: rgba(183, 106, 0, 0.16);
-  color: var(--id-warn-tint, #f2b96b);
+  background: rgba(232, 161, 61, 0.14);
+  color: var(--id-warn-tint, #f6c85f);
 }
 .id-verdict--warn .ic {
-  background: var(--id-warn, #b76a00);
+  background: var(--id-warn-bright, #e8a13d);
+}
+/* Světlý kalkulátor: podklady z tokenů mají světlost krému; text i ikona
+   nesou textový stupeň rodiny (ok 4,66:1 a warn 4,61:1 přes krém = AA). */
+.id-calc--light .id-verdict .ic {
+  color: #fff;
 }
 .id-calc--light .id-verdict--ok {
-  /* Tónované rgba .1 na krému dávalo #dfefe7 → 4,61:1 bez rezervy;
-     token green-soft je světlejší a drží ≥ 5:1. */
-  background: var(--id-green-soft, #ecfdf5);
+  background: var(--id-green-soft, rgba(16, 185, 129, 0.09));
   color: var(--id-green, #047857);
 }
-/* Warn 4,14:1 je pod AA — barvu proto nese ikona a podklad, text zůstává ink. */
+.id-calc--light .id-verdict--ok .ic {
+  background: var(--id-green, #047857);
+}
 .id-calc--light .id-verdict--warn {
-  background: rgba(183, 106, 0, 0.1);
-  color: var(--id-ink);
+  background: var(--id-warn-soft, rgba(232, 161, 61, 0.12));
+  color: var(--id-warn, #995b00);
+}
+.id-calc--light .id-verdict--warn .ic {
+  background: var(--id-warn, #995b00);
 }
 @media (prefers-reduced-motion: reduce) {
   .id-verdict {
