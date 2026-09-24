@@ -46,7 +46,21 @@ export default async function RootLayout({ children }: { children: React.ReactNo
               "addEventListener('load',function(){setTimeout(function(){" +
               "document.documentElement.classList.add('plynule')},1500)});" +
               "setTimeout(function(){var d=document.documentElement;" +
-              "if(d.dataset.motion!=='ready')d.classList.remove('js')},3000)",
+              "if(d.dataset.motion!=='ready')d.classList.remove('js')},3000);" +
+              // Obnova pozice po reloadu a návratu Zpět: prohlížeč vracel
+              // stránku o 50–560 px vedle (i ve vzorových článcích; porota
+              // kola 04 článku o příměsích). Výška stránky je při
+              // DOMContentLoaded už konečná, proto se vrací přesný offset
+              // uložený při odchodu. Kotvu z adresy řeší Motion, bfcache
+              // si pozici drží sama.
+              // Ruční režim jen pro toto plné načtení, pak zpět na `auto`:
+              // navigaci uvnitř aplikace (router Next.js) obnovuje prohlížeč.
+              "try{var k='pozice:'+location.pathname;" +
+              "var n=performance.getEntriesByType('navigation')[0],t=n&&n.type;" +
+              "if((t==='reload'||t==='back_forward')&&!location.hash){var y=+sessionStorage.getItem(k);" +
+              "if(y>0){history.scrollRestoration='manual';document.addEventListener('DOMContentLoaded',function(){" +
+              "scrollTo(0,y);history.scrollRestoration='auto'})}}" +
+              "addEventListener('pagehide',function(){sessionStorage.setItem(k,String(Math.round(scrollY)))})}catch(e){}",
           }}
         />
         <link href="/favicon.svg" rel="icon" type="image/svg+xml" />

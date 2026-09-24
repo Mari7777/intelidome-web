@@ -260,14 +260,15 @@ const MEDIA: {
   },
   /* Rytmus obraz/text článku o příměsích (2026-09-24): ořez 4:5 z nepoužitého
      masteru kandidati-primesi/bleed-3 a tři čtverce ze série téže zahrady
-     (kandidati-primesi-3; číslice metru v sondě retušované do neostrosti). */
+     (kandidati-primesi-3; ze sondy odstraněn metr — jeho díly ukazovaly jámu
+     hlubokou asi 18 cm, porota kola 04). */
   {
     filename: 'fig-primesi-deska-45.avif',
     alt: 'Dřevěná míchací deska na udusané zemi: vlevo hromádka tmavé prosáté zeminy, vpravo světlý písek, přes který už vede pruh zeminy. Za deskou rozostřený trávník v teplém večerním světle.',
   },
   {
-    filename: 'fig-primesi-sonda-ctverec.avif',
-    alt: 'Čtvercová sonda vykopaná v připravené holé ploše pro nový trávník: svislé stěny z drobivé hnědé zeminy, na dně tmavší pevnější podloží, v jámě stojí dřevěný skládací metr. V pozadí trávník a dřevěný prknový plot v nízkém večerním slunci.',
+    filename: 'fig-primesi-sonda-zahon.avif',
+    alt: 'Čtvercová sonda vykopaná v připravené holé ploše pro nový trávník: svislé stěny z drobivé hnědé zeminy, na dně tmavší pevnější podloží. V pozadí trávník a dřevěný prknový plot v nízkém večerním slunci.',
   },
   {
     filename: 'fig-primesi-vzorky-zahon.avif',

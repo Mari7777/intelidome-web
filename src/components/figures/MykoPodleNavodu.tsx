@@ -196,7 +196,7 @@ export const MykoPodleNavodu: React.FC = () => (
         <text className="sv-lbl" y="-0.642em">Typ půdy</text>
         <line x1="-0.15em" y1="-1.002em" x2="5.45em" y2="-1.002em" stroke="#232830" strokeWidth="1.6" strokeLinecap="round" />
       </g>
-      <text className="sv-val" y="1.121em">—</text>
+      <text className="sv-val" y="1.121em">–</text>
     </g>
 
     {/* ── pointa (9.2 p. 3) ───────────────────────────────────── */}

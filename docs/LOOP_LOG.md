@@ -3860,3 +3860,52 @@ nadpis kresby 24/600 vedle h3 28/500 (koš B); přidaný písek plochý v Obr.
 05/06 proti zrnům v Obr. 16; bílá karta štítku v Obr. 18; tři kresby
 kapitoly 01 na stejné šabloně; HTML 742 kB kvůli zrnitým texturám kreseb
 (DveZahrady, JilJakoVana); `sizes` karet Souvisejících článků (celý web).
+
+## Kolo 04 (2026-09-24)
+
+| Oblast | Skóre |
+|---|---|
+| Hierarchie | **5/5** |
+| Typografie | **4/5** |
+| Pohyb | 2/5 |
+| Grafický styl | 3/5 |
+| Slop | **4/5** |
+| Výkon a přístupnost | **4/5** |
+| Rozložení | **5/5** |
+
+**0 kritických**, skeptikem prošly 3 důležité nálezy. Pohyb padl na dvou
+nových testech (dorolování karet bez omezení pohybu, obnova pozice po
+reloadu), které předchozí kola neměřila.
+
+### Opravy
+
+- **Karty složek měly před hydratací všechny panely v toku** (pohyb): po
+  hydrataci se modul srazil o 1 839 px (1440) / 4 225 px (393) a obnova
+  pozice po reloadu či Zpět ujela o tisíce px s CLS ≈ 1. Pod branou
+  `html.js` teď drží mřížka týž tvar jako po hydrataci (bez JS brána
+  spadne a zůstane přehled všech panelů). Výška modulu před/po hydrataci
+  1080/1080 (1440), 1043/1043 (1130), 791/791 (iPhone); CLS 0.
+- **Dorolování k otevřenému panelu se zaseklo** (pohyb): ResizeObserver
+  v Motion.tsx zavolal ScrollTrigger.refresh uprostřed plynulého scrollu.
+  Refresh teď počká, až scroll 160 ms mlčí. iPhone bez omezení pohybu:
+  klepnutí 1 → 3 → 0 a Enter na 2 → nadpis panelu vždy 155 px, fokus
+  na obrazovce.
+- **Obnova pozice po reloadu ujížděla o 50–560 px i ve vzorových článcích**
+  (celý web; skeptik vzory měřil jen na jedné pozici): prohlížeč vracel
+  stránku vedle, nezávisle na `overflow-anchor`. Inline skript layoutu
+  při plném reloadu a návratu z historie vrátí offset uložený při
+  `pagehide` (výška stránky je při DOMContentLoaded konečná) a hned vrátí
+  `scrollRestoration` na `auto`. Změřeno: reload 2 000–18 000 px ±2 px ve
+  všech třech článcích, Zpět po odkazu v textu přesně.
+- **Sonda s metrem: díly metru ukazovaly jámu hlubokou asi 18 cm** (styl):
+  metr z fotky odstraněn (úprava generátorem, zbytek záběru beze změny),
+  fotka už netvrdí měřítko; alt bez metru.
+- Kosmetické, opraveno: poslední „—" v Obr. 18; věta popisku Obr. 05.
+
+### Neopraveno
+
+Víceřádkové štítky kreseb mají čtyři řádkování a legendy dvě levé osy
+(x 30 / 40); Obr. 08 „plná směs" bez Actina; šipka hera s aktivním
+setrvačníkem nepřesune fokus na cíl; přístupné jméno panelu karet
+254 znaků (míří na celou kartu); alt fotek Obr. 02 a 09 opakuje výčet
+z popisku; plocha s kořenem v Obr. 04 přesahuje pravý okraj série.

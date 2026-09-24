@@ -149,8 +149,28 @@ export const Motion = ({ inertia = false }: { inertia?: boolean }) => {
       s kalkulátorem). Změna výšky článku proto přepočítá spouštěče,
       nejvýš jednou za snímek.
     */
+    /*
+      Refresh uprostřed plynulého scrollu ho zastaví: klepnutí na kartu
+      složky změní výšku a dorolování k otevřenému panelu se zaseklo, panel
+      zůstal 800–1 300 px nad obrazovkou (porota kola 04 článku o příměsích).
+      Přepočet proto počká, až scroll 160 ms mlčí.
+    */
     let vyska = 0
     let snimek = 0
+    let casovac = 0
+    let posledniScroll = 0
+    const scrollCas = () => {
+      posledniScroll = performance.now()
+    }
+    const poTichu = () => {
+      const zbyva = 160 - (performance.now() - posledniScroll)
+      if (zbyva > 0) {
+        casovac = window.setTimeout(poTichu, zbyva)
+        return
+      }
+      refresh()
+    }
+    window.addEventListener('scroll', scrollCas, { passive: true })
     const hlidac = new ResizeObserver((zaznamy) => {
       const nova = Math.round(zaznamy[0]?.contentRect.height ?? 0)
       if (!vyska || nova === vyska) {
@@ -159,7 +179,8 @@ export const Motion = ({ inertia = false }: { inertia?: boolean }) => {
       }
       vyska = nova
       cancelAnimationFrame(snimek)
-      snimek = requestAnimationFrame(refresh)
+      clearTimeout(casovac)
+      snimek = requestAnimationFrame(poTichu)
     })
     const clanek = document.querySelector('.id-article')
     if (clanek) hlidac.observe(clanek)
@@ -204,6 +225,8 @@ export const Motion = ({ inertia = false }: { inertia?: boolean }) => {
       ScrollTrigger.removeEventListener('refresh', vrat)
       hlidac.disconnect()
       cancelAnimationFrame(snimek)
+      clearTimeout(casovac)
+      window.removeEventListener('scroll', scrollCas)
       mm.revert()
     }
   }, [])

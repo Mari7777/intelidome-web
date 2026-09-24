@@ -92,7 +92,7 @@ export const PRIMESI_RHYTHM_SECTIONS: RhythmSection[] = [
     "titleLevel": "h2",
     "drawing": "tuna-neni-kubik",
     "alt": "Tuna biocharu zabere 5 m³, tuna písku jen 0,67 m³: stejná hmotnost neznamená stejný objem. Pruhy na stupnici do 5 m³ ukazují objem jedné tuny při modelové sypné hustotě; u zeminy je to 0,71, u zeolitu 1,25 a u Actina 1,67 m³. Dole závěr: objemem se určuje poměr směsi, hmotností objednávka a doprava.",
-    "caption": "Délka pruhu je objem jedné tuny, čárkované linky značí celé kubíky. Zeolit a Actino kresba počítá s modelovými 0,80 a 0,60 t/m³ z kalkulátoru půdního profilu.",
+    "caption": "Délka pruhu je objem jedné tuny, čárkované linky značí celé kubíky. U zeolitu a Actina počítá kresba s modelovými hustotami 0,80 a 0,60 t/m³ z kalkulátoru půdního profilu.",
     "body": [
       "Dodavatel pracuje s tunami, kubíky a počty balení. Kdo připravuje půdu, musí oba pohledy propojit. **Stejný objem neznamená stejnou hmotnost a stejná hmotnost neznamená stejný objem.** Proto nelze objemový recept jednoduše změnit na stejné poměry tun.",
       "Pro názorné srovnání vezměme pouze modelové hodnoty: písek o sypné hustotě 1,5 t/m³ a zeminu o sypné hustotě 1,4 t/m³. **Sypná hustota** vyjadřuje, kolik váží určitý objem volně nasypaného materiálu, včetně mezer mezi jeho částicemi.",
@@ -124,9 +124,9 @@ export const PRIMESI_RHYTHM_SECTIONS: RhythmSection[] = [
     "eyebrow": "Kapitola 03",
     "title": "Třicet centimetrů půdy jako prostor pro život",
     "titleLevel": "h2",
-    "photo": "fig-primesi-sonda-ctverec.avif",
+    "photo": "fig-primesi-sonda-zahon.avif",
     "photoRatio": "1:1",
-    "alt": "Čtvercová sonda vykopaná v připravené holé ploše pro nový trávník: svislé stěny z drobivé hnědé zeminy, na dně tmavší pevnější podloží, v jámě stojí dřevěný skládací metr. V pozadí trávník a dřevěný prknový plot v nízkém večerním slunci.",
+    "alt": "Čtvercová sonda vykopaná v připravené holé ploše pro nový trávník: svislé stěny z drobivé hnědé zeminy, na dně tmavší pevnější podloží. V pozadí trávník a dřevěný prknový plot v nízkém večerním slunci.",
     "caption": "Stěna sondy ukazuje připravenou vrstvu od povrchu dolů; na dně začíná tmavší, pevnější podloží.",
     "body": [
       "Materiály i rozdíl mezi jejich hmotností a objemem už známe. Teď jim potřebujeme vyhradit místo – nejen vedle sebe ve směsi, ale také v různých hloubkách.",

@@ -604,6 +604,33 @@
 .id-ingredients__grid:not([data-enhanced]) .id-ingredients__aff {
   display: none;
 }
+/* Před hydratací (JS běží, `html.js`) drží mřížka týž tvar jako po ní:
+   panely ve společné buňce, viditelný jen výchozí první, v akordeonu
+   všechny zavřené. Jinak stály všechny čtyři panely pod sebou (+1 839 px
+   na 1440, +4 225 na 393) a obnova pozice po reloadu či Zpět ujela
+   o tisíce px s CLS ≈ 1 (porota kola 04 článku o příměsích). Bez JS
+   brána `js` do 3 s spadne a karty zůstanou přehledem všech panelů. */
+@media (hover: hover) and (min-width: 1130px) {
+  html.js .id-ingredients__grid:not([data-enhanced]) .id-ingredients__panel-slot {
+    grid-row: 2;
+  }
+}
+@media (hover: hover) and (min-width: 561px) and (max-width: 1129px) {
+  html.js .id-ingredients__grid:not([data-enhanced]) .id-ingredients__panel-slot {
+    grid-row: 3;
+  }
+}
+@media (hover: hover) and (min-width: 561px) {
+  html.js .id-ingredients__grid:not([data-enhanced]) .id-ingredients__panel-slot ~ .id-ingredients__panel-slot {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+@media (hover: none), (max-width: 560px) {
+  html.js .id-ingredients__grid:not([data-enhanced]) .id-ingredients__panel-slot {
+    display: none;
+  }
+}
 /* šipková afordance patří akordeonu — na desktopu se skrývá */
 @media (hover: hover) and (min-width: 561px) {
   .id-ingredients__aff {
