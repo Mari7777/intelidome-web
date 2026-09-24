@@ -2,65 +2,78 @@ import React from 'react'
 
 /**
  * Jíl jako vana (DESIGN.md 9.2) — jeden řez 0–30 cm (8 px na cm jako
- * `prvni-korinek`, `hlina-tri-znaky` a `pisek-pod-koreny`). Nová propustná
- * směs 65/35 leží v utuženém jílu jako v míse: jíl ji obepíná zespodu
- * i z boků. Voda (kapka nad drnem, čárkovaná cesta) směsí projde, ale na
- * jílovém dně se zastaví a stojí v míse až k hladině. Šipka dosedá hrotem
- * na hladinu. Kořeny hladinu protínají a končí v mokré vrstvě, kde je málo
- * vzduchu (i28p1 „zhutnění omezí vzduch").
+ * `prvni-korinek` a `pisek-pod-koreny`). Nová propustná směs 65/35 leží
+ * v utuženém jílu jako v míse: jíl ji obepíná zespodu i z boků. Voda
+ * (kapka nad drnem, čárkovaná cesta) směsí projde, ale na jílovém dně se
+ * zastaví a stojí v míse až k hladině. Šipka dosedá hrotem na hladinu.
+ * Kořeny hladinu protínají a končí v mokré vrstvě, kde je málo vzduchu
+ * (text: „zhutnění omezí vzduch").
  *
  * Pointa je jedna: nejdřív odtok, teprve potom směs. Kresba je schéma.
  * Nemá žádná čísla o vsaku ani rychlosti, jen měřítko 0 / 30 cm. Hloubka
  * okraje mísy (12 cm) i výška hladiny jsou schematické, text je neuvádí.
  *
- * Značky ze série (9.2 p. 10):
+ * Značky (9.2 p. 10):
  * – nová směs = značka směsi 65/35 z `slehnuti-vstupu`: okrový podklad
  *   #c2a052 op .55 a hnědé tečky zeminy #6b5138 op .9 r 2,2 / 2,4 / 2,6.
  *   Rozsyp je pevně nasetý (mulberry32), rozteč 8, házení šipek až do
- *   zaplnění jako tam (~400 teček), každá tečka ≥ 3 od vnitřní hrany
- *   obrysu. Kreslí se jednou cestou. Není to mřížka, ta se četla jako
- *   tapeta.
- * – utužený jíl = #54402c op .95 a světlé lamely 8 × 5 (`pp-lis`,
- *   `tc-lis`, `hpm-lis`). Plán E2 chtěl tmavý šraf na op .85, ale
- *   `hlina-prace-misto-materialu` (E5) nese lamely a čip 28 × 14 pixelově
- *   shodný s legendou zde. Utužení má tak v článku i v sérii jednu značku.
- *   Fáze lamel v čipu je stejná jako v E5 (horní hrana čipu ≡ 3 mod 5).
- * – kořen na okrové = `pisek-pod-koreny`: jádro #d8c9b4 op .9 / 1,6 na hraně
- *   #232830 op .5 / 3,6. Holý kořen by na okrové zmizel, plně tmavý obal
- *   se četl jako kabel. Hrany všech kořenů leží pod všemi jádry, odbočky
+ *   zaplnění (~400 teček), každá tečka ≥ 3 od vnitřní hrany obrysu.
+ *   Kreslí se jednou cestou. Není to mřížka, ta se četla jako tapeta.
+ * – utužený jíl = #54402c op .95 a světlé lamely 8 × 5 (`jjv-lis`; táž
+ *   výplň utužené vrstvy jako `hpm-lis`, `pp-lis`, `tc-lis`). Lamely leží
+ *   v y ≡ 2,5 mod 5 v celé kresbě, čip legendy proto nese tutéž fázi
+ *   jako řez (horní hrana čipu 528 ≡ 3 mod 5).
+ * – kořen = značka kořene článku: jádro #d8c9b4 op .9 / 1,6 jako
+ *   v `koren-zacina-nahore`, `pisek-pod-koreny` a `nabity-biochar`
+ *   (paleta 9.2 uvádí op .8; odchylka je společná celé sérii, ne jen
+ *   této kresbě). Na okrové leží jádro na lemu #232830 op .5 / 2,4 jako
+ *   v `pisek-pod-koreny`. Holý kořen by na okrové zmizel, plně tmavý obal
+ *   se četl jako kabel. Lemy všech kořenů leží pod všemi jádry, odbočky
  *   proto nemají tmavý zářez.
- * – kapka, cesta a šipka vody = `dve-zahrady` / `pisek-pod-koreny`.
- * – stojící voda = „voda v nádobě" jako v `zkouska-vsaku`: hladina (tah
- *   #2563eb 1,6 op .75, týž jako šipka), pod ní tinta #93c5fd op .45
- *   a přes ni nádech `jjv-voda` (stopy .34 → .14 → .05, střed na dně mísy,
- *   pod hladinou ≈ .14). Boky a dno nese obrys mísy, horní hranu hladina
- *   (obdoba V…H…V u drnu, 9.2 p. 9). Samotný nádech na okrové zešedl:
- *   modrá a okrová se v průhlednosti ruší, i ve středu dna (.34) vyšla
- *   sytost jen 0,13, jinde ve vrstvě 0,01–0,08. Tinta téhož motivu
- *   (9.2 p. 1) ho drží modrý. Měřeno ve 2× renderu mimo tečky, y 330–350:
- *   (153, 176, 206), sytost 0,26; pod hladinou u stěny 0,20.
- *   Tečky zeminy leží na vodě, směs je pod hladinou táž.
- * Tečky se vyhýbají kořenům (1,8 + r + 2 od osy), hladině, cestě vody
- * (i nad okrajem mísy) a vnitřním vodítkům.
+ * – kapka, cesta a šipka vody = `dve-zahrady` / `pisek-pod-koreny`
+ *   (kapka A 7 7, čárky 3 7, šipka l8 10 8 -10 op .75).
+ * – stojící voda („voda v nádobě"): hladina (tah #2563eb 1,6 op .75, týž
+ *   jako šipka), pod ní tinta #93c5fd op .45 a přes ni nádech `jjv-voda`
+ *   (stopy 9.2 .34 → .14 → .05, střed na dně mísy, pod hladinou ≈ .14).
+ *   Boky a dno nese obrys mísy, horní hranu hladina (obdoba V…H…V
+ *   u drnu, 9.2 p. 9). Samotný nádech na okrové zešedl: modrá a okrová
+ *   se v průhlednosti ruší, i ve středu dna (.34) vyšla sytost jen 0,13,
+ *   jinde ve vrstvě 0,01–0,08. Tinta téhož motivu (9.2 p. 1) ho drží
+ *   modrý. Měřeno ve 2× renderu mimo tečky, y 330–350: (153, 176, 206),
+ *   sytost 0,26; pod hladinou u stěny 0,20. Tečky zeminy leží na vodě,
+ *   směs je pod hladinou táž.
+ * Tečky se vyhýbají kořenům (lem 1,2 + r + 2 od osy), hladině, cestě
+ * vody (i nad okrajem mísy) a vnitřním vodítkům.
  *
- * Portrétová sazba 520 px, id s prefixem `jjv-`. Řez x 80–330 (drn 14),
- * stupnice visí vlevo, štítky vpravo od x 356. Každý štítek má hmotu nebo
- * jev (`.sv-lbl`) a vlastnost (`.sv-val`), ≤ 12 znaků na řádek. Na telefonu
+ * Portrétová sazba 520 px, id s prefixem `jjv-`. Pointa vlevo na x 40
+ * (nadpis kresby jako v celé sérii), řez x 80–330 (drn 14), stupnice
+ * visí vlevo, štítky vpravo od x 356. Každý štítek má hmotu nebo jev
+ * (`.sv-lbl`) a vlastnost (`.sv-val`), ≤ 12 znaků na řádek. Na telefonu
  * (18/21 jednotek) končí nejdál na x ≈ 487. Vodítka KOŘENY a VODA vedou
- * přes stěnu mísy až k cíli (konec kořene, mokrá vrstva u dna), jako
- * v `hlina-tri-znaky`. Uvnitř řezu jsou bílá op .7 (konstrukční linka na
- * světlé zemině, vzor `pisek-pod-koreny`), venku #d5d3cc, rytmus čárek je
- * jeden. Popisek → hodnota má rozteč 27. Vodítka skupin jsou od sebe ≥ 59,
- * takže mezi skupinami zůstane v mobilní sazbě ≥ 12 jednotek (uvnitř
- * skupiny ≈ 6) a skupiny se nesmísí. Jednotka „cm" stojí jen v `.sv-val`.
- * Legenda: čipy 28 × 14 s obrysem (vzor `hlina-prace-misto-materialu`,
- * `pisek-pod-koreny`): nová směs · utužený jíl · voda stojí. Čip vody je
- * táž směs s tintou a nádechem, horní hranu nese hladina. Kapka v legendě
- * není, vodu vysvětluje čip, který nese pointu. Třetí čip stojí na ose
- * štítků x 356, mezery mezi položkami jsou vyrovnané pro 18/21 (≈ 28).
- * ViewBox 520 × 600 jako v plánu (rytmus splitu E2 je spočítaný pro 600).
- * Vzduch leží mezi pointou a řezem a mezi řezem a legendou, řez drží
- * 8 px na cm. Statická kresba.
+ * přes stěnu mísy až k cíli (konec kořene, mokrá vrstva u dna). Uvnitř
+ * řezu (x 80–330) jsou bílá op .7 (konstrukční linka na světlé zemině,
+ * jako `vodSvetle` v `pisek-pod-koreny`), a to i přes posledních ~30
+ * jednotek tmavé stěny jílu: konstrukční linka na tmavé zemi podle 9.2
+ * (bílá .12–.14) by na jílu zmizela a vodítko by se rozpadlo na dva
+ * kusy. Venku (od x 330) jsou #d5d3cc, rytmus čárek je jeden. Popisek
+ * → hodnota má rozteč 27. Vodítka skupin jsou od sebe
+ * ≥ 59, takže mezi skupinami zůstane v mobilní sazbě ≥ 12 jednotek
+ * (uvnitř skupiny ≈ 6) a skupiny se nesmísí. Jednotka „cm" stojí jen
+ * v `.sv-val`.
+ * Legenda: čipy 28 × 14, ostré rohy, obrys #232830 1,6, výplň z téže
+ * hmoty jako řez. 1. řádek: nová směs · utužený jíl · voda stojí. Čip
+ * vody je táž směs s tintou a nádechem (tečky na týchž místech jako
+ * v čipu nové směsi), horní hranu nese hladina. Kapka v legendě není,
+ * vodu vysvětluje čip, který nese pointu. Třetí čip stojí na ose štítků
+ * x 356, mezery mezi položkami jsou vyrovnané pro 18/21 (≈ 28).
+ * 2. řádek (rozteč 32): kořeny. Kořen je světlá značka viditelná jen na
+ * půdě, leží proto podle pravidla série na políčku zeminy #6b5138 op .9.
+ * Políčko i výsek kořene (tvar, jádro bez lemu) jsou tytéž jako v legendě
+ * `koren-zacina-nahore`; lem 2,4 patří jen světlému a okrovému podkladu,
+ * na hnědé není potřeba.
+ * ViewBox 520 × 600 (rytmus splitu E2 je spočítaný pro 600). Vzduch
+ * leží mezi pointou a řezem a mezi řezem a legendou, řez drží 8 px na
+ * cm. Statická kresba.
  */
 
 // ── geometrie řezu ───────────────────────────────────────────────
@@ -93,14 +106,14 @@ const Y_VODA = BOT - 5 // 377 — mokrá vrstva těsně nad dnem
 const Y_JIL = 440 // jíl pod dnem mísy
 const KONEC_KOREN = 278 // vodítko končí u špičky pravého kořene (x 273)
 const KONEC_VODA = 266 // vodítko končí v mokré vrstvě u dna
-const LEG = 506 // linka legendy; čipy na LEG + 22 = 528 ≡ 3 mod 5 jako v E5
+const LEG = 506 // linka legendy; čipy na LEG + 22 = 528
 
 /** Štítky vpravo: [výška vodítka, popisek, hodnota]. */
 const STITKY: [number, string, string][] = [
   [Y_SMES, 'nová směs', 'propustná'],
   [Y_KOREN, 'kořeny', 'málo vzduchu'],
   [Y_VODA, 'voda', 'se zastaví'],
-  [Y_JIL, 'utužený jíl', 'nepropustný'],
+  [Y_JIL, 'utužený jíl', 'brzdí odtok'], // text: zhutnění „omezí … pohyb přebytečné vody", ne „nepropustný"
 ]
 
 /** Hranice směs × jíl (mísa) zleva doprava. Kreslí se jednou jako obrys obou hmot. */
@@ -257,7 +270,7 @@ const JEMNE = (() => {
     if (Math.abs(x - WX) < r + 3.5 && y < SIPKA_Y + 10 + r + 3) continue // cesta vody
     if (Math.abs(x - WX) < 8 + r + 3 && y > SIPKA_Y - r - 3 && y < SIPKA_Y + 10 + r + 3) continue // šipka
     if (Math.abs(y - HLADINA) < 0.8 + r + 2) continue // hladina
-    if (KORENY_BODY.some((P) => kLomene(x, y, P, false) < 1.8 + r + 2)) continue // hrana kořene 3,6
+    if (KORENY_BODY.some((P) => kLomene(x, y, P, false) < 1.2 + r + 2)) continue // lem kořene 2,4 + mezera 2
     if (voditka.some(([a, b]) => kUsecce(x, y, a, b) < r + 3)) continue
     if (tecky.every((t) => (t.x - x) ** 2 + (t.y - y) ** 2 >= ROZTEC ** 2)) tecky.push({ x, y, r })
   }
@@ -293,18 +306,26 @@ const obrys = { fill: 'none', stroke: '#232830', strokeWidth: 1.6, strokeLinejoi
 /** Hladina a šipka: jeden tah vody #2563eb op .75. */
 const hladina = { fill: 'none', stroke: '#2563eb', strokeWidth: 1.6, strokeLinecap: 'round', strokeLinejoin: 'round', opacity: 0.75 } as const
 
-/** Kořeny = značka `pisek-pod-koreny`: jádro #d8c9b4 op .9 / 1,6 na hraně
- *  #232830 op .5 / 3,6. Hrany všech kořenů pod všemi jádry. */
+/** Jádro kořene #d8c9b4 op .9 / 1,6 (hlavička), totéž jako `koren`
+ *  v `koren-zacina-nahore`. */
+const JADRO = { fill: 'none', stroke: '#d8c9b4', strokeWidth: 1.6, strokeLinecap: 'round', strokeLinejoin: 'round', opacity: 0.9 } as const
+/** Kořeny v řezu (na okrové): jádro na lemu #232830 op .5 / 2,4, jako
+ *  `Koreny` v `pisek-pod-koreny`. Lemy všech kořenů pod všemi jádry. */
 const Koreny: React.FC<{ d: string }> = ({ d }) => (
   <g fill="none" strokeLinecap="round" strokeLinejoin="round">
-    <path d={d} stroke="#232830" strokeWidth="3.6" opacity="0.5" />
-    <path d={d} stroke="#d8c9b4" strokeWidth="1.6" opacity="0.9" />
+    <g stroke="#232830" strokeWidth="2.4" opacity="0.5">
+      <path d={d} />
+    </g>
+    <path d={d} {...JADRO} />
   </g>
 )
 
-// ── legenda: čipy 28 × 14 jako `hlina-prace-misto-materialu` ─────
-const CIP_Y = LEG + 22 // 528 ≡ 3 mod 5: fáze lamel jako čip utužené vrstvy v E5
+// ── legenda: čipy 28 × 14 s obrysem, výplň z řezu ────────────────
+/** 528 ≡ 3 mod 5: lamely `jjv-lis` leží jako v řezu na y ≡ 2,5 mod 5, v čipu
+ *  4,5 a 9,5 pod horní hranou (dvě lamely, obě 3,7 od vnitřní hrany obrysu). */
+const CIP_Y = LEG + 22
 const CIP = [30, 197, 356] as const // nová směs · utužený jíl · voda stojí (x štítků vpravo); mezery vyrovnané pro 18/21
+const CIP_Y2 = CIP_Y + 32 // 560 — 2. řádek: kořeny pod novou směsí
 
 export const JilJakoVana: React.FC = () => (
   <svg aria-hidden="true" className="block h-auto w-full" viewBox="0 0 520 600">
@@ -327,10 +348,8 @@ export const JilJakoVana: React.FC = () => (
         <stop offset="0.8" stopColor="#2563eb" stopOpacity="0.14" />
         <stop offset="1" stopColor="#2563eb" stopOpacity="0.05" />
       </radialGradient>
-      <clipPath id="jjv-smes">
-        <path d={SMES} />
-      </clipPath>
-      {/* vodítka: uvnitř řezu bílá, venku #d5d3cc — jedna čára, jeden rytmus */}
+      {/* vodítka: uvnitř řezu bílá (i přes stěnu jílu, hlavička), venku
+          #d5d3cc — jedna čára, jeden rytmus */}
       <clipPath id="jjv-rez">
         <rect x={X0} y="0" width={X1 - X0} height="600" />
       </clipPath>
@@ -340,8 +359,8 @@ export const JilJakoVana: React.FC = () => (
     </defs>
 
     {/* Pointa kresby (9.2 p. 3) je jedna: pořadí prací. */}
-    <text className="sv-val" x={X0} y="34" style={{ fontSize: 24 }}>Nejdřív odtok</text>
-    <text className="sv-lbl" x={X0} y="59">teprve potom směs</text>
+    <text className="sv-val" x="40" y="34" style={{ fontSize: 24 }}>Nejdřív odtok</text>
+    <text className="sv-lbl" x="40" y="59">teprve potom směs</text>
 
     {/* ── měřítko ─────────────────────────────────────────────── */}
     <line x1="62" y1={TOP} x2="62" y2={BOT} {...voditko} />
@@ -371,7 +390,7 @@ export const JilJakoVana: React.FC = () => (
     <line x1={WX} y1={TOP + 6} x2={WX} y2={SIPKA_Y - 4} stroke="#2563eb" strokeWidth="1.6" strokeDasharray="3 7" strokeLinecap="round" />
     <path d={`M${WX - 8} ${SIPKA_Y} l8 10 8 -10`} {...hladina} />
 
-    {/* vnitřní části vodítek KOŘENY a VODA — přes stěnu mísy až k cíli */}
+    {/* vnitřní části vodítek KOŘENY a VODA — bílé od cíle přes stěnu mísy k hraně řezu */}
     <g clipPath="url(#jjv-rez)" stroke="#fff" strokeWidth="1.6" strokeDasharray="3 7" strokeLinecap="round" opacity="0.7">
       <line x1={KONEC_KOREN} y1={Y_KOREN} x2={LX - 8} y2={Y_KOREN} />
       <line x1={KONEC_VODA} y1={Y_VODA} x2={LX - 8} y2={Y_VODA} />
@@ -410,17 +429,28 @@ export const JilJakoVana: React.FC = () => (
     <path d={`M${CIP[0] + 5.6} ${CIP_Y + 7}a2.4 2.4 0 1 0 4.8 0a2.4 2.4 0 1 0 -4.8 0ZM${CIP[0] + 17.8} ${CIP_Y + 7.5}a2.2 2.2 0 1 0 4.4 0a2.2 2.2 0 1 0 -4.4 0Z`} {...ZEMINA} />
     <rect x={CIP[0]} y={CIP_Y} width="28" height="14" {...obrys} />
     <text className="sv-val" x={CIP[0] + 36} y={CIP_Y + 12}>nová směs</text>
-    {/* utužený jíl: čip 1:1 s legendou `hlina-prace-misto-materialu` */}
+    {/* utužený jíl: táž výplň a lamely jako jíl v řezu (pattern v userSpace, fáze shodná) */}
     <rect x={CIP[1]} y={CIP_Y} width="28" height="14" fill="#54402c" fillOpacity="0.95" />
     <rect x={CIP[1]} y={CIP_Y} width="28" height="14" fill="url(#jjv-lis)" stroke="#232830" strokeWidth="1.6" strokeLinejoin="round" />
     <text className="sv-val" x={CIP[1] + 36} y={CIP_Y + 12}>utužený jíl</text>
-    {/* voda stojí: táž směs + tinta + nádech; horní hranu nese hladina, obrys V…H…V */}
+    {/* voda stojí: táž směs (tečky na týchž místech jako čip nové směsi) + tinta
+        + nádech; horní hranu nese hladina, obrys V…H…V */}
     <rect x={CIP[2]} y={CIP_Y} width="28" height="14" {...PISEK} />
     <rect x={CIP[2]} y={CIP_Y} width="28" height="14" {...TINTA} />
     <rect x={CIP[2]} y={CIP_Y} width="28" height="14" fill="url(#jjv-voda-cip)" />
-    <path d={`M${CIP[2] + 5.6} ${CIP_Y + 8}a2.4 2.4 0 1 0 4.8 0a2.4 2.4 0 1 0 -4.8 0ZM${CIP[2] + 17.8} ${CIP_Y + 8.5}a2.2 2.2 0 1 0 4.4 0a2.2 2.2 0 1 0 -4.4 0Z`} {...ZEMINA} />
+    <path d={`M${CIP[2] + 5.6} ${CIP_Y + 7}a2.4 2.4 0 1 0 4.8 0a2.4 2.4 0 1 0 -4.8 0ZM${CIP[2] + 17.8} ${CIP_Y + 7.5}a2.2 2.2 0 1 0 4.4 0a2.2 2.2 0 1 0 -4.4 0Z`} {...ZEMINA} />
     <path d={`M${CIP[2]} ${CIP_Y} H${CIP[2] + 28}`} {...hladina} strokeLinecap="butt" />
     <path d={`M${CIP[2]} ${CIP_Y} V${CIP_Y + 14} H${CIP[2] + 28} V${CIP_Y}`} {...obrys} />
     <text className="sv-val" x={CIP[2] + 36} y={CIP_Y + 12}>voda stojí</text>
+    {/* kořeny (2. řádek): políčko zeminy #6b5138 op .9 a výsek kořene
+        jako v legendě `koren-zacina-nahore` (jádro bez lemu, na hnědé
+        lem není potřeba); obrys cestou jako tam */}
+    <rect x={CIP[0]} y={CIP_Y2} width="28" height="14" {...ZEMINA} />
+    <path
+      d={`M${CIP[0] + 10} ${CIP_Y2 + 1} C ${CIP[0] + 9} ${CIP_Y2 + 5}, ${CIP[0] + 11} ${CIP_Y2 + 9}, ${CIP[0] + 10} ${CIP_Y2 + 13}M${CIP[0] + 10} ${CIP_Y2 + 5} C ${CIP[0] + 14} ${CIP_Y2 + 6}, ${CIP[0] + 18} ${CIP_Y2 + 9}, ${CIP[0] + 20} ${CIP_Y2 + 12}`}
+      {...JADRO}
+    />
+    <path d={`M${CIP[0]} ${CIP_Y2} H${CIP[0] + 28} V${CIP_Y2 + 14} H${CIP[0]} Z`} {...obrys} />
+    <text className="sv-val" x={CIP[0] + 36} y={CIP_Y2 + 12}>kořeny</text>
   </svg>
 )

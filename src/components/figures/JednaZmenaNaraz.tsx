@@ -13,8 +13,8 @@ import React from 'react'
  * Pointa je jedna: měníme jednu dávku naráz (i54 v3–v4, i56 v2). Obě
  * poloviny řezu mají TOTÉŽ pole značek na týchž místech; B navíc polovinu
  * střípků biocharu (12 → 18) a každý přidaný střípek nese čárkovaný
- * prstenec (pomocná kružnice 9.2 p. 2, jako „zůstává" v `dve-zahrady`;
- * r 8, pět period 3 / 7,05 = obvod). V A je na týchž místech čistý základ:
+ * prstenec (pomocná kružnice 9.2 p. 2, #d5d3cc; r 8, pět period
+ * 3 / 7,05 = obvod). V A je na týchž místech čistý základ:
  * přidaný biochar zabral místo základu. Poměr biochar : Actino : zeolit
  * = 12 : 12 : 6 (2 : 2 : 1 jako `mh-plna`). Žádná čísla dávek, žádné
  * stoprocentní sloupce (nese je tabulka nad splitem), žádný akcent — nic
@@ -30,26 +30,35 @@ import React from 'react'
  * začínají 3,7 pod jeho rámcem.
  *
  * Značky jsou pixelově shodné se sérií (9.2 p. 10): biochar, Actino
- * a zeolit z `mh-plna` / `ks-` (kreslí je `Znacka`, i v legendě). První
- * řádek legendy je 1 : 1 z `kontrola-sondou` (holé políčko „základ" ·
- * biochar · Actino · zeolit, značky na x 30 / 142 / 266 / 372, texty
- * 52 / 160 / 278 / 392), druhý řádek je klíč k prstenci. Rozmístění je
- * spočtené předem (změřeno getBBox): mezi rámci značek ≥ 7, k vnitřní
- * hraně obrysu i dělicí čáry ≥ 3,7, prstenec od cizích značek ≥ 2,7,
- * přidaný střípek od nich ≥ 7.
+ * a zeolit z `mh-plna` / `ks-` (kreslí je `Znacka`, i v legendě).
+ * Rozmístění v řezu je spočtené předem (změřeno getBBox): mezi rámci
+ * značek ≥ 7, k vnitřní hraně obrysu i dělicí čáry ≥ 3,7, prstenec od
+ * cizích značek ≥ 2,7, přidaný střípek od nich ≥ 7.
+ *
+ * Legenda je mřížka tří sloupců (klíč 28 široký na x 30 / 190 / 350, text
+ * o 36 dál). 1. řádek: základ jako čip 28 × 14 s ostrými rohy a obrysem
+ * hmoty (tatáž výplň a obrys jako řez) · biochar · Actino na krému.
+ * 2. řádek: světlé značky na zemině s obrysem, jak leží v řezu (na krému
+ * by #d5d3cc zmizel, 1,37 : 1). Zeolit na čipu zeminy 28 × 14 jako
+ * v `koren-zacina-nahore` (zrno na x+10 / y+4 od rohu čipu); přidaný
+ * biochar s prstencem na políčku 28 × 28, protože prstenec r 8 (17,6
+ * i s tahem) se do výšky 14 nevejde — v políčku má k vnitřní hraně
+ * obrysu všude 4,4. Obě značky mají střed na L2 − 5.
  *
  * Měřítko řezu 12 px na cm, ne 8 jako `kontrola-sondou`: řez má jen 10 cm
  * a při 8 px/cm by v panelu 640 zůstalo ~130 jednotek prázdných pásů
  * a řez by nevážil víc než pohled shora. Stupnice 0 / 10 cm to nese.
  *
  * Portrétová sazba 520 × 640, id s prefixem `jzn-` (kresba žádné id nemá).
- * Tagy ploch stojí v ose své poloviny 12 nad řezem (vzor „1 · Zemina
- * a písek"); „na úkor základu" je druhý řádek tagu B, ne popisek pod řezem
+ * Tagy ploch stojí v ose své poloviny; tag B končí druhým řádkem 12 nad
+ * řezem, tag A stojí na účaří prvního řádku B (37 nad řezem).
+ * „Na úkor základu" je druhý řádek tagu B, ne popisek pod řezem
  * (tam by se s „ostatní příměsi beze změny" četl jako jedna věta). Mobilní
  * sazba 18/21 jednotek: tagy A 93–272, B 301–474, „na úkor základu"
- * 294–481, od promítacích linek ≥ 8; řádky tagu B mají rozteč 24 (mezi
- * rámci 5,4); „Ostatní příměsi beze změny" 134–436, ramena končí 6,4 nad
- * jeho rámcem; nic nepřesahuje 0..520. Statická kresba.
+ * 294–481, od promítacích linek ≥ 8; řádky tagu B mají rozteč 25 (mezi
+ * rámci getBBox 4,8); „Ostatní příměsi beze změny" 134–436, ramena končí
+ * 6,4 nad jeho rámcem; nejdelší text legendy „přidaný biochar" končí na
+ * 373; nic nepřesahuje 0..520. Statická kresba.
  */
 
 type Druh = 'b1' | 'b2' | 'a1' | 'a2' | 'z'
@@ -82,7 +91,7 @@ const NAVIC: [Druh, number, number][] = PRSTENCE.map(([cx, cy], i) =>
 
 /** Trsy trávy v pohledu shora (rel. k ploše 205 × 88), v A i B tytéž. */
 const TRSY: [number, number][] = [
-  [47, 49], [149, 49], [93, 68], [108, 27], [182, 41], [22, 68], [76, 23], [183, 72], [19, 33], [152, 23], [122, 62],
+  [47, 49], [149, 49], [93, 68], [108, 25], [182, 41], [22, 68], [76, 23], [183, 72], [19, 33], [152, 23], [122, 62],
 ]
 
 // ── sazba ──────────────────────────────────────────────────────
@@ -95,10 +104,12 @@ const PY1 = PY0 + 88 // 203
 const CM = 12
 const S0 = 312 // povrch řezu, 0 cm
 const S1 = S0 + 10 * CM // 432, 10 cm
-const Y_H1 = S0 - 36 // tag plochy
+const Y_H1 = S0 - 37 // tag plochy
 const Y_H2 = S0 - 12 // druhý řádek u B
 const R1 = S1 + 77 // 509 — „ostatní beze změny"
 const LEG = R1 + 37 // 546 — linka legendy
+const L1 = LEG + 32 // 578 — účaří 1. řádku legendy (hmota a tmavé značky)
+const L2 = LEG + 66 // 612 — účaří 2. řádku (světlé značky na zemině)
 const PRST_R = 8
 
 const car = { stroke: '#d5d3cc', strokeWidth: 1.6, strokeDasharray: '3 7', strokeLinecap: 'round' } as const
@@ -109,16 +120,36 @@ const Trs: React.FC<{ x: number; y: number }> = ({ x, y }) => (
   <path d={`M${x} ${y} v-5 M${x + 4} ${y + 1} v-6`} />
 )
 
-/** Prstenec kolem střípku navíc: konstrukční linka jako „zůstává"
- *  v `dve-zahrady`; 5 period 3 / 7,05 = obvod 2π·8. */
+/** Prstenec kolem střípku navíc: konstrukční linka #d5d3cc (pomocná
+ *  kružnice 9.2 p. 2); 5 period 3 / 7,05 = obvod 2π·8. */
 const Prstenec: React.FC<{ cx: number; cy: number }> = ({ cx, cy }) => (
   <circle cx={cx} cy={cy} r={PRST_R} fill="none" stroke="#d5d3cc" strokeWidth="1.6" strokeDasharray="3 7.05" strokeLinecap="round" />
+)
+
+/** Čip zeminy 28 × 14: tatáž výplň a obrys jako hmota řezu; světlá
+ *  značka (zeolit) leží mezi výplní a obrysem. */
+const Cip: React.FC<{ x: number; y: number; children?: React.ReactNode }> = ({ x, y, children }) => (
+  <>
+    <rect x={x} y={y} width="28" height="14" fill="#6b5138" opacity="0.9" />
+    {children}
+    <path d={`M${x} ${y} H${x + 28} V${y + 14} H${x} Z`} {...obrys} />
+  </>
+)
+
+/** Políčko zeminy 28 × 28 jen pod přidaným biocharem: prstenec r 8 se do
+ *  čipu 28 × 14 nevejde; tatáž půda a obrys jako v řezu. */
+const Policko: React.FC<{ x: number; y: number; children: React.ReactNode }> = ({ x, y, children }) => (
+  <>
+    <rect x={x} y={y} width="28" height="28" fill="#6b5138" opacity="0.9" />
+    {children}
+    <path d={`M${x} ${y} H${x + 28} V${y + 28} H${x} Z`} {...obrys} />
+  </>
 )
 
 export const JednaZmenaNaraz: React.FC = () => (
   <svg aria-hidden="true" className="block h-auto w-full" viewBox="0 0 520 640">
     {/* Pointa kresby (9.2 p. 3) je jedna: měníme jednu dávku naráz. */}
-    <text className="sv-val" x={X0} y="40" style={{ fontSize: 24 }}>Jedna změna naráz</text>
+    <text className="sv-val" x="40" y="40" style={{ fontSize: 24 }}>Jedna změna naráz</text>
 
     {/* ── pohled shora: jeden pás, dvě plochy ──────────────────── */}
     <text className="sv-lbl" x={X0} y={PY0 - 12}>Pohled shora</text>
@@ -136,7 +167,8 @@ export const JednaZmenaNaraz: React.FC = () => (
       {[X0, XD, X1].map((x) => <line key={x} x1={x} y1={PY1 + 8} x2={x} y2={S0 - 8} />)}
     </g>
 
-    {/* tagy ploch v ose své poloviny, 12 nad řezem */}
+    {/* tagy ploch v ose své poloviny: tag B končí 2. řádkem 12 nad řezem,
+        tag A stojí na účaří 1. řádku B (37 nad řezem) */}
     <g textAnchor="middle">
       <text className="sv-lbl" x={X0 + HW / 2} y={Y_H1}>A · Výchozí směs</text>
       <text className="sv-lbl" x={XD + HW / 2} y={Y_H1}>B · Víc biocharu</text>
@@ -173,19 +205,23 @@ export const JednaZmenaNaraz: React.FC = () => (
     <line x1={XD + 97} y1={S1 - 6.5} x2="308" y2={R1 - 22} {...car} />
     <text className="sv-lbl" x={XD} y={R1} textAnchor="middle">Ostatní příměsi beze změny</text>
 
-    {/* ── legenda: 1. řádek 1 : 1 z `kontrola-sondou` (holé políčko základu) ── */}
+    {/* ── legenda: mřížka klíčů x 30 / 190 / 350, text o 36 dál ───── */}
     <line x1="30" y1={LEG} x2="490" y2={LEG} {...car} />
-    <rect x="30" y={LEG + 20} width="14" height="14" rx="3" fill="#6b5138" opacity="0.9" />
-    <text className="sv-val" x="52" y={LEG + 32}>základ</text>
-    <Znacka d="b1" x={142} y={LEG + 28} />
-    <text className="sv-val" x="160" y={LEG + 32}>biochar</text>
-    <Znacka d="a1" x={266} y={LEG + 28} />
-    <text className="sv-val" x="278" y={LEG + 32}>Actino</text>
-    <Znacka d="z" x={372} y={LEG + 26} />
-    <text className="sv-val" x="392" y={LEG + 32}>zeolit</text>
-    {/* 2. řádek: klíč k prstenci */}
-    <Znacka d="b1" x={33} y={LEG + 59.5} />
-    <Prstenec cx={37} cy={LEG + 60} />
-    <text className="sv-val" x="52" y={LEG + 64}>přidaný biochar</text>
+    <Cip x={30} y={L1 - 12} />
+    <text className="sv-val" x="66" y={L1}>základ</text>
+    <Znacka d="b1" x={200} y={L1 - 5.5} />
+    <text className="sv-val" x="226" y={L1}>biochar</text>
+    <Znacka d="a1" x={364} y={L1 - 5} />
+    <text className="sv-val" x="386" y={L1}>Actino</text>
+    {/* 2. řádek: světlé značky na zemině, střed x+14, L2 − 5 */}
+    <Cip x={30} y={L2 - 12}>
+      <Znacka d="z" x={40} y={L2 - 8} />
+    </Cip>
+    <text className="sv-val" x="66" y={L2}>zeolit</text>
+    <Policko x={190} y={L2 - 19}>
+      <Znacka d="b1" x={200} y={L2 - 5.5} />
+      <Prstenec cx={204} cy={L2 - 5} />
+    </Policko>
+    <text className="sv-val" x="226" y={L2}>přidaný biochar</text>
   </svg>
 )

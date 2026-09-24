@@ -20,18 +20,18 @@ import React from 'react'
  *
  * Značky půd (9.2 p. 10), žádná nová: vzorek = kruh r 26, výplň přes
  * `fillOpacity`, obrys #232830 1,6, tedy vzorky `myko-podle-navodu` (E9)
- * v barevném klíči E1 / E7. Jílovitá půda = zemina #6b5138 op .9 plošně
- * (E9 „jílovitá", E1, v E7 „původní zemina"). Fungující hlína = táž
- * zemina s drobty: dlaždice 12 × 12 pixelově shodná s `htz-hlina`
- * (`hlina-tri-znaky`, E4 — tam právě fungující hlína), počátek v rohu
- * vzorku. Jíl a hlína se tak liší viditelnou strukturou a hlína z E1b
- * se nespojuje s plochým „Hlinitá" v E1 (těžší hlína k úpravě, i27 v3).
- * Písčitá půda = okrová #c2a052 op .45 (E9 „písčitá", E1, v E7 sloupec
- * „původní písčitá zemina"); čtverec 14 × 14 z legendy E7 („přidaný
- * písek", op .55) kresba nemá. Vzorek je osou vahadla, ramena začínají
- * na jeho obrysu. Fajfka #047857 (tah 2,4, `hlava-na-hlavu`) vždy se
- * slovem, na krémovém panelu (9.2). Vahadlo (tah 2), závěsy, misky
- * a stojan jsou obrysové #232830 bez výplně.
+ * v barevném klíči E7. Jílovitá půda = zemina #6b5138 op .9 plošně
+ * (E9 „jílovitá", v E7 „původní zemina"). Fungující hlína = táž zemina
+ * s drobty: dlaždice 12 × 12 pixelově shodná s `hpm-hlina`
+ * (`hlina-prace-misto-materialu`, E5 — tam právě fungující hlína),
+ * počátek v rohu vzorku. Jíl a hlína se tak liší viditelnou strukturou
+ * a hlína z E1b se nespojuje s plochou zeminou sloupce „Těžší hlína"
+ * v E7 (hlína k úpravě, i27 v3). Písčitá půda = okrová #c2a052 op .45
+ * (E9 „písčitá", v E7 sloupec „původní písčitá zemina"); čip 28 × 14
+ * z legendy E7 („přidaný písek", op .55 se zrny) kresba nemá. Vzorek je
+ * osou vahadla, ramena začínají na jeho obrysu. Fajfka #047857 (tah 2,4,
+ * `hlava-na-hlavu`) vždy se slovem, na krémovém panelu (9.2). Vahadlo
+ * (tah 2), závěsy, misky a stojan jsou obrysové #232830 bez výplně.
  *
  * Portrétová sazba 520 × 640, id s prefixem `pas-`. Horní hrany řádků
  * 52 / 214 / 356: nakloněná váha je o 20 vyšší než vodorovná, protože
@@ -42,8 +42,8 @@ import React from 'react'
  * ≈ 482, jména půd leží v 174–346 mimo sloupce popisků (61–162
  * a 382–482). Popisek → jméno dalšího řádku ≥ 16, dno misky → popisek
  * ≥ 7, hrot šipky → „napravit" ≈ 8, fajfka → slovo 6.
- * Pointa dole za čárkovanou linkou jako v `nejblizsi-priklad` na témž
- * krémovém pásu. Statická kresba.
+ * Pointa dole za čárkovanou linkou jako v `myko-podle-navodu`. Statická
+ * kresba.
  */
 
 // ── sloupce misek a vahadlo ──────────────────────────────────
@@ -80,7 +80,7 @@ const PUDY: Puda[] = [
   { id: 'pisek', jmeno: 'Písčitá půda', naklon: -1 },
 ]
 
-// barevný klíč série (E1 `nejblizsi-priklad`, E7 `zaklad-tri-zahrad`, E9)
+// barevný klíč série (E7 `zaklad-tri-zahrad`, E9 `myko-podle-navodu`)
 const ZEMINA = { fill: '#6b5138', fillOpacity: 0.9 } as const
 const PISCITA = { fill: '#c2a052', fillOpacity: 0.45 } as const
 
@@ -137,7 +137,7 @@ const Vaha: React.FC<{ p: Puda; y0: number }> = ({ p, y0 }) => {
       ))}
 
       {/* vzorek půdy = osa vah: kruh jako vzorky `myko-podle-navodu`,
-          fungující hlína navíc s drobty `hlina-tri-znaky` */}
+          fungující hlína navíc s drobty jako `hpm-hlina` */}
       <circle cx={OSA_X} cy={cy} r={R} {...(p.id === 'pisek' ? PISCITA : ZEMINA)} />
       {p.id === 'hlina' ? <circle cx={OSA_X} cy={cy} r={R} fill="url(#pas-hlina)" /> : null}
       <circle cx={OSA_X} cy={cy} r={R} {...TAH} />
@@ -169,8 +169,8 @@ const Vaha: React.FC<{ p: Puda; y0: number }> = ({ p, y0 }) => {
 export const PrednostiASlabiny: React.FC = () => (
   <svg aria-hidden="true" className="block h-auto w-full" viewBox="0 0 520 640">
     <defs>
-      {/* Drobty hlíny — dlaždice pixelově shodná s `htz-hlina` (E4);
-          počátek v levém horním rohu vzorku jako tam v rohu řezu. */}
+      {/* Drobty hlíny — dlaždice pixelově shodná s `hpm-hlina` (E5);
+          počátek v levém horním rohu vzorku jako tam v rohu výřezu. */}
       <pattern id="pas-hlina" x={OSA_X - R} y={yRadku(1) + OSA - R} width="12" height="12" patternUnits="userSpaceOnUse">
         <circle cx="3" cy="3" r="1.2" fill="#54402c" />
         <circle cx="9" cy="8" r="2.4" fill="#6b5138" />

@@ -195,7 +195,9 @@ const MEDIA: {
   {
     filename: 'hero-primesi-ryc-v2.avif',
     portret: 'hero-primesi-portret.avif',
-    alt: 'Připravené hromady materiálů na zahradě před mícháním směsi pro trávník: světlý praný písek, tmavá prosátá zemina a menší hromádka černého biocharu vedle sebe, rýč zapíchnutý do hromady zeminy, vzadu nízké večerní slunce.',
+    /* Alt platí pro široký záběr i pro ořez na výšku (telefon), kde rýč
+       ani biochar nejsou (porota kola 01 článku o příměsích). */
+    alt: 'Připravené hromady materiálů na holé ploše zahrady před mícháním směsi pro trávník: světlý praný písek a tmavá prosátá zemina, za nimi živý plot, dřevěný plot a trávník v nízkém večerním slunci.',
     focal: { focalX: 50, focalY: 55, focalPortraitX: 50, focalPortraitY: 55 },
   },
   {
@@ -268,8 +270,8 @@ const MEDIA: {
     alt: 'Čtvercová sonda vykopaná v připravené holé ploše pro nový trávník: svislé stěny z drobivé hnědé zeminy, na dně tmavší pevnější podloží, v jámě stojí dřevěný skládací metr. V pozadí trávník a dřevěný prknový plot v nízkém večerním slunci.',
   },
   {
-    filename: 'fig-primesi-vzorky-ctverec.avif',
-    alt: 'Tři hromádky různých půd vedle sebe na dřevěné míchací desce: vlevo šedohnědé hutné hroudy jílu s hladkými lesklými plochami, uprostřed tmavá drobtovitá hlína, vpravo světlá sypká písčitá zemina. Za deskou rozostřený trávník v teplém večerním světle.',
+    filename: 'fig-primesi-vzorky-zahon.avif',
+    alt: 'Tři hromádky různých půd vedle sebe na připravené holé ploše u trávníku: vlevo šedohnědé hutné hroudy jílu s hladkými plochami, uprostřed tmavá drobtovitá hlína, vpravo světlá sypká písčitá zemina. Za nimi trávník v nízkém večerním slunci a dřevěný prknový plot.',
   },
   {
     filename: 'fig-primesi-hlina-ctverec.avif',
@@ -963,9 +965,8 @@ const run = async () => {
          prvního článku). */
       const zdroj = path.resolve(dirname, '../zdroje-informaci/fotky', item.filename)
       if (ogWebp || !existsSync(zdroj)) {
-        if (item.focal) {
-          await payload.update({ collection: 'media', id: doc.id, data: item.focal })
-        }
+        /* Alt a ohnisko jsou zdrojem pravdy tady, ne v knihovně médií. */
+        await payload.update({ collection: 'media', id: doc.id, data: { alt: item.alt, ...item.focal } })
         continue
       }
       await payload.delete({ collection: 'media', id: doc.id })

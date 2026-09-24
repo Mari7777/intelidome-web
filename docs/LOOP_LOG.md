@@ -3698,3 +3698,73 @@ krém | bílá | krém kvůli tabulce.
 1440/1920: volná próza 0, střídání R L R L R L R L R (≥ 1130), kotvy
 11/11 na 124 px, `svg-labels` 0 kolizí (min 10,5 px), `layout-check`
 0 jednorázových os.
+
+---
+
+# Článek o příměsích — rytmus obraz/text (/posts/pisek-biochar-a-dalsi-primesi)
+
+## Přestavba na rytmus obraz/text (2026-09-24)
+
+Majitel: „to stejné s tímto článkem" (DESIGN.md 8.2b p. 8). Plán vybrala
+porota tří návrhů (fotka · kresba · rytmus čtení, 20 : 15 : 20), syntéza
+a nezávislá kontrola (23 vad, opraveno nebo doloženě vyvráceno). Vše mezi
+souhrnem a FAQ přestaví `applyPrimesiRhythm` (scripts/lib/primesi-rhythm.ts)
+podle `primesi-rhythm-content.ts`: 18 dvousloupců, karty složek a obě
+tabulky jako moduly, text autora jen rozdělený na hranicích vět (15/15
+nadpisů). Otevřený panel karet nese fotku vpravo, proto se počítá do
+střídání stran (layout-check to nově umí). Kresby: 9 nových (kreslíř →
+oponent → oprava → ověření → oprava), 4 upravené; `tri-zony-biovin`
+a `tri-zahrady` vyřazeny (zdvojení s tri-zony v článku o půdě a s tabulkou
+dávek). Fotky: jediný nepoužitý master série (míchací deska) + tři nové
+čtverce z generátoru (sonda s metrem, číslice retušované do neostrosti;
+vzorky půd; drobtovitá hlína) místo tří nejslabších kreseb. CSS: pokračování
+oddílu na krémovém pásu bez bílého švu. Commit 7187ef8.
+
+## Kolo 01 (2026-09-24)
+
+| Oblast | Skóre |
+|---|---|
+| Hierarchie | 2/5 |
+| Typografie | **4/5** |
+| Pohyb | 3/5 |
+| Grafický styl | 3/5 |
+| Slop | 2/5 |
+| Výkon a přístupnost | 3/5 |
+| Rozložení | **4/5** |
+
+**0 kritických**, skeptikem prošlo 7 nálezů (4 důležité, 3 snížené).
+
+### Opravy
+
+- **Obr. 01 lhal titulkem „Stejné složky, jiný úkol"** (hierarchie i slop):
+  vlevo byl jen písek, vpravo jen příměsi, a hnědá hmota s řídkými zrny
+  znamenala v Obr. 12 „pár lopat, vrstvu nezmění". Překresleno: obě pole
+  z týchž značek, mění se jen množství; jíl přestavěný převahou písku má
+  značku nové směsi série.
+- **Tip o betonářském písku jako sloupeček na ose** (hierarchie): Split umí
+  řádek „> " = modrý rámeček v těle; tip stojí v A3 na původním místě toku
+  textu (přestavba ho vkládá do kontroly textu). PranyPisek zvětšena na
+  viewBox 520 × 680, cesta vody vede mezerami, ne přes zrna.
+- **Obr. 02 a Obr. 09 byly jeden záběr** (styl): vzorky půd přegenerovány
+  jako nový záběr na záhonu u trávníku s plotem a nízkým sluncem
+  (reference = sonda), míchací deska zůstala jen jednou.
+- Snížené na kosmetické, opraveno: složené pokračování za pokračováním
+  mělo třetí prázdný řádek mřížky (specificita 0,3,0); Obr. 05 uvádí
+  hustoty zeolitu a Actina z kalkulátoru v popisku i altu; alt hera platí
+  i pro ořez na telefonu (tam rýč ani biochar nejsou).
+- Kosmetické, opraveno: titulky obou tabulek; Obr. 08 má tři ostré zóny
+  0–10 / 10–15 / 15–30 cm; ≈ a ≠ v Obr. 06 jako cesty (Archivo je nemá);
+  prstenec přidaného biocharu v legendě na políčku zeminy; klíny v Obr. 14
+  rozlámou utuženou vrstvu na kry; fotky ve splitu bez radiusu na telefonu
+  (`.prose img`); sjednocení série: nadpis kresby x 40, čip plochy 28 × 14
+  s obrysem, kořen s lemem ≤ 2,4 px; komentáře v kódu kreseb bez odkazů na
+  vyřazené kresby.
+
+### Neopraveno
+
+Hero master 1926 px (na retině zvětšený, rozhodnutí majitele o záběru);
+mezera odstavců 18 vs 22 px a titulek → tělo 46 vs 24 px (koš B); re-reveal
+po návratu z reduce, trigger krémových splitů od paddingu pásu, šipka hera
+o 6 px (celý web); alty kreseb delší než ve vzorech; na telefonu tenký
+bílý pruh s nadpisem mezi krémem a krémovým panelem kresby; tečka „živiny"
+v nabity-biochar a pisek-pod-koreny je táž jako Actino (rozhodnutí série).

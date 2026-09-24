@@ -19,11 +19,12 @@ import React from 'react'
  * sloupcem.
  *
  * Barevný klíč článku (9.2 p. 10): plochá okrová #c2a052 op .45 = písčitá
- * zemina (`dve-zahrady`, `nejblizsi-priklad`, `prednosti-a-slabiny`),
- * hnědá #6b5138 op .9 = původní zemina. Přidaný písek se od písčité zeminy
- * liší TEXTUROU, ne neprůhledností (.45 × .55 má ΔE00 ≈ 3): plocha .55 se
- * zrny `zz-pisek`, dlaždice pixelově shodná s `dz-pisek` (zrno je přidaný
- * písek i v `kolik-pisku-do-jilu`). Dlaždice je posunutá (x 3, y 23;
+ * zemina (`pisek-pod-koreny`, `prednosti-a-slabiny`, `myko-podle-navodu`;
+ * `dve-zahrady` kreslí písek v obou polích na .55), hnědá #6b5138 op .9
+ * = původní zemina. Přidaný písek se od písčité zeminy liší TEXTUROU, ne
+ * neprůhledností (.45 × .55 má ΔE00 ≈ 3): plocha .55 se zrny `zz-pisek`
+ * (táž zrna r 2,4 / 2 jsou přidaný písek i u pár lopat
+ * v `kolik-pisku-do-jilu`). Dlaždice je posunutá (x 3, y 23;
  * u hlíny o dalších 8), aby žádné zrno nepřeťal ani se tečně nedotkl
  * obrys, dělicí čára nebo linka zóny.
  * Legenda má dvě hmoty, čipy 28 × 14 jako `pisek-pod-koreny`: písek se
@@ -95,7 +96,7 @@ const Linka: React.FC<{ x1: number; x2: number; y: number; od: number; svetla: b
 export const ZakladTriZahrad: React.FC = () => (
   <svg aria-hidden="true" className="block h-auto w-full" viewBox="0 0 520 600">
     <defs>
-      {/* přidaný písek = zrna série; dlaždice pixelově shodná s `dz-pisek` */}
+      {/* přidaný písek = zrna série (r 2,4 / 2 jako pár lopat v `kolik-pisku-do-jilu`) */}
       <pattern id="zz-pisek" x="3" y="23" width="26" height="26" patternUnits="userSpaceOnUse">
         <circle cx="6" cy="7" r="2.4" fill="#c2a052" />
         <circle cx="19" cy="19" r="2" fill="#c2a052" />

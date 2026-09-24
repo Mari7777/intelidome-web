@@ -3,18 +3,25 @@ import React from 'react'
 /**
  * Práce místo materiálu (DESIGN.md 9.2) — u dobře fungující hlíny MŮŽE být
  * dávka nového písku, zeolitu i biocharu nula (i41 v1); víc než nová
- * dodávka může pomoci práce (i39 v3, i41 v6). Záhlaví jako v řadě
- * (`kolik-pisku-do-jilu`, `jil-jako-vana`): klíčová hodnota „0 %" (24 px,
- * jediná) samostatně na y 34, pod ní `.sv-lbl` předmět (y 59) a `.sv-val` věta
- * s podmínkou a modalitou autora („u fungující hlíny může…"). Pod ní tři
- * výřezy hlinité půdy, každý s jednou prací, seřazené od hloubky
- * k povrchu, jak práce jde po sobě (rozrušení vrstvy po bagru je podle
- * i41 v6 první krok, urovnává se nakonec). Nejsou číslované, pořadí nese
- * hloubka. Vpravo sloveso `.sv-lbl` a předmět `.sv-val`, vodítko 3 7:
- * • rozrušit vrstvu po bagru — utužená vrstva je JEDNA souvislá hmota přes
- *   celou šířku výřezu (výška 40, horní i dolní hrana obrysem). Rozrušení
- *   nesou dva klíny otevřené shora, v nich je vidět hlína s drobty; dolní
- *   hrana vrstvy zůstává spojitá, nic se nenatáčí, kry nemají vlastní obrys.
+ * dodávka může pomoci práce (i39 v3, i41 v6). Záhlaví jako `jil-jako-vana`:
+ * klíčová hodnota „0 %" (24 px, jediná) samostatně na x 40 / y 34 (levá
+ * osa jako `michani-od-hloubky`), pod ní `.sv-lbl` předmět (y 59) a `.sv-val`
+ * věta s podmínkou a modalitou autora („u fungující hlíny může…"). Pod ní
+ * tři výřezy hlinité půdy, každý s jednou prací, seřazené od hloubky
+ * k povrchu; rozrušení vrstvy po bagru je podle textu první krok (i41 v6).
+ * Nejsou číslované. Vpravo sloveso `.sv-lbl` a předmět `.sv-val`, vodítko 3 7:
+ * • rozrušit vrstvu po bagru — utužená vrstva (výška 40) je rozlámaná na
+ *   čtyři kry nestejné šířky (nahoře 33 / 62 / 50 / 39). Dělí je tři
+ *   trhliny otevřené shora, které procházejí celou tloušťkou vrstvy: vrstva
+ *   není nikde spojitá a v trhlinách je vidět hlína s drobty. Osa trhliny
+ *   má dva zlomy v různých výškách (klikatá jako lom, ne rovná jako řez),
+ *   oba břehy mají týž tvar, takže kry do sebe pasují jako rozlomený kus.
+ *   Šířka trhliny (vodorovně, před pootočením) je 22 na horní hraně a 11
+ *   u dolní. Dvě prostřední kry jsou pootočené o −3° a +2°; nejmenší
+ *   vzdálenost protějších obrysů u dolní hrany je pak 9,2 / 11,2 / 11,8
+ *   (mezi osami tahů), takže i na telefonu zbývá mezi tahy 1,6 hlína.
+ *   Kra je samostatná hmota, a má proto vlastní obrys (9.2 p. 9); hranu,
+ *   kterou nese obrys výřezu (levý a pravý bok), obrys kry nekreslí.
  * • odstranit kameny — jeden kámen ještě trčí z povrchu, druhý je šipkou
  *   vyzvednutý nad povrch a jeho lůžko zůstává jako čárkovaný obrys.
  * • urovnat povrch — oblouková šipka přesouvá hrbol do dolíku stejné
@@ -25,46 +32,51 @@ import React from 'react'
  * i37–i38, zanedbaná hlína s Actinem i41 v3–v4) — bez čísel, ta nesou
  * `zaklad-tri-zahrad` a tabulka. Procento nese jen „0 %".
  *
- * Značky převzaté ze série (9.2 p. 10):
+ * Značky ze série (9.2 p. 10):
  * – hlína = zemina #6b5138 op .9 a drobty `hpm-hlina`: dlaždice 12 × 12
- *   pixelově shodná s `hmt-hlina` / `mpn-hlina` / `htz-hlina` (tytéž tři
- *   kruhy). Počátek dlaždice je v rohu hlíny každého výřezu: výřez je
- *   skupina posunutá tak, že horní hrana hlíny (povrch) leží na lokálním
- *   y ≡ 0 mod 12. Na utuženou vrstvu se dlaždice nedává. Čip legendy
- *   14 × 14 = `Cip` z `hlina-tri-znaky`: zemina + dlaždice + obrys 1,6,
- *   roh čipu = počátek dlaždice.
- * – utužená vrstva = #54402c op .95 + světlé lamely 8 × 5 (`pp-lis`,
- *   `tc-lis`, `jjv-lis`); čip 14 × 14 jako v `jil-jako-vana`. Horní hrana
- *   vrstvy i čipu ≡ 3 mod 5, takže lamely mají v čipu i ve výřezu tutéž
- *   fázi jako v `jil-jako-vana`.
+ *   se stejnými třemi kruhy jako `pas-hlina` (`prednosti-a-slabiny`)
+ *   a `hmt-hlina` (`hmatovy-test`). Počátek dlaždice je v rohu hlíny
+ *   každého výřezu: výřez je skupina posunutá tak, že horní hrana hlíny
+ *   (povrch) leží na lokálním y ≡ 0 mod 12. Čip legendy 28 × 14 je skupina
+ *   s počátkem v rohu čipu, takže ukazuje týž levý horní výsek dlaždice
+ *   jako výřezy; zemina + dlaždice + obrys 1,6, ostré rohy.
+ * – utužená vrstva = #54402c fill-opacity .95 a světlé lamely 8 × 5
+ *   (`hpm-lis` = `pp-lis`, `tc-lis`, `jjv-lis`). Kry leží na panelu, ne na
+ *   hlíně: hlína výřezu má v místě kry otvor (evenodd), takže průsvitných
+ *   5 % ukazuje krém panelu jako u čipu. Čip 28 × 14 s obrysem 1,6 stejně
+ *   jako v `jil-jako-vana`; horní hrana kry i čipu ≡ 3 mod 5, lamely mají
+ *   tedy v obou tutéž fázi (první 4,5 pod horní hranou). Pootočené kry nesou
+ *   lamely s sebou (vzor je v souřadnicích kry).
  * Kámen není v paletě 9.2, a nemá proto barvu žádné hmoty: obrys 1,6 px
  * a výplň barvou papíru #f6f5f2 = --id-cream. Kresba stojí vždy
  * v krémovém panelu (9.2 p. 6) a E5 leží na krémovém pásu, kde se panel
  * propadne do téhož krému — kámen je tedy „prázdný" tvar, ne hmota.
  * Výplň #d5d3cc s obrysem je v sérii ZEOLIT (nepravidelný šestiúhelník
  * ~10 px); kameny jsou proto oblé (6 vrcholů, rohy zaoblené r 5)
- * a čtyřikrát větší. Čip „kámen" je 1:1 táž cesta jako kámen, který trčí
- * z povrchu (37 × 26). Hlína nemá obrysované hrudky, takže kámen je
- * v kresbě jediný obrysovaný předmět uvnitř hmoty. Horní hranu výřezů
- * nenese drn (příprava před výsevem), obrys hmoty je proto uzavřený
- * (9.2 p. 9). Žádná voda, žádný akcent.
+ * a čtyřikrát větší. Kámen v legendě je táž cesta jako kámen, který trčí
+ * z povrchu (37 × 26); je to předmět, ne plošná hmota, čip 28 × 14 nemá.
+ * Hlína nemá obrysované hrudky, takže kámen je v kresbě jediný obrysovaný
+ * předmět v hlíně (kry mají obrys jako hmota vrstvy, ne jako předmět).
+ * Horní hranu výřezů nenese drn (příprava před výsevem), obrys hmoty je
+ * proto uzavřený (9.2 p. 9). Žádná voda, žádný
+ * akcent, žádné kořeny.
  *
- * Portrétová sazba 520 px, id s prefixem `hpm-`. Jedna levá osa x 30:
- * záhlaví, výřezy (x 30–280), linka legendy, čipy i poznámka. Popisky od
- * x 306. Mobilní sazba 18/21 jednotek, odhad 0,62 / 0,56 em: věta
- * záhlaví končí na x ≈ 489, „utužená vrstva" v legendě ≈ 487, „vrstvu
- * po bagru" ≈ 482, poznámka dole ≈ 465; změřeno v Archivu (panel 344 px)
- * nejdál poznámka 476, ostatní ≤ 460. Rozteč sloveso → předmět 27 drží
- * mezi rámci textů ≥ 5,9, „0 %" → předmět 4,9.
- * Text × tvar ≥ 4 (vodítka končí 8 před popiskem). Jednotka „%" jen
- * v `.sv-val`. Statická kresba.
+ * Portrétová sazba 520 px, id s prefixem `hpm-`. Jedna levá osa x 40:
+ * záhlaví, výřezy (x 40–290), linka legendy, první čip i poznámka. Popisky
+ * od x 316; třetí čip legendy stojí na téže ose. Mobilní sazba 18/21
+ * jednotek, změřeno v Archivu (panel 336 px): věta záhlaví končí na
+ * x ≈ 406, „vrstvu po bagru" ≈ 463, „utužená vrstva" v legendě ≈ 490,
+ * poznámka dole ≈ 486. Mezery mezi položkami legendy ≈ 42. Rozteč sloveso
+ * → předmět 28 (mezera mezi jejich rámečky ≥ 5 i v panelu 361 px). Text
+ * × tvar ≥ 4 (vodítka končí 8 před popiskem). Jednotka „%" jen v `.sv-val`.
+ * Statická kresba.
  */
 
 type Bod = readonly [number, number]
 
-const X = 30 // jedna levá osa
+const X = 40 // jedna levá osa
 const W = 250 // šířka výřezů
-const X_TEXT = X + W + 26 // 306 — popisky vpravo
+const X_TEXT = X + W + 26 // 316 — popisky vpravo
 const VODITKO = 18 // přesah vodítka za hranu výřezu
 // Lokální souřadnice výřezu: horní hrana hlíny na y ≡ 0 mod 12 (počátek
 // dlaždice `hpm-hlina`), posun skupiny drží polohy na stránce.
@@ -82,31 +94,61 @@ const H_B = 120
 const T_A = 394
 const S = 48 // povrch = cílová rovina
 const H = 120
-const LEG = 545 // linka legendy; čipy na LEG + 18 = 563 ≡ 3 mod 5
-const CIP_Y = LEG + 18
+const LEG = 545 // linka legendy
+const CIP_Y = LEG + 18 // 563 ≡ 3 mod 5: fáze lamel jako v kře
+const CIP = [X, 164, X_TEXT] as const // hlína · kámen · utužená vrstva
 
 const HLINA = { fill: '#6b5138', opacity: 0.9 } as const
+const UTUZENA = { fill: '#54402c', fillOpacity: 0.95 } as const
 const obrys = { fill: 'none', stroke: '#232830', strokeWidth: 1.6, strokeLinejoin: 'round' } as const
 const carkovane = { stroke: '#d5d3cc', strokeWidth: 1.6, strokeDasharray: '3 7', strokeLinecap: 'round' } as const
 const kamenStyl = { fill: '#f6f5f2', stroke: '#232830', strokeWidth: 1.6, strokeLinejoin: 'round' } as const
 const sipka = { fill: 'none', stroke: '#232830', strokeWidth: 1.6, strokeLinecap: 'round', strokeLinejoin: 'round' } as const
 
 const d1 = (n: number) => Math.round(n * 10) / 10
+const cesta = (v: readonly Bod[]) => `M${v.map(([x, y]) => `${d1(x)} ${d1(y)}`).join(' L')}`
 
 // ── 1 · rozrušit utuženou vrstvu ────────────────────────────────
-/** Dva klíny otevřené shora: [levý kraj ústí, hrot x, hrot y, pravý kraj
- *  ústí]. Hroty končí 13–15 nad dolní hranou — ta zůstává spojitá. */
-const KLINY = [
-  [66, 82, 60, 100],
-  [150, 169, 58, 186],
-] as const
-const VRSTVA: Bod[] = [
-  [0, PAS_H],
-  ...KLINY.flatMap(([l, hx, hy, p]) => [[l, PAS_H], [hx, hy], [p, PAS_H]] as Bod[]),
-  [W, PAS_H], [W, PAS_D], [0, PAS_D],
+/** Trhliny utuženou vrstvou: osa každé trhliny shora dolů se dvěma zlomy
+ *  (klikatá jako lom, ne rovná jako řez), zlomy v různých výškách. */
+const TRHLINY: readonly (readonly Bod[])[] = [
+  [[44, PAS_H], [51, 45], [42, 59], [47, PAS_D]],
+  [[128, PAS_H], [122, 47], [131, 60], [126, PAS_D]],
+  [[200, PAS_H], [206, 42], [198, 56], [203, PAS_D]],
 ]
-const VRSTVA_D = `M${VRSTVA.map(([x, y]) => `${x} ${y}`).join(' L')} Z`
-const HRANA_HORNI = `M${VRSTVA.slice(0, -2).map(([x, y]) => `${x} ${y}`).join(' L')}`
+/** Šířka trhliny: klín otevřený shora, 22 na horní hraně → 11 u dolní. */
+const sire = (y: number) => 22 - (11 * (y - PAS_H)) / (PAS_D - PAS_H)
+/** Kraj trhliny: levý (−1) nebo pravý (+1) břeh, body shora dolů. */
+const breh = (t: readonly Bod[], strana: -1 | 1): Bod[] => t.map(([x, y]) => [x + (strana * sire(y)) / 2, y] as Bod)
+/** Kry utužené vrstvy po směru hodinových ručiček, lokálně ve výřezu, před
+ *  pootočením: pravý bok = levý břeh trhliny vpravo, levý bok = pravý břeh
+ *  trhliny vlevo; krajní kry končí na boku výřezu. Protější břehy mají
+ *  týž tvar, kry do sebe pasují jako rozlomený kus. */
+const KRY: readonly { v: readonly Bod[]; rot: number }[] = [0, 1, 2, 3].map((k) => ({
+  v: [
+    ...(k < 3 ? breh(TRHLINY[k], -1) : [[W, PAS_H], [W, PAS_D]] as Bod[]),
+    ...(k > 0 ? breh(TRHLINY[k - 1], 1).reverse() : [[0, PAS_D], [0, PAS_H]] as Bod[]),
+  ],
+  rot: [0, -3, 2, 0][k],
+}))
+const stred = (v: readonly Bod[]): Bod => [v.reduce((s, p) => s + p[0], 0) / v.length, v.reduce((s, p) => s + p[1], 0) / v.length]
+/** Tatáž rotace jako SVG `rotate(a cx cy)` — pro otvor v hlíně. */
+const otoc = (v: readonly Bod[], a: number): Bod[] => {
+  const [cx, cy] = stred(v)
+  const c = Math.cos((a * Math.PI) / 180)
+  const s = Math.sin((a * Math.PI) / 180)
+  return v.map(([x, y]) => [cx + (x - cx) * c - (y - cy) * s, cy + (x - cx) * s + (y - cy) * c] as Bod)
+}
+/** Obrys kry bez hrany, která leží na boku výřezu (tu nese obrys výřezu). */
+const obrysKry = (v: readonly Bod[]) => {
+  const n = v.length
+  const naBoku = (a: Bod, b: Bod) => (a[0] === 0 && b[0] === 0) || (a[0] === W && b[0] === W)
+  const za = v.findIndex((p, i) => naBoku(v[(i + n - 1) % n], p))
+  if (za < 0) return `${cesta(v)} Z`
+  return cesta(Array.from({ length: n }, (_, k) => v[(za + k) % n]))
+}
+/** Hlína výřezu 1 s otvory v místě kry (evenodd). */
+const HLINA_C = `M0 0 H${W} V${HC} H0 Z ${KRY.map(({ v, rot }) => `${cesta(otoc(v, rot))} Z`).join(' ')}`
 
 // ── 2 · odstranit kameny ────────────────────────────────────────
 /** Kámen: oblý šestiúhelník (rohy zaoblené r 5) — ne hranatý šestiúhelník
@@ -158,21 +200,21 @@ const hrot = (x: number, y: number, ux: number, uy: number) => {
 const Popisek: React.FC<{ y: number; sloveso: string; predmet: string }> = ({ y, sloveso, predmet }) => (
   <g>
     <text className="sv-lbl" x={X_TEXT} y={y - 7}>{sloveso}</text>
-    <text className="sv-val" x={X_TEXT} y={y + 20}>{predmet}</text>
+    <text className="sv-val" x={X_TEXT} y={y + 21}>{predmet}</text>
   </g>
 )
 
 export const HlinaPraceMistoMaterialu: React.FC = () => (
   <svg aria-hidden="true" className="block h-auto w-full" viewBox="0 0 520 640">
     <defs>
-      {/* Drobty hlíny — pixelově shodné s `hmt-hlina` / `mpn-hlina` / `htz-hlina`;
+      {/* Drobty hlíny — tytéž tři kruhy jako `pas-hlina` a `hmt-hlina`;
           počátek v počátku skupiny, tj. v rohu hlíny výřezu i čipu. */}
       <pattern id="hpm-hlina" width="12" height="12" patternUnits="userSpaceOnUse">
         <circle cx="3" cy="3" r="1.2" fill="#54402c" />
         <circle cx="9" cy="8" r="2.4" fill="#6b5138" />
         <circle cx="4" cy="9.5" r="1" fill="#54402c" />
       </pattern>
-      {/* Utužená vrstva — pixelově shodná s `pp-lis` / `tc-lis` / `jjv-lis`. */}
+      {/* Lamely utužené vrstvy — tytéž jako `pp-lis` / `tc-lis` / `jjv-lis`. */}
       <pattern id="hpm-lis" width="8" height="5" patternUnits="userSpaceOnUse">
         <path d="M0 2.5 H8" stroke="rgba(255,255,255,.16)" strokeWidth="1" />
       </pattern>
@@ -183,16 +225,21 @@ export const HlinaPraceMistoMaterialu: React.FC = () => (
     <text className="sv-lbl" x={X} y="59">nového písku, zeolitu i biocharu</text>
     <text className="sv-val" x={X} y="90">u fungující hlíny může víc pomoci práce</text>
 
-    {/* ── 1 · rozrušit vrstvu po bagru: jedna vrstva, dva klíny ── */}
+    {/* ── 1 · rozrušit vrstvu po bagru: vrstva rozlámaná na kry ── */}
     <g transform={`translate(${X} ${T_C})`}>
-      <rect x="0" y="0" width={W} height={HC} {...HLINA} />
-      <rect x="0" y="0" width={W} height={HC} fill="url(#hpm-hlina)" />
-      {/* vrstva kryje dlaždici; v klínech je vidět hlína s drobty */}
-      <path d={VRSTVA_D} fill="#54402c" opacity="0.95" />
-      <path d={VRSTVA_D} fill="url(#hpm-lis)" />
-      {/* horní hrana i s klíny a spojitá dolní hrana; boky nese obrys výřezu */}
-      <path d={HRANA_HORNI} {...obrys} />
-      <path d={`M0 ${PAS_D} H${W}`} {...obrys} />
+      {/* hlína s otvory pod krami; v klínech mezi krami je vidět s drobty */}
+      <path d={HLINA_C} fillRule="evenodd" {...HLINA} />
+      <path d={HLINA_C} fillRule="evenodd" fill="url(#hpm-hlina)" />
+      {KRY.map(({ v, rot }) => {
+        const [cx, cy] = stred(v)
+        return (
+          <g key={v[0].join()} transform={rot ? `rotate(${rot} ${d1(cx)} ${d1(cy)})` : undefined}>
+            <path d={`${cesta(v)} Z`} {...UTUZENA} />
+            <path d={`${cesta(v)} Z`} fill="url(#hpm-lis)" />
+            <path d={obrysKry(v)} {...obrys} />
+          </g>
+        )
+      })}
       <path d={`M0 0 H${W} V${HC} H0 Z`} {...obrys} />
       <line x1={W} y1={Y_PAS} x2={W + VODITKO} y2={Y_PAS} {...carkovane} />
     </g>
@@ -226,22 +273,23 @@ export const HlinaPraceMistoMaterialu: React.FC = () => (
     </g>
     <Popisek y={T_A + S} sloveso="Urovnat" predmet="povrch" />
 
-    {/* ── legenda: čipy pixelově shodné s kresbou (9.2 p. 10) ── */}
+    {/* ── legenda: značky pixelově shodné s kresbou (9.2 p. 10) ── */}
     <line x1={X} y1={LEG} x2="490" y2={LEG} {...carkovane} />
-    {/* hlína: `Cip` z `hlina-tri-znaky` — roh čipu = počátek dlaždice */}
-    <g transform={`translate(${X} ${CIP_Y})`}>
-      <rect x="0" y="0" width="14" height="14" {...HLINA} />
-      <rect x="0" y="0" width="14" height="14" fill="url(#hpm-hlina)" />
-      <rect x="0" y="0" width="14" height="14" {...obrys} />
+    {/* hlína: čip 28 × 14, roh čipu = počátek dlaždice jako roh hlíny výřezu */}
+    <g transform={`translate(${CIP[0]} ${CIP_Y})`}>
+      <rect x="0" y="0" width="28" height="14" {...HLINA} />
+      <rect x="0" y="0" width="28" height="14" fill="url(#hpm-hlina)" />
+      <rect x="0" y="0" width="28" height="14" {...obrys} />
     </g>
-    <text className="sv-val" x={X + 22} y={CIP_Y + 12}>hlína</text>
+    <text className="sv-val" x={CIP[0] + 36} y={CIP_Y + 12}>hlína</text>
     {/* kámen: táž cesta jako kámen, který trčí z povrchu */}
-    <path d={kamen(KAMEN_ZEM, 150, CIP_Y + 9)} {...kamenStyl} />
-    <text className="sv-val" x="195" y={CIP_Y + 12}>kámen</text>
-    {/* utužená vrstva: čip jako v `jil-jako-vana`, horní hrana ≡ 3 mod 5 */}
-    <rect x="300" y={CIP_Y} width="14" height="14" fill="#54402c" fillOpacity="0.95" />
-    <rect x="300" y={CIP_Y} width="14" height="14" fill="url(#hpm-lis)" stroke="#232830" strokeWidth="1.6" strokeLinejoin="round" />
-    <text className="sv-val" x="322" y={CIP_Y + 12}>utužená vrstva</text>
+    <path d={kamen(KAMEN_ZEM, CIP[1], CIP_Y + 9)} {...kamenStyl} />
+    <text className="sv-val" x={CIP[1] + 45} y={CIP_Y + 12}>kámen</text>
+    {/* utužená vrstva: čip 28 × 14 jako v `jil-jako-vana`, horní hrana ≡ 3 mod 5 */}
+    <rect x={CIP[2]} y={CIP_Y} width="28" height="14" {...UTUZENA} />
+    <rect x={CIP[2]} y={CIP_Y} width="28" height="14" fill="url(#hpm-lis)" />
+    <rect x={CIP[2]} y={CIP_Y} width="28" height="14" {...obrys} />
+    <text className="sv-val" x={CIP[2] + 36} y={CIP_Y + 12}>utužená vrstva</text>
 
     {/* kdy příměsi přijdou na řadu (i37–i38, i41 v3–v4) — bez čísel */}
     <text className="sv-lbl" x={X} y={LEG + 72}>Příměsi až u těžší nebo zanedbané hlíny</text>

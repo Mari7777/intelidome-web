@@ -1770,7 +1770,7 @@ export interface SplitBlock {
    */
   continues?: boolean | null;
   /**
-   * Odstavce oddělte prázdným řádkem. **Tučně** takto. Řádek začínající „### “ je mezititulek (h3).
+   * Odstavce oddělte prázdným řádkem. **Tučně** takto. Řádek začínající „### “ je mezititulek (h3), řádek začínající „> “ je tip v modrém rámečku.
    */
   body: string;
   number?: string | null;

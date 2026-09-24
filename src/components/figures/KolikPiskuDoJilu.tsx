@@ -8,8 +8,7 @@ import React from 'react'
  * polohy (střed vzorku = poloha na škále, vodítko 3 7 k ní): těsně nad
  * nulou pár lopat, na 65 výchozí návrh, u úseku 75–100 těžké jíly.
  * Poloha nese hodnotu, šířka vzorku nic neznamená — kresba se tak nečte
- * jako 100% pruh z `zaklad-tri-zahrad` (E7) ani jako vodorovná škála
- * se značkami z `nejblizsi-priklad` (E1).
+ * jako 100% sloupec z `zaklad-tri-zahrad` (E7).
  *
  * Pointa je jedna: 65 % (24 px) přímo u svého vzorku. U 65 % se převrátí
  * matrice — nosnou hmotou je písek a vzorek má značku „nové směsi" z E2
@@ -22,13 +21,25 @@ import React from 'react'
  *   #c2a052 op .55 a hnědé tečky zeminy #6b5138 op .9 r 2,2 / 2,4 / 2,6,
  *   rozteč 8, ≥ 3 od vnitřní hrany obrysu, pevně nasetý rozsyp
  *   (mulberry32). Vzorek 65 % je nasycený jako tam; vzorek 75 % a víc
- *   je táž značka s úměrně méně tečkami (20/35 počtu, zeminy ubylo).
- * – pár lopat = jílovitá zemina #6b5138 op .9 se zrny písku `dz-pisek`
- *   (#c2a052 plně, r 2,4 / 2). Zrn je 5 (pokrytí ≈ 1,7 %), viditelně
- *   řidší než „přimíchaný písek" v `dve-zahrady` (4,5 %).
- * – legenda: čip „nová směs" pixelově shodný s legendou `jil-jako-vana`,
- *   čip „původní zemina" jako `zaklad-tri-zahrad`, zrno „písek" jako
- *   `dve-zahrady`.
+ *   je táž značka s méně tečkami (schematicky 20/35 počtu vzorku 65 %,
+ *   tj. zeminy jako při ≈ 80 % písku, uvnitř rozmezí; hustota neměří polohu
+ *   vzorku — ten stojí ve středu rozmezí 87,5 %).
+ * – pár lopat = jílovitá zemina #6b5138 op .9 se zrny přidaného písku
+ *   jako `zz-pisek` v `zaklad-tri-zahrad` (#c2a052 plně, r 2,4 / 2). Zrn
+ *   je 5 (pokrytí ≈ 1,7 %), viditelně řidší než dlaždice `zz-pisek`
+ *   (4,5 %).
+ * – legenda: čipy 28 × 14 s obrysem #232830 1,6, ostré rohy (vzor
+ *   `jil-jako-vana`, `pisek-pod-koreny`, `zaklad-tri-zahrad`).
+ *   Čip „nová směs" = okrový podklad a dvě tečky zeminy r 2,4 / 2,2
+ *   (≥ 3 od vnitřní hrany), týž jako „nová směs" v `jil-jako-vana`
+ *   a táž výplň a tečky jako vzorky 65 % a 75 % zde. Čip „původní
+ *   zemina" = plná hnědá s obrysem jako v `zaklad-tri-zahrad`, týž
+ *   podklad jako vzorek pár lopat. Zrno „písek" (r 2,4 plně) jako
+ *   větší zrno `zz-pisek` v `zaklad-tri-zahrad` a jako větší zrna pár
+ *   lopat; je okrové, na světlém panelu je vidět, políčko zeminy proto
+ *   nemá. Stojí ve středu 28jednotkového slotu (397–425) a popisek
+ *   začíná na slot + 36 jako u čipů (vzor volné značky
+ *   v `pisek-pod-koreny`).
  *
  * Značky polohy na ose: plná tečka = 65 (návrh), kroužek = pár lopat
  * (bez čísla), plná úsečka mezi ryskami 75 a 100 = rozmezí podkladů.
@@ -41,12 +52,15 @@ import React from 'react'
  * Pointa je tak jediná skupina, která začíná číslem. Vodítko míří na
  * výšku prvního řádku každé skupiny.
  *
- * Sazba: portrét 520 × 600, levá hrana textů x 30 (titulek, legenda,
- * závěr), čísla osy zarovnaná doprava na x 50. Jednotky jen v `.sv-val`
- * (a v pointě 24 px), nikdy v `.sv-lbl`. Popisky vzorků začínají na
- * x 196; nejširší „těžké jíly podle podkladů" končí v sazbě 18/21 na
- * x ≈ 490 (panel 520). Mezi rámci textů i text × tvar zůstává ve všech
- * sazbách ≥ 4 jednotky. Bez akcentu, bez id (defs nemá; prefix `kpj-`).
+ * Sazba: portrét 520 × 600. Titulek začíná na x 40 jako nadpisy série,
+ * legenda a závěr pod ní na x 30 (vzor `zaklad-tri-zahrad`), čísla osy
+ * zarovnaná doprava na x 50. Jednotky jen v `.sv-val` (a v pointě
+ * 24 px), nikdy v `.sv-lbl`. Popisky vzorků začínají na x 196, na téže
+ * ose stojí druhý čip legendy; nejširší „těžké jíly podle podkladů"
+ * končí v sazbě 18/21 na x ≈ 490 (panel 520). Položky legendy mají
+ * v sazbě 18/21 mezeru text → další značka ≈ 28, „písek" končí na
+ * x ≈ 484. Mezi rámci textů i text × tvar zůstává ve všech sazbách
+ * ≥ 4 jednotky. Bez akcentu, bez id (defs nemá; prefix `kpj-`).
  * Statická kresba.
  */
 
@@ -68,6 +82,13 @@ const VW = 80
 const VH = 56
 const X_TEXT = 196 // popisky vzorků
 const LEG = 482 // linka legendy
+const CIP_Y = LEG + 22 // horní hrana čipů legendy, účaří textů o 12 níž
+/** Levé hrany čipů legendy: nová směs · původní zemina (osa popisků vzorků). */
+const CIP = [30, X_TEXT] as const
+/** Střed zrna „písek" = střed slotu 397–425; popisek na slot + 36 jako u čipů.
+ *  Mezera konec „původní zemina" → zrno vyrovnaná pro 18/21 (≈ 28). */
+const ZRNO_X = 411
+const ZRNO_TEXT = ZRNO_X - 14 + 36 // 433
 
 type Tecka = { x: number; y: number; r: number }
 const d1 = (n: number) => Math.round(n * 10) / 10
@@ -101,10 +122,11 @@ const tecky = (seed: number, n = Infinity): Tecka[] => {
 }
 
 const SMES_65 = tecky(0x6b65)
-/** 75 % a víc: zeminy zbývá 20 dílů místo 35 → úměrně méně teček. */
+/** 75 % a víc: schéma uvnitř rozmezí — 20/35 teček vzorku 65 % (zeminy jako
+ *  při ≈ 80 % písku); hustota neměří polohu vzorku (87,5 % = střed rozmezí). */
 const SMES_80 = tecky(0x6b80, Math.round((SMES_65.length * 20) / 35))
 
-/** Pár lopat: 5 zrn `dz-pisek` rozprostřených ve vzorku (ručně, ≥ 3 od hran). */
+/** Pár lopat: 5 zrn jako `zz-pisek` rozprostřených ve vzorku (ručně, ≥ 3 od hran). */
 const PAR_LOPAT: Tecka[] = [
   { x: 15, y: 14, r: 2.4 },
   { x: 50, y: 10, r: 2 },
@@ -135,7 +157,7 @@ const Vzorek: React.FC<{ y: number; children: React.ReactNode }> = ({ y, childre
 
 export const KolikPiskuDoJilu: React.FC = () => (
   <svg aria-hidden="true" className="block h-auto w-full" viewBox="0 0 520 600">
-    <text className="sv-lbl" x="30" y="34">Přidaný písek v minerálním základu</text>
+    <text className="sv-lbl" x="40" y="34">Přidaný písek v minerálním základu</text>
 
     {/* ── škála: 0 dole, 100 nahoře; osa se přerušuje kolem značek ── */}
     <g {...konstrukce}>
@@ -200,17 +222,19 @@ export const KolikPiskuDoJilu: React.FC = () => (
 
     {/* ── legenda: značky pixelově shodné se vzorky a sérií (9.2 p. 10) ── */}
     <line x1="30" y1={LEG} x2="490" y2={LEG} {...konstrukce} />
-    {/* nová směs: čip = legenda `jil-jako-vana` */}
-    <rect x="30" y={LEG + 22} width="14" height="14" {...PISEK} />
-    <circle cx="37" cy={LEG + 29} r="2.4" {...ZEMINA} />
-    <rect x="30" y={LEG + 22} width="14" height="14" {...obrys} />
-    <text className="sv-val" x="52" y={LEG + 34}>nová směs</text>
-    {/* původní zemina: čip = legenda `zaklad-tri-zahrad` */}
-    <rect x="186" y={LEG + 22} width="14" height="14" fill="#6b5138" fillOpacity={0.9} {...TAH} />
-    <text className="sv-val" x="208" y={LEG + 34}>původní zemina</text>
-    {/* písek: zrno = legenda `dve-zahrady` */}
-    <circle cx="384" cy={LEG + 29} r="2.4" fill="#c2a052" />
-    <text className="sv-val" x="398" y={LEG + 34}>písek</text>
+    {/* nová směs: čip 28 × 14 jako „nová směs" v `jil-jako-vana` (podklad,
+        dvě tečky zeminy r 2,4 / 2,2, obrys) = výplň vzorků 65 % a 75 % */}
+    <rect x={CIP[0]} y={CIP_Y} width="28" height="14" {...PISEK} />
+    <path d={`M${CIP[0] + 5.6} ${CIP_Y + 7}a2.4 2.4 0 1 0 4.8 0a2.4 2.4 0 1 0 -4.8 0ZM${CIP[0] + 17.8} ${CIP_Y + 7.5}a2.2 2.2 0 1 0 4.4 0a2.2 2.2 0 1 0 -4.4 0Z`} {...ZEMINA} />
+    <rect x={CIP[0]} y={CIP_Y} width="28" height="14" {...obrys} />
+    <text className="sv-val" x={CIP[0] + 36} y={CIP_Y + 12}>nová směs</text>
+    {/* původní zemina: čip 28 × 14 jako v `zaklad-tri-zahrad` = podklad vzorku pár lopat */}
+    <rect x={CIP[1]} y={CIP_Y} width="28" height="14" fill="#6b5138" fillOpacity={0.9} {...TAH} />
+    <text className="sv-val" x={CIP[1] + 36} y={CIP_Y + 12}>původní zemina</text>
+    {/* písek: zrno r 2,4 jako větší zrno `zz-pisek` = větší zrna pár lopat,
+        ve středu slotu; popisek na slot + 36 jako u čipů */}
+    <circle cx={ZRNO_X} cy={CIP_Y + 7} r="2.4" fill="#c2a052" />
+    <text className="sv-val" x={ZRNO_TEXT} y={CIP_Y + 12}>písek</text>
 
     {/* ── závěr pod legendou (vzor `prany-pisek`): zkouška dřív než
         objednávka (i32) ─────────────────────────────────────────── */}

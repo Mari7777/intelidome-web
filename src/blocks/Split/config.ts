@@ -124,7 +124,7 @@ export const Split: Block = {
       type: 'textarea',
       required: true,
       label: 'Text',
-      admin: { description: 'Odstavce oddělte prázdným řádkem. **Tučně** takto. Řádek začínající „### “ je mezititulek (h3).' },
+      admin: { description: 'Odstavce oddělte prázdným řádkem. **Tučně** takto. Řádek začínající „### “ je mezititulek (h3), řádek začínající „> “ je tip v modrém rámečku.' },
     },
     { name: 'number', type: 'text', label: 'Číslo obrázku', admin: { placeholder: '01' } },
     { name: 'caption', type: 'text', required: true, label: 'Popisek' },

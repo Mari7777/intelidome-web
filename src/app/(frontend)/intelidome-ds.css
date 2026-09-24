@@ -2232,7 +2232,10 @@ html.plynule {
   }
   /* Pokračování nemá hlavu — bez prázdného prvního řádku a jeho row-gap
      by modulová mezera narostla na pásovou (porota kola 02). */
-  .id-split--pokracovani {
+  /* Specificita (0,3,0): `.id-article > .id-split` (0,2,0) jinak vnutí
+     třetí prázdný řádek a pod pokračováním zůstal row-gap (porota kola 01
+     článku o příměsích). */
+  .id-article > .id-split.id-split--pokracovani {
     grid-template-rows: auto auto;
   }
   .id-split--pokracovani > .id-split__figure {
@@ -2612,6 +2615,16 @@ html.plynule {
 }
 .id-split__foto img {
   object-position: var(--id-focal, 50% 50%);
+}
+/* Radius nese obal (overflow), obrázek žádný: `.prose img` (14 px, 0,1,1)
+   jinak na telefonu zakulatil fotku od kraje ke kraji (porota kola 01
+   článku o příměsích). Specificita (0,2,1) nezávisí na pořadí souborů. */
+.id-split .id-split__foto img {
+  border-radius: 0;
+}
+/* Tip v těle splitu: vlastní rytmus těla (18 px), žádný okraj z prózy. */
+.id-split__callout {
+  margin-block: 0;
 }
 @media (max-width: 560px) {
   .id-split__figure > .id-split__foto {

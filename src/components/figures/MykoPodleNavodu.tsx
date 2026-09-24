@@ -5,10 +5,10 @@ import React from 'react'
  * výrobku rozlišuje dávku podle účelu použití: běžné založení trávníku
  * (dávka A) a náročnější podmínky (dávka B); řádek „typ půdy" je
  * přeškrtnutý a dávku nemá. Tři vzorky půdy vlevo (jílovitá · hlinitá ·
- * písčitá, jména i barvy jako v `nejblizsi-priklad` a `prednosti-a-slabiny`)
- * jsou jen vstup: tři tahy se slévají do jedné šipky k témuž řádku
- * běžného založení. Značka „nezvyšovat" (přeškrtnutá šipka nahoru) stojí
- * u DÁVKY A, ne u vzorku: „i pro písčitou" (i60 v3). U vzorku by se četla
+ * písčitá, barvy jako v `prednosti-a-slabiny`) jsou jen vstup: tři tahy
+ * se slévají do jedné šipky k témuž řádku běžného založení. Značka
+ * „nezvyšovat" (přeškrtnutá šipka nahoru) stojí u DÁVKY A, ne u vzorku:
+ * „i pro písčitou" (i60 v3). U vzorku by se četla
  * jako „nepřidávat písek" (pointa `pisek-pod-koreny`), což i60 neříká.
  * Pointa je jedna: podle návodu, ne podle typu půdy. Nadpis nese
  * volitelnost („když se pro přípravek rozhodneme", i59). Žádná čísla ani
@@ -18,17 +18,18 @@ import React from 'react'
  * Štítek je jediná hmota kresby: bílá výplň na krémovém panelu, obrys
  * #232830 1,6, rx 10. Záhlaví odděluje plná linka obrysu (etiketa),
  * řádky mezi sebou hairline --id-line rgba(0,0,0,.12) (DESIGN 3.5, na
- * bílé). Tahy od vzorků jsou plné #232830 jako šipka „nejblíž" v
- * `nejblizsi-priklad` — nesou hlavní vztah, konstrukční #d5d3cc 3 7 má
- * jen dělicí linka nad pointou. Vzorky nesou barevný klíč
- * `nejblizsi-priklad` / `prednosti-a-slabiny` (9.2 p. 10) plošně, bez
- * textury: jílovitá i hlinitá = zemina #6b5138 op .9 (klíč série má pro
- * zeminu jednu barvu, rozliší je jen jméno), písčitá = původní písčitá
- * zemina, okrová #c2a052 op .45 bez zrn (op .55 je v sérii přidaný písek,
- * hranaté zrno s obrysem zeolit, tečka #54402c Actino). Obrys kruhu
- * #232830 1,6. Legendu kresba nemá, takže se pixelová shoda se čtvercem
- * 14 × 14 nevyžaduje, jen týž klíč. Stejně vypadající vstupy pointu
- * posilují: typ půdy nerozhoduje.
+ * bílé). Tahy od vzorků jsou plné #232830 jako šipky v `nabity-biochar`
+ * — nesou hlavní vztah, konstrukční #d5d3cc 3 7 má jen dělicí linka nad
+ * pointou. Vzorky nesou barevný klíč `prednosti-a-slabiny` /
+ * `zaklad-tri-zahrad` (9.2 p. 10) plošně, bez textury (drobty má jen
+ * fungující hlína v `prednosti-a-slabiny`): jílovitá i hlinitá = zemina
+ * #6b5138 op .9 (klíč série má pro zeminu jednu barvu, rozliší je jen
+ * jméno), písčitá = původní písčitá zemina, okrová #c2a052 op .45 bez zrn
+ * (op .55 má v sérii písek jako materiál: přidaný písek, nová směs, obě
+ * pole `dve-zahrady`; hranaté zrno s obrysem zeolit, tečka #54402c
+ * Actino). Obrys kruhu #232830 1,6. Legendu kresba nemá, takže se pixelová
+ * shoda s čipem 28 × 14 nevyžaduje, jen týž klíč. Stejně vypadající
+ * vstupy pointu posilují: typ půdy nerozhoduje.
  *
  * Sazba řádků štítku: každý řádek je skupina ukotvená na svém středu
  * a všechny odsazení jsou v em své třídy (sv-lbl 12/15/18, sv-val
@@ -74,8 +75,8 @@ const HROT = SX0 - 4 // 196
 const J = SX0 - 30 // 170
 const START = SX + R + 4 // 118, 4 za obrysem vzorku
 
-/** Barevný klíč `nejblizsi-priklad` / `prednosti-a-slabiny`: zemina jedna
- *  barva pro jíl i hlínu, písčitá zemina okrová .45 (ne .55 = přidaný písek). */
+/** Barevný klíč `prednosti-a-slabiny` / `zaklad-tri-zahrad`: zemina jedna
+ *  barva pro jíl i hlínu, písčitá zemina okrová .45 (ne .55 = písek jako materiál). */
 const ZEMINA = { fill: '#6b5138', fillOpacity: 0.9 } as const
 const PISCITA = { fill: '#c2a052', fillOpacity: 0.45 } as const
 const VZORKY = [
@@ -108,11 +109,11 @@ export const MykoPodleNavodu: React.FC = () => (
     {/* Volitelnost: přípravek není povinná položka (i59). */}
     <text className="sv-lbl" x="40" y="34">Když se pro přípravek rozhodneme</text>
 
-    {/* ── vzorky půdy: jen vstup, plošně klíčem E1/E1b ─────────── */}
+    {/* ── vzorky půdy: jen vstup, plošně klíčem E1b/E7 ─────────── */}
     {VZORKY.map((v) => (
       <circle key={v.id} cx={SX} cy={v.cy} r={R} {...v.vypln} stroke="#232830" strokeWidth="1.6" />
     ))}
-    {/* jména půd pod vzorkem na střed, jako v `nejblizsi-priklad` */}
+    {/* jména půd pod vzorkem na střed */}
     {VZORKY.map((v) => (
       <text key={v.id} className="sv-lbl" x={SX} y={v.cy + R + 20} textAnchor="middle">
         {v.jmeno}

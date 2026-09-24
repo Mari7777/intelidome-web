@@ -1,4 +1,4 @@
-import { PRIMESI_RHYTHM_ORDER, PRIMESI_RHYTHM_SECTIONS } from './primesi-rhythm-content'
+import { PRIMESI_RHYTHM_ORDER, PRIMESI_RHYTHM_SECTIONS, PRIMESI_TABLE_HEADINGS } from './primesi-rhythm-content'
 
 type Node = { type: string; version: number; [key: string]: any }
 type Document = { root: { type: string; children: Node[]; direction: 'ltr' | 'rtl' | null; format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | ''; indent: number; version: number; [key: string]: any }; [key: string]: any }
@@ -11,7 +11,7 @@ const markdownOf = (node: Node): string => {
   return (node.children ?? []).map(markdownOf).join('')
 }
 const bezZnacek = (text: string) =>
-  text.replace(/\[([^\]]+)\]\([^)]+\)/g, '$1').replace(/\*\*/g, '').replace(/^### /, '').replace(/[–—]/g, '–').replace(/\s+/g, ' ').trim()
+  text.replace(/\[([^\]]+)\]\([^)]+\)/g, '$1').replace(/\*\*/g, '').replace(/^(### |> )/, '').replace(/[–—]/g, '–').replace(/\s+/g, ' ').trim()
 
 const porovnej = (co: string, stare: string[], nove: string[]) => {
   const a = stare.map(bezZnacek).join(' ')
@@ -25,9 +25,10 @@ const porovnej = (co: string, stare: string[], nove: string[]) => {
 /**
  * Rytmus obraz/text článku „Písek, biochar a další příměsi" (DESIGN.md 8.2b
  * p. 8): vše mezi krémovým souhrnem a FAQ se přestaví podle
- * `primesi-rhythm-content.ts`. Tip o betonářském písku, karty složek a obě
- * tabulky zůstanou jako moduly (povrch tabulek beze změny), jen je přestavba
- * posune o nejvýš jeden odstavec za split, ke kterému patří. Přestavba
+ * `primesi-rhythm-content.ts`. Karty složek a obě tabulky zůstanou jako
+ * moduly (povrch tabulek beze změny), jen je přestavba posune o nejvýš jeden
+ * odstavec za split, ke kterému patří; tip o betonářském písku se stane
+ * rámečkem v těle oddílu o praném písku (řádek „> "). Přestavba
  * proběhne jen tehdy, když text i pořadí nadpisů zůstaly znak po znaku
  * stejné.
  */
@@ -49,8 +50,13 @@ export function applyPrimesiRhythm(input: unknown): Document {
   }
   for (const n of nodes.slice(start + 1, faqIndex)) {
     const f = n.fields
-    if (f?.blockType === 'banner') pridej('BANNER', n)
-    else if (f?.blockType === 'ingredients') pridej('INGREDIENTS', n)
+    // Tip je od kola 01 rámeček v těle oddílu o praném písku (řádek „> "):
+    // jeho text patří do toku prózy na původní místo.
+    if (f?.blockType === 'banner') {
+      if (moduly.BANNER) throw new Error('Expected exactly one banner')
+      moduly.BANNER = n
+      staryText.push(...(f.content?.root?.children ?? []).map(markdownOf))
+    } else if (f?.blockType === 'ingredients') pridej('INGREDIENTS', n)
     else if (f?.blockType === 'table') tabulky.push(n)
     else if (f?.blockType === 'split') {
       if (f.title) stareNadpisy.push(f.title)
@@ -67,6 +73,7 @@ export function applyPrimesiRhythm(input: unknown): Document {
   moduly['TAB-DAVKY'] = davky[0]
   moduly['TAB-HLOUBKY'] = hloubky[0]
   for (const klic of ['BANNER', 'INGREDIENTS']) if (!moduly[klic]) throw new Error(`Expected ${klic}`)
+  delete moduly.BANNER
 
   const novyText: string[] = []
   const noveNadpisy: string[] = []
@@ -81,7 +88,8 @@ export function applyPrimesiRhythm(input: unknown): Document {
   const bloky: Node[] = []
   for (const id of PRIMESI_RHYTHM_ORDER) {
     if (moduly[id]) {
-      bloky.push(moduly[id])
+      const titulek = PRIMESI_TABLE_HEADINGS[id]
+      bloky.push(titulek && !moduly[id].fields.heading ? { ...moduly[id], fields: { ...moduly[id].fields, heading: titulek } } : moduly[id])
       continue
     }
     const s = sekce.get(id)
@@ -101,7 +109,7 @@ export function applyPrimesiRhythm(input: unknown): Document {
       body: s.body.join('\n\n'),
     }))
   }
-  if (bloky.filter((n) => n.fields?.blockType !== 'split').length !== 4) throw new Error('Expected all four modules in the rhythm order')
+  if (bloky.filter((n) => n.fields?.blockType !== 'split').length !== 3) throw new Error('Expected all three modules in the rhythm order')
   nodes.splice(start + 1, faqIndex - start - 1, ...bloky)
 
   let cislo = 0

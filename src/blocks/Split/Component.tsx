@@ -168,6 +168,13 @@ export const SplitBlock: React.FC<SplitBlockProps> = ({
               >
                 {nezlomitelneMezery(paragraph.slice(4))}
               </h3>
+            ) : paragraph.startsWith('> ') ? (
+              /* Tip k úseku textu stojí v jeho sloupci, ne na ose prózy
+                 (8.2b p. 8; porota kola 01 článku o příměsích). */
+              <div className="id-callout id-callout--info id-split__callout" key={paragraph.slice(0, 40)}>
+                <span aria-hidden="true" className="id-callout__dot" />
+                <p className="m-0">{renderStrong(paragraph.slice(2))}</p>
+              </div>
             ) : (
               <p className="id-split__p" key={paragraph.slice(0, 40)}>
                 {renderStrong(paragraph)}

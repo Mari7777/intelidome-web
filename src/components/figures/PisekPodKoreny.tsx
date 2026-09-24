@@ -2,58 +2,73 @@ import React from 'react'
 
 /**
  * Písek pod kořeny (DESIGN.md 9.2) — jeden řez chudou písčitou zeminou
- * 0–30 cm (8 px na cm jako `prvni-korinek`, `jil-jako-vana` a
- * `hlina-tri-znaky`). Pointa je jedna (i43 v3–v4): pod dosah kořenů odchází
- * voda i část rozpuštěných živin. Záhlaví říká „část živin", ne „živiny"
- * (autor: „některé rozpuštěné živiny"), a „pod dosah" ve 4. pádě je směr,
- * ne místo. V zemině je dost vzduchu, kořeny končí nad linkou dosahu, voda
- * jde čárkovanou cestou kolem nich dolů a nese tečky živin, tři z šesti už
- * pod linkou. Bez příměsí, dávek i věty o řešení: to nese `dve-zahrady`,
- * popisek a text i44–i46.
+ * 0–30 cm (8 px na cm jako `prvni-korinek` a `jil-jako-vana`). Pointa je
+ * jedna (E6 odst. 1, věty 3–4): pod dosah kořenů odchází voda i část
+ * rozpuštěných živin. Záhlaví říká „část živin", ne „živiny" (autor:
+ * „některé rozpuštěné živiny"), a „pod dosah" ve 4. pádě je směr, ne místo.
+ * V zemině je dost vzduchu, kořeny končí nad linkou dosahu, voda jde
+ * čárkovanou cestou kolem nich dolů a nese tečky živin, tři z šesti už pod
+ * linkou. Bez příměsí, dávek i věty o řešení: to nese `dve-zahrady`,
+ * popisek a text E6 odst. 2–4.
  *
  * Hloubka dosahu (18 cm) je schéma, text ji neuvádí („hlouběji, než kam
  * právě dosahují kořeny"). Stupnice má jen 0 a 30 cm, linku nekótovat.
- * Neleží v 15 cm (zeolit v „horních 15 cm", i46), v 10 cm (biochar, Actino)
- * ani ve 13 cm (voda mimo dosah v `prvni-korinek`). Kresba NETVRDÍ, že
- * kořeny v písku sahají mělčeji než v `jil-jako-vana` nebo `hlina-tri-znaky`
- * (text o tom mlčí). Proto linka sedí níž než polovina hloubky a alt ani
- * popisek podíl hloubky neuvádějí.
+ * Neleží v 15 cm (zeolit v „horních 15 cm", E6 odst. 4), v 10 cm
+ * (biochar, Actino) ani ve 13 cm (voda mimo dosah v `prvni-korinek`).
+ * Kořeny tu končí v ≈ 17 cm, v `jil-jako-vana` v ≈ 22 cm; obě hloubky
+ * jsou schéma a text je nesrovnává. Alt ani popisek podíl hloubky
+ * neuvádějí.
  *
  * Značky (9.2 p. 10):
- * – písčitá zemina = plochá okrová #c2a052 op .45 bez zrn, klíč článku
- *   (`dve-zahrady` pravý řez, `nejblizsi-priklad`, `zaklad-tri-zahrad`,
- *   který stojí hned za touto kresbou). Přidaný písek (.55, se zrny nebo
- *   blok „písek" `slehnuti-vstupu`) je jiná hmota a tady není: i44 „další
- *   písek sem nepřidáváme", i45 stávající písek je součást zeminy.
- * – vzduch = prázdný kroužek r 3,5 / 1,6 (`tricet-centimetru`). Na světlé
- *   okrové je bílý op .7, bílá .22 ze sytě hnědé zeminy by tu zmizela.
- * – kořen = jádro #d8c9b4 op .9 / 1,6 (`prvni-korinek`) na hraně #232830
- *   op .5 / 3,6 (hrana série, `hlina-tri-znaky`). Holý kořen by na okrové
- *   splynul, plně tmavý obal četl jako kabel. Hrany všech kořenů leží pod
- *   všemi jádry, odbočky proto nemají tmavý zářez. Týž kořen na okrové
- *   musí mít `jil-jako-vana`.
- * – živiny = tečka r 2,6 #54402c (`nabity-biochar`). V `dve-zahrady` je
- *   týž bod Actino, proto legenda v tomto panelu říká „živiny".
- * – voda = kapka A 7 7, čárkovaná cesta a šipka (`dve-zahrady`,
- *   `jil-jako-vana`). Je to jediný akcent, jeden motiv (9.2 p. 1).
+ * – písčitá zemina = plochá okrová #c2a052 op .45 bez zrn, jako
+ *   `zaklad-tri-zahrad`, který stojí hned za touto kresbou. `dve-zahrady`
+ *   kreslí písčitou zahradu týmž okrem na .55 (jeden čip pro obě pole).
+ *   Zrna #c2a052 znamenají v sérii přidaný písek a tady nejsou: E6 odst. 2
+ *   „další písek sem nepřidáváme", odst. 3 stávající písek je součást
+ *   zeminy.
+ * – vzduch = prázdný kroužek r 3,5 / 1,6, bílý op .7. Prázdný kroužek je
+ *   vzduch i v `tricet-centimetru`, tam ale v sytě hnědé zemině bílou .22,
+ *   která by na světlé okrové zmizela; velikost ani barva shodné nejsou.
+ * – kořen = jedna značka celého článku: jádro #d8c9b4 op .9 / 1,6 (jako
+ *   `prvni-korinek`), na okrové položené na lem #232830 op .5 / 2,4 (strop
+ *   série). Holý kořen by na okrové splynul, plně tmavý obal by se četl
+ *   jako kabel. Lemy všech kořenů leží pod všemi jádry; odbočky začínají
+ *   na ose hlavního kořene, takže styky nemají tmavý zářez ani hrbolek.
+ * – živiny = tečka r 2,6 #54402c, tatáž jako v legendě `nabity-biochar`.
+ *   V `jedna-zmena-naraz` je týž bod Actino (v `dve-zahrady` totéž jádro
+ *   na lemu barvy panelu), proto ho legenda v tomto panelu jmenuje
+ *   „živiny" (9.2 p. 10, úroveň 2). Podklad r 3,4 barvy panelu
+ *   z `nabity-biochar` tu není: na okrové by se četl jako kroužek vzduchu
+ *   s tečkou uvnitř.
+ * – voda = kapka A 7 7 a šipka dolů (tvar jako `dve-zahrady`), modrá
+ *   čárkovaná cesta (jako `jil-jako-vana`). Jediný akcent, jeden motiv
+ *   (9.2 p. 1).
  * – konstrukční linky UVNITŘ okrové zeminy (linka dosahu, vnitřní část
  *   vodítek) jsou #fff op .7, výjimka z palety 9.2: #d5d3cc
  *   i rgba(255,255,255,.12) na okrové zmizí. Venku mají vodítka #d5d3cc 3 7.
- * Legenda: čipy 28 × 14 z téže zeminy s obrysem (vzor `hlina-tri-znaky`).
- * Vzduch a kořen stojí na čipu, takže jsou pixelově shodné s řezem.
- * Kapka a tečka živin vypadají stejně na okrové i na krémovém podkladu.
+ * Legenda: čipy 28 × 14, ostré rohy, obrys #232830 / 1,6, výplň z téže
+ * písčité zeminy jako řez. Vzduch i kořen jsou světlé značky viditelné jen
+ * na půdě, stojí proto na čipu zeminy, ve které v řezu leží. Tady je to
+ * okrová písčitá zemina, ne hnědá #6b5138: ta v řezu není a v navazující
+ * `zaklad-tri-zahrad` znamená původní zeminu. Kořen v legendě kreslí táž
+ * komponenta `Koreny` (lem 2,4 + jádro) na témže podkladu, takže je s řezem
+ * pixelově shodný. Tvar výseku kořene je týž jako v legendě
+ * `koren-zacina-nahore`; tam leží na hnědé zemině své scény bez lemu, jako
+ * kořeny v jejím řezu. Kapka a tečka živin vypadají stejně na okrové
+ * i na krémovém podkladu.
  *
  * Portrétová sazba 520 × 600 (výška podle plánu splitu). Kresba nemá žádné
- * id, prefix `ppk-` je rezervovaný. Řez leží na x 80–330, drn 14, stupnice
- * visí vlevo. Štítky začínají na x 350 a každý má vodítko 3 7 ke svému cíli
- * uvnitř řezu: „Vzduch" ke kroužku, „Zásoba" k tečce živin NAD linkou,
- * „Dosah kořenů" k lince (štítek visí pod jejím koncem, jako „dosah"
+ * id, prefix `ppk-` je rezervovaný. Nadpis a podtitul začínají na x 40
+ * (osa nadpisů série), řez leží na x 80–330, drn 14, stupnice visí vlevo.
+ * Štítky začínají na x 350 a každý má vodítko 3 7 ke svému cíli uvnitř
+ * řezu: „Vzduch" ke kroužku, „Zásoba" k tečce živin NAD linkou, „Dosah
+ * kořenů" k lince (štítek visí pod jejím koncem, jako „dosah"
  * v `prvni-korinek`) a „Část živin" k tečce POD linkou. Dvojice teček je
  * pointa: nad linkou zásoba, pod ní to, co voda odnese. Popisek → hodnota
  * má rozteč 27. V mobilní sazbě 18/21 zbývá uvnitř dvojice ≈ 6 jednotek,
- * mezi skupinami ≥ 14 (na desktopu ≥ 19). Nejdelší „Dosah kořenů" končí při 18 jednotkách
- * na x ≈ 508. Jednotka cm stojí jen v `.sv-val`. Statická kresba, pointa
- * je hloubka a pohyb by ji nezpřesnil.
+ * mezi skupinami ≥ 14 (na desktopu ≥ 19). Nejdelší „Dosah kořenů" končí
+ * při 18 jednotkách na x ≈ 508. Jednotka cm stojí jen v `.sv-val`.
+ * Statická kresba, pointa je hloubka a pohyb by ji nezpřesnil.
  */
 
 const X0 = 80 // levá hrana řezu
@@ -74,10 +89,12 @@ const voditko = { stroke: '#d5d3cc', strokeWidth: 1.6, strokeDasharray: '3 7', s
 const vodSvetle = { stroke: '#fff', strokeWidth: 1.6, strokeDasharray: '3 7', strokeLinecap: 'round', opacity: 0.7 } as const
 
 /** Trs kořenů u x `cx` (y od povrchu): hlavní kořen do 138, poslední odbočka
- *  do 136 (≥ 3 nad linkou dosahu 144, i s hranou) a tři postranní; `s` = zrcadlení. */
+ *  do 136 (≥ 3 nad linkou dosahu 144, i s hranou) a tři postranní; `s` = zrcadlení.
+ *  Odbočky začínají na ose hlavního kořene (v y 24 leží na cx − 0,87 s),
+ *  jinak kulatá hlavička odbočky čouhá na druhé straně jako hrbolek. */
 const trs = (cx: number, s: 1 | -1, y = T) =>
   `M${cx} ${y} C ${cx - 3 * s} ${y + 37}, ${cx + 3 * s} ${y + 88}, ${cx - s} ${y + 138}` +
-  `M${cx} ${y + 24} C ${cx - 12 * s} ${y + 34}, ${cx - 20 * s} ${y + 45}, ${cx - 25 * s} ${y + 62}` +
+  `M${cx - s} ${y + 24} C ${cx - 12 * s} ${y + 34}, ${cx - 20 * s} ${y + 45}, ${cx - 25 * s} ${y + 62}` +
   `M${cx + s} ${y + 63} C ${cx + 13 * s} ${y + 75}, ${cx + 20 * s} ${y + 86}, ${cx + 25 * s} ${y + 104}` +
   `M${cx} ${y + 108} C ${cx - 11 * s} ${y + 118}, ${cx - 17 * s} ${y + 124}, ${cx - 19 * s} ${y + 136}`
 const KORENY = [trs(114, 1), trs(174, -1), trs(234, 1)]
@@ -125,11 +142,11 @@ const Vzduch: React.FC<{ x: number; y: number }> = ({ x, y }) => (
   <circle cx={x} cy={y} r="3.5" fill="none" stroke="#fff" strokeWidth="1.6" opacity="0.7" />
 )
 
-/** Kořeny: jádro #d8c9b4 op .9 / 1,6 na hraně #232830 op .5 / 3,6 (hlavička).
- *  Hrany všech kořenů nejdřív, jádra potom: styky nemají tmavé skvrny. */
+/** Kořeny: jádro #d8c9b4 op .9 / 1,6 na lemu #232830 op .5 / 2,4 (hlavička).
+ *  Lemy všech kořenů nejdřív, jádra potom: styky nemají tmavé skvrny. */
 const Koreny: React.FC<{ d: string[] }> = ({ d }) => (
   <g fill="none" strokeLinecap="round" strokeLinejoin="round">
-    <g stroke="#232830" strokeWidth="3.6" opacity="0.5">
+    <g stroke="#232830" strokeWidth="2.4" opacity="0.5">
       {d.map((p) => <path key={p} d={p} />)}
     </g>
     <g stroke="#d8c9b4" strokeWidth="1.6" opacity="0.9">
@@ -150,7 +167,7 @@ const Ukazatel: React.FC<{ y: number; x?: number }> = ({ y, x }) => (
 const LEG = 446 // linka legendy
 const R1 = 504 // první řádek (účaří)
 const R2 = 542 // druhý řádek
-/** Čip 28 × 14 z téže písčité zeminy jako řez, s obrysem hmoty. */
+/** Čip 28 × 14 s obrysem hmoty: výplň z téže písčité zeminy jako řez. */
 const Cip: React.FC<{ x: number; children?: React.ReactNode }> = ({ x, children }) => (
   <>
     <rect x={x} y={R1 - 12} width="28" height="14" {...PISCITA} />
@@ -162,8 +179,8 @@ const Cip: React.FC<{ x: number; children?: React.ReactNode }> = ({ x, children 
 export const PisekPodKoreny: React.FC = () => (
   <svg aria-hidden="true" className="block h-auto w-full" viewBox="0 0 520 600">
     {/* Pointa kresby (9.2 p. 3) je jedna: voda a část živin odchází pod dosah kořenů. */}
-    <text className="sv-val" x={X0} y="44" style={{ fontSize: 24 }}>Pod dosah kořenů</text>
-    <text className="sv-lbl" x={X0} y="72">odchází voda i část živin</text>
+    <text className="sv-val" x="40" y="44" style={{ fontSize: 24 }}>Pod dosah kořenů</text>
+    <text className="sv-lbl" x="40" y="72">odchází voda i část živin</text>
 
     {/* ── stupnice: jen povrch a dno profilu ─────────────────── */}
     <line x1="62" y1={T} x2="62" y2={B} {...voditko} />
@@ -214,7 +231,8 @@ export const PisekPodKoreny: React.FC = () => (
     <text className="sv-lbl" x={LX} y={T + CIL_ZIVINY[1] + 5}>Část živin</text>
     <text className="sv-val" x={LX} y={T + CIL_ZIVINY[1] + 32}>voda odnese</text>
 
-    {/* ── legenda: značky pixelově shodné s řezem (9.2 p. 10) ── */}
+    {/* ── legenda: čipy 28 × 14 z písčité zeminy řezu; vzduch i kořen na
+        nich pixelově shodné s řezem (9.2 p. 10) ── */}
     <line x1="30" y1={LEG} x2="490" y2={LEG} {...voditko} />
     <text className="sv-lbl" x="30" y={LEG + 24}>Co je co</text>
     <Cip x={30} />
