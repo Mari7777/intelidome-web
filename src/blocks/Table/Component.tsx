@@ -87,7 +87,13 @@ export const TableBlock: React.FC<TableBlockProps> = ({
               <tr key={row.id ?? ri}>
                 {(row.cells ?? []).map((cell, ci) => {
                   const obsah = nezlomitelneMezery(cell.value ?? '')
-                  const doprava = sloupce[ci]?.align === 'right' ? 'ta-r' : undefined
+                  /* Slovní buňka v číselném sloupci (bez číslic, delší než
+                     popisek hodnoty) se smí zalomit — nezalomitelná próza
+                     roztáhla tabulku dávek o 138–244 px a sloupec písčité
+                     zahrady zmizel mimo záběr (porota kola 02 článku
+                     o příměsích). Čísla s jednotkami dál drží nowrap. */
+                  const proza = !/\d/.test(cell.value ?? '') && (cell.value ?? '').length > 16
+                  const doprava = sloupce[ci]?.align === 'right' ? cn('ta-r', proza && 'ta-proza') : undefined
                   return ci === 0 ? (
                     <th key={cell.id ?? ci} scope="row" className={doprava}>
                       {obsah}

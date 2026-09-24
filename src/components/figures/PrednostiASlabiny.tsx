@@ -42,7 +42,8 @@ import React from 'react'
  * ≈ 482, jména půd leží v 174–346 mimo sloupce popisků (61–162
  * a 382–482). Popisek → jméno dalšího řádku ≥ 16, dno misky → popisek
  * ≥ 7, hrot šipky → „napravit" ≈ 8, fajfka → slovo 6.
- * Pointa dole za čárkovanou linkou jako v `myko-podle-navodu`. Statická
+ * Pointa dole za čárkovanou linkou jako v `myko-podle-navodu`, zarovnaná
+ * vlevo na x 40 jako nadpisy celé série (`MichaniOdHloubky`). Statická
  * kresba.
  */
 
@@ -190,7 +191,7 @@ export const PrednostiASlabiny: React.FC = () => (
 
     {/* ── pointa (9.2 p. 3) za čárkovanou linkou jako závěr ───── */}
     <line x1="30" y1={ZAVER} x2="490" y2={ZAVER} {...konstr} />
-    <text className="sv-val" x="30" y={ZAVER + 52} style={{ fontSize: 24 }}>Zachovat přednosti</text>
-    <text className="sv-lbl" x="30" y={ZAVER + 80}>Napravit jen slabinu</text>
+    <text className="sv-val" x="40" y={ZAVER + 52} style={{ fontSize: 24 }}>Zachovat přednosti</text>
+    <text className="sv-lbl" x="40" y={ZAVER + 80}>Napravit jen slabinu</text>
   </svg>
 )

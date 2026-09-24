@@ -3768,3 +3768,53 @@ po návratu z reduce, trigger krémových splitů od paddingu pásu, šipka hera
 o 6 px (celý web); alty kreseb delší než ve vzorech; na telefonu tenký
 bílý pruh s nadpisem mezi krémem a krémovým panelem kresby; tečka „živiny"
 v nabity-biochar a pisek-pod-koreny je táž jako Actino (rozhodnutí série).
+
+## Kolo 02 (2026-09-24)
+
+| Oblast | Skóre |
+|---|---|
+| Hierarchie | 3/5 |
+| Typografie | 3/5 |
+| Pohyb | **4/5** |
+| Grafický styl | 3/5 |
+| Slop | 3/5 |
+| Výkon a přístupnost | 3/5 |
+| Rozložení | 3/5 |
+
+**0 kritických**, skeptikem prošlo 7 nálezů (3 důležité, 4 snížené).
+Opravy kola 01 držely; jedna z nich (nulový okraj rámečku tipu) zanesla
+novou vadu.
+
+### Opravy
+
+- **Rámeček tipu se lepil na další odstavec** (typografie; vada z kola 01):
+  pravidlo `margin-block: 0` přebilo mezeru `space-y` těla. Pravidlo pryč,
+  mezery v těle A3 měří 18 · 18 · 18 · 18 · 18 px.
+- **Tabulka dávek přetékala na 561–1267 px** (rozložení; hierarchie snížil
+  skeptik): slovní buňka v číselném sloupci (mykorhiza) držela `nowrap`
+  a vynutila 1 188 px. Table dává buňce bez číslic delší než 16 znaků
+  třídu `ta-proza` (zalomit smí); skryto 0 px na 768/1024/1130/1180/1440
+  i v článku s kalkulátorem.
+- **Po živém přepnutí reduce → no-preference kolečko ujelo 270 px místo
+  3 444** (pohyb, celoplošné): ScrollTrigger si zapamatoval plynulý scroll
+  z `html.plynule` a po každém refreshi ho zapsal inline přes `auto`
+  setrvačníku. InertiaScroll teď `scroll-behavior` drží MutationObserverem,
+  dokud běží; `html.plynule` platí jen bez omezeného pohybu (dřív svou
+  specificitou přebilo pojistku reduce). Změřeno: 3 444 / 3 000 / 3 444 /
+  3 444 / 3 000 px pro no-pref / reduce / reduce→no-pref / tam a zpět /
+  no-pref→reduce; kotvy všech tří článků dál 124 px.
+- Snížené, opraveno: Actino v Obr. 17 má značku z Obr. 01 a řez stojí na
+  písčité zemině (holá hnědá tečka zůstala zemině); pravé pole Obr. 01 je
+  písčitá zemina, ne „písek"; alty všech 14 kreseb začínají sdělením
+  a mají ≤ 300 znaků (medián dřív 579).
+- Kosmetické, opraveno: pointa Obr. 10 na x 40; tři vzorky půd v Obr. 18
+  mají textury z Obr. 10; legenda kořenů Obr. 11 shodná s řezem.
+
+### Neopraveno
+
+Obr. 16 na telefonu předbíhá svůj mezititulek (oprava by přelila tělo E6
+nad 120 % na 1130); na dotykovém tabletu na šířku (panel karet zavřený)
+stojí dva obrazy vlevo za sebou; Obr. 08 kreslí zóny ostře, FAQ říká „ne
+ostrá patra" (opačný požadavek kola 01); drobné rozdíly v řádkování
+víceřádkových popisků kreseb; Actino × živiny v nabity-biochar jsou si
+značkou blízko (rozhodnutí série).

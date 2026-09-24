@@ -67,10 +67,14 @@ import React from 'react'
  * vodu vysvětluje čip, který nese pointu. Třetí čip stojí na ose štítků
  * x 356, mezery mezi položkami jsou vyrovnané pro 18/21 (≈ 28).
  * 2. řádek (rozteč 32): kořeny. Kořen je světlá značka viditelná jen na
- * půdě, leží proto podle pravidla série na políčku zeminy #6b5138 op .9.
- * Políčko i výsek kořene (tvar, jádro bez lemu) jsou tytéž jako v legendě
- * `koren-zacina-nahore`; lem 2,4 patří jen světlému a okrovému podkladu,
- * na hnědé není potřeba.
+ * půdě, stojí proto (pravidlo `pisek-pod-koreny`) na čipu téže hmoty, ve
+ * které v řezu roste: nová směs, okrový podklad #c2a052 op .55 s tečkou
+ * zeminy. Tečka r 2,2 leží na jediném místě čipu, kam se vejde s odstupy
+ * řezu: 3 od vnitřní hrany obrysu, od lemu kořene ≈ 2 (1,99). Kořen
+ * v legendě kreslí táž komponenta `Koreny` (lem 2,4 + jádro) jako řez,
+ * takže je s ním pixelově shodný. Tvar výseku je týž jako v legendě
+ * `pisek-pod-koreny` (tam také na okrové s lemem) a `koren-zacina-nahore`
+ * (tam na hnědé zemině bez lemu, jako kořeny v jejím řezu).
  * ViewBox 520 × 600 (rytmus splitu E2 je spočítaný pro 600). Vzduch
  * leží mezi pointou a řezem a mezi řezem a legendou, řez drží 8 px na
  * cm. Statická kresba.
@@ -309,8 +313,9 @@ const hladina = { fill: 'none', stroke: '#2563eb', strokeWidth: 1.6, strokeLinec
 /** Jádro kořene #d8c9b4 op .9 / 1,6 (hlavička), totéž jako `koren`
  *  v `koren-zacina-nahore`. */
 const JADRO = { fill: 'none', stroke: '#d8c9b4', strokeWidth: 1.6, strokeLinecap: 'round', strokeLinejoin: 'round', opacity: 0.9 } as const
-/** Kořeny v řezu (na okrové): jádro na lemu #232830 op .5 / 2,4, jako
- *  `Koreny` v `pisek-pod-koreny`. Lemy všech kořenů pod všemi jádry. */
+/** Kořeny na okrové směsi (řez i čip legendy): jádro na lemu #232830
+ *  op .5 / 2,4, jako `Koreny` v `pisek-pod-koreny`. Lemy všech kořenů pod
+ *  všemi jádry. */
 const Koreny: React.FC<{ d: string }> = ({ d }) => (
   <g fill="none" strokeLinecap="round" strokeLinejoin="round">
     <g stroke="#232830" strokeWidth="2.4" opacity="0.5">
@@ -442,13 +447,13 @@ export const JilJakoVana: React.FC = () => (
     <path d={`M${CIP[2]} ${CIP_Y} H${CIP[2] + 28}`} {...hladina} strokeLinecap="butt" />
     <path d={`M${CIP[2]} ${CIP_Y} V${CIP_Y + 14} H${CIP[2] + 28} V${CIP_Y}`} {...obrys} />
     <text className="sv-val" x={CIP[2] + 36} y={CIP_Y + 12}>voda stojí</text>
-    {/* kořeny (2. řádek): políčko zeminy #6b5138 op .9 a výsek kořene
-        jako v legendě `koren-zacina-nahore` (jádro bez lemu, na hnědé
-        lem není potřeba); obrys cestou jako tam */}
-    <rect x={CIP[0]} y={CIP_Y2} width="28" height="14" {...ZEMINA} />
-    <path
+    {/* kořeny (2. řádek): čip nové směsi, ve které kořeny v řezu rostou
+        (okrová + tečka zeminy v odstupech řezu), a výsek kořene týmž
+        `Koreny` jako řez (lem 2,4 + jádro), tvar jako v `pisek-pod-koreny` */}
+    <rect x={CIP[0]} y={CIP_Y2} width="28" height="14" {...PISEK} />
+    <path d={`M${CIP[0] + 19.8} ${CIP_Y2 + 6}a2.2 2.2 0 1 0 4.4 0a2.2 2.2 0 1 0 -4.4 0Z`} {...ZEMINA} />
+    <Koreny
       d={`M${CIP[0] + 10} ${CIP_Y2 + 1} C ${CIP[0] + 9} ${CIP_Y2 + 5}, ${CIP[0] + 11} ${CIP_Y2 + 9}, ${CIP[0] + 10} ${CIP_Y2 + 13}M${CIP[0] + 10} ${CIP_Y2 + 5} C ${CIP[0] + 14} ${CIP_Y2 + 6}, ${CIP[0] + 18} ${CIP_Y2 + 9}, ${CIP[0] + 20} ${CIP_Y2 + 12}`}
-      {...JADRO}
     />
     <path d={`M${CIP[0]} ${CIP_Y2} H${CIP[0] + 28} V${CIP_Y2 + 14} H${CIP[0]} Z`} {...obrys} />
     <text className="sv-val" x={CIP[0] + 36} y={CIP_Y2 + 12}>kořeny</text>

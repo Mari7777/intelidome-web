@@ -5,31 +5,36 @@ import React from 'react'
  * výrobku rozlišuje dávku podle účelu použití: běžné založení trávníku
  * (dávka A) a náročnější podmínky (dávka B); řádek „typ půdy" je
  * přeškrtnutý a dávku nemá. Tři vzorky půdy vlevo (jílovitá · hlinitá ·
- * písčitá, barvy jako v `prednosti-a-slabiny`) jsou jen vstup: tři tahy
+ * písčitá, značky z `prednosti-a-slabiny`) jsou jen vstup: tři tahy
  * se slévají do jedné šipky k témuž řádku běžného založení. Značka
  * „nezvyšovat" (přeškrtnutá šipka nahoru) stojí u DÁVKY A, ne u vzorku:
  * „i pro písčitou" (i60 v3). U vzorku by se četla
- * jako „nepřidávat písek" (pointa `pisek-pod-koreny`), což i60 neříká.
+ * jako „nepřidávat písek" (tu myšlenku nese písčitá 0/100
+ * v `zaklad-tri-zahrad`), což i60 neříká.
  * Pointa je jedna: podle návodu, ne podle typu půdy. Nadpis nese
  * volitelnost („když se pro přípravek rozhodneme", i59). Žádná čísla ani
  * jednotky — písmena A/B místo dávek, 100 g/m² z FAQ kresba neopakuje.
  * Bez akcentu, bez značky výrobku, bez vláken houby.
  *
- * Štítek je jediná hmota kresby: bílá výplň na krémovém panelu, obrys
- * #232830 1,6, rx 10. Záhlaví odděluje plná linka obrysu (etiketa),
+ * Štítek je jediná plocha mimo půdu (vzorky jsou tři malé hmoty půdy
+ * s obrysem, viz níže) a největší hmota kresby: bílá výplň na krémovém
+ * panelu, obrys #232830 1,6, rx 10. Záhlaví odděluje plná linka obrysu (etiketa),
  * řádky mezi sebou hairline --id-line rgba(0,0,0,.12) (DESIGN 3.5, na
  * bílé). Tahy od vzorků jsou plné #232830 jako šipky v `nabity-biochar`
  * — nesou hlavní vztah, konstrukční #d5d3cc 3 7 má jen dělicí linka nad
- * pointou. Vzorky nesou barevný klíč `prednosti-a-slabiny` /
- * `zaklad-tri-zahrad` (9.2 p. 10) plošně, bez textury (drobty má jen
- * fungující hlína v `prednosti-a-slabiny`): jílovitá i hlinitá = zemina
- * #6b5138 op .9 (klíč série má pro zeminu jednu barvu, rozliší je jen
- * jméno), písčitá = původní písčitá zemina, okrová #c2a052 op .45 bez zrn
- * (op .55 má v sérii písek jako materiál: přidaný písek, nová směs, obě
- * pole `dve-zahrady`; hranaté zrno s obrysem zeolit, tečka #54402c
- * Actino). Obrys kruhu #232830 1,6. Legendu kresba nemá, takže se pixelová
- * shoda s čipem 28 × 14 nevyžaduje, jen týž klíč. Stejně vypadající
- * vstupy pointu posilují: typ půdy nerozhoduje.
+ * pointou. Vzorky jsou tytéž značky jako vzorky půd v `prednosti-a-slabiny`
+ * (E1b, 9.2 p. 10): kruh r 26, výplň přes `fillOpacity`, obrys #232830 1,6
+ * kreslený až nad výplní, stejné pořadí vrstev. Jílovitá = zemina #6b5138
+ * op .9 plošně. Hlinitá = táž zemina s drobty: dlaždice `mpn-hlina`
+ * 12 × 12 je kopie `pas-hlina` (a tedy `hpm-hlina`) s počátkem v levém
+ * horním rohu vzorku jako tam, takže jíl a hlína se liší viditelnou
+ * strukturou a tatáž půda má v článku jednu značku. Písčitá = původní
+ * písčitá zemina, okrová #c2a052 op .45 bez zrn (op .55 má v sérii písek
+ * jako materiál: přidaný písek se zrny, nová směs s tečkami zeminy;
+ * hranaté zrno s obrysem je zeolit, hnědé jádro #54402c na světlém lemu
+ * Actino). Legendu kresba nemá, jména stojí pod
+ * vzorky. Tři různé půdy vedou k témuž řádku, a právě to nese pointu:
+ * typ půdy nerozhoduje.
  *
  * Sazba řádků štítku: každý řádek je skupina ukotvená na svém středu
  * a všechny odsazení jsou v em své třídy (sv-lbl 12/15/18, sv-val
@@ -41,12 +46,13 @@ import React from 'react'
  * mají souřadnice v em, takže rostou s textem. Přeškrtnutí končí 5,45 em
  * (nejužší prostrkání .06 em + přesah 0,15 em), na desktopu tak nepřečnívá.
  *
- * Portrétová sazba 520 px, id s prefixem `mpn-` (kresba žádné id nemá).
+ * Portrétová sazba 520 px, id s prefixem `mpn-` (jediné: dlaždice drobtů).
  * Mobilní sazba 18/21: „běžné založení trávníku" má v 18 jednotkách 276
  * a do štítku (vnitřek 248) se nevejde, proto stojí na dvou řádcích
  * (i „náročnější podmínky", souběžná stavba A/B). Jména vzorků pod
- * vzorkem na střed (JÍLOVITÁ ≈ 89 při 18): účaří cy + 46, další vzorek
- * o 90 níž. Statická kresba.
+ * vzorkem na střed (JÍLOVITÁ ≈ 89 při 18): účaří cy + 47, rámec jména
+ * (s místem pro čárky nad verzálkami) tak začíná ≥ 4 pod obrysem vzorku
+ * i při 18 (měřeno 4,6), další vzorek o 90 níž. Statická kresba.
  */
 
 const R = 26 // poloměr vzorku
@@ -75,14 +81,14 @@ const HROT = SX0 - 4 // 196
 const J = SX0 - 30 // 170
 const START = SX + R + 4 // 118, 4 za obrysem vzorku
 
-/** Barevný klíč `prednosti-a-slabiny` / `zaklad-tri-zahrad`: zemina jedna
- *  barva pro jíl i hlínu, písčitá zemina okrová .45 (ne .55 = písek jako materiál). */
+/** Značky půd z `prednosti-a-slabiny`: zemina (jíl plošně, hlína navíc
+ *  s drobty `mpn-hlina`), písčitá zemina okrová .45 (ne .55 = písek jako materiál). */
 const ZEMINA = { fill: '#6b5138', fillOpacity: 0.9 } as const
 const PISCITA = { fill: '#c2a052', fillOpacity: 0.45 } as const
 const VZORKY = [
-  { id: 'jil', jmeno: 'Jílovitá', cy: CIL_Y - KROK, vypln: ZEMINA },
-  { id: 'hlina', jmeno: 'Hlinitá', cy: CIL_Y, vypln: ZEMINA },
-  { id: 'pisek', jmeno: 'Písčitá', cy: CIL_Y + KROK, vypln: PISCITA },
+  { id: 'jil', jmeno: 'Jílovitá', cy: CIL_Y - KROK, vypln: ZEMINA, drobty: false },
+  { id: 'hlina', jmeno: 'Hlinitá', cy: CIL_Y, vypln: ZEMINA, drobty: true },
+  { id: 'pisek', jmeno: 'Písčitá', cy: CIL_Y + KROK, vypln: PISCITA, drobty: false },
 ] as const
 
 /** S-křivka od vzorku do J: vodorovně ven ze vzorku, vodorovně do J,
@@ -99,8 +105,11 @@ const tah = { fill: 'none', stroke: '#232830', strokeWidth: 1.6, strokeLinecap: 
 /** Značka „nezvyšovat" v em třídy sv-val (15 → 18 → 21). Účaří řádku
  *  značky = 2,4 em od středu řádku A; dřík 1,05 em sahá pod účaří, hrot
  *  0,26 × 0,42 em (≈ hrot série l4 6 při 15), přeškrtnutí jen přes dřík
- *  pod hrotem, aby se s hrotem nesletělo do jednoho znaku. Špička hrotu
- *  1,47 em = ≥ 4 pod rámcem „dávka A" ve všech třech sazbách. */
+ *  pod hrotem, aby se s hrotem nesletělo do jednoho znaku. Geometrická
+ *  špička hrotu 1,47 em leží ≥ 4 pod rámcem „dávka A" ve všech třech
+ *  sazbách; inkoust (půl tahu 0,8 výš) má od rámce 3,3 při 12/15, 3,4 při
+ *  15/18 a 4,5 při 18/21 (měřeno). „dávka A" nemá dotahy pod účaří, takže
+ *  viditelná mezera k písmu je větší. */
 const ZN = { x: 0.35, spod: 2.52, vrch: 1.47, hw: 0.26, hd: 0.42 }
 const em = (v: number) => `${Math.round(v * 1000) / 1000}em`
 
@@ -109,13 +118,27 @@ export const MykoPodleNavodu: React.FC = () => (
     {/* Volitelnost: přípravek není povinná položka (i59). */}
     <text className="sv-lbl" x="40" y="34">Když se pro přípravek rozhodneme</text>
 
-    {/* ── vzorky půdy: jen vstup, plošně klíčem E1b/E7 ─────────── */}
+    <defs>
+      {/* Drobty hlíny — kopie dlaždice `pas-hlina` (E1b); počátek v levém
+          horním rohu vzorku hlíny jako tam. */}
+      <pattern id="mpn-hlina" x={SX - R} y={CIL_Y - R} width="12" height="12" patternUnits="userSpaceOnUse">
+        <circle cx="3" cy="3" r="1.2" fill="#54402c" />
+        <circle cx="9" cy="8" r="2.4" fill="#6b5138" />
+        <circle cx="4" cy="9.5" r="1" fill="#54402c" />
+      </pattern>
+    </defs>
+
+    {/* ── vzorky půdy: jen vstup, značky E1b (výplň, drobty, obrys navrch) ── */}
     {VZORKY.map((v) => (
-      <circle key={v.id} cx={SX} cy={v.cy} r={R} {...v.vypln} stroke="#232830" strokeWidth="1.6" />
+      <g key={v.id}>
+        <circle cx={SX} cy={v.cy} r={R} {...v.vypln} />
+        {v.drobty ? <circle cx={SX} cy={v.cy} r={R} fill="url(#mpn-hlina)" /> : null}
+        <circle cx={SX} cy={v.cy} r={R} {...obrys} />
+      </g>
     ))}
     {/* jména půd pod vzorkem na střed */}
     {VZORKY.map((v) => (
-      <text key={v.id} className="sv-lbl" x={SX} y={v.cy + R + 20} textAnchor="middle">
+      <text key={v.id} className="sv-lbl" x={SX} y={v.cy + R + 21} textAnchor="middle">
         {v.jmeno}
       </text>
     ))}
@@ -129,7 +152,7 @@ export const MykoPodleNavodu: React.FC = () => (
       <path d={`M${HROT - 8} ${CIL_Y - 5} l8 5 -8 5`} />
     </g>
 
-    {/* ── štítek návodu: jediná hmota kresby ──────────────────── */}
+    {/* ── štítek návodu: největší hmota kresby ────────────────── */}
     <rect x={SX0} y={ST} width={SW} height={SB - ST} rx="10" fill="#fff" />
     <g stroke="rgba(0,0,0,0.12)" strokeWidth="1">
       {HRANY.slice(1, 3).map((y) => (

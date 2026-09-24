@@ -715,6 +715,10 @@
 .id-table tbody .ta-r {
   white-space: nowrap;
 }
+.id-table tbody .ta-r.ta-proza {
+  white-space: normal;
+  text-wrap: pretty;
+}
 .id-table__note {
   font-size: 13.5px;
   line-height: 1.5;
@@ -1298,8 +1302,12 @@
    Zapíná se až po načtení (třída `plynule` z layoutu): příchod odkazem
    s kotvou jinak jel plynule k cíli spočítanému před dokončením layoutu,
    refresh ScrollTriggeru jízdu přerušil a stránka skončila mimo kotvu. */
-html.plynule {
-  scroll-behavior: smooth;
+/* Jen bez omezeného pohybu: `html.plynule` (0,1,1) jinak přebilo pojistku
+   `@media reduce { html }` (0,0,1) a omezený pohyb dostal plynulý scroll. */
+@media (prefers-reduced-motion: no-preference) {
+  html.plynule {
+    scroll-behavior: smooth;
+  }
 }
 @media (prefers-reduced-motion: reduce) {
   html {
@@ -2621,10 +2629,6 @@ html.plynule {
    článku o příměsích). Specificita (0,2,1) nezávisí na pořadí souborů. */
 .id-split .id-split__foto img {
   border-radius: 0;
-}
-/* Tip v těle splitu: vlastní rytmus těla (18 px), žádný okraj z prózy. */
-.id-split__callout {
-  margin-block: 0;
 }
 @media (max-width: 560px) {
   .id-split__figure > .id-split__foto {

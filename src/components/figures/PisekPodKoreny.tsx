@@ -21,8 +21,9 @@ import React from 'react'
  *
  * Značky (9.2 p. 10):
  * – písčitá zemina = plochá okrová #c2a052 op .45 bez zrn, jako
- *   `zaklad-tri-zahrad`, který stojí hned za touto kresbou. `dve-zahrady`
- *   kreslí písčitou zahradu týmž okrem na .55 (jeden čip pro obě pole).
+ *   `zaklad-tri-zahrad`, který stojí hned za touto kresbou. Týž okr .45
+ *   má pravé pole `dve-zahrady` (i s čipem „písčitá zemina") a řez
+ *   `jedna-zmena-naraz`.
  *   Zrna #c2a052 znamenají v sérii přidaný písek a tady nejsou: E6 odst. 2
  *   „další písek sem nepřidáváme", odst. 3 stávající písek je součást
  *   zeminy.
@@ -35,8 +36,9 @@ import React from 'react'
  *   jako kabel. Lemy všech kořenů leží pod všemi jádry; odbočky začínají
  *   na ose hlavního kořene, takže styky nemají tmavý zářez ani hrbolek.
  * – živiny = tečka r 2,6 #54402c, tatáž jako v legendě `nabity-biochar`.
- *   V `jedna-zmena-naraz` je týž bod Actino (v `dve-zahrady` totéž jádro
- *   na lemu barvy panelu), proto ho legenda v tomto panelu jmenuje
+ *   V `michani-od-hloubky` (`mh-plna`) je týž holý bod Actino
+ *   a `dve-zahrady` i `jedna-zmena-naraz` kreslí Actino týmž jádrem na
+ *   lemu barvy panelu, proto ho legenda v tomto panelu jmenuje
  *   „živiny" (9.2 p. 10, úroveň 2). Podklad r 3,4 barvy panelu
  *   z `nabity-biochar` tu není: na okrové by se četl jako kroužek vzduchu
  *   s tečkou uvnitř.

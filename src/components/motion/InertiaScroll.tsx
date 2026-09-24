@@ -132,9 +132,21 @@ export const InertiaScroll = ({ enabled = false }: { enabled?: boolean }) => {
     let aktivni = false
     let puvodni = root.style.scrollBehavior
 
+    /*
+      Setrvačník vlastní `scroll-behavior`, dokud běží. ScrollTrigger si při
+      prvním spouštěči zapamatuje plynulý scroll (html.plynule) a po každém
+      refreshi ho inline zapíše zpátky — po živém přepnutí reduce →
+      no-preference pak kolečko ujelo 270 px místo 3 444 (porota kola 02
+      článku o příměsích). Cizí zápis se proto hned vrací na `auto`.
+    */
+    const drzAuto = new MutationObserver(() => {
+      if (aktivni && root.style.scrollBehavior !== 'auto') root.style.scrollBehavior = 'auto'
+    })
+
     const zastav = () => {
       if (!aktivni) return
       aktivni = false
+      drzAuto.disconnect()
       root.style.scrollBehavior = puvodni
       root.removeAttribute('data-inertia')
       window.removeEventListener('wheel', onWheel)
@@ -167,6 +179,7 @@ export const InertiaScroll = ({ enabled = false }: { enabled?: boolean }) => {
       puvodni = root.style.scrollBehavior
       root.style.scrollBehavior = 'auto'
       root.setAttribute('data-inertia', '')
+      drzAuto.observe(root, { attributes: true, attributeFilter: ['style'] })
     }
 
     fine.addEventListener('change', podlePreference)

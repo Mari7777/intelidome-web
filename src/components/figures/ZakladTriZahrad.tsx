@@ -19,9 +19,10 @@ import React from 'react'
  * sloupcem.
  *
  * Barevný klíč článku (9.2 p. 10): plochá okrová #c2a052 op .45 = písčitá
- * zemina (`pisek-pod-koreny`, `prednosti-a-slabiny`, `myko-podle-navodu`;
- * `dve-zahrady` kreslí písek v obou polích na .55), hnědá #6b5138 op .9
- * = původní zemina. Přidaný písek se od písčité zeminy liší TEXTUROU, ne
+ * zemina (`pisek-pod-koreny`, `prednosti-a-slabiny`, `myko-podle-navodu`,
+ * pravé pole `dve-zahrady`, řez `jedna-zmena-naraz`; .55 má v `dve-zahrady`
+ * jen nová směs vlevo), hnědá #6b5138 op .9 = původní zemina. Přidaný
+ * písek se od písčité zeminy liší TEXTUROU, ne
  * neprůhledností (.45 × .55 má ΔE00 ≈ 3): plocha .55 se zrny `zz-pisek`
  * (táž zrna r 2,4 / 2 jsou přidaný písek i u pár lopat
  * v `kolik-pisku-do-jilu`). Dlaždice je posunutá (x 3, y 23;

@@ -1218,7 +1218,11 @@ Lexicalu se vedle sebe postavit nedají.
      na hranicích vět. Tělo dvousloupce ≈ 65–120 % výšky obrazu s popiskem.
    - **Pokračování oddílu** bez titulku (`continues`) dostane modulovou
      mezeru `--id-rhythm` místo pásové; **mezititulek** uvnitř těla je h3
-     (řádek „### "), 44 px nad / 14 px pod.
+     (řádek „### "), 44 px nad / 14 px pod. Na krémovém pásu pokračování
+     navazuje bez švu (spodní padding předchůdce = `--id-rhythm`).
+   - **Tip (callout)** k úseku textu stojí v jeho sloupci jako řádek „> "
+     v těle splitu, na svém místě toku textu, ne jako blok na ose
+     (porota článku o příměsích, 2026-09-24).
    - Přejímka: v `.id-article` není přímý potomek `p` ani `h3`; střídání
      R/L přes všechny splity; `layout-check` bez jednorázových os.
 

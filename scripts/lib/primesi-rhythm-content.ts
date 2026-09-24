@@ -22,8 +22,8 @@ export const PRIMESI_RHYTHM_SECTIONS: RhythmSection[] = [
     "title": "Z čeho půdu skládáme a co která složka umí",
     "titleLevel": "h2",
     "drawing": "dve-zahrady",
-    "alt": "Kresba s titulkem „Stejné složky, jiný úkol“ staví vedle sebe dva stejně velké řezy, jílovitou a písčitou zahradu. Vlevo je písek hustě protkaný tečkami původní zeminy s několika kousky biocharu, Actina a zeolitu; středem vede svislá čárkovaná cesta, po níž kapka vody míří dolů k šipce pod polem, a popisek zní „písek otevře cestu vodě“. Vpravo je samotný písek bez teček zeminy, hustěji posetý biocharem, Actinem a zeolitem; kapka tu stojí mezi střípkem biocharu a zrnem zeolitu a popisek zní „biochar a zeolit podrží část vody“. Legenda dole vysvětluje značky písku, původní zeminy, biocharu, Actina, zeolitu a vody.",
-    "caption": "Vlevo jíl (tečky původní zeminy) s přimíchaným pískem, příměsí málo: čárkovaná linka se šipkou ukazuje, kudy voda odchází dolů. Vpravo samotný písek, příměsí víc: kapka zůstává mezi zrny.",
+    "alt": "Stejné složky mají v každé zahradě jiný úkol: v jílu s převahou písku otevře písek cestu vodě, v písčité zahradě biochar a zeolit podrží část vody. Vlevo nová směs s několika příměsmi, voda z ní odchází čárkovanou cestou dolů. Vpravo písčitá zemina s víc příměsmi a kapka stojí u biocharu a zeolitu.",
+    "caption": "Vlevo jíl s převahou písku, tečky jsou původní zemina; příměsí je málo a čárkovaná linka se šipkou ukazuje, kudy voda odchází dolů. Vpravo písčitá zemina, příměsí víc: kapka zůstává mezi nimi.",
     "body": [
       "V tomto článku si představíme jednotlivé složky a vysvětlíme, co mohou v půdě změnit. Podíváme se, proč o směsi rozhoduje objem, přestože dodávka přijíždí v tunách, a jak příměsi rozmístit v kořenové vrstvě. Na třech modelových zahradách ukážeme vhodné rozsahy dávek.",
       "Výpočet materiálu pro vlastní plochu najdete v článku [Kalkulátor na plánování půdního profilu](/posts/kalkulator-na-planovani-pudniho-profilu); práci s připravenou směsí popisuje návod [Jak připravit a uložit směs](/posts/jak-pripravit-a-ulozit-smes).",
@@ -54,7 +54,7 @@ export const PRIMESI_RHYTHM_SECTIONS: RhythmSection[] = [
     "surface": "bila",
     "continues": true,
     "drawing": "prany-pisek",
-    "alt": "Kresba s titulkem „Rozhodují mezery“ staví vedle sebe dva stejně uložené trsy pískových zrn. Vlevo nepraný písek: mezery mezi zrny vyplňují tečky prachu a jílu, kapka vody zůstává nad trsem a popisek říká, že prach a jíl vyplní mezery, voda hůř projde a vzduchu je méně. Vpravo praný písek s volnými mezerami: čárkovaná cesta vody sestupuje shora a klikatí se mezi zrny, kapka leží v póru na ní a pod trsem cesta končí šipkou dolů; popisek říká, že voda projde a vzduch se vrátí ke kořenům. Legenda vysvětluje značky zrna písku, prachu a jílu a vody; pod ní stojí „Praním jemných částic ubývá“.",
+    "alt": "Rozhodují mezery mezi zrny: v nepraném písku je vyplní prach a jíl, voda hůř projde a vzduchu je méně; v praném zůstanou volné, voda projde a vzduch se vrátí ke kořenům. Vlevo proto kapka zůstává nad zrny, vpravo vede cesta vody mezerami až pod trs.",
     "caption": "Vlevo nepraný, vpravo praný písek se stejně uloženými zrny; liší se jen tím, co vězí v mezerách. Čárkovaná linka se šipkou dolů značí cestu, kudy voda odtéká.",
     "body": [
       "V následujících příkladech používáme **praný křemičitý písek s převahou zrn přibližně 0,25–1 mm**. Každá část tohoto označení má svůj důvod: praní omezuje nežádoucí jemné příměsi, křemen poskytuje odolná zrna a vhodná zrnitost pomáhá vytvářet prostředí pro pohyb vody a vzduchu.",
@@ -72,7 +72,7 @@ export const PRIMESI_RHYTHM_SECTIONS: RhythmSection[] = [
     "title": "Co koupit a jak biochar připravit",
     "titleLevel": "h3",
     "drawing": "nabity-biochar",
-    "alt": "Kresba s nadpisem „Nabít předem“ ukazuje dvě tmavá zrna biocharu vedle sebe. Vlevo je nenabité zrno s prázdnými póry, do kterého míří šipky od tří volných živin z okolí, s popiskem „živiny si z půdy nejdřív bere“; vpravo zrno nabité kompostem s živinami v pórech, z něhož vedou dvě šipky k hnědému pruhu půdy s kořenem, s popiskem „živiny kořenům postupně dává“. Legenda vysvětluje tečku jako živiny a hnědé políčko se světlou linkou jako kořen, poznámka dole zní „Samotná voda nenabije — biochar jen navlhčí“.",
+    "alt": "Biochar je třeba nabít předem: nenabitý si živiny z půdy nejdřív bere, nabitý kompostem je kořenům postupně dává. Vlevo míří šipky od živin z půdy do zrna s prázdnými póry, vpravo ze zrna s živinami v pórech ke kořeni. Samotná voda biochar nenabije, jen navlhčí.",
     "caption": "Čtěte směr šipek: vlevo míří živiny z okolní půdy do nenabitého zrna s prázdnými póry, vpravo vycházejí z nabitého zrna ke kořeni.",
     "body": [
       "**Nejjednodušší je koupit biochar určený k použití v půdě, již obohacený živinami a připravený k zapravení.** V popisu nebo u dodavatele si ověříme právě tyto dvě věci: že je určený pro půdu a že už proběhlo jeho obohacení. Toto obohacení se často označuje jako „nabití“. Samotné navlhčení vodou ho nenahrazuje.",
@@ -91,7 +91,7 @@ export const PRIMESI_RHYTHM_SECTIONS: RhythmSection[] = [
     "title": "Proč směs mícháme podle objemu, ne podle tun",
     "titleLevel": "h2",
     "drawing": "tuna-neni-kubik",
-    "alt": "Vodorovné pruhy na společné stupnici 1 až 5 m³ ukazují, kolik místa zabere jedna tuna materiálu při modelové sypné hustotě (u zeolitu 0,80 a u Actina 0,60 t/m³ podle kalkulátoru): písek 0,67 m³, zemina 0,71 m³, zeolit 1,25 m³, Actino 1,67 m³ a biochar celých 5 m³ přes celou stupnici. Dole poznámka: objemem se určuje poměr směsi, hmotností objednávka a doprava.",
+    "alt": "Tuna biocharu zabere 5 m³, tuna písku jen 0,67 m³: stejná hmotnost neznamená stejný objem. Pruhy na stupnici do 5 m³ ukazují objem jedné tuny při modelové sypné hustotě; u zeminy je to 0,71, u zeolitu 1,25 a u Actina 1,67 m³. Dole závěr: objemem se určuje poměr směsi, hmotností objednávka a doprava.",
     "caption": "Délka pruhu je objem jedné tuny, čárkované linky značí celé kubíky. Zeolit a Actino kresba počítá s modelovými 0,80 a 0,60 t/m³ z kalkulátoru půdního profilu.",
     "body": [
       "Dodavatel pracuje s tunami, kubíky a počty balení. Kdo připravuje půdu, musí oba pohledy propojit. **Stejný objem neznamená stejnou hmotnost a stejná hmotnost neznamená stejný objem.** Proto nelze objemový recept jednoduše změnit na stejné poměry tun.",
@@ -106,7 +106,7 @@ export const PRIMESI_RHYTHM_SECTIONS: RhythmSection[] = [
     "title": "Tuna písku není stejný kus prostoru jako tuna hlíny",
     "titleLevel": "h3",
     "drawing": "co-recept-snese",
-    "alt": "Kresba s titulkem „Zaokrouhlit ano, zaměnit ne“ porovnává ve třech řádcích plán vlevo a skutečnost vpravo; jeden čtvereček je plánované množství a legenda přiřazuje okrovou barvu písku, světle šedou zeolitu a černou biocharu. Hmotnost kolísá: čtvereček písku je ve skutečnosti týž, jen v čárkovaném rámečku s popiskem „vlhkost ± pár kg“, verdikt „≈ tentýž recept“. Dvě, nebo osm procent zeolitu: jeden čtvereček u 2 % proti čtyřem u 8 %, verdikt „≠ jiný recept“. Objem, nebo tuny: jeden čtvereček biocharu u ½ m³ proti řadě u ½ t, která pokračuje za okraj kresby, verdikt „≠ jiný recept“.",
+    "alt": "Zaokrouhlit ano, zaměnit ne: výkyv o pár kilogramů vlhkosti recept nezmění, ale 8 % zeolitu místo 2 % nebo půl tuny biocharu místo půl kubíku už je jiný recept. Jeden čtvereček je plánované množství; ve skutečnosti zůstane u písku jeden, u zeolitu jsou čtyři, u biocharu řada až za okraj kresby.",
     "caption": "Vlevo plán, vpravo skutečnost. Čárkovaný rámeček kolem písku je tolerance, ve které recept platí dál; čtyři čtverečky zeolitu nebo řada biocharu až za okraj už dávají jiný recept.",
     "body": [
       "Tyto hodnoty slouží k vysvětlení principu. Skutečná zemina může mít jinou hustotu než náš model a hmotnost všech materiálů ovlivňuje i jejich vlhkost. Rozhodující údaj pro objednávku proto později převezmeme od dodavatele pro materiál v dodávaném stavu.",
@@ -141,7 +141,7 @@ export const PRIMESI_RHYTHM_SECTIONS: RhythmSection[] = [
     "title": "Horní část pomáhá začátku, hlubší umožní kořenům pokračovat",
     "titleLevel": "h3",
     "drawing": "koren-zacina-nahore",
-    "alt": "Řez trávníkem od drnu s jedním trsem trávy do hloubky 30 cm, nadepsaný „Začíná nahoře, pokračuje dolů“; čárkované hranice v 10 a 15 cm ho dělí na tři zóny se závorkami vpravo. Do 10 cm leží v hnědém základu černé střípky biocharu, světlá zrna zeolitu a hustá síť jemných kořenů („Začátek: nejvíc kořenů, plná směs“), mezi 10 a 15 cm už jen zrna zeolitu („Jen zeolit“) a od 15 do 30 cm holý základ („Bez příměsí: kořeny pokračují“). Několik jemných kořenů přesahuje hranici 10 cm a pět delších prorůstá všemi zónami do základu, dva skoro ke dnu. Legenda: základ, biochar, zeolit, kořeny.",
+    "alt": "Kořeny začínají nahoře a pokračují dolů: nejvíc jich je v horních 10 cm s biocharem a zeolitem, mezi 10 a 15 cm je už jen zeolit a od 15 do 30 cm základ bez příměsí. V řezu trávníkem prorůstají delší kořeny všemi zónami, dva skoro až ke dnu.",
     "caption": "Čárkované linky v 10 a 15 cm dělí řez na zóny: černé střípky biocharu jen do 10 cm, světlá zrna zeolitu do 15 cm, níž jen základ. Delší kořeny procházejí oběma hranicemi a pokračují jím dolů.",
     "body": [
       "Nejpestřejší směs připravíme pro horních deset centimetrů. Zde bude biochar, zeolit a případně Actino. Zeolit pokračuje také v zóně mezi **10 a 15 cm**. Spodních **15 cm, tedy zónu mezi 15 a 30 cm**, tvoří samotný minerální základ. Poskytuje kořenům další prostor a půdě další objem pro vodu a vzduch.",
@@ -173,7 +173,7 @@ export const PRIMESI_RHYTHM_SECTIONS: RhythmSection[] = [
     "surface": "krem",
     "continues": true,
     "drawing": "prednosti-a-slabiny",
-    "alt": "Tři váhy pod sebou; záhlaví říká, že levá miska nese vodu a živiny a pravá vzduch a odtok, osou každé váhy je kruhový vzorek půdy. Jílovitá půda (tmavě hnědý vzorek) převažuje vlevo, pod těžší miskou je zelená fajfka se slovem zachovat, pod lehčí pravou šipka dolů a slovo napravit. Fungující hlína (hnědý vzorek s drobty) je v rovnováze a pod oběma miskami má zachovat; písčitá půda (světle okrový vzorek) převažuje vpravo, kde je zachovat, vlevo má napravit. Dole pointa: zachovat přednosti, napravit jen slabinu.",
+    "alt": "Zachovat přednosti, napravit jen slabinu: jílovitá půda má přednost ve vodě a živinách a napravíme jí vzduch a odtok, písčitá je na tom přesně naopak a fungující hlína je v rovnováze, zachováme obojí. Tři váhy pod sebou; pod těžší miskou stojí „zachovat“, pod lehčí „napravit“.",
     "caption": "Levá miska nese vodu a živiny, pravá vzduch a odtok. Těžší miska ukazuje přednost půdy, kterou zachováme, lehčí slabinu, kterou napravíme. Fungující hlína je v rovnováze.",
     "body": [
       "Dobře fungující půdu nemusíme měnit jen proto, že pro ni existuje recept v tabulce. Pokud se trávníku daří, zachovejme to, co funguje. Jestliže se naopak dlouhodobě potýkáme se zamokřením a špatným zakořeněním a příčinou je těžká, nepropustná půda, může dávat smysl důkladnější úprava a nové založení trávníku.",
@@ -191,7 +191,7 @@ export const PRIMESI_RHYTHM_SECTIONS: RhythmSection[] = [
     "title": "Těžká jílovitá půda: kořeny potřebují vedle vody také vzduch",
     "titleLevel": "h3",
     "drawing": "jil-jako-vana",
-    "alt": "Řez půdou pod drnem s měřítkem 0 až 30 cm: nová propustná směs leží jako ve vaně v utuženém jílu, který brzdí odtok a obepíná ji zespodu i z boků. Čárkovaná cesta vody vede od kapky nad drnem směsí dolů a šipkou končí na hladině, pod níž voda stojí až ke dnu vany jako modrá mokrá vrstva se štítkem „voda se zastaví“. Kořeny prorůstají přes hladinu do mokré vrstvy a mají málo vzduchu. Nad řezem stojí pointa „Nejdřív odtok, teprve potom směs“, legenda rozlišuje novou směs, utužený jíl, stojící vodu a kořeny.",
+    "alt": "Nejdřív odtok, teprve potom směs: nová propustná směs v hloubce 0–30 cm leží v utuženém jílu jako ve vaně. Voda jí projde, ale na jílovém dně se zastaví a kořeny v mokré vrstvě mají málo vzduchu. Cesta vody vede od kapky nad drnem směsí dolů k hladině v dolní části vany.",
     "caption": "Jíl obepíná novou směs zespodu i z boků jako vana. Modře je voda, která směsí prošla a stojí na jílovém dně; kořeny, které do ní sahají, mají málo vzduchu.",
     "body": [
       "Po dešti se lepí na boty, za sucha může ztvrdnout tak, že rýči pomáháme celou vahou těla. Mezi těmito dvěma stavy mají růst jemné kořeny. Jíl přitom není bezcenný materiál, kterého je potřeba se za každou cenu zbavit. Umí zadržovat vodu i živiny. Problém nastává tehdy, když uspořádání částic a zhutnění omezí vzduch a pohyb přebytečné vody.",
@@ -206,7 +206,7 @@ export const PRIMESI_RHYTHM_SECTIONS: RhythmSection[] = [
     "surface": "bila",
     "continues": true,
     "drawing": "kolik-pisku-do-jilu",
-    "alt": "Svislá škála přidaného písku v minerálním základu od 0 do 100 % a vedle ní tři vzorky směsi, každý ve výšce své hodnoty; legenda rozlišuje novou směs, původní zeminu a písek. Těsně nad nulou pár lopat: hnědá původní zemina s několika osamocenými zrny písku, která vrstvu zpravidla nezmění. Zvýrazněných 65 % je výchozí návrh pro jíl, okrová nová směs s hustými tečkami zeminy; plná úsečka na ose od 75 do 100 % patří těžkým jílům podle podkladů a jejich vzorek má zeminy ještě méně. Závěr pod legendou: u těžkého jílu zkouška před velkou objednávkou.",
+    "alt": "U jílu rozhoduje velký podíl písku: pár lopat vrstvu zpravidla nezmění, výchozí návrh je 65 % písku v minerálním základu, u těžkých jílů podle podkladů 75 % a víc. Na škále od 0 do 100 % zůstává u pár lopat hnědá zemina, od 65 % už směs nese písek. U těžkého jílu zkouška před velkou objednávkou.",
     "caption": "Poloha vzorku na škále udává podíl písku, plná úsečka na ose rozmezí z podkladů. U pár lopat zůstává hnědá zemina s osamělými zrny, od 65 % nese směs písek a zemina zbývá jen v tečkách.",
     "body": [
       "Současně nesmíme zapomenout, že po přidání velkého množství písku už nepracujeme s původním jílem. Proto ani nízkou dávku zeolitu neodvozujeme slepě z názvu výchozí půdy: musí odpovídat chování nové směsi.",
@@ -241,7 +241,7 @@ export const PRIMESI_RHYTHM_SECTIONS: RhythmSection[] = [
     "surface": "krem",
     "continues": true,
     "drawing": "hlina-prace-misto-materialu",
-    "alt": "Nahoře hodnota 0 % nového písku, zeolitu i biocharu a věta, že u fungující hlíny může víc pomoci práce. Pod ní tři řezy hlínou s popisky vpravo: Rozrušit vrstvu po bagru, kde je tmavá utužená vrstva uprostřed hlíny rozlámaná třemi klikatými trhlinami na čtyři kry, z nichž dvě prostřední jsou mírně pootočené; Odstranit kameny, kde jeden kámen trčí z povrchu a druhý je šipkou vyzvednutý z čárkovaně naznačeného lůžka v hlíně nad povrch; a Urovnat povrch, kde oblouková šipka přesouvá hrbol nad čárkovanou rovinou do stejně velkého dolíku pod ní. Legenda rozlišuje hlínu, kámen a utuženou vrstvu a poznámka dole zní: příměsi až u těžší nebo zanedbané hlíny.",
+    "alt": "U fungující hlíny může být nového písku, zeolitu i biocharu 0 %; víc než materiál může pomoci práce. Tři řezy hlínou ji ukazují: utuženou vrstvu po bagru rozlámanou na kry, kámen vytažený z hlíny a hrbol přesunutý do stejně velkého dolíku. Příměsi přijdou na řadu až u těžší nebo zanedbané hlíny.",
     "caption": "Rozrušení láme tmavou pruhovanou vrstvu trhlinami na kry. Nic se nepřidává, jen přesouvá: kámen z lůžka ven, hrbol do stejně velkého dolíku. Čárkovaně je lůžko kamene a cílová rovina.",
     "body": [
       "U hlíny se proto nejdříve zastavíme u otázky, zda popsanou přestavbu vůbec potřebujeme. Jestliže se voda vsakuje, zemina se ve vlhkém stavu snadno drobí a během běžné péče příliš rychle nevysychá, ponecháme ji.",
@@ -258,7 +258,7 @@ export const PRIMESI_RHYTHM_SECTIONS: RhythmSection[] = [
     "title": "Lehká písčitá půda: prodloužit dobu, po kterou mají kořeny z čeho čerpat",
     "titleLevel": "h3",
     "drawing": "pisek-pod-koreny",
-    "alt": "Řez písčitou zeminou pod drnem, hloubka 0 až 30 cm, s nadpisem „Pod dosah kořenů odchází voda i část živin“. Mezi prázdnými kroužky vzduchu (štítek „Vzduch – dost“) rostou tři trsy kořenů a končí nad světlou čárkovanou linkou „Dosah kořenů“. Vpravo vede modrá čárkovaná cesta vody od povrchu pod tuto linku, kde je kapka, až k šipce dolů u dna; podél ní leží šest teček živin, tři nad linkou („Zásoba – rychle dojde“) a tři pod ní („Část živin – voda odnese“). Legenda vysvětluje značky: písčitá zemina, vzduch, kořeny, voda, živiny.",
+    "alt": "V písčité půdě odchází voda i část živin pod dosah kořenů; zásoba, která jim zbývá, rychle dojde. V řezu 0–30 cm končí tři trsy kořenů nad linkou dosahu, zatímco cesta vody pokračuje pod ni dolů a nese tam i část živin. Vzduchu je v zemině dost.",
     "caption": "Světlá čárkovaná linka značí dosah kořenů. Tečky živin nad ní jsou zásoba, na kterou kořeny dosáhnou; ty pod ní odnáší voda po modré cestě mimo jejich dosah.",
     "body": [
       "Do lehké písčité půdy se příjemně zaboří rýč. V červenci už však její vlastnosti nemusejí být stejně příjemné pro trávník. Voda jí snadno prochází, vzduch obvykle nechybí, ale zásoba dostupná kořenům se rychle vyčerpává. Některé rozpuštěné živiny navíc pokračují s vodou hlouběji, než kam právě dosahují kořeny.",
@@ -273,7 +273,7 @@ export const PRIMESI_RHYTHM_SECTIONS: RhythmSection[] = [
     "surface": "bila",
     "continues": true,
     "drawing": "zaklad-tri-zahrad",
-    "alt": "Pod nadpisem „S hloubkou se poměr nemění“ a podtitulem „Objemový poměr v minerálním základu“ stojí tři svislé sloupce, každý je profil jedné zahrady od povrchu do 30 cm se stupnicí 0, 10, 15 a 30 cm vlevo. Jílovitá má 65 % přidaného písku a 35 % původní zeminy, těžší hlína 30 % a 70 %, písčitá 0 % a 100 % — celý sloupec je původní písčitá zemina. Čárkované linky v 10 a 15 cm přetínají všechny sloupce a svislá dělicí čára mezi pískem a zeminou jimi prochází beze změny až na dno. Legenda rozlišuje přidaný písek (okrová se zrny) a původní zeminu (hnědá); poznámka dole: příměsi si z celkového objemu berou podíl zvlášť.",
+    "alt": "V minerálním základu se poměr přidaného písku a původní zeminy s hloubkou nemění: jílovitá zahrada má 65 % písku a 35 % zeminy, těžší hlína 30 a 70 %, písčitá 0 a 100 %, tedy jen původní písčitá zemina. Každý sloupec je profil do 30 cm; hranice zón v 10 a 15 cm dělicí čáru neposouvají.",
     "caption": "Sloupec je minerální základ jedné zahrady do 30 cm, vlevo přidaný písek, vpravo zemina. Čárkované linky značí hranice zón v 10 a 15 cm; dělicí čára jimi prochází beze změny.",
     "body": [
       "Na tomto příkladu je dobře vidět, proč nelze příměs hodnotit odděleně od půdy. Tentýž biochar vstupuje do odlišných podmínek. U jílu musíme hlídat dostatek vzduchu a odvod přebytečné vody. U písku nás více zajímá, zda pomůže prodloužit dobu, po kterou zůstává voda dostupná. Materiál si přináší své vlastnosti, ale jeho užitek se projeví až ve směsi, do které ho vložíme.",
@@ -290,7 +290,7 @@ export const PRIMESI_RHYTHM_SECTIONS: RhythmSection[] = [
     "title": "Kdy dávku upravit a kdy příměs vynechat",
     "titleLevel": "h3",
     "drawing": "jedna-zmena-naraz",
-    "alt": "Kresba „Jedna změna naráz“: nahoře pohled shora na pás trávníku rozdělený čarou na plochy A a B, pod ním čárkovanými linkami promítnutý řez horní vrstvou obou ploch v hloubce 0–10 cm. Plocha A nese popisek „výchozí směs“, B „víc biocharu na úkor základu“; v hnědém minerálním základu leží v obou tytéž střípky biocharu, tečky Actina a zrna zeolitu na týchž místech, B má navíc šest střípků biocharu v čárkovaných kroužcích. Popisek „Ostatní příměsi beze změny“ ukazuje na zeolit u dna obou ploch. Legenda vysvětluje značky základu, biocharu, Actina, zeolitu a přidaného biocharu.",
+    "alt": "Při srovnání dvou ploch měníme jen jednu dávku: plocha B má v horních 10 cm víc biocharu na úkor minerálního základu, ostatní příměsi zůstávají jako v A. Nahoře pás písčité zahrady dělený na plochy A a B, pod ním řez oběma: tytéž příměsi na týchž místech, v B navíc pět vyznačených střípků biocharu.",
     "caption": "Plocha A vlevo nese výchozí směs, B vpravo tutéž s jediným rozdílem: střípky v čárkovaných kroužcích jsou biochar navíc, který zabral místo minerálního základu.",
     "body": [
       "Pro první přípravu zvolíme podíly v rozmezích odpovídající zahrady. Pokud chceme snížit náklady nebo porovnat dvě směsi na malé ploše, můžeme začít u dolní hranice a jednotlivé dávky upravovat v uvedeném rozmezí. Není nutné zkoušet všechny kombinace. Vždy měníme jednu dávku a prostor, který jí přidáme či ubereme, vyrovnáme opačnou změnou minerálního základu.",
@@ -307,7 +307,7 @@ export const PRIMESI_RHYTHM_SECTIONS: RhythmSection[] = [
     "title": "Mykorhizní přípravek má vlastní pravidla dávkování",
     "titleLevel": "h3",
     "drawing": "myko-podle-navodu",
-    "alt": "Nadpis „Když se pro přípravek rozhodneme“ stojí nad štítkem „Návod výrobku“ se třemi řádky: běžné založení trávníku s dávkou A, náročnější podmínky s dávkou B a přeškrtnutý typ půdy, který má místo dávky jen pomlčku. Vlevo tři kruhové vzorky půdy — jílovitá, hlinitá a písčitá — vedou tahy, které se slévají do jedné šipky k řádku běžného založení. U dávky A stojí přeškrtnutá šipka nahoru s textem „i pro písčitou“, tedy dávku nezvyšovat. Pod přerušovanou čarou pointa: podle návodu, ne podle typu půdy.",
+    "alt": "Když se pro mykorhizní přípravek rozhodneme, dávku určuje návod výrobku, ne typ půdy. Jílovitá, hlinitá i písčitá půda vedou k témuž řádku návodu, běžnému založení trávníku s dávkou A, kterou ani pro písčitou nezvyšujeme. Náročnější podmínky mají dávku B, přeškrtnutý řádek „typ půdy“ žádnou.",
     "caption": "Vlevo tři půdy, vpravo štítek návodu: všechny tahy vedou do téhož řádku. Přeškrtnutá šipka nahoru u dávky A značí, že písčitá půda dávku nezvyšuje; přeškrtnutý typ půdy dávku neurčuje.",
     "body": [
       "Ve fungující hlinité půdě samostatný přípravek není automatickou nákupní položkou. Nulová dávka znamená, že nic nepřikupujeme, nikoli že v půdě žádné mykorhizní houby nejsou. Po výrazné rekonstrukci nebo při vytváření převážně nové směsi lze inokulaci zvážit. Sucho samo neprokazuje nedostatek vhodných hub.",
