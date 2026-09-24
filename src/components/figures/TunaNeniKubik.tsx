@@ -14,7 +14,7 @@ const PRUHY: { nazev: string; m3: number; popisek: string; fill: string; opacity
   { nazev: 'Písek', m3: 0.67, popisek: '0,67 m³', fill: '#c2a052', opacity: 0.55 },
   { nazev: 'Zemina', m3: 0.71, popisek: '0,71 m³', fill: '#6b5138', opacity: 0.9 },
   { nazev: 'Zeolit', m3: 1.25, popisek: '1,25 m³', fill: '#d5d3cc' },
-  { nazev: 'Biovin', m3: 1.67, popisek: '1,67 m³', fill: '#54402c', opacity: 0.85 },
+  { nazev: 'Actino', m3: 1.67, popisek: '1,67 m³', fill: '#54402c', opacity: 0.85 },
   { nazev: 'Biochar', m3: 5, popisek: '5 m³', fill: '#12161b', opacity: 0.9 },
 ]
 

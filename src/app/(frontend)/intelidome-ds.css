@@ -2404,6 +2404,17 @@ html.plynule {
 .id-article > .id-split + .id-split.id-split--pokracovani {
   margin-top: var(--id-rhythm);
 }
+/* Pokračování na krémovém pásu: pás běží dál bez švu. Modulová mezera
+   tu není margin (ten by mezi dva krémy vložil bílý pruh 72 px), ale
+   spodní padding předchůdce; pokračování nahoře nepřidává nic
+   (článek o příměsích, 2026-09-24). Specificita (0,6,0). */
+.id-article > .id-split.id-band--cream + .id-split.id-band--cream.id-split--pokracovani {
+  margin-top: 0;
+  padding-top: 0;
+}
+.id-article > .id-split.id-band--cream:has(+ .id-split.id-band--cream.id-split--pokracovani) {
+  padding-bottom: var(--id-rhythm);
+}
 /* Předěl kapitoly je pásový vždy, ne jen po pásu — jinak má tentýž šev
    dvě míry podle toho, co kapitole předchází. */
 .id-article > * + .id-chapter {

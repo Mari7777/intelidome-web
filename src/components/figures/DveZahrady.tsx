@@ -4,7 +4,7 @@ import React from 'react'
  * Dvě zahrady, stejné složky, jiný úkol (DESIGN.md 9.2) — úvodní teze
  * článku o příměsích. Vlevo jílovitá zemina s přimíchaným pískem: kapka
  * má kudy projít dolů (jediná smyčka, CSS `dz-kapka`). Vpravo písčitá
- * zemina s biocharem, Biovinem a zeolitem: kapka zůstává držet u zrna
+ * zemina s biocharem, Actinem a zeolitem: kapka zůstává držet u zrna
  * (klidová, s čárkovaným prstencem „zůstává").
  *
  * Portrétová sazba 520 px, id s prefixem `dz-`. Klidový stav v markupu:
@@ -18,7 +18,7 @@ export const DveZahrady: React.FC = () => (
         <circle cx="6" cy="7" r="2.4" fill="#c2a052" />
         <circle cx="19" cy="19" r="2" fill="#c2a052" />
       </pattern>
-      {/* plná výbava písčité zahrady: biochar, Biovin, zeolit */}
+      {/* plná výbava písčité zahrady: biochar, Actino, zeolit */}
       <pattern id="dz-vybava" width="34" height="32" patternUnits="userSpaceOnUse">
         <path d="M5 7 l5 -3 3 4 -4 3 z" fill="#12161b" opacity="0.9" />
         <circle cx="24" cy="10" r="2.6" fill="#54402c" />
@@ -72,7 +72,7 @@ export const DveZahrady: React.FC = () => (
     <path d="M148 454 l5 -3 3 4 -4 3 z" fill="#12161b" opacity="0.9" />
     <text className="sv-val" x="168" y="463">biochar</text>
     <circle cx="286" cy="458" r="2.6" fill="#54402c" />
-    <text className="sv-val" x="300" y="463">Biovin</text>
+    <text className="sv-val" x="300" y="463">Actino</text>
     <path d="M398 454 l5 -2 4 3 -1 5 -5 2 -4 -3 z" fill="#d5d3cc" stroke="#232830" strokeWidth="1.6" />
     <text className="sv-val" x="420" y="463">zeolit</text>
 

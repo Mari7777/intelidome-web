@@ -1743,6 +1743,15 @@ export interface SplitBlock {
         | 'odecet-primesi'
         | 'pisek-podle-predvolby'
         | 'rezerva-deleni'
+        | 'co-recept-snese'
+        | 'koren-zacina-nahore'
+        | 'prednosti-a-slabiny'
+        | 'jil-jako-vana'
+        | 'kolik-pisku-do-jilu'
+        | 'hlina-prace-misto-materialu'
+        | 'pisek-pod-koreny'
+        | 'jedna-zmena-naraz'
+        | 'myko-podle-navodu'
       )
     | null;
   /**

@@ -61,9 +61,12 @@ const d = await p.evaluate((W) => {
     // Když jsou moduly souměrné, střídání nese sazba UVNITŘ nich.
     // Kresba v patce kalkulátoru je taky strana obrazu (stojí vlevo) —
     // bez ní by přejímka neviděla dvě hmoty vlevo za sebou kolem pásu.
-    stranyDvousloupcu: [...clanek.querySelectorAll(innerWidth >= 1130 ? '.id-split, .id-profile-calc__mode-canvas' : '.id-split')]
+    // Mimoosové hmoty mimo splity: kresba patky kalkulátoru a obraz otevřeného
+    // panelu karet složek (≥ 1130 px stojí vedle textu panelu).
+    stranyDvousloupcu: [...clanek.querySelectorAll(innerWidth >= 1130 ? '.id-split, .id-profile-calc__mode-canvas, .id-ingredients__panel-slot.is-active .id-ingredients__panel-fig' : '.id-split')]
+      .filter((s) => s.getBoundingClientRect().width > 0)
       .map((s) => {
-        if (s.classList.contains('id-profile-calc__mode-canvas')) {
+        if (!s.classList.contains('id-split')) {
           const b = s.getBoundingClientRect()
           return b.left + b.width / 2 < innerWidth / 2 ? 'L' : 'R'
         }

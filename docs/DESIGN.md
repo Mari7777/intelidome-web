@@ -1209,7 +1209,8 @@ Lexicalu se vedle sebe postavit nedají.
    lead souhrnu, centrované CTA, FAQ a popisek předělu.
    - **Obraz:** fotka tam, kde se pracuje (nálada, materiál, místo), kresba
      tam, kde rozhodují čísla. Fotka ve dvousloupci je **ořez v poměru rámu**
-     (4:5 nebo 1:1, zdroj ≥ 1304 px) bez krémového panelu, slot 652
+     (4:5 nebo 1:1; 2:3 jen pro dlouhý text, který se dělit nedá — v2.10,
+     kalkulátor K01; zdroj ≥ 1304 px) bez krémového panelu, slot 652
      (700 složeně, okraj k okraji na telefonu); 21:9 master do rámu nepatří
      (~3× širší stahování). Fotky článku tvoří **sérii** (jedna zahrada,
      jedno světlo).

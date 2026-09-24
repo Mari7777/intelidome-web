@@ -34,6 +34,15 @@ import { PodilZVlastniHloubky } from './PodilZVlastniHloubky'
 import { OdecetPrimesi } from './OdecetPrimesi'
 import { PisekPodlePredvolby } from './PisekPodlePredvolby'
 import { RezervaDeleni } from './RezervaDeleni'
+import { CoReceptSnese } from './CoReceptSnese'
+import { KorenZacinaNahore } from './KorenZacinaNahore'
+import { PrednostiASlabiny } from './PrednostiASlabiny'
+import { JilJakoVana } from './JilJakoVana'
+import { KolikPiskuDoJilu } from './KolikPiskuDoJilu'
+import { HlinaPraceMistoMaterialu } from './HlinaPraceMistoMaterialu'
+import { PisekPodKoreny } from './PisekPodKoreny'
+import { JednaZmenaNaraz } from './JednaZmenaNaraz'
+import { MykoPodleNavodu } from './MykoPodleNavodu'
 
 export type Drawing = {
   /** Širokoúhlá sazba (viewBox 1080) — desktop a tablet. */
@@ -96,6 +105,16 @@ export const DRAWINGS = {
   'odecet-primesi': { wide: OdecetPrimesi, portrait: OdecetPrimesi },
   'pisek-podle-predvolby': { wide: PisekPodlePredvolby, portrait: PisekPodlePredvolby },
   'rezerva-deleni': { wide: RezervaDeleni, portrait: RezervaDeleni },
+  /* Rytmus obraz/text článku o příměsích (2026-09-24): portrétová sazba 520. */
+  'co-recept-snese': { wide: CoReceptSnese, portrait: CoReceptSnese },
+  'koren-zacina-nahore': { wide: KorenZacinaNahore, portrait: KorenZacinaNahore },
+  'prednosti-a-slabiny': { wide: PrednostiASlabiny, portrait: PrednostiASlabiny },
+  'jil-jako-vana': { wide: JilJakoVana, portrait: JilJakoVana },
+  'kolik-pisku-do-jilu': { wide: KolikPiskuDoJilu, portrait: KolikPiskuDoJilu },
+  'hlina-prace-misto-materialu': { wide: HlinaPraceMistoMaterialu, portrait: HlinaPraceMistoMaterialu },
+  'pisek-pod-koreny': { wide: PisekPodKoreny, portrait: PisekPodKoreny },
+  'jedna-zmena-naraz': { wide: JednaZmenaNaraz, portrait: JednaZmenaNaraz },
+  'myko-podle-navodu': { wide: MykoPodleNavodu, portrait: MykoPodleNavodu },
 } satisfies Record<string, Drawing>
 
 export type DrawingKey = keyof typeof DRAWINGS

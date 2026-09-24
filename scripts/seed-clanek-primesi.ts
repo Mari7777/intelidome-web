@@ -256,6 +256,25 @@ const MEDIA: {
     alt: 'Urovnané, slehlé seťové lůžko mezi trávníkem a dřevěným plotem v nízkém večerním světle; na jeho okraji stojí papírový pytel osiva.',
     focal: { focalX: 36, focalY: 60 },
   },
+  /* Rytmus obraz/text článku o příměsích (2026-09-24): ořez 4:5 z nepoužitého
+     masteru kandidati-primesi/bleed-3 a tři čtverce ze série téže zahrady
+     (kandidati-primesi-3; číslice metru v sondě retušované do neostrosti). */
+  {
+    filename: 'fig-primesi-deska-45.avif',
+    alt: 'Dřevěná míchací deska na udusané zemi: vlevo hromádka tmavé prosáté zeminy, vpravo světlý písek, přes který už vede pruh zeminy. Za deskou rozostřený trávník v teplém večerním světle.',
+  },
+  {
+    filename: 'fig-primesi-sonda-ctverec.avif',
+    alt: 'Čtvercová sonda vykopaná v připravené holé ploše pro nový trávník: svislé stěny z drobivé hnědé zeminy, na dně tmavší pevnější podloží, v jámě stojí dřevěný skládací metr. V pozadí trávník a dřevěný prknový plot v nízkém večerním slunci.',
+  },
+  {
+    filename: 'fig-primesi-vzorky-ctverec.avif',
+    alt: 'Tři hromádky různých půd vedle sebe na dřevěné míchací desce: vlevo šedohnědé hutné hroudy jílu s hladkými lesklými plochami, uprostřed tmavá drobtovitá hlína, vpravo světlá sypká písčitá zemina. Za deskou rozostřený trávník v teplém večerním světle.',
+  },
+  {
+    filename: 'fig-primesi-hlina-ctverec.avif',
+    alt: 'Zblízka čerstvě obrácená hlinitá zemina v záhonu u trávníku: tmavě hnědé drobty a malé hrudky, vlhké, ale ne mokré, s jemnými světlými kořínky trávy, v teplém bočním večerním světle.',
+  },
   {
     filename: 'slozka-biovin.avif',
     alt: 'Detail hroznového kompostu Actino: drobné tmavě hnědé pelety z matoliny na starém dřevěném prkně v teplém bočním světle.',
@@ -1070,7 +1089,7 @@ const run = async () => {
   const splitContent = splitPrimesiContent(body)
   /* Obrazy nového rytmu vznikají až při rozdělení, tedy po převodu názvů
      souborů výš. Chybějící fotka je chyba, ne tichý výpadek oddílu. */
-  for (const node of [...splitContent.preparation.root.children, ...splitContent.profile.root.children] as Node[]) {
+  for (const node of [...splitContent.original.root.children, ...splitContent.preparation.root.children, ...splitContent.profile.root.children] as Node[]) {
     const fields = (node as { fields?: Record<string, unknown> }).fields
     const soubor = (fields?.__photo ?? (fields?.blockType === 'figure' ? fields?.__filename : undefined)) as string | undefined
     if (!fields || !soubor) continue
