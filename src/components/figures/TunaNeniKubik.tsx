@@ -42,8 +42,9 @@ export const TunaNeniKubik: React.FC = () => (
           strokeDasharray="3 7"
           strokeLinecap="round"
         />
+        {/* Čísla osy jsou hodnoty (.sv-val) jako na všech osách série. */}
         <text
-          className="sv-lbl"
+          className="sv-val"
           x={X0 + m * KROK}
           y={Y0 + (PRUHY.length - 1) * RADEK + VYSKA + 40}
           textAnchor="middle"

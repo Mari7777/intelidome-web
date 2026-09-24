@@ -3818,3 +3818,45 @@ stojí dva obrazy vlevo za sebou; Obr. 08 kreslí zóny ostře, FAQ říká „n
 ostrá patra" (opačný požadavek kola 01); drobné rozdíly v řádkování
 víceřádkových popisků kreseb; Actino × živiny v nabity-biochar jsou si
 značkou blízko (rozhodnutí série).
+
+## Kolo 03 (2026-09-24)
+
+| Oblast | Skóre |
+|---|---|
+| Hierarchie | **4/5** |
+| Typografie | 3/5 |
+| Pohyb | **5/5** |
+| Grafický styl | **4/5** |
+| Slop | **4/5** |
+| Výkon a přístupnost | 3/5 |
+| Rozložení | **5/5** |
+
+**0 kritických**, skeptikem prošly 2 nálezy (1 důležitý, 1 snížený).
+Nejlepší kolo článku; opravy kola 02 držely.
+
+### Opravy
+
+- **Řádky začínaly pomlčkou** (typografie; lead souhrnu, tělo splitu):
+  `nezlomitelneMezery` připíná pomlčku ve větě k předchozímu slovu (pravidlo
+  POMLCKA, celý web); dlouhá pomlčka sjednocena na „–" v řetězcích článku
+  (seeder, obsahový modul, popisky Obr. 03 a 04) a v titulku kalkulátoru.
+  Změřeno: 0 řádků začínajících pomlčkou na 320/393/1130/1440 ve všech
+  třech článcích.
+- **Karty složek: po Enteru fokus mimo obrazovku, Tab proti vizuálnímu
+  pořadí** (přístupnost; skeptik snížil, lenz zůstal na 3): v akordeonu
+  jsou panely v DOM před kartami (vizuálně stojí nad mřížkou už dřív) a po
+  aktivaci klávesnicí jde fokus na nadpis panelu. Vzhled beze změny.
+  Změřeno na 393 s dotykem, 480 a 768: Enter → nadpis panelu (top 155 px),
+  Tab → odkaz v panelu → karty shora dolů; desktop beze změny.
+- Kosmetické, opraveno: rovné uvozovky v FAQ („nabitý“, „jedna ku
+  jedné“); čísla osy Obr. 05 jako hodnoty (.sv-val); legenda Obr. 01 bez
+  hnědého čipu, který ve scéně není; alt Obr. 03 „shluk zrn“ místo „trs“;
+  popisky Obr. 02 a 07 už neopakují tělo.
+
+### Neopraveno
+
+Pointa Obr. 10 a Obr. 18 dole (rozhodovací schémata, rozhodnout pro sérii);
+nadpis kresby 24/600 vedle h3 28/500 (koš B); přidaný písek plochý v Obr.
+05/06 proti zrnům v Obr. 16; bílá karta štítku v Obr. 18; tři kresby
+kapitoly 01 na stejné šabloně; HTML 742 kB kvůli zrnitým texturám kreseb
+(DveZahrady, JilJakoVana); `sizes` karet Souvisejících článků (celý web).

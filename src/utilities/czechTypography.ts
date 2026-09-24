@@ -30,6 +30,9 @@ const ROVNITKO = /[ \t]+=[ \t]+/g
    zvlášť, protože u číslic („3×3") je naopak doplnit musí. */
 const OPERATORY = /[ \t]+([:×÷])[ \t]+/g
 const OBRAZEK = /\bObr\.[ \t]+(?=\d)/g
+/* Pomlčka ve větě („práci – a stejná") patří k předchozímu slovu: řádek jí
+   nesmí začínat (porota kola 03 článku o příměsích — lead i tělo splitu). */
+const POMLCKA = /[ \t]+([–—])(?=[ \t])/g
 const KRAT = /(\d)[ \t]*×[ \t]*(?=\d)/g
 
 export const nezlomitelneMezery = (text: string): string =>
@@ -43,6 +46,7 @@ export const nezlomitelneMezery = (text: string): string =>
     .replace(ROVNITKO, '\u00a0=\u00a0')
     .replace(OPERATORY, '\u00a0$1\u00a0')
     .replace(OBRAZEK, 'Obr.\u00a0')
+    .replace(POMLCKA, '\u00a0$1')
 
 /**
  * České číslovky: 1 pytel, 2 pytle, 5 pytlů. Čeština má tři tvary, ne dva

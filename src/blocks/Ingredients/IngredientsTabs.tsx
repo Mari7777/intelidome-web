@@ -30,6 +30,8 @@ export const IngredientsTabs: React.FC<{
   const [netknuto, setNetknuto] = useState(true)
   const [taby, setTaby] = useState(true)
   const [dorolovat, setDorolovat] = useState<number | null>(null)
+  /** Aktivace z klávesnice: fokus musí jít za dorolovaným panelem. */
+  const [klavesnice, setKlavesnice] = useState(false)
 
   useEffect(() => {
     const mq = matchMedia('(hover: hover) and (min-width: 561px)')
@@ -40,7 +42,7 @@ export const IngredientsTabs: React.FC<{
     return () => mq.removeEventListener('change', zmer)
   }, [])
 
-  const vyber = (i: number) => {
+  const vyber = (i: number, zKlavesnice = false) => {
     setNetknuto(false)
     if (taby) {
       setVybrano(i)
@@ -53,7 +55,10 @@ export const IngredientsTabs: React.FC<{
     // panel se otevírá nad mřížkou — doroluj (nahoru) k jeho
     // titulku, jinak se text objeví mimo zobrazovací plochu a tap
     // působí jako do prázdna (při zavření se neroluje)
-    if (cil !== null) setDorolovat(cil)
+    if (cil !== null) {
+      setKlavesnice(zKlavesnice)
+      setDorolovat(cil)
+    }
   }
 
   useEffect(() => {
@@ -64,11 +69,62 @@ export const IngredientsTabs: React.FC<{
         behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth',
         block: 'start',
       })
+      /* Z klávesnice jde fokus na nadpis panelu: prstenec zůstal na kartě
+         pod ohybem a Tab pak skákal proti vizuálnímu pořadí (porota
+         kola 03 článku o příměsích). Myš a dotyk fokus nepřesouvají. */
+      const nadpis = klavesnice ? el.querySelector<HTMLElement>('h2, h3') : null
+      if (nadpis) {
+        nadpis.tabIndex = -1
+        nadpis.focus({ preventScroll: true })
+      }
     }
     setDorolovat(null)
-  }, [dorolovat, uid])
+  }, [dorolovat, klavesnice, uid])
 
   const otevreno = (i: number) => vybrano === i && (taby || !netknuto)
+
+  const tabsNode = tabs.map((node, i) => (
+    <div
+      aria-controls={enhanced ? `${uid}-p${i}` : undefined}
+      aria-expanded={enhanced ? otevreno(i) : undefined}
+      className={cn('rv id-ingredients__tab', enhanced && otevreno(i) && 'is-active')}
+      id={`${uid}-t${i}`}
+      key={labels[i] ?? i}
+      onClick={enhanced ? () => vyber(i) : undefined}
+      onKeyDown={(e) => {
+        if (enhanced && (e.key === 'Enter' || e.key === ' ')) {
+          e.preventDefault()
+          vyber(i, true)
+        }
+      }}
+      onMouseEnter={() => {
+        if (enhanced && taby) {
+          setNetknuto(false)
+          setVybrano(i)
+        }
+      }}
+      role={enhanced ? 'button' : undefined}
+      tabIndex={enhanced ? 0 : undefined}
+    >
+      {node}
+    </div>
+  ))
+
+  const panelsNode = panels.map((node, i) => {
+    const aktivni = !enhanced || otevreno(i)
+    return (
+      <div
+        aria-labelledby={`${uid}-t${i}`}
+        className={cn('id-ingredients__panel-slot', enhanced && aktivni && 'is-active')}
+        id={`${uid}-p${i}`}
+        key={labels[i] ?? i}
+        role="region"
+        {...(aktivni ? {} : { inert: true, 'aria-hidden': true })}
+      >
+        {node}
+      </div>
+    )
+  })
 
   return (
     // Vlastní reveal skupina: čtyři karty byly `.rv`, ale jejich přímý
@@ -84,47 +140,12 @@ export const IngredientsTabs: React.FC<{
       data-enhanced={enhanced ? '' : undefined}
       data-rv-group=""
     >
-      {tabs.map((node, i) => (
-        <div
-          aria-controls={enhanced ? `${uid}-p${i}` : undefined}
-          aria-expanded={enhanced ? otevreno(i) : undefined}
-          className={cn('rv id-ingredients__tab', enhanced && otevreno(i) && 'is-active')}
-          id={`${uid}-t${i}`}
-          key={labels[i] ?? i}
-          onClick={enhanced ? () => vyber(i) : undefined}
-          onKeyDown={(e) => {
-            if (enhanced && (e.key === 'Enter' || e.key === ' ')) {
-              e.preventDefault()
-              vyber(i)
-            }
-          }}
-          onMouseEnter={() => {
-            if (enhanced && taby) {
-              setNetknuto(false)
-              setVybrano(i)
-            }
-          }}
-          role={enhanced ? 'button' : undefined}
-          tabIndex={enhanced ? 0 : undefined}
-        >
-          {node}
-        </div>
-      ))}
-      {panels.map((node, i) => {
-        const aktivni = !enhanced || otevreno(i)
-        return (
-          <div
-            aria-labelledby={`${uid}-t${i}`}
-            className={cn('id-ingredients__panel-slot', enhanced && aktivni && 'is-active')}
-            id={`${uid}-p${i}`}
-            key={labels[i] ?? i}
-            role="region"
-            {...(aktivni ? {} : { inert: true, 'aria-hidden': true })}
-          >
-            {node}
-          </div>
-        )
-      })}
+      {/* Čtecí pořadí = vizuální: v akordeonu stojí otevřený panel NAD
+          kartami (CSS order: -1), proto je i v DOM první; na desktopu
+          (karty v řadě, panel pod nimi) zůstává pořadí karty → panely. */}
+      {!taby && panelsNode}
+      {tabsNode}
+      {taby && panelsNode}
     </div>
   )
 }

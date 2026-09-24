@@ -38,7 +38,7 @@ export const PRIMESI_RHYTHM_SECTIONS: RhythmSection[] = [
     "photo": "fig-primesi-deska-45.avif",
     "photoRatio": "4:5",
     "alt": "Dřevěná míchací deska na udusané zemi: vlevo hromádka tmavé prosáté zeminy, vpravo světlý písek, přes který už vede pruh zeminy. Za deskou rozostřený trávník v teplém večerním světle.",
-    "caption": "Písek a původní zemina na míchací desce. Co z nich vznikne, rozhodne, kolik písku přijde a do jaké půdy.",
+    "caption": "Vlevo tmavá prosátá zemina, vpravo světlý písek, přes který už vede pruh zeminy: dvě hmoty, které se na desce teprve promíchají.",
     "body": [
       "Zajímavé je, že materiály mohou být v obou případech stejné: písek, původní zemina, biochar, Actino (dříve Biovin) a zeolit. Mění se jejich úloha i množství.",
       "Jílovité půdě potřebujeme otevřít cestu pro vzduch a přebytečnou vodu. Chudému písku naopak pomoci, aby část vody a živin u kořenů zůstala déle. A dobře fungující hlíně někdy prospějeme nejvíc tím, že do ní zbytečně nepřidáme další materiál.",
@@ -54,14 +54,14 @@ export const PRIMESI_RHYTHM_SECTIONS: RhythmSection[] = [
     "surface": "bila",
     "continues": true,
     "drawing": "prany-pisek",
-    "alt": "Rozhodují mezery mezi zrny: v nepraném písku je vyplní prach a jíl, voda hůř projde a vzduchu je méně; v praném zůstanou volné, voda projde a vzduch se vrátí ke kořenům. Vlevo proto kapka zůstává nad zrny, vpravo vede cesta vody mezerami až pod trs.",
+    "alt": "Rozhodují mezery mezi zrny: v nepraném písku je vyplní prach a jíl, voda hůř projde a vzduchu je méně; v praném zůstanou volné, voda projde a vzduch se vrátí ke kořenům. Vlevo proto kapka zůstává nad zrny, vpravo vede cesta vody mezerami až pod shluk zrn.",
     "caption": "Vlevo nepraný, vpravo praný písek se stejně uloženými zrny; liší se jen tím, co vězí v mezerách. Čárkovaná linka se šipkou dolů značí cestu, kudy voda odtéká.",
     "body": [
       "V následujících příkladech používáme **praný křemičitý písek s převahou zrn přibližně 0,25–1 mm**. Každá část tohoto označení má svůj důvod: praní omezuje nežádoucí jemné příměsi, křemen poskytuje odolná zrna a vhodná zrnitost pomáhá vytvářet prostředí pro pohyb vody a vzduchu.",
       "**Proč praný?** Písek může obsahovat také prachové a jílovité částice. Ty jsou mnohem menší než samotná písková zrna a mohou vyplňovat mezery mezi nimi.",
       "Vysoký podíl jemných příměsí může omezit propustnost výsledné směsi a po odtoku vody v ní ponechat méně prostoru pro vzduch. Praním se jejich obsah snižuje. Do půdy tak nepřivážíme spolu s pískem zbytečně další jíl a prach, když právě jejich nadbytek potřebujeme řešit.",
       "**Proč křemičitý? **Křemen je tvrdý a vůči běžnému půdnímu prostředí chemicky odolný minerál. Jeho zrna se snadno nerozpadají a mohou dlouhodobě tvořit stabilní minerální kostru směsi.",
-      "> **Poznámka k nákupu: **U betonářského písku se často výslovně nepíše, že je praný, přestože praný bývá — při jeho přípravě se běžně odstraňují jílovité a další nežádoucí jemné příměsi kvůli použití v betonu. Pokud tedy u betonářského písku není výslovně uvedeno, že je nepraný, většinou bývá praný; pro jistotu je dobré ověřit si tuto skutečnost u dodavatele.",
+      "> **Poznámka k nákupu: **U betonářského písku se často výslovně nepíše, že je praný, přestože praný bývá – při jeho přípravě se běžně odstraňují jílovité a další nežádoucí jemné příměsi kvůli použití v betonu. Pokud tedy u betonářského písku není výslovně uvedeno, že je nepraný, většinou bývá praný; pro jistotu je dobré ověřit si tuto skutečnost u dodavatele.",
       "Původní zemina mezitím dodává to, co samotnému písku chybí. Obsahuje jemnější částice, organickou hmotu a povrchy, na kterých se mohou zadržovat voda i některé živiny."
     ]
   },
@@ -77,7 +77,7 @@ export const PRIMESI_RHYTHM_SECTIONS: RhythmSection[] = [
     "body": [
       "**Nejjednodušší je koupit biochar určený k použití v půdě, již obohacený živinami a připravený k zapravení.** V popisu nebo u dodavatele si ověříme právě tyto dvě věci: že je určený pro půdu a že už proběhlo jeho obohacení. Toto obohacení se často označuje jako „nabití“. Samotné navlhčení vodou ho nenahrazuje.",
       "Důvod je jednoduchý: **nenabitý biochar může zpočátku živiny z okolní půdy spíš odebírat, než ji o ně obohacovat.** Představme si ho jako prázdnou zásobárnu, která se teprve plní. Zachytí část živin z půdy, a tráva jich tak může mít dočasně méně k dispozici.",
-      "Také mikroorganismy, které rozkládají snadno rozložitelné zbytky uhlíku v biocharu, mohou pro svou činnost dočasně spotřebovat část dostupného dusíku. Proto biochar před zapravením do půdy „nabijeme“ — tedy **předem obohatíme živinami, například přípravou s vlhkým kompostem**.",
+      "Také mikroorganismy, které rozkládají snadno rozložitelné zbytky uhlíku v biocharu, mohou pro svou činnost dočasně spotřebovat část dostupného dusíku. Proto biochar před zapravením do půdy „nabijeme“ – tedy **předem obohatíme živinami, například přípravou s vlhkým kompostem**.",
       "Voda pomáhá živinám proniknout do jeho drobných pórů a část se zachytí na jeho povrchu. Kompost zároveň pomáhá biochar osídlit mikroorganismy. Samotná čistá voda ale nestačí: biochar navlhčí, nikoli vyživí.",
       "Ještě jedna otázka při nákupu ušetří chybu v množství: **kolik samotného biocharu dodávka obsahuje?** Naše recepty počítají s objemem biocharu, nikoli celé směsi s kompostem.",
       "Kompost dodaný spolu s ním nebo použitý při domácím nabíjení proto započítáme zvlášť, stejně jako přinesené živiny při plánování hnojení. Přesný postup najdete v navazujícím článku [Kalkulátor půdy pod trávník: kolik písku, zeminy a příměsí potřebujete](/posts/kalkulator-na-planovani-pudniho-profilu)."
@@ -127,9 +127,9 @@ export const PRIMESI_RHYTHM_SECTIONS: RhythmSection[] = [
     "photo": "fig-primesi-sonda-ctverec.avif",
     "photoRatio": "1:1",
     "alt": "Čtvercová sonda vykopaná v připravené holé ploše pro nový trávník: svislé stěny z drobivé hnědé zeminy, na dně tmavší pevnější podloží, v jámě stojí dřevěný skládací metr. V pozadí trávník a dřevěný prknový plot v nízkém večerním slunci.",
-    "caption": "Stěna sondy ukazuje připravenou vrstvu od povrchu dolů; na dně začíná tmavší, pevnější podloží. Model článku počítá s 30 cm.",
+    "caption": "Stěna sondy ukazuje připravenou vrstvu od povrchu dolů; na dně začíná tmavší, pevnější podloží.",
     "body": [
-      "Materiály i rozdíl mezi jejich hmotností a objemem už známe. Teď jim potřebujeme vyhradit místo — nejen vedle sebe ve směsi, ale také v různých hloubkách.",
+      "Materiály i rozdíl mezi jejich hmotností a objemem už známe. Teď jim potřebujeme vyhradit místo – nejen vedle sebe ve směsi, ale také v různých hloubkách.",
       "Pro naše příklady zvolíme **30 cm hluboký profil určený pro nově zakládaný nebo kompletně rekonstruovaný trávník**. Profil zde znamená připravovanou vrstvu půdy od povrchu do této hloubky. Třicet centimetrů je model, nikoli předpis platný pro každou zahradu ani pokyn všude automaticky odvézt třicet centimetrů půdy.",
       "Proč záleží na souvislém prostoru pro kořeny, jak půda hospodaří s vodou a vzduchem a proč samotná výška navážky nestačí, podrobně vysvětluje článek [Krásný trávník začíná pod zemí](/posts/krasny-travnik-zacina-pod-zemi-2). Zde na něj navazujeme volbou složek a jejich rozmístěním v připravované vrstvě."
     ]
@@ -212,7 +212,7 @@ export const PRIMESI_RHYTHM_SECTIONS: RhythmSection[] = [
       "Současně nesmíme zapomenout, že po přidání velkého množství písku už nepracujeme s původním jílem. Proto ani nízkou dávku zeolitu neodvozujeme slepě z názvu výchozí půdy: musí odpovídat chování nové směsi.",
       "Kořen postupující do hloubky opouští nejpestřejší část směsi, ale pod ní dál pokračuje stejný minerální základ. Pod deseti centimetry je méně organických příměsí; kořen však nemá zůstat odkázaný pouze na obohacenou horní zónu. I níže potřebuje prostředí, kterým může prorůstat za vodou.",
       "Poměr 65/35 popisuje pouze minerální základ. Příměsi si z celkového objemu vezmou vlastní podíl, takže přidaný písek netvoří 65 % celé horní směsi.",
-      "U těžkého jílu má smysl udělat zkoušku ještě před velkou objednávkou. Několik lopat písku totiž vlastnosti celé vrstvy zpravidla nezmění. Některé odborné podklady ukazují, jak významný musí být jeho podíl — u těžkých jílů je to až 75 % a více. Poměr 65/35 proto bereme jako výchozí návrh.",
+      "U těžkého jílu má smysl udělat zkoušku ještě před velkou objednávkou. Několik lopat písku totiž vlastnosti celé vrstvy zpravidla nezmění. Některé odborné podklady ukazují, jak významný musí být jeho podíl – u těžkých jílů je to až 75 % a více. Poměr 65/35 proto bereme jako výchozí návrh.",
       "Samostatný mykorhizní přípravek lze po této výrazné přestavbě zvážit. Jde o volitelnou položku, která má přijít do kontaktu s budoucími kořeny. Houby nenahradí vyřešení zamokření a utužení. Jejich dávku odvodíme od konkrétního výrobku, nikoli od typu půdy.",
       "A pod celou novou směsí musí dál existovat funkční cesta pro vodu."
     ]
@@ -246,7 +246,7 @@ export const PRIMESI_RHYTHM_SECTIONS: RhythmSection[] = [
     "body": [
       "U hlíny se proto nejdříve zastavíme u otázky, zda popsanou přestavbu vůbec potřebujeme. Jestliže se voda vsakuje, zemina se ve vlhkém stavu snadno drobí a během běžné péče příliš rychle nevysychá, ponecháme ji.",
       "Urovnání, odstranění kamenů a uvolnění míst utužených technikou mohou být užitečnější než nová dodávka materiálu. Hlinitá půda je pro trávník dobrý výchozí stav a nemá smysl ji bez důvodu měnit.",
-      "Samostatný mykorhizní přípravek v této základní variantě nenakupujeme. U zachované biologicky aktivní půdy nemáme důvod jeho přínos předpokládat automaticky. Jestliže ale rekonstrukce vytvoří převážně novou směs a rozhodneme se pro inokulaci — záměrné přidání živých hub — použijeme dávku vybraného výrobku.",
+      "Samostatný mykorhizní přípravek v této základní variantě nenakupujeme. U zachované biologicky aktivní půdy nemáme důvod jeho přínos předpokládat automaticky. Jestliže ale rekonstrukce vytvoří převážně novou směs a rozhodneme se pro inokulaci – záměrné přidání živých hub – použijeme dávku vybraného výrobku.",
       "U dobře fungující hlinité zahrady tak může být podíl nového písku, zeolitu i biocharu **nula**. Minerálním základem zůstane původní půda. Jiná situace nastává, pokud máme sice hlinitou zeminu, ale dlouhodobě zanedbanou, bez doplňování organické hmoty.",
       "Pro tento případ lze jako variantu připravit **2,5–5 % Actina v horních 10 cm**. Potřebný prostor získá ubráním části minerálního základu; množství spočítáme později. Ani tehdy z Actina neděláme lék na každý slabý trávník: pokud pod rýčem najdeme ztvrdlou vrstvu po bagru, prvním krokem je její rozrušení."
     ]

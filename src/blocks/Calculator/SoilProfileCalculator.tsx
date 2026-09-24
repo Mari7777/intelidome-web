@@ -901,7 +901,7 @@ export function SoilProfileCalculator({ className, surface }: { className?: stri
         <header className="id-profile-calc__heading">
           <div>
             <p className="id-profile-calc__eyebrow">Půdní profil</p>
-            <h2 id={uid + '-title'}>Základní směs — kolik navézt</h2>
+            <h2 id={uid + '-title'}>Základní směs&nbsp;– kolik navézt</h2>
           </div>
           <span className="id-profile-calc__tag">Kalkulátor</span>
         </header>

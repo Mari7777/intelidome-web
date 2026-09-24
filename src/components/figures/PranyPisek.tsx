@@ -95,7 +95,7 @@ export const PranyPisek: React.FC = () => (
     <Zrna x={LEVY} y={TRS_Y} />
     <Prach x={LEVY} y={TRS_Y} />
     <text className="sv-lbl" x={LEVY} y="472">prach a jíl</text>
-    <text className="sv-lbl" x={LEVY} y="496">vyplní mezery —</text>
+    <text className="sv-lbl" x={LEVY} y="496">vyplní mezery –</text>
     <text className="sv-lbl" x={LEVY} y="520">voda hůř projde,</text>
     <text className="sv-lbl" x={LEVY} y="544">vzduchu je méně</text>
 
@@ -108,7 +108,7 @@ export const PranyPisek: React.FC = () => (
       <Kapka x={98.8} y={87.9} />
       <path d="M95.5 277.7 l8 10 8 -10" fill="none" stroke="#2563eb" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" opacity="0.75" />
     </g>
-    <text className="sv-lbl" x={PRAVY} y="472">mezery volné —</text>
+    <text className="sv-lbl" x={PRAVY} y="472">mezery volné –</text>
     <text className="sv-lbl" x={PRAVY} y="496">voda projde</text>
     <text className="sv-lbl" x={PRAVY} y="520">a vzduch se vrátí</text>
     <text className="sv-lbl" x={PRAVY} y="544">ke kořenům</text>

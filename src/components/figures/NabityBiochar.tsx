@@ -225,7 +225,7 @@ export const NabityBiochar: React.FC = () => (
     />
     <text className="sv-val" x="274" y={Y_LEG_RADEK}>kořen</text>
 
-    <text className="sv-lbl" x="30" y={Y_POZN}>Samotná voda nenabije —</text>
+    <text className="sv-lbl" x="30" y={Y_POZN}>Samotná voda nenabije –</text>
     <text className="sv-lbl" x="30" y={Y_POZN + 24}>biochar jen navlhčí</text>
   </svg>
 )

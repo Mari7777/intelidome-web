@@ -52,14 +52,12 @@ import React from 'react'
  * Řádek 1 hmoty: „nová směs" (čip .55 se dvěma tečkami zeminy na týchž
  * místech a pod týmž jménem jako v `jil-jako-vana` a `kolik-pisku-do-jilu`)
  * · „písčitá zemina" (čip .45 jako v `pisek-pod-koreny`). Řádek 2:
- * biochar na krému · Actino na políčku zeminy #6b5138 op .9 (lem barvy
- * panelu by na krému zmizel), jádro ve středu čipu jako v
- * `jedna-zmena-naraz` (tam ale na okrovém čipu písčité zeminy). Řádek 3:
- * zeolit na témž políčku (zrno na x + 10 / y + 4 od rohu čipu jako
- * v `jedna-zmena-naraz`, tam také na okrovém čipu) · voda. Obě světlé
- * značky tak leží na témž podkladu (zeolit podle pravidla série pro
- * světlé značky, Actino kvůli lemu); hnědá plocha je v legendě podklad
- * značek, ve scéně hmotou není.
+ * biochar na krému · Actino na čipu písčité zeminy .45 (lem barvy panelu
+ * by na krému zmizel), jádro ve středu čipu jako v `jedna-zmena-naraz`.
+ * Řádek 3: zeolit na témž čipu (zrno na x + 10 / y + 4 od rohu čipu jako
+ * v `jedna-zmena-naraz`) · voda. Obě značky tak leží v legendě na
+ * podkladu, na kterém je čtenář vidí v poli (kolo 03: hnědý čip, který
+ * ve scéně není, pryč).
  *
  * Portrétová sazba 520 × 548, id nemá (prefix `dz-` nese jen třída
  * kapky). Nadpis 24 px na x 40 jako v sérii. Jednotky nikde. Záhlaví
@@ -278,16 +276,18 @@ export const DveZahrady: React.FC = () => (
     <text className="sv-val" x={K1 + 36} y={L1}>nová směs</text>
     <Cip x={K2} y={L1 - 12} vypln={PISCITA} />
     <text className="sv-val" x={K2 + 36} y={L1}>písčitá zemina</text>
-    {/* 2. řádek: biochar na krému · Actino na políčku zeminy (lem barvy
-        panelu by na krému zmizel), jádro ve středu čipu */}
+    {/* 2. řádek: biochar na krému · Actino na čipu písčité zeminy, na které
+        v poli leží (lem barvy panelu by na krému zmizel), jádro ve středu
+        čipu jako v `jedna-zmena-naraz` */}
     <Znacka d="b1" x={K1 + 10} y={L2 - 5.5} />
     <text className="sv-val" x={K1 + 36} y={L2}>biochar</text>
-    <Cip x={K2} y={L2 - 12} vypln={ZEMINA}>
+    <Cip x={K2} y={L2 - 12} vypln={PISCITA}>
       <Znacka d="a1" x={K2 + 14} y={L2 - 5} />
     </Cip>
     <text className="sv-val" x={K2 + 36} y={L2}>Actino</text>
-    {/* 3. řádek: zeolit na témž políčku zeminy (světlá značka série) · voda */}
-    <Cip x={K1} y={L3 - 12} vypln={ZEMINA}>
+    {/* 3. řádek: zeolit na čipu písčité zeminy (světlá značka série leží
+        v legendě na podkladu ze scény; hnědá plocha v poli není) · voda */}
+    <Cip x={K1} y={L3 - 12} vypln={PISCITA}>
       <Znacka d="z" x={K1 + 10} y={L3 - 8} />
     </Cip>
     <text className="sv-val" x={K1 + 36} y={L3}>zeolit</text>
