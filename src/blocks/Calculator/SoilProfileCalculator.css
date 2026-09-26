@@ -637,8 +637,8 @@
    proti klidovému stavu naopak snížil. Míří jen na NEVYBRANÉ dlaždice, aby
    pravidlo nepřebíjelo stav `:checked`, který má vyšší nárok. */
 .id-profile-calc__drawing .id-profile-calc__segments label:hover input:not(:checked) + span { border-color: var(--id-accent, #2563eb); }
-/* Kresba stojí na levé ose figury (8.2a) a text jí dělá druhý sloupec, aby
-   pás nezůstal ze dvou třetin prázdný (porota 08, rozložení + hierarchie). */
+/* Na užší obrazovce jde řez před vysvětlením. Na široké se celý oddíl
+   skládá do dvou os: vlevo ovládání a výklad, vpravo řez s legendou. */
 .id-profile-calc__mode {
   display: grid;
   grid-template-columns: minmax(0,1fr) minmax(0,1fr);
@@ -649,8 +649,8 @@
 .id-profile-calc__mode-canvas { min-width: 0; max-width: 480px; container-type: inline-size; }
 .id-profile-calc__mode-text { min-width: 0; }
 .id-profile-calc__mode-canvas > svg { display: block; width: 100%; height: auto; overflow: visible; }
-/* Pod řezem: komentář, co se stane (věta k obrázku), a pod ním číselný závěr.
-   Obojí je běžný text, takže vlevo na ose figury a v míře prózy (4.3 p. 4). */
+/* Komentář říká, co se stane, pod ním stojí číselný závěr. Na široké
+   obrazovce jsou spolu s přepínačem vlevo vedle řezu. */
 .id-profile-calc .id-profile-calc__mode-story {
   padding-right: max(0px, calc(100% - var(--id-measure, 33em)));
   margin-top: 0;
@@ -701,6 +701,39 @@
   font-size: 13.5px;
   line-height: 1.45;
   max-width: 30em;
+}
+/* Široký řez je přímou odpovědí na ovládání vlevo. Dřívější hlavička
+   i přepínač zabíraly jen levý horní roh, takže popis vpravo zůstal od
+   zbytku výkladu odtržený. SVG i jeho vnitřní legenda zůstávají beze změny. */
+@media (min-width: 1024px) {
+  .id-profile-calc .id-profile-calc__drawing:not(.id-profile-calc__drawing--empty) {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    grid-template-areas:
+      'title picture'
+      'lead picture'
+      'switch picture'
+      'story picture'
+      'caption caption';
+    column-gap: var(--id-gap-col, 56px);
+    align-items: start;
+  }
+  .id-profile-calc__drawing:not(.id-profile-calc__drawing--empty) > h3 { grid-area: title; }
+  .id-profile-calc__drawing:not(.id-profile-calc__drawing--empty) > .id-profile-calc__drawing-lead { grid-area: lead; }
+  .id-profile-calc__drawing:not(.id-profile-calc__drawing--empty) > .id-profile-calc__choices { grid-area: switch; }
+  .id-profile-calc__drawing:not(.id-profile-calc__drawing--empty) > .id-profile-calc__mode { display: contents; }
+  .id-profile-calc__drawing:not(.id-profile-calc__drawing--empty) .id-profile-calc__mode-canvas {
+    grid-area: picture;
+    width: 100%;
+  }
+  .id-profile-calc__drawing:not(.id-profile-calc__drawing--empty) .id-profile-calc__mode-text {
+    grid-area: story;
+    margin-top: 28px;
+  }
+  .id-profile-calc__drawing:not(.id-profile-calc__drawing--empty) > figcaption {
+    grid-area: caption;
+    margin-top: 24px;
+  }
 }
 .id-profile-calc .id-profile-calc__noscript { padding: 20px; margin-bottom: 20px; background: var(--id-cream); }
 .id-profile-calc__sr { position: absolute; width: 1px; height: 1px; padding: 0; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }

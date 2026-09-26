@@ -6,14 +6,14 @@ import React from 'react'
  * podílu přidaného písku v MINERÁLNÍM ZÁKLADU (příměsi si berou podíl
  * zvlášť — i31) a vpravo od ní tři vzorky směsi, každý ve výšce své
  * polohy (střed vzorku = poloha na škále, vodítko 3 7 k ní): těsně nad
- * nulou pár lopat, na 65 výchozí návrh, u úseku 75–100 těžké jíly.
+ * nulou pár lopat, na 65 modelový návrh, nahoře ilustrace vyššího podílu.
  * Poloha nese hodnotu, šířka vzorku nic neznamená — kresba se tak nečte
  * jako 100% sloupec z `zaklad-tri-zahrad` (E7).
  *
  * Pointa je jedna: 65 % (24 px) přímo u svého vzorku. U 65 % se převrátí
  * matrice — nosnou hmotou je písek a vzorek má značku „nové směsi" z E2
- * (i29). Čísla jen z textu autora: 65 % (i28p2, i32), 75 % a víc u těžkých
- * jílů podle podkladů (i32). „Pár lopat" číslo nemá: kroužek stojí kousek
+ * (i29). Model 65 % není univerzální dávkou; vyšší vzorek je pouze
+ * schematická ilustrace, nikoli doporučení pro těžké jíly. „Pár lopat" číslo nemá: kroužek stojí kousek
  * nad ryskou 0 (3 %) bez hodnoty. Hustota teček je schéma, ne měření.
  *
  * Značky hmot ze série (9.2 p. 10), žádná nová:
@@ -56,7 +56,7 @@ import React from 'react'
  * legenda a závěr pod ní na x 30 (vzor `zaklad-tri-zahrad`), čísla osy
  * zarovnaná doprava na x 50. Jednotky jen v `.sv-val` (a v pointě
  * 24 px), nikdy v `.sv-lbl`. Popisky vzorků začínají na x 196, na téže
- * ose stojí druhý čip legendy; nejširší „těžké jíly podle podkladů"
+ * ose stojí druhý čip legendy; nejširší „vyšší podíl: jen ilustrace"
  * končí v sazbě 18/21 na x ≈ 490 (panel 520). Položky legendy mají
  * v sazbě 18/21 mezeru text → další značka ≈ 28, „písek" končí na
  * x ≈ 484. Mezi rámci textů i text × tvar zůstává ve všech sazbách
@@ -164,8 +164,8 @@ export const KolikPiskuDoJilu: React.FC = () => (
       <line x1={X_OSA} y1={Y_PAR - R_ZNACKA - 4} x2={X_OSA} y2={Y_65 + R_ZNACKA + 4} />
       <line x1={X_OSA} y1={Y_65 - R_ZNACKA - 4} x2={X_OSA} y2={Y_75} />
     </g>
-    {/* rozmezí podkladů 75–100 % — plná úsečka mezi ryskami */}
-    <line x1={X_OSA} y1={Y_75} x2={X_OSA} y2={Y_100} stroke="#232830" strokeWidth="2.4" strokeLinecap="round" />
+    {/* Horní díl osy: pokračování stupnice, nikoli doporučený interval. */}
+    <line x1={X_OSA} y1={Y_75} x2={X_OSA} y2={Y_100} {...konstrukce} />
     <g stroke="#232830" strokeWidth="1.6" strokeLinecap="round">
       {[0, 50, 75, 100].map((p) => (
         <line key={p} x1={X_OSA - 6} y1={yPct(p)} x2={X_OSA + 6} y2={yPct(p)} />
@@ -194,8 +194,8 @@ export const KolikPiskuDoJilu: React.FC = () => (
       <path d={cesta(SMES_80, Y_TEZKE)} {...ZEMINA} />
     </Vzorek>
     {/* štítek: jev nahoře (výška vodítka), hodnota pod ním */}
-    <text className="sv-lbl" x={X_TEXT} y={Y_TEZKE + 5}>těžké jíly podle podkladů</text>
-    <text className="sv-val" x={X_TEXT} y={Y_TEZKE + 32}>75 % a víc</text>
+    <text className="sv-lbl" x={X_TEXT} y={Y_TEZKE + 5}>vyšší podíl: jen ilustrace</text>
+    <text className="sv-val" x={X_TEXT} y={Y_TEZKE + 32}>ověřit na vzorku</text>
 
     {/* 65 %: matrice se převrátila — nosná je okrová, zemina jen v tečkách */}
     <Vzorek y={Y_65}>
@@ -205,7 +205,7 @@ export const KolikPiskuDoJilu: React.FC = () => (
     {/* Pointa kresby (9.2 p. 3) je jedna: výchozí návrh 65 %. Jen ona
         začíná číslem; střed číslic 24 px leží ve výšce vodítka. */}
     <text className="sv-val" x={X_TEXT} y={Y_65 + 8} style={{ fontSize: 24 }}>65 %</text>
-    <text className="sv-lbl" x={X_TEXT} y={Y_65 + 33}>výchozí návrh pro jíl</text>
+    <text className="sv-lbl" x={X_TEXT} y={Y_65 + 33}>modelový návrh pro jíl</text>
 
     {/* pár lopat: pořád hnědá jílovitá zemina, zrna osamocená */}
     <Vzorek y={Y_PAR}>

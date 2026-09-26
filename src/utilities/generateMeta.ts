@@ -1,63 +1,55 @@
 import type { Metadata } from 'next'
-
 import type { Media, Page, Post, Config } from '../payload-types'
-
 import { mergeOpenGraph } from './mergeOpenGraph'
-import { getServerSideURL } from './getURL'
+import { absoluteSiteURL } from './getURL'
 
-const getImageURL = (image?: Media | Config['db']['defaultIDType'] | null) => {
-  const serverUrl = getServerSideURL()
-
-  let url = serverUrl + '/og-default.webp'
-
-  if (image && typeof image === 'object' && 'url' in image) {
-    const ogUrl = image.sizes?.og?.url
-
-    url = ogUrl ? serverUrl + ogUrl : serverUrl + image.url
+export const getSocialImage = (image?: Media | Config['db']['defaultIDType'] | null) => {
+  if (image && typeof image === 'object') {
+    const variant = image.sizes?.og
+    const url = variant?.url || image.url
+    if (url) return {
+      url: absoluteSiteURL(url),
+      width: (variant?.url ? variant.width : image.width) || undefined,
+      height: (variant?.url ? variant.height : image.height) || undefined,
+      alt: image.alt || undefined,
+    }
   }
-
-  return url
+  return { url: absoluteSiteURL('/og-default.webp'), alt: 'InteliDome' }
 }
 
-export const generateMeta = async (args: {
+export const generateMeta = async ({ doc, collection }: {
   doc: Partial<Page> | Partial<Post> | null
+  collection: 'pages' | 'posts'
 }): Promise<Metadata> => {
-  const { doc } = args
-
-  const ogImage = getImageURL(doc?.meta?.image)
-
-  const slug = Array.isArray(doc?.slug) ? doc?.slug.join('/') : doc?.slug
-  const isPost = Boolean(doc && 'publishedAt' in doc)
-  const path = slug ? `${isPost ? '/posts/' : '/'}${slug}`.replace('//', '/') : '/'
-
-  // The layout's title template appends "| InteliDome"; strip it from stored
-  // values (older docs were saved with the suffix baked in) so it appears once.
-  const docTitle =
-    doc?.meta?.title?.replace(/\s*\|\s*InteliDome\s*$/, '').trim() || doc?.title?.trim()
-
+  const isPost = collection === 'posts'
+  const post = isPost ? doc as Partial<Post> | null : null
+  const ogImage = getSocialImage(doc?.meta?.image || post?.heroImage)
+  const slug = Array.isArray(doc?.slug) ? doc.slug.join('/') : doc?.slug
+  const path = slug && slug !== 'home' ? `${isPost ? '/posts/' : '/'}${slug}` : '/'
+  const docTitle = doc?.meta?.title?.replace(/\s*\|\s*InteliDome\s*$/, '').trim() || doc?.title?.trim()
   const siteTitle = 'InteliDome — chytrá závlaha a automatizace zahrady'
   const description = doc?.meta?.description?.trim()
 
   return {
     description,
+    title: docTitle ?? { absolute: siteTitle },
+    alternates: {
+      canonical: path,
+      types: { 'application/rss+xml': '/feed.xml' },
+    },
     openGraph: mergeOpenGraph({
-      // omit when empty so the site-wide default description applies
       ...(description ? { description } : {}),
-      images: ogImage
-        ? [
-            {
-              url: ogImage,
-            },
-          ]
-        : undefined,
+      images: [ogImage],
       title: docTitle || siteTitle,
-      // Příspěvek má slug jako řetězec, ne pole — dřívější větev proto vždy
-      // spadla na '/' a sdílený článek hlásil crawlerům domovskou stránku.
       type: isPost ? 'article' : 'website',
       url: path,
+      ...(post ? { publishedTime: post.publishedAt || undefined, modifiedTime: post.updatedAt || undefined } : {}),
     }),
-    alternates: { canonical: path },
-    // `absolute` skips the template — the fallback already carries the brand
-    title: docTitle ?? { absolute: siteTitle },
+    twitter: {
+      card: 'summary_large_image',
+      title: docTitle || siteTitle,
+      description,
+      images: [{ url: ogImage.url, alt: ogImage.alt }],
+    },
   }
 }

@@ -1,0 +1,55 @@
+# SEO a dohledatelnost série o půdě pod trávníkem
+
+Aktualizováno 25. 9. 2026. Úpravy jsou uložené v místním projektu a místním Payload CMS. Veřejné nasazení ani přijetí článků do indexu nebylo provedeno.
+
+## Co každá stránka řeší
+
+| Stálá adresa | Hlavní potřeba čtenáře | SEO titulek |
+|---|---|---|
+| /posts/krasny-travnik-zacina-pod-zemi-2 | typ půdy, utužení, propustnost před založením trávníku | Půda pro trávník: jak poznat její typ a propustnost |
+| /posts/pisek-biochar-a-dalsi-primesi | výběr písku, biocharu, zeolitu a modelových poměrů | Směs pro trávník: písek, biochar, zeolit a jejich poměry |
+| /posts/kalkulator-na-planovani-pudniho-profilu | množství písku, zeminy a příměsí, objem, dovoz a odvoz | Kalkulátor půdy pod trávník: písek, zemina a příměsi |
+| /posts/jak-pripravit-a-ulozit-smes | příprava směsi, promíchání, slehnutí, výsev | Příprava směsi pro trávník: míchání, slehnutí a výsev |
+
+Rozdělení vychází z obsahu a potřeby čtenáře, nikoli z naměřených objemů vyhledávání. Stávající adresy a názvy článků jsou zachované. Každá stránka má vlastní description, krátký přímý souhrn, zdroje s vymezením modelových předpokladů, kontextové propojení a rozbalovací obsah se skutečnými odkazy na kapitoly. Žádný autor, kvalifikace ani odborná recenze nebyli vymyšleni; viditelně je uveden vydavatel InteliDome a datum aktualizace.
+
+## Technické změny
+
+- Canonical, Open Graph, RSS, JSON-LD a dynamické sitemap používají shodnou politiku originu; localhost patří pouze vývojovému prostředí nebo explicitní konfiguraci.
+- Absolutní URL obrázků z externího úložiště se již neslepují s doménou. Sdílení má obrázek, rozměry a alternativní text.
+- BlogPosting popisuje skutečný článek, data publikace a změny, vydavatele, jazyk cs, obrázek, dobu čtení a existující kapitoly. BreadcrumbList odpovídá zobrazené navigaci. FAQ zůstává v dostupném HTML i v odpovídajícím schema.
+- Pro běžné stránky a články se typ a cesta stanovují explicitně; přítomnost publishedAt již nezaměňuje stránky za články.
+- /search má noindex, follow a není v sitemap. Náhledy konceptů mají noindex, nofollow; Vercel preview prostředí má noindex. Veřejné články umožňují velké náhledy obrázků Googlu.
+- Každá pojmenovaná skupina robotů má vlastní shodné zákazy administrace. OAI-SearchBot a Claude-SearchBot jsou povoleny; obrázky a frontendové prostředky zůstávají dostupné. Dosavadní volba povolit trénovací roboty není změněna.
+- llms.txt obsahuje popsané odkazy na sérii. Je doplňkovým rozcestníkem; není podmínkou ani příslibem viditelnosti v AI vyhledávání.
+- Metadata a obsah jsou zapojeny i do zdrojového generování článků. Samostatné uložení SEO obsahu: scripts/optimize-lawn-series.ts, nejprve bez --write pro náhled; --write zapisuje do lokální databáze po záloze v jedné transakci.
+
+## Ověření
+
+Kontrola TypeScriptu, tři cílené regresní testy metadat/originu/schema a kontrola diffu prošly. Zdrojové generování a plán změn nad aktuálním CMS mají stejný text; transformace jsou idempotentní a tabulky i bloky kalkulátorů zůstaly zachované. Vykreslené HTML všech čtyř stránek ověřilo metadata, jedno H1, odkazy na kapitoly, schémata, dostupnost sdílecích obrázků a celkem 52 odkazů mezi články včetně 12 souvisejících karet. Sitemap, RSS, robots a noindex hledání prošly kontrolou. Mobilní obsah a odkazy na zdroje ověřeny v prohlížeči při šířce 390 px bez vodorovného přesahu.
+
+Výchozí projektový ESLint se nespustil kvůli existující nekompatibilitě konfigurace (FlatCompat / circular structure); nešlo o nález ve změněných souborech. Celý produkční build nebyl spouštěn souběžně s vývojovým serverem.
+
+Záloha před uložením: /var/folders/4g/b37qgsm1721g9y_1gdpjkn_40000gn/T/intelidome-lawn-seo-lD4JEf/before.json. Jde o dočasný lokální soubor, nikoli trvalou produkční zálohu.
+
+## Co zbývá pro veřejnou návštěvnost
+
+Při kontrole https://www.intelidome.com se nepodařilo ověřit HTTPS: server vrací certifikát, jehož jméno neodpovídá www.intelidome.com (curl 60). Certifikát nebyl obcházen. Dokumentace projektu zatím uvádí veřejné nasazení F1 jako nedokončené.
+
+1. Dokončit nasazení aplikace, databáze a médií na cílové prostředí, připojení domény a platné HTTPS. Produkční NEXT_PUBLIC_SERVER_URL má být https://www.intelidome.com; standardní build musí dokončit i next-sitemap postbuild.
+2. Na veřejné doméně ověřit HTTP 200, obsah bez přihlášení, obrázky, canonical, robots a sitemap bez localhost/example.com. Stejný obsah musí být dostupný i crawlerům; případné ochrany hostingu nesmějí vyhledávací roboty blokovat.
+3. Po zpřístupnění ověřit vlastnictví v Google Search Console a Bing Webmaster Tools, odeslat /sitemap.xml a prohlédnout čtyři URL nástrojem pro kontrolu adres. Toto není provedeno: nejsou připojené účty ani veřejně ověřený web.
+4. Měřit zobrazení, prokliky, hledané dotazy a návštěvy z AI služeb; podle skutečných dat měnit titulky a doplňovat obsah. Pozice ani citace v odpovědích AI nelze zaručit.
+
+## Před budoucími překlady
+
+CMS již podporuje cs/en/de, frontend nyní poskytuje češtinu. Hreflang se doplní až pro skutečně dostupné přeložené URL, vzájemně a se samostatným canonical každé jazykové verze. Jazyk HTML, Open Graph, schema a sitemap pak musí odpovídat překladu. Nevytvářet jazykové odkazy na neexistující obsah nebo na český fallback. České URL nyní není potřeba měnit.
+
+## Oficiální metodická opora
+
+- Google: https://developers.google.com/search/docs/fundamentals/ai-optimization-guide
+- Google Article schema: https://developers.google.com/search/docs/appearance/structured-data/article
+- Google sitemap: https://developers.google.com/search/docs/crawling-indexing/sitemaps/build-sitemap
+- OpenAI, OAI-SearchBot versus GPTBot: https://developers.openai.com/api/docs/bots
+
+Odborné zahradnické podklady jsou připojeny u článků, včetně původního pokusu Brockhoff et al. (2010). Modelové poměry a obchodní hustoty nejsou vydávány za univerzitní normy.

@@ -58,6 +58,8 @@ export default async function Page() {
 
 export function generateMetadata(): Metadata {
   return {
-    title: 'Blog',
+    title: 'Články o půdě, trávníku a chytré závlaze',
+    description: 'Praktické návody pro přípravu půdy, založení trávníku a chytrou závlahu. Výběr příměsí, kalkulátor množství a postup práce na zahradě.',
+    alternates: { canonical: '/posts' },
   }
 }

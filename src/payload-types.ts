@@ -1775,9 +1775,27 @@ export interface SplitBlock {
    */
   continues?: boolean | null;
   /**
-   * Odstavce oddělte prázdným řádkem. **Tučně** takto. Řádek začínající „### “ je mezititulek (h3), řádek začínající „> “ je tip v modrém rámečku.
+   * Odstavce oddělte prázdným řádkem. **Tučně** takto. Řádek začínající „### “ je mezititulek (h3), řádek začínající „> “ je tip v modrém rámečku. Pro seznamy a odkazy použijte místo toho formátované tělo níže.
    */
-  body: string;
+  body?: string | null;
+  /**
+   * Volitelné. Umožňuje v bloku zachovat seznamy, odkazy a původní formátování článku.
+   */
+  richBody?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
   number?: string | null;
   caption: string;
   alt?: string | null;

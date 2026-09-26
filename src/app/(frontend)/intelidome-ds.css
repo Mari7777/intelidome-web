@@ -2227,6 +2227,59 @@
 .id-split__p strong {
   font-weight: 600;
 }
+/* Fotografický doprovod ponechává původní seznamy a odkazy v sazbě článku.
+   Text zůstává čitelný na půlce stránky, obraz zaplňuje druhou půlku. */
+.id-split__richtext {
+  margin: 0;
+  max-width: none;
+  font-size: var(--id-t-body);
+  line-height: 1.65;
+  color: var(--id-ink);
+}
+.id-split__richtext > :first-child {
+  margin-top: 0;
+}
+.id-split__richtext > :last-child {
+  margin-bottom: 0;
+}
+.id-split__richtext > :is(p, ul, ol) {
+  margin-block: 0 18px;
+  padding-right: 0;
+  letter-spacing: -0.01em;
+}
+.id-split__richtext > :is(ul, ol) {
+  padding-left: 1.35em;
+}
+.id-split__richtext > ul {
+  list-style: disc;
+}
+.id-split__richtext > ol {
+  list-style: decimal;
+}
+.id-split__richtext > :is(ul, ol) > li::marker {
+  color: var(--id-ink-3);
+}
+.id-split__richtext a {
+  color: var(--id-accent);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.id-split__richtext > h3 {
+  margin-block: 32px 14px;
+  font-family: var(--id-f-display);
+  font-size: var(--id-t-subtitle);
+  font-weight: 500;
+  line-height: 1.25;
+}
+.id-split__richtext > :is(ul, ol) > li + li {
+  margin-top: 10px;
+}
+.id-split--rich:not(:has(.id-split__head)) {
+  grid-template-rows: auto;
+}
+.id-split--rich:not(:has(.id-split__head)) > :is(.id-split__body, .id-split__figure) {
+  grid-row: 1;
+}
 /* Mezititulek uvnitř těla splitu (8.2a: próza → h3 44 px, h3 → próza 14 px). */
 .id-split__body .id-split__body-h3 {
   margin-block: 44px 14px;
@@ -2258,6 +2311,17 @@
     grid-row: 3;
     width: 100%;
     margin-inline: auto;
+  }
+  .id-split--rich:not(:has(.id-split__head)) {
+    grid-template-rows: auto auto;
+  }
+  .id-split--rich:not(:has(.id-split__head)) > .id-split__figure,
+  .id-split--rich:not(:has(.id-split__head)).id-split--right > .id-split__figure {
+    grid-row: 1;
+  }
+  .id-split--rich:not(:has(.id-split__head)) > .id-split__body,
+  .id-split--rich:not(:has(.id-split__head)).id-split--right > .id-split__body {
+    grid-row: 2;
   }
   /* Složeně odděluje titulek od obrazu jen row-gap (24/34 px); s maržemi
      hlavy stál titulek dál od svého obrazu než od předchozího oddílu. */
@@ -2533,6 +2597,30 @@
   max-width: none;
   margin-inline: 0;
   padding-right: max(0px, calc(100% - 30em));
+}
+/* Tři kroky u fungující hlíny tvoří vyšší kresbu než dva odstavce vedle ní.
+   Text proto sedí uprostřed kresby a popisek navazuje na její levou osu. */
+@media (min-width: 1130px) {
+  .id-article > .id-split--hlina-prace {
+    grid-template-rows: auto;
+  }
+  .id-split--hlina-prace > .id-split__figure,
+  .id-split--hlina-prace > .id-split__body {
+    grid-row: 1;
+  }
+  .id-split--hlina-prace > .id-split__body {
+    align-self: center;
+  }
+  .id-split--hlina-prace > .id-split__figure > figcaption {
+    padding-left: calc(34px + 7.7%);
+    padding-right: 0;
+  }
+}
+.id-split--hlina-prace > .id-figure-media {
+  padding-bottom: 12px;
+}
+.id-split--hlina-prace > .id-split__figure > figcaption {
+  margin-top: 8px;
 }
 @media (min-width: 561px) and (max-width: 1129px) {
   /* Složený dvousloupec (tablet, úzký desktop): panel nevyplňuje celý

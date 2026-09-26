@@ -1,3 +1,4 @@
+import { LAWN_SEO } from './lib/lawn-seo-content'
 /**
  * Vloží tři navazující články o příměsích, plánování a přípravě půdní směsi
  * do LOKÁLNÍ databáze. Původní autorský podklad níže se před zápisem
@@ -1125,7 +1126,7 @@ const run = async () => {
       heroImage: hero.docs[0]?.id,
       content: splitContent.original,
       publishedAt: '2026-09-19T08:00:00.000Z',
-      meta: { image: hero.docs[0]?.id, title: 'Písek, biochar a příměsi: jak namíchat půdu pro trávník', description: ORIGINAL_META_DESCRIPTION },
+      meta: { image: hero.docs[0]?.id, ...LAWN_SEO[SLUG] },
     })
     const existingProfile = await payload.find({ collection: 'posts', where: { slug: { equals: PROFILE_SLUG } }, limit: 1, depth: 0, locale: 'cs', req })
     const profile = await savePost({
@@ -1138,7 +1139,7 @@ const run = async () => {
       publishedAt: existingProfile.docs[0]?.publishedAt ?? new Date().toISOString(),
       authors: original.authors?.map((author) => typeof author === 'object' ? author.id : author),
       categories: original.categories?.map((category) => typeof category === 'object' ? category.id : category),
-      meta: { title: PROFILE_META_TITLE, image: splitContent.profileHero, description: PROFILE_META_DESCRIPTION },
+      meta: { ...LAWN_SEO[PROFILE_SLUG], image: splitContent.profileHero },
     })
     const existingPreparation = await payload.find({ collection: 'posts', where: { slug: { equals: PREPARATION_SLUG } }, limit: 1, depth: 0, locale: 'cs', req })
     const preparation = await savePost({
@@ -1151,10 +1152,11 @@ const run = async () => {
       publishedAt: existingPreparation.docs[0]?.publishedAt ?? new Date().toISOString(),
       authors: original.authors?.map((author) => typeof author === 'object' ? author.id : author),
       categories: original.categories?.map((category) => typeof category === 'object' ? category.id : category),
-      meta: { title: PREPARATION_TITLE, image: preparationHero.docs[0].id, description: PREPARATION_META_DESCRIPTION },
+      meta: { ...LAWN_SEO[PREPARATION_SLUG], image: preparationHero.docs[0].id },
     })
     // Link after creation: the collection's self-exclusion filter requires a post ID.
-    const articles = [original, profile, preparation]
+    const soilGuide = await payload.find({ collection: 'posts', where: { slug: { equals: 'krasny-travnik-zacina-pod-zemi-2' } }, limit: 1, depth: 0, locale: 'cs', req })
+    const articles = [...soilGuide.docs, original, profile, preparation]
     for (const article of articles) {
       const existingRelated = (article.relatedPosts ?? []).map((post) => typeof post === 'object' ? post.id : post)
       const otherArticles = articles.filter((other) => other.id !== article.id).map((other) => other.id)

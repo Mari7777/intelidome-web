@@ -2,14 +2,12 @@ import { getServerSideSitemap } from 'next-sitemap'
 import { getPayload } from 'payload'
 import config from '@payload-config'
 import { unstable_cache } from 'next/cache'
+import { getServerSideURL } from '@/utilities/getURL'
 
 const getPagesSitemap = unstable_cache(
   async () => {
     const payload = await getPayload({ config })
-    const SITE_URL =
-      process.env.NEXT_PUBLIC_SERVER_URL ||
-      process.env.VERCEL_PROJECT_PRODUCTION_URL ||
-      'https://example.com'
+    const siteUrl = getServerSideURL()
 
     const results = await payload.find({
       collection: 'pages',
@@ -29,26 +27,19 @@ const getPagesSitemap = unstable_cache(
       },
     })
 
-    const dateFallback = new Date().toISOString()
-
     const defaultSitemap = [
       {
-        loc: `${SITE_URL}/search`,
-        lastmod: dateFallback,
-      },
-      {
-        loc: `${SITE_URL}/posts`,
-        lastmod: dateFallback,
+        loc: `${siteUrl}/posts`,
       },
     ]
 
     const sitemap = results.docs
       ? results.docs
-          .filter((page) => Boolean(page?.slug))
+          .filter((page) => Boolean(page?.slug) && page.slug !== 'search')
           .map((page) => {
             return {
-              loc: page?.slug === 'home' ? `${SITE_URL}/` : `${SITE_URL}/${page?.slug}`,
-              lastmod: page.updatedAt || dateFallback,
+              loc: page?.slug === 'home' ? `${siteUrl}/` : `${siteUrl}/${page?.slug}`,
+              ...(page.updatedAt ? { lastmod: page.updatedAt } : {}),
             }
           })
       : []

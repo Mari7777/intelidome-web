@@ -122,9 +122,14 @@ export const Split: Block = {
     {
       name: 'body',
       type: 'textarea',
-      required: true,
       label: 'Text',
-      admin: { description: 'Odstavce oddělte prázdným řádkem. **Tučně** takto. Řádek začínající „### “ je mezititulek (h3), řádek začínající „> “ je tip v modrém rámečku.' },
+      admin: { description: 'Odstavce oddělte prázdným řádkem. **Tučně** takto. Řádek začínající „### “ je mezititulek (h3), řádek začínající „> “ je tip v modrém rámečku. Pro seznamy a odkazy použijte místo toho formátované tělo níže.' },
+    },
+    {
+      name: 'richBody',
+      type: 'richText',
+      label: 'Formátované tělo',
+      admin: { description: 'Volitelné. Umožňuje v bloku zachovat seznamy, odkazy a původní formátování článku.' },
     },
     { name: 'number', type: 'text', label: 'Číslo obrázku', admin: { placeholder: '01' } },
     { name: 'caption', type: 'text', required: true, label: 'Popisek' },

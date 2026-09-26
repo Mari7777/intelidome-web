@@ -65,7 +65,7 @@ const richTextToPlainText = (data: unknown): string =>
   collectText(data, 0).replace(/\s+/g, ' ').trim()
 
 // Closing section of an article: native <details>/<summary> accordion (works without JS)
-// plus FAQPage structured data — the main GEO lever of the article template.
+// plus FAQPage data matching the visible answers; no promise of search rich results.
 export const FaqBlock: React.FC<FaqBlockProps> = ({ className, heading, id, items, lead }) => {
   const entries = (Array.isArray(items) ? items : []).filter(
     (item) => item && typeof item.question === 'string' && item.question.trim() !== '',

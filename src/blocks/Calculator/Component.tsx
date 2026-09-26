@@ -120,7 +120,7 @@ const fmtHmota = (kg: number): string =>
 /**
  * Zkouška vsakování (článek „Krásný trávník začíná pod zemí", kap. 3):
  * pokles hladiny za dobu měření → centimetry za hodinu. Pásma jsou
- * autorova: pod 2,5 pomalu, 2,5–7,5 ideální, nad 10 příliš rychle.
+ * orientační: pod 2,5 pomalu, 2,5–7,5 vyhovující, nad 10 rychle.
  * Mezi 7,5 a 10 článek pásmo nepojmenovává – kalkulátor to říká poctivě.
  */
 const Vsak = ({ className, skupina, uid }: PanelProps) => {
@@ -142,8 +142,8 @@ const Vsak = ({ className, skupina, uid }: PanelProps) => {
   const zprava = {
     nic: 'Doplňte, o kolik hladina klesla a za jak dlouho.',
     pomalu: `Voda odtéká pomalu: ${fmt(rychlost)} cm/h je pod 2,5. Najděte příčinu – prohlubeň, přítok z okolí, nebo utužená vrstva z profilu; tu za vhodné vlhkosti rozrušte a test zopakujte.`,
-    idealni: `${fmt(rychlost)} cm/h je v pásmu 2,5 až 7,5 – ideální stav pro většinu rostlin.`,
-    nad: `${fmt(rychlost)} cm/h je nad ideálním pásmem 2,5 až 7,5, ale ještě ne nad 10. Sledujte, jestli půda udrží vláhu mezi zálivkami.`,
+    idealni: `${fmt(rychlost)} cm/h je v pásmu 2,5 až 7,5 – orientačně vyhovující výsledek této zkoušky, nikoli záruka vhodnosti půdy pro všechny rostliny.`,
+    nad: `${fmt(rychlost)} cm/h je nad orientačním pásmem 2,5 až 7,5, ale ještě ne nad 10. Sledujte, jestli půda udrží vláhu mezi zálivkami.`,
     rychle: `Voda uniká velmi rychle: ${fmt(rychlost)} cm/h je nad 10. U písčité půdy vás čeká boj o každou kapku – dodejte jí schopnost vodu uchovat. Rychle prázdná jáma není výhra.`,
   }[pasmo]
 

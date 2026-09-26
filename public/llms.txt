@@ -1,18 +1,19 @@
 # InteliDome
 
 > InteliDome je česká značka pro chytrou závlahu a automatizaci zahrady.
-> Web www.intelidome.com nabízí návody a praktické rady: návrh závlahového
-> systému, kapková závlaha, zazimování, automatizace a úspora vody.
+> Články propojují poznání půdy, výběr směsi, výpočet materiálu a skutečnou práci při zakládání trávníku.
 
-InteliDome is a Czech brand for smart garden irrigation and automation.
-The site publishes practical guides in Czech: irrigation system design,
-drip irrigation, winterizing, automation and water saving.
+Obsah je v češtině. Poměry a hloubky v příkladech jsou modelové; konkrétní návrh závisí na půdě a zvolených materiálech. Aktuální znění, podmínky použití a zdroje najdete na odkazovaných stránkách.
 
-## Obsah
+## Půda a založení trávníku
 
-- Blog: https://www.intelidome.com/posts
-- RSS: https://www.intelidome.com/feed.xml
+- [Krásný trávník začíná pod zemí](https://www.intelidome.com/posts/krasny-travnik-zacina-pod-zemi-2): Jak poznat jíl, hlínu a písek, zkontrolovat půdní profil a vsakování a rozhodnout, zda je nutná úprava půdy.
+- [Písek, biochar a další příměsi: jak namíchat půdu pro trávník](https://www.intelidome.com/posts/pisek-biochar-a-dalsi-primesi): Úloha písku, biocharu, Actina, zeolitu a mykorhizy; modelové rozsahy objemových podílů a hloubky zapravení pro tři typy zahrad.
+- [Kalkulátor půdy pod trávník: kolik písku, zeminy a příměsí potřebujete](https://www.intelidome.com/posts/kalkulator-na-planovani-pudniho-profilu): Výpočet dovozu, ponechané zeminy a odvozu podle plochy, hloubky a receptury. Rozlišuje udržení výšky, zapravení a novou vrstvu; vysvětluje litry, kilogramy, tuny a rezervu.
+- [Jak připravit a uložit směs](https://www.intelidome.com/posts/jak-pripravit-a-ulozit-smes): Praktické promíchání minerálního základu, následné mělčí zapravení příměsí, kontrola slehnutí, výsev a první péče o trávník.
 
-## Kontakt
+## Další obsah
 
-- Web: https://www.intelidome.com
+- [Všechny články](https://www.intelidome.com/posts)
+- [RSS](https://www.intelidome.com/feed.xml)
+- [InteliDome](https://www.intelidome.com)

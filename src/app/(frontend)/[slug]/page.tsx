@@ -88,7 +88,11 @@ export async function generateMetadata({ params: paramsPromise }: Args): Promise
     slug: decodedSlug,
   })
 
-  return generateMeta({ doc: page })
+  const { isEnabled: draft } = await draftMode()
+  return {
+    ...await generateMeta({ doc: page, collection: 'pages' }),
+    ...(draft ? { robots: { index: false, follow: false } } : {}),
+  }
 }
 
 const queryPageBySlug = cache(async ({ slug }: { slug: string }) => {

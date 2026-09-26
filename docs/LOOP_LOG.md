@@ -3909,3 +3909,35 @@ Víceřádkové štítky kreseb mají čtyři řádkování a legendy dvě levé
 setrvačníkem nepřesune fokus na cíl; přístupné jméno panelu karet
 254 znaků (míří na celou kartu); alt fotek Obr. 02 a 09 opakuje výčet
 z popisku; plocha s kořenem v Obr. 04 přesahuje pravý okraj série.
+
+## Průvodce půdou — fotografie místo rozšířené prózy (2026-09-25)
+
+URL: `/posts/krasny-travnik-zacina-pod-zemi-2`. Kontrola sedmi čočkami
+provedená nad živou stránkou ve dvou kolech; nejde o paralelní porotu.
+
+| Čočka | Kolo 1 | Kolo 2 |
+|---|---:|---:|
+| Hierarchie | 3/5 | 4/5 |
+| Typografie | 4/5 | 4/5 |
+| Pohyb | 4/5 | 4/5 |
+| Grafický styl | 4/5 | 4/5 |
+| Slop | 4/5 | 4/5 |
+| Výkon a přístupnost | 4/5 | 4/5 |
+| Rozložení | 3/5 | 4/5 |
+
+V prvním kole zůstával mezititulek hmatové zkoušky samostatně uprostřed
+stránky a kratší texty doprovázely zbytečně vysoké výřezy. V druhém kole
+je mezititulek v textové polovině modulu a tři kratší úseky používají
+čtvercový ořez. Sedm účelových fotografií z Higgsfieldu střídá stávající
+kresby; původní odstavce, seznamy a odkazy zůstaly beze změny.
+Kontrola stylů odhalila, že v bloku `not-prose` mizely odrážky a barva
+odkazů; obojí má nyní výslovná pravidla pro vnořenou prózu.
+
+Živě ověřeno na 1440, 1024, 390 a 320 px: všech sedm fotografií se načte
+s alt textem, vodorovné přetékání je 0 px a všech pět odkazů v přesunutém
+textu funguje. Fotografie se načítají odloženě ve velikosti slotu. Jediné
+samostatné krátké odstavce v ose prózy jsou dvě zdrojové poznámky.
+**0 kritických nálezů.** Typová kontrola a kontrola diffu prošly;
+cílené tři testy SEO také prošly.
+ESLint se zastaví na konfiguraci projektu (`Converting circular structure
+to JSON`) před analýzou souborů.

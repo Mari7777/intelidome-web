@@ -6,7 +6,8 @@
  * Ostrý web se plní vlastním nasazením, ne tímhle skriptem – publikaci
  * dělá majitel v adminu.
  *
- * Text je autorův, převzatý doslova (jen bez citačních značek z editoru).
+ * Výchozí autorský text níže prochází před zápisem schválenou redakční
+ * revizí: diagnostika zůstává zde, receptury a postupy odkazují na pokračování.
  * Dvě tabulky z původního textu nesou kresby Obr. 01 a Obr. 05 – tabulka
  * v próze by byla jejich doslovným opakováním.
  */
@@ -15,6 +16,9 @@ import { fileURLToPath } from 'url'
 import { existsSync } from 'fs'
 import { getPayload } from 'payload'
 import config from '@payload-config'
+import { LAWN_SEO, optimizeLawnArticle } from './lib/lawn-seo-content'
+import { reviseSoilGuide } from './lib/lawn-series-puda'
+import { illustrateSoilGuide, SOIL_PHOTOS, type SoilPhotoIds } from './lib/lawn-series-puda-layout'
 
 const dirname = path.dirname(fileURLToPath(import.meta.url))
 
@@ -144,6 +148,8 @@ const MEDIA: {
   focal?: { focalX: number; focalY: number; focalPortraitX?: number; focalPortraitY?: number }
   /** Volitelný portrétový ořez — nahraje se zvlášť a připojí k hlavní fotce. */
   portret?: string
+  /** Reprodukovatelný zdroj uložený v repozitáři (nové redakční fotografie). */
+  source?: string
 }[] = [
   {
     /* Rýč je na heru měřítko: článek staví na tom, že jeden list rýče ≈ 30 cm.
@@ -163,6 +169,11 @@ const MEDIA: {
     alt: 'Rýč zaražený do čerstvě zpracovaného záhonu pro trávník: vpředu leží hrubé hroudy tmavé ornice a rozlámaná světlá udusaná vrstva, vzadu nízké večerní slunce a pás trávy.',
     focal: { focalX: 62, focalY: 58, focalPortraitX: 70, focalPortraitY: 55 },
   },
+  ...Object.values(SOIL_PHOTOS).map((item) => ({
+    filename: item.filename,
+    alt: item.alt,
+    source: `assets/soil-guide/${item.filename}`,
+  })),
 ]
 
 /* ── Obsah článku ───────────────────────────────────────────────── */
@@ -499,7 +510,7 @@ const run = async () => {
       /* Smazat smíme JEN tehdy, když zdroj leží ve `zdroje-informaci/fotky`
          a dá se nahrát zpět. Bez téhle podmínky seeder smazal médium
          jiného článku, jehož zdroj v repu není — a vrátit ho nešlo. */
-      const zdroj = path.resolve(dirname, '../zdroje-informaci/fotky', item.filename)
+      const zdroj = path.resolve(dirname, '..', item.source ?? `zdroje-informaci/fotky/${item.filename}`)
       if (ogWebp || !existsSync(zdroj)) {
         if (item.focal) {
           await payload.update({ collection: 'media', id: doc.id, data: item.focal })
@@ -509,7 +520,7 @@ const run = async () => {
       await payload.delete({ collection: 'media', id: doc.id })
       payload.logger.info(`médium ${item.filename} se nahrává znovu (og nebyl WebP)`)
     }
-    const filePath = path.resolve(dirname, '../zdroje-informaci/fotky', item.filename)
+    const filePath = path.resolve(dirname, '..', item.source ?? `zdroje-informaci/fotky/${item.filename}`)
     if (!existsSync(filePath)) {
       payload.logger.warn(`fotografie ${item.filename} není v zdroje-informaci/fotky – přeskočeno`)
       continue
@@ -582,19 +593,28 @@ const run = async () => {
     pagination: false,
   })
 
+  const photoIds = {} as SoilPhotoIds
+  for (const [key, item] of Object.entries(SOIL_PHOTOS) as [keyof SoilPhotoIds, (typeof SOIL_PHOTOS)[keyof SoilPhotoIds]][]) {
+    const found = await payload.find({
+      collection: 'media', where: { filename: { equals: item.filename } }, limit: 1, pagination: false,
+    })
+    if (!found.docs[0]) throw new Error(`Chybí fotografie ${item.filename}`)
+    photoIds[key] = found.docs[0].id
+  }
+
   const data = {
     title: 'Krásný trávník začíná pod zemí',
     slug: SLUG,
     _status: 'published' as const,
     heroImage: hero.docs[0]?.id,
-    content: body,
+    content: illustrateSoilGuide(optimizeLawnArticle(SLUG, reviseSoilGuide(body)), photoIds),
     publishedAt: '2026-09-12T08:00:00.000Z',
     meta: {
       // og:image = hero (bez toho jde ven og-default.webp – porota kola 04, výkon)
       image: hero.docs[0]?.id,
-      title: 'Krásný trávník začíná pod zemí: jak připravit půdu pro trávník',
+      title: LAWN_SEO[SLUG].title,
       description:
-        'Srozumitelný průvodce přípravou půdy pro trávník: jak poznat jíl, hlínu a písek, ověřit odtok vody a vytvořit funkční kořenový prostor hluboký přibližně 30 cm.',
+        LAWN_SEO[SLUG].description,
     },
   }
 

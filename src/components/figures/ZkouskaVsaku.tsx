@@ -5,7 +5,7 @@ import React from 'react'
  * přes okraj leží laťka, od ní se měří vzdálenost k hladině. Hladina
  * začínala na horní čárkované lince a za 15 minut klesla o 1 cm — vpravo
  * je odečet (1 cm × 4 = 4 cm/h), dole stupnice s pásmy z článku: pod 2,5
- * pomalu, 2,5–7,5 ideální, nad 10 příliš rychle. Mezi 7,5 a 10 článek
+ * pomalu, 2,5–7,5 orientačně vyhovující, nad 10 příliš rychle. Mezi 7,5 a 10 článek
  * pásmo nepojmenovává, proto je šedé.
  *
  * Jediný akcent figury je voda; její jediná smyčka je pomalý pokles
@@ -115,7 +115,7 @@ export const ZkouskaVsaku: React.FC = () => (
 
     {/* ── stupnice pásem ──────────────────────────────────────── */}
     <line x1="30" y1="392" x2="490" y2="392" stroke="#d5d3cc" strokeWidth="1.6" strokeDasharray="3 7" strokeLinecap="round" />
-    <text className="sv-lbl" x="30" y="412">Co číslo znamená</text>
+    <text className="sv-lbl" x="30" y="412">Orientační pásma zkoušky</text>
 
     {/* 0–12 cm/h přes 460 px: 38,3 px na cm */}
     <rect x="30" y="422" width="96" height="10" fill="#6b5138" opacity="0.4" />
@@ -130,7 +130,7 @@ export const ZkouskaVsaku: React.FC = () => (
     <text className="sv-val" x="78" y="464" textAnchor="middle">pod 2,5</text>
     <text className="sv-lbl" x="78" y="486" textAnchor="middle">pomalu</text>
     <text className="sv-val" x="221" y="464" textAnchor="middle">2,5–7,5</text>
-    <text className="sv-lbl" x="221" y="486" textAnchor="middle">ideální</text>
+    <text className="sv-lbl" x="221" y="486" textAnchor="middle">vyhovující</text>
     {/* Čtvrtý segment (7,5–10) zůstával bez legendy, tedy nedešifrovatelný
         — 21 % šířky pruhu (porota kola 07, styl). */}
     <text className="sv-val" x="365" y="464" textAnchor="middle">7,5–10</text>

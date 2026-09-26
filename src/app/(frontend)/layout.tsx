@@ -91,6 +91,11 @@ export default async function RootLayout({ children }: { children: React.ReactNo
 
 export const metadata: Metadata = {
   metadataBase: new URL(getServerSideURL()),
+  robots: {
+    index: process.env.VERCEL_ENV !== 'preview',
+    follow: true,
+    googleBot: { index: process.env.VERCEL_ENV !== 'preview', follow: true, 'max-image-preview': 'large' },
+  },
   title: {
     default: 'InteliDome — chytrá závlaha a automatizace zahrady',
     template: '%s | InteliDome',

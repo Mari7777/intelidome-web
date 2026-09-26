@@ -65,7 +65,8 @@ export default async function Page({ params: paramsPromise }: Args) {
 export async function generateMetadata({ params: paramsPromise }: Args): Promise<Metadata> {
   const { pageNumber } = await paramsPromise
   return {
-    title: `Blog — strana ${pageNumber || ''}`,
+    title: `Články — strana ${pageNumber || ''}`,
+    alternates: { canonical: Number(pageNumber) === 1 ? '/posts' : `/posts/page/${pageNumber}` },
   }
 }
 

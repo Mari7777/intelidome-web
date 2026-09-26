@@ -1,28 +1,41 @@
-const SITE_URL =
-  process.env.NEXT_PUBLIC_SERVER_URL ||
-  (process.env.VERCEL_PROJECT_PRODUCTION_URL
-    ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
-    : 'http://localhost:3100')
+// Keep this origin policy aligned with src/utilities/getURL.ts.
+const configuredOrigin =
+  process.env.NEXT_PUBLIC_SERVER_URL?.trim() ||
+  process.env.VERCEL_PROJECT_PRODUCTION_URL?.trim() ||
+  (process.env.NODE_ENV === 'development' ? 'http://localhost:3100' : 'https://www.intelidome.com')
+
+const siteURL = new URL(
+  /^[a-z][a-z\d+.-]*:\/\//i.test(configuredOrigin)
+    ? configuredOrigin
+    : `https://${configuredOrigin}`,
+)
+if (!['http:', 'https:'].includes(siteURL.protocol)) {
+  throw new Error('Sitemap site URL must use HTTP or HTTPS')
+}
+const siteUrl = siteURL.origin
+
+// Public images under /api/media/file and Next.js assets under /_next stay crawlable.
+// Named agents do not inherit the wildcard group's rules.
+const disallow = ['/admin', '/next']
+const userAgents = [
+  '*',
+  'OAI-SearchBot',
+  'GPTBot',
+  'Claude-SearchBot',
+  'ClaudeBot',
+  'Claude-Web',
+  'PerplexityBot',
+  'Google-Extended',
+]
 
 /** @type {import('next-sitemap').IConfig} */
 module.exports = {
-  siteUrl: SITE_URL,
+  siteUrl,
   generateRobotsTxt: true,
-  exclude: ['/posts-sitemap.xml', '/pages-sitemap.xml', '/*', '/posts/*'],
+  // Published URLs and modification dates come from the two CMS-backed routes.
+  exclude: ['/*'],
   robotsTxtOptions: {
-    policies: [
-      {
-        userAgent: '*',
-        allow: '/',
-        disallow: ['/admin', '/next'],
-      },
-      // AI crawlers are welcome (GEO) — explicit allow
-      { userAgent: 'GPTBot', allow: '/' },
-      { userAgent: 'ClaudeBot', allow: '/' },
-      { userAgent: 'Claude-Web', allow: '/' },
-      { userAgent: 'PerplexityBot', allow: '/' },
-      { userAgent: 'Google-Extended', allow: '/' },
-    ],
-    additionalSitemaps: [`${SITE_URL}/pages-sitemap.xml`, `${SITE_URL}/posts-sitemap.xml`],
+    policies: userAgents.map((userAgent) => ({ userAgent, allow: '/', disallow })),
+    additionalSitemaps: [`${siteUrl}/pages-sitemap.xml`, `${siteUrl}/posts-sitemap.xml`],
   },
 }

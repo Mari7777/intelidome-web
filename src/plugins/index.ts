@@ -20,10 +20,12 @@ const generateTitle: GenerateTitle<Post | Page> = ({ doc }) => {
   return doc?.title?.trim() || 'InteliDome'
 }
 
-const generateURL: GenerateURL<Post | Page> = ({ doc }) => {
+const generateURL: GenerateURL<Post | Page> = ({ doc, collectionSlug }) => {
   const url = getServerSideURL()
 
-  return doc?.slug ? `${url}/${doc.slug}` : url
+  return doc?.slug && doc.slug !== 'home'
+    ? `${url}/${collectionSlug === 'posts' ? 'posts/' : ''}${doc.slug}`
+    : url
 }
 
 export const plugins: Plugin[] = [

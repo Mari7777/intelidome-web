@@ -1,26 +1,18 @@
 import canUseDOM from './canUseDOM'
 
+/** Public origin shared by canonical URLs, feeds, images and sitemaps. */
 export const getServerSideURL = () => {
-  return (
-    process.env.NEXT_PUBLIC_SERVER_URL ||
-    (process.env.VERCEL_PROJECT_PRODUCTION_URL
-      ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
-      : 'http://localhost:3100')
-  )
+  const configured = process.env.NEXT_PUBLIC_SERVER_URL?.trim() || process.env.VERCEL_PROJECT_PRODUCTION_URL?.trim()
+  const fallback = process.env.NODE_ENV === 'development'
+    ? 'http://localhost:3100'
+    : 'https://www.intelidome.com'
+  const value = configured?.trim() || fallback
+  const url = new URL(/^[a-z][a-z\d+.-]*:\/\//i.test(value) ? value : `https://${value}`)
+  if (!['http:', 'https:'].includes(url.protocol)) throw new Error('Site URL must use HTTP or HTTPS')
+  return url.origin
 }
 
-export const getClientSideURL = () => {
-  if (canUseDOM) {
-    const protocol = window.location.protocol
-    const domain = window.location.hostname
-    const port = window.location.port
+/** Resolve relative media paths without corrupting absolute storage/CDN URLs. */
+export const absoluteSiteURL = (value: string) => new URL(value, `${getServerSideURL()}/`).href
 
-    return `${protocol}//${domain}${port ? `:${port}` : ''}`
-  }
-
-  if (process.env.VERCEL_PROJECT_PRODUCTION_URL) {
-    return `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
-  }
-
-  return process.env.NEXT_PUBLIC_SERVER_URL || ''
-}
+export const getClientSideURL = () => canUseDOM ? window.location.origin : getServerSideURL()

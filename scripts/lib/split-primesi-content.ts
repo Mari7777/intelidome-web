@@ -1,8 +1,11 @@
 /** Shared content split for the local seed and the one-time CMS migration. */
-import { splitProfilePreparationContent } from './split-profile-preparation'
+import { PREPARATION_SLUG, splitProfilePreparationContent } from './split-profile-preparation'
 import { buildProfilePlanningContent, PROFILE_TITLE } from './profile-planning-content'
 import { applyProfileRhythm } from './profile-rhythm'
 import { applyPrimesiRhythm } from './primesi-rhythm'
+import { optimizeLawnArticle } from './lawn-seo-content'
+import { reviseAmendments } from './lawn-series-primesi'
+import { revisePreparationArticle, reviseProfileArticle } from './lawn-series-practice'
 export { PROFILE_TITLE, PROFILE_META_TITLE, PROFILE_META_DESCRIPTION } from './profile-planning-content'
 export const ORIGINAL_SLUG = 'pisek-biochar-a-dalsi-primesi'
 export const PROFILE_SLUG = 'kalkulator-na-planovani-pudniho-profilu'
@@ -112,5 +115,14 @@ export function splitPrimesiContent(input: unknown) {
     { ...source, root: { ...source.root, children: profile } },
     { ...source, root: { ...source.root, children: original } },
   )
-  return { ...final, original: applyPrimesiRhythm(final.original), profile: applyProfileRhythm(buildProfilePlanningContent(final.profile)), preparationMovedNodeCount: final.movedNodeCount, movedNodeCount: moved.length, profileHero: moved.find((n) => n.fields?.blockType === 'figure')?.fields?.image }
+  // Apply the approved editorial revision after the original layout consistency checks.
+  return {
+    ...final,
+    original: optimizeLawnArticle(ORIGINAL_SLUG, reviseAmendments(applyPrimesiRhythm(final.original))),
+    profile: optimizeLawnArticle(PROFILE_SLUG, reviseProfileArticle(applyProfileRhythm(buildProfilePlanningContent(final.profile)))),
+    preparation: optimizeLawnArticle(PREPARATION_SLUG, revisePreparationArticle(final.preparation)),
+    preparationMovedNodeCount: final.movedNodeCount,
+    movedNodeCount: moved.length,
+    profileHero: moved.find((n) => n.fields?.blockType === 'figure')?.fields?.image,
+  }
 }

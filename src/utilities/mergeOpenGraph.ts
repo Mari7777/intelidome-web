@@ -3,6 +3,7 @@ import { getServerSideURL } from './getURL'
 
 const defaultOpenGraph: Metadata['openGraph'] = {
   type: 'website',
+  locale: 'cs_CZ',
   description: 'Chytrá závlaha a automatizace zahrady — návody, plánování a praxe.',
   images: [
     {

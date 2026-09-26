@@ -1,6 +1,8 @@
 import React from 'react'
+import type { DefaultTypedEditorState } from '@payloadcms/richtext-lexical'
 
 import { Media } from '@/components/Media'
+import RichText from '@/components/RichText'
 import { DRAWINGS, type Drawing, type DrawingKey } from '@/components/figures/registry'
 import type { Media as MediaType } from '@/payload-types'
 import { nezlomitelneMezery } from '@/utilities/czechTypography'
@@ -20,7 +22,8 @@ export type SplitBlockProps = {
   titleLevel?: 'h2' | 'h3' | null
   /** Pokračuje oddíl nad sebou: modulová mezera místo pásové. */
   continues?: boolean | null
-  body: string
+  body?: string | null
+  richBody?: DefaultTypedEditorState | null
   number?: string | null
   caption: string
   alt?: string | null
@@ -48,6 +51,7 @@ const formatFigureNumber = (raw?: string | null): string | null => {
 export const SplitBlock: React.FC<SplitBlockProps> = ({
   alt,
   body,
+  richBody,
   caption,
   className,
   continues,
@@ -66,7 +70,10 @@ export const SplitBlock: React.FC<SplitBlockProps> = ({
   const fotka = !Kresba && photo && typeof photo === 'object' ? photo : null
   if (!Kresba && !fotka) return null
 
-  const paragraphs = body.split(/\n{2,}/).map((p) => p.trim()).filter(Boolean)
+  const paragraphs = (body ?? '')
+    .split(/\n{2,}/)
+    .map((p) => p.trim())
+    .filter(Boolean)
   const label = formatFigureNumber(number)
   const anchor = title ? slugify(title) || undefined : undefined
 
@@ -82,6 +89,8 @@ export const SplitBlock: React.FC<SplitBlockProps> = ({
         'id-split not-prose',
         side === 'image-right' && 'id-split--right',
         continues && 'id-split--pokracovani',
+        richBody && 'id-split--rich',
+        drawing === 'hlina-prace-misto-materialu' && 'id-split--hlina-prace',
         surface === 'krem' && 'id-band id-band--cream id-band--self',
         className,
       )}
@@ -93,7 +102,10 @@ export const SplitBlock: React.FC<SplitBlockProps> = ({
         <header className="id-split__head rv">
           {eyebrow ? (
             <span className="mb-[14px] flex w-fit items-center gap-[10px] font-[family-name:var(--id-f-display)] text-[12px] leading-[1.2] font-semibold tracking-[0.14em] text-[var(--id-accent)] uppercase">
-              <span aria-hidden="true" className="h-[1.5px] w-[22px] shrink-0 bg-[var(--id-accent)]" />
+              <span
+                aria-hidden="true"
+                className="h-[1.5px] w-[22px] shrink-0 bg-[var(--id-accent)]"
+              />
               {eyebrow}
             </span>
           ) : null}
@@ -151,37 +163,43 @@ export const SplitBlock: React.FC<SplitBlockProps> = ({
               {label}
             </b>
           )}
-          {/* mezera drží slova oddělená i v textContent (odečítač, kopírování) */}
-          {' '}
+          {/* mezera drží slova oddělená i v textContent (odečítač, kopírování) */}{' '}
           <span className="[text-wrap:pretty]">{nezlomitelneMezery(caption)}</span>
         </figcaption>
       </figure>
 
       <div className="id-split__body rv">
-        <div className="space-y-[18px]">
-          {paragraphs.map((paragraph) =>
-            paragraph.startsWith('### ') ? (
-              <h3
-                className="id-split__h3 id-split__body-h3"
-                id={slugify(paragraph.slice(4)) || undefined}
-                key={paragraph.slice(0, 40)}
-              >
-                {nezlomitelneMezery(paragraph.slice(4))}
-              </h3>
-            ) : paragraph.startsWith('> ') ? (
-              /* Tip k úseku textu stojí v jeho sloupci, ne na ose prózy
+        {richBody ? (
+          <RichText className="id-split__richtext" data={richBody} enableGutter={false} />
+        ) : (
+          <div className="space-y-[18px]">
+            {paragraphs.map((paragraph) =>
+              paragraph.startsWith('### ') ? (
+                <h3
+                  className="id-split__h3 id-split__body-h3"
+                  id={slugify(paragraph.slice(4)) || undefined}
+                  key={paragraph.slice(0, 40)}
+                >
+                  {nezlomitelneMezery(paragraph.slice(4))}
+                </h3>
+              ) : paragraph.startsWith('> ') ? (
+                /* Tip k úseku textu stojí v jeho sloupci, ne na ose prózy
                  (8.2b p. 8; porota kola 01 článku o příměsích). */
-              <div className="id-callout id-callout--info id-split__callout" key={paragraph.slice(0, 40)}>
-                <span aria-hidden="true" className="id-callout__dot" />
-                <p className="m-0">{renderStrong(paragraph.slice(2))}</p>
-              </div>
-            ) : (
-              <p className="id-split__p" key={paragraph.slice(0, 40)}>
-                {renderStrong(paragraph)}
-              </p>
-            ),
-          )}
-        </div>
+                <div
+                  className="id-callout id-callout--info id-split__callout"
+                  key={paragraph.slice(0, 40)}
+                >
+                  <span aria-hidden="true" className="id-callout__dot" />
+                  <p className="m-0">{renderStrong(paragraph.slice(2))}</p>
+                </div>
+              ) : (
+                <p className="id-split__p" key={paragraph.slice(0, 40)}>
+                  {renderStrong(paragraph)}
+                </p>
+              ),
+            )}
+          </div>
+        )}
       </div>
     </section>
   )

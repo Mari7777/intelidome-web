@@ -13,7 +13,8 @@ import type { Post } from '@/payload-types'
 import { Motion } from '@/components/motion/Motion'
 import { PostHero } from '@/heros/PostHero'
 import { generateMeta } from '@/utilities/generateMeta'
-import { getServerSideURL } from '@/utilities/getURL'
+import { articleJsonLd } from '@/utilities/articleSeo'
+import { ArticleNavigation } from '@/components/ArticleNavigation'
 import PageClient from './page.client'
 import { LivePreviewListener } from '@/components/LivePreviewListener'
 
@@ -85,10 +86,9 @@ export default async function Post({ params: paramsPromise }: Args) {
         />
 
         {/*
-          Tělo článku je jedna mřížka (DESIGN.md 8.1): sloupec `content` drží
-          prose na 700 px, `wide` pouští figury na 960 px a `full` nechá pásy
-          přes celou šířku. Proto tu není žádný `container` ani `max-width` —
-          šířku řídí mřížka, ne obal.
+          Tělo článku je jedna mřížka (DESIGN.md 8.1): `content` drží běžnou
+          prózu, `edge` figury a dvousloupce, `full` celé pásy. Průvodce půdou
+          má vlastní širší osu pro samostatné textové úseky.
         */}
         {/*
           Kotva musí viset na skutečném elementu: `ConvertRichText`
@@ -99,7 +99,12 @@ export default async function Post({ params: paramsPromise }: Args) {
           začátek článku, u kalkulátoru o 0,7–2,7 tisíce px (porota 12).
         */}
         <div className="id-anchor-target" id="obsah" tabIndex={-1} />
-        <RichText className="id-article" data={post.content} enableGutter={false} />
+        <ArticleNavigation post={post} />
+        <RichText
+          className="id-article"
+          data={post.content}
+          enableGutter={false}
+        />
 
         {post.relatedPosts && post.relatedPosts.length > 0 && (
           <div className="container pb-16">
@@ -120,7 +125,11 @@ export async function generateMetadata({ params: paramsPromise }: Args): Promise
   const decodedSlug = decodeURIComponent(slug)
   const post = await queryPostBySlug({ slug: decodedSlug })
 
-  return generateMeta({ doc: post })
+  const { isEnabled: draft } = await draftMode()
+  return {
+    ...await generateMeta({ doc: post, collection: 'posts' }),
+    ...(draft ? { robots: { index: false, follow: false } } : {}),
+  }
 }
 
 const queryPostBySlug = cache(async ({ slug }: { slug: string }) => {
@@ -143,26 +152,3 @@ const queryPostBySlug = cache(async ({ slug }: { slug: string }) => {
 
   return result.docs?.[0] || null
 })
-
-/** BlogPosting pro vyhledávače i AI crawlery — data jen z dokumentu, nic ručně. */
-function articleJsonLd(post: Post) {
-  const base = getServerSideURL()
-  const hero = typeof post.heroImage === 'object' && post.heroImage?.url ? base + post.heroImage.url : undefined
-  const authors = (post.populatedAuthors ?? []).map((author) => author?.name).filter(Boolean) as string[]
-
-  return {
-    '@context': 'https://schema.org',
-    '@type': 'BlogPosting',
-    headline: post.title,
-    description: post.meta?.description ?? undefined,
-    image: hero ? [hero] : undefined,
-    datePublished: post.publishedAt ?? undefined,
-    dateModified: post.updatedAt,
-    inLanguage: 'cs',
-    author: authors.length
-      ? authors.map((name) => ({ '@type': 'Person', name }))
-      : { '@type': 'Organization', name: 'InteliDome' },
-    publisher: { '@type': 'Organization', name: 'InteliDome', url: base },
-    mainEntityOfPage: `${base}/posts/${post.slug}`,
-  }
-}
