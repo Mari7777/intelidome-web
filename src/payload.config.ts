@@ -1,6 +1,11 @@
 import { postgresAdapter } from '@payloadcms/db-postgres'
 import { cs } from '@payloadcms/translations/languages/cs'
+import { de } from '@payloadcms/translations/languages/de'
 import { en } from '@payloadcms/translations/languages/en'
+import { es } from '@payloadcms/translations/languages/es'
+import { hu } from '@payloadcms/translations/languages/hu'
+import { it } from '@payloadcms/translations/languages/it'
+import { pl } from '@payloadcms/translations/languages/pl'
 import sharp from 'sharp'
 import path from 'path'
 import { buildConfig, PayloadRequest } from 'payload'
@@ -67,16 +72,24 @@ export default buildConfig({
       ],
     },
   },
-  // Content localization: schema is trilingual from day one (F1 publishes Czech only).
+  // Content localization: publish a locale only after its translation is ready.
   // Frontend queries without an explicit locale resolve to the default 'cs'.
   localization: {
-    locales: ['cs', 'en', 'de'],
+    locales: [
+      { code: 'cs', label: 'Čeština' },
+      { code: 'en', label: 'English' },
+      { code: 'de', label: 'Deutsch' },
+      { code: 'hu', label: 'Magyar' },
+      { code: 'pl', label: 'Polski' },
+      { code: 'es', label: 'Español' },
+      { code: 'it', label: 'Italiano' },
+    ],
     defaultLocale: 'cs',
     fallback: true,
   },
   // Admin UI language (owner works in Czech).
   i18n: {
-    supportedLanguages: { cs, en },
+    supportedLanguages: { cs, en, de, hu, pl, es, it },
     fallbackLanguage: 'cs',
   },
   // This config helps us configure global or default features that the other editors can inherit

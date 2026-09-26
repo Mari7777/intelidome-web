@@ -106,7 +106,12 @@ export interface Config {
   db: {
     defaultIDType: number;
   };
-  fallbackLocale: ('false' | 'none' | 'null') | false | null | ('cs' | 'en' | 'de') | ('cs' | 'en' | 'de')[];
+  fallbackLocale:
+    | ('false' | 'none' | 'null')
+    | false
+    | null
+    | ('cs' | 'en' | 'de' | 'hu' | 'pl' | 'es' | 'it')
+    | ('cs' | 'en' | 'de' | 'hu' | 'pl' | 'es' | 'it')[];
   globals: {
     header: Header;
     footer: Footer;
@@ -115,7 +120,7 @@ export interface Config {
     header: HeaderSelect<false> | HeaderSelect<true>;
     footer: FooterSelect<false> | FooterSelect<true>;
   };
-  locale: 'cs' | 'en' | 'de';
+  locale: 'cs' | 'en' | 'de' | 'hu' | 'pl' | 'es' | 'it';
   widgets: {
     collections: CollectionsWidget;
   };
