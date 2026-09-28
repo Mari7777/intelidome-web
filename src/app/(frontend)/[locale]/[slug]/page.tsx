@@ -17,7 +17,7 @@ import { LivePreviewListener } from '@/components/LivePreviewListener'
 import { jeLocale } from '@/i18n/config'
 import { verejnaCesta } from '@/i18n/routing'
 import { vynutZivost } from '@/i18n/zivost'
-import { najdiDokument, rozhodniDokument } from '@/i18n/dokumenty'
+import { najdiDokument, prekladyDokumentu, rozhodniDokument } from '@/i18n/dokumenty'
 
 // Jen `{ slug }` — jazyk dává nadřazený `[locale]` (jen cs, ostatní na vyžádání).
 export async function generateStaticParams() {
@@ -102,9 +102,10 @@ export async function generateMetadata({ params: paramsPromise }: Args): Promise
   const decodedSlug = decodeURIComponent(slug)
   const { isEnabled: draft } = await draftMode()
   const page = await najdiDokument({ collection: 'pages', slug: decodedSlug, locale, draft })
+  const preklady = await prekladyDokumentu('pages', decodedSlug)
 
   return {
-    ...await generateMeta({ doc: page, collection: 'pages', locale }),
+    ...await generateMeta({ doc: page, collection: 'pages', locale, preklady }),
     ...(draft ? { robots: { index: false, follow: false } } : {}),
   }
 }

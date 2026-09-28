@@ -17,8 +17,9 @@ import { Archivo } from 'next/font/google'
 
 import '../globals.css'
 import { getServerSideURL } from '@/utilities/getURL'
-import { OG_LOCALE, jeLocale } from '@/i18n/config'
+import { DEFAULT_LOCALE, jeLocale } from '@/i18n/config'
 import { LocaleProvider } from '@/i18n/LocaleProvider'
+import { rssCesta } from '@/i18n/routing'
 
 // Display písmo DS v2 (ADR-004, DESIGN.md 4.1) — jediný webfont webu.
 // Self-hostuje ho next/font; --id-f-archivo pak plní --id-f-display.
@@ -108,8 +109,8 @@ export default async function RootLayout({ children, params }: Args) {
 }
 
 export async function generateMetadata({ params }: Pick<Args, 'params'>): Promise<Metadata> {
-  const { locale } = await params
-  const ogLocale = jeLocale(locale) ? OG_LOCALE[locale] : OG_LOCALE.cs
+  const { locale: param } = await params
+  const locale = jeLocale(param) ? param : DEFAULT_LOCALE
 
   return {
     metadataBase: new URL(getServerSideURL()),
@@ -126,10 +127,10 @@ export async function generateMetadata({ params }: Pick<Args, 'params'>): Promis
       'Návody a praxe kolem chytré závlahy: návrh systému, kapková závlaha, zazimování a automatizace zahrady. Blog značky InteliDome.',
     alternates: {
       types: {
-        'application/rss+xml': '/feed.xml',
+        'application/rss+xml': rssCesta(locale),
       },
     },
-    openGraph: mergeOpenGraph({ locale: ogLocale }),
+    openGraph: mergeOpenGraph(undefined, locale),
     twitter: {
       card: 'summary_large_image',
     },

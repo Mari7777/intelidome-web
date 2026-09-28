@@ -21,7 +21,7 @@ import { LivePreviewListener } from '@/components/LivePreviewListener'
 import { jeLocale } from '@/i18n/config'
 import { verejnaCesta } from '@/i18n/routing'
 import { vynutZivost } from '@/i18n/zivost'
-import { najdiDokument, rozhodniDokument } from '@/i18n/dokumenty'
+import { najdiDokument, prekladyDokumentu, rozhodniDokument } from '@/i18n/dokumenty'
 
 // Jen `{ slug }` — jazyk dává nadřazený `[locale]` (jen cs, ostatní na vyžádání).
 export async function generateStaticParams() {
@@ -67,6 +67,8 @@ export default async function Post({ params: paramsPromise }: Args) {
   if (!post) return <PayloadRedirects locale={locale} url={url} />
   // Existuje, ale bez hotového překladu → 307 na českou verzi; náhled prochází.
   rozhodniDokument({ doc: post, locale, draft, csCesta })
+  // Jazyky, ve kterých je článek veřejný (JSON-LD; sdílené čtení s generateMetadata).
+  const preklady = await prekladyDokumentu('posts', decodedSlug)
 
   // A form-heavy planning tool keeps native scrolling (DESIGN.md 6.5).
   const hasProfileCalculator = post.content.root.children.some((node) => {
@@ -95,7 +97,7 @@ export default async function Post({ params: paramsPromise }: Args) {
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
-            __html: JSON.stringify(articleJsonLd(post)).replace(/</g, '\\u003c'),
+            __html: JSON.stringify(articleJsonLd(post, { locale, preklady })).replace(/</g, '\\u003c'),
           }}
         />
 
@@ -142,9 +144,10 @@ export async function generateMetadata({ params: paramsPromise }: Args): Promise
   const decodedSlug = decodeURIComponent(slug)
   const { isEnabled: draft } = await draftMode()
   const post = await najdiDokument({ collection: 'posts', slug: decodedSlug, locale, draft })
+  const preklady = await prekladyDokumentu('posts', decodedSlug)
 
   return {
-    ...await generateMeta({ doc: post, collection: 'posts', locale }),
+    ...await generateMeta({ doc: post, collection: 'posts', locale, preklady }),
     ...(draft ? { robots: { index: false, follow: false } } : {}),
   }
 }

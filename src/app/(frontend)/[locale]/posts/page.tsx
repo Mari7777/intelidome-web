@@ -9,7 +9,7 @@ import React from 'react'
 import { draftMode } from 'next/headers'
 import { notFound, redirect } from 'next/navigation'
 import PageClient from './page.client'
-import { jeLocale } from '@/i18n/config'
+import { DEFAULT_LOCALE, jeLocale } from '@/i18n/config'
 import { vynutZivost } from '@/i18n/zivost'
 import { lokalizujCestu } from '@/i18n/routing'
 
@@ -75,10 +75,11 @@ export default async function Page({ params: paramsPromise }: Args) {
   )
 }
 
-export function generateMetadata(): Metadata {
+export async function generateMetadata({ params: paramsPromise }: Args): Promise<Metadata> {
+  const { locale } = await paramsPromise
   return {
     title: 'Články o půdě, trávníku a chytré závlaze',
     description: 'Praktické návody pro přípravu půdy, založení trávníku a chytrou závlahu. Výběr příměsí, kalkulátor množství a postup práce na zahradě.',
-    alternates: { canonical: '/posts' },
+    alternates: { canonical: lokalizujCestu('/posts', jeLocale(locale) ? locale : DEFAULT_LOCALE) },
   }
 }

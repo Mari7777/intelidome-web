@@ -2,7 +2,7 @@
 import { describe, expect, it } from 'vitest'
 
 import { LOCALES } from '../../src/i18n/config'
-import { interniCesty, lokalizujCestu, odstranPrefix, verejnaCesta } from '../../src/i18n/routing'
+import { interniCesty, lokalizujCestu, odstranPrefix, rssCesta, verejnaCesta, zakladniCesta } from '../../src/i18n/routing'
 
 describe('lokalizujCestu', () => {
   it('nechává externí, kotvy, `//` a prázdný řetězec', () => {
@@ -57,6 +57,14 @@ describe('interniCesty', () => {
   })
 })
 
+describe('zakladniCesta', () => {
+  it('jediný zdroj neprefixované adresy dokumentu', () => {
+    expect(zakladniCesta('posts', 'x')).toBe('/posts/x')
+    expect(zakladniCesta('pages', 'home')).toBe('/')
+    expect(zakladniCesta('pages', 'o-nas')).toBe('/o-nas')
+  })
+})
+
 describe('verejnaCesta', () => {
   it('skládá veřejnou adresu dokumentu', () => {
     expect(verejnaCesta('posts', 'x', 'cs')).toBe('/posts/x')
@@ -64,5 +72,13 @@ describe('verejnaCesta', () => {
     expect(verejnaCesta('pages', 'home', 'cs')).toBe('/')
     expect(verejnaCesta('pages', 'home', 'en')).toBe('/en')
     expect(verejnaCesta('pages', 'o-nas', 'de')).toBe('/de/o-nas')
+  })
+})
+
+describe('rssCesta', () => {
+  it('čeština bez prefixu, ostatní s prefixem (lokalizujCestu soubory neprefixuje)', () => {
+    expect(rssCesta('cs')).toBe('/feed.xml')
+    expect(rssCesta('en')).toBe('/en/feed.xml')
+    expect(lokalizujCestu('/feed.xml', 'en')).toBe('/feed.xml')
   })
 })

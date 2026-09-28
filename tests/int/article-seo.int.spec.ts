@@ -64,3 +64,83 @@ describe('published article SEO', () => {
     expect(JSON.stringify(graph)).not.toContain('localhost')
   })
 })
+
+describe('SEO po jazycích (A19)', () => {
+  it('en s překlady cs+en: canonical, RSS, hreflang vč. x-default, OG locale', async () => {
+    vi.stubEnv('NEXT_PUBLIC_SERVER_URL', 'https://www.intelidome.com')
+    const metadata = await generateMeta({ doc: post, collection: 'posts', locale: 'en', preklady: ['cs', 'en'] })
+    expect(metadata.alternates).toEqual({
+      canonical: '/en/posts/puda',
+      languages: { cs: '/posts/puda', en: '/en/posts/puda', 'x-default': '/posts/puda' },
+      types: { 'application/rss+xml': '/en/feed.xml' },
+    })
+    expect(Object.keys((metadata.alternates?.languages ?? {}) as object)).toEqual(['cs', 'en', 'x-default'])
+    expect(metadata.openGraph).toMatchObject({ url: '/en/posts/puda', locale: 'en_GB', alternateLocale: ['cs_CZ'] })
+  })
+
+  it('en bez druhého jazyka: canonical /en/…, žádný hreflang ani alternateLocale', async () => {
+    vi.stubEnv('NEXT_PUBLIC_SERVER_URL', 'https://www.intelidome.com')
+    const metadata = await generateMeta({ doc: post, collection: 'posts', locale: 'en', preklady: ['cs'] })
+    expect(metadata.alternates).toEqual({ canonical: '/en/posts/puda', types: { 'application/rss+xml': '/en/feed.xml' } })
+    expect(metadata.openGraph).toMatchObject({ locale: 'en_GB' })
+    expect(metadata.openGraph).not.toHaveProperty('alternateLocale')
+    const home = await generateMeta({ doc: { slug: 'home' }, collection: 'pages', locale: 'en', preklady: ['cs', 'en', 'de'] })
+    expect(home.alternates).toMatchObject({ canonical: '/en', languages: { cs: '/', en: '/en', de: '/de', 'x-default': '/' } })
+    expect(home.openGraph).toMatchObject({ alternateLocale: ['cs_CZ', 'de_DE'] })
+  })
+
+  it('cs bez uvedení jazyka = dnešní výstup (žádné languages, RSS /feed.xml)', async () => {
+    vi.stubEnv('NEXT_PUBLIC_SERVER_URL', 'https://www.intelidome.com')
+    const metadata = await generateMeta({ doc: post, collection: 'posts' })
+    expect(metadata.alternates).toEqual({ canonical: '/posts/puda', types: { 'application/rss+xml': '/feed.xml' } })
+    expect(metadata.openGraph).not.toHaveProperty('alternateLocale')
+    expect(JSON.stringify(articleJsonLd(post))).toBe(JSON.stringify(articleJsonLd(post, { locale: 'cs', preklady: ['cs'] })))
+  })
+
+  it('locale mimo preklady (náhled nepřeloženého jazyka): žádný hreflang, alternateLocale ani vazba překladu', async () => {
+    vi.stubEnv('NEXT_PUBLIC_SERVER_URL', 'https://www.intelidome.com')
+    const metadata = await generateMeta({ doc: post, collection: 'posts', locale: 'de', preklady: ['cs', 'en'] })
+    expect(metadata.alternates).toEqual({ canonical: '/de/posts/puda', types: { 'application/rss+xml': '/de/feed.xml' } })
+    expect(metadata.openGraph).not.toHaveProperty('alternateLocale')
+    const graph = articleJsonLd(post, { locale: 'de', preklady: ['cs', 'en'] })['@graph'][0]
+    expect(graph).not.toHaveProperty('workTranslation')
+    expect(graph).not.toHaveProperty('translationOfWork')
+  })
+
+  it('JSON-LD cs s překladem: workTranslation na en', () => {
+    vi.stubEnv('NEXT_PUBLIC_SERVER_URL', 'https://www.intelidome.com')
+    const graph = articleJsonLd(post, { locale: 'cs', preklady: ['cs', 'en'] })['@graph'][0]
+    expect(graph).toMatchObject({
+      url: 'https://www.intelidome.com/posts/puda',
+      workTranslation: [{ '@id': 'https://www.intelidome.com/en/posts/puda#article', url: 'https://www.intelidome.com/en/posts/puda', inLanguage: 'en' }],
+    })
+    expect(graph).not.toHaveProperty('translationOfWork')
+  })
+
+  it('JSON-LD en: url, @id, inLanguage, lokalizovaná drobenka, translationOfWork na cs', () => {
+    vi.stubEnv('NEXT_PUBLIC_SERVER_URL', 'https://www.intelidome.com')
+    const graph = articleJsonLd(post, { locale: 'en', preklady: ['cs', 'en'] })['@graph']
+    expect(graph[0]).toMatchObject({
+      '@id': 'https://www.intelidome.com/en/posts/puda#article',
+      url: 'https://www.intelidome.com/en/posts/puda',
+      inLanguage: 'en',
+      mainEntityOfPage: { '@id': 'https://www.intelidome.com/en/posts/puda' },
+      hasPart: [{ url: 'https://www.intelidome.com/en/posts/puda#jak-poznat-pudu' }],
+      publisher: { '@id': 'https://www.intelidome.com/#organization' },
+      translationOfWork: { '@id': 'https://www.intelidome.com/posts/puda#article', url: 'https://www.intelidome.com/posts/puda', inLanguage: 'cs' },
+    })
+    expect(graph[0]).not.toHaveProperty('workTranslation')
+    expect(graph[1]).toMatchObject({ '@id': 'https://www.intelidome.com/#organization' })
+    expect(graph[2]).toMatchObject({
+      '@id': 'https://www.intelidome.com/en/posts/puda#breadcrumbs',
+      itemListElement: [
+        { position: 1, item: 'https://www.intelidome.com/en' },
+        { position: 2, item: 'https://www.intelidome.com/en/posts' },
+        { position: 3, item: 'https://www.intelidome.com/en/posts/puda' },
+      ],
+    })
+    const jen = articleJsonLd(post, { locale: 'en', preklady: ['cs'] })['@graph'][0]
+    expect(jen).not.toHaveProperty('workTranslation')
+    expect(jen).not.toHaveProperty('translationOfWork')
+  })
+})

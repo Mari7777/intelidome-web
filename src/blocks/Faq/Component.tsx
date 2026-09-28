@@ -90,6 +90,7 @@ export const FaqBlock: React.FC<FaqBlockProps> = ({ className, heading, id, item
       ? {
           '@context': 'https://schema.org',
           '@type': 'FAQPage',
+          inLanguage: locale,
           mainEntity: questions.map((entry) => ({
             '@type': 'Question',
             name: entry.name,

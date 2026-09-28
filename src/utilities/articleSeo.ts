@@ -2,6 +2,8 @@ import type { Post } from '@/payload-types'
 import { absoluteSiteURL, getServerSideURL } from './getURL'
 import { readingTime } from './readingTime'
 import { slugify } from './slugify'
+import { DEFAULT_LOCALE, type Locale } from '@/i18n/config'
+import { lokalizujCestu, verejnaCesta } from '@/i18n/routing'
 
 /** Only headings rendered with stable anchors by Chapter/Split enter navigation. */
 export function getArticleSections(content: Post['content']) {
@@ -17,10 +19,25 @@ export function getArticleSections(content: Post['content']) {
   return sections
 }
 
-/** Schema mirrors the article, visible dates, publisher and breadcrumb navigation. */
-export function articleJsonLd(post: Post) {
+/**
+ * Schema mirrors the article, visible dates, publisher and breadcrumb navigation.
+ * `locale` řídí adresu (`/en/posts/x`), `inLanguage` a lokalizovanou drobenku;
+ * `preklady` (≥ 2, s aktuálním jazykem) přidá u cs `workTranslation` na překlady,
+ * u překladu `translationOfWork` na český originál. Texty
+ * drobenky zatím natvrdo česky (slovník = krok 4). Organization @id je globální.
+ */
+export function articleJsonLd(
+  post: Post,
+  { locale = DEFAULT_LOCALE, preklady = [DEFAULT_LOCALE] }: { locale?: Locale; preklady?: readonly Locale[] } = {},
+) {
   const base = getServerSideURL()
-  const url = absoluteSiteURL(`/posts/${post.slug}`)
+  const slug = post.slug ?? ''
+  const url = absoluteSiteURL(verejnaCesta('posts', slug, locale))
+  const ostatni = preklady.length >= 2 && preklady.includes(locale) ? preklady.filter((kod) => kod !== locale) : []
+  const prekladOdkaz = (kod: Locale) => {
+    const prekladUrl = absoluteSiteURL(verejnaCesta('posts', slug, kod))
+    return { '@type': 'BlogPosting', '@id': `${prekladUrl}#article`, url: prekladUrl, inLanguage: kod }
+  }
   const hero = post.heroImage && typeof post.heroImage === 'object' ? post.heroImage : null
   const authors = (post.populatedAuthors ?? []).map((author) => author?.name?.trim()).filter(Boolean)
   const minutes = readingTime(post.content)
@@ -40,7 +57,7 @@ export function articleJsonLd(post: Post) {
         }] : undefined,
         datePublished: post.publishedAt || undefined,
         dateModified: post.updatedAt,
-        inLanguage: 'cs',
+        inLanguage: locale,
         author: authors.length
           ? authors.map((name) => ({ '@type': 'Person', name }))
           : { '@type': 'Organization', name: 'InteliDome', url: base },
@@ -52,13 +69,20 @@ export function articleJsonLd(post: Post) {
           '@type': 'WebPageElement', '@id': `${url}#${section.id}`,
           name: section.title, url: `${url}#${section.id}`,
         })),
+        // Originál (cs) má překlady (`workTranslation`); překlad ukazuje na
+        // originál (`translationOfWork`) — inverzní vztah podle schema.org.
+        ...(ostatni.length
+          ? locale === DEFAULT_LOCALE
+            ? { workTranslation: ostatni.map(prekladOdkaz) }
+            : { translationOfWork: prekladOdkaz(DEFAULT_LOCALE) }
+          : {}),
       },
       { '@type': 'Organization', '@id': `${base}/#organization`, name: 'InteliDome', url: base },
       {
         '@type': 'BreadcrumbList', '@id': `${url}#breadcrumbs`,
         itemListElement: [
-          { '@type': 'ListItem', position: 1, name: 'Úvod', item: `${base}/` },
-          { '@type': 'ListItem', position: 2, name: 'Články', item: `${base}/posts` },
+          { '@type': 'ListItem', position: 1, name: 'Úvod', item: absoluteSiteURL(lokalizujCestu('/', locale)) },
+          { '@type': 'ListItem', position: 2, name: 'Články', item: absoluteSiteURL(lokalizujCestu('/posts', locale)) },
           { '@type': 'ListItem', position: 3, name: post.title, item: url },
         ],
       },

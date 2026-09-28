@@ -11,6 +11,13 @@ const revaliduj = (slug: string) => {
   for (const cesta of interniCesty('posts', slug)) revalidatePath(cesta)
 }
 
+// pages-sitemap nese i výpis `/{l}/posts` (jen pro jazyky s ≥ 1 přeloženým
+// článkem, A19), proto ho změna článku invaliduje spolu s posts-sitemap.
+const revalidujSitemapy = () => {
+  revalidateTag('posts-sitemap', 'max')
+  revalidateTag('pages-sitemap', 'max')
+}
+
 export const revalidatePost: CollectionAfterChangeHook<Post> = ({
   doc,
   previousDoc,
@@ -21,7 +28,7 @@ export const revalidatePost: CollectionAfterChangeHook<Post> = ({
       payload.logger.info(`Revalidating post: ${doc.slug}`)
 
       revaliduj(doc.slug)
-      revalidateTag('posts-sitemap', 'max')
+      revalidujSitemapy()
     }
 
     // If the post was previously published, we need to revalidate the old path
@@ -29,7 +36,7 @@ export const revalidatePost: CollectionAfterChangeHook<Post> = ({
       payload.logger.info(`Revalidating old post: ${previousDoc.slug}`)
 
       revaliduj(previousDoc.slug)
-      revalidateTag('posts-sitemap', 'max')
+      revalidujSitemapy()
     }
   }
   return doc
@@ -38,7 +45,7 @@ export const revalidatePost: CollectionAfterChangeHook<Post> = ({
 export const revalidateDelete: CollectionAfterDeleteHook<Post> = ({ doc, req: { context } }) => {
   if (!context.disableRevalidate) {
     revaliduj(String(doc?.slug))
-    revalidateTag('posts-sitemap', 'max')
+    revalidujSitemapy()
   }
 
   return doc

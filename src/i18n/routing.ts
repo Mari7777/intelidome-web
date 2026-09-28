@@ -37,7 +37,8 @@ export function odstranPrefix(pathname: string): { locale: Locale; path: string 
 
 type Kolekce = 'posts' | 'pages'
 
-const zakladniCesta = (collection: Kolekce, slug: string): string => {
+/** Neprefixovaná cesta dokumentu (`/posts/x`, `/x`, home `/`) — jediný zdroj adresy dokumentu. */
+export const zakladniCesta = (collection: Kolekce, slug: string): string => {
   if (collection === 'posts') return `/posts/${slug}`
   return slug === 'home' ? '/' : `/${slug}`
 }
@@ -55,4 +56,12 @@ export function interniCesty(collection: Kolekce, slug: string): string[] {
 /** Veřejná adresa dokumentu (`/posts/x`, `/en/posts/x`, home `/` | `/en`). */
 export function verejnaCesta(collection: Kolekce, slug: string, locale: Locale): string {
   return lokalizujCestu(zakladniCesta(collection, slug), locale)
+}
+
+/**
+ * RSS kanál jazyka (`/feed.xml`, `/en/feed.xml`). Výslovně, ne přes
+ * `lokalizujCestu`: ta soubory s příponou úmyslně neprefixuje (A13).
+ */
+export function rssCesta(locale: Locale): string {
+  return locale === DEFAULT_LOCALE ? '/feed.xml' : `/${locale}/feed.xml`
 }

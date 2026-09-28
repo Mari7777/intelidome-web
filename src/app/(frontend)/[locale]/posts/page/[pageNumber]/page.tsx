@@ -9,7 +9,7 @@ import React from 'react'
 import PageClient from './page.client'
 import { draftMode } from 'next/headers'
 import { notFound, redirect } from 'next/navigation'
-import { jeLocale } from '@/i18n/config'
+import { DEFAULT_LOCALE, jeLocale } from '@/i18n/config'
 import { vynutZivost } from '@/i18n/zivost'
 import { lokalizujCestu } from '@/i18n/routing'
 
@@ -76,10 +76,11 @@ export default async function Page({ params: paramsPromise }: Args) {
 }
 
 export async function generateMetadata({ params: paramsPromise }: Args): Promise<Metadata> {
-  const { pageNumber } = await paramsPromise
+  const { locale, pageNumber } = await paramsPromise
+  const cesta = Number(pageNumber) === 1 ? '/posts' : `/posts/page/${pageNumber}`
   return {
     title: `Články — strana ${pageNumber || ''}`,
-    alternates: { canonical: Number(pageNumber) === 1 ? '/posts' : `/posts/page/${pageNumber}` },
+    alternates: { canonical: lokalizujCestu(cesta, jeLocale(locale) ? locale : DEFAULT_LOCALE) },
   }
 }
 

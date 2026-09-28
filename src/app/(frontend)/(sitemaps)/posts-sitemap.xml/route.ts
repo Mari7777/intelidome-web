@@ -3,20 +3,24 @@ import { getPayload } from 'payload'
 import config from '@payload-config'
 import { unstable_cache } from 'next/cache'
 import { getServerSideURL } from '@/utilities/getURL'
+import { sitemapZaznamy } from '@/utilities/sitemap'
+import { LIVE_LOCALES } from '@/i18n/live'
 
 const getPostsSitemap = unstable_cache(
   async () => {
     const payload = await getPayload({ config })
     const siteUrl = getServerSideURL()
 
+    // Jedno čtení všech jazyků (A19): `prelozeno` je mapa po jazycích, z níž
+    // vzniká záznam pro cs + každý živý jazyk s hotovým překladem.
     const results = await payload.find({
       collection: 'posts',
       overrideAccess: false,
       draft: false,
       depth: 0,
       limit: 1000,
-      // Výstup je dnes jen český; per jazyk řeší krok 3 (A19).
-      locale: 'cs',
+      locale: 'all',
+      fallbackLocale: false,
       pagination: false,
       where: {
         _status: {
@@ -26,19 +30,11 @@ const getPostsSitemap = unstable_cache(
       select: {
         slug: true,
         updatedAt: true,
+        prelozeno: true,
       },
     })
 
-    const sitemap = results.docs
-      ? results.docs
-          .filter((post) => Boolean(post?.slug))
-          .map((post) => ({
-            loc: `${siteUrl}/posts/${post?.slug}`,
-            ...(post.updatedAt ? { lastmod: post.updatedAt } : {}),
-          }))
-      : []
-
-    return sitemap
+    return sitemapZaznamy('posts', results.docs ?? [], siteUrl, LIVE_LOCALES)
   },
   ['posts-sitemap'],
   {

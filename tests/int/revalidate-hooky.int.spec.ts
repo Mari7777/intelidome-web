@@ -3,14 +3,19 @@ import { beforeEach, describe, expect, it, vi } from 'vitest'
 
 vi.mock('next/cache', () => ({ revalidatePath: vi.fn(), revalidateTag: vi.fn() }))
 
-import { revalidatePath } from 'next/cache'
-import { revalidatePost } from '../../src/collections/Posts/hooks/revalidatePost'
+import { revalidatePath, revalidateTag } from 'next/cache'
+import { revalidateDelete, revalidatePost } from '../../src/collections/Posts/hooks/revalidatePost'
 import { revalidatePage } from '../../src/collections/Pages/hooks/revalidatePage'
 
 const req = () => ({ payload: { logger: { info: vi.fn() } }, context: {} })
 const volane = () => vi.mocked(revalidatePath).mock.calls.map(([cesta]) => cesta)
 
-beforeEach(() => vi.mocked(revalidatePath).mockClear())
+const tagy = () => vi.mocked(revalidateTag).mock.calls.map(([tag]) => tag)
+
+beforeEach(() => {
+  vi.mocked(revalidatePath).mockClear()
+  vi.mocked(revalidateTag).mockClear()
+})
 
 describe('revalidace po publikaci (A14)', () => {
   it('článek revaliduje /cs/posts/x, nikdy /posts/x', () => {
@@ -37,5 +42,15 @@ describe('revalidace po publikaci (A14)', () => {
     } as any)
     expect(volane()).toContain('/cs/posts/stary')
     expect(volane()).not.toContain('/posts/stary')
+  })
+
+  it('článek invaliduje posts-sitemap i pages-sitemap (výpis /{l}/posts závisí na článcích, A19)', () => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    revalidatePost({ doc: { slug: 'x', _status: 'published' }, previousDoc: {}, req: req() } as any)
+    expect(tagy()).toEqual(expect.arrayContaining(['posts-sitemap', 'pages-sitemap']))
+    vi.mocked(revalidateTag).mockClear()
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    revalidateDelete({ doc: { slug: 'x' }, req: req() } as any)
+    expect(tagy()).toEqual(expect.arrayContaining(['posts-sitemap', 'pages-sitemap']))
   })
 })

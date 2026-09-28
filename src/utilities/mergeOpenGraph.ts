@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import { getServerSideURL } from './getURL'
+import { OG_LOCALE, type Locale } from '@/i18n/config'
 
 const defaultOpenGraph: Metadata['openGraph'] = {
   type: 'website',
@@ -14,9 +15,11 @@ const defaultOpenGraph: Metadata['openGraph'] = {
   title: 'InteliDome',
 }
 
-export const mergeOpenGraph = (og?: Metadata['openGraph']): Metadata['openGraph'] => {
+/** `locale` (jazyk webu) přepíše `og:locale` z mapy OG kódů; bez něj zůstává cs_CZ. */
+export const mergeOpenGraph = (og?: Metadata['openGraph'], locale?: Locale): Metadata['openGraph'] => {
   return {
     ...defaultOpenGraph,
+    ...(locale ? { locale: OG_LOCALE[locale] } : {}),
     ...og,
     images: og?.images ? og.images : defaultOpenGraph.images,
   }
