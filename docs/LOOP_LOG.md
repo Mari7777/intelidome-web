@@ -3941,3 +3941,36 @@ samostatné krátké odstavce v ose prózy jsou dvě zdrojové poznámky.
 cílené tři testy SEO také prošly.
 ESLint se zastaví na konfiguraci projektu (`Converting circular structure
 to JSON`) před analýzou souborů.
+
+## Jazykové verze — infrastruktura (2026-09-28)
+
+Nejde o design-loop, ale o infrastrukturní práci se stejnou disciplínou:
+zlatý snímek veřejného webu (`tests/e2e/zlaty-snimek.e2e.spec.ts`,
+commit 53b0060) je porota, která musí po každém kroku projít beze změny.
+Rozhodnutí jsou v `docs/adr/ADR-008-jazykove-verze.md`.
+
+Plán prošel adversární prověrkou proti kódu: **30 nálezů, 0 zamítnuto,
+všechny zapracovány** do plánu v2 (mimo jiné: cookie jako brána místo
+vstupu, vyjednávání jen na kořeni, revalidace interních cest s `/cs`,
+fallback zapnutý a brána `prelozeno`, vlastní slovník místo next-intl,
+proxy bez I/O, statický matcher).
+
+Pořadí kroků a commitů:
+
+| Krok | Commit | Obsah |
+|---|---|---|
+| 0 | 53b0060 | zlatý snímek místo šablonových e2e testů |
+| 1 | 00baf38 | segment `[locale]`, proxy, zdroj jazyka, helper odkazů |
+| 2 | 2e44cb1 | příznak „Překlad hotový“, dotazy s jazykem, migrace, náhled, seedery |
+| 3 | 4aee624 | SEO po jazycích: canonical, hreflang, JSON-LD, sitemapy, RSS |
+| 4 | 49b0263 | slovník UI, formátování, přepínač jazyků |
+| 5 | (tento) | ověření s dočasně živou němčinou, dokumentace |
+
+Každý krok prošel bránou tsc, `npm run test:int`, zlatý snímek beze změny
+a `next build`. HTML pro češtinu je beze změny až na `inLanguage` ve FAQ
+JSON-LD; sitemapy, RSS a textové soubory jsou byte-identické.
+
+Odložená fáze: kalkulátory (~190 řetězců) a SVG kresby (~350 popisků)
+zůstávají česky i pod cizí adresou, překlady obsahu dělá majitel v adminu
+podle checklistu v ADR-008. Jazyk ožívá až přidáním do `LIVE_LOCALES`
+spolu se slovníkem UI v jednom commitu.

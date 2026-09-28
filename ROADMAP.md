@@ -14,7 +14,7 @@
 
 - [x] Design system z `design/handoff` (tokeny `--id-*`) do Tailwind/CSS webu
 - [x] Šablona webu v češtině (navigace, patička, metadata, sitemap)
-      — navíc: lokalizace obsahu cs/en/de v Payloadu od 1. dne (frontend jen cs)
+      — navíc: lokalizace obsahu (7 jazyků) v Payloadu od 1. dne; infrastruktura jazykových verzí hotová (ADR-008), frontend jen cs, jazyk ožívá překladem
 - [ ] Nasazení: Vercel projekt + Neon Postgres + env proměnné
 - [ ] DNS: www.intelidome.com → Vercel (Active24)
 - [ ] Payload admin: účet majitele, první skutečný článek publikovaný

@@ -13,6 +13,7 @@ import { DEFAULT_LOCALE, jeLocale } from '@/i18n/config'
 import { vynutZivost } from '@/i18n/zivost'
 import { lokalizujCestu } from '@/i18n/routing'
 import { t } from '@/i18n/ui'
+import { hreflangVypisu } from '@/i18n/vypis'
 
 export const revalidate = 600
 
@@ -80,10 +81,15 @@ export default async function Page({ params: paramsPromise }: Args) {
 export async function generateMetadata({ params: paramsPromise }: Args): Promise<Metadata> {
   const { locale: param, pageNumber } = await paramsPromise
   const locale = jeLocale(param) ? param : DEFAULT_LOCALE
-  const cesta = Number(pageNumber) === 1 ? '/posts' : `/posts/page/${pageNumber}`
+  const prvni = Number(pageNumber) === 1
+  const cesta = prvni ? '/posts' : `/posts/page/${pageNumber}`
+  // hreflang jen pro `/posts` (sekce 6, táž množina jako sitemapa). Stránka N
+  // v cizím jazyce nemusí existovat (méně přeložených článků → prázdný výpis),
+  // a jazykový odkaz na neexistující obsah nesmí vzniknout (seo-lawn-series).
+  const languages = prvni ? await hreflangVypisu(cesta) : undefined
   return {
     title: t(locale, 'posts.page')(pageNumber || ''),
-    alternates: { canonical: lokalizujCestu(cesta, locale) },
+    alternates: { canonical: lokalizujCestu(cesta, locale), ...(languages ? { languages } : {}) },
   }
 }
 

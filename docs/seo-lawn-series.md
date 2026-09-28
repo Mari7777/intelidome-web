@@ -43,7 +43,7 @@ Při kontrole https://www.intelidome.com se nepodařilo ověřit HTTPS: server v
 
 ## Před budoucími překlady
 
-CMS již podporuje cs/en/de, frontend nyní poskytuje češtinu. Hreflang se doplní až pro skutečně dostupné přeložené URL, vzájemně a se samostatným canonical každé jazykové verze. Jazyk HTML, Open Graph, schema a sitemap pak musí odpovídat překladu. Nevytvářet jazykové odkazy na neexistující obsah nebo na český fallback. České URL nyní není potřeba měnit.
+CMS již podporuje 7 jazyků (cs, en, de, hu, pl, es, it), frontend nyní poskytuje češtinu. Hreflang se doplní až pro skutečně dostupné přeložené URL, vzájemně a se samostatným canonical každé jazykové verze. Jazyk HTML, Open Graph, schema a sitemap pak musí odpovídat překladu. Nevytvářet jazykové odkazy na neexistující obsah nebo na český fallback. České URL nyní není potřeba měnit. Infrastruktura pro to je hotová, viz `adr/ADR-008-jazykove-verze.md` (hreflang jen při ≥ 2 jazycích dokumentu, `x-default` na češtinu, sitemapy a RSS po jazycích, checklist zapnutí jazyka).
 
 ## Oficiální metodická opora
 

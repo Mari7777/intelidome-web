@@ -13,6 +13,7 @@ import { DEFAULT_LOCALE, jeLocale } from '@/i18n/config'
 import { vynutZivost } from '@/i18n/zivost'
 import { lokalizujCestu } from '@/i18n/routing'
 import { t } from '@/i18n/ui'
+import { hreflangVypisu } from '@/i18n/vypis'
 
 export const dynamic = 'force-static'
 export const revalidate = 600
@@ -80,9 +81,11 @@ export default async function Page({ params: paramsPromise }: Args) {
 export async function generateMetadata({ params: paramsPromise }: Args): Promise<Metadata> {
   const { locale: param } = await paramsPromise
   const locale = jeLocale(param) ? param : DEFAULT_LOCALE
+  // hreflang jen při ≥ 2 jazycích výpisu (sekce 6): jinak beze změny.
+  const languages = await hreflangVypisu('/posts')
   return {
     title: t(locale, 'posts.metaTitle'),
     description: t(locale, 'posts.metaDescription'),
-    alternates: { canonical: lokalizujCestu('/posts', locale) },
+    alternates: { canonical: lokalizujCestu('/posts', locale), ...(languages ? { languages } : {}) },
   }
 }

@@ -19,6 +19,7 @@
     "start": "cross-env NODE_OPTIONS=--no-deprecation next start -p 3100",
     "test": "npm run test:int && npm run test:e2e",
     "test:e2e": "cross-env NODE_OPTIONS=\"--no-deprecation --import=tsx/esm\" playwright test --config=playwright.config.ts",
+    "test:e2e:de": "bash tests/e2e/zive-de/spustit.sh",
     "test:int": "cross-env NODE_OPTIONS=--no-deprecation vitest run --config ./vitest.config.mts"
   },
   "dependencies": {

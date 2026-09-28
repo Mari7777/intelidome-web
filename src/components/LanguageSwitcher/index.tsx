@@ -45,6 +45,8 @@ export const LanguageSwitcher: React.FC<Props> = ({ liveLocales, varianta }) => 
           'uppercase',
           // Kapsle: `.id-capsule__link` řeší barvu i aktivní stav (DS 7.1).
           varianta === 'hlavicka' && 'id-capsule__link',
+          // Patička: dotykový cíl ≥ 24 px bez změny výšky řádku (7.13).
+          varianta === 'paticka' && 'py-1 -my-1',
           varianta === 'paticka' &&
             (aktivni
               ? 'text-[var(--id-ink)]'

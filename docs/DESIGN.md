@@ -1033,6 +1033,8 @@ Snippet: viz 7.7.
 
 **Stavy:** odkazy — color:ink-2, hover color:accent (.25s), focus-visible kompaktní 2.5px/4px.
 
+Textové odkazy v patičce (přepínač jazyků) mají dotykový cíl ≥ 24 px: svislé odsazení `py-1` vyrovnané záporným okrajem `-my-1`, výška řádku se nemění.
+
 **Tmavě (CTA patička):** border-top:1px solid line-dark, text ink-dark-2, logo color:#fff; hover odkazů accent-tint.
 
 Snippet: viz 7.1/7.14.

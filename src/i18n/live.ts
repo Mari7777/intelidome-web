@@ -9,8 +9,12 @@ import { DEFAULT_LOCALE, LOCALES, jeLocale, type Locale } from './config'
  * Jen server (proxy, `vynutZivost`, layout): v klientském bundlu je env
  * prázdný a hodnota by se lišila od serveru (hydration mismatch). Klientské
  * komponenty dostávají živé jazyky propem `liveLocales` z layoutu (A20).
+ *
+ * Na Vercelu (`VERCEL` je při buildu vždy nastavené) se override ignoruje:
+ * jazyk smí ožít jen commitem (ADR-008 §5), ne proměnnou prostředí, která by
+ * ho oživila bez slovníku a mimo historii repa.
  */
-const zEnv = (process.env.LIVE_LOCALES ?? '')
+const zEnv = (process.env.VERCEL ? '' : (process.env.LIVE_LOCALES ?? ''))
   .split(',')
   .map((kod) => kod.trim())
   .filter(jeLocale)
