@@ -1,11 +1,12 @@
 import { DEFAULT_LOCALE, type Locale } from '@/i18n/config'
 import { lokalizujCestu, rssCesta, verejnaCesta } from '@/i18n/routing'
+import { t } from '@/i18n/ui'
 
 /**
  * RSS kanál (A19), sdílený českým `/feed.xml` i jazykovým `/{locale}/feed.xml`.
  * Čistý modul: položky přicházejí z route handleru. Pro cs je výstup
- * byte-identický s původním generátorem (zlatý snímek). Texty kanálu jsou
- * zatím české (slovník UI = krok 4).
+ * byte-identický s původním generátorem (zlatý snímek). Texty kanálu jdou
+ * ze slovníku UI (`t`).
  */
 
 export type RssPolozka = {
@@ -57,10 +58,10 @@ export function rssXml({
   return `<?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>InteliDome — blog</title>
+    <title>${escapeXml(t(locale, 'rss.title'))}</title>
     <link>${kanal}</link>
     <atom:link href="${siteUrl}${rssCesta(locale)}" rel="self" type="application/rss+xml" />
-    <description>Návody a praxe kolem chytré závlahy a automatizace zahrady.</description>
+    <description>${escapeXml(t(locale, 'rss.description'))}</description>
     <language>${locale}</language>
 ${items}
   </channel>

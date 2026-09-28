@@ -1,49 +1,21 @@
 import React from 'react'
 
-const defaultLabels = {
-  few: 'záznamy',
-  plural: 'záznamů',
-  singular: 'záznam',
-}
+import type { Locale } from '@/i18n/config'
+import { t } from '@/i18n/ui'
 
-const defaultCollectionLabels = {
-  posts: {
-    few: 'články',
-    plural: 'článků',
-    singular: 'článek',
-  },
-}
-
-// Czech plural forms: 1 článek / 2–4 články / 5+ článků
-const pluralize = (
-  count: number,
-  labels: { few?: string; plural?: string; singular?: string },
-): string | undefined => {
-  if (count === 1) return labels.singular
-  if (count >= 2 && count <= 4) return labels.few ?? labels.plural
-  return labels.plural
-}
-
+/**
+ * „Zobrazeno 1–12 z 30 článků“: rozsah výpisu s českými tvary podstatného
+ * jména ze slovníku UI (`pageRange.posts` / `pageRange.items`, A11).
+ */
 export const PageRange: React.FC<{
   className?: string
-  collection?: keyof typeof defaultCollectionLabels
-  collectionLabels?: {
-    few?: string
-    plural?: string
-    singular?: string
-  }
+  collection?: 'posts'
   currentPage?: number
   limit?: number
+  locale: Locale
   totalDocs?: number
 }> = (props) => {
-  const {
-    className,
-    collection,
-    collectionLabels: collectionLabelsFromProps,
-    currentPage,
-    limit,
-    totalDocs,
-  } = props
+  const { className, collection, currentPage, limit, locale, totalDocs } = props
 
   let indexStart = (currentPage ? currentPage - 1 : 1) * (limit || 1) + 1
   if (totalDocs && indexStart > totalDocs) indexStart = 0
@@ -51,19 +23,14 @@ export const PageRange: React.FC<{
   let indexEnd = (currentPage || 1) * (limit || 1)
   if (totalDocs && indexEnd > totalDocs) indexEnd = totalDocs
 
-  const labels =
-    collectionLabelsFromProps ||
-    (collection ? defaultCollectionLabels[collection] : undefined) ||
-    defaultLabels
+  const tvar = collection === 'posts' ? t(locale, 'pageRange.posts') : t(locale, 'pageRange.items')
 
   return (
     <div className={[className, 'font-semibold'].filter(Boolean).join(' ')}>
-      {(typeof totalDocs === 'undefined' || totalDocs === 0) && 'Nic jsme nenašli.'}
+      {(typeof totalDocs === 'undefined' || totalDocs === 0) && t(locale, 'search.empty')}
       {typeof totalDocs !== 'undefined' &&
         totalDocs > 0 &&
-        `Zobrazeno ${indexStart}${indexStart > 0 ? `–${indexEnd}` : ''} z ${totalDocs} ${
-          pluralize(totalDocs, labels) ?? ''
-        }`}
+        t(locale, 'pageRange.shown')(indexStart, indexEnd, totalDocs, tvar(totalDocs))}
     </div>
   )
 }

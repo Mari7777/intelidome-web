@@ -9,7 +9,8 @@ import PageClient from './page.client'
 import { CardPostData } from '@/components/Card'
 import { draftMode } from 'next/headers'
 import { notFound } from 'next/navigation'
-import { jeLocale } from '@/i18n/config'
+import { DEFAULT_LOCALE, jeLocale } from '@/i18n/config'
+import { t } from '@/i18n/ui'
 import { vynutZivost } from '@/i18n/zivost'
 
 type Args = {
@@ -80,7 +81,7 @@ export default async function Page({ params: paramsPromise, searchParams: search
       <PageClient />
       <div className="container mb-16">
         <div className="prose dark:prose-invert max-w-none text-center">
-          <h1 className="mb-8 lg:mb-16">Hledání</h1>
+          <h1 className="mb-8 lg:mb-16">{t(locale, 'search.heading')}</h1>
 
           <div className="max-w-[50rem] mx-auto">
             <Search />
@@ -91,15 +92,16 @@ export default async function Page({ params: paramsPromise, searchParams: search
       {posts.totalDocs > 0 ? (
         <CollectionArchive locale={locale} posts={posts.docs as CardPostData[]} />
       ) : (
-        <div className="container">Nic jsme nenašli.</div>
+        <div className="container">{t(locale, 'search.empty')}</div>
       )}
     </div>
   )
 }
 
-export function generateMetadata(): Metadata {
+export async function generateMetadata({ params }: Pick<Args, 'params'>): Promise<Metadata> {
+  const { locale } = await params
   return {
-    title: 'Hledání',
+    title: t(jeLocale(locale) ? locale : DEFAULT_LOCALE, 'search.heading'),
     robots: { index: false, follow: true },
   }
 }

@@ -12,6 +12,7 @@ import { notFound, redirect } from 'next/navigation'
 import { DEFAULT_LOCALE, jeLocale } from '@/i18n/config'
 import { vynutZivost } from '@/i18n/zivost'
 import { lokalizujCestu } from '@/i18n/routing'
+import { t } from '@/i18n/ui'
 
 export const revalidate = 600
 
@@ -51,7 +52,7 @@ export default async function Page({ params: paramsPromise }: Args) {
       <PageClient />
       <div className="container mb-16">
         <div className="prose dark:prose-invert max-w-none">
-          <h1>Blog</h1>
+          <h1>{t(locale, 'posts.title')}</h1>
         </div>
       </div>
 
@@ -60,6 +61,7 @@ export default async function Page({ params: paramsPromise }: Args) {
           collection="posts"
           currentPage={posts.page}
           limit={12}
+          locale={locale}
           totalDocs={posts.totalDocs}
         />
       </div>
@@ -76,11 +78,12 @@ export default async function Page({ params: paramsPromise }: Args) {
 }
 
 export async function generateMetadata({ params: paramsPromise }: Args): Promise<Metadata> {
-  const { locale, pageNumber } = await paramsPromise
+  const { locale: param, pageNumber } = await paramsPromise
+  const locale = jeLocale(param) ? param : DEFAULT_LOCALE
   const cesta = Number(pageNumber) === 1 ? '/posts' : `/posts/page/${pageNumber}`
   return {
-    title: `Články — strana ${pageNumber || ''}`,
-    alternates: { canonical: lokalizujCestu(cesta, jeLocale(locale) ? locale : DEFAULT_LOCALE) },
+    title: t(locale, 'posts.page')(pageNumber || ''),
+    alternates: { canonical: lokalizujCestu(cesta, locale) },
   }
 }
 

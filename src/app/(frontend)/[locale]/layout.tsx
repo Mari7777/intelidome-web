@@ -20,6 +20,8 @@ import { getServerSideURL } from '@/utilities/getURL'
 import { DEFAULT_LOCALE, jeLocale } from '@/i18n/config'
 import { LocaleProvider } from '@/i18n/LocaleProvider'
 import { rssCesta } from '@/i18n/routing'
+import { LIVE_LOCALES } from '@/i18n/live'
+import { t } from '@/i18n/ui'
 
 // Display písmo DS v2 (ADR-004, DESIGN.md 4.1) — jediný webfont webu.
 // Self-hostuje ho next/font; --id-f-archivo pak plní --id-f-display.
@@ -97,9 +99,9 @@ export default async function RootLayout({ children, params }: Args) {
               }}
             />
 
-            <Header locale={locale} />
+            <Header liveLocales={LIVE_LOCALES} locale={locale} />
             {children}
-            <Footer locale={locale} />
+            <Footer liveLocales={LIVE_LOCALES} locale={locale} />
           </Providers>
         </LocaleProvider>
         <Analytics />
@@ -120,11 +122,10 @@ export async function generateMetadata({ params }: Pick<Args, 'params'>): Promis
       googleBot: { index: process.env.VERCEL_ENV !== 'preview', follow: true, 'max-image-preview': 'large' },
     },
     title: {
-      default: 'InteliDome — chytrá závlaha a automatizace zahrady',
+      default: t(locale, 'seo.siteTitle'),
       template: '%s | InteliDome',
     },
-    description:
-      'Návody a praxe kolem chytré závlahy: návrh systému, kapková závlaha, zazimování a automatizace zahrady. Blog značky InteliDome.',
+    description: t(locale, 'seo.siteDescription'),
     alternates: {
       types: {
         'application/rss+xml': rssCesta(locale),

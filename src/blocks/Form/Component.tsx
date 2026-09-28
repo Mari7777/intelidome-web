@@ -12,6 +12,7 @@ import { fields } from './fields'
 import { getClientSideURL } from '@/utilities/getURL'
 import { useLocale } from '@/i18n/LocaleProvider'
 import { lokalizujCestu } from '@/i18n/routing'
+import { t } from '@/i18n/ui'
 
 export type FormBlockType = {
   blockName?: string
@@ -106,7 +107,7 @@ export const FormBlock: React.FC<
           console.warn(err)
           setIsLoading(false)
           setError({
-            message: 'Something went wrong.',
+            message: t(locale, 'form.error'),
           })
         }
       }
@@ -126,7 +127,7 @@ export const FormBlock: React.FC<
           {!isLoading && hasSubmitted && confirmationType === 'message' && (
             <RichText data={confirmationMessage} locale={locale} />
           )}
-          {isLoading && !hasSubmitted && <p>Loading, please wait...</p>}
+          {isLoading && !hasSubmitted && <p>{t(locale, 'form.loading')}</p>}
           {error && <div>{`${error.status || '500'}: ${error.message || ''}`}</div>}
           {!hasSubmitted && (
             <form id={formID} onSubmit={handleSubmit(onSubmit)}>

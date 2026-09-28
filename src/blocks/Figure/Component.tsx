@@ -6,6 +6,9 @@ import { nezlomitelneMezery } from '@/utilities/czechTypography'
 import { cn } from '@/utilities/ui'
 import { Media } from '@/components/Media'
 import { DRAWINGS, type Drawing, type DrawingKey } from '@/components/figures/registry'
+import type { Locale } from '@/i18n/config'
+import { t } from '@/i18n/ui'
+import { formatFigureNumber } from '@/utilities/formatFigureNumber'
 
 // Local prop type — the generated `FigureBlock` interface does not exist until
 // `payload generate:types` runs after this block is registered.
@@ -27,17 +30,8 @@ export type FigureBlockProps = {
 
 type Props = {
   className?: string
+  locale: Locale
 } & FigureBlockProps
-
-/**
- * Formats the hand-written number into the DS convention "Obr. 01" (two digits).
- * Non-numeric input (e.g. "2a") is passed through untouched.
- */
-const formatFigureNumber = (raw?: string | null): string | null => {
-  const value = raw?.trim()
-  if (!value) return null
-  return /^\d+$/.test(value) ? `Obr. ${value.padStart(2, '0')}` : `Obr. ${value}`
-}
 
 // InteliDome DS 7.12 — numbered figure: image on a cream panel, hairline below,
 // caption led by the "Obr. NN" label.
@@ -48,10 +42,11 @@ export const FigureBlock: React.FC<Props> = ({
   drawing,
   image,
   layout,
+  locale,
   number,
   panel,
 }) => {
-  const label = formatFigureNumber(number)
+  const label = formatFigureNumber(number, t(locale, 'figure.label'))
   const withPanel = panel !== false
   const sazba = layout ? `id-figure--${layout}` : null
   const entry: Drawing | undefined = drawing ? DRAWINGS[drawing as DrawingKey] : undefined

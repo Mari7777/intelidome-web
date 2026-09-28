@@ -108,12 +108,12 @@ const vytvorKonvertory = (locale: Locale): JSXConvertersFunction<NodeTypes> => {
       banner: ({ node }) => <BannerBlock className="id-edge" {...node.fields} locale={locale} />,
       chapter: ({ node }) => <ChapterBlock {...node.fields} />,
       figure: ({ node }) => (
-        <FigureBlock className={node.fields.layout ? undefined : 'id-edge'} {...node.fields} />
+        <FigureBlock className={node.fields.layout ? undefined : 'id-edge'} {...node.fields} locale={locale} />
       ),
       statTiles: ({ node }) => <StatTilesBlock {...node.fields} />,
       split: ({ node }) => <SplitBlock {...node.fields} locale={locale} />,
       summaryBand: ({ node }) => <SummaryBandBlock {...node.fields} />,
-      productBand: ({ node }) => <ProductBandBlock {...node.fields} />,
+      productBand: ({ node }) => <ProductBandBlock {...node.fields} locale={locale} />,
       ctaBand: ({ node }) => <CtaBandBlock {...node.fields} locale={locale} />,
       calculator: ({ node }) => <CalculatorBlock {...node.fields} />,
       faq: ({ node }) => <FaqBlock {...node.fields} locale={locale} />,

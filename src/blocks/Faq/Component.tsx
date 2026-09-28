@@ -6,6 +6,7 @@ import RichText from '@/components/RichText'
 import { nezlomitelneMezery } from '@/utilities/czechTypography'
 import { cn } from '@/utilities/ui'
 import type { Locale } from '@/i18n/config'
+import { t } from '@/i18n/ui'
 
 // Local props — the generated `FaqBlock` type does not exist until `generate:types` runs.
 export type FaqBlockItem = {
@@ -75,7 +76,7 @@ export const FaqBlock: React.FC<FaqBlockProps> = ({ className, heading, id, item
 
   if (entries.length === 0) return null
 
-  const headingText = heading && heading.trim() !== '' ? heading.trim() : 'Časté otázky'
+  const headingText = heading && heading.trim() !== '' ? heading.trim() : t(locale, 'faq.heading')
   const headingId = id ? `faq-${id}-heading` : undefined
 
   const questions = entries
@@ -111,7 +112,7 @@ export const FaqBlock: React.FC<FaqBlockProps> = ({ className, heading, id, item
       <div>
       <span className="mb-[14px] flex w-fit items-center gap-[10px] font-[family-name:var(--id-f-display)] text-[12px] leading-[1.2] font-semibold tracking-[0.14em] text-[var(--id-accent)] uppercase">
         <span aria-hidden="true" className="h-[1.5px] w-[22px] shrink-0 bg-[var(--id-accent)]" />
-        Otázky a&nbsp;odpovědi
+        {t(locale, 'faq.eyebrow')}
       </span>
 
       <h2

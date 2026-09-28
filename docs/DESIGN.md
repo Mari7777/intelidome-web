@@ -675,6 +675,8 @@ Na obsidianu focus ring zůstává accent — #2563eb je na #0b0d10 jako obrys z
 
 **Stavy:** mini-CTA hover background:accent (.25s); logo focus-visible kompaktní 2.5px/4px. Capsule sama nemá hover.
 
+Přepínač jazyků = položky `__link` ve skupině odkazů (kód jazyka uppercase, aktivní `aria-current="true"` v ink), zobrazí se při ≥ 2 živých jazycích; v patičce plný seznam v řádku s ©.
+
 **Tmavě:** beze změny — frosted bílá funguje i nad obsidianem; tmavou variantu nikdy.
 
 ```html

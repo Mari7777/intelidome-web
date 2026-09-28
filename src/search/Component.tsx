@@ -6,6 +6,7 @@ import { useDebounce } from '@/utilities/useDebounce'
 import { useRouter } from 'next/navigation'
 import { useLocale } from '@/i18n/LocaleProvider'
 import { lokalizujCestu } from '@/i18n/routing'
+import { t } from '@/i18n/ui'
 
 export const Search: React.FC = () => {
   const [value, setValue] = useState('')
@@ -26,17 +27,17 @@ export const Search: React.FC = () => {
         }}
       >
         <Label htmlFor="search" className="sr-only">
-          Hledat
+          {t(locale, 'search.field')}
         </Label>
         <Input
           id="search"
           onChange={(event) => {
             setValue(event.target.value)
           }}
-          placeholder="Hledat"
+          placeholder={t(locale, 'search.field')}
         />
         <button type="submit" className="sr-only">
-          Hledat
+          {t(locale, 'search.field')}
         </button>
       </form>
     </div>

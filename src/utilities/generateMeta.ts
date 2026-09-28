@@ -4,6 +4,7 @@ import { mergeOpenGraph } from './mergeOpenGraph'
 import { absoluteSiteURL } from './getURL'
 import { DEFAULT_LOCALE, OG_LOCALE, type Locale } from '@/i18n/config'
 import { lokalizujCestu, rssCesta, zakladniCesta } from '@/i18n/routing'
+import { t } from '@/i18n/ui'
 
 export const getSocialImage = (image?: Media | Config['db']['defaultIDType'] | null) => {
   if (image && typeof image === 'object') {
@@ -41,7 +42,7 @@ export const generateMeta = async ({ doc, collection, locale = DEFAULT_LOCALE, p
   // nepřeloženého jazyka pod /{l}/… by jinak inzeroval cizí množinu).
   const jazyky = preklady.length >= 2 && preklady.includes(locale) ? preklady : null
   const docTitle = doc?.meta?.title?.replace(/\s*\|\s*InteliDome\s*$/, '').trim() || doc?.title?.trim()
-  const siteTitle = 'InteliDome — chytrá závlaha a automatizace zahrady'
+  const siteTitle = t(locale, 'seo.siteTitle')
   const description = doc?.meta?.description?.trim()
 
   return {

@@ -8,6 +8,7 @@ import { Card } from '../../components/Card'
 import { DefaultTypedEditorState } from '@payloadcms/richtext-lexical'
 import type { Locale } from '@/i18n/config'
 import { zobrazitelny } from '@/i18n/zobrazitelny'
+import { t } from '@/i18n/ui'
 
 export type RelatedPostsProps = {
   className?: string
@@ -30,7 +31,7 @@ export const RelatedPosts: React.FC<RelatedPostsProps> = (props) => {
         <RichText data={introContent} enableGutter={false} locale={locale} />
       ) : (
         <h2 className="mb-6 font-[family-name:var(--id-f-display)] text-[length:var(--id-t-title)] leading-[1.05] font-semibold tracking-[-0.025em] text-[var(--id-ink)] [text-wrap:balance]">
-          Související články
+          {t(locale, 'related.heading')}
         </h2>
       )}
 

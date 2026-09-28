@@ -3,6 +3,9 @@ import React from 'react'
 import { SitMostuPortret } from '@/components/figures/SitMostuPortret'
 import { nezlomitelneMezery } from '@/utilities/czechTypography'
 import { cn } from '@/utilities/ui'
+import { formatSeznam } from '@/utilities/formatAuthors'
+import type { Locale } from '@/i18n/config'
+import { t } from '@/i18n/ui'
 
 export type ProductBandBlockProps = {
   /** `zavlaha` = diagram bez osvětlení (článek o půdě). */
@@ -15,6 +18,7 @@ export type ProductBandBlockProps = {
   blockName?: string | null
   blockType?: 'productBand'
   className?: string
+  locale: Locale
 }
 
 /**
@@ -32,6 +36,7 @@ export const ProductBandBlock: React.FC<ProductBandBlockProps> = ({
   className,
   eyebrow,
   features,
+  locale,
   title,
 }) => {
   /* Diagram nese jen to, co pás skutečně vysvětluje: „osvětlení" nemá
@@ -84,7 +89,7 @@ export const ProductBandBlock: React.FC<ProductBandBlockProps> = ({
         </div>
 
           <div
-            aria-label={popisSite(uzly)}
+            aria-label={popisSite(uzly, locale)}
             className="rv id-figure-svg"
             role="img"
           >
@@ -110,15 +115,7 @@ function renderStrong(source: string): React.ReactNode[] {
 
 /** Popis pro odečítač se skládá ze stejného seznamu jako kresba — jinak
  *  by po vypnutí uzlu zůstala věta o prvku, který na obrázku není. */
-function popisSite(uzly: Array<'cidlo' | 'ventil' | 'nadrz' | 'svetlo'>): string {
-  const jmena: Record<string, string> = {
-    cidlo: 'čidlo vlhkosti',
-    ventil: 'ventil',
-    nadrz: 'retenční nádrž',
-    svetlo: 'venkovní osvětlení',
-  }
-  const vyjmenovane = uzly.map((u) => jmena[u]).filter(Boolean)
-  const posledni = vyjmenovane.pop()
-  const vycet = vyjmenovane.length ? `${vyjmenovane.join(', ')} a ${posledni}` : posledni
-  return `Schéma sítě: most uprostřed, kolem něj ${vycet}; aktivní spoj vede k ventilu.`
+function popisSite(uzly: Array<'cidlo' | 'ventil' | 'nadrz' | 'svetlo'>, locale: Locale): string {
+  const vyjmenovane = uzly.map((u) => t(locale, `productBand.node.${u}`))
+  return t(locale, 'productBand.figureAlt')(formatSeznam(vyjmenovane, locale))
 }

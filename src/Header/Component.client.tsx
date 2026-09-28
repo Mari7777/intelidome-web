@@ -5,14 +5,18 @@ import { usePathname } from 'next/navigation'
 import React, { useEffect, useState } from 'react'
 
 import type { Header } from '@/payload-types'
+import type { Locale } from '@/i18n/config'
 
 import { Logo } from '@/components/Logo/Logo'
 import { useLocale } from '@/i18n/LocaleProvider'
 import { lokalizujCestu } from '@/i18n/routing'
+import { t } from '@/i18n/ui'
 import { HeaderNav } from './Nav'
 
 interface HeaderClientProps {
   data: Header
+  /** Živé jazyky z layoutu — přepínač se ukáže při ≥ 2 (A20). */
+  liveLocales: readonly Locale[]
 }
 
 /**
@@ -23,7 +27,7 @@ interface HeaderClientProps {
  * přesně 100svh. Kapsle je `fixed` 18 px pod hranou, stránka pod ní
  * protéká; obal nechytá kliky, jen samotná pilulka.
  */
-export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
+export const HeaderClient: React.FC<HeaderClientProps> = ({ data, liveLocales }) => {
   /* Storing the value in a useState to avoid hydration errors */
   const [theme, setTheme] = useState<string | null>(null)
   const { headerTheme, setHeaderTheme } = useHeaderTheme()
@@ -65,13 +69,13 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
     >
       <div className="id-capsule pointer-events-auto">
         <Link
-          aria-label="InteliDome — domovská stránka"
+          aria-label={t(locale, 'logo.aria')}
           className="id-capsule__mark"
           href={lokalizujCestu('/', locale)}
         >
           <Logo decorative height={21} />
         </Link>
-        <HeaderNav data={data} />
+        <HeaderNav data={data} liveLocales={liveLocales} />
       </div>
     </header>
   )

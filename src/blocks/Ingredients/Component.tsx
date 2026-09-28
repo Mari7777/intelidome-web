@@ -10,6 +10,7 @@ import { DRAWINGS, type DrawingKey } from '@/components/figures/registry'
 import { nezlomitelneMezery } from '@/utilities/czechTypography'
 import { cn } from '@/utilities/ui'
 import type { Locale } from '@/i18n/config'
+import { t } from '@/i18n/ui'
 
 import { IngredientsTabs } from './IngredientsTabs'
 
@@ -54,7 +55,7 @@ export const IngredientsBlock: React.FC<IngredientsBlockProps> = ({
 }) => {
   if (!items?.length) return null
 
-  const labels = items.map((item, i) => item.name ?? `Složka ${i + 1}`)
+  const labels = items.map((item, i) => item.name ?? t(locale, 'ingredients.item')(i + 1))
 
   const tabs = items.map((item) => (
     <figure className="id-ingredients__item" key={item.id ?? item.name}>

@@ -1,11 +1,12 @@
 import type { Metadata } from 'next'
 import { getServerSideURL } from './getURL'
-import { OG_LOCALE, type Locale } from '@/i18n/config'
+import { DEFAULT_LOCALE, OG_LOCALE, type Locale } from '@/i18n/config'
+import { t } from '@/i18n/ui'
 
 const defaultOpenGraph: Metadata['openGraph'] = {
   type: 'website',
   locale: 'cs_CZ',
-  description: 'Chytrá závlaha a automatizace zahrady — návody, plánování a praxe.',
+  description: t(DEFAULT_LOCALE, 'seo.ogDescription'),
   images: [
     {
       url: `${getServerSideURL()}/og-default.webp`,
@@ -15,11 +16,11 @@ const defaultOpenGraph: Metadata['openGraph'] = {
   title: 'InteliDome',
 }
 
-/** `locale` (jazyk webu) přepíše `og:locale` z mapy OG kódů; bez něj zůstává cs_CZ. */
+/** `locale` (jazyk webu) přepíše `og:locale` z mapy OG kódů a výchozí popis; bez něj zůstává cs_CZ. */
 export const mergeOpenGraph = (og?: Metadata['openGraph'], locale?: Locale): Metadata['openGraph'] => {
   return {
     ...defaultOpenGraph,
-    ...(locale ? { locale: OG_LOCALE[locale] } : {}),
+    ...(locale ? { locale: OG_LOCALE[locale], description: t(locale, 'seo.ogDescription') } : {}),
     ...og,
     images: og?.images ? og.images : defaultOpenGraph.images,
   }

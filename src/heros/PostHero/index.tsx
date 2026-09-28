@@ -1,6 +1,9 @@
 import { formatDateTime } from 'src/utilities/formatDateTime'
 import React from 'react'
 
+import type { Locale } from '@/i18n/config'
+import { t } from '@/i18n/ui'
+
 import type { Post } from '@/payload-types'
 
 import { Media } from '@/components/Media'
@@ -16,18 +19,18 @@ import { readingTime } from '@/utilities/readingTime'
  * Nástup je orchestrovaný, ne jeden fade na všem: titulek stoupá z masky
  * po řádcích, ostatní se prolne. Bez fotografie zůstává čistý pás.
  */
-export const PostHero: React.FC<{ post: Post }> = ({ post }) => {
+export const PostHero: React.FC<{ post: Post; locale: Locale }> = ({ post, locale }) => {
   const { categories, content, heroImage, meta, populatedAuthors, publishedAt, title } = post
 
   const hasAuthors =
-    populatedAuthors && populatedAuthors.length > 0 && formatAuthors(populatedAuthors) !== ''
+    populatedAuthors && populatedAuthors.length > 0 && formatAuthors(populatedAuthors, locale) !== ''
 
   const categoryTitles = (categories ?? [])
     .filter((category): category is Exclude<typeof category, number> => typeof category === 'object')
     .map((category) => category?.title || '')
     .filter(Boolean)
 
-  const eyebrow = categoryTitles.length ? categoryTitles.join(' · ') : 'Návody · Závlaha'
+  const eyebrow = categoryTitles.length ? categoryTitles.join(' · ') : t(locale, 'hero.eyebrow')
 
   // Titulek po řádcích: každý má VLASTNÍ masku, aby mohl stoupat zvlášť
   // se staggerem (6.3.3). Kvalifikátor za dvojtečkou je druhý hlas.
@@ -44,11 +47,11 @@ export const PostHero: React.FC<{ post: Post }> = ({ post }) => {
   // 8.2 ř. 1: ve třísekundové zóně má stát slib interaktivity, ne jen datum.
   const kalkulatoru = countCalculators(content)
   const metaItems = [
-    minutes ? nezlomitelneMezery(`${minutes} min čtení`) : null,
-    kalkulatoru ? nezlomitelneMezery(`${kalkulatoru} ${kalkulatorySlovo(kalkulatoru)}`) : null,
-    hasAuthors ? formatAuthors(populatedAuthors) : null,
+    minutes ? nezlomitelneMezery(t(locale, 'hero.reading')(minutes)) : null,
+    kalkulatoru ? nezlomitelneMezery(t(locale, 'hero.calculators')(kalkulatoru)) : null,
+    hasAuthors ? formatAuthors(populatedAuthors, locale) : null,
     'InteliDome Journal',
-    publishedAt ? <time dateTime={publishedAt}>{formatDateTime(publishedAt)}</time> : null,
+    publishedAt ? <time dateTime={publishedAt}>{formatDateTime(publishedAt, locale)}</time> : null,
   ].filter(Boolean) as React.ReactNode[]
 
   return (
@@ -106,7 +109,7 @@ export const PostHero: React.FC<{ post: Post }> = ({ post }) => {
         </p>
       </div>
 
-      <a className="id-hero__cue" href="#obsah" aria-label="Přejít na článek">
+      <a className="id-hero__cue" href="#obsah" aria-label={t(locale, 'hero.skip')}>
         <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
           <path
             d="M8 2v11M3.5 9 8 13.5 12.5 9"
@@ -145,13 +148,6 @@ function countCalculators(node: unknown, depth = 0): number {
       0,
     )
   )
-}
-
-/** 1 kalkulátor · 2–4 kalkulátory · 5+ kalkulátorů */
-function kalkulatorySlovo(pocet: number): string {
-  if (pocet === 1) return 'kalkulátor'
-  if (pocet < 5) return 'kalkulátory'
-  return 'kalkulátorů'
 }
 
 /** Jednopísmenné předložky a spojky, které nesmí zůstat osamocené na

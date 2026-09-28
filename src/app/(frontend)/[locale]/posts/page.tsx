@@ -12,6 +12,7 @@ import PageClient from './page.client'
 import { DEFAULT_LOCALE, jeLocale } from '@/i18n/config'
 import { vynutZivost } from '@/i18n/zivost'
 import { lokalizujCestu } from '@/i18n/routing'
+import { t } from '@/i18n/ui'
 
 export const dynamic = 'force-static'
 export const revalidate = 600
@@ -51,7 +52,7 @@ export default async function Page({ params: paramsPromise }: Args) {
       <PageClient />
       <div className="container mb-16">
         <div className="prose dark:prose-invert max-w-none">
-          <h1>Blog</h1>
+          <h1>{t(locale, 'posts.title')}</h1>
         </div>
       </div>
 
@@ -60,6 +61,7 @@ export default async function Page({ params: paramsPromise }: Args) {
           collection="posts"
           currentPage={posts.page}
           limit={12}
+          locale={locale}
           totalDocs={posts.totalDocs}
         />
       </div>
@@ -76,10 +78,11 @@ export default async function Page({ params: paramsPromise }: Args) {
 }
 
 export async function generateMetadata({ params: paramsPromise }: Args): Promise<Metadata> {
-  const { locale } = await paramsPromise
+  const { locale: param } = await paramsPromise
+  const locale = jeLocale(param) ? param : DEFAULT_LOCALE
   return {
-    title: 'Články o půdě, trávníku a chytré závlaze',
-    description: 'Praktické návody pro přípravu půdy, založení trávníku a chytrou závlahu. Výběr příměsí, kalkulátor množství a postup práce na zahradě.',
-    alternates: { canonical: lokalizujCestu('/posts', jeLocale(locale) ? locale : DEFAULT_LOCALE) },
+    title: t(locale, 'posts.metaTitle'),
+    description: t(locale, 'posts.metaDescription'),
+    alternates: { canonical: lokalizujCestu('/posts', locale) },
   }
 }

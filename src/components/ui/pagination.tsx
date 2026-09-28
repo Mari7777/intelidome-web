@@ -43,41 +43,56 @@ const PaginationLink = ({ className, isActive, size = 'icon', ...props }: Pagina
   />
 )
 
+/* Texty přicházejí z volajícího (`components/Pagination` je bere ze slovníku UI
+   podle jazyka, A11) — primitiva sama žádný jazyk neznají. */
+type PaginationTextProps = { label: string; ariaLabel: string }
+
 const PaginationPrevious = ({
+  ariaLabel,
   className,
+  label,
   ...props
-}: React.ComponentProps<typeof PaginationLink>) => (
+}: React.ComponentProps<typeof PaginationLink> & PaginationTextProps) => (
   <PaginationLink
-    aria-label="Přejít na předchozí stranu"
+    aria-label={ariaLabel}
     className={cn('gap-1 pl-2.5', className)}
     size="default"
     {...props}
   >
     <ChevronLeft className="h-4 w-4" />
-    <span>Předchozí</span>
+    <span>{label}</span>
   </PaginationLink>
 )
 
-const PaginationNext = ({ className, ...props }: React.ComponentProps<typeof PaginationLink>) => (
+const PaginationNext = ({
+  ariaLabel,
+  className,
+  label,
+  ...props
+}: React.ComponentProps<typeof PaginationLink> & PaginationTextProps) => (
   <PaginationLink
-    aria-label="Přejít na další stranu"
+    aria-label={ariaLabel}
     className={cn('gap-1 pr-2.5', className)}
     size="default"
     {...props}
   >
-    <span>Další</span>
+    <span>{label}</span>
     <ChevronRight className="h-4 w-4" />
   </PaginationLink>
 )
 
-const PaginationEllipsis = ({ className, ...props }: React.ComponentProps<'span'>) => (
+const PaginationEllipsis = ({
+  className,
+  label,
+  ...props
+}: React.ComponentProps<'span'> & { label: string }) => (
   <span
     aria-hidden
     className={cn('flex h-9 w-9 items-center justify-center', className)}
     {...props}
   >
     <MoreHorizontal className="h-4 w-4" />
-    <span className="sr-only">Další strany</span>
+    <span className="sr-only">{label}</span>
   </span>
 )
 

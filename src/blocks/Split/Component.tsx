@@ -10,6 +10,8 @@ import { slugify } from '@/utilities/slugify'
 import { cn } from '@/utilities/ui'
 import type { Locale } from '@/i18n/config'
 import { lokalizujCestu } from '@/i18n/routing'
+import { t } from '@/i18n/ui'
+import { formatFigureNumber } from '@/utilities/formatFigureNumber'
 
 export type SplitBlockProps = {
   /** `krem` = kapitola stojí na krémovém pásu (posun povrchu, 8.1 p. 3). */
@@ -34,12 +36,6 @@ export type SplitBlockProps = {
   blockType?: 'split'
   className?: string
   locale: Locale
-}
-
-const formatFigureNumber = (raw?: string | null): string | null => {
-  const value = raw?.trim()
-  if (!value) return null
-  return /^\d+$/.test(value) ? `Obr. ${value.padStart(2, '0')}` : `Obr. ${value}`
 }
 
 /**
@@ -78,7 +74,7 @@ export const SplitBlock: React.FC<SplitBlockProps> = ({
     .split(/\n{2,}/)
     .map((p) => p.trim())
     .filter(Boolean)
-  const label = formatFigureNumber(number)
+  const label = formatFigureNumber(number, t(locale, 'figure.label'))
   const anchor = title ? slugify(title) || undefined : undefined
 
   const hasHead = Boolean(eyebrow || title)

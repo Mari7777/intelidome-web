@@ -90,7 +90,7 @@ export default async function Post({ params: paramsPromise }: Args) {
             imerzivní obsah ano, formuláře a administrace nikdy. */}
         <Motion inertia={!hasProfileCalculator} />
 
-        <PostHero post={post} />
+        <PostHero locale={locale} post={post} />
 
         {/* Article JSON-LD (skill intellidome-web: JSON-LD dle typu stránky);
             FAQPage si přidává blok FAQ sám. `<` se escapuje kvůli </script>. */}

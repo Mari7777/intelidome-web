@@ -2026,6 +2026,9 @@ export interface CtaBandBlock {
  * via the `definition` "FaqBlock".
  */
 export interface FaqBlock {
+  /**
+   * Prázdné = „Časté otázky“ v jazyce stránky (slovník UI).
+   */
   heading?: string | null;
   /**
    * Krátký standfirst v levém sloupci (např. shrnutí článku). Bez něj by vedle šesti otázek stál nadpis v prázdnu.

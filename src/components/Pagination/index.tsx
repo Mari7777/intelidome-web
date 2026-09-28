@@ -11,6 +11,7 @@ import {
 import { cn } from '@/utilities/ui'
 import { useLocale } from '@/i18n/LocaleProvider'
 import { lokalizujCestu } from '@/i18n/routing'
+import { t } from '@/i18n/ui'
 import { useRouter } from 'next/navigation'
 import React from 'react'
 
@@ -36,7 +37,9 @@ export const Pagination: React.FC<{
         <PaginationContent>
           <PaginationItem>
             <PaginationPrevious
+              ariaLabel={t(locale, 'pagination.prevAria')}
               disabled={!hasPrevPage}
+              label={t(locale, 'pagination.prev')}
               onClick={() => {
                 jdiNa(page - 1)
               }}
@@ -45,7 +48,7 @@ export const Pagination: React.FC<{
 
           {hasExtraPrevPages && (
             <PaginationItem>
-              <PaginationEllipsis />
+              <PaginationEllipsis label={t(locale, 'pagination.more')} />
             </PaginationItem>
           )}
 
@@ -86,13 +89,15 @@ export const Pagination: React.FC<{
 
           {hasExtraNextPages && (
             <PaginationItem>
-              <PaginationEllipsis />
+              <PaginationEllipsis label={t(locale, 'pagination.more')} />
             </PaginationItem>
           )}
 
           <PaginationItem>
             <PaginationNext
+              ariaLabel={t(locale, 'pagination.nextAria')}
               disabled={!hasNextPage}
+              label={t(locale, 'pagination.next')}
               onClick={() => {
                 jdiNa(page + 1)
               }}

@@ -16,8 +16,10 @@ export const Faq: Block = {
     {
       name: 'heading',
       type: 'text',
-      defaultValue: 'Časté otázky',
       label: 'Nadpis sekce',
+      admin: {
+        description: 'Prázdné = „Časté otázky“ v jazyce stránky (slovník UI).',
+      },
     },
     {
       name: 'lead',
