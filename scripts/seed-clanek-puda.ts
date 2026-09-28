@@ -19,6 +19,7 @@ import config from '@payload-config'
 import { LAWN_SEO, optimizeLawnArticle } from './lib/lawn-seo-content'
 import { reviseSoilGuide } from './lib/lawn-series-puda'
 import { illustrateSoilGuide, SOIL_PHOTOS, type SoilPhotoIds } from './lib/lawn-series-puda-layout'
+import { publikujCs } from './lib/publikuj-cs'
 
 const dirname = path.dirname(fileURLToPath(import.meta.url))
 
@@ -628,13 +629,7 @@ const run = async () => {
 
   if (existing.docs.length > 0) {
     const id = existing.docs[0].id
-    await payload.update({
-      collection: 'posts',
-      id,
-      data,
-      draft: false,
-      context: { disableRevalidate: true },
-    })
+    await publikujCs(payload, { collection: 'posts', id, data })
     payload.logger.info(`Článek aktualizován (id ${id}) – /posts/${SLUG}`)
   } else {
     const created = await payload.create({

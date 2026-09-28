@@ -11,6 +11,7 @@ import { hero } from '@/heros/config'
 import { slugField } from 'payload'
 import { slugify } from '@/utilities/slugify'
 import { slugBezKoduJazyka } from '@/fields/slugBezKoduJazyka'
+import { prelozeno } from '@/fields/prelozeno'
 import { populatePublishedAt } from '../../hooks/populatePublishedAt'
 import { generatePreviewPath } from '../../utilities/generatePreviewPath'
 import { revalidateDelete, revalidatePage } from './hooks/revalidatePage'
@@ -130,6 +131,7 @@ export const Pages: CollectionConfig<'pages'> = {
         position: 'sidebar',
       },
     },
+    prelozeno,
     slugField({ overrides: slugBezKoduJazyka, slugify: ({ valueToSlugify }) => slugify(valueToSlugify) }),
   ],
   hooks: {

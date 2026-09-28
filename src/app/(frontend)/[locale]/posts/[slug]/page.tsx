@@ -6,7 +6,7 @@ import configPromise from '@payload-config'
 import { getPayload } from 'payload'
 import { draftMode } from 'next/headers'
 import { notFound } from 'next/navigation'
-import React, { cache } from 'react'
+import React from 'react'
 import RichText from '@/components/RichText'
 
 import type { Post } from '@/payload-types'
@@ -18,9 +18,10 @@ import { articleJsonLd } from '@/utilities/articleSeo'
 import { ArticleNavigation } from '@/components/ArticleNavigation'
 import PageClient from './page.client'
 import { LivePreviewListener } from '@/components/LivePreviewListener'
-import { jeLocale, type Locale } from '@/i18n/config'
+import { jeLocale } from '@/i18n/config'
 import { verejnaCesta } from '@/i18n/routing'
 import { vynutZivost } from '@/i18n/zivost'
+import { najdiDokument, rozhodniDokument } from '@/i18n/dokumenty'
 
 // Jen `{ slug }` — jazyk dává nadřazený `[locale]` (jen cs, ostatní na vyžádání).
 export async function generateStaticParams() {
@@ -56,12 +57,16 @@ export default async function Post({ params: paramsPromise }: Args) {
   if (!jeLocale(locale)) notFound()
   // Decode to support slugs with special characters
   const decodedSlug = decodeURIComponent(slug)
-  vynutZivost(locale, verejnaCesta('posts', encodeURIComponent(decodedSlug), 'cs'), draft)
+  const csCesta = verejnaCesta('posts', encodeURIComponent(decodedSlug), 'cs')
+  vynutZivost(locale, csCesta, draft)
   // Cesta bez jazykového prefixu: CMS přesměrování (`from`) se zapisují česky.
   const url = '/posts/' + decodedSlug
-  const post = await queryPostBySlug({ slug: decodedSlug, locale })
+  const post = await najdiDokument({ collection: 'posts', slug: decodedSlug, locale, draft })
 
+  // Chybí → CMS přesměrování má přednost, jinak 404 (A6).
   if (!post) return <PayloadRedirects locale={locale} url={url} />
+  // Existuje, ale bez hotového překladu → 307 na českou verzi; náhled prochází.
+  rozhodniDokument({ doc: post, locale, draft, csCesta })
 
   // A form-heavy planning tool keeps native scrolling (DESIGN.md 6.5).
   const hasProfileCalculator = post.content.root.children.some((node) => {
@@ -135,33 +140,11 @@ export async function generateMetadata({ params: paramsPromise }: Args): Promise
   if (!jeLocale(locale)) return {}
   // Decode to support slugs with special characters
   const decodedSlug = decodeURIComponent(slug)
-  const post = await queryPostBySlug({ slug: decodedSlug, locale })
-
   const { isEnabled: draft } = await draftMode()
+  const post = await najdiDokument({ collection: 'posts', slug: decodedSlug, locale, draft })
+
   return {
     ...await generateMeta({ doc: post, collection: 'posts', locale }),
     ...(draft ? { robots: { index: false, follow: false } } : {}),
   }
 }
-
-const queryPostBySlug = cache(async ({ slug, locale }: { slug: string; locale: Locale }) => {
-  const { isEnabled: draft } = await draftMode()
-
-  const payload = await getPayload({ config: configPromise })
-
-  const result = await payload.find({
-    collection: 'posts',
-    draft,
-    limit: 1,
-    locale,
-    overrideAccess: draft,
-    pagination: false,
-    where: {
-      slug: {
-        equals: slug,
-      },
-    },
-  })
-
-  return result.docs?.[0] || null
-})

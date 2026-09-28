@@ -88,6 +88,15 @@ export const plugins: Plugin[] = [
   searchPlugin({
     collections: ['posts'],
     beforeSync: beforeSyncWithSearch,
+    // Plugin volá `skipSync` se SKUTEČNÝM jazykem synchronizace (afterChange
+    // i Reindex, kde `req.locale` zůstává jazykem adminu); `beforeSync` ho
+    // dostává jen přes `req`, proto si ho tu poznamenáme. Nikdy nepřeskakuje
+    // — při odškrtnutí „Překlad hotový“ musí starý řádek přepsat na false.
+    skipSync: ({ locale, req }) => {
+      if (!req.context) req.context = {}
+      req.context.searchSyncLocale = locale
+      return false
+    },
     searchOverrides: {
       fields: ({ defaultFields }) => {
         return [...defaultFields, ...searchFields]

@@ -209,6 +209,10 @@ export interface Page {
   };
   publishedAt?: string | null;
   /**
+   * Zaškrtněte, až je překlad v tomto jazyce úplný. Čeština se nekontroluje. Veřejné až po zapnutí jazyka v kódu (LIVE_LOCALES).
+   */
+  prelozeno?: boolean | null;
+  /**
    * When enabled, the slug will auto-generate from the title field on save and autosave.
    */
   generateSlug?: boolean | null;
@@ -251,6 +255,10 @@ export interface Post {
     description?: string | null;
   };
   publishedAt?: string | null;
+  /**
+   * Zaškrtněte, až je překlad v tomto jazyce úplný. Čeština se nekontroluje. Veřejné až po zapnutí jazyka v kódu (LIVE_LOCALES).
+   */
+  prelozeno?: boolean | null;
   authors?: (number | User)[] | null;
   populatedAuthors?:
     | {
@@ -852,6 +860,7 @@ export interface Search {
         id?: string | null;
       }[]
     | null;
+  prelozeno?: boolean | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -1006,6 +1015,7 @@ export interface PagesSelect<T extends boolean = true> {
         description?: T;
       };
   publishedAt?: T;
+  prelozeno?: T;
   generateSlug?: T;
   slug?: T;
   updatedAt?: T;
@@ -1114,6 +1124,7 @@ export interface PostsSelect<T extends boolean = true> {
         description?: T;
       };
   publishedAt?: T;
+  prelozeno?: T;
   authors?: T;
   populatedAuthors?:
     | T
@@ -1459,6 +1470,7 @@ export interface SearchSelect<T extends boolean = true> {
         title?: T;
         id?: T;
       };
+  prelozeno?: T;
   updatedAt?: T;
   createdAt?: T;
 }

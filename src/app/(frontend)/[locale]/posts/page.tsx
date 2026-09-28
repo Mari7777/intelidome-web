@@ -7,10 +7,11 @@ import configPromise from '@payload-config'
 import { getPayload } from 'payload'
 import React from 'react'
 import { draftMode } from 'next/headers'
-import { notFound } from 'next/navigation'
+import { notFound, redirect } from 'next/navigation'
 import PageClient from './page.client'
 import { jeLocale } from '@/i18n/config'
 import { vynutZivost } from '@/i18n/zivost'
+import { lokalizujCestu } from '@/i18n/routing'
 
 export const dynamic = 'force-static'
 export const revalidate = 600
@@ -36,8 +37,14 @@ export default async function Page({ params: paramsPromise }: Args) {
       slug: true,
       categories: true,
       meta: true,
+      prelozeno: true,
     },
+    // Cizí jazyk vypisuje jen články s hotovým překladem (A6).
+    ...(locale !== 'cs' ? { where: { prelozeno: { equals: true } } } : {}),
   })
+
+  // Bez jediného přeloženého článku výpis v cizím jazyce neexistuje → česká verze.
+  if (locale !== 'cs' && posts.totalDocs === 0) redirect(lokalizujCestu('/posts', 'cs'))
 
   return (
     <div className="pt-24 pb-24">
@@ -57,7 +64,7 @@ export default async function Page({ params: paramsPromise }: Args) {
         />
       </div>
 
-      <CollectionArchive posts={posts.docs} />
+      <CollectionArchive locale={locale} posts={posts.docs} />
 
       <div className="container">
         {posts.totalPages > 1 && posts.page && (

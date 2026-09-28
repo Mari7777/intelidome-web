@@ -1,4 +1,7 @@
 import { BeforeSync, DocToSync } from '@payloadcms/plugin-search/types'
+import type { CollectionSlug } from 'payload'
+
+import { jeLocale, type Locale } from '@/i18n/config'
 
 export const beforeSyncWithSearch: BeforeSync = async ({ req, originalDoc, searchDoc }) => {
   const {
@@ -7,14 +10,44 @@ export const beforeSyncWithSearch: BeforeSync = async ({ req, originalDoc, searc
 
   const { slug, id, categories, title, meta } = originalDoc
 
+  /* Plugin synchronizuje per jazyk. Skutečný jazyk synchronizace předává jen
+     do `skipSync` (viz plugins/index.ts → `req.context.searchSyncLocale`);
+     `req.locale` je při Reindexu jazyk adminu, proto je až záložní. Bez jazyka
+     jde o výchozí cs. `originalDoc` má zapnutý fallback, takže by nepřeložený
+     článek nesl české meta pod cizím jazykem. Pro ne-cs proto čteme ještě
+     jednou bez fallbacku (A17): brána `prelozeno` + meta/title jen z daného jazyka. */
+  const kandidat = req.context?.searchSyncLocale ?? req.locale
+  const jazyk: Locale = jeLocale(kandidat) ? kandidat : 'cs'
+  let prelozeno = true
+  let metaTitle: string | null | undefined = meta?.title || title
+  let metaDescription: string | null | undefined = meta?.description
+
+  if (jazyk !== 'cs') {
+    const vlastni = await req.payload.findByID({
+      collection: collection as CollectionSlug,
+      id,
+      locale: jazyk,
+      fallbackLocale: false,
+      depth: 0,
+      disableErrors: true,
+      select: { prelozeno: true, meta: true, title: true },
+      req,
+    })
+    const d = vlastni as { prelozeno?: boolean | null; title?: string | null; meta?: { title?: string | null; description?: string | null } } | null
+    prelozeno = Boolean(d?.prelozeno)
+    metaTitle = d?.meta?.title || d?.title || undefined
+    metaDescription = d?.meta?.description ?? undefined
+  }
+
   const modifiedDoc: DocToSync = {
     ...searchDoc,
     slug,
+    prelozeno,
     meta: {
       ...meta,
-      title: meta?.title || title,
+      title: metaTitle,
       image: meta?.image?.id || meta?.image,
-      description: meta?.description,
+      description: metaDescription,
     },
     categories: [],
   }

@@ -15,6 +15,8 @@ const getPostsSitemap = unstable_cache(
       draft: false,
       depth: 0,
       limit: 1000,
+      // Výstup je dnes jen český; per jazyk řeší krok 3 (A19).
+      locale: 'cs',
       pagination: false,
       where: {
         _status: {

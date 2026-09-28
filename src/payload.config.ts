@@ -86,6 +86,8 @@ export default buildConfig({
     ],
     defaultLocale: 'cs',
     fallback: true,
+    // Tlačítko „Publish in <jazyk>“: redaktor publikuje jen aktivní jazyk (A15).
+    defaultLocalePublishOption: 'active',
   },
   // Admin UI language (owner works in Czech).
   i18n: {

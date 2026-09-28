@@ -1,7 +1,7 @@
 import type { Post, ArchiveBlock as ArchiveBlockProps } from '@/payload-types'
 
 import configPromise from '@payload-config'
-import { getPayload } from 'payload'
+import { getPayload, type Where } from 'payload'
 import React from 'react'
 import RichText from '@/components/RichText'
 
@@ -28,20 +28,23 @@ export const ArchiveBlock: React.FC<
       else return category
     })
 
+    const podminky: Where[] = []
+    if (flattenedCategories && flattenedCategories.length > 0) {
+      podminky.push({
+        categories: {
+          in: flattenedCategories,
+        },
+      })
+    }
+    // Cizí jazyk jen dokumenty s hotovým překladem (A18); čeština beze změny.
+    if (locale !== 'cs') podminky.push({ prelozeno: { equals: true } })
+
     const fetchedPosts = await payload.find({
       collection: 'posts',
       depth: 1,
       limit,
       locale,
-      ...(flattenedCategories && flattenedCategories.length > 0
-        ? {
-            where: {
-              categories: {
-                in: flattenedCategories,
-              },
-            },
-          }
-        : {}),
+      ...(podminky.length > 0 ? { where: podminky.length === 1 ? podminky[0] : { and: podminky } } : {}),
     })
 
     posts = fetchedPosts.docs
@@ -62,7 +65,7 @@ export const ArchiveBlock: React.FC<
           <RichText className="ms-0 max-w-[48rem]" data={introContent} enableGutter={false} locale={locale} />
         </div>
       )}
-      <CollectionArchive posts={posts} />
+      <CollectionArchive locale={locale} posts={posts} />
     </div>
   )
 }

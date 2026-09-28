@@ -11,7 +11,7 @@ import { Media } from '@/components/Media'
 import { useLocale } from '@/i18n/LocaleProvider'
 import { lokalizujCestu } from '@/i18n/routing'
 
-export type CardPostData = Pick<Post, 'slug' | 'categories' | 'meta' | 'title'>
+export type CardPostData = Pick<Post, 'slug' | 'categories' | 'meta' | 'title' | 'prelozeno'>
 
 export const Card: React.FC<{
   alignItems?: 'center'
@@ -57,11 +57,12 @@ export const Card: React.FC<{
               if (typeof category === 'object') {
                 const { title: titleFromCategory } = category
 
-                const categoryTitle = titleFromCategory || 'Bez kategorie'
+                // Kategorie bez názvu v tomto jazyce se nevykreslí (žádné „Bez kategorie“, A18).
+                if (!titleFromCategory) return null
 
                 return (
                   <span className="id-chip" key={index}>
-                    {categoryTitle}
+                    {titleFromCategory}
                   </span>
                 )
               }

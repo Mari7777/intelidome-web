@@ -2,7 +2,7 @@ import type { Metadata } from 'next/types'
 
 import { CollectionArchive } from '@/components/CollectionArchive'
 import configPromise from '@payload-config'
-import { getPayload } from 'payload'
+import { getPayload, type Where } from 'payload'
 import React from 'react'
 import { Search } from '@/search/Component'
 import PageClient from './page.client'
@@ -25,6 +25,39 @@ export default async function Page({ params: paramsPromise, searchParams: search
   vynutZivost(locale, `/search${query ? `?q=${encodeURIComponent(query)}` : ''}`, (await draftMode()).isEnabled)
   const payload = await getPayload({ config: configPromise })
 
+  const fulltext: Where | null = query
+    ? {
+        or: [
+          {
+            title: {
+              like: query,
+            },
+          },
+          {
+            'meta.description': {
+              like: query,
+            },
+          },
+          {
+            'meta.title': {
+              like: query,
+            },
+          },
+          {
+            slug: {
+              like: query,
+            },
+          },
+        ],
+      }
+    : null
+
+  // Cizí jazyk hledá jen v dokumentech s hotovým překladem (A17); čeština beze změny.
+  const where: Where | undefined =
+    locale === 'cs'
+      ? (fulltext ?? undefined)
+      : { and: [{ prelozeno: { equals: true } }, ...(fulltext ? [fulltext] : [])] }
+
   const posts = await payload.find({
     collection: 'search',
     depth: 1,
@@ -35,37 +68,11 @@ export default async function Page({ params: paramsPromise, searchParams: search
       slug: true,
       categories: true,
       meta: true,
+      prelozeno: true,
     },
     // pagination: false reduces overhead if you don't need totalDocs
     pagination: false,
-    ...(query
-      ? {
-          where: {
-            or: [
-              {
-                title: {
-                  like: query,
-                },
-              },
-              {
-                'meta.description': {
-                  like: query,
-                },
-              },
-              {
-                'meta.title': {
-                  like: query,
-                },
-              },
-              {
-                slug: {
-                  like: query,
-                },
-              },
-            ],
-          },
-        }
-      : {}),
+    ...(where ? { where } : {}),
   })
 
   return (
@@ -82,7 +89,7 @@ export default async function Page({ params: paramsPromise, searchParams: search
       </div>
 
       {posts.totalDocs > 0 ? (
-        <CollectionArchive posts={posts.docs as CardPostData[]} />
+        <CollectionArchive locale={locale} posts={posts.docs as CardPostData[]} />
       ) : (
         <div className="container">Nic jsme nenašli.</div>
       )}

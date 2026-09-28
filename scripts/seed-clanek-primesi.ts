@@ -29,6 +29,7 @@ import { fileURLToPath } from 'url'
 import { existsSync } from 'fs'
 import { createLocalReq, getPayload, type RequiredDataFromCollectionSlug } from 'payload'
 import config from '@payload-config'
+import { publikujCs } from './lib/publikuj-cs'
 import { PREPARATION_TITLE, PREPARATION_SLUG, PREPARATION_META_DESCRIPTION } from './lib/split-profile-preparation'
 import { splitPrimesiContent, PROFILE_SLUG, PROFILE_TITLE, PROFILE_META_TITLE, ORIGINAL_META_DESCRIPTION, PROFILE_META_DESCRIPTION } from './lib/split-primesi-content'
 
@@ -1114,7 +1115,7 @@ const run = async () => {
   const savePost = async (data: RequiredDataFromCollectionSlug<'posts'>) => {
     const found = await payload.find({ collection: 'posts', where: { slug: { equals: data.slug } }, limit: 1, depth: 0, locale: 'cs', draft: false, req })
     return found.docs[0]
-      ? payload.update({ collection: 'posts', id: found.docs[0].id, data, depth: 0, locale: 'cs', draft: false, req, context: { disableRevalidate: true } })
+      ? publikujCs(payload, { collection: 'posts', id: found.docs[0].id, data, req })
       : payload.create({ collection: 'posts', data, depth: 0, locale: 'cs', draft: false, req, context: { disableRevalidate: true } })
   }
   try {
@@ -1160,7 +1161,7 @@ const run = async () => {
     for (const article of articles) {
       const existingRelated = (article.relatedPosts ?? []).map((post) => typeof post === 'object' ? post.id : post)
       const otherArticles = articles.filter((other) => other.id !== article.id).map((other) => other.id)
-      await payload.update({ collection: 'posts', id: article.id, data: { relatedPosts: [...new Set([...existingRelated, ...otherArticles])] }, locale: 'cs', req, context: { disableRevalidate: true } })
+      await publikujCs(payload, { collection: 'posts', id: article.id, data: { relatedPosts: [...new Set([...existingRelated, ...otherArticles])] }, req })
     }
     await payload.db.commitTransaction(transactionID)
     payload.logger.info(`Články aktualizovány: /posts/${SLUG}, /posts/${PROFILE_SLUG} a /posts/${PREPARATION_SLUG}`)

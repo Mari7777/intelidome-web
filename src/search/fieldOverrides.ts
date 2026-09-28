@@ -18,15 +18,18 @@ export const searchFields: Field[] = [
       readOnly: true,
     },
     fields: [
+      // Titulek a popis jsou per jazyk (A17); obrázek sdílený.
       {
         type: 'text',
         name: 'title',
         label: 'Title',
+        localized: true,
       },
       {
         type: 'text',
         name: 'description',
         label: 'Description',
+        localized: true,
       },
       {
         name: 'image',
@@ -57,5 +60,15 @@ export const searchFields: Field[] = [
         type: 'text',
       },
     ],
+  },
+  // Kopie brány překladu zdrojového dokumentu (cs vždy true) — `/x/search`
+  // podle ní filtruje, plní ji `beforeSync`.
+  {
+    name: 'prelozeno',
+    type: 'checkbox',
+    localized: true,
+    admin: {
+      readOnly: true,
+    },
   },
 ]

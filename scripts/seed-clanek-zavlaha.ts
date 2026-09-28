@@ -7,6 +7,7 @@
  */
 import { getPayload } from 'payload'
 import config from '@payload-config'
+import { publikujCs } from './lib/publikuj-cs'
 
 /* ── Lexical stavebnice ─────────────────────────────────────────── */
 
@@ -350,13 +351,7 @@ const run = async () => {
 
   if (existing.docs.length > 0) {
     const id = existing.docs[0].id
-    await payload.update({
-      collection: 'posts',
-      id,
-      data,
-      draft: false,
-      context: { disableRevalidate: true },
-    })
+    await publikujCs(payload, { collection: 'posts', id, data })
     payload.logger.info(`Článek aktualizován a publikován (id ${id}) — /posts/${SLUG}`)
   } else {
     const created = await payload.create({

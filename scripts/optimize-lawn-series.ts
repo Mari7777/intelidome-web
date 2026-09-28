@@ -13,6 +13,7 @@ import config from '@payload-config'
 import { LAWN_SERIES_SLUGS } from './lib/lawn-series-revision'
 import { LAWN_SEO, optimizeLawnArticle } from './lib/lawn-seo-content'
 import { readingTime } from '../src/utilities/readingTime'
+import { publikujCs } from './lib/publikuj-cs'
 
 const database = new URL(process.env.DATABASE_URL || '')
 if (!['localhost', '127.0.0.1', '[::1]'].includes(database.hostname) || database.pathname !== '/intelidome_web') {
@@ -52,10 +53,7 @@ try {
     if (!transactionID) throw new Error('A database transaction is required')
     const req = await createLocalReq({ locale: 'cs', context: { disableRevalidate: true }, req: { transactionID } }, payload)
     for (const item of plan) {
-      await payload.update({
-        collection: 'posts', id: item.id, data: { content: item.content, meta: item.meta },
-        locale: 'cs', depth: 0, draft: false, req, context: { disableRevalidate: true },
-      })
+      await publikujCs(payload, { collection: 'posts', id: item.id, data: { content: item.content, meta: item.meta }, req })
     }
     await payload.db.commitTransaction(transactionID)
     transactionID = null

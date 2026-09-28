@@ -39,6 +39,7 @@ import {
 import { slugField } from 'payload'
 import { slugify } from '@/utilities/slugify'
 import { slugBezKoduJazyka } from '@/fields/slugBezKoduJazyka'
+import { prelozeno } from '@/fields/prelozeno'
 
 export const Posts: CollectionConfig<'posts'> = {
   slug: 'posts',
@@ -63,6 +64,8 @@ export const Posts: CollectionConfig<'posts'> = {
       image: true,
       description: true,
     },
+    // Brána překladu pro filtr populovaných odkazů (RelatedPosts, A18).
+    prelozeno: true,
   },
   admin: {
     defaultColumns: ['title', 'slug', 'updatedAt'],
@@ -222,6 +225,7 @@ export const Posts: CollectionConfig<'posts'> = {
         ],
       },
     },
+    prelozeno,
     {
       name: 'authors',
       type: 'relationship',

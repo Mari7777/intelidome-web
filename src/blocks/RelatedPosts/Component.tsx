@@ -7,6 +7,7 @@ import type { Post } from '@/payload-types'
 import { Card } from '../../components/Card'
 import { DefaultTypedEditorState } from '@payloadcms/richtext-lexical'
 import type { Locale } from '@/i18n/config'
+import { zobrazitelny } from '@/i18n/zobrazitelny'
 
 export type RelatedPostsProps = {
   className?: string
@@ -34,7 +35,7 @@ export const RelatedPosts: React.FC<RelatedPostsProps> = (props) => {
       )}
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8 items-stretch">
-        {docs?.map((doc, index) => {
+        {docs?.filter((doc) => zobrazitelny(doc, locale)).map((doc, index) => {
           if (typeof doc === 'string') return null
 
           return <Card key={index} doc={doc} relationTo="posts" showCategories />
