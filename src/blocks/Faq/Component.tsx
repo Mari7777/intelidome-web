@@ -5,6 +5,7 @@ import React from 'react'
 import RichText from '@/components/RichText'
 import { nezlomitelneMezery } from '@/utilities/czechTypography'
 import { cn } from '@/utilities/ui'
+import type { Locale } from '@/i18n/config'
 
 // Local props — the generated `FaqBlock` type does not exist until `generate:types` runs.
 export type FaqBlockItem = {
@@ -18,6 +19,7 @@ export type FaqBlockProps = {
   heading?: string | null
   items?: FaqBlockItem[] | null
   lead?: string | null
+  locale: Locale
   id?: string | null
   blockName?: string | null
   blockType?: 'faq'
@@ -66,7 +68,7 @@ const richTextToPlainText = (data: unknown): string =>
 
 // Closing section of an article: native <details>/<summary> accordion (works without JS)
 // plus FAQPage data matching the visible answers; no promise of search rich results.
-export const FaqBlock: React.FC<FaqBlockProps> = ({ className, heading, id, items, lead }) => {
+export const FaqBlock: React.FC<FaqBlockProps> = ({ className, heading, id, items, lead, locale }) => {
   const entries = (Array.isArray(items) ? items : []).filter(
     (item) => item && typeof item.question === 'string' && item.question.trim() !== '',
   )
@@ -135,7 +137,7 @@ export const FaqBlock: React.FC<FaqBlockProps> = ({ className, heading, id, item
             </summary>
 
             <div className="pb-[18px] pr-8 text-[17px] leading-[1.65] text-[var(--id-ink-2)] [&_p:last-child]:mb-0 [&_p]:mb-4">
-              <RichText data={item.answer} enableGutter={false} enableProse={false} />
+              <RichText data={item.answer} enableGutter={false} enableProse={false} locale={locale} />
             </div>
           </details>
         ))}

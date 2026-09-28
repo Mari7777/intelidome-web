@@ -38,6 +38,7 @@ import {
 } from '@payloadcms/plugin-seo/fields'
 import { slugField } from 'payload'
 import { slugify } from '@/utilities/slugify'
+import { slugBezKoduJazyka } from '@/fields/slugBezKoduJazyka'
 
 export const Posts: CollectionConfig<'posts'> = {
   slug: 'posts',
@@ -66,16 +67,18 @@ export const Posts: CollectionConfig<'posts'> = {
   admin: {
     defaultColumns: ['title', 'slug', 'updatedAt'],
     livePreview: {
-      url: ({ data, req }) =>
+      url: ({ data, locale, req }) =>
         generatePreviewPath({
           slug: data?.slug,
+          locale,
           collection: 'posts',
           req,
         }),
     },
-    preview: (data, { req }) =>
+    preview: (data, { locale, req }) =>
       generatePreviewPath({
         slug: data?.slug as string,
+        locale,
         collection: 'posts',
         req,
       }),
@@ -252,7 +255,7 @@ export const Posts: CollectionConfig<'posts'> = {
         },
       ],
     },
-    slugField({ slugify: ({ valueToSlugify }) => slugify(valueToSlugify) }),
+    slugField({ overrides: slugBezKoduJazyka, slugify: ({ valueToSlugify }) => slugify(valueToSlugify) }),
   ],
   hooks: {
     afterChange: [revalidatePost],

@@ -8,6 +8,8 @@ import type { Media as MediaType } from '@/payload-types'
 import { nezlomitelneMezery } from '@/utilities/czechTypography'
 import { slugify } from '@/utilities/slugify'
 import { cn } from '@/utilities/ui'
+import type { Locale } from '@/i18n/config'
+import { lokalizujCestu } from '@/i18n/routing'
 
 export type SplitBlockProps = {
   /** `krem` = kapitola stojí na krémovém pásu (posun povrchu, 8.1 p. 3). */
@@ -31,6 +33,7 @@ export type SplitBlockProps = {
   blockName?: string | null
   blockType?: 'split'
   className?: string
+  locale: Locale
 }
 
 const formatFigureNumber = (raw?: string | null): string | null => {
@@ -57,6 +60,7 @@ export const SplitBlock: React.FC<SplitBlockProps> = ({
   continues,
   drawing,
   eyebrow,
+  locale,
   number,
   photo,
   photoRatio,
@@ -170,7 +174,7 @@ export const SplitBlock: React.FC<SplitBlockProps> = ({
 
       <div className="id-split__body rv">
         {richBody ? (
-          <RichText className="id-split__richtext" data={richBody} enableGutter={false} />
+          <RichText className="id-split__richtext" data={richBody} enableGutter={false} locale={locale} />
         ) : (
           <div className="space-y-[18px]">
             {paragraphs.map((paragraph) =>
@@ -190,11 +194,11 @@ export const SplitBlock: React.FC<SplitBlockProps> = ({
                   key={paragraph.slice(0, 40)}
                 >
                   <span aria-hidden="true" className="id-callout__dot" />
-                  <p className="m-0">{renderStrong(paragraph.slice(2))}</p>
+                  <p className="m-0">{renderStrong(paragraph.slice(2), locale)}</p>
                 </div>
               ) : (
                 <p className="id-split__p" key={paragraph.slice(0, 40)}>
-                  {renderStrong(paragraph)}
+                  {renderStrong(paragraph, locale)}
                 </p>
               ),
             )}
@@ -211,7 +215,7 @@ export const SplitBlock: React.FC<SplitBlockProps> = ({
  * `body` je prostý řetězec bez Lexical uzlů — minimální markdown místo
  * přepisování autorovy věty). Pevné mezery se doplní všude.
  */
-function renderStrong(source: string): React.ReactNode[] {
+function renderStrong(source: string, locale: Locale): React.ReactNode[] {
   return source.split(/(\*\*[^*]+\*\*|\[[^\]]+\]\([^)]+\))/g).map((part, index) => {
     if (part.startsWith('**') && part.endsWith('**') && part.length > 4) {
       return <strong key={index}>{nezlomitelneMezery(part.slice(2, -2))}</strong>
@@ -221,7 +225,7 @@ function renderStrong(source: string): React.ReactNode[] {
       const interni = odkaz[2].startsWith('/')
       return (
         <a
-          href={odkaz[2]}
+          href={interni ? lokalizujCestu(odkaz[2], locale) : odkaz[2]}
           key={index}
           {...(interni ? {} : { target: '_blank', rel: 'noopener noreferrer' })}
         >

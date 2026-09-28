@@ -11,6 +11,8 @@ import { useRouter } from 'next/navigation'
 import './index.scss'
 
 import { getClientSideURL } from '@/utilities/getURL'
+import { useLocale } from '@/i18n/LocaleProvider'
+import { lokalizujCestu } from '@/i18n/routing'
 
 const baseClass = 'admin-bar'
 
@@ -37,10 +39,10 @@ export const AdminBar: React.FC<{
   const { adminBarProps } = props || {}
   const segments = useSelectedLayoutSegments()
   const [show, setShow] = useState(false)
-  const collection = (
-    collectionLabels[segments?.[1] as keyof typeof collectionLabels] ? segments[1] : 'pages'
-  ) as keyof typeof collectionLabels
+  // Kolekce podle názvu segmentu, ne indexu: pod `[locale]` se pozice posouvá (A21).
+  const collection = (segments?.find((s) => Object.hasOwn(collectionLabels, s)) ?? 'pages') as keyof typeof collectionLabels
   const router = useRouter()
+  const locale = useLocale()
 
   const onAuthChange = React.useCallback((user: PayloadMeUser) => {
     setShow(Boolean(user?.id))
@@ -72,7 +74,7 @@ export const AdminBar: React.FC<{
           onAuthChange={onAuthChange}
           onPreviewExit={() => {
             fetch('/next/exit-preview').then(() => {
-              router.push('/')
+              router.push(lokalizujCestu('/', locale))
               router.refresh()
             })
           }}

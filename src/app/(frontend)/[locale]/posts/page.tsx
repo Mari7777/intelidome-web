@@ -6,18 +6,30 @@ import { Pagination } from '@/components/Pagination'
 import configPromise from '@payload-config'
 import { getPayload } from 'payload'
 import React from 'react'
+import { draftMode } from 'next/headers'
+import { notFound } from 'next/navigation'
 import PageClient from './page.client'
+import { jeLocale } from '@/i18n/config'
+import { vynutZivost } from '@/i18n/zivost'
 
 export const dynamic = 'force-static'
 export const revalidate = 600
 
-export default async function Page() {
+type Args = {
+  params: Promise<{ locale: string }>
+}
+
+export default async function Page({ params: paramsPromise }: Args) {
+  const { locale } = await paramsPromise
+  if (!jeLocale(locale)) notFound()
+  vynutZivost(locale, '/posts', (await draftMode()).isEnabled)
   const payload = await getPayload({ config: configPromise })
 
   const posts = await payload.find({
     collection: 'posts',
     depth: 1,
     limit: 12,
+    locale,
     overrideAccess: false,
     select: {
       title: true,

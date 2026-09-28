@@ -10,6 +10,7 @@ import { MediaBlock } from '../../blocks/MediaBlock/config'
 import { hero } from '@/heros/config'
 import { slugField } from 'payload'
 import { slugify } from '@/utilities/slugify'
+import { slugBezKoduJazyka } from '@/fields/slugBezKoduJazyka'
 import { populatePublishedAt } from '../../hooks/populatePublishedAt'
 import { generatePreviewPath } from '../../utilities/generatePreviewPath'
 import { revalidateDelete, revalidatePage } from './hooks/revalidatePage'
@@ -44,16 +45,18 @@ export const Pages: CollectionConfig<'pages'> = {
   admin: {
     defaultColumns: ['title', 'slug', 'updatedAt'],
     livePreview: {
-      url: ({ data, req }) =>
+      url: ({ data, locale, req }) =>
         generatePreviewPath({
           slug: data?.slug,
+          locale,
           collection: 'pages',
           req,
         }),
     },
-    preview: (data, { req }) =>
+    preview: (data, { locale, req }) =>
       generatePreviewPath({
         slug: data?.slug as string,
+        locale,
         collection: 'pages',
         req,
       }),
@@ -127,7 +130,7 @@ export const Pages: CollectionConfig<'pages'> = {
         position: 'sidebar',
       },
     },
-    slugField({ slugify: ({ valueToSlugify }) => slugify(valueToSlugify) }),
+    slugField({ overrides: slugBezKoduJazyka, slugify: ({ valueToSlugify }) => slugify(valueToSlugify) }),
   ],
   hooks: {
     afterChange: [revalidatePage],

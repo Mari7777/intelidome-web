@@ -6,15 +6,17 @@ import type { Post } from '@/payload-types'
 
 import { Card } from '../../components/Card'
 import { DefaultTypedEditorState } from '@payloadcms/richtext-lexical'
+import type { Locale } from '@/i18n/config'
 
 export type RelatedPostsProps = {
   className?: string
   docs?: Post[]
   introContent?: DefaultTypedEditorState
+  locale: Locale
 }
 
 export const RelatedPosts: React.FC<RelatedPostsProps> = (props) => {
-  const { className, docs, introContent } = props
+  const { className, docs, introContent, locale } = props
 
   // Výchozí nadpis je sekční H2, tedy role `title` ze škály 4.2 — doslova týž
   // zápis jako v blocích Chapter, Faq, Split a ProductBand. `text-2xl` stál mimo
@@ -24,7 +26,7 @@ export const RelatedPosts: React.FC<RelatedPostsProps> = (props) => {
   return (
     <div className={clsx('lg:container', className)}>
       {introContent ? (
-        <RichText data={introContent} enableGutter={false} />
+        <RichText data={introContent} enableGutter={false} locale={locale} />
       ) : (
         <h2 className="mb-6 font-[family-name:var(--id-f-display)] text-[length:var(--id-t-title)] leading-[1.05] font-semibold tracking-[-0.025em] text-[var(--id-ink)] [text-wrap:balance]">
           Související články

@@ -9,6 +9,7 @@ import RichText from '@/components/RichText'
 import { DRAWINGS, type DrawingKey } from '@/components/figures/registry'
 import { nezlomitelneMezery } from '@/utilities/czechTypography'
 import { cn } from '@/utilities/ui'
+import type { Locale } from '@/i18n/config'
 
 import { IngredientsTabs } from './IngredientsTabs'
 
@@ -32,6 +33,7 @@ export type IngredientsBlockProps = {
   blockName?: string | null
   blockType?: 'ingredients'
   className?: string
+  locale: Locale
 }
 
 /**
@@ -48,6 +50,7 @@ export const IngredientsBlock: React.FC<IngredientsBlockProps> = ({
   heading,
   items,
   lead,
+  locale,
 }) => {
   if (!items?.length) return null
 
@@ -91,7 +94,7 @@ export const IngredientsBlock: React.FC<IngredientsBlockProps> = ({
       <div className={cn('id-ingredients__panel', maObraz && 'id-ingredients__panel--s-obrazem')} key={item.id ?? item.name}>
         <div className="id-ingredients__panel-text">
           {item.title ? <h3>{nezlomitelneMezery(item.title)}</h3> : null}
-          {item.detail ? <RichText data={item.detail} enableGutter={false} enableProse={false} /> : null}
+          {item.detail ? <RichText data={item.detail} enableGutter={false} enableProse={false} locale={locale} /> : null}
         </div>
         {foto ? (
           <figure className="id-ingredients__panel-fig">

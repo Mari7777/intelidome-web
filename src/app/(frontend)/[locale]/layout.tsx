@@ -12,10 +12,13 @@ import { SmilGuard } from '@/components/figures/SmilGuard'
 import { Providers } from '@/providers'
 import { mergeOpenGraph } from '@/utilities/mergeOpenGraph'
 import { draftMode } from 'next/headers'
+import { notFound } from 'next/navigation'
 import { Archivo } from 'next/font/google'
 
-import './globals.css'
+import '../globals.css'
 import { getServerSideURL } from '@/utilities/getURL'
+import { OG_LOCALE, jeLocale } from '@/i18n/config'
+import { LocaleProvider } from '@/i18n/LocaleProvider'
 
 // Display písmo DS v2 (ADR-004, DESIGN.md 4.1) — jediný webfont webu.
 // Self-hostuje ho next/font; --id-f-archivo pak plní --id-f-display.
@@ -26,11 +29,24 @@ const archivo = Archivo({
   variable: '--id-f-archivo',
 })
 
-export default async function RootLayout({ children }: { children: React.ReactNode }) {
+type Args = {
+  children: React.ReactNode
+  params: Promise<{ locale: string }>
+}
+
+// Root layout frontendu (ADR-008): čeština sem přichází přepisem `/` → `/cs`
+// z proxy, ostatní jazyky vlastní adresou. Ostatní jazyky se pečou na vyžádání.
+export function generateStaticParams() {
+  return [{ locale: 'cs' }]
+}
+
+export default async function RootLayout({ children, params }: Args) {
+  const { locale } = await params
+  if (!jeLocale(locale)) notFound()
   const { isEnabled } = await draftMode()
 
   return (
-    <html className={archivo.variable} data-theme="light" lang="cs" suppressHydrationWarning>
+    <html className={archivo.variable} data-theme="light" lang={locale} suppressHydrationWarning>
       <head>
         {/*
           Anti-FOUC brána (6.3.2): skrytí `.rv` visí na `html.js`, takže bez
@@ -72,43 +88,50 @@ export default async function RootLayout({ children }: { children: React.ReactNo
             i závěrečné výzvě je jen obdélník maskovaný touto kresbou (9.4). */}
         <LogoMaskDefs />
         <SmilGuard />
-        <Providers>
-          <AdminBar
-            adminBarProps={{
-              preview: isEnabled,
-            }}
-          />
+        <LocaleProvider locale={locale}>
+          <Providers>
+            <AdminBar
+              adminBarProps={{
+                preview: isEnabled,
+              }}
+            />
 
-          <Header />
-          {children}
-          <Footer />
-        </Providers>
+            <Header locale={locale} />
+            {children}
+            <Footer locale={locale} />
+          </Providers>
+        </LocaleProvider>
         <Analytics />
       </body>
     </html>
   )
 }
 
-export const metadata: Metadata = {
-  metadataBase: new URL(getServerSideURL()),
-  robots: {
-    index: process.env.VERCEL_ENV !== 'preview',
-    follow: true,
-    googleBot: { index: process.env.VERCEL_ENV !== 'preview', follow: true, 'max-image-preview': 'large' },
-  },
-  title: {
-    default: 'InteliDome — chytrá závlaha a automatizace zahrady',
-    template: '%s | InteliDome',
-  },
-  description:
-    'Návody a praxe kolem chytré závlahy: návrh systému, kapková závlaha, zazimování a automatizace zahrady. Blog značky InteliDome.',
-  alternates: {
-    types: {
-      'application/rss+xml': '/feed.xml',
+export async function generateMetadata({ params }: Pick<Args, 'params'>): Promise<Metadata> {
+  const { locale } = await params
+  const ogLocale = jeLocale(locale) ? OG_LOCALE[locale] : OG_LOCALE.cs
+
+  return {
+    metadataBase: new URL(getServerSideURL()),
+    robots: {
+      index: process.env.VERCEL_ENV !== 'preview',
+      follow: true,
+      googleBot: { index: process.env.VERCEL_ENV !== 'preview', follow: true, 'max-image-preview': 'large' },
     },
-  },
-  openGraph: mergeOpenGraph(),
-  twitter: {
-    card: 'summary_large_image',
-  },
+    title: {
+      default: 'InteliDome — chytrá závlaha a automatizace zahrady',
+      template: '%s | InteliDome',
+    },
+    description:
+      'Návody a praxe kolem chytré závlahy: návrh systému, kapková závlaha, zazimování a automatizace zahrady. Blog značky InteliDome.',
+    alternates: {
+      types: {
+        'application/rss+xml': '/feed.xml',
+      },
+    },
+    openGraph: mergeOpenGraph({ locale: ogLocale }),
+    twitter: {
+      card: 'summary_large_image',
+    },
+  }
 }

@@ -4,9 +4,11 @@ import React from 'react'
 
 import { CMSLink } from '@/components/Link'
 import { Logo } from '@/components/Logo/Logo'
+import type { Locale } from '@/i18n/config'
+import { lokalizujCestu } from '@/i18n/routing'
 
-export async function Footer() {
-  const footerData = await getCachedGlobal('footer', 1)()
+export async function Footer({ locale }: { locale: Locale }) {
+  const footerData = await getCachedGlobal('footer', 1, locale)()
 
   const navItems = footerData?.navItems || []
 
@@ -16,7 +18,7 @@ export async function Footer() {
         <Link
           aria-label="InteliDome — domovská stránka"
           className="flex items-center text-[var(--id-ink)]"
-          href="/"
+          href={lokalizujCestu('/', locale)}
         >
           <Logo decorative height={19} />
         </Link>
@@ -28,6 +30,7 @@ export async function Footer() {
                 className="text-[var(--id-ink-2)] transition-colors hover:text-[var(--id-ink)]"
                 key={i}
                 {...link}
+                locale={locale}
               />
             )
           })}

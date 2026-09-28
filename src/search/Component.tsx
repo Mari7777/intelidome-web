@@ -4,16 +4,19 @@ import { Label } from '@/components/ui/label'
 import React, { useState, useEffect } from 'react'
 import { useDebounce } from '@/utilities/useDebounce'
 import { useRouter } from 'next/navigation'
+import { useLocale } from '@/i18n/LocaleProvider'
+import { lokalizujCestu } from '@/i18n/routing'
 
 export const Search: React.FC = () => {
   const [value, setValue] = useState('')
   const router = useRouter()
+  const locale = useLocale()
 
   const debouncedValue = useDebounce(value)
 
   useEffect(() => {
-    router.push(`/search${debouncedValue ? `?q=${debouncedValue}` : ''}`)
-  }, [debouncedValue, router])
+    router.push(lokalizujCestu(`/search${debouncedValue ? `?q=${debouncedValue}` : ''}`, locale))
+  }, [debouncedValue, locale, router])
 
   return (
     <div>

@@ -8,6 +8,8 @@ import React from 'react'
 import type { Post } from '@/payload-types'
 
 import { Media } from '@/components/Media'
+import { useLocale } from '@/i18n/LocaleProvider'
+import { lokalizujCestu } from '@/i18n/routing'
 
 export type CardPostData = Pick<Post, 'slug' | 'categories' | 'meta' | 'title'>
 
@@ -20,6 +22,7 @@ export const Card: React.FC<{
   title?: string
 }> = (props) => {
   const { card, link } = useClickableCard({})
+  const locale = useLocale()
   const { className, doc, relationTo, showCategories, title: titleFromProps } = props
 
   const { slug, categories, meta, title } = doc || {}
@@ -32,7 +35,7 @@ export const Card: React.FC<{
      takže pevné mezery MAZAL a na 320 px visely v obou kartách jednopísmenné
      spojky na konci řádku. */
   const sanitizedDescription = description ? nezlomitelneMezery(description) : description
-  const href = `/${relationTo}/${slug}`
+  const href = lokalizujCestu(`/${relationTo}/${slug}`, locale)
 
   return (
     <article

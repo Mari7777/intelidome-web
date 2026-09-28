@@ -4,6 +4,7 @@ import { PayloadRedirects } from '@/components/PayloadRedirects'
 import configPromise from '@payload-config'
 import { getPayload, type RequiredDataFromCollectionSlug } from 'payload'
 import { draftMode } from 'next/headers'
+import { notFound } from 'next/navigation'
 import React, { cache } from 'react'
 import { homeStatic } from '@/fallbacks/home-static'
 
@@ -12,7 +13,11 @@ import { RenderHero } from '@/heros/RenderHero'
 import { generateMeta } from '@/utilities/generateMeta'
 import PageClient from './page.client'
 import { LivePreviewListener } from '@/components/LivePreviewListener'
+import { jeLocale, type Locale } from '@/i18n/config'
+import { verejnaCesta } from '@/i18n/routing'
+import { vynutZivost } from '@/i18n/zivost'
 
+// Jen `{ slug }` — jazyk dává nadřazený `[locale]` (jen cs, ostatní na vyžádání).
 export async function generateStaticParams() {
   const payload = await getPayload({ config: configPromise })
   const pages = await payload.find({
@@ -39,20 +44,25 @@ export async function generateStaticParams() {
 
 type Args = {
   params: Promise<{
+    locale: string
     slug?: string
   }>
 }
 
 export default async function Page({ params: paramsPromise }: Args) {
   const { isEnabled: draft } = await draftMode()
-  const { slug = 'home' } = await paramsPromise
+  const { locale, slug = 'home' } = await paramsPromise
+  if (!jeLocale(locale)) notFound()
   // Decode to support slugs with special characters
   const decodedSlug = decodeURIComponent(slug)
+  vynutZivost(locale, verejnaCesta('pages', encodeURIComponent(decodedSlug), 'cs'), draft)
+  // Cesta bez jazykového prefixu: CMS přesměrování (`from`) se zapisují česky.
   const url = '/' + decodedSlug
   let page: RequiredDataFromCollectionSlug<'pages'> | null
 
   page = await queryPageBySlug({
     slug: decodedSlug,
+    locale,
   })
 
   // Placeholder until the real 'home' page is created in the CMS
@@ -61,7 +71,7 @@ export default async function Page({ params: paramsPromise }: Args) {
   }
 
   if (!page) {
-    return <PayloadRedirects url={url} />
+    return <PayloadRedirects locale={locale} url={url} />
   }
 
   const { hero, layout } = page
@@ -70,32 +80,34 @@ export default async function Page({ params: paramsPromise }: Args) {
     <article className="pt-16 pb-24">
       <PageClient />
       {/* Allows redirects for valid pages too */}
-      <PayloadRedirects disableNotFound url={url} />
+      <PayloadRedirects disableNotFound locale={locale} url={url} />
 
       {draft && <LivePreviewListener />}
 
-      <RenderHero {...hero} />
-      <RenderBlocks blocks={layout} />
+      <RenderHero {...hero} locale={locale} />
+      <RenderBlocks blocks={layout} locale={locale} />
     </article>
   )
 }
 
 export async function generateMetadata({ params: paramsPromise }: Args): Promise<Metadata> {
-  const { slug = 'home' } = await paramsPromise
+  const { locale, slug = 'home' } = await paramsPromise
+  if (!jeLocale(locale)) return {}
   // Decode to support slugs with special characters
   const decodedSlug = decodeURIComponent(slug)
   const page = await queryPageBySlug({
     slug: decodedSlug,
+    locale,
   })
 
   const { isEnabled: draft } = await draftMode()
   return {
-    ...await generateMeta({ doc: page, collection: 'pages' }),
+    ...await generateMeta({ doc: page, collection: 'pages', locale }),
     ...(draft ? { robots: { index: false, follow: false } } : {}),
   }
 }
 
-const queryPageBySlug = cache(async ({ slug }: { slug: string }) => {
+const queryPageBySlug = cache(async ({ slug, locale }: { slug: string; locale: Locale }) => {
   const { isEnabled: draft } = await draftMode()
 
   const payload = await getPayload({ config: configPromise })
@@ -104,6 +116,7 @@ const queryPageBySlug = cache(async ({ slug }: { slug: string }) => {
     collection: 'pages',
     draft,
     limit: 1,
+    locale,
     pagination: false,
     overrideAccess: draft,
     where: {

@@ -4,6 +4,8 @@ import React from 'react'
 import { Logo } from '@/components/Logo/Logo'
 import { nezlomitelneMezery } from '@/utilities/czechTypography'
 import { cn } from '@/utilities/ui'
+import type { Locale } from '@/i18n/config'
+import { lokalizujCestu } from '@/i18n/routing'
 
 export type CtaBandBlockProps = {
   title: string
@@ -15,6 +17,7 @@ export type CtaBandBlockProps = {
   blockName?: string | null
   blockType?: 'ctaBand'
   className?: string
+  locale: Locale
 }
 
 /**
@@ -29,6 +32,7 @@ export const CtaBandBlock: React.FC<CtaBandBlockProps> = ({
   buttonHref,
   buttonLabel,
   className,
+  locale,
   sub,
   title,
 }) => (
@@ -40,7 +44,7 @@ export const CtaBandBlock: React.FC<CtaBandBlockProps> = ({
       <p className="id-cta__sub">{nezlomitelneMezery(sub)}</p>
 
       <p className="mt-[30px]">
-        <Link className="id-btn id-btn--primary" href={buttonHref}>
+        <Link className="id-btn id-btn--primary" href={lokalizujCestu(buttonHref, locale)}>
           {buttonLabel}
           <svg aria-hidden="true" fill="none" height="16" viewBox="0 0 16 16" width="16">
             <path

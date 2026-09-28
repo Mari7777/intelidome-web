@@ -65,6 +65,9 @@ type NodeTypes =
       | IngredientsBlockProps
     >
 
+import type { Locale } from '@/i18n/config'
+import { lokalizujCestu } from '@/i18n/routing'
+
 const internalDocToHref = ({ linkNode }: { linkNode: SerializedLinkNode }) => {
   const { value, relationTo } = linkNode.fields.doc!
   if (typeof value !== 'object') {
@@ -74,47 +77,85 @@ const internalDocToHref = ({ linkNode }: { linkNode: SerializedLinkNode }) => {
   return relationTo === 'posts' ? `/posts/${slug}` : `/${slug}`
 }
 
-const jsxConverters: JSXConvertersFunction<NodeTypes> = ({ defaultConverters }) => ({
-  ...defaultConverters,
-  ...LinkJSXConverter({ internalDocToHref }),
-  blocks: {
-    banner: ({ node }) => <BannerBlock className="id-edge" {...node.fields} />,
-    chapter: ({ node }) => <ChapterBlock {...node.fields} />,
-    figure: ({ node }) => (
-      <FigureBlock className={node.fields.layout ? undefined : 'id-edge'} {...node.fields} />
-    ),
-    statTiles: ({ node }) => <StatTilesBlock {...node.fields} />,
-    split: ({ node }) => <SplitBlock {...node.fields} />,
-    summaryBand: ({ node }) => <SummaryBandBlock {...node.fields} />,
-    productBand: ({ node }) => <ProductBandBlock {...node.fields} />,
-    ctaBand: ({ node }) => <CtaBandBlock {...node.fields} />,
-    calculator: ({ node }) => <CalculatorBlock {...node.fields} />,
-    faq: ({ node }) => <FaqBlock {...node.fields} />,
-    table: ({ node }) => <TableBlock {...node.fields} />,
-    ingredients: ({ node }) => <IngredientsBlock {...node.fields} />,
-    mediaBlock: ({ node }) => (
-      <MediaBlock
-        className="id-edge"
-        imgClassName="m-0"
-        {...node.fields}
-        captionClassName="mx-auto max-w-[48rem]"
-        enableGutter={false}
-        disableInnerContainer={true}
-      />
-    ),
-    code: ({ node }) => <CodeBlock {...node.fields} />,
-    cta: ({ node }) => <CallToActionBlock {...node.fields} />,
-  },
-})
+/**
+ * Konvertory pro daný jazyk (A13): interní i vlastní odkazy začínající `/`
+ * dostanou prefix, bloky s vlastním textem/odkazy dostanou `locale`.
+ * Jedna instance na jazyk — RichText je sdílený server/klient modul, takže
+ * místo hooku drží memo modulová mapa.
+ */
+const vytvorKonvertory = (locale: Locale): JSXConvertersFunction<NodeTypes> => {
+  // Z knihovny zůstává jen `autolink` (externí adresy); `link` je vlastní.
+  const odkazy = LinkJSXConverter({ internalDocToHref })
+  return ({ defaultConverters }) => ({
+    ...defaultConverters,
+    ...odkazy,
+    // Vlastní `link` (ne obal knihovního): interní i vlastní `/…` prefixovat, výstup stejný.
+    link: ({ node, nodesToJSX }) => {
+      const children = nodesToJSX({ nodes: node.children })
+      const rel = node.fields.newTab ? 'noopener noreferrer' : undefined
+      const target = node.fields.newTab ? '_blank' : undefined
+      const href =
+        node.fields.linkType === 'internal'
+          ? internalDocToHref({ linkNode: node })
+          : (node.fields.url ?? '')
+      return (
+        <a href={lokalizujCestu(href, locale)} rel={rel} target={target}>
+          {children}
+        </a>
+      )
+    },
+    blocks: {
+      banner: ({ node }) => <BannerBlock className="id-edge" {...node.fields} locale={locale} />,
+      chapter: ({ node }) => <ChapterBlock {...node.fields} />,
+      figure: ({ node }) => (
+        <FigureBlock className={node.fields.layout ? undefined : 'id-edge'} {...node.fields} />
+      ),
+      statTiles: ({ node }) => <StatTilesBlock {...node.fields} />,
+      split: ({ node }) => <SplitBlock {...node.fields} locale={locale} />,
+      summaryBand: ({ node }) => <SummaryBandBlock {...node.fields} />,
+      productBand: ({ node }) => <ProductBandBlock {...node.fields} />,
+      ctaBand: ({ node }) => <CtaBandBlock {...node.fields} locale={locale} />,
+      calculator: ({ node }) => <CalculatorBlock {...node.fields} />,
+      faq: ({ node }) => <FaqBlock {...node.fields} locale={locale} />,
+      table: ({ node }) => <TableBlock {...node.fields} />,
+      ingredients: ({ node }) => <IngredientsBlock {...node.fields} locale={locale} />,
+      mediaBlock: ({ node }) => (
+        <MediaBlock
+          className="id-edge"
+          imgClassName="m-0"
+          {...node.fields}
+          captionClassName="mx-auto max-w-[48rem]"
+          enableGutter={false}
+          disableInnerContainer={true}
+          locale={locale}
+        />
+      ),
+      code: ({ node }) => <CodeBlock {...node.fields} />,
+      cta: ({ node }) => <CallToActionBlock {...node.fields} locale={locale} />,
+    },
+  })
+}
+
+const konvertory = new Map<Locale, JSXConvertersFunction<NodeTypes>>()
+const konvertoryPro = (locale: Locale) => {
+  let k = konvertory.get(locale)
+  if (!k) {
+    k = vytvorKonvertory(locale)
+    konvertory.set(locale, k)
+  }
+  return k
+}
 
 type Props = {
   data: DefaultTypedEditorState
   enableGutter?: boolean
   enableProse?: boolean
+  /** Povinný: modul je sdílený server/klient, hook by v RSC grafu nešel (A10). */
+  locale: Locale
 } & React.HTMLAttributes<HTMLDivElement>
 
 export default function RichText(props: Props) {
-  const { className, data, enableProse = true, enableGutter = true, ...rest } = props
+  const { className, data, enableProse = true, enableGutter = true, locale, ...rest } = props
 
   // Česká sazba: jednopísmenné předložky nesmí viset na konci řádku.
   // Děláme to nad daty, ne nad hotovým JSX — formátovací uzly zůstanou celé.
@@ -122,7 +163,7 @@ export default function RichText(props: Props) {
 
   return (
     <ConvertRichText
-      converters={jsxConverters}
+      converters={konvertoryPro(locale)}
       data={sazba}
       className={cn(
         'payload-richtext',

@@ -7,18 +7,24 @@ import configPromise from '@payload-config'
 import { getPayload } from 'payload'
 import React from 'react'
 import PageClient from './page.client'
+import { draftMode } from 'next/headers'
 import { notFound } from 'next/navigation'
+import { jeLocale } from '@/i18n/config'
+import { vynutZivost } from '@/i18n/zivost'
 
 export const revalidate = 600
 
 type Args = {
   params: Promise<{
+    locale: string
     pageNumber: string
   }>
 }
 
 export default async function Page({ params: paramsPromise }: Args) {
-  const { pageNumber } = await paramsPromise
+  const { locale, pageNumber } = await paramsPromise
+  if (!jeLocale(locale)) notFound()
+  vynutZivost(locale, `/posts/page/${pageNumber}`, (await draftMode()).isEnabled)
   const payload = await getPayload({ config: configPromise })
 
   const sanitizedPageNumber = Number(pageNumber)
@@ -29,6 +35,7 @@ export default async function Page({ params: paramsPromise }: Args) {
     collection: 'posts',
     depth: 1,
     limit: 12,
+    locale,
     page: sanitizedPageNumber,
     overrideAccess: false,
   })
@@ -70,6 +77,7 @@ export async function generateMetadata({ params: paramsPromise }: Args): Promise
   }
 }
 
+// Jen `{ pageNumber }` — jazyk dává nadřazený `[locale]`. Dělitel = limit výpisu (12).
 export async function generateStaticParams() {
   const payload = await getPayload({ config: configPromise })
   const { totalDocs } = await payload.count({
@@ -77,7 +85,7 @@ export async function generateStaticParams() {
     overrideAccess: false,
   })
 
-  const totalPages = Math.ceil(totalDocs / 10)
+  const totalPages = Math.ceil(totalDocs / 12)
 
   const pages: { pageNumber: string }[] = []
 

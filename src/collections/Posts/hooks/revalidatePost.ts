@@ -3,6 +3,13 @@ import type { CollectionAfterChangeHook, CollectionAfterDeleteHook } from 'paylo
 import { revalidatePath, revalidateTag } from 'next/cache'
 
 import type { Post } from '../../../payload-types'
+import { interniCesty } from '@/i18n/routing'
+
+// Revaliduje se cesta ROUTE STROMU (`/cs/posts/x`, `/en/posts/x`, …), ne veřejná
+// `/posts/x`: po rewritu z proxy by ta cache netrefila (A14).
+const revaliduj = (slug: string) => {
+  for (const cesta of interniCesty('posts', slug)) revalidatePath(cesta)
+}
 
 export const revalidatePost: CollectionAfterChangeHook<Post> = ({
   doc,
@@ -11,21 +18,17 @@ export const revalidatePost: CollectionAfterChangeHook<Post> = ({
 }) => {
   if (!context.disableRevalidate) {
     if (doc._status === 'published') {
-      const path = `/posts/${doc.slug}`
+      payload.logger.info(`Revalidating post: ${doc.slug}`)
 
-      payload.logger.info(`Revalidating post at path: ${path}`)
-
-      revalidatePath(path)
+      revaliduj(doc.slug)
       revalidateTag('posts-sitemap', 'max')
     }
 
     // If the post was previously published, we need to revalidate the old path
     if (previousDoc._status === 'published' && doc._status !== 'published') {
-      const oldPath = `/posts/${previousDoc.slug}`
+      payload.logger.info(`Revalidating old post: ${previousDoc.slug}`)
 
-      payload.logger.info(`Revalidating old post at path: ${oldPath}`)
-
-      revalidatePath(oldPath)
+      revaliduj(previousDoc.slug)
       revalidateTag('posts-sitemap', 'max')
     }
   }
@@ -34,9 +37,7 @@ export const revalidatePost: CollectionAfterChangeHook<Post> = ({
 
 export const revalidateDelete: CollectionAfterDeleteHook<Post> = ({ doc, req: { context } }) => {
   if (!context.disableRevalidate) {
-    const path = `/posts/${doc?.slug}`
-
-    revalidatePath(path)
+    revaliduj(String(doc?.slug))
     revalidateTag('posts-sitemap', 'max')
   }
 

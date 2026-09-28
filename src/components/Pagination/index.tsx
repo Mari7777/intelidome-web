@@ -9,6 +9,8 @@ import {
   PaginationPrevious,
 } from '@/components/ui/pagination'
 import { cn } from '@/utilities/ui'
+import { useLocale } from '@/i18n/LocaleProvider'
+import { lokalizujCestu } from '@/i18n/routing'
 import { useRouter } from 'next/navigation'
 import React from 'react'
 
@@ -18,6 +20,8 @@ export const Pagination: React.FC<{
   totalPages: number
 }> = (props) => {
   const router = useRouter()
+  const locale = useLocale()
+  const jdiNa = (cislo: number) => router.push(lokalizujCestu(`/posts/page/${cislo}`, locale))
 
   const { className, page, totalPages } = props
   const hasNextPage = page < totalPages
@@ -34,7 +38,7 @@ export const Pagination: React.FC<{
             <PaginationPrevious
               disabled={!hasPrevPage}
               onClick={() => {
-                router.push(`/posts/page/${page - 1}`)
+                jdiNa(page - 1)
               }}
             />
           </PaginationItem>
@@ -49,7 +53,7 @@ export const Pagination: React.FC<{
             <PaginationItem>
               <PaginationLink
                 onClick={() => {
-                  router.push(`/posts/page/${page - 1}`)
+                  jdiNa(page - 1)
                 }}
               >
                 {page - 1}
@@ -61,7 +65,7 @@ export const Pagination: React.FC<{
             <PaginationLink
               isActive
               onClick={() => {
-                router.push(`/posts/page/${page}`)
+                jdiNa(page)
               }}
             >
               {page}
@@ -72,7 +76,7 @@ export const Pagination: React.FC<{
             <PaginationItem>
               <PaginationLink
                 onClick={() => {
-                  router.push(`/posts/page/${page + 1}`)
+                  jdiNa(page + 1)
                 }}
               >
                 {page + 1}
@@ -90,7 +94,7 @@ export const Pagination: React.FC<{
             <PaginationNext
               disabled={!hasNextPage}
               onClick={() => {
-                router.push(`/posts/page/${page + 1}`)
+                jdiNa(page + 1)
               }}
             />
           </PaginationItem>

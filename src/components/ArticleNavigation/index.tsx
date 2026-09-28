@@ -1,17 +1,19 @@
 import type { Post } from '@/payload-types'
 import { getArticleSections } from '@/utilities/articleSeo'
 import { formatDateTime } from '@/utilities/formatDateTime'
+import type { Locale } from '@/i18n/config'
+import { lokalizujCestu } from '@/i18n/routing'
 
-export function ArticleNavigation({ post }: { post: Post }) {
+export function ArticleNavigation({ locale, post }: { locale: Locale; post: Post }) {
   const sections = getArticleSections(post.content)
   return (
     <div className="bg-[var(--id-cream)] text-[var(--id-ink-2)]">
       <div className="container py-6 text-[14px] leading-relaxed">
         <nav aria-label="Drobečková navigace">
           <ol className="flex flex-wrap items-baseline gap-x-2 gap-y-1">
-            <li><a className="underline underline-offset-4" href="/">Úvod</a></li>
+            <li><a className="underline underline-offset-4" href={lokalizujCestu('/', locale)}>Úvod</a></li>
             <li aria-hidden="true">/</li>
-            <li><a className="underline underline-offset-4" href="/posts">Články</a></li>
+            <li><a className="underline underline-offset-4" href={lokalizujCestu('/posts', locale)}>Články</a></li>
             <li aria-hidden="true">/</li>
             <li aria-current="page">{post.title}</li>
           </ol>

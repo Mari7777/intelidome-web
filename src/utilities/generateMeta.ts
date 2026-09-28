@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import type { Media, Page, Post, Config } from '../payload-types'
 import { mergeOpenGraph } from './mergeOpenGraph'
 import { absoluteSiteURL } from './getURL'
+import type { Locale } from '@/i18n/config'
 
 export const getSocialImage = (image?: Media | Config['db']['defaultIDType'] | null) => {
   if (image && typeof image === 'object') {
@@ -20,6 +21,8 @@ export const getSocialImage = (image?: Media | Config['db']['defaultIDType'] | n
 export const generateMeta = async ({ doc, collection }: {
   doc: Partial<Page> | Partial<Post> | null
   collection: 'pages' | 'posts'
+  /** Krok 1 jen přijímá; canonical/hreflang per jazyk řeší krok 3 (A19). */
+  locale?: Locale
 }): Promise<Metadata> => {
   const isPost = collection === 'posts'
   const post = isPost ? doc as Partial<Post> | null : null

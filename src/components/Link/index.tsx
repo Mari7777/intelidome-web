@@ -4,12 +4,16 @@ import Link from 'next/link'
 import React from 'react'
 
 import type { Page, Post } from '@/payload-types'
+import type { Locale } from '@/i18n/config'
+import { lokalizujCestu } from '@/i18n/routing'
 
 type CMSLinkType = {
   appearance?: 'inline' | ButtonProps['variant']
   children?: React.ReactNode
   className?: string
   label?: string | null
+  /** Povinný: modul je sdílený server/klient, hook by v RSC grafu nešel (A10). */
+  locale: Locale
   newTab?: boolean | null
   reference?: {
     relationTo: 'pages' | 'posts'
@@ -27,20 +31,23 @@ export const CMSLink: React.FC<CMSLinkType> = (props) => {
     children,
     className,
     label,
+    locale,
     newTab,
     reference,
     size: sizeFromProps,
     url,
   } = props
 
-  const href =
+  const cil =
     type === 'reference' && typeof reference?.value === 'object' && reference.value.slug
       ? `${reference?.relationTo !== 'pages' ? `/${reference?.relationTo}` : ''}/${
           reference.value.slug
         }`
       : url
 
-  if (!href) return null
+  if (!cil) return null
+  // Reference i vlastní `url` začínající `/` dostanou jazykový prefix; externí zůstávají.
+  const href = lokalizujCestu(cil, locale)
 
   const size = appearance === 'link' ? 'clear' : sizeFromProps
   const newTabProps = newTab ? { rel: 'noopener noreferrer', target: '_blank' } : {}
@@ -48,7 +55,7 @@ export const CMSLink: React.FC<CMSLinkType> = (props) => {
   /* Ensure we don't break any styles set by richText */
   if (appearance === 'inline') {
     return (
-      <Link className={cn(className)} href={href || url || ''} {...newTabProps}>
+      <Link className={cn(className)} href={href} {...newTabProps}>
         {label && label}
         {children && children}
       </Link>
@@ -57,7 +64,7 @@ export const CMSLink: React.FC<CMSLinkType> = (props) => {
 
   return (
     <Button asChild className={className} size={size} variant={appearance}>
-      <Link className={cn(className)} href={href || url || ''} {...newTabProps}>
+      <Link className={cn(className)} href={href} {...newTabProps}>
         {label && label}
         {children && children}
       </Link>

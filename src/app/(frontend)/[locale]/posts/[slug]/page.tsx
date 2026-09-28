@@ -5,6 +5,7 @@ import { PayloadRedirects } from '@/components/PayloadRedirects'
 import configPromise from '@payload-config'
 import { getPayload } from 'payload'
 import { draftMode } from 'next/headers'
+import { notFound } from 'next/navigation'
 import React, { cache } from 'react'
 import RichText from '@/components/RichText'
 
@@ -17,7 +18,11 @@ import { articleJsonLd } from '@/utilities/articleSeo'
 import { ArticleNavigation } from '@/components/ArticleNavigation'
 import PageClient from './page.client'
 import { LivePreviewListener } from '@/components/LivePreviewListener'
+import { jeLocale, type Locale } from '@/i18n/config'
+import { verejnaCesta } from '@/i18n/routing'
+import { vynutZivost } from '@/i18n/zivost'
 
+// Jen `{ slug }` — jazyk dává nadřazený `[locale]` (jen cs, ostatní na vyžádání).
 export async function generateStaticParams() {
   const payload = await getPayload({ config: configPromise })
   const posts = await payload.find({
@@ -40,19 +45,23 @@ export async function generateStaticParams() {
 
 type Args = {
   params: Promise<{
+    locale: string
     slug?: string
   }>
 }
 
 export default async function Post({ params: paramsPromise }: Args) {
   const { isEnabled: draft } = await draftMode()
-  const { slug = '' } = await paramsPromise
+  const { locale, slug = '' } = await paramsPromise
+  if (!jeLocale(locale)) notFound()
   // Decode to support slugs with special characters
   const decodedSlug = decodeURIComponent(slug)
+  vynutZivost(locale, verejnaCesta('posts', encodeURIComponent(decodedSlug), 'cs'), draft)
+  // Cesta bez jazykového prefixu: CMS přesměrování (`from`) se zapisují česky.
   const url = '/posts/' + decodedSlug
-  const post = await queryPostBySlug({ slug: decodedSlug })
+  const post = await queryPostBySlug({ slug: decodedSlug, locale })
 
-  if (!post) return <PayloadRedirects url={url} />
+  if (!post) return <PayloadRedirects locale={locale} url={url} />
 
   // A form-heavy planning tool keeps native scrolling (DESIGN.md 6.5).
   const hasProfileCalculator = post.content.root.children.some((node) => {
@@ -66,7 +75,7 @@ export default async function Post({ params: paramsPromise }: Args) {
         <PageClient />
 
         {/* Allows redirects for valid pages too */}
-        <PayloadRedirects disableNotFound url={url} />
+        <PayloadRedirects disableNotFound locale={locale} url={url} />
 
         {draft && <LivePreviewListener />}
 
@@ -99,11 +108,12 @@ export default async function Post({ params: paramsPromise }: Args) {
           začátek článku, u kalkulátoru o 0,7–2,7 tisíce px (porota 12).
         */}
         <div className="id-anchor-target" id="obsah" tabIndex={-1} />
-        <ArticleNavigation post={post} />
+        <ArticleNavigation locale={locale} post={post} />
         <RichText
           className="id-article"
           data={post.content}
           enableGutter={false}
+          locale={locale}
         />
 
         {post.relatedPosts && post.relatedPosts.length > 0 && (
@@ -111,6 +121,7 @@ export default async function Post({ params: paramsPromise }: Args) {
             <RelatedPosts
               className="mt-12 max-w-[52rem]"
               docs={post.relatedPosts.filter((post) => typeof post === 'object')}
+              locale={locale}
             />
           </div>
         )}
@@ -120,19 +131,20 @@ export default async function Post({ params: paramsPromise }: Args) {
 }
 
 export async function generateMetadata({ params: paramsPromise }: Args): Promise<Metadata> {
-  const { slug = '' } = await paramsPromise
+  const { locale, slug = '' } = await paramsPromise
+  if (!jeLocale(locale)) return {}
   // Decode to support slugs with special characters
   const decodedSlug = decodeURIComponent(slug)
-  const post = await queryPostBySlug({ slug: decodedSlug })
+  const post = await queryPostBySlug({ slug: decodedSlug, locale })
 
   const { isEnabled: draft } = await draftMode()
   return {
-    ...await generateMeta({ doc: post, collection: 'posts' }),
+    ...await generateMeta({ doc: post, collection: 'posts', locale }),
     ...(draft ? { robots: { index: false, follow: false } } : {}),
   }
 }
 
-const queryPostBySlug = cache(async ({ slug }: { slug: string }) => {
+const queryPostBySlug = cache(async ({ slug, locale }: { slug: string; locale: Locale }) => {
   const { isEnabled: draft } = await draftMode()
 
   const payload = await getPayload({ config: configPromise })
@@ -141,6 +153,7 @@ const queryPostBySlug = cache(async ({ slug }: { slug: string }) => {
     collection: 'posts',
     draft,
     limit: 1,
+    locale,
     overrideAccess: draft,
     pagination: false,
     where: {

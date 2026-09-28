@@ -3,6 +3,13 @@ import type { CollectionAfterChangeHook, CollectionAfterDeleteHook } from 'paylo
 import { revalidatePath, revalidateTag } from 'next/cache'
 
 import type { Page } from '../../../payload-types'
+import { interniCesty } from '@/i18n/routing'
+
+// Revaliduje se cesta ROUTE STROMU (`/cs`, `/cs/x`, `/en/x`, …), ne veřejná
+// `/` či `/x`: po rewritu z proxy by ta cache netrefila (A14).
+const revaliduj = (slug: string) => {
+  for (const cesta of interniCesty('pages', slug)) revalidatePath(cesta)
+}
 
 export const revalidatePage: CollectionAfterChangeHook<Page> = ({
   doc,
@@ -11,21 +18,17 @@ export const revalidatePage: CollectionAfterChangeHook<Page> = ({
 }) => {
   if (!context.disableRevalidate) {
     if (doc._status === 'published') {
-      const path = doc.slug === 'home' ? '/' : `/${doc.slug}`
+      payload.logger.info(`Revalidating page: ${doc.slug}`)
 
-      payload.logger.info(`Revalidating page at path: ${path}`)
-
-      revalidatePath(path)
+      revaliduj(doc.slug)
       revalidateTag('pages-sitemap', 'max')
     }
 
     // If the page was previously published, we need to revalidate the old path
     if (previousDoc?._status === 'published' && doc._status !== 'published') {
-      const oldPath = previousDoc.slug === 'home' ? '/' : `/${previousDoc.slug}`
+      payload.logger.info(`Revalidating old page: ${previousDoc.slug}`)
 
-      payload.logger.info(`Revalidating old page at path: ${oldPath}`)
-
-      revalidatePath(oldPath)
+      revaliduj(previousDoc.slug)
       revalidateTag('pages-sitemap', 'max')
     }
   }
@@ -34,8 +37,7 @@ export const revalidatePage: CollectionAfterChangeHook<Page> = ({
 
 export const revalidateDelete: CollectionAfterDeleteHook<Page> = ({ doc, req: { context } }) => {
   if (!context.disableRevalidate) {
-    const path = doc?.slug === 'home' ? '/' : `/${doc?.slug}`
-    revalidatePath(path)
+    revaliduj(String(doc?.slug))
     revalidateTag('pages-sitemap', 'max')
   }
 

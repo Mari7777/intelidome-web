@@ -7,6 +7,8 @@ import React, { useEffect, useState } from 'react'
 import type { Header } from '@/payload-types'
 
 import { Logo } from '@/components/Logo/Logo'
+import { useLocale } from '@/i18n/LocaleProvider'
+import { lokalizujCestu } from '@/i18n/routing'
 import { HeaderNav } from './Nav'
 
 interface HeaderClientProps {
@@ -26,6 +28,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
   const [theme, setTheme] = useState<string | null>(null)
   const { headerTheme, setHeaderTheme } = useHeaderTheme()
   const pathname = usePathname()
+  const locale = useLocale()
 
   useEffect(() => {
     setHeaderTheme(null)
@@ -64,7 +67,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
         <Link
           aria-label="InteliDome — domovská stránka"
           className="id-capsule__mark"
-          href="/"
+          href={lokalizujCestu('/', locale)}
         >
           <Logo decorative height={21} />
         </Link>
