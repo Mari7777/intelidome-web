@@ -6,6 +6,7 @@ import { applyPrimesiRhythm } from './primesi-rhythm'
 import { optimizeLawnArticle } from './lawn-seo-content'
 import { reviseAmendments } from './lawn-series-primesi'
 import { revisePreparationArticle, reviseProfileArticle } from './lawn-series-practice'
+import { SEEDING_SLUG, splitPreparationAndSeeding } from './split-preparation-seeding'
 export { PROFILE_TITLE, PROFILE_META_TITLE, PROFILE_META_DESCRIPTION } from './profile-planning-content'
 export const ORIGINAL_SLUG = 'pisek-biochar-a-dalsi-primesi'
 export const PROFILE_SLUG = 'kalkulator-na-planovani-pudniho-profilu'
@@ -115,12 +116,17 @@ export function splitPrimesiContent(input: unknown) {
     { ...source, root: { ...source.root, children: profile } },
     { ...source, root: { ...source.root, children: original } },
   )
-  // Apply the approved editorial revision after the original layout consistency checks.
+  // Build the historical combined source first, then preserve the current
+  // preparation/seeding split on every later seed run.
+  const separated = splitPreparationAndSeeding(
+    optimizeLawnArticle(PREPARATION_SLUG, revisePreparationArticle(final.preparation)),
+  )
   return {
     ...final,
     original: optimizeLawnArticle(ORIGINAL_SLUG, reviseAmendments(applyPrimesiRhythm(final.original))),
     profile: optimizeLawnArticle(PROFILE_SLUG, reviseProfileArticle(applyProfileRhythm(buildProfilePlanningContent(final.profile)))),
-    preparation: optimizeLawnArticle(PREPARATION_SLUG, revisePreparationArticle(final.preparation)),
+    preparation: optimizeLawnArticle(PREPARATION_SLUG, separated.preparation),
+    seeding: optimizeLawnArticle(SEEDING_SLUG, separated.seeding),
     preparationMovedNodeCount: final.movedNodeCount,
     movedNodeCount: moved.length,
     profileHero: moved.find((n) => n.fields?.blockType === 'figure')?.fields?.image,

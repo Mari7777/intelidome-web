@@ -1,7 +1,8 @@
 import { enrichLawnEvidence } from './lawn-seo-evidence'
 import { cloneDocument } from './lawn-series-helpers'
+import { PREPARATION_META, SEEDING_META, rewritePreparationLinks } from './split-preparation-seeding'
 
-/** Each page answers a separate step: diagnose, choose, calculate, carry out. */
+/** Each page answers a separate step: diagnose, choose, calculate, prepare, seed. */
 export const LAWN_SEO: Record<string, { title: string; description: string }> = {
   'krasny-travnik-zacina-pod-zemi-2': {
     title: 'Půda pro trávník: jak poznat její typ a propustnost',
@@ -18,11 +19,8 @@ export const LAWN_SEO: Record<string, { title: string; description: string }> = 
     description:
       'Spočítejte množství písku, zeminy a příměsí podle plochy a hloubky. Kalkulátor rozliší dovoz, ponechanou půdu a odvoz i převody na tuny, litry a balení.',
   },
-  'jak-pripravit-a-ulozit-smes': {
-    title: 'Příprava směsi pro trávník: míchání, slehnutí a výsev',
-    description:
-      'Jak promíchat půdu s pískem a zapravit příměsi do správné hloubky. Praktický postup od přípravy podloží přes slehnutí a výsev až po první sečení.',
-  },
+  'jak-pripravit-a-ulozit-smes': PREPARATION_META,
+  'jak-zasit-travnik': SEEDING_META,
 }
 
 const LEADS: Record<string, string> = {
@@ -33,7 +31,9 @@ const LEADS: Record<string, string> = {
   'kalkulator-na-planovani-pudniho-profilu':
     'Zadejte plochu, hloubku, způsob úpravy a podíly příměsí. Kalkulátor půdy pod trávník spočítá objemy a rozliší, *co dovézt, ponechat a odvézt*. Převody na kilogramy a tuny závisí na sypné hustotě dodávky; skutečné slehnutí směsi výpočet nepředpovídá.',
   'jak-pripravit-a-ulozit-smes':
-    'Zeminu s případným pískem nejprve promíchejte v celé plánované hloubce. Potom zapravujte příměsi postupně mělčeji podle receptury; samostatná patra nevytvářejte. *Před výsevem nechte povrch slehnout a ověřte, že se jeho výška ustálila.* Následuje výsev, jemná zálivka a první sečení.',
+    'Zeminu s případným pískem nejprve promíchejte v celé plánované hloubce. Potom zapravujte příměsi postupně mělčeji podle receptury; samostatná patra nevytvářejte. *Před výsevem nechte povrch slehnout, ověřte ustálení výšek a doladěním nerovností dokončete seťové lůžko.*',
+  'jak-zasit-travnik':
+    'Do připraveného a slehlého lůžka vysejte směs zvolenou podle světla, zátěže a dostupné závlahy. Dávku rozdělte pro rovnoměrný křížový výsev, osivo mělce zapravte a lehce přitlačte k půdě. *Jemná zálivka udržuje vlhkou horní vrstvu; první sečení přichází až tehdy, když mladé rostliny drží v půdě a povrch unese sekačku.*',
 }
 
 /** Only replace the existing short summary; preserve all body blocks and model data. */
@@ -46,5 +46,5 @@ export function optimizeLawnArticle(slug: string, content: unknown): any {
     throw new Error(`Expected one summary band for ${slug}, received ${summaries.length}`)
   }
   summaries[0].fields.lead = lead
-  return enrichLawnEvidence(slug, doc)
+  return rewritePreparationLinks(enrichLawnEvidence(slug, doc))
 }

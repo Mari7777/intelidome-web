@@ -62,7 +62,7 @@ export function revisePreparationArticle(input: unknown): any {
   const doc = cloneDocument(input)
 
   findFields(doc, 'split', 'Jak směs připravit a uložit při skutečné práci').body =
-    `Složky a jejich hloubky vybereme podle článku [Písek, biochar a další příměsi](${paths.ingredients}#tri-zahrady-jake-pomery-pro-ne-zvolit). [Kalkulátor půdy pod trávník](${paths.profile}#co-zadat-do-kalkulatoru-pudy-pod-travnik) převede recepturu na množství pro naši plochu. Tady navážeme přípravou podloží, promícháním, slehnutím, výsevem a první péčí o trávník.`
+    `Složky a jejich hloubky vybereme podle článku [Písek, biochar a další příměsi](${paths.ingredients}#tri-zahrady-jake-pomery-pro-ne-zvolit). [Kalkulátor půdy pod trávník](${paths.profile}#co-zadat-do-kalkulatoru-pudy-pod-travnik) převede recepturu na množství pro naši plochu. Tady navážeme přípravou podloží, promícháním, uložením směsi a kontrolou slehnutí.`
 
   const subsoil = findFields(doc, 'split', 'Nejdříve poznat a připravit podloží')
   const subsoilParagraphs: string[] = subsoil.body.split(/\n\n+/)
@@ -84,18 +84,22 @@ export function revisePreparationArticle(input: unknown): any {
   const shallow = doc.root.children.find((node: any) => node.fields?.blockType === 'split' && node.fields.body?.startsWith('Nakonec rovnoměrně rozprostřeme'))?.fields
   if (!shallow) throw new Error('Expected the shallow amendment mixing section')
   linkPhrase(shallow, 'biochar', `${paths.ingredients}#co-koupit-a-jak-biochar-pripravit`, 'předem připravený biochar')
-  const mycorrhiza = findFields(doc, 'split', 'Mykorhizu umístit tam, kde se setká s mladými kořeny')
-  linkPhrase(mycorrhiza, 'pro mykorhizní přípravek rozhodli', `${paths.ingredients}#mykorhizni-pripravek-ma-vlastni-pravidla-davkovani`)
+  // The seed assembles the historical combined source before splitting it.
+  // Existing CMS preparation articles already end before these seeding sections.
+  const mycorrhiza = doc.root.children.find((node: any) => node.fields?.blockType === 'split' && node.fields.title === 'Mykorhizu umístit tam, kde se setká s mladými kořeny')?.fields
+  if (mycorrhiza) linkPhrase(mycorrhiza, 'pro mykorhizní přípravek rozhodli', `${paths.ingredients}#mykorhizni-pripravek-ma-vlastni-pravidla-davkovani`)
 
-  const closing = findFields(doc, 'split', 'První zelené čárky ještě nejsou hotový porost')
-  const closingParagraphs: string[] = closing.body.split(/\n\n+/)
-  if (closingParagraphs.length < 2 || !closingParagraphs[1].includes('nejvýše třetinu výšky')) {
-    throw new Error('Expected the original first-mowing guidance')
+  const closing = doc.root.children.find((node: any) => node.fields?.blockType === 'split' && node.fields.title === 'První zelené čárky ještě nejsou hotový porost')?.fields
+  if (closing) {
+    const closingParagraphs: string[] = closing.body.split(/\n\n+/)
+    if (closingParagraphs.length < 2 || !closingParagraphs[1].includes('nejvýše třetinu výšky')) {
+      throw new Error('Expected the original first-mowing guidance')
+    }
+    closing.body = [
+      ...closingParagraphs.slice(0, 2),
+      'Dobře připravená směs se ukáže po vydatném dešti i během suchého týdne: voda má kam odtékat, část vláhy zůstává v půdě a kořeny mohou pokračovat do hloubky. O tom rozhodla práce, kterou už pod zeleným povrchem neuvidíme.',
+    ].join('\n\n')
   }
-  closing.body = [
-    ...closingParagraphs.slice(0, 2),
-    'Dobře připravená směs se ukáže po vydatném dešti i během suchého týdne: voda má kam odtékat, část vláhy zůstává v půdě a kořeny mohou pokračovat do hloubky. O tom rozhodla práce, kterou už pod zeleným povrchem neuvidíme.',
-  ].join('\n\n')
 
   const faq = findFields(doc, 'faq')
   faq.lead = 'Při práci hlídejte promíchání, hloubku zapravení a ustálení povrchu.'

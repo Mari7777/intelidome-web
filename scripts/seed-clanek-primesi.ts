@@ -1,11 +1,11 @@
 import { LAWN_SEO } from './lib/lawn-seo-content'
 /**
- * Vloží tři navazující články o příměsích, plánování a přípravě půdní směsi
+ * Vloží čtyři navazující články o příměsích, plánování, přípravě půdní směsi a setí
  * do LOKÁLNÍ databáze. Původní autorský podklad níže se před zápisem
  * vždy rozdělí sdílenou transformací; kapitoly 5–7 se do prvního nevracejí.
  * Spuštění:  npm run payload -- run scripts/seed-clanek-primesi.ts
  *
- * Idempotentní: aktualizuje všechny tři články podle jejich stabilních slugů.
+ * Idempotentní: aktualizuje všechny čtyři články podle jejich stabilních slugů.
  * Ostrý web se plní vlastním nasazením, ne tímhle skriptem – publikaci
  * dělá majitel v adminu.
  *
@@ -21,7 +21,8 @@ import { LAWN_SEO } from './lib/lawn-seo-content'
  * kalkulátor `pudni-profil` (8.1 p. 2 a p. 4: po obsidianovém hero
  * nesmí hned následovat další obsidian) a stručný průvodce výpočtem se společným zdrojem
  * v lib/profile-planning-content.ts. Původní kapitoly 6 a 7 o práci
- * se směsí, výsevu a první péči patří třetímu článku jako kapitoly 1–2.
+ * se směsí patří třetímu článku. Mykorhiza, výsev a první péče patří
+ * samostatnému čtvrtému článku o setí.
  * Topdressing se nevkládá.
  */
 import path from 'path'
@@ -30,7 +31,8 @@ import { existsSync } from 'fs'
 import { createLocalReq, getPayload, type RequiredDataFromCollectionSlug } from 'payload'
 import config from '@payload-config'
 import { publikujCs } from './lib/publikuj-cs'
-import { PREPARATION_TITLE, PREPARATION_SLUG, PREPARATION_META_DESCRIPTION } from './lib/split-profile-preparation'
+import { PREPARATION_TITLE, PREPARATION_SLUG } from './lib/split-profile-preparation'
+import { SEEDING_TITLE, SEEDING_SLUG } from './lib/split-preparation-seeding'
 import { splitPrimesiContent, PROFILE_SLUG, PROFILE_TITLE, PROFILE_META_TITLE, ORIGINAL_META_DESCRIPTION, PROFILE_META_DESCRIPTION } from './lib/split-primesi-content'
 
 const dirname = path.dirname(fileURLToPath(import.meta.url))
@@ -1093,7 +1095,7 @@ const run = async () => {
   const splitContent = splitPrimesiContent(body)
   /* Obrazy nového rytmu vznikají až při rozdělení, tedy po převodu názvů
      souborů výš. Chybějící fotka je chyba, ne tichý výpadek oddílu. */
-  for (const node of [...splitContent.original.root.children, ...splitContent.preparation.root.children, ...splitContent.profile.root.children] as Node[]) {
+  for (const node of [...splitContent.original.root.children, ...splitContent.preparation.root.children, ...splitContent.seeding.root.children, ...splitContent.profile.root.children] as Node[]) {
     const fields = (node as { fields?: Record<string, unknown> }).fields
     const soubor = (fields?.__photo ?? (fields?.blockType === 'figure' ? fields?.__filename : undefined)) as string | undefined
     if (!fields || !soubor) continue
@@ -1109,8 +1111,10 @@ const run = async () => {
   }
   const preparationHero = await payload.find({ collection: 'media', where: { filename: { equals: 'hero-priprava-smesi-higgsfield.avif' } }, limit: 1, depth: 0 })
   if (!preparationHero.docs[0]) throw new Error('Chybí existující médium hero-priprava-smesi-higgsfield.avif pro článek o přípravě směsi.')
+  const seedingHero = await payload.find({ collection: 'media', where: { filename: { equals: 'fig-pripravena-plocha.avif' } }, limit: 1, depth: 0 })
+  if (!seedingHero.docs[0]) throw new Error('Chybí existující médium fig-pripravena-plocha.avif pro článek o setí.')
   const transactionID = await payload.db.beginTransaction()
-  if (!transactionID) throw new Error('Zápis všech tří článků vyžaduje transakci.')
+  if (!transactionID) throw new Error('Zápis všech čtyř článků vyžaduje transakci.')
   const req = await createLocalReq({ locale: 'cs', context: { disableRevalidate: true }, req: { transactionID } }, payload)
   const savePost = async (data: RequiredDataFromCollectionSlug<'posts'>) => {
     const found = await payload.find({ collection: 'posts', where: { slug: { equals: data.slug } }, limit: 1, depth: 0, locale: 'cs', draft: false, req })
@@ -1155,16 +1159,29 @@ const run = async () => {
       categories: original.categories?.map((category) => typeof category === 'object' ? category.id : category),
       meta: { ...LAWN_SEO[PREPARATION_SLUG], image: preparationHero.docs[0].id },
     })
+    const existingSeeding = await payload.find({ collection: 'posts', where: { slug: { equals: SEEDING_SLUG } }, limit: 1, depth: 0, locale: 'cs', req })
+    const seeding = await savePost({
+      title: SEEDING_TITLE,
+      slug: SEEDING_SLUG,
+      generateSlug: false,
+      _status: 'published',
+      heroImage: seedingHero.docs[0].id,
+      content: splitContent.seeding,
+      publishedAt: existingSeeding.docs[0]?.publishedAt ?? new Date().toISOString(),
+      authors: preparation.authors?.map((author) => typeof author === 'object' ? author.id : author),
+      categories: preparation.categories?.map((category) => typeof category === 'object' ? category.id : category),
+      meta: { ...LAWN_SEO[SEEDING_SLUG], image: seedingHero.docs[0].id },
+    })
     // Link after creation: the collection's self-exclusion filter requires a post ID.
     const soilGuide = await payload.find({ collection: 'posts', where: { slug: { equals: 'krasny-travnik-zacina-pod-zemi-2' } }, limit: 1, depth: 0, locale: 'cs', req })
-    const articles = [...soilGuide.docs, original, profile, preparation]
+    const articles = [...soilGuide.docs, original, profile, preparation, seeding]
     for (const article of articles) {
       const existingRelated = (article.relatedPosts ?? []).map((post) => typeof post === 'object' ? post.id : post)
       const otherArticles = articles.filter((other) => other.id !== article.id).map((other) => other.id)
       await publikujCs(payload, { collection: 'posts', id: article.id, data: { relatedPosts: [...new Set([...existingRelated, ...otherArticles])] }, req })
     }
     await payload.db.commitTransaction(transactionID)
-    payload.logger.info(`Články aktualizovány: /posts/${SLUG}, /posts/${PROFILE_SLUG} a /posts/${PREPARATION_SLUG}`)
+    payload.logger.info(`Články aktualizovány: /posts/${SLUG}, /posts/${PROFILE_SLUG}, /posts/${PREPARATION_SLUG} a /posts/${SEEDING_SLUG}`)
   } catch (error) {
     await payload.db.rollbackTransaction(transactionID)
     throw error

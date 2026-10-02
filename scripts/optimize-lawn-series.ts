@@ -1,8 +1,8 @@
 /**
- * Search metadata, evidence links and direct summaries for the four Czech lawn articles.
+ * Search metadata, evidence links and direct summaries for the five Czech lawn articles.
  * Preview: node --import tsx scripts/optimize-lawn-series.ts
  * Apply:   node --import tsx scripts/optimize-lawn-series.ts --write
- * Only content and meta title/description change. All four updates share one transaction.
+ * Only content and meta title/description change. All five updates share one transaction.
  */
 import 'dotenv/config'
 import { mkdtemp, writeFile } from 'node:fs/promises'
@@ -25,7 +25,7 @@ let transactionID: Awaited<ReturnType<typeof payload.db.beginTransaction>> = nul
 try {
   const result = await payload.find({
     collection: 'posts', where: { slug: { in: LAWN_SERIES_SLUGS } },
-    limit: 4, depth: 0, locale: 'cs', draft: false,
+    limit: LAWN_SERIES_SLUGS.length, depth: 0, locale: 'cs', draft: false,
   })
   const posts = LAWN_SERIES_SLUGS.map((slug) => {
     const found = result.docs.find((post) => post.slug === slug)
@@ -57,7 +57,7 @@ try {
     }
     await payload.db.commitTransaction(transactionID)
     transactionID = null
-    console.log('Updated SEO content and metadata for all four articles.')
+    console.log('Updated SEO content and metadata for all five articles.')
   }
 } catch (error) {
   if (transactionID) await payload.db.rollbackTransaction(transactionID)

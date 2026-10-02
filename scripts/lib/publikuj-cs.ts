@@ -27,7 +27,8 @@ export async function publikujCs<K extends Kolekce>(payload: Payload, args: Args
     id,
     // Vstup je zkontrolovaný proti kolekci (typ `Args`); Payload chce DeepPartial
     // nad generickým K, což TS neumí odvodit — přetypování je jen uvnitř helperu.
-    data: data as never,
+    // draft: false alone does not set publication status on a partial update.
+    data: { ...data, _status: 'published' } as never,
     depth,
     locale: 'cs',
     draft: false,

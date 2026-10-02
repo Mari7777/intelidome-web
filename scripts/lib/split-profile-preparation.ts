@@ -1,10 +1,12 @@
 import { BLEED, BLEED_AFTER, RHYTHM_SECTIONS } from './preparation-rhythm-content'
+import { PREPARATION_TITLE as SPLIT_PREPARATION_TITLE, PREPARATION_META } from './split-preparation-seeding'
 /** Extract preparation and seeding chapters; adapt the soil-mixing method for practical work. */
+// The historical layout checks compare this label before final link rewriting.
 export const TITLE = 'Jak připravit a uložit směs'
 export const SLUG = 'jak-pripravit-a-ulozit-smes'
-export const META_DESCRIPTION = 'Jak připravit podloží, promíchat a uložit půdní směs pro trávník. Od kontroly slehnutí přes výsev a první zálivku až po první sečení mladého porostu.'
+export const META_DESCRIPTION = PREPARATION_META.description
 export const PROFILE_META_DESCRIPTION = 'Spočítejte materiály pro půdní profil trávníku podle plochy, hloubky a poměrů směsi. Porovnejte objemy, hmotnosti a balení pro plánování dodávky.'
-export const PREPARATION_TITLE = TITLE
+export const PREPARATION_TITLE = SPLIT_PREPARATION_TITLE
 export const PREPARATION_SLUG = SLUG
 export const PREPARATION_META_DESCRIPTION = META_DESCRIPTION
 const PROFILE_SLUG = 'kalkulator-na-planovani-pudniho-profilu'

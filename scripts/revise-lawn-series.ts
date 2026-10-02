@@ -1,8 +1,8 @@
 /**
- * Approved shortening and crosslinking of the four Czech lawn articles.
+ * Approved shortening and crosslinking of the five Czech lawn articles.
  * Preview: node --import tsx scripts/revise-lawn-series.ts
  * Apply:   node --import tsx scripts/revise-lawn-series.ts --write
- * Only content and relatedPosts change. All four updates share one transaction.
+ * Only content and relatedPosts change. All five updates share one transaction.
  */
 import 'dotenv/config'
 import { mkdtemp, writeFile } from 'node:fs/promises'
@@ -24,7 +24,7 @@ let transactionID: Awaited<ReturnType<typeof payload.db.beginTransaction>> = nul
 try {
   const result = await payload.find({
     collection: 'posts', where: { slug: { in: LAWN_SERIES_SLUGS } },
-    limit: 4, depth: 0, locale: 'cs', draft: false,
+    limit: LAWN_SERIES_SLUGS.length, depth: 0, locale: 'cs', draft: false,
   })
   const posts = LAWN_SERIES_SLUGS.map((slug) => {
     const found = result.docs.find((post) => post.slug === slug)
@@ -57,7 +57,7 @@ try {
     }
     await payload.db.commitTransaction(transactionID)
     transactionID = null
-    console.log('Updated all four articles and their related article links.')
+    console.log('Updated all five articles and their related article links.')
   }
 } catch (error) {
   if (transactionID) await payload.db.rollbackTransaction(transactionID)

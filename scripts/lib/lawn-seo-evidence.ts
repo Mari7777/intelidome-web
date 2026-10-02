@@ -4,6 +4,7 @@ const SOIL = 'krasny-travnik-zacina-pod-zemi-2'
 const AMENDMENTS = 'pisek-biochar-a-dalsi-primesi'
 const CALCULATOR = 'kalkulator-na-planovani-pudniho-profilu'
 const PREPARATION = 'jak-pripravit-a-ulozit-smes'
+const SEEDING = 'jak-zasit-travnik'
 const MARKER = 'Zdroje a metodika – SEO'
 const WSU = 'https://extension.wsu.edu/pnw-gardeners-handbook/chapter-5-urban-soil-management/'
 const UMD = 'https://extension.umd.edu/resource/soil-health-drainage-and-improving-soil'
@@ -25,8 +26,12 @@ const sectionText: Record<string, string[]> = {
     'Výchozí receptury, hustoty a rezerva jsou nastavitelné modelové vstupy. Výpočet nezměří skutečnou půdu ani nesleduje slehnutí. Pro objednávku použijte sypnou hustotu a balení konkrétní dodávky; zdroj nepotvrzuje hustoty zdejších výrobků ani univerzální dávky příměsí.',
   ],
   [PREPARATION]: [
-    `[Penn State](${PSU}) popisuje práci s vlhkou, nikoli mokrou půdou, promíchání příměsí, ustálení povrchu deštěm či zálivkou a péči při vzcházení. [Průvodce WSU](${WSU}) zdůrazňuje oddělení použitelné ornice od nevhodného podloží.`,
-    'Hloubky zapravení a čas na slehnutí v tomto článku jsou pracovní předpoklady pro popsanou směs. Rozhoduje stav půdy a použitý stroj. Dávku osiva a konkrétních přípravků volte podle výrobku, ne podle obecného příkladu.',
+    `[Penn State](${PSU}) popisuje práci s vlhkou, nikoli mokrou půdou, promíchání příměsí a ustálení povrchu deštěm či zálivkou. [Průvodce WSU](${WSU}) zdůrazňuje oddělení použitelné ornice od nevhodného podloží.`,
+    'Hloubky zapravení a čas na slehnutí v tomto článku jsou pracovní předpoklady pro popsanou směs. Rozhoduje stav půdy a použitý stroj. Dávku konkrétních příměsí volte podle receptury a návodu výrobku.',
+  ],
+  [SEEDING]: [
+    `[Penn State](${PSU}) popisuje výsev, kontakt osiva s půdou a péči při vzcházení. Podmínky prvního sečení a praktické souvislosti založení uvádí také [Agrostis](https://www.agrostis.cz/odborne-clanky/jak-zalozit-novy-travnik-zakladani-travniku).`,
+    'Dávka 25–30 g/m² a výška 8–10 cm při první seči jsou obecné příklady pro běžný zahradní trávník. Volbu osiva, konkrétní dávku, hloubku zapravení a použití mykorhizního přípravku přizpůsobte výrobku a podmínkám zahrady. Schéma dosahu prvního kořínku ilustruje princip, ne přesnou rychlost růstu každé trávy.',
   ],
 }
 

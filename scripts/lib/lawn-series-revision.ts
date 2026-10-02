@@ -2,6 +2,7 @@ import { optimizeLawnArticle } from './lawn-seo-content'
 import { reviseSoilGuide } from './lawn-series-puda'
 import { reviseAmendments } from './lawn-series-primesi'
 import { revisePreparationArticle, reviseProfileArticle } from './lawn-series-practice'
+import { cloneDocument } from './lawn-series-helpers'
 
 /** Apply the same editorial text to the local seeds and to existing CMS articles. */
 export const LAWN_SERIES_REVISIONS = {
@@ -9,6 +10,7 @@ export const LAWN_SERIES_REVISIONS = {
   'pisek-biochar-a-dalsi-primesi': reviseAmendments,
   'kalkulator-na-planovani-pudniho-profilu': reviseProfileArticle,
   'jak-pripravit-a-ulozit-smes': revisePreparationArticle,
+  'jak-zasit-travnik': cloneDocument,
 } as const
 
 export type LawnSeriesSlug = keyof typeof LAWN_SERIES_REVISIONS
