@@ -3974,3 +3974,34 @@ Odložená fáze: kalkulátory (~190 řetězců) a SVG kresby (~350 popisků)
 zůstávají česky i pod cizí adresou, překlady obsahu dělá majitel v adminu
 podle checklistu v ADR-008. Jazyk ožívá až přidáním do `LIVE_LOCALES`
 spolu se slovníkem UI v jednom commitu.
+
+## Článek „Jak zasít trávník“ — stavba a přejímky (2026-10-02)
+
+Nový autorův text (16 kapitol, 22 300 znaků) nahradil krátký článek na
+`/posts/jak-zasit-travnik`. Stavěno rovnou v rytmu obraz/text (8.2b p. 8):
+24 dvousloupců, střídání R L bez výjimky i přes předěl, 2 tabulky jako
+krémové pásy, předěl 21:9 mezi výsevem a zálivkou.
+
+- **Kresby (12 nových):** klíčení, odnožování, hustý výsev, půdní teploměr,
+  okno konce léta, rychlost vzcházení, hloubka setí, křížový výsev,
+  přívalový déšť, kořeny a vláha, první seč, mapa chyby. Jednotné značky
+  (semeno krémové s obrysem, kořen, kapka), titulek 24 px na x 40, jediný
+  akcent voda. Převzatá `mykorhiza-pod-osivem`.
+- **Fotky (12 nových, série téže zahrady):** hero se zálivkou, pohled
+  z terasy před a po (závěr článku je úprava úvodní fotky), jinovatka,
+  seťové lůžko, předěl s postřikovačem, vlhkost prstem, stín stromu,
+  hnojivo, plevel, hustý trávník, oprava holého místa. Mastery
+  v `zdroje-informaci/fotky/kandidati-zasit`.
+- **Nové v systému:** poměr rámu fotky **3:2** pro krátký úsek textu
+  (DESIGN 8.2b p. 8, v2.11), kurziva `*…*` v těle dvousloupce (autorův
+  perex), režim `mobil` v `svg-preview.mjs`.
+- **Poměr tělo/obraz na 1440:** 58–114 %; nejníž K15 „mapa chyby“ (58 %)
+  a oprava holého místa (60 %) — krátké úseky kolem tabulky, které se
+  spojit nedají.
+- **Přejímky:** `layout-check` 1440 / 1920 / 1130 / 1024 OK, `svg-labels`
+  320 / 393 / 1440 OK (13 kreseb, min. 10,5 px), `tsc` čistý.
+
+Porota zatím neproběhla. Vědomě otevřené: poznámka pod tabulkou vzcházení
+nese autorův odstavec „Tabulka popisuje orientaci…“ drobnou sazbou; oddíl
+o mykorhize je převzatý ze starší verze a čeká na rozhodnutí autora;
+souhrn, FAQ, výzva a popisky jsou redakční text (kandidát na copy-polish).

@@ -20,7 +20,7 @@ export type SplitBlockProps = {
   drawing?: string | null
   /** Fotka místo kresby — ořez v poměru rámu, ne 21:9 master. */
   photo?: MediaType | number | null
-  photoRatio?: '4:5' | '1:1' | '2:3' | null
+  photoRatio?: '4:5' | '1:1' | '2:3' | '3:2' | null
   eyebrow?: string | null
   title?: string | null
   titleLevel?: 'h2' | 'h3' | null
@@ -146,6 +146,7 @@ export const SplitBlock: React.FC<SplitBlockProps> = ({
               'id-figure-media id-split__foto',
               photoRatio === '1:1' && 'id-split__foto--ctverec',
               photoRatio === '2:3' && 'id-split__foto--vysoka',
+              photoRatio === '3:2' && 'id-split__foto--siroka',
             )}
           >
             <Media
@@ -206,15 +207,18 @@ export const SplitBlock: React.FC<SplitBlockProps> = ({
 }
 
 /**
- * `**text**` → `<strong>`, `[text](url)` → odkaz na sesterský článek
+ * `**text**` → `<strong>`, `*text*` → `<em>` (autorův perex), `[text](url)` → odkaz na sesterský článek
  * (kolo 02: dva odstavce s odkazem patřily tematicky do splitu, ale
  * `body` je prostý řetězec bez Lexical uzlů — minimální markdown místo
  * přepisování autorovy věty). Pevné mezery se doplní všude.
  */
 function renderStrong(source: string, locale: Locale): React.ReactNode[] {
-  return source.split(/(\*\*[^*]+\*\*|\[[^\]]+\]\([^)]+\))/g).map((part, index) => {
+  return source.split(/(\*\*[^*]+\*\*|\*[^*]+\*|\[[^\]]+\]\([^)]+\))/g).map((part, index) => {
     if (part.startsWith('**') && part.endsWith('**') && part.length > 4) {
       return <strong key={index}>{nezlomitelneMezery(part.slice(2, -2))}</strong>
+    }
+    if (part.startsWith('*') && part.endsWith('*') && part.length > 2) {
+      return <em key={index}>{nezlomitelneMezery(part.slice(1, -1))}</em>
     }
     const odkaz = part.match(/^\[([^\]]+)\]\(([^)]+)\)$/)
     if (odkaz) {

@@ -1,6 +1,7 @@
 // svg-preview.mjs — rasterizuje SVG figuru z .tsx souboru, aby ji šlo vidět
 // bez spuštění celé aplikace.
-//   node scripts/svg-preview.mjs src/components/figures/Neco.tsx out.png [light|dark]
+//   node scripts/svg-preview.mjs src/components/figures/Neco.tsx out.png [light|dark|mobil]
+// `mobil` = nejtěsnější telefonní sazba (≤ 385 px): popisky 18/21 jednotek, kresba ~361 px.
 import { chromium } from '@playwright/test'
 import { readFileSync, writeFileSync } from 'fs'
 
@@ -19,6 +20,7 @@ svg = svg
   .replace(/\{'\s*'\}/g, ' ')
   .replace(/=\{"([^"]*)"\}/g, '="$1"')
   .replace(/=\{'([^']*)'\}/g, '="$1"')
+  .replace(/style=\{\{\s*fontSize:\s*(\d+)\s*\}\}/g, 'style="font-size:$1px"')
   .replace(/\bclassName=/g, 'class=')
   .replace(/\b(strokeWidth|strokeLinecap|strokeLinejoin|strokeDasharray|strokeDashoffset|strokeOpacity|strokeMiterlimit|fillOpacity|fillRule|clipPath|clipRule|stopColor|stopOpacity|textAnchor|dominantBaseline|letterSpacing|fontFamily|fontSize|fontWeight|markerEnd|markerStart|gradientUnits|gradientTransform|patternUnits|maskUnits|repeatCount|keyTimes|keySplines|calcMode|attributeName|xlinkHref|preserveAspectRatio|shapeRendering|vectorEffect|paintOrder|transformOrigin)=/g,
     (m, a) => a.replace(/[A-Z]/g, (c) => '-' + c.toLowerCase()) + '=')
@@ -31,13 +33,13 @@ const html = `<!doctype html><meta charset="utf-8"><style>
         --id-bg:#fff;--id-obsidian:#0b0d10;--id-accent:#2563eb;--id-accent-tint:#93c5fd}
   body{margin:0;background:${bg};padding:40px;font-family:Archivo,sans-serif}
   svg{display:block;width:100%;height:auto}
-  .sv-lbl{font-family:Archivo,sans-serif;font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;fill:${mode === 'dark' ? '#9ba1a8' : '#595650'}}
-  .sv-val{font-family:Archivo,sans-serif;font-size:15px;font-weight:600;letter-spacing:-.01em;font-variant-numeric:tabular-nums;fill:${mode === 'dark' ? '#ffffff' : '#1d1d1f'}}
+  .sv-lbl{font-family:Archivo,sans-serif;font-size:${mode === 'mobil' ? 18 : 12}px;font-weight:600;letter-spacing:${mode === 'mobil' ? '.06em' : '.1em'};text-transform:uppercase;fill:${mode === 'dark' ? '#9ba1a8' : '#595650'}}
+  .sv-val{font-family:Archivo,sans-serif;font-size:${mode === 'mobil' ? 21 : 15}px;font-weight:600;letter-spacing:-.01em;font-variant-numeric:tabular-nums;fill:${mode === 'dark' ? '#ffffff' : '#1d1d1f'}}
 </style>${svg}`
 
 writeFileSync(out.replace(/\.png$/, '.html'), html)
 const b = await chromium.launch()
-const p = await b.newPage({ viewport: { width: 1160, height: 560 }, deviceScaleFactor: 2 })
+const p = await b.newPage({ viewport: { width: mode === 'mobil' ? 441 : 1160, height: 560 }, deviceScaleFactor: 2 })
 const errs = []
 p.on('pageerror', (e) => errs.push(String(e)))
 await p.setContent(html, { waitUntil: 'networkidle' })

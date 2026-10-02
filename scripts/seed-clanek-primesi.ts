@@ -1160,14 +1160,17 @@ const run = async () => {
       meta: { ...LAWN_SEO[PREPARATION_SLUG], image: preparationHero.docs[0].id },
     })
     const existingSeeding = await payload.find({ collection: 'posts', where: { slug: { equals: SEEDING_SLUG } }, limit: 1, depth: 0, locale: 'cs', req })
-    const seeding = await savePost({
+    /* Článek o setí má od 2. 10. 2026 vlastní předlohu a seeder
+       (seed-clanek-zasit.ts). Tady se zakládá jen tehdy, když ještě
+       neexistuje – existující se nepřepisuje, jen propojí se sérií. */
+    const seeding = existingSeeding.docs[0] ?? await savePost({
       title: SEEDING_TITLE,
       slug: SEEDING_SLUG,
       generateSlug: false,
       _status: 'published',
       heroImage: seedingHero.docs[0].id,
       content: splitContent.seeding,
-      publishedAt: existingSeeding.docs[0]?.publishedAt ?? new Date().toISOString(),
+      publishedAt: new Date().toISOString(),
       authors: preparation.authors?.map((author) => typeof author === 'object' ? author.id : author),
       categories: preparation.categories?.map((category) => typeof category === 'object' ? category.id : category),
       meta: { ...LAWN_SEO[SEEDING_SLUG], image: seedingHero.docs[0].id },

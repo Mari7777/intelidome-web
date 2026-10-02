@@ -43,6 +43,18 @@ import { HlinaPraceMistoMaterialu } from './HlinaPraceMistoMaterialu'
 import { PisekPodKoreny } from './PisekPodKoreny'
 import { JednaZmenaNaraz } from './JednaZmenaNaraz'
 import { MykoPodleNavodu } from './MykoPodleNavodu'
+import { KliceniKrokZaKrokem } from './KliceniKrokZaKrokem'
+import { Odnozovani } from './Odnozovani'
+import { HustyVysev } from './HustyVysev'
+import { PudniTeplomer } from './PudniTeplomer'
+import { OknoKonceLeta } from './OknoKonceLeta'
+import { RychlostVzchazeni } from './RychlostVzchazeni'
+import { HloubkaSeti } from './HloubkaSeti'
+import { KrizovyVysev } from './KrizovyVysev'
+import { PrivalovyDest } from './PrivalovyDest'
+import { KorenyAVlaha } from './KorenyAVlaha'
+import { PrvniSec } from './PrvniSec'
+import { MapaChyby } from './MapaChyby'
 
 export type Drawing = {
   /** Širokoúhlá sazba (viewBox 1080) — desktop a tablet. */
@@ -115,6 +127,20 @@ export const DRAWINGS = {
   'pisek-pod-koreny': { wide: PisekPodKoreny, portrait: PisekPodKoreny },
   'jedna-zmena-naraz': { wide: JednaZmenaNaraz, portrait: JednaZmenaNaraz },
   'myko-podle-navodu': { wide: MykoPodleNavodu, portrait: MykoPodleNavodu },
+  /* Článek „Jak zasít trávník" (2026-10-02): portrétová sazba 520, jednotné
+     značky (semeno, kořen, voda) napříč všemi dvanácti kresbami. */
+  'kliceni-krok-za-krokem': { wide: KliceniKrokZaKrokem, portrait: KliceniKrokZaKrokem },
+  'odnozovani': { wide: Odnozovani, portrait: Odnozovani },
+  'husty-vysev': { wide: HustyVysev, portrait: HustyVysev },
+  'pudni-teplomer': { wide: PudniTeplomer, portrait: PudniTeplomer },
+  'okno-konce-leta': { wide: OknoKonceLeta, portrait: OknoKonceLeta },
+  'rychlost-vzchazeni': { wide: RychlostVzchazeni, portrait: RychlostVzchazeni },
+  'hloubka-seti': { wide: HloubkaSeti, portrait: HloubkaSeti },
+  'krizovy-vysev': { wide: KrizovyVysev, portrait: KrizovyVysev },
+  'privalovy-dest': { wide: PrivalovyDest, portrait: PrivalovyDest },
+  'koreny-a-vlaha': { wide: KorenyAVlaha, portrait: KorenyAVlaha },
+  'prvni-sec': { wide: PrvniSec, portrait: PrvniSec },
+  'mapa-chyby': { wide: MapaChyby, portrait: MapaChyby },
 } satisfies Record<string, Drawing>
 
 export type DrawingKey = keyof typeof DRAWINGS

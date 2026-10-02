@@ -72,6 +72,19 @@ export const Split: Block = {
         { label: 'Písek: voda a živiny pod kořeny', value: 'pisek-pod-koreny' },
         { label: 'Jedna změna naráz', value: 'jedna-zmena-naraz' },
         { label: 'Mykorhiza podle návodu výrobku', value: 'myko-podle-navodu' },
+        /* Článek „Jak zasít trávník" */
+        { label: 'Klíčení krok za krokem (nejdřív kořínek)', value: 'kliceni-krok-za-krokem' },
+        { label: 'Odnožování (jedna rostlina, víc výhonů)', value: 'odnozovani' },
+        { label: 'Hustý výsev (stejné světlo)', value: 'husty-vysev' },
+        { label: 'Půdní teploměr (nad 10 °C, 5 cm)', value: 'pudni-teplomer' },
+        { label: 'Okno konce léta (6–8 týdnů růstu)', value: 'okno-konce-leta' },
+        { label: 'Rychlost vzcházení (po týdnu jen jílek)', value: 'rychlost-vzchazeni' },
+        { label: 'Hloubka setí (2–5 mm)', value: 'hloubka-seti' },
+        { label: 'Křížový výsev (½ + ½ dávky)', value: 'krizovy-vysev' },
+        { label: 'Přívalový déšť (smyv a krusta)', value: 'privalovy-dest' },
+        { label: 'Kořeny a vláha (kam sahá voda)', value: 'koreny-a-vlaha' },
+        { label: 'První seč (8 cm → 6 cm)', value: 'prvni-sec' },
+        { label: 'Mapa chyby (tvar napoví)', value: 'mapa-chyby' },
       ],
     },
     {
@@ -81,7 +94,7 @@ export const Split: Block = {
       label: 'Fotografie místo kresby',
       admin: {
         description:
-          'Nahrajte ořez v poměru rámu (4:5, 1:1 nebo 2:3), ne 21:9 master — rám se jinak plní ~3× širším obrazem. Alt se bere z knihovny médií.',
+          'Nahrajte ořez v poměru rámu (4:5, 1:1, 2:3 nebo 3:2), ne 21:9 master — rám se jinak plní ~3× širším obrazem. Alt se bere z knihovny médií.',
         condition: (_, siblingData) => !siblingData?.drawing,
       },
     },
@@ -95,6 +108,7 @@ export const Split: Block = {
         { label: 'Na výšku 4:5', value: '4:5' },
         { label: 'Čtverec 1:1', value: '1:1' },
         { label: 'Vysoký 2:3 (dlouhý text vedle fotky)', value: '2:3' },
+        { label: 'Na šířku 3:2 (krátký text vedle fotky)', value: '3:2' },
       ],
     },
     { name: 'eyebrow', type: 'text', label: 'Nadřádek' },
@@ -123,7 +137,7 @@ export const Split: Block = {
       name: 'body',
       type: 'textarea',
       label: 'Text',
-      admin: { description: 'Odstavce oddělte prázdným řádkem. **Tučně** takto. Řádek začínající „### “ je mezititulek (h3), řádek začínající „> “ je tip v modrém rámečku. Pro seznamy a odkazy použijte místo toho formátované tělo níže.' },
+      admin: { description: 'Odstavce oddělte prázdným řádkem. **Tučně** takto, *kurzivou* takto. Řádek začínající „### “ je mezititulek (h3), řádek začínající „> “ je tip v modrém rámečku. Pro seznamy a odkazy použijte místo toho formátované tělo níže.' },
     },
     {
       name: 'richBody',

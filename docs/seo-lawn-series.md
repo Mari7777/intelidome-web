@@ -10,7 +10,7 @@ Aktualizováno 2. 10. 2026. Úpravy jsou uložené v místním projektu a místn
 | /posts/pisek-biochar-a-dalsi-primesi | výběr písku, biocharu, zeolitu a modelových poměrů | Směs pro trávník: písek, biochar, zeolit a jejich poměry |
 | /posts/kalkulator-na-planovani-pudniho-profilu | množství písku, zeminy a příměsí, objem, dovoz a odvoz | Kalkulátor půdy pod trávník: písek, zemina a příměsi |
 | /posts/jak-pripravit-a-ulozit-smes | příprava podloží, promíchání a uložení směsi, slehnutí a urovnání povrchu | Příprava půdy pro trávník: míchání a uložení směsi |
-| /posts/jak-zasit-travnik | osivo, umístění mykorhizy, výsev, první zálivka a sečení | Setí trávníku: výsev, první zálivka a sečení |
+| /posts/jak-zasit-travnik | klíčení, teplota půdy a termín, dávka a hloubka výsevu, zálivka podle kořenů, první sečení, příčiny neúspěchu | Jak zasít trávník: od prvního zalití k pevným kořenům |
 
 Rozdělení vychází z obsahu a potřeby čtenáře, nikoli z naměřených objemů vyhledávání. Stávající adresy jsou zachované. Článek na adrese /posts/jak-pripravit-a-ulozit-smes se nyní jmenuje „Jak připravit půdu a uložit směs“ a končí přípravou seťového lůžka. Mykorhiza, výsev a první péče jsou od 2. 10. 2026 v samostatném článku „Jak zasít trávník“ na adrese /posts/jak-zasit-travnik. Každá stránka má vlastní description, krátký přímý souhrn, zdroje s vymezením modelových předpokladů, kontextové propojení a rozbalovací obsah se skutečnými odkazy na kapitoly. Žádný autor, kvalifikace ani odborná recenze nebyli vymyšleni; viditelně je uveden vydavatel InteliDome a datum aktualizace.
 
@@ -48,6 +48,16 @@ Rozdělení bylo uloženo do místního CMS: příprava zachovává ID 8 a půvo
 Publikační helper nyní zapisuje výslovně _status: published. Samotné draft: false při částečné aktualizaci stav publikace nenastavovalo a mohlo převzít stav draft z nejnovějšího snapshotu. Publikování zůstává omezené na cs pomocí publishSpecificLocale.
 
 Záloha před rozdělením: /var/folders/4g/b37qgsm1721g9y_1gdpjkn_40000gn/T/intelidome-preparation-seeding-IyMMy5/before-cs.json a before-all-locales.json. Plán rozdělení je planned.json ve stejném adresáři. Jde o dočasné místní soubory. Zápisy českého obsahu používají publikujCs; rozpracované překlady v dalších jazycích se nepřepisují.
+
+### Nový text článku o setí 2. 10. 2026 (večer)
+
+Krátký článek vzniklý rozdělením nahradil na téže adrese autorův nový text „Jak zasít trávník: od prvního zalití k pevným kořenům“ (16 kapitol, předloha `zdroje-informaci/pro-clanky/clanek pro závlahu zahrady/jak-zasit-travnik.md`, rešerše `vysev-travniku-vyzkum-2026-10-02.md`). Článek má vlastní seeder `scripts/seed-clanek-zasit.ts` a datový modul `scripts/lib/seeding-article-content.ts`, který z předlohy generuje `scripts/generate-seeding-content.mjs` (kontrola textu znak po znaku). `seed-clanek-primesi.ts` existující článek o setí už nepřepisuje, jen ho propojí se sérií. Souhrn, description a zdroje zůstávají v `lawn-seo-content.ts` a `lawn-seo-evidence.ts`; revize série je nad novým článkem beze změny obsahu.
+
+Stavba: 24 dvousloupců obraz/text (12 nových kreseb, 12 nových fotografií série, 2 převzaté obrazy), 2 tabulky jako krémové pásy, předěl přes celou šířku, zdroje, 6 otázek FAQ a výzva vedoucí na návrh automatické závlahy. Oddíl „Mykorhizu umístit tam, kde se setká s mladými kořeny“ je převzatý ze starší verze (nová předloha ho nemá) kvůli odkazu z článku o příměsích; o jeho osudu rozhodne autor. Tři interní odkazy obalují autorovu frázi beze změny slov (příprava půdy, průvodce půdou, návrh závlahy).
+
+Ověřeno: text shodný s předlohou (22 300 znaků), `tsc` čistý, `layout-check` na 1440 / 1920 / 1130 / 1024 bez chyby, `svg-labels` na 320 / 393 / 1440 bez kolizí a ořezů (13 kreseb). Porota design-loop zatím neproběhla. Záloha předchozího obsahu: `zdroje-informaci/zalohy/jak-zasit-travnik-pred-novym-textem-2026-10-02.json`.
+
+Při kontrole se ukázalo, že `optimize-lawn-series.ts` a `revise-lawn-series.ts` nyní končí chybou „Evidence: expected soil infiltration results“ u průvodce půdou (ID 5). Nesouvisí to s článkem o setí; je potřeba to vyřešit před příštím použitím těchto skriptů.
 
 ## Co zbývá pro veřejnou návštěvnost
 

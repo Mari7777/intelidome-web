@@ -2740,6 +2740,11 @@
 .id-split__figure > .id-split__foto--vysoka {
   aspect-ratio: 2 / 3;
 }
+/* Na šířku 3:2 jen pro krátký úsek textu, který se nedá spojit se sousedním
+   (8.2b p. 8, v2.11): rám 652 × 435 drží tělo nad 60 % výšky obrazu. */
+.id-split__figure > .id-split__foto--siroka {
+  aspect-ratio: 3 / 2;
+}
 .id-split__foto img {
   object-position: var(--id-focal, 50% 50%);
 }

@@ -2,7 +2,7 @@
 
 _Prověřeno 3 adversárními kontrolami: 41 nálezů, 37 zapracováno, 4 zamítnuty jako vkusové. Poté ručně překlopeno na paletu Tech Blue + Emerald (rozhodnutí 22. 8. 2026) s přepočtem všech kontrastů._
 
-**Verze:** 2.10 · **Datum:** 2026-09-23 · **Platí pro:** www.intelidome.com / intelidome.cz (Next.js + Tailwind CSS + GSAP)
+**Verze:** 2.11 · **Datum:** 2026-10-02 · **Platí pro:** www.intelidome.com / intelidome.cz (Next.js + Tailwind CSS + GSAP)
 **Primární reference:** [Sonos](https://styles.refero.design/style/8d315332-6267-4dc0-a14c-e8b49c26b0e1) · **Sekundární:** [Eight Sleep](https://styles.refero.design/style/e4e8fe86-47ed-4ddd-a6c6-2c28eae9aabe), [Samara](https://styles.refero.design/style/934a61aa-50ff-4e90-852b-4ad0b8262d54)
 
 > **Esence:** Teplý papír za dne, obsidian po setmění — a jeden modrý pulz.
@@ -1214,7 +1214,9 @@ Lexicalu se vedle sebe postavit nedají.
    - **Obraz:** fotka tam, kde se pracuje (nálada, materiál, místo), kresba
      tam, kde rozhodují čísla. Fotka ve dvousloupci je **ořez v poměru rámu**
      (4:5 nebo 1:1; 2:3 jen pro dlouhý text, který se dělit nedá — v2.10,
-     kalkulátor K01; zdroj ≥ 1304 px) bez krémového panelu, slot 652
+     kalkulátor K01; **3:2 na šířku jen pro krátký úsek**, který nejde
+     spojit se sousedním a vedle čtverce by vyplnil pod 60 % výšky — v2.11,
+     článek o setí; zdroj ≥ 1304 px) bez krémového panelu, slot 652
      (700 složeně, okraj k okraji na telefonu); 21:9 master do rámu nepatří
      (~3× širší stahování). Fotky článku tvoří **sérii** (jedna zahrada,
      jedno světlo).

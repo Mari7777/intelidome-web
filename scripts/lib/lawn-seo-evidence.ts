@@ -30,8 +30,8 @@ const sectionText: Record<string, string[]> = {
     'Hloubky zapravení a čas na slehnutí v tomto článku jsou pracovní předpoklady pro popsanou směs. Rozhoduje stav půdy a použitý stroj. Dávku konkrétních příměsí volte podle receptury a návodu výrobku.',
   ],
   [SEEDING]: [
-    `[Penn State](${PSU}) popisuje výsev, kontakt osiva s půdou a péči při vzcházení. Podmínky prvního sečení a praktické souvislosti založení uvádí také [Agrostis](https://www.agrostis.cz/odborne-clanky/jak-zalozit-novy-travnik-zakladani-travniku).`,
-    'Dávka 25–30 g/m² a výška 8–10 cm při první seči jsou obecné příklady pro běžný zahradní trávník. Volbu osiva, konkrétní dávku, hloubku zapravení a použití mykorhizního přípravku přizpůsobte výrobku a podmínkám zahrady. Schéma dosahu prvního kořínku ilustruje princip, ne přesnou rychlost růstu každé trávy.',
+    `Teplotu půdy kolem 10 °C pro běžné směsi a mělké setí uvádí [Barenbrug](https://www.barenbrug.com/turf/sowing). Výsev, kontakt osiva s půdou a péči při vzcházení popisuje [Penn State](${PSU}). Orientační doby vzejití a české termíny shrnuje [Agrostis](https://www.agrostis.cz/odborne-clanky/jak-zalozit-novy-travnik-zakladani-travniku), dormantní výsev [University of Minnesota](https://extension.umn.edu/garden-and-home/yard-and-garden/lawns-and-landscapes-in-minnesota/dormant-seeding), první sečení [UC IPM](https://ipm.ucanr.edu/TOOLS/TURF/ESTABLISH/mowing.html) a příčiny neúspěchu nových výsevů [University of Maryland](https://extension.umd.edu/resource/seedling-problems-lawns).`,
+    'Teploty, doby vzejití, hloubka 2–5 mm a výšky 8 a 6 cm při prvním sečení jsou orientační hodnoty pro běžné zahradní směsi za příznivých podmínek, nikoli norma pro každou zahradu. Dávku osiva, hloubku zapravení, hnojení a použití mykorhizního přípravku řiďte návodem konkrétního výrobku; zálivku skutečnou vlhkostí půdy, ne pevným počtem minut. Kresby jsou schematické a ilustrují princip, ne přesný průběh na vaší zahradě.',
   ],
 }
 

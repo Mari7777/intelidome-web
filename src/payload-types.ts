@@ -1769,13 +1769,25 @@ export interface SplitBlock {
         | 'pisek-pod-koreny'
         | 'jedna-zmena-naraz'
         | 'myko-podle-navodu'
+        | 'kliceni-krok-za-krokem'
+        | 'odnozovani'
+        | 'husty-vysev'
+        | 'pudni-teplomer'
+        | 'okno-konce-leta'
+        | 'rychlost-vzchazeni'
+        | 'hloubka-seti'
+        | 'krizovy-vysev'
+        | 'privalovy-dest'
+        | 'koreny-a-vlaha'
+        | 'prvni-sec'
+        | 'mapa-chyby'
       )
     | null;
   /**
-   * Nahrajte ořez v poměru rámu (4:5, 1:1 nebo 2:3), ne 21:9 master — rám se jinak plní ~3× širším obrazem. Alt se bere z knihovny médií.
+   * Nahrajte ořez v poměru rámu (4:5, 1:1, 2:3 nebo 3:2), ne 21:9 master — rám se jinak plní ~3× širším obrazem. Alt se bere z knihovny médií.
    */
   photo?: (number | null) | Media;
-  photoRatio?: ('4:5' | '1:1' | '2:3') | null;
+  photoRatio?: ('4:5' | '1:1' | '2:3' | '3:2') | null;
   eyebrow?: string | null;
   title?: string | null;
   /**
@@ -1787,7 +1799,7 @@ export interface SplitBlock {
    */
   continues?: boolean | null;
   /**
-   * Odstavce oddělte prázdným řádkem. **Tučně** takto. Řádek začínající „### “ je mezititulek (h3), řádek začínající „> “ je tip v modrém rámečku. Pro seznamy a odkazy použijte místo toho formátované tělo níže.
+   * Odstavce oddělte prázdným řádkem. **Tučně** takto, *kurzivou* takto. Řádek začínající „### “ je mezititulek (h3), řádek začínající „> “ je tip v modrém rámečku. Pro seznamy a odkazy použijte místo toho formátované tělo níže.
    */
   body?: string | null;
   /**
