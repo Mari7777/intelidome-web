@@ -2236,6 +2236,11 @@
 .id-split__p strong {
   font-weight: 600;
 }
+/* Autorův perex v prvním dvousloupci: role lead (4.2), bez kurzivy. */
+.id-split__p.id-split__lead {
+  font-size: var(--id-t-lead);
+  line-height: 1.5;
+}
 /* Fotografický doprovod ponechává původní seznamy a odkazy v sazbě článku.
    Text zůstává čitelný na půlce stránky, obraz zaplňuje druhou půlku. */
 .id-split__richtext {

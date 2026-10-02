@@ -2,7 +2,7 @@
 
 _Prověřeno 3 adversárními kontrolami: 41 nálezů, 37 zapracováno, 4 zamítnuty jako vkusové. Poté ručně překlopeno na paletu Tech Blue + Emerald (rozhodnutí 22. 8. 2026) s přepočtem všech kontrastů._
 
-**Verze:** 2.11 · **Datum:** 2026-10-02 · **Platí pro:** www.intelidome.com / intelidome.cz (Next.js + Tailwind CSS + GSAP)
+**Verze:** 2.12 · **Datum:** 2026-10-02 · **Platí pro:** www.intelidome.com / intelidome.cz (Next.js + Tailwind CSS + GSAP)
 **Primární reference:** [Sonos](https://styles.refero.design/style/8d315332-6267-4dc0-a14c-e8b49c26b0e1) · **Sekundární:** [Eight Sleep](https://styles.refero.design/style/e4e8fe86-47ed-4ddd-a6c6-2c28eae9aabe), [Samara](https://styles.refero.design/style/934a61aa-50ff-4e90-852b-4ad0b8262d54)
 
 > **Esence:** Teplý papír za dne, obsidian po setmění — a jeden modrý pulz.
@@ -1092,6 +1092,8 @@ Full-bleed pásy tří povrchů; „rytmus dne na zahradě": obsidian = noc, kr�
 ### 8.2 Šablona: Blogový článek
 
 Prototyp hydraulika-zahrady.html; kapitol 3–5.
+
+**Dlouhý článek (víc než ~8 kapitol, v2.12):** autorovo členění se nemění, ale obsah „V článku“ je otevřený a dělí kapitoly do 3–5 skupin (pole `tocGroup` u první kapitoly skupiny), aby čtenář hned viděl, kde ve stránce je. Autorův perex v prvním dvousloupci se sází rolí lead (`--id-t-lead`, bez kurzivy).
 
 | # | Sekce | Povrch | Obsah |
 |---|---|---|---|

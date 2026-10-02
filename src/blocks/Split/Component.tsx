@@ -193,6 +193,12 @@ export const SplitBlock: React.FC<SplitBlockProps> = ({
                   <span aria-hidden="true" className="id-callout__dot" />
                   <p className="m-0">{renderStrong(paragraph.slice(2), locale)}</p>
                 </div>
+              ) : /^\*[^*]+\*$/.test(paragraph) ? (
+                /* Celý odstavec v hvězdičkách = autorův perex: role lead (4.2),
+                   ne kurziva ve stupni těla (porota kola 01 článku o setí). */
+                <p className="id-split__p id-split__lead" key={paragraph.slice(0, 40)}>
+                  {nezlomitelneMezery(paragraph.slice(1, -1))}
+                </p>
               ) : (
                 <p className="id-split__p" key={paragraph.slice(0, 40)}>
                   {renderStrong(paragraph, locale)}

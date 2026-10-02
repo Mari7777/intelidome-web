@@ -112,6 +112,16 @@ export const Split: Block = {
       ],
     },
     { name: 'eyebrow', type: 'text', label: 'Nadřádek' },
+    {
+      name: 'tocGroup',
+      type: 'text',
+      label: 'Skupina v obsahu článku',
+      admin: {
+        description:
+          'Jen u dlouhého článku: vyplňte u první kapitoly skupiny (např. „Před setím“). Obsah „V článku“ se pak otevře a rozdělí do skupin.',
+        condition: (_, siblingData) => siblingData?.titleLevel !== 'h3',
+      },
+    },
     { name: 'title', type: 'text', label: 'Titulek' },
     {
       name: 'titleLevel',
@@ -137,7 +147,7 @@ export const Split: Block = {
       name: 'body',
       type: 'textarea',
       label: 'Text',
-      admin: { description: 'Odstavce oddělte prázdným řádkem. **Tučně** takto, *kurzivou* takto. Řádek začínající „### “ je mezititulek (h3), řádek začínající „> “ je tip v modrém rámečku. Pro seznamy a odkazy použijte místo toho formátované tělo níže.' },
+      admin: { description: 'Odstavce oddělte prázdným řádkem. **Tučně** takto, *kurzivou* takto; celý odstavec v hvězdičkách je perex (větší písmo). Řádek začínající „### “ je mezititulek (h3), řádek začínající „> “ je tip v modrém rámečku. Pro seznamy a odkazy použijte místo toho formátované tělo níže.' },
     },
     {
       name: 'richBody',

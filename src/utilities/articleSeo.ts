@@ -8,14 +8,21 @@ import { t } from '@/i18n/ui'
 
 /** Only headings rendered with stable anchors by Chapter/Split enter navigation. */
 export function getArticleSections(content: Post['content']) {
-  const sections: { title: string; id: string }[] = []
+  const sections: { title: string; id: string; group?: string; autoGroup?: boolean }[] = []
   for (const node of content.root.children) {
-    const fields = node.fields as { blockType?: string; title?: string; titleLevel?: string } | undefined
+    const fields = node.fields as { blockType?: string; title?: string; titleLevel?: string; tocGroup?: string | null; eyebrow?: string | null } | undefined
     if (!fields || !['chapter', 'split'].includes(fields.blockType || '') || fields.titleLevel === 'h3') continue
     const title = fields.title?.trim()
     if (!title) continue
     const id = slugify(title)
-    if (id && !sections.some((section) => section.id === id)) sections.push({ title, id })
+    // `group` nese jen první kapitola skupiny (pole tocGroup dvousloupce).
+    const group = fields.tocGroup?.trim()
+    // Servisní kapitola (blok chapter s nadřádkem jiným než „Kapitola NN“, např.
+    // „Podklady“) nepatří do poslední obsahové skupiny – dostane vlastní.
+    const auto = !group && fields.blockType === 'chapter' && fields.eyebrow && !/^kapitola/i.test(fields.eyebrow) ? fields.eyebrow.trim() : undefined
+    if (id && !sections.some((section) => section.id === id)) {
+      sections.push({ title, id, ...(group ? { group } : auto ? { group: auto, autoGroup: true } : {}) })
+    }
   }
   return sections
 }

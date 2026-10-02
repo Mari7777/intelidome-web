@@ -17,6 +17,8 @@ export type SeedingSection = {
   side: 'image-left' | 'image-right'
   surface: 'bila' | 'krem'
   eyebrow?: string
+  /** První kapitola skupiny v obsahu „V článku“ (dlouhý článek). */
+  tocGroup?: string
   title?: string
   titleLevel?: 'h2' | 'h3'
   continues?: boolean
@@ -63,6 +65,7 @@ export const SEEDING_SECTIONS: SeedingSection[] = [
     "side": "image-left",
     "surface": "krem",
     "eyebrow": "Kapitola 01",
+    "tocGroup": "Před setím",
     "title": "V malém semeni začíná velká změna",
     "titleLevel": "h2",
     "drawing": "kliceni-krok-za-krokem",
@@ -176,6 +179,7 @@ export const SEEDING_SECTIONS: SeedingSection[] = [
     "side": "image-right",
     "surface": "krem",
     "eyebrow": "Kapitola 06",
+    "tocGroup": "Setí",
     "title": "Několik milimetrů, na kterých záleží",
     "titleLevel": "h2",
     "photo": "fig-zasit-setove-luzko.avif",
@@ -222,6 +226,7 @@ export const SEEDING_SECTIONS: SeedingSection[] = [
     "side": "image-left",
     "surface": "krem",
     "eyebrow": "Kapitola 08",
+    "tocGroup": "Péče po výsevu",
     "title": "Semena potřebují stálou vláhu",
     "titleLevel": "h2",
     "photo": "fig-zasit-vlhkost-prstem.avif",
@@ -316,6 +321,7 @@ export const SEEDING_SECTIONS: SeedingSection[] = [
     "side": "image-left",
     "surface": "krem",
     "eyebrow": "Kapitola 11",
+    "tocGroup": "Plevele, sečení a potíže",
     "title": "Na prázdnou plochu nečekala jen tráva",
     "titleLevel": "h2",
     "photo": "fig-zasit-plevel-nadhled.avif",

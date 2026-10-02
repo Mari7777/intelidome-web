@@ -120,7 +120,7 @@ const PLAN = [
   { id: 'U', from: ['__intro', [0, 1, 2, 3]], surface: 'bila',
     photo: 'fig-zasit-terasa-pred.avif', photoRatio: '4:5',
     caption: 'Pohled z terasy pár dnů po výsevu: plocha je pořád hnědá. To podstatné se zatím odehrává v několika milimetrech pod povrchem.' },
-  { id: 'K01', from: [T.K01, [0, 1, 2, 3, 4]], eyebrow: kap(1), title: T.K01, surface: 'krem',
+  { tocGroup: 'Před setím', id: 'K01', from: [T.K01, [0, 1, 2, 3, 4]], eyebrow: kap(1), title: T.K01, surface: 'krem',
     drawing: 'kliceni-krok-za-krokem',
     alt: 'Čtyři řezy půdou s týmž semenem těsně pod povrchem: suché semeno, semeno nabobtnalé vodou, semeno s prvním kořínkem a nakonec delší kořínek s prvním zeleným listem nad půdou. Pod třetí a čtvrtou fází je vyznačeno, že od kořínku nesmí půda vyschnout. Dole tři potřeby klíčení: voda, vzduch a teplo.',
     caption: 'Semeno nejprve přijme vodu, potom vyroste kořínek a teprve nakonec první list. Od objevení kořínku už půda kolem něj nesmí vyschnout.' },
@@ -148,7 +148,7 @@ const PLAN = [
     drawing: 'odnozovani',
     alt: 'Táž travní rostlina ve třech stavech na řezu půdou: jeden výhon s krátkým kořínkem, tři výhony z jedné báze s delšími kořeny a hustý trs s mnoha výhony a bohatými kořeny. Mezi stavy vedou šipky.',
     caption: 'Z jednoho semene nezůstane jedno stéblo. Rostlina, která dostala čas zesílit, přidává další výhony a trávník houstne i bez dalšího osiva.' },
-  { id: 'K06a', from: [T.K06, [0, 1]], eyebrow: kap(6), title: T.K06, surface: 'krem',
+  { tocGroup: 'Setí', id: 'K06a', from: [T.K06, [0, 1]], eyebrow: kap(6), title: T.K06, surface: 'krem',
     photo: 'fig-zasit-setove-luzko.avif', photoRatio: '1:1',
     caption: 'Seťové lůžko před výsevem: rovné, jemně drobtovité a pevné. Bota v něm nechá jen mělký otisk.' },
   { id: 'K06b', from: [T.K06, [2, 3, 4, 5]], continues: true, surface: 'krem',
@@ -160,7 +160,7 @@ const PLAN = [
     alt: 'Pohled shora na dvě stejné plochy. Na první se první polovina osiva vysévá v rovnoběžných pruzích jedním směrem, na druhé se přes ně seje druhá polovina napříč, kolmo k prvnímu průchodu.',
     caption: 'Polovina dávky jedním směrem, druhá polovina napříč. Celkové množství osiva se nemění, jen se rovnoměrněji rozloží.' },
   { id: 'PREDEL' },
-  { id: 'K08', from: [T.K08, [0, 1, 2, 3]], eyebrow: kap(8), title: T.K08, surface: 'krem',
+  { tocGroup: 'Péče po výsevu', id: 'K08', from: [T.K08, [0, 1, 2, 3]], eyebrow: kap(8), title: T.K08, surface: 'krem',
     photo: 'fig-zasit-vlhkost-prstem.avif', photoRatio: '4:5',
     caption: 'Vlhkost se ověřuje přímo u semen: zemina má být na dotek vlhká, ne lesklá ani rozbředlá.' },
   { id: 'K09a', from: [T.K09, [0, 1, 2]], eyebrow: kap(9), title: T.K09, surface: 'bila',
@@ -180,7 +180,7 @@ const PLAN = [
     drawing: 'mykorhiza-pod-osivem',
     alt: 'Dva řezy půdou do 30 cm se stejnou dávkou mykorhizního přípravku. Vlevo leží přípravek v pásu asi 3 cm pod osivem a první kořínky do něj vrůstají. Vpravo je tatáž dávka rozptýlená do celé hloubky; kořínky dosáhnou jen k nejmělčí značce přípravku a většina dávky leží hlouběji.',
     caption: 'Stejná dávka, jiné místo. Pás zhruba 3 cm pod osivem potká první kořínky hned; rozptýlený do 30 cm leží většinou tam, kam mladé kořeny ještě nedosáhnou.' },
-  { id: 'K11', from: [T.K11, [0, 1, 2]], eyebrow: kap(11), title: T.K11, surface: 'krem',
+  { tocGroup: 'Plevele, sečení a potíže', id: 'K11', from: [T.K11, [0, 1, 2]], eyebrow: kap(11), title: T.K11, surface: 'krem',
     photo: 'fig-zasit-plevel-nadhled.avif', photoRatio: '1:1',
     caption: 'Mezi úzkými stébly mladé trávy vyrážejí širší listy plevelů. Jejich semena čekala v půdě, nepřinesl je pytel osiva.' },
   { id: 'K12', from: [T.K12, [0, 1]], eyebrow: kap(12), title: T.K12, surface: 'bila',
@@ -233,6 +233,7 @@ for (const item of PLAN) {
   out.push({
     id: item.id, side, surface: item.surface,
     ...(item.eyebrow ? { eyebrow: item.eyebrow } : {}),
+    ...(item.tocGroup ? { tocGroup: item.tocGroup } : {}),
     ...(item.title ? { title: item.title, titleLevel: item.titleLevel ?? 'h2' } : {}),
     ...(item.continues ? { continues: true } : {}),
     ...(item.drawing ? { drawing: item.drawing, alt: item.alt } : { photo: item.photo, photoRatio: item.photoRatio }),
@@ -310,6 +311,8 @@ export type SeedingSection = {
   side: 'image-left' | 'image-right'
   surface: 'bila' | 'krem'
   eyebrow?: string
+  /** První kapitola skupiny v obsahu „V článku“ (dlouhý článek). */
+  tocGroup?: string
   title?: string
   titleLevel?: 'h2' | 'h3'
   continues?: boolean

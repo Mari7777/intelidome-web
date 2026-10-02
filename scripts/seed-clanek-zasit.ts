@@ -161,6 +161,7 @@ function buildContent(): ArticleDocument {
       side: s.side,
       surface: s.surface,
       ...(s.eyebrow ? { eyebrow: s.eyebrow } : {}),
+      ...(s.tocGroup ? { tocGroup: s.tocGroup } : {}),
       ...(s.title ? { title: s.title, titleLevel: s.titleLevel } : {}),
       ...(s.continues ? { continues: true } : {}),
       ...(s.drawing ? { drawing: s.drawing, alt: s.alt } : { __photo: s.photo, photoRatio: s.photoRatio }),

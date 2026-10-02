@@ -1789,6 +1789,10 @@ export interface SplitBlock {
   photo?: (number | null) | Media;
   photoRatio?: ('4:5' | '1:1' | '2:3' | '3:2') | null;
   eyebrow?: string | null;
+  /**
+   * Jen u dlouhého článku: vyplňte u první kapitoly skupiny (např. „Před setím“). Obsah „V článku“ se pak otevře a rozdělí do skupin.
+   */
+  tocGroup?: string | null;
   title?: string | null;
   /**
    * Kapitola = h2. Podkapitola uvnitř kapitoly = h3 (sazba subtitle).
@@ -1799,7 +1803,7 @@ export interface SplitBlock {
    */
   continues?: boolean | null;
   /**
-   * Odstavce oddělte prázdným řádkem. **Tučně** takto, *kurzivou* takto. Řádek začínající „### “ je mezititulek (h3), řádek začínající „> “ je tip v modrém rámečku. Pro seznamy a odkazy použijte místo toho formátované tělo níže.
+   * Odstavce oddělte prázdným řádkem. **Tučně** takto, *kurzivou* takto; celý odstavec v hvězdičkách je perex (větší písmo). Řádek začínající „### “ je mezititulek (h3), řádek začínající „> “ je tip v modrém rámečku. Pro seznamy a odkazy použijte místo toho formátované tělo níže.
    */
   body?: string | null;
   /**
