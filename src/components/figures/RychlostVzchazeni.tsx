@@ -15,8 +15,8 @@ import React from 'react'
  */
 export const RychlostVzchazeni: React.FC = () => (
   <svg aria-hidden="true" className="block h-auto w-full" viewBox="0 0 520 420">
-    {/* Pointa kresby (9.2 p. 3) je jedna: po týdnu je vidět jen jílek. */}
-    <text className="sv-val" x="40" y="38" style={{ fontSize: 24 }}>Po týdnu jen jílek</text>
+    {/* Pointa kresby (9.2 p. 3) je jedna: po týdnu je vidět hlavně jílek. */}
+    <text className="sv-val" x="40" y="38" style={{ fontSize: 24 }}>Po týdnu hlavně jílek</text>
 
     {/* ── pruhy: 13 jednotek na den, den 0 = x 60 ─────────────── */}
     {/* jílek vytrvalý, 5–8 dnů */}

@@ -4001,7 +4001,74 @@ krémové pásy, předěl 21:9 mezi výsevem a zálivkou.
 - **Přejímky:** `layout-check` 1440 / 1920 / 1130 / 1024 OK, `svg-labels`
   320 / 393 / 1440 OK (13 kreseb, min. 10,5 px), `tsc` čistý.
 
-Porota zatím neproběhla. Vědomě otevřené: poznámka pod tabulkou vzcházení
+Vědomě otevřené: poznámka pod tabulkou vzcházení
 nese autorův odstavec „Tabulka popisuje orientaci…“ drobnou sazbou; oddíl
 o mykorhize je převzatý ze starší verze a čeká na rozhodnutí autora;
 souhrn, FAQ, výzva a popisky jsou redakční text (kandidát na copy-polish).
+
+## Kolo 01 (2026-10-02) — článek „Jak zasít trávník“
+
+| Oblast | Skóre |
+|---|---|
+| Hierarchie | 3/5 |
+| Typografie | 2/5 |
+| Pohyb | **4/5** |
+| Grafický styl | 3/5 |
+| Slop | **4/5** |
+| Výkon a přístupnost | 2/5 |
+| Rozložení | **4/5** |
+
+Sedm porotců, každý závažnější nález ověřil skeptik na živé stránce.
+**1 kritický** (potvrzen), 7 důležitých po skeptikovi, 4 sníženy na
+kosmetické, žádný vyvrácen.
+
+### Opravy
+
+- **Kritický – kontrast nad titulní fotkou na nízkých oknech** (výkon
+  a přístupnost): štítek „Návody · Závlaha“ stál na osvícené trávě nad
+  hranou půdy, kde obecný scrim končí (393×660 medián 3,8:1, 74 % plochy
+  pod 4,5; 375×548 i první řádek H1). Článek dostal scrim kotvený
+  k textovému rámu jako příprava a kalkulátor. Po opravě na devíti oknech
+  (393×660 … 1536×730): štítek medián ≥ 10,7:1, H1 minimum ≥ 7,2:1.
+  Poučení: **každý nový článek s fotkou v heru přeměřit i na nízkých
+  oknech**, ne jen na 1440×900 a 393×852; výjimku podle slugu by měl
+  nahradit kotvený scrim pro všechna hera (koš B).
+- **Obr. 04 „okno konce léta“** (hierarchie, styl): okrový pruh znamenal
+  zároveň okno výsevu i „6–8 týdnů růstu“. Pruh je teď jen okno (popisek
+  „výsev“), kóta 6–8 týdnů začíná ve dni výsevu a běží za okno, popisek
+  „růstu po výsevu“.
+- **Obr. 06 „rychlost vzcházení“** (hierarchie, slop): titulek „Po týdnu
+  jen jílek“ → „hlavně jílek“ (shoda s textem a poznámkou o jemnolistých
+  kostřavách); popisek říká, že údaj kostřavy rákosovité platí pro
+  chladnější jaro.
+- **Tabulka „Co pozorujeme“** (typografie, rozložení): z 1360 px na osu
+  prózy 700 – věty v buňkách měly 103–133 znaků na řádek.
+- **Tabulka vzcházení na telefonu** (typografie): hlavička sloupce o 60
+  znacích se opakovala u každého řádku dvouřádkovým štítkem. Autorovo
+  znění nese titulek tabulky, sloupec štítek „Doba do vzejití“.
+- **Zdvojený záběr** (styl): fotka plevele byla odvozená od fotky mladého
+  porostu (korelace náhledů 0,84) a čtenář v ní poznal týž snímek. Nový
+  záběr shora s pletí vidličkou (`fig-zasit-plevel-nadhled.avif`).
+  Poučení: **referencí pro novou fotku nesmí být snímek, který je v témže
+  článku** – model ho zopakuje.
+- **Obr. 15 „kam sahá voda“** (styl): #2563eb op .28 dával na zemině
+  šedofialovou (sytost 10 %). Vlhká vrstva je vodní tint #3b82f6 op .55
+  a vpravo končí kousek pod špičkami kořenů, ne na dně řezu.
+- **Předěl „první zálivka“** (výkon): na retině 287 kB, nad stropem hera.
+  Zdroj v2 (2400 px, zahlazený šum půdy): 174 kB na retině, 131 kB na 1×.
+
+Přejímky po opravách: `layout-check` 1440 / 1920 / 1130 / 1024 bez chyby,
+`svg-labels` 320 / 393 / 1440 bez kolizí, `tsc` čistý.
+
+### Neopraveno
+
+Kurzívní perex ve stupni těla (systém má pro perex roli lead – koš B,
+rozhodne autor); 16 rovnocenných kapitol s váhou 1 : 10 a sbalený obsah
+„V článku“ (8.2 počítá s 3–5 kapitolami – koš B); oba dvousloupce
+kapitoly 15 pod pásmem 65 % (57 a 60 %); fotky ve dvousloupcích
+155–207 kB na retině (půda je na kompresi drahá; nová fotka plevele 207 kB);
+pět širokých záběrů téže plochy u plotu; semeno v křížovém výsevu jako
+tečka, ne ovál série; dvě různé šipky přechodu (odnožování × první seč);
+zlom H2 za předložkou „pro“; nástup krémových kapitol o něco dřív, než
+dojedou do okna, a kotvy o 24–30 px výš při prvním použití (celý web).
+Kolo 02 zatím neproběhlo.

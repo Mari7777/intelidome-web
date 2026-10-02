@@ -8,7 +8,7 @@ import React from 'react'
  * oschl, ale vrstva s kořeny je vlhká: to je v pořádku.
  *
  * Pointa je jedna: nerozhoduje, jak vypadá povrch, ale kam sahá voda vůči
- * kořenům. Jediný akcent je modrý překryv vlhké půdy (#2563eb op .28).
+ * kořenům. Jediný akcent je modrý překryv vlhké půdy (vodní tint #3b82f6 op .55 – #2563eb op .28 dával na zemině šedofialovou, porota kola 01).
  * Řezy jsou záměrně bez centimetrové stupnice, text článku čísla neuvádí.
  * Horní hranu nenese drn (mladý porost), obrys řezu je proto uzavřený.
  * Kořeny na krému nejsou vidět, v legendě proto leží na políčku půdy.
@@ -45,14 +45,15 @@ export const KorenyAVlaha: React.FC = () => (
 
     {/* ── levý řez: vlhká jen tenká vrstva u povrchu ──────────── */}
     <rect x="40" y="124" width="190" height="212" fill="#6b5138" opacity="0.9" />
-    <rect x="40" y="124" width="190" height="30" fill="#2563eb" opacity="0.28" />
+    <rect x="40" y="124" width="190" height="30" fill="#3b82f6" opacity="0.55" />
     <use href="#kav-koreny" />
     <path d="M40 124 V336 H230 V124 Z" fill="none" stroke="#232830" strokeWidth="1.6" strokeLinejoin="round" />
     <use href="#kav-stebla" />
 
-    {/* ── pravý řez: povrch suchý, vlhká celá vrstva s kořeny ─── */}
+    {/* ── pravý řez: povrch suchý, vlhká vrstva s kořeny (končí kousek pod
+        jejich špičkami — voda hlouběji by byla mimo dosah) ───── */}
     <rect x="290" y="124" width="190" height="212" fill="#6b5138" opacity="0.9" />
-    <rect x="290" y="154" width="190" height="182" fill="#2563eb" opacity="0.28" />
+    <rect x="290" y="154" width="190" height="96" fill="#3b82f6" opacity="0.55" />
     <use href="#kav-koreny" x="250" />
     <path d="M290 124 V336 H480 V124 Z" fill="none" stroke="#232830" strokeWidth="1.6" strokeLinejoin="round" />
     <use href="#kav-stebla" x="250" />
@@ -68,7 +69,7 @@ export const KorenyAVlaha: React.FC = () => (
     {/* ── legenda: značky shodné s kresbou (9.2 p. 10) ────────── */}
     <line x1="40" y1="426" x2="480" y2="426" stroke="#d5d3cc" strokeWidth="1.6" strokeDasharray="3 7" strokeLinecap="round" />
     <rect x="40" y="442" width="28" height="14" rx="3" fill="#6b5138" opacity="0.9" />
-    <rect x="40" y="442" width="28" height="14" rx="3" fill="#2563eb" opacity="0.28" />
+    <rect x="40" y="442" width="28" height="14" rx="3" fill="#3b82f6" opacity="0.55" />
     <text className="sv-val" x="76" y="454">vlhká půda</text>
     <rect x="200" y="442" width="28" height="14" rx="3" fill="#6b5138" opacity="0.9" />
     <text className="sv-val" x="236" y="454">suchá půda</text>

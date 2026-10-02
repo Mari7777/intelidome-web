@@ -32,6 +32,10 @@ export type SeedingTable = {
   blockName: string
   surface: 'bila' | 'krem'
   width: 'prose' | 'edge'
+  /** Titulek nad tabulkou (když se liší od hlavičky sloupce). */
+  heading?: string
+  /** Krátké štítky sloupců; bez nich platí hlavička z předlohy. */
+  columns?: string[]
   head: string[]
   rows: string[][]
   note?: string
@@ -129,7 +133,7 @@ export const SEEDING_SECTIONS: SeedingSection[] = [
     "titleLevel": "h2",
     "drawing": "rychlost-vzchazeni",
     "alt": "Časová osa 0 až 28 dnů od výsevu se čtyřmi pruhy doby vzejití: jílek vytrvalý 5–8 dnů, kostřava rákosovitá 14–21 dnů, kostřava červená 15–20 dnů a lipnice luční 21–28 dnů. Svislá linka v sedmém dnu protíná jen pruh jílku.",
-    "caption": "Po týdnu se zelená hlavně jílek. Kostřavy a lipnice potřebují i za příznivých podmínek dva až čtyři týdny.",
+    "caption": "Po týdnu se zelená hlavně jílek. Kostřavy a lipnice potřebují i za příznivých podmínek dva až čtyři týdny; u kostřavy rákosovité platí údaj pro chladnější jaro.",
     "body": [
       "Na osivu nás přirozeně láká příslib rychlého výsledku. Jenže nejrychlejší vzejití není totéž co nejvhodnější budoucí trávník. Směs pro jemný okrasný povrch, rodinnou zahradu a často zatěžovanou plochu může mít rozdílné složení.",
       "Do výběru vstupuje světlo, půda, dostupná vláha, plánovaná výška sečení a množství péče, které chceme zahradě věnovat. Rozdíly existují i mezi odrůdami stejného druhu.",
@@ -253,7 +257,7 @@ export const SEEDING_SECTIONS: SeedingSection[] = [
     "surface": "bila",
     "continues": true,
     "drawing": "koreny-a-vlaha",
-    "alt": "Dva řezy půdou se stejným mladým porostem a stejně hlubokými kořeny. Vlevo je vlhká jen tenká vrstva u povrchu a kořeny pod ní jsou v suché půdě. Vpravo je povrch oschlý, ale vrstva s kořeny pod ním je vlhká.",
+    "alt": "Dva řezy půdou se stejným mladým porostem a stejně hlubokými kořeny. Vlevo je vlhká jen tenká vrstva u povrchu a kořeny pod ní jsou v suché půdě. Vpravo je povrch oschlý, ale vrstva s kořeny pod ním je vlhká a půda pod kořeny zůstává suchá.",
     "caption": "Po zálivce rozhoduje, kam došla voda. Mokrý povrch nad suchou vrstvou s kořeny znamená upravit dávku; oschlý povrch nad vlhkou vrstvou je v pořádku.",
     "body": [
       "Přechod má být pozvolný. Mladý porost nenecháváme úmyslně vadnout jako údajný trénink odolnosti. Později může povrch mezi zálivkami oschnout, zatímco níže zůstává využitelná vláha. Abychom tuto změnu správně posoudili, potřebujeme vědět, kam už kořeny dosahují. Suchý povrch s vláhou v dosahu kořenů je jiná situace než suchá celá vrstva, ve které mladé kořeny skutečně rostou.",
@@ -314,7 +318,7 @@ export const SEEDING_SECTIONS: SeedingSection[] = [
     "eyebrow": "Kapitola 11",
     "title": "Na prázdnou plochu nečekala jen tráva",
     "titleLevel": "h2",
-    "photo": "fig-zasit-plevel-ctverec.avif",
+    "photo": "fig-zasit-plevel-nadhled.avif",
     "photoRatio": "1:1",
     "caption": "Mezi úzkými stébly mladé trávy vyrážejí širší listy plevelů. Jejich semena čekala v půdě, nepřinesl je pytel osiva.",
     "body": [
@@ -424,6 +428,11 @@ export const SEEDING_TABLES: Record<string, SeedingTable> = {
     "blockName": "Doba do vzejití podle druhu trávy",
     "surface": "krem",
     "width": "prose",
+    "heading": "Přibližná doba do viditelného vzejití za příznivých podmínek",
+    "columns": [
+      "Tráva",
+      "Doba do vzejití"
+    ],
     "head": [
       "Tráva",
       "Přibližná doba do viditelného vzejití za příznivých podmínek"
@@ -451,7 +460,7 @@ export const SEEDING_TABLES: Record<string, SeedingTable> = {
   "TAB2": {
     "blockName": "Co pozorujeme a co ověřit",
     "surface": "krem",
-    "width": "edge",
+    "width": "prose",
     "head": [
       "Co pozorujeme",
       "Co může napovědět a co ověřit dál"
@@ -491,6 +500,6 @@ export const SEEDING_TABLES: Record<string, SeedingTable> = {
 
 /** Předěl přes celou šířku: mezi výsevem a zálivkou. */
 export const SEEDING_BLEED = {
-  filename: 'fig-zasit-prvni-zalivka.avif',
+  filename: 'fig-zasit-prvni-zalivka-v2.avif',
   caption: 'První zálivka po výsevu: jemný postřik, který půdu navlhčí a semena nepřemístí.',
 }

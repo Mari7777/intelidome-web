@@ -138,7 +138,7 @@ const PLAN = [
   { id: 'K04', from: [T.K04, [0, 1, 2]], eyebrow: kap(4), title: T.K04, surface: 'bila',
     drawing: 'rychlost-vzchazeni',
     alt: 'Časová osa 0 až 28 dnů od výsevu se čtyřmi pruhy doby vzejití: jílek vytrvalý 5–8 dnů, kostřava rákosovitá 14–21 dnů, kostřava červená 15–20 dnů a lipnice luční 21–28 dnů. Svislá linka v sedmém dnu protíná jen pruh jílku.',
-    caption: 'Po týdnu se zelená hlavně jílek. Kostřavy a lipnice potřebují i za příznivých podmínek dva až čtyři týdny.' },
+    caption: 'Po týdnu se zelená hlavně jílek. Kostřavy a lipnice potřebují i za příznivých podmínek dva až čtyři týdny; u kostřavy rákosovité platí údaj pro chladnější jaro.' },
   { id: 'TAB1' },
   { id: 'K05a', from: [T.K05, [0, 1]], eyebrow: kap(5), title: T.K05, surface: 'bila',
     drawing: 'husty-vysev',
@@ -168,7 +168,7 @@ const PLAN = [
     caption: 'Stébla různé výšky a mezi nimi ještě holá půda: zelená se rychlejší složka směsi, pomalejší trávy teprve klíčí.' },
   { id: 'K09b', from: [T.K09, [3, 4]], continues: true, surface: 'bila',
     drawing: 'koreny-a-vlaha',
-    alt: 'Dva řezy půdou se stejným mladým porostem a stejně hlubokými kořeny. Vlevo je vlhká jen tenká vrstva u povrchu a kořeny pod ní jsou v suché půdě. Vpravo je povrch oschlý, ale vrstva s kořeny pod ním je vlhká.',
+    alt: 'Dva řezy půdou se stejným mladým porostem a stejně hlubokými kořeny. Vlevo je vlhká jen tenká vrstva u povrchu a kořeny pod ní jsou v suché půdě. Vpravo je povrch oschlý, ale vrstva s kořeny pod ním je vlhká a půda pod kořeny zůstává suchá.',
     caption: 'Po zálivce rozhoduje, kam došla voda. Mokrý povrch nad suchou vrstvou s kořeny znamená upravit dávku; oschlý povrch nad vlhkou vrstvou je v pořádku.' },
   { id: 'K09c', from: [T.K09, [5, 6]], continues: true, surface: 'bila',
     photo: 'fig-zasit-stin-stromu.avif', photoRatio: '3:2',
@@ -181,7 +181,7 @@ const PLAN = [
     alt: 'Dva řezy půdou do 30 cm se stejnou dávkou mykorhizního přípravku. Vlevo leží přípravek v pásu asi 3 cm pod osivem a první kořínky do něj vrůstají. Vpravo je tatáž dávka rozptýlená do celé hloubky; kořínky dosáhnou jen k nejmělčí značce přípravku a většina dávky leží hlouběji.',
     caption: 'Stejná dávka, jiné místo. Pás zhruba 3 cm pod osivem potká první kořínky hned; rozptýlený do 30 cm leží většinou tam, kam mladé kořeny ještě nedosáhnou.' },
   { id: 'K11', from: [T.K11, [0, 1, 2]], eyebrow: kap(11), title: T.K11, surface: 'krem',
-    photo: 'fig-zasit-plevel-ctverec.avif', photoRatio: '1:1',
+    photo: 'fig-zasit-plevel-nadhled.avif', photoRatio: '1:1',
     caption: 'Mezi úzkými stébly mladé trávy vyrážejí širší listy plevelů. Jejich semena čekala v půdě, nepřinesl je pytel osiva.' },
   { id: 'K12', from: [T.K12, [0, 1]], eyebrow: kap(12), title: T.K12, surface: 'bila',
     photo: 'fig-zasit-husty-travnik.avif', photoRatio: '1:1',
@@ -248,8 +248,12 @@ const t1note = paras(T.K04)[3]
 used.set(`${T.K04}#3`, 'TAB1')
 const t2 = sec(T.K15).blocks.find((b) => b.type === 'table')
 const tables = {
-  TAB1: { blockName: 'Doba do vzejití podle druhu trávy', surface: 'krem', width: 'prose', head: t1.head, rows: t1.rows, note: t1note },
-  TAB2: { blockName: 'Co pozorujeme a co ověřit', surface: 'krem', width: 'edge', head: t2.head, rows: t2.rows },
+  // Dlouhá hlavička sloupce (60 znaků) se na telefonu opakovala u každého řádku
+  // dvouřádkovým štítkem; autorovo znění nese titulek tabulky, sloupec krátký
+  // štítek (porota kola 01). Kontrola textu dál porovnává původní hlavičku.
+  TAB1: { blockName: 'Doba do vzejití podle druhu trávy', surface: 'krem', width: 'prose', heading: t1.head[1], columns: [t1.head[0], 'Doba do vzejití'], head: t1.head, rows: t1.rows, note: t1note },
+  // Věty v buňkách drží míru: osa prózy 700, ne 1360 (porota kola 01: 103–133 znaků na řádek).
+  TAB2: { blockName: 'Co pozorujeme a co ověřit', surface: 'krem', width: 'prose', head: t2.head, rows: t2.rows },
 }
 
 /* ── kontrola: každý odstavec předlohy právě jednou, text znak po znaku ── */
@@ -321,6 +325,10 @@ export type SeedingTable = {
   blockName: string
   surface: 'bila' | 'krem'
   width: 'prose' | 'edge'
+  /** Titulek nad tabulkou (když se liší od hlavičky sloupce). */
+  heading?: string
+  /** Krátké štítky sloupců; bez nich platí hlavička z předlohy. */
+  columns?: string[]
   head: string[]
   rows: string[][]
   note?: string
@@ -336,7 +344,7 @@ export const SEEDING_TABLES: Record<string, SeedingTable> = ${JSON.stringify(tab
 
 /** Předěl přes celou šířku: mezi výsevem a zálivkou. */
 export const SEEDING_BLEED = {
-  filename: 'fig-zasit-prvni-zalivka.avif',
+  filename: 'fig-zasit-prvni-zalivka-v2.avif',
   caption: 'První zálivka po výsevu: jemný postřik, který půdu navlhčí a semena nepřemístí.',
 }
 `

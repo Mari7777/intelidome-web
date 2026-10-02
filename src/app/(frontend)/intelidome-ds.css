@@ -959,19 +959,24 @@
 /* Anchor this long title's scrim to the text frame. Short viewports and
    wrapping content retain contrast without increasing the hero height.
    Článek o přípravě směsi: na nízkých oknech (telefon 393×660, 1280×720)
-   stál eyebrow v 58–60 % odspodu, kde scrim 9.1 už mizí (2,6:1). */
+   stál eyebrow v 58–60 % odspodu, kde scrim 9.1 už mizí (2,6:1).
+   Článek o setí: eyebrow na osvícené trávě nad hranou půdy (393×660
+   medián 3,8:1, porota kola 01). */
 .id-hero[data-post-slug='kalkulator-na-planovani-pudniho-profilu'] .id-hero__scrim,
-.id-hero[data-post-slug='jak-pripravit-a-ulozit-smes'] .id-hero__scrim {
+.id-hero[data-post-slug='jak-pripravit-a-ulozit-smes'] .id-hero__scrim,
+.id-hero[data-post-slug='jak-zasit-travnik'] .id-hero__scrim {
   background: none;
 }
 
 .id-hero[data-post-slug='kalkulator-na-planovani-pudniho-profilu'] > .container,
-.id-hero[data-post-slug='jak-pripravit-a-ulozit-smes'] > .container {
+.id-hero[data-post-slug='jak-pripravit-a-ulozit-smes'] > .container,
+.id-hero[data-post-slug='jak-zasit-travnik'] > .container {
   isolation: isolate;
 }
 
 .id-hero[data-post-slug='kalkulator-na-planovani-pudniho-profilu'] > .container::before,
-.id-hero[data-post-slug='jak-pripravit-a-ulozit-smes'] > .container::before {
+.id-hero[data-post-slug='jak-pripravit-a-ulozit-smes'] > .container::before,
+.id-hero[data-post-slug='jak-zasit-travnik'] > .container::before {
   content: '';
   position: absolute;
   inset-block: 0;

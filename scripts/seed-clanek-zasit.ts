@@ -62,8 +62,10 @@ const MEDIA: {
     alt: 'Urovnaná plocha tmavé, jemně drobtovité půdy s položenými hráběmi s dřevěnou násadou a mělkým otiskem boty v popředí; kolem trávník, vzadu dřevěný plot s keři.',
   },
   {
-    filename: 'fig-zasit-prvni-zalivka.avif',
-    portret: 'fig-zasit-prvni-zalivka-portret.avif',
+    /* v2: 2400 px a jemně zahlazený šum půdy – první verze vážila na retině
+       287 kB, víc než strop hera (9.1; porota kola 01). */
+    filename: 'fig-zasit-prvni-zalivka-v2.avif',
+    portret: 'fig-zasit-prvni-zalivka-v2-portret.avif',
     alt: 'Široký pohled na čerstvě osetou plochu tmavé půdy, kterou malý postřikovač na bodci kropí jemnou sprchou; kapky svítí v protisvětle před dřevěným plotem s keři.',
     focal: { focalX: 70, focalY: 55 },
   },
@@ -84,8 +86,11 @@ const MEDIA: {
     alt: 'Ruka sype kovovou lopatkou světlé granule hnojiva do odměrky na kuchyňské váze na okraji dřevěné terasy; vedle stojí papírový pytel, v pozadí osetá plocha a dřevěný plot.',
   },
   {
-    filename: 'fig-zasit-plevel-ctverec.avif',
-    alt: 'Detail výsevu asi dva týdny po zasetí: tenká stébla mladé trávy a mezi nimi listové růžice a děložní lístky dvouděložných plevelů na tmavé půdě v protisvětle.',
+    /* Záběr shora, ne další nízký protisvětelný pohled: první verze byla
+       odvozená od fig-mlady-porost a čtenář v ní poznal tutéž fotku
+       (porota kola 01). */
+    filename: 'fig-zasit-plevel-nadhled.avif',
+    alt: 'Pohled shora na výsev asi dva týdny po zasetí: řídká tenká stébla mladé trávy na tmavé půdě a mezi nimi růžice pampelišky, ptačinec a jetel; v rohu leží ruční pletí vidlička s dřevěnou rukojetí.',
   },
   {
     filename: 'fig-zasit-husty-travnik.avif',
@@ -133,7 +138,8 @@ function buildContent(): ArticleDocument {
         blockName: tabulka.blockName,
         surface: tabulka.surface,
         width: tabulka.width,
-        columns: tabulka.head.map((label) => ({ label, align: 'left' })),
+        ...(tabulka.heading ? { heading: tabulka.heading } : {}),
+        columns: (tabulka.columns ?? tabulka.head).map((label) => ({ label, align: 'left' })),
         rows: tabulka.rows.map((cells) => ({ cells: cells.map((value) => ({ value })) })),
         ...(tabulka.note ? { note: tabulka.note } : {}),
       }))
