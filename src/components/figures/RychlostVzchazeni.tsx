@@ -24,20 +24,21 @@ export const RychlostVzchazeni: React.FC = () => (
     <rect x="125" y="110" width="39" height="12" rx="3" fill="#3f7d4e" />
     <text className="sv-val" x="172" y="121">5–8</text>
 
-    {/* kostřava rákosovitá, 14–21 dnů */}
-    <text className="sv-val" x="242" y="158">kostřava rákosovitá</text>
-    <rect x="242" y="174" width="91" height="12" rx="3" fill="#3f7d4e" />
-    <text className="sv-val" x="341" y="185">14–21</text>
-
+    {/* Pořadí řádků jako v autorově tabulce pod kresbou (porota kola 02). */}
     {/* kostřava červená, 15–20 dnů */}
-    <text className="sv-val" x="255" y="220">kostřava červená</text>
-    <rect x="255" y="236" width="65" height="12" rx="3" fill="#3f7d4e" />
-    <text className="sv-val" x="328" y="247">15–20</text>
+    <text className="sv-val" x="255" y="158">kostřava červená</text>
+    <rect x="255" y="174" width="65" height="12" rx="3" fill="#3f7d4e" />
+    <text className="sv-val" x="328" y="185">15–20</text>
 
     {/* lipnice luční, 21–28 dnů */}
-    <text className="sv-val" x="333" y="282">lipnice luční</text>
-    <rect x="333" y="298" width="91" height="12" rx="3" fill="#3f7d4e" />
-    <text className="sv-val" x="432" y="309">21–28</text>
+    <text className="sv-val" x="333" y="220">lipnice luční</text>
+    <rect x="333" y="236" width="91" height="12" rx="3" fill="#3f7d4e" />
+    <text className="sv-val" x="432" y="247">21–28</text>
+
+    {/* kostřava rákosovitá, 14–21 dnů (chladnější jaro) */}
+    <text className="sv-val" x="242" y="282">kostřava rákosovitá</text>
+    <rect x="242" y="298" width="91" height="12" rx="3" fill="#3f7d4e" />
+    <text className="sv-val" x="341" y="309">14–21</text>
 
     {/* ── den 7: protíná jen pruh jílku ───────────────────────── */}
     <line x1="151" y1="106" x2="151" y2="324" stroke="#d5d3cc" strokeWidth="1.6" strokeDasharray="3 7" strokeLinecap="round" />

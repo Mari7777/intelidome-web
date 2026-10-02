@@ -32,11 +32,13 @@ export function ArticleNavigation({ locale, post }: { locale: Locale; post: Post
         {sections.length > 0 && (
           /* Dlouhý článek (kapitoly mají skupiny) má obsah otevřený a členěný;
              číslování běží průběžně přes skupiny (DESIGN.md 8.2, v2.12). */
-          <details className={skupiny ? 'mt-4 max-w-[1030px]' : 'mt-4 max-w-[700px]'} open={skupiny}>
+          <details className={skupiny ? 'mt-4' : 'mt-4 max-w-[700px]'} open={skupiny}>
             <summary className="w-fit cursor-pointer py-2 font-medium text-[var(--id-ink)]">{t(locale, 'article.toc')}</summary>
             <nav aria-label={t(locale, 'article.tocAria')}>
               {skupiny ? (
-                <div className="mt-2 grid gap-x-10 gap-y-5 pb-2 sm:grid-cols-2">
+                /* Dva sloupce stránky (652 | 652, zlom 720 jako dvousloupec a FAQ);
+                   pod 1130 px jeden sloupec (8.2a, porota kola 02). */
+                <div className="mt-2 grid grid-cols-1 gap-x-[clamp(28px,4vw,56px)] gap-y-5 pb-2 min-[1130px]:grid-cols-2">
                   {casti.map((cast) => (
                     <div key={cast.start}>
                       {cast.group ? (
@@ -44,7 +46,7 @@ export function ArticleNavigation({ locale, post }: { locale: Locale; post: Post
                           {cast.group}
                         </p>
                       ) : null}
-                      <ol className="grid gap-2 pl-6 list-decimal" start={cast.start}>
+                      <ol className={cast.items[0]?.autoGroup ? 'grid gap-2 pl-6 list-none' : 'grid gap-2 pl-6 list-decimal'} start={cast.start}>
                         {cast.items.map((section) => (
                           <li key={section.id}><a className="text-[var(--id-accent)] underline underline-offset-4" href={`#${section.id}`}>{section.title}</a></li>
                         ))}

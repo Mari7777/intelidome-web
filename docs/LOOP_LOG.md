@@ -4071,4 +4071,60 @@ pět širokých záběrů téže plochy u plotu; semeno v křížovém výsevu j
 tečka, ne ovál série; dvě různé šipky přechodu (odnožování × první seč);
 zlom H2 za předložkou „pro“; nástup krémových kapitol o něco dřív, než
 dojedou do okna, a kotvy o 24–30 px výš při prvním použití (celý web).
-Kolo 02 zatím neproběhlo.
+
+### Mezi koly 01 a 02 (rozhodnutí majitele)
+
+Perex prvního dvousloupce se sází rolí lead (21/1,5, bez kurzivy); obsah
+„V článku“ je otevřený a dělí 16 kapitol do čtyř skupin (Před setím · Setí ·
+Péče po výsevu · Plevele, sečení a potíže), pole `tocGroup` u první kapitoly
+skupiny – DESIGN.md 8.2, v2.12 (commit 94617b7). Oddíl o mykorhize zůstává.
+
+## Kolo 02 (2026-10-02) — článek „Jak zasít trávník“ — PROŠEL
+
+| Oblast | Skóre |
+|---|---|
+| Hierarchie | **4/5** |
+| Typografie | **4/5** |
+| Pohyb | **4/5** |
+| Grafický styl | **4/5** |
+| Slop | **4/5** |
+| Výkon a přístupnost | **4/5** |
+| Rozložení | **4/5** |
+
+**0 kritických.** Skeptik potvrdil 2 důležité, 2 snížil na kosmetické.
+Hranice průchodu (všichni ≥ 4, nula kritických) je splněná ve druhém kole;
+kola 03–05 se nepouštěla.
+
+### Opravy po kole
+
+- **Obr. 04 – linka kóty přes popisek „podzim“** (styl): vodicí linky kóty
+  „6–8 týdnů“ začínají až pod řádkem popisků osy; „léto“ a „podzim“ stojí
+  ve středu svých úseků.
+- **Obsah „V článku“ mimo osy stránky** (rozložení): mřížka 495 | 40 | 495
+  nahrazena sloupci stránky – druhý sloupec začíná tam, kde dvousloupec
+  a FAQ (748 na 1440, 988 na 1920, 666 na 1280, 588 na 1130), pod 1130 px
+  jeden sloupec. Servisní položka „Zdroje a metodika“ je ve vlastní skupině
+  bez čísla.
+- Snížené a kosmetické, opraveno: popisek Obr. 06 už netvrdí „i za
+  příznivých podmínek dva až čtyři týdny“ (odporoval poznámce o jemnolistých
+  kostřavách); pořadí pruhů v Obr. 06 jako v autorově tabulce; druhá
+  tabulka má na telefonu krátký štítek „Co ověřit“ a autorovo záhlaví jako
+  titulek; tracking perexu −0,012 em; titulek tabulky `text-wrap: balance`.
+
+Přejímky po opravách: `layout-check` 1440 / 1920 / 1130 / 1024 bez chyby,
+`svg-labels` 320 / 393 / 1440 bez kolizí, `tsc` čistý. Opravy po kole 02
+ověřeny měřením, ne dalším kolem poroty.
+
+### Neopraveno (kosmetické)
+
+Kapitoly 04 a 15 otevírají na téže bílé jako blok před nimi (oprava chce
+i pravidlo pro šev krém→krém u nepokračovacího bloku); klíček pod povrchem
+zelený v Obr. 02 a světlý v Obr. 10; dvě podoby šipky „další stav“ a čipu
+legendy; krusta v Obr. 21 barvou podloží bez legendy; louže v Obr. 23 jako
+jediná plná akcentová plocha; dvě fotky 1:1 o plevelu za sebou (kap. 11
+a 12); jedenáct dvousloupců bez jiného modulu mezi předělem a druhou
+tabulkou; na užších dvousloupcích (1130–1280) text kapitoly 01 přerůstá
+kresbu; tabulky bez `caption`, karty souvisejících článků `sizes="33vw"`,
+WebP fallback hera nad limitem, mezery kolem předělu a mezi FAQ a výzvou
+(vše celý web); předěl má zdroj 2400 px (na retině 1440 mírně pod plnou
+ostrostí – cena za váhu).

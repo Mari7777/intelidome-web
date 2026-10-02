@@ -2240,6 +2240,10 @@
 .id-split__p.id-split__lead {
   font-size: var(--id-t-lead);
   line-height: 1.5;
+  letter-spacing: -0.012em;
+}
+.id-table__h {
+  text-wrap: balance;
 }
 /* Fotografický doprovod ponechává původní seznamy a odkazy v sazbě článku.
    Text zůstává čitelný na půlce stránky, obraz zaplňuje druhou půlku. */

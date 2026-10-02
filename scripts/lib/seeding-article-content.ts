@@ -135,8 +135,8 @@ export const SEEDING_SECTIONS: SeedingSection[] = [
     "title": "Jeden pytel, několik různých rychlostí",
     "titleLevel": "h2",
     "drawing": "rychlost-vzchazeni",
-    "alt": "Časová osa 0 až 28 dnů od výsevu se čtyřmi pruhy doby vzejití: jílek vytrvalý 5–8 dnů, kostřava rákosovitá 14–21 dnů, kostřava červená 15–20 dnů a lipnice luční 21–28 dnů. Svislá linka v sedmém dnu protíná jen pruh jílku.",
-    "caption": "Po týdnu se zelená hlavně jílek. Kostřavy a lipnice potřebují i za příznivých podmínek dva až čtyři týdny; u kostřavy rákosovité platí údaj pro chladnější jaro.",
+    "alt": "Časová osa 0 až 28 dnů od výsevu se čtyřmi pruhy doby vzejití: jílek vytrvalý 5–8 dnů, kostřava červená 15–20 dnů, lipnice luční 21–28 dnů a kostřava rákosovitá 14–21 dnů. Svislá linka v sedmém dnu protíná jen pruh jílku.",
+    "caption": "Po týdnu se zelená hlavně jílek. Kostřavy a lipnice vzcházejí obvykle až ve druhém až čtvrtém týdnu; údaj u kostřavy rákosovité platí pro chladnější jaro.",
     "body": [
       "Na osivu nás přirozeně láká příslib rychlého výsledku. Jenže nejrychlejší vzejití není totéž co nejvhodnější budoucí trávník. Směs pro jemný okrasný povrch, rodinnou zahradu a často zatěžovanou plochu může mít rozdílné složení.",
       "Do výběru vstupuje světlo, půda, dostupná vláha, plánovaná výška sečení a množství péče, které chceme zahradě věnovat. Rozdíly existují i mezi odrůdami stejného druhu.",
@@ -467,6 +467,11 @@ export const SEEDING_TABLES: Record<string, SeedingTable> = {
     "blockName": "Co pozorujeme a co ověřit",
     "surface": "krem",
     "width": "prose",
+    "heading": "Co může napovědět a co ověřit dál",
+    "columns": [
+      "Co pozorujeme",
+      "Co ověřit"
+    ],
     "head": [
       "Co pozorujeme",
       "Co může napovědět a co ověřit dál"

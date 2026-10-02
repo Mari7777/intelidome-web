@@ -137,8 +137,8 @@ const PLAN = [
     caption: 'Jinovatka na připravené půdě za mrazivého rána. Při dormantním výsevu mají semena v takové půdě zůstat nevyklíčená až do jara.' },
   { id: 'K04', from: [T.K04, [0, 1, 2]], eyebrow: kap(4), title: T.K04, surface: 'bila',
     drawing: 'rychlost-vzchazeni',
-    alt: 'Časová osa 0 až 28 dnů od výsevu se čtyřmi pruhy doby vzejití: jílek vytrvalý 5–8 dnů, kostřava rákosovitá 14–21 dnů, kostřava červená 15–20 dnů a lipnice luční 21–28 dnů. Svislá linka v sedmém dnu protíná jen pruh jílku.',
-    caption: 'Po týdnu se zelená hlavně jílek. Kostřavy a lipnice potřebují i za příznivých podmínek dva až čtyři týdny; u kostřavy rákosovité platí údaj pro chladnější jaro.' },
+    alt: 'Časová osa 0 až 28 dnů od výsevu se čtyřmi pruhy doby vzejití: jílek vytrvalý 5–8 dnů, kostřava červená 15–20 dnů, lipnice luční 21–28 dnů a kostřava rákosovitá 14–21 dnů. Svislá linka v sedmém dnu protíná jen pruh jílku.',
+    caption: 'Po týdnu se zelená hlavně jílek. Kostřavy a lipnice vzcházejí obvykle až ve druhém až čtvrtém týdnu; údaj u kostřavy rákosovité platí pro chladnější jaro.' },
   { id: 'TAB1' },
   { id: 'K05a', from: [T.K05, [0, 1]], eyebrow: kap(5), title: T.K05, surface: 'bila',
     drawing: 'husty-vysev',
@@ -254,7 +254,7 @@ const tables = {
   // štítek (porota kola 01). Kontrola textu dál porovnává původní hlavičku.
   TAB1: { blockName: 'Doba do vzejití podle druhu trávy', surface: 'krem', width: 'prose', heading: t1.head[1], columns: [t1.head[0], 'Doba do vzejití'], head: t1.head, rows: t1.rows, note: t1note },
   // Věty v buňkách drží míru: osa prózy 700, ne 1360 (porota kola 01: 103–133 znaků na řádek).
-  TAB2: { blockName: 'Co pozorujeme a co ověřit', surface: 'krem', width: 'prose', head: t2.head, rows: t2.rows },
+  TAB2: { blockName: 'Co pozorujeme a co ověřit', surface: 'krem', width: 'prose', heading: t2.head[1], columns: [t2.head[0], 'Co ověřit'], head: t2.head, rows: t2.rows },
 }
 
 /* ── kontrola: každý odstavec předlohy právě jednou, text znak po znaku ── */

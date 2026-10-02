@@ -44,24 +44,25 @@ export const OknoKonceLeta: React.FC = () => (
       <line x1="470" y1="304" x2="470" y2="316" />
     </g>
     <text className="sv-lbl" x="120" y="334" textAnchor="middle">jaro</text>
-    <text className="sv-lbl" x="240" y="334" textAnchor="middle">léto</text>
-    <text className="sv-lbl" x="424" y="334" textAnchor="middle">podzim</text>
+    <text className="sv-lbl" x="260" y="334" textAnchor="middle">léto</text>
+    <text className="sv-lbl" x="400" y="334" textAnchor="middle">podzim</text>
 
     {/* ── kóta růstu PO výsevu: začíná ve dni výsevu uvnitř okna a běží
         za něj (≈ 7 týdnů při 140 jednotkách na roční období). Okno říká
         KDY sít, kóta KOLIK času má zbývat — dvě značky, dva významy
-        (porota kola 01). ─────────────────────────────────────────── */}
+        (porota kola 01). Vodicí linky začínají až
+        pod řádkem popisků osy, ať neprocházejí slovem „podzim“ (kolo 02). ─────────────────────────────────────────── */}
     <g stroke="#d5d3cc" strokeWidth="1.6" strokeDasharray="3 7" strokeLinecap="round">
-      <line x1="330" y1="316" x2="330" y2="358" />
-      <line x1="406" y1="310" x2="406" y2="358" />
-      <line x1="330" y1="358" x2="406" y2="358" />
+      <line x1="330" y1="346" x2="330" y2="366" />
+      <line x1="406" y1="346" x2="406" y2="366" />
+      <line x1="330" y1="366" x2="406" y2="366" />
     </g>
     <g stroke="#232830" strokeWidth="1.6" strokeLinecap="round">
-      <line x1="330" y1="352" x2="330" y2="364" />
-      <line x1="406" y1="352" x2="406" y2="364" />
+      <line x1="330" y1="360" x2="330" y2="372" />
+      <line x1="406" y1="360" x2="406" y2="372" />
     </g>
-    <text className="sv-val" x="368" y="390" textAnchor="middle">6–8 týdnů</text>
-    <text className="sv-lbl" x="368" y="412" textAnchor="middle">růstu po výsevu</text>
+    <text className="sv-val" x="368" y="396" textAnchor="middle">6–8 týdnů</text>
+    <text className="sv-lbl" x="368" y="417" textAnchor="middle">růstu po výsevu</text>
 
     {/* ── tři období výsevu ───────────────────────────────────── */}
     <line x1="40" y1="436" x2="480" y2="436" stroke="#d5d3cc" strokeWidth="1.6" strokeDasharray="3 7" strokeLinecap="round" />
