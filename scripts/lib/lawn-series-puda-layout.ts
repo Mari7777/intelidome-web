@@ -1,4 +1,4 @@
-import { block, cloneDocument, type ArticleDocument, type ArticleNode } from './lawn-series-helpers'
+import { alternateSplitSides, block, cloneDocument, type ArticleDocument, type ArticleNode } from './lawn-series-helpers'
 
 export const SOIL_PHOTOS = {
   intro: {
@@ -120,8 +120,17 @@ const sections: {
   },
 ]
 
-/** Pair the unchanged Lexical prose with photographs; keep lists, links and heading nodes intact. */
+/**
+ * Pair the unchanged Lexical prose with photographs, then alternate the sides
+ * of all two-column blocks: photo and drawing pairs stood R R L L R R
+ * (layout-check, 3. 10. 2026).
+ */
 export function illustrateSoilGuide(input: unknown, photos: SoilPhotoIds): ArticleDocument {
+  return alternateSplitSides(installSoilPhotos(input, photos))
+}
+
+/** Keep lists, links and heading nodes intact. */
+function installSoilPhotos(input: unknown, photos: SoilPhotoIds): ArticleDocument {
   const doc = cloneDocument(input)
   const nodes = doc.root.children
   const already = nodes.filter(

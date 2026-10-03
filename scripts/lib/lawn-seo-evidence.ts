@@ -4,7 +4,6 @@ const SOIL = 'krasny-travnik-zacina-pod-zemi-2'
 const AMENDMENTS = 'pisek-biochar-a-dalsi-primesi'
 const MARKER = 'Zdroje a metodika – SEO'
 const PSU = 'https://extension.psu.edu/lawn-establishment'
-const BROCKHOFF = 'https://doi.org/10.2134/agronj2010.0188'
 
 
 function nodeText(node: any): string {
@@ -64,15 +63,18 @@ function reviseAmendmentClaims(doc: ArticleDocument): void {
   const biocharParagraph = biochar.detail.root.children.find((node: ArticleNode) => node.type === 'paragraph' && nodeText(node).startsWith('Kořeny ale potřebují vedle vody také vzduch.'))
   if (!biocharParagraph) throw new Error('Evidence: expected biochar research paragraph')
   biocharParagraph.children = paragraph(
-    `Kořeny ale potřebují vedle vody také vzduch. V [pokusu Brockhoffa a kol. (2010)](${BROCKHOFF}) s psinečkem výběžkatým v písčité kořenové zóně se při biocharu nad 10 % objemu snížila hloubka zakořenění. Výsledek platí pro testované materiály a podmínky; neurčuje univerzální dávku pro zahrady. Více biocharu proto automaticky neznamená lepší směs.`,
+    'Kořeny ale potřebují vedle vody také vzduch. V pokusu Brockhoffa a kol. (2010) s psinečkem výběžkatým v písčité kořenové zóně se při biocharu nad 10 % objemu snížila hloubka zakořenění. Výsledek platí pro testované materiály a podmínky; neurčuje univerzální dávku pro zahrady. Více biocharu proto automaticky neznamená lepší směs.',
   ).children
 
   const clayFigure = nodes.find((node) => node.fields?.drawing === 'kolik-pisku-do-jilu')
     ?? nodes.find((node) => typeof node.fields?.body === 'string' && node.fields.body.includes('Poměr **65/35 popisuje pouze minerální základ**'))
   if (!clayFigure) throw new Error('Evidence: expected clay sand model explanation')
   const oldSand = 'Některé odborné podklady ukazují potřebný podíl až **75 % a více**; poměr 65/35 proto bereme jako výchozí návrh.'
-  const newSand = `Potřebný podíl se liší podle původní zeminy a zvoleného písku; vyšší podíl může být nutný, ale ověřujeme jej na zkušební směsi. [Penn State](${PSU}) popisuje potřebu velkého množství písku pro výraznou změnu jílovité půdy. Poměr 65/35 zde zůstává modelovým návrhem, nikoli univerzální dávkou.`
+  // Dříve s odkazem na Penn State; od 3. 10. 2026 bez odkazů jinam.
+  const linkedSand = `Potřebný podíl se liší podle původní zeminy a zvoleného písku; vyšší podíl může být nutný, ale ověřujeme jej na zkušební směsi. [Penn State](${PSU}) popisuje potřebu velkého množství písku pro výraznou změnu jílovité půdy. Poměr 65/35 zde zůstává modelovým návrhem, nikoli univerzální dávkou.`
+  const newSand = 'Potřebný podíl se liší podle původní zeminy a zvoleného písku; vyšší podíl může být nutný, ale ověřujeme jej na zkušební směsi. Penn State popisuje potřebu velkého množství písku pro výraznou změnu jílovité půdy. Poměr 65/35 zde zůstává modelovým návrhem, nikoli univerzální dávkou.'
   if (clayFigure.fields.body.includes(oldSand)) clayFigure.fields.body = clayFigure.fields.body.replace(oldSand, newSand)
+  else if (clayFigure.fields.body.includes(linkedSand)) clayFigure.fields.body = clayFigure.fields.body.replace(linkedSand, newSand)
   else if (!clayFigure.fields.body.includes(newSand)) throw new Error('Evidence: unexpected clay sand explanation')
   clayFigure.fields.alt = 'Schéma nízkého a vyššího podílu písku v jílovité zemině. Model minerálního základu používá 65 % písku; vhodný podíl pro konkrétní půdu je třeba ověřit na zkušební směsi. Obrázek není dávkovacím návodem.'
   clayFigure.fields.caption = 'Poloha vzorku na škále ilustruje podíl písku. Poměr 65/35 patří k našemu modelu; vhodné složení pro konkrétní jíl ověřte zkouškou před velkou objednávkou.'
@@ -92,10 +94,38 @@ export function stripSources(doc: ArticleDocument): ArticleDocument {
   return doc
 }
 
-/** Temper only the claims covered by this evidence pass; the sources section is removed. */
+const isExternal = (url: unknown) => typeof url === 'string' && /^https?:\/\//.test(url) && !/intelidome\.(com|cz)/.test(url)
+
+/**
+ * Články nemají odkazy jinam (rozhodnutí autora 3. 10. 2026): z Lexical uzlu
+ * `link` s vnější adresou zůstane jen jeho text, z markdownu `[text](url)`
+ * v tělech dvousloupců jen `text`. Odkazy mezi vlastními články zůstávají.
+ */
+export function stripExternalLinks(doc: ArticleDocument): ArticleDocument {
+  const visit = (value: any): any => {
+    if (typeof value === 'string') {
+      return value.replace(/\[([^\]]+)\]\((https?:\/\/[^)\s]+)\)/g, (all, text, url) => (isExternal(url) ? text : all))
+    }
+    if (Array.isArray(value)) {
+      return value.flatMap((item) =>
+        item && typeof item === 'object' && item.type === 'link' && isExternal(item.fields?.url)
+          ? visit(item.children ?? [])
+          : [visit(item)],
+      )
+    }
+    if (value && typeof value === 'object') {
+      for (const key of Object.keys(value)) value[key] = visit(value[key])
+    }
+    return value
+  }
+  doc.root.children = visit(doc.root.children)
+  return doc
+}
+
+/** Temper only the claims covered by this evidence pass; no sources section, no external links. */
 export function enrichLawnEvidence(slug: string, content: unknown): ArticleDocument {
   const doc = cloneDocument(content)
   if (slug === SOIL) reviseSoilClaims(doc)
   if (slug === AMENDMENTS) reviseAmendmentClaims(doc)
-  return stripSources(doc)
+  return stripExternalLinks(stripSources(doc))
 }

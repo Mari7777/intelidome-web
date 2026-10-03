@@ -68,3 +68,14 @@ export function renumberFigures(doc: ArticleDocument): void {
     }
   }
 }
+
+/** Strany dvousloupců se střídají bez výjimky přes celý článek (DESIGN.md 8.2b p. 6 a 8). */
+export function alternateSplitSides(doc: ArticleDocument, first: 'image-left' | 'image-right' = 'image-right'): ArticleDocument {
+  let side = first
+  for (const node of doc.root.children) {
+    if (node.fields?.blockType !== 'split') continue
+    node.fields.side = side
+    side = side === 'image-right' ? 'image-left' : 'image-right'
+  }
+  return doc
+}

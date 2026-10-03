@@ -61,7 +61,7 @@ Při kontrole se ukázalo, že `optimize-lawn-series.ts` a `revise-lawn-series.t
 
 ### Bez oddílu Zdroje a metodika (3. 10. 2026)
 
-Na rozhodnutí autora žádný článek série oddíl „Zdroje a metodika“ nemá. `enrichLawnEvidence` ho nevkládá a existující odstraní (`stripSources`); hranicí setí a fotky trávníku v průvodci půdou je místo něj FAQ. Ze čtyř článků v místním CMS ho odstranil jednorázový `scripts/remove-lawn-sources.ts`. Odkazy jinam zůstávají jen tři v textu článku o příměsích (biovin.at, pokus Brockhoff a kol. na doi.org, Penn State u písku). Odstavce výše, které popisují zdroje s vymezením modelových předpokladů, jsou historické.
+Na rozhodnutí autora žádný článek série oddíl „Zdroje a metodika“ nemá. `enrichLawnEvidence` ho nevkládá a existující odstraní (`stripSources`); hranicí setí a fotky trávníku v průvodci půdou je místo něj FAQ. Ze čtyř článků v místním CMS ho odstranil jednorázový `scripts/remove-lawn-sources.ts`. Téhož dne zmizely i poslední tři odkazy jinam (článek o příměsích: biovin.at, pokus Brockhoff a kol., Penn State) – `stripExternalLinks` ponechá jen jejich text; odkazy mezi vlastními články zůstávají. Průvodce půdou má od téhož dne střídání stran dvousloupců bez výjimky (`alternateSplitSides` v `illustrateSoilGuide`). Uložené články srovnal `scripts/clean-lawn-series.ts`. Odstavce výše, které popisují zdroje s vymezením modelových předpokladů, jsou historické.
 
 ## Co zbývá pro veřejnou návštěvnost
 
