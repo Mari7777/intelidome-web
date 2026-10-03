@@ -29,10 +29,7 @@ const sectionText: Record<string, string[]> = {
     `[Penn State](${PSU}) popisuje práci s vlhkou, nikoli mokrou půdou, promíchání příměsí a ustálení povrchu deštěm či zálivkou. [Průvodce WSU](${WSU}) zdůrazňuje oddělení použitelné ornice od nevhodného podloží.`,
     'Hloubky zapravení a čas na slehnutí v tomto článku jsou pracovní předpoklady pro popsanou směs. Rozhoduje stav půdy a použitý stroj. Dávku konkrétních příměsí volte podle receptury a návodu výrobku.',
   ],
-  [SEEDING]: [
-    'Teplotu půdy kolem 10 °C pro běžné směsi a mělké setí uvádí Barenbrug. Výsev, kontakt osiva s půdou a péči při vzcházení popisuje Penn State. Orientační doby vzejití a české termíny shrnuje Agrostis, dormantní výsev University of Minnesota, první sečení UC IPM a příčiny neúspěchu nových výsevů University of Maryland.',
-    'Teploty, doby vzejití, hloubka 2–5 mm a výšky 8 a 6 cm při prvním sečení jsou orientační hodnoty pro běžné zahradní směsi za příznivých podmínek, nikoli norma pro každou zahradu. Dávku osiva, hloubku zapravení, hnojení a použití mykorhizního přípravku řiďte návodem konkrétního výrobku; zálivku skutečnou vlhkostí půdy, ne pevným počtem minut. Kresby jsou schematické a ilustrují princip, ne přesný průběh na vaší zahradě.',
-  ],
+  // [SEEDING]: článek o setí oddíl „Zdroje a metodika“ nemá (rozhodnutí autora 3. 10. 2026).
 }
 
 function nodeText(node: any): string {
