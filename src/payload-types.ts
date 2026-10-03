@@ -404,6 +404,8 @@ export interface FolderInterface {
   createdAt: string;
 }
 /**
+ * Kategorie jsou témata magazínu: téma článku je jeho první kategorie (DESIGN.md 8.5).
+ *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "categories".
  */
@@ -415,6 +417,11 @@ export interface Category {
    */
   generateSlug?: boolean | null;
   slug: string;
+  /**
+   * Jedna až dvě věty pod názvem tématu na stránce Magazín.
+   */
+  popis?: string | null;
+  serie?: boolean | null;
   parent?: (number | null) | Category;
   breadcrumbs?:
     | {
@@ -1243,6 +1250,8 @@ export interface CategoriesSelect<T extends boolean = true> {
   title?: T;
   generateSlug?: T;
   slug?: T;
+  popis?: T;
+  serie?: T;
   parent?: T;
   breadcrumbs?:
     | T

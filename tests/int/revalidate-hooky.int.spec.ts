@@ -6,6 +6,7 @@ vi.mock('next/cache', () => ({ revalidatePath: vi.fn(), revalidateTag: vi.fn() }
 import { revalidatePath, revalidateTag } from 'next/cache'
 import { revalidateDelete, revalidatePost } from '../../src/collections/Posts/hooks/revalidatePost'
 import { revalidatePage } from '../../src/collections/Pages/hooks/revalidatePage'
+import { revalidateMagazinPoKategorii, revalidateMagazinPoSmazaniKategorie } from '../../src/hooks/revalidateMagazin'
 
 const req = () => ({ payload: { logger: { info: vi.fn() } }, context: {} })
 const volane = () => vi.mocked(revalidatePath).mock.calls.map(([cesta]) => cesta)
@@ -55,5 +56,17 @@ describe('revalidace po publikaci (A14)', () => {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     revalidateDelete({ doc: { slug: 'x' }, req: req() } as any)
     expect(tagy()).toEqual(expect.arrayContaining(['posts-sitemap', 'pages-sitemap']))
+  })
+
+  it('změna tématu (kategorie) revaliduje celý podstrom magazínu a úvod (DESIGN 8.5)', () => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    revalidateMagazinPoKategorii({ doc: {}, req: req() } as any)
+    const volani = vi.mocked(revalidatePath).mock.calls
+    expect(volani).toEqual(expect.arrayContaining([['/cs/magazin', 'layout'], ['/en/magazin', 'layout']]))
+    expect(volane()).toContain('/cs')
+    vi.mocked(revalidatePath).mockClear()
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    revalidateMagazinPoSmazaniKategorie({ doc: {}, req: { ...req(), context: { disableRevalidate: true } } } as any)
+    expect(volane()).toEqual([])
   })
 })
