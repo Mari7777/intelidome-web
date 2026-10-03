@@ -107,7 +107,26 @@
                         "children": [
                           {
                             "mode": "normal",
-                            "text": "Nejdražší půda pod trávníkem tak překvapivě nebývá ta, kterou vám draze přiveze nákladní auto. Je to ta, kterou před výsevem zapomeneme zkontrolovat. Pokud ale nejprve zjistíme, jakou půdu na zahradě vlastně máme a jak v ní proudí voda, můžeme kořenům připravit dokonalý prostor. Až teprve potom má smysl řešit osivo. Pochopení tohoto postupu vás navíc ušetří zbytečného utrácení za práci, kterou vaše zahrada vůbec nepotřebuje. Začít přitom můžeme úplně obyčejně: vezměte rýč, trochu vody a pojďme si ušpinit ruce.",
+                            "text": "Nejdražší půda pod trávníkem tak překvapivě nebývá ta, kterou vám draze přiveze nákladní auto. Je to ta, kterou před výsevem zapomeneme zkontrolovat. Pokud ale nejprve zjistíme, jakou půdu na zahradě vlastně máme a jak v ní proudí voda, můžeme kořenům připravit dokonalý prostor.",
+                            "type": "text",
+                            "style": "",
+                            "detail": 0,
+                            "format": 0,
+                            "version": 1
+                          }
+                        ],
+                        "direction": "ltr",
+                        "textFormat": 0
+                      },
+                      {
+                        "type": "paragraph",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "mode": "normal",
+                            "text": "Až teprve potom má smysl řešit osivo. Pochopení tohoto postupu vás navíc ušetří zbytečného utrácení za práci, kterou vaše zahrada vůbec nepotřebuje. Začít přitom můžeme úplně obyčejně: vezměte rýč, trochu vody a pojďme si ušpinit ruce.",
                             "type": "text",
                             "style": "",
                             "detail": 0,
@@ -125,7 +144,8 @@
                 "blockName": "Foto půdy · intro",
                 "blockType": "split",
                 "photoRatio": "1:1",
-                "titleLevel": "h2"
+                "titleLevel": "h2",
+                "number": "01"
               },
               "format": "",
               "version": 2
@@ -134,10 +154,10 @@
               "type": "block",
               "fields": {
                 "alt": "Tři sloupce hmatového testu: vlevo jílovitá půda – váleček z vlhké zeminy se ohýbá bez prasknutí; uprostřed hlinitá – kulička drží, váleček při ohnutí praská; vpravo písčitá – zrnka drhnou a kulička se rozpadá. Pod každým sloupcem stojí, na co se při přípravě zaměřit.",
-                "body": "Slovo „hlína“ používáme v běžné řeči pro všechno, co se nám lepí na boty. Z hlediska trávníku je to ale nepřesné. Pro základní orientaci dělíme půdu do tří skupin: na těžkou jílovitou, střední hlinitou a lehkou písčitou. Ačkoliv v přírodě existuje mnoho přechodů, toto rozdělení nám prozradí to nejdůležitější – jak půda hospodaří s vodou a vzduchem.\n\nOznačení „těžká“ a „lehká“ přitom neříká, jak těžký bude kbelík, až ho naplníte. Popisuje to, jak těžko či snadno se půda zpracovává. Rozdíl tkví ve velikosti nerostných částic. Největší zrnka má písek, jemnější je prach a absolutně nejjemnější je jíl. Mezi těmito částicemi vznikají mezery, takzvané půdní póry. Právě v nich se ukrývá voda a vzduch. Zdravá půda musí umět obojí: po dešti vodu chvíli podržet, ale přebytek včas odvést, aby se ke kořenům mohl vrátit životodárný kyslík.",
+                "body": "Slovo „hlína“ používáme v běžné řeči pro všechno, co se nám lepí na boty. Z hlediska trávníku je to ale nepřesné. Pro základní orientaci dělíme půdu do tří skupin: na těžkou jílovitou, střední hlinitou a lehkou písčitou. Ačkoliv v přírodě existuje mnoho přechodů, toto rozdělení nám prozradí to nejdůležitější – jak půda hospodaří s vodou a vzduchem.\n\nOznačení „těžká“ a „lehká“ přitom neříká, jak těžký bude kbelík, až ho naplníte. Popisuje to, jak těžko či snadno se půda zpracovává. Rozdíl tkví ve velikosti nerostných částic. Největší zrnka má písek, jemnější je prach a absolutně nejjemnější je jíl.\n\nMezi těmito částicemi vznikají mezery, takzvané půdní póry. Právě v nich se ukrývá voda a vzduch. Zdravá půda musí umět obojí: po dešti vodu chvíli podržet, ale přebytek včas odvést, aby se ke kořenům mohl vrátit životodárný kyslík.",
                 "side": "image-left",
                 "title": "Písek, jíl, nebo hlína? Prozradí to vaše dlaň",
-                "number": "01",
+                "number": "02",
                 "caption": "Tři půdy, tři chování ve vlhké dlani. Ohebný váleček je jíl, praskající hlína, rozpadlá kulička písek – a každá chce od přípravy něco jiného.",
                 "drawing": "hmatovy-test",
                 "eyebrow": "Kapitola 01",
@@ -365,7 +385,8 @@
                 "blockName": "Foto půdy · hands",
                 "blockType": "split",
                 "photoRatio": "4:5",
-                "titleLevel": "h3"
+                "titleLevel": "h3",
+                "number": "03"
               },
               "format": "",
               "version": 2
@@ -377,7 +398,7 @@
                 "body": "Povrch parcely může vypadat po stavbě domu lákavě – je tu krásně rozhrnutá tmavá ornice. Travní semínko do ní ochotně vyklíčí. Ale jakmile se jeho kořeny vydají hlouběji, tvrdě narazí na ztvrdlou spodinu.\n\nProto vezměte rýč a na několika místech vykopejte sondu – jamku hlubokou zhruba 30 centimetrů. Zajímat vás bude její svislá stěna, takzvaný půdní profil. Pečlivě si prohlédněte vrstvu v hloubce 10 až 15 centimetrů a pak samotné dno. Hmatový pokus s kuličkou zopakujte pro každou vrstvu, která vypadá odlišně.",
                 "side": "image-left",
                 "title": "Pohled do hlubin: co čeká kořeny o dvacet centimetrů níž?",
-                "number": "02",
+                "number": "04",
                 "caption": "Sonda hluboká 30 cm ukáže, co nasypaná ornice schová. Kořeny, které se v jedné rovině placatí, prozrazují udusanou vrstvu dřív než rýč.",
                 "drawing": "pudni-profil",
                 "eyebrow": "Kapitola 02",
@@ -399,7 +420,7 @@
                   "mediaFilename": "soil-profile.avif"
                 },
                 "caption": "Sonda ukáže skutečný přechod mezi ornicí a hutnou vrstvou; podle něj určíte rozsah zásahu.",
-                "surface": "bila",
+                "surface": "krem",
                 "richBody": {
                   "root": {
                     "type": "root",
@@ -531,7 +552,26 @@
                         "children": [
                           {
                             "mode": "normal",
-                            "text": "Zde je klíčové rozlišovat dva pojmy: zrnitost a struktura. Zrnitost je to, z jakých částic se půda skládá (náš pokus s válečkem). Struktura je to, jak jsou tyto částice poskládány k sobě. I ta nejlepší hlinitá půda může být po průjezdu bagru tak slisovaná, že nefunguje. Samotné udusání z ní sice neudělá jíl, ale pro vodu je stejně nepropustná. Naopak i jílovitá půda s dobrou, přirozenou strukturou může fungovat nečekaně dobře.",
+                            "text": "Zde je klíčové rozlišovat dva pojmy: zrnitost a struktura. Zrnitost je to, z jakých částic se půda skládá (náš pokus s válečkem). Struktura je to, jak jsou tyto částice poskládány k sobě.",
+                            "type": "text",
+                            "style": "",
+                            "detail": 0,
+                            "format": 0,
+                            "version": 1
+                          }
+                        ],
+                        "direction": "ltr",
+                        "textFormat": 0
+                      },
+                      {
+                        "type": "paragraph",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "mode": "normal",
+                            "text": "I ta nejlepší hlinitá půda může být po průjezdu bagru tak slisovaná, že nefunguje. Samotné udusání z ní sice neudělá jíl, ale pro vodu je stejně nepropustná. Naopak i jílovitá půda s dobrou, přirozenou strukturou může fungovat nečekaně dobře.",
                             "type": "text",
                             "style": "",
                             "detail": 0,
@@ -569,7 +609,26 @@
                         "children": [
                           {
                             "mode": "normal",
-                            "text": "Vaším cílem je získat jasný závěr. Například zjistíte, že máte deset centimetrů skvělé hlíny, ale pod ní je betonově tvrdá slupka. V takovém případě musíte hlubší vrstvu fyzicky rozbít. Nebo naopak zjistíte, že je půda písčitá až do hloubky třiceti centimetrů. Pak musíte vymyslet, jak v ní udržet vláhu. Pro obě tyto zahrady by nákup stejného univerzálního substrátu nedával žádný smysl.",
+                            "text": "Vaším cílem je získat jasný závěr. Například zjistíte, že máte deset centimetrů skvělé hlíny, ale pod ní je betonově tvrdá slupka. V takovém případě musíte hlubší vrstvu fyzicky rozbít.",
+                            "type": "text",
+                            "style": "",
+                            "detail": 0,
+                            "format": 0,
+                            "version": 1
+                          }
+                        ],
+                        "direction": "ltr",
+                        "textFormat": 0
+                      },
+                      {
+                        "type": "paragraph",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "mode": "normal",
+                            "text": "Nebo naopak zjistíte, že je půda písčitá až do hloubky třiceti centimetrů. Pak musíte vymyslet, jak v ní udržet vláhu. Pro obě tyto zahrady by nákup stejného univerzálního substrátu nedával žádný smysl.",
                             "type": "text",
                             "style": "",
                             "detail": 0,
@@ -586,8 +645,10 @@
                 },
                 "blockName": "Foto půdy · profile",
                 "blockType": "split",
-                "photoRatio": "1:1",
-                "titleLevel": "h2"
+                "photoRatio": "4:5",
+                "titleLevel": "h2",
+                "continues": true,
+                "number": "05"
               },
               "format": "",
               "version": 2
@@ -595,11 +656,11 @@
             {
               "type": "block",
               "fields": {
-                "alt": "Řez zkušební jámou hlubokou 30 cm naplněnou vodou, přes okraj leží laťka a od ní se měří vzdálenost k hladině; hladina klesla o 1 cm za 15 minut, tedy 4 cm za hodinu. Pod jámou stupnice se třemi pásmy: pod 2,5 cm/h pomalé, 2,5 až 7,5 orientačně vyhovující, nad 10 příliš rychlé.",
+                "alt": "Řez zkušební jámou hlubokou 30 cm naplněnou vodou, přes okraj leží laťka a od ní se měří vzdálenost k hladině; hladina klesla o 1 cm za 15 minut, tedy 4 cm za hodinu. Pod jámou stupnice se čtyřmi pásmy: pod 2,5 cm/h pomalé, 2,5 až 7,5 orientačně vyhovující, 7,5 až 10 na hraně, nad 10 příliš rychlé.",
                 "body": "Zní to jako paradox, ale tráva ke svému životu zoufale potřebuje kyslík. Kyslík totiž slouží k buněčnému dýchání, při kterém rostlina pod zemí získává energii z cukrů vytvořených v listech na slunci.\n\nPokud voda na dlouhou dobu zaplní půdní póry a vytlačí z nich vzduch, kořeny se začnou dusit a nevratně se poškodí. Až poté vysvitne slunce a oteplí se, tráva začne vadnout, přestože stála donedávna v kaluži. Pokud v takové chvíli zapnete zavlažování, problém jen zhoršíte.\n\nJak odtok vody prověřit? Nejprve se po zahradě projděte po opravdu vydatném dešti. Zmapujte si místa, kde stojí louže, a kudy případně přitéká voda od sousedů nebo ze svahu. Zkontrolujte zahradu i druhý den. Jedna zapomenutá louže v dolíku je úplně jiný problém než rovnoměrně nasáklý a čvachtající pozemek.",
                 "side": "image-left",
                 "title": "Kam mizí voda? Proč i tráva může uschnout z přemokření",
-                "number": "03",
+                "number": "06",
                 "caption": "Zkouška vsakování. Pokles hladiny za čtvrt hodiny krát čtyři dá centimetry za hodinu – a ta hodnota rozhodne, jestli řešit odtok, nebo zadržení vody.",
                 "drawing": "zkouska-vsaku",
                 "eyebrow": "Kapitola 03",
@@ -859,7 +920,26 @@
                         "children": [
                           {
                             "mode": "normal",
-                            "text": "Zkoušku proveďte na více místech. Výsledek ovlivňuje i boční odtok a trhliny; je orientační a sám nepotvrzuje úrodnost půdy. Pokud zjistíte, že voda stojí v jámě i druhý den, odložte výsev. Musíte upravit terén do mírného spádu směrem od domu (zhruba 1 až 2 %, tedy o 1–2 centimetry na každý metr délky) k místu, které vodu pojme. Pamatujte, že podzemní drenáž musí někam odtékat. Pokud vykopete jámu do nepropustného jílu a zasypete ji štěrkem, nevytvořili jste drenáž, ale jen podzemní vanu, která se brzy naplní.",
+                            "text": "Zkoušku proveďte na více místech. Výsledek ovlivňuje i boční odtok a trhliny; je orientační a sám nepotvrzuje úrodnost půdy. Pokud zjistíte, že voda stojí v jámě i druhý den, odložte výsev.",
+                            "type": "text",
+                            "style": "",
+                            "detail": 0,
+                            "format": 0,
+                            "version": 1
+                          }
+                        ],
+                        "direction": "ltr",
+                        "textFormat": 0
+                      },
+                      {
+                        "type": "paragraph",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "mode": "normal",
+                            "text": "Musíte upravit terén do mírného spádu směrem od domu (zhruba 1 až 2 %, tedy o 1–2 centimetry na každý metr délky) k místu, které vodu pojme. Pamatujte, že podzemní drenáž musí někam odtékat. Pokud vykopete jámu do nepropustného jílu a zasypete ji štěrkem, nevytvořili jste drenáž, ale jen podzemní vanu, která se brzy naplní.",
                             "type": "text",
                             "style": "",
                             "detail": 0,
@@ -877,7 +957,9 @@
                 "blockName": "Foto půdy · drain",
                 "blockType": "split",
                 "photoRatio": "4:5",
-                "titleLevel": "h2"
+                "titleLevel": "h2",
+                "continues": true,
+                "number": "07"
               },
               "format": "",
               "version": 2
@@ -1056,7 +1138,7 @@
                   {
                     "value": "0,25–1",
                     "unit": "mm",
-                    "label": "převaha zrn písku v našich příkladech"
+                    "label": "doporučená zrnitost praného písku"
                   },
                   {
                     "value": "0,5–1",
@@ -1080,7 +1162,7 @@
               "fields": {
                 "alt": "Stejné složky mají v každé zahradě jiný úkol: v jílu s převahou písku otevře písek cestu vodě, v písčité zahradě biochar a zeolit podrží část vody. Vlevo nová směs s několika příměsmi, voda z ní odchází čárkovanou cestou dolů. Vpravo písčitá zemina s víc příměsmi a kapka stojí u biocharu a zeolitu.",
                 "body": "V tomto článku si představíme jednotlivé složky a vysvětlíme, kdy jejich nákup dává smysl. Nejdříve potřebujeme vědět, co půdě chybí: [zkouška v dlani pomůže rozpoznat její typ](/magazin/krasny-travnik-zacina-pod-zemi-2#pisek-jil-nebo-hlina-prozradi-to-vase-dlan). Konkrétní podíly a hloubky zapravení najdete v navazujícím článku [Jak namíchat půdu pro trávník](/magazin/jak-namichat-pudu-pro-travnik), množství pro svou plochu v [kalkulátoru půdního profilu](/magazin/kalkulator-na-planovani-pudniho-profilu) a samotnou práci v návodu [Jak připravit půdu a uložit směs](/magazin/jak-pripravit-a-ulozit-smes).\n\nPředstavme si dvě sousední zahrady po stejném dešti. Na první se zemina lepí na boty a voda dlouho neodchází. Na druhé se brzy dá pohodlně chodit, jenže po několika suchých dnech už tráva strádá. Stejnou recepturou bychom řešili dva různé problémy.",
-                "side": "image-right",
+                "side": "image-left",
                 "title": "Z čeho půdu skládáme a co která složka umí",
                 "number": "01",
                 "caption": "Vlevo jíl s převahou písku, tečky jsou původní zemina; příměsí je málo a čárkovaná linka se šipkou ukazuje, kudy voda odchází dolů. Vpravo písčitá zemina, příměsí víc: kapka zůstává mezi nimi.",
@@ -1099,7 +1181,7 @@
               "type": "block",
               "fields": {
                 "body": "Materiály mohou být v obou zahradách stejné: písek, původní zemina, biochar, Actino (dříve Biovin) a zeolit. Mění se jejich úloha i množství. Jílovité půdě potřebujeme otevřít cestu pro vzduch a přebytečnou vodu, chudému písku pomoci uchovat vláhu a živiny.\n\n### Písek a zemina: o výsledku rozhodují i mezery\n\nPísek působí jako nejprostší položka celé objednávky. Žádné složité jméno, žádný příslib biologického zázraku. Jen zrnka. Přesto právě jeho výběr a množství mohou rozhodnout o tom, zda směs získá vlastnosti, které od ní čekáme.\n\nPísek je důležitý pro provzdušnění půdy: ve vhodném množství a zrnitosti pomáhá kyslíku pronikat ke kořenům. Musíme ale dávat pozor, kolik ho přimícháme a do jaké půdy. U písčité půdy by další písek znamenal zbytečné plýtvání penězi. Naopak malé množství písku přidané do jílovité půdy může směs ještě více zahustit, a zdravému růstu trávy tak dokonce uškodit.",
-                "side": "image-left",
+                "side": "image-right",
                 "photo": {
                   "mediaFilename": "fig-primesi-deska-45.avif"
                 },
@@ -1109,7 +1191,7 @@
                 "blockName": "A2 – pokračování",
                 "blockType": "split",
                 "continues": true,
-                "photoRatio": "4:5",
+                "photoRatio": "1:1",
                 "titleLevel": "h2"
               },
               "format": "",
@@ -1120,7 +1202,7 @@
               "fields": {
                 "alt": "Rozhodují mezery mezi zrny: v nepraném písku je vyplní prach a jíl, voda hůř projde a vzduchu je méně; v praném zůstanou volné, voda projde a vzduch se vrátí ke kořenům. Vlevo proto kapka zůstává nad zrny, vpravo vede cesta vody mezerami až pod shluk zrn.",
                 "body": "V navazujícím článku o poměrech směsi používáme **praný křemičitý písek s převahou zrn přibližně 0,25–1 mm**. Každá část tohoto označení má svůj důvod: praní omezuje nežádoucí jemné příměsi, křemen poskytuje odolná zrna a vhodná zrnitost pomáhá vytvářet prostředí pro pohyb vody a vzduchu.\n\n**Proč praný?** Písek může obsahovat také prachové a jílovité částice. Ty jsou mnohem menší než samotná písková zrna a mohou vyplňovat mezery mezi nimi.\n\nVysoký podíl jemných příměsí může omezit propustnost výsledné směsi a po odtoku vody v ní ponechat méně prostoru pro vzduch. Praním se jejich obsah snižuje. Do půdy tak nepřivážíme spolu s pískem zbytečně další jíl a prach, když právě jejich nadbytek potřebujeme řešit.\n\n**Proč křemičitý? **Křemen je tvrdý a vůči běžnému půdnímu prostředí chemicky odolný minerál. Jeho zrna se snadno nerozpadají a mohou dlouhodobě tvořit stabilní minerální kostru směsi.\n\n> **Poznámka k nákupu: **U betonářského písku se často výslovně nepíše, že je praný, přestože praný bývá – při jeho přípravě se běžně odstraňují jílovité a další nežádoucí jemné příměsi kvůli použití v betonu. Pokud tedy u betonářského písku není výslovně uvedeno, že je nepraný, většinou bývá praný; pro jistotu je dobré ověřit si tuto skutečnost u dodavatele.\n\nPůvodní zemina mezitím dodává to, co samotnému písku chybí. Obsahuje jemnější částice, organickou hmotu a povrchy, na kterých se mohou zadržovat voda i některé živiny.",
-                "side": "image-right",
+                "side": "image-left",
                 "number": "03",
                 "caption": "Vlevo nepraný, vpravo praný písek se stejně uloženými zrny; liší se jen tím, co vězí v mezerách. Čárkovaná linka se šipkou dolů značí cestu, kudy voda odtéká.",
                 "drawing": "prany-pisek",
@@ -1207,27 +1289,13 @@
                                 "version": 1
                               },
                               {
-                                "type": "link",
-                                "fields": {
-                                  "url": "https://www.biovin.at/",
-                                  "newTab": true,
-                                  "linkType": "custom"
-                                },
-                                "format": "",
-                                "indent": 0,
-                                "version": 2,
-                                "children": [
-                                  {
-                                    "mode": "normal",
-                                    "text": "výrobce",
-                                    "type": "text",
-                                    "style": "",
-                                    "detail": 0,
-                                    "format": 0,
-                                    "version": 1
-                                  }
-                                ],
-                                "direction": "ltr"
+                                "mode": "normal",
+                                "text": "výrobce",
+                                "type": "text",
+                                "style": "",
+                                "detail": 0,
+                                "format": 0,
+                                "version": 1
                               },
                               {
                                 "mode": "normal",
@@ -1647,7 +1715,7 @@
               "type": "block",
               "fields": {
                 "alt": "Biochar je třeba nabít předem: nenabitý si živiny z půdy nejdřív bere, nabitý kompostem je kořenům postupně dává. Vlevo míří šipky od živin z půdy do zrna s prázdnými póry, vpravo ze zrna s živinami v pórech ke kořeni. Samotná voda biochar nenabije, jen navlhčí.",
-                "body": "**Nejjednodušší je koupit biochar určený k použití v půdě, již obohacený živinami a připravený k zapravení.** V popisu nebo u dodavatele si ověříme právě tyto dvě věci: že je určený pro půdu a že už proběhlo jeho obohacení. Toto obohacení se často označuje jako „nabití“. Samotné navlhčení vodou ho nenahrazuje.\n\nDůvod je jednoduchý: **nenabitý biochar může zpočátku živiny z okolní půdy spíš odebírat, než ji o ně obohacovat.** Představme si ho jako prázdnou zásobárnu, která se teprve plní. Zachytí část živin z půdy, a tráva jich tak může mít dočasně méně k dispozici.\n\nTaké mikroorganismy, které rozkládají snadno rozložitelné zbytky uhlíku v biocharu, mohou pro svou činnost dočasně spotřebovat část dostupného dusíku. Proto biochar před zapravením do půdy „nabijeme“ – tedy **předem obohatíme živinami, například přípravou s vlhkým kompostem**.\n\nVoda pomáhá živinám proniknout do jeho drobných pórů a část se zachytí na jeho povrchu. Kompost zároveň pomáhá biochar osídlit mikroorganismy. Samotná čistá voda ale nestačí: biochar navlhčí, nikoli vyživí.\n\nJeště jedna otázka při nákupu ušetří chybu v množství: **kolik samotného biocharu dodávka obsahuje?** Naše recepty počítají s objemem biocharu, nikoli celé směsi s kompostem.\n\nKompost dodaný spolu s ním nebo použitý při domácím nabíjení proto započítáme zvlášť, stejně jako přinesené živiny při plánování hnojení. Započítání složek směsného výrobku vysvětluje [převod materiálů pro objednávku](/magazin/kalkulator-na-planovani-pudniho-profilu#od-kubiku-k-tunam-litrum-a-balenim).",
+                "body": "**Nejjednodušší je koupit biochar určený k použití v půdě, již obohacený živinami a připravený k zapravení.** V popisu nebo u dodavatele si ověříme právě tyto dvě věci: že je určený pro půdu a že už proběhlo jeho obohacení. Toto obohacení se často označuje jako „nabití“. Samotné navlhčení vodou ho nenahrazuje.\n\nDůvod je jednoduchý: **nenabitý biochar může zpočátku živiny z okolní půdy spíš odebírat, než ji o ně obohacovat.** Představme si ho jako prázdnou zásobárnu, která se teprve plní. Zachytí část živin z půdy, a tráva jich tak může mít dočasně méně k dispozici.\n\nTaké mikroorganismy, které rozkládají snadno rozložitelné zbytky uhlíku v biocharu, mohou pro svou činnost dočasně spotřebovat část dostupného dusíku. Proto biochar před zapravením do půdy „nabijeme“ – tedy **předem obohatíme živinami, například přípravou s vlhkým kompostem**.\n\nVoda pomáhá živinám proniknout do jeho drobných pórů a část se zachytí na jeho povrchu. Kompost zároveň pomáhá biochar osídlit mikroorganismy. Samotná čistá voda ale nestačí: biochar navlhčí, nikoli vyživí.\n\nJeště jedna otázka při nákupu ušetří chybu v množství: **kolik samotného biocharu dodávka obsahuje?** Receptury v článku [Jak namíchat půdu pro trávník](/magazin/jak-namichat-pudu-pro-travnik) počítají s objemem biocharu, nikoli celé směsi s kompostem.\n\nKompost dodaný spolu s ním nebo použitý při domácím nabíjení proto započítáme zvlášť, stejně jako přinesené živiny při plánování hnojení. Započítání složek směsného výrobku vysvětluje [převod materiálů pro objednávku](/magazin/kalkulator-na-planovani-pudniho-profilu#od-kubiku-k-tunam-litrum-a-balenim).",
                 "side": "image-left",
                 "title": "Co koupit a jak biochar připravit",
                 "number": "04",
@@ -1657,7 +1725,8 @@
                 "blockName": "Co koupit a jak biochar připravit",
                 "blockType": "split",
                 "photoRatio": "4:5",
-                "titleLevel": "h3"
+                "titleLevel": "h2",
+                "eyebrow": "Kapitola 02"
               },
               "format": "",
               "version": 2
@@ -1676,7 +1745,8 @@
                 "blockName": "Mykorhizní přípravek má vlastní pravidla dávkování",
                 "blockType": "split",
                 "photoRatio": "4:5",
-                "titleLevel": "h3"
+                "titleLevel": "h2",
+                "eyebrow": "Kapitola 03"
               },
               "format": "",
               "version": 2
@@ -1931,68 +2001,17 @@
               "version": 2
             },
             {
-              "type": "paragraph",
-              "children": [
-                {
-                  "type": "text",
-                  "text": "Pro těžkou půdu hledáme cestu pro vzduch a vodu, pro chudý písek větší zásobu vláhy. Následující tři receptury vycházejí z konkrétních podmínek zahrady. Úlohu, výběr a přípravu surovin vysvětluje článek ",
-                  "format": 0,
-                  "detail": 0,
-                  "mode": "normal",
-                  "style": "",
-                  "version": 1
-                },
-                {
-                  "type": "link",
-                  "children": [
-                    {
-                      "type": "text",
-                      "text": "Písek, biochar, zeolit a Actino: co vaše půda potřebuje",
-                      "format": 0,
-                      "detail": 0,
-                      "mode": "normal",
-                      "style": "",
-                      "version": 1
-                    }
-                  ],
-                  "direction": "ltr",
-                  "format": "",
-                  "indent": 0,
-                  "version": 2,
-                  "fields": {
-                    "linkType": "custom",
-                    "newTab": false,
-                    "url": "/magazin/pisek-biochar-a-dalsi-primesi"
-                  }
-                },
-                {
-                  "type": "text",
-                  "text": ". Tady z nich sestavíme objemovou směs a teprve potom přejdeme k objednávce.",
-                  "format": 0,
-                  "detail": 0,
-                  "mode": "normal",
-                  "style": "",
-                  "version": 1
-                }
-              ],
-              "direction": "ltr",
-              "format": "",
-              "indent": 0,
-              "textFormat": 0,
-              "version": 1
-            },
-            {
               "type": "block",
               "fields": {
                 "alt": "Tuna biocharu zabere 5 m³, tuna písku jen 0,67 m³: stejná hmotnost neznamená stejný objem. Pruhy na stupnici do 5 m³ ukazují objem jedné tuny při modelové sypné hustotě; u zeminy je to 0,71, u zeolitu 1,25 a u Actina 1,67 m³. Dole závěr: objemem se určuje poměr směsi, hmotností objednávka a doprava.",
-                "body": "**Objemem určujeme poměr složek; hmotností plánujeme objednávku a dopravu.** Objemový recept proto nelze převést na stejné poměry tun. Sypná hustota říká, kolik váží určitý objem volně nasypaného materiálu včetně mezer mezi částicemi.\n\nRozdíl dobře ukáže písek a biochar. Při modelové hustotě písku **1,5 t/m³** zabere jedna tuna asi **0,67 m³**. Tuna biocharu s hustotou **0,20 t/m³** zabere **5 m³**. Stejná hmotnost tedy přinese velmi rozdílný objem; smíchané tuny jedna ku jedné by daly přibližně 88 % biocharu.\n\nSkutečná hustota závisí na materiálu i vlhkosti dodávky. [Převod kubíků na tuny, litry a balení](/magazin/kalkulator-na-planovani-pudniho-profilu#od-kubiku-k-tunam-litrum-a-balenim) proto počítá s údaji dodavatele.\n\nPři práci s navážkou nepotřebujeme přesnost na jednotlivé kilogramy. Potřebujeme přibližně dodržet zvolené objemové podíly a rovnoměrně promíchat směs. Zaokrouhlení nesmí z několika procent udělat násobně větší podíl; u osiva a koncentrovaných přípravků dál platí dávka výrobku. Jak odhad množství převést do práce po zahradních úsecích, ukazuje [praktický postup míchání](/magazin/jak-pripravit-a-ulozit-smes#dodavky-a-michani-prizpusobit-rozsahu-zahrady).",
+                "body": "Úlohu, výběr a přípravu surovin vysvětluje článek [Písek, biochar, zeolit a Actino: co vaše půda potřebuje](/magazin/pisek-biochar-a-dalsi-primesi). Tady z nich sestavíme objemovou směs a teprve potom přejdeme k objednávce.\n\n**Objemem určujeme poměr složek; hmotností plánujeme objednávku a dopravu.** Objemový recept proto nelze převést na stejné poměry tun. Sypná hustota říká, kolik váží určitý objem volně nasypaného materiálu včetně mezer mezi částicemi.\n\nRozdíl dobře ukáže písek a biochar. Při modelové hustotě písku **1,5 t/m³** zabere jedna tuna asi **0,67 m³**. Tuna biocharu s hustotou **0,20 t/m³** zabere **5 m³**. Stejná hmotnost tedy přinese velmi rozdílný objem; smíchané tuny jedna ku jedné by daly přibližně 88 % biocharu.\n\nSkutečná hustota závisí na materiálu i vlhkosti dodávky. [Převod kubíků na tuny, litry a balení](/magazin/kalkulator-na-planovani-pudniho-profilu#od-kubiku-k-tunam-litrum-a-balenim) proto počítá s údaji dodavatele.\n\nPři práci s navážkou nepotřebujeme přesnost na jednotlivé kilogramy. Potřebujeme přibližně dodržet zvolené objemové podíly a rovnoměrně promíchat směs. Zaokrouhlení nesmí z několika procent udělat násobně větší podíl; u osiva a koncentrovaných přípravků dál platí dávka výrobku. Jak odhad množství převést do práce po zahradních úsecích, ukazuje [praktický postup míchání](/magazin/jak-pripravit-a-ulozit-smes#dodavky-a-michani-prizpusobit-rozsahu-zahrady).",
                 "side": "image-right",
                 "title": "Proč směs mícháme podle objemu, ne podle tun",
                 "number": "01",
                 "caption": "Délka pruhu je objem jedné tuny, čárkované linky značí celé kubíky. U zeolitu a Actina počítá kresba s modelovými hustotami 0,80 a 0,60 t/m³ z kalkulátoru půdního profilu.",
                 "drawing": "tuna-neni-kubik",
                 "eyebrow": "Kapitola 01",
-                "surface": "krem",
+                "surface": "bila",
                 "blockName": "Proč směs mícháme podle objemu, ne podle tun",
                 "blockType": "split",
                 "photoRatio": "4:5",
@@ -2004,10 +2023,10 @@
             {
               "type": "block",
               "fields": {
-                "body": "Pro naše příklady zvolíme **30 cm hluboký profil** určený pro nově zakládaný nebo kompletně rekonstruovaný trávník. Profil znamená připravovanou vrstvu půdy od povrchu do této hloubky. Třicet centimetrů je model, nikoli předpis platný pro každou zahradu ani pokyn všude automaticky odvézt třicet centimetrů půdy.\n\nProč záleží na souvislém prostoru pro kořeny a proč samotná výška navážky nestačí, vysvětluje [kapitola o hloubce kořenové vrstvy](/magazin/jak-pripravit-a-ulozit-smes#tricet-centimetru-svobody-proc-koreny-potrebuji-prostor). Zde podle ní rozmisťujeme jednotlivé složky.",
+                "body": "Pro naše příklady zvolíme **30 cm hluboký profil** určený pro nově zakládaný nebo kompletně rekonstruovaný trávník. Profil znamená připravovanou vrstvu půdy od povrchu do této hloubky. Třicet centimetrů je model, nikoli předpis platný pro každou zahradu ani pokyn všude automaticky odvézt třicet centimetrů půdy.\n\nProč záleží na souvislém prostoru pro kořeny a proč samotná výška navážky nestačí, vysvětluje [kapitola o hloubce kořenové vrstvy](/magazin/jak-pripravit-a-ulozit-smes#tricet-centimetru-svobody-proc-koreny-potrebuji-prostor). Zde podle hloubky rozmisťujeme jednotlivé složky.",
                 "side": "image-left",
                 "photo": {
-                  "mediaFilename": "fig-primesi-sonda-zahon.avif"
+                  "mediaFilename": "fig-primesi-sonda-zahon-siroka.avif"
                 },
                 "title": "Třicet centimetrů půdy jako prostor pro život",
                 "number": "02",
@@ -2016,7 +2035,7 @@
                 "surface": "krem",
                 "blockName": "Třicet centimetrů půdy jako prostor pro život",
                 "blockType": "split",
-                "photoRatio": "1:1",
+                "photoRatio": "3:2",
                 "titleLevel": "h2"
               },
               "format": "",
@@ -2047,7 +2066,7 @@
                 "body": "Těžké půdě potřebujeme zpřístupnit vodu a vzduch, u hlinité zachovat vyvážený základ a písčité pomoci uchovat vláhu. Následující receptury jsou modely pro založení nebo výraznější obnovu trávníku, nikoli univerzální předpisy.\n\nVybereme odpovídající příklad, zkontrolujeme jeho podmínky a zvolíme konkrétní podíly v uvedených rozmezích. Teprve potom spočítáme množství. Pokud typ půdy neznáme, začneme [zkouškou vzorku v dlani](/magazin/krasny-travnik-zacina-pod-zemi-2#pisek-jil-nebo-hlina-prozradi-to-vase-dlan); u zamokření ověříme i [vsakování a cestu vody do podloží](/magazin/krasny-travnik-zacina-pod-zemi-2#kam-mizi-voda-proc-i-trava-muze-uschnout-z-premokreni).",
                 "side": "image-left",
                 "photo": {
-                  "mediaFilename": "fig-primesi-vzorky-zahon.avif"
+                  "mediaFilename": "fig-primesi-vzorky-zahon-siroka.avif"
                 },
                 "title": "Tři zahrady: jaké poměry pro ně zvolit",
                 "number": "04",
@@ -2056,7 +2075,7 @@
                 "surface": "krem",
                 "blockName": "Tři zahrady: jaké poměry pro ně zvolit",
                 "blockType": "split",
-                "photoRatio": "1:1",
+                "photoRatio": "3:2",
                 "titleLevel": "h2"
               },
               "format": "",
@@ -2200,7 +2219,7 @@
               "type": "block",
               "fields": {
                 "alt": "Schéma nízkého a vyššího podílu písku v jílovité zemině. Model minerálního základu používá 65 % písku; vhodný podíl pro konkrétní půdu je třeba ověřit na zkušební směsi. Obrázek není dávkovacím návodem.",
-                "body": "Po přidání velkého množství písku už nepracujeme s původním jílem. I nízká dávka zeolitu proto musí odpovídat chování nové směsi, nikoli jen názvu výchozí půdy.\n\nPoměr **65/35 popisuje pouze minerální základ**. Příměsi si z celkového objemu vezmou vlastní podíl, takže přidaný písek netvoří 65 % celé horní směsi. Tento rozdíl ukazuje [výpočet pro 100 m² jílovité zahrady](/magazin/kalkulator-na-planovani-pudniho-profilu#priklad-kolik-materialu-potrebujete-pro-100-m-jilovite-zahrady).\n\nU těžkého jílu má smysl udělat zkoušku před velkou objednávkou. Několik lopat písku vlastnosti celé vrstvy zpravidla nezmění. Potřebný podíl se liší podle původní zeminy a zvoleného písku; vyšší podíl může být nutný, ale ověřujeme jej na zkušební směsi. Penn State popisuje potřebu velkého množství písku pro výraznou změnu jílovité půdy. Poměr 65/35 zde zůstává modelovým návrhem, nikoli univerzální dávkou.\n\nPod novou směsí musí zůstat funkční cesta pro vodu. Ani případná mykorhiza nenahradí odstranění utužení a vyřešení odtoku; o jejím použití rozhodneme podle [samostatných pravidel pro mykorhizní přípravek](/magazin/pisek-biochar-a-dalsi-primesi#mykorhizni-pripravek-ma-vlastni-pravidla-davkovani).",
+                "body": "Po přidání velkého množství písku už nepracujeme s původním jílem. I nízká dávka zeolitu proto musí odpovídat chování nové směsi, nikoli jen názvu výchozí půdy.\n\nPoměr **65/35 popisuje pouze minerální základ**. Příměsi si z celkového objemu vezmou vlastní podíl, takže přidaný písek netvoří 65 % celé horní směsi. Tento rozdíl ukazuje [výpočet pro 100 m² jílovité zahrady](/magazin/kalkulator-na-planovani-pudniho-profilu#priklad-kolik-materialu-potrebujete-pro-100-m-jilovite-zahrady).\n\nU těžkého jílu má smysl udělat zkoušku před velkou objednávkou. Několik lopat písku vlastnosti celé vrstvy zpravidla nezmění. Potřebný podíl se liší podle původní zeminy a zvoleného písku; vyšší podíl může být nutný, ale ověřujeme jej na zkušební směsi.\n\nPenn State popisuje potřebu velkého množství písku pro výraznou změnu jílovité půdy. Poměr 65/35 zde zůstává modelovým návrhem, nikoli univerzální dávkou.\n\nPod novou směsí musí zůstat funkční cesta pro vodu. Ani případná mykorhiza nenahradí odstranění utužení a vyřešení odtoku; o jejím použití rozhodneme podle [samostatných pravidel pro mykorhizní přípravek](/magazin/pisek-biochar-a-dalsi-primesi#mykorhizni-pripravek-ma-vlastni-pravidla-davkovani).",
                 "side": "image-right",
                 "number": "07",
                 "caption": "Poloha vzorku na škále ilustruje podíl písku. Poměr 65/35 patří k našemu modelu; vhodné složení pro konkrétní jíl ověřte zkouškou před velkou objednávkou.",
@@ -2221,7 +2240,7 @@
                 "body": "Dobře fungující hlinitá půda mívá nenápadnou výhodu: voda se vsákne, zemina se drobí a za sucha ještě nějakou vláhu uchová. Náš model ovšem řeší **rekonstrukci těžší hlinité půdy se zachovanou a udržovanou ornicí**, kterou chceme udělat lépe zpracovatelnou a propustnější.\n\nMinerální základ tvoří **30 % přidaného písku a 70 % původní hlíny objemově**. Actino vynecháme; biochar i zeolit volíme v rozmezí **3–7 %** v jejich určených zónách.\n\nPísek upravuje minerální základ, zatímco porézní příměsi mají podpořit uchování vody a některých živin. Rozmezí patří k této přestavbě a není důkazem, že každá hlína potřebuje více příměsí než každý jíl.",
                 "side": "image-left",
                 "photo": {
-                  "mediaFilename": "fig-primesi-hlina-ctverec.avif"
+                  "mediaFilename": "fig-primesi-hlina-ctverec-siroka.avif"
                 },
                 "title": "Střední hlinitá půda: zachovat vyvážený základ",
                 "number": "08",
@@ -2229,7 +2248,7 @@
                 "surface": "krem",
                 "blockName": "Střední hlinitá půda: zachovat vyvážený základ",
                 "blockType": "split",
-                "photoRatio": "1:1",
+                "photoRatio": "3:2",
                 "titleLevel": "h3"
               },
               "format": "",
@@ -2258,7 +2277,7 @@
               "type": "block",
               "fields": {
                 "alt": "V písčité půdě odchází voda i část živin pod dosah kořenů; zásoba, která jim zbývá, rychle dojde. V řezu 0–30 cm končí tři trsy kořenů nad linkou dosahu, zatímco cesta vody pokračuje pod ni dolů a nese tam i část živin. Vzduchu je v zemině dost.",
-                "body": "Do lehké písčité půdy se příjemně zaboří rýč. V červenci už však její vlastnosti nemusejí být stejně příjemné pro trávník. Voda jí snadno prochází, vzduch obvykle nechybí, ale zásoba dostupná kořenům se rychle vyčerpává. Některé rozpuštěné živiny navíc pokračují s vodou hlouběji, než kam právě dosahují kořeny.\n\n**Další písek sem nepřidáváme.** Minerální kostra je písčitá už na začátku. Chceme proto doplnit schopnost půdy hospodařit s vodou a živinami: biochar a zeolit mají posílit zásobní vlastnosti horní části, Actino přináší organickou složku a výživu.\n\nNulové množství písku v tabulce neznamená půdu bez písku. Znamená nulový nákup dalšího písku; ten stávající zůstává součástí původní zeminy.\n\nPředpokládáme zde půdu chudou na organickou hmotu, s malou zásobou živin a rychlým vysycháním. Proto volíme **8–10 % zeolitu v horních 15 cm a po 5–10 % biocharu a Actina v horních 10 cm**. Konkrétní dávku v každém rozmezí zvolíme podle vlastností půdy a dodaných materiálů. S tímto návrhem počítáme pro chudou písčitou půdu bez pravidelného doplňování kompostu.",
+                "body": "Do lehké písčité půdy se příjemně zaboří rýč. V červenci už však její vlastnosti nemusejí být stejně příjemné pro trávník. Voda jí snadno prochází, vzduch obvykle nechybí, ale zásoba dostupná kořenům se rychle vyčerpává. Některé rozpuštěné živiny navíc pokračují s vodou hlouběji, než kam právě dosahují kořeny.\n\n**Další písek sem nepřidáváme.** Minerální kostra je písčitá už na začátku. Chceme proto doplnit schopnost půdy hospodařit s vodou a živinami: biochar a zeolit mají posílit zásobní vlastnosti horní části, Actino přináší organickou složku a výživu.\n\nNulové množství písku v tabulce neznamená půdu bez písku. Znamená nulový nákup dalšího písku; ten stávající zůstává součástí původní zeminy.\n\nPředpokládáme zde půdu chudou na organickou hmotu, s malou zásobou živin a rychlým vysycháním. Proto volíme **8–10 % zeolitu v horních 15 cm a po 5–10 % biocharu a Actina v horních 10 cm**. Konkrétní dávku v každém rozmezí zvolíme podle vlastností půdy a dodaných materiálů. S tímto návrhem počítáme pro chudou písčitou půdu bez pravidelného doplňování kompostu.\n\nPříměs vždy posuzujeme ve výsledné směsi: u jílu hlídáme vzduch a odtok, u písku dobu, po kterou zůstává voda dostupná kořenům.",
                 "side": "image-left",
                 "title": "Lehká písčitá půda: prodloužit dobu, po kterou mají kořeny z čeho čerpat",
                 "number": "10",
@@ -2277,7 +2296,7 @@
               "type": "block",
               "fields": {
                 "alt": "V minerálním základu se poměr přidaného písku a původní zeminy s hloubkou nemění: jílovitá zahrada má 65 % písku a 35 % zeminy, těžší hlína 30 a 70 %, písčitá 0 a 100 %, tedy jen původní písčitá zemina. Každý sloupec je profil do 30 cm; hranice zón v 10 a 15 cm dělicí čáru neposouvají.",
-                "body": "Příměs vždy posuzujeme ve výsledné směsi: u jílu hlídáme vzduch a odtok, u písku dobu, po kterou zůstává voda dostupná kořenům.\n\n### Jak na sebe navazují poměry v jednotlivých hloubkách\n\nPříměsi nahrazují část minerálního základu. **V každé zóně zůstává součet podílů 100 %.** Zvolíme konkrétní podíl každé příměsi a základem doplníme zbytek. Nejnižší podíl základu odpovídá nejvyšším dávkám všech příměsí a naopak; krajní hodnoty nelze libovolně sčítat.\n\nU jílovité varianty se zbylý základ dělí objemově **65/35** mezi písek a zeminu, u hlinité **30/70**. U písčité ho tvoří původní písčitá zemina. Poměr složek základu se s hloubkou nemění, jeho podíl v celé směsi ano. [Kalkulátor počítá objem každé příměsi podle její hloubky](/magazin/kalkulator-na-planovani-pudniho-profilu#jak-se-pocita-objem-pudy-a-jednotlivych-primesi).",
+                "body": "Příměsi nahrazují část minerálního základu. **V každé zóně zůstává součet podílů 100 %.** Zvolíme konkrétní podíl každé příměsi a základem doplníme zbytek. Nejnižší podíl základu odpovídá nejvyšším dávkám všech příměsí a naopak; krajní hodnoty nelze libovolně sčítat.\n\nU jílovité varianty se zbylý základ dělí objemově **65/35** mezi písek a zeminu, u hlinité **30/70**. U písčité ho tvoří původní písčitá zemina. Poměr složek základu se s hloubkou nemění, jeho podíl v celé směsi ano. [Kalkulátor počítá objem každé příměsi podle její hloubky](/magazin/kalkulator-na-planovani-pudniho-profilu#jak-se-pocita-objem-pudy-a-jednotlivych-primesi).",
                 "side": "image-right",
                 "number": "11",
                 "caption": "Sloupec je minerální základ jedné zahrady do 30 cm, vlevo přidaný písek, vpravo zemina. Čárkované linky značí hranice zón v 10 a 15 cm; dělicí čára jimi prochází beze změny.",
@@ -2285,9 +2304,9 @@
                 "surface": "bila",
                 "blockName": "E7 – pokračování",
                 "blockType": "split",
-                "continues": true,
                 "photoRatio": "4:5",
-                "titleLevel": "h2"
+                "titleLevel": "h3",
+                "title": "Jak na sebe navazují poměry v jednotlivých hloubkách"
               },
               "format": "",
               "version": 2
@@ -2576,7 +2595,7 @@
                 "blockName": "Od receptury k vlastní ploše",
                 "blockType": "ctaBand",
                 "buttonHref": "/magazin/kalkulator-na-planovani-pudniho-profilu",
-                "buttonLabel": "Otevřít kalkulátor půdního profilu"
+                "buttonLabel": "Otevřít kalkulátor"
               },
               "format": "",
               "version": 2
@@ -2586,7 +2605,7 @@
         }
       },
       "heroImage": {
-        "mediaFilename": "hero-primesi.avif"
+        "mediaFilename": "hero-namichat-michani.avif"
       },
       "relatedSlugs": [
         "pisek-biochar-a-dalsi-primesi",
@@ -2645,7 +2664,7 @@
               "type": "block",
               "fields": {
                 "body": "Nejprve rozhodněte, co vaše půda potřebuje změnit. Výchozí předvolby slouží k porovnání možností, nejsou univerzálním doporučením pro každou zahradu. Rozsahy podílů a jejich podmínky vysvětluje článek [Jak namíchat půdu pro trávník: poměry pro jíl, hlínu a písek](/magazin/jak-namichat-pudu-pro-travnik#tri-zahrady-jake-pomery-pro-ne-zvolit).\n\nPro vlastní výpočet zadejte plochu v m², hloubku profilu v cm a způsob úpravy terénu. U každé příměsi nastavte podíl i hloubku zapravení. Výsledky níže v článku ukazují jeden konkrétní příklad bez rezervy; kalkulátor je přepočítá podle vašich vstupů.\n\nPlochu měřte jen tam, kde budete půdu skutečně upravovat. Odečtěte cesty, terasu a záhony. Má-li zahrada výrazně odlišné části, spočítejte je jednotlivě: stejná receptura nemusí dávat smysl u vlhkého jílovitého kouta a na rychle vysychajícím svahu. Objednávky pak sečtěte po materiálech.\n\n[Hloubka profilu](/magazin/krasny-travnik-zacina-pod-zemi-2#pohled-do-hlubin-co-ceka-koreny-o-dvacet-centimetru-niz) znamená tloušťku půdy, se kterou ve výpočtu pracujete. Výchozích 30 cm je model, nikoli pokyn celou zahradu tak hluboko vykopat. U Actina (dříve Biovin), zeolitu a biocharu zadáváte vlastní hloubku od povrchu: například 10 cm znamená zapravení do celé vrstvy 0–10 cm. Žádná příměs nemá sahat pod zvolený profil.\n\nPředvolba typu půdy nastaví výchozí poměry. Jakmile podíly upravíte, pracujete s vlastní recepturou. Zkontrolujte nejen procenta, ale i hloubky: stejný podíl ve dvakrát hlubší vrstvě znamená při stejné ploše dvojnásobné množství příměsi. Po změně vstupů proto znovu projděte celý výsledek.",
-                "side": "image-right",
+                "side": "image-left",
                 "photo": {
                   "mediaFilename": "fig-mereni-plochy.avif"
                 },
@@ -3156,7 +3175,7 @@
                 "body": "Před navážkou prověřte zhutnění, stavební suť a odtok vody; pomohou [tři zkoušky půdy](/magazin/krasny-travnik-zacina-pod-zemi-2). Podle výsledků nyní určete rozsah zásahu. Potom přijde na řadu příprava podloží, promíchání, uložení směsi a kontrola slehnutí. Poměry složek a jejich hloubky zvolte podle receptury; množství materiálů převede na vaši plochu kalkulátor odkazovaný níže.",
                 "side": "image-right",
                 "photo": {
-                  "mediaFilename": "fig-dodavka-materialu-ctverec.avif"
+                  "mediaFilename": "fig-dodavka-materialu-ctverec-siroka.avif"
                 },
                 "title": "Jak směs připravit a uložit při skutečné práci",
                 "number": "01",
@@ -3165,7 +3184,7 @@
                 "surface": "bila",
                 "blockName": "Jak směs připravit a uložit při skutečné práci",
                 "blockType": "split",
-                "photoRatio": "1:1",
+                "photoRatio": "3:2",
                 "titleLevel": "h2"
               },
               "format": "",
@@ -3175,7 +3194,7 @@
               "type": "block",
               "fields": {
                 "alt": "Dva bloky půdy pod metrem čtverečním trávníku vedle sebe: vlevo hloubka 10 cm, tedy 100 litrů, kořeny se placatí na tvrdé desce a povrch vysychá; vpravo hloubka 30 cm, tedy 300 litrů, kořeny jdou hluboko a v malých pórech drží voda, ve velkých vzduch.",
-                "body": "Když už víme, co se děje pod povrchem, můžeme si stanovit hlavní cíl. Tím je **souvislý, provzdušněný a propustný prostor pro kořeny, sahající do hloubky přibližně 30 cm**. Tuto hloubku přitom počítáme od finálního, už slehlého povrchu.\n\nProč potřebujeme třicet centimetrů, když semínko leží na povrchu a spousta travních kořínků je mělká? Je to stejné, jako s pitnou vodou doma: právě teď sice pijete z jedné sklenice, ale je dobré mít zásobu v trubkách nebo studni.\n\nHorních pár centimetrů půdy je extrémně závislých na počasí. Slunce je rychle vysuší, zálivka je hned namočí, a za chvíli jsou zase suché. Pokud kořeny narazí na bariéru a nemohou hlouběji, tráva je plně odkázána na tuto neustále se měnící povrchovou vrstvu.",
+                "body": "Než začneme navážet a míchat, stanovíme si hlavní cíl. Tím je **souvislý, provzdušněný a propustný prostor pro kořeny, sahající do hloubky přibližně 30 cm**. Tuto hloubku přitom počítáme od finálního, už slehlého povrchu.\n\nProč potřebujeme třicet centimetrů, když semínko leží na povrchu a spousta travních kořínků je mělká? Je to stejné, jako s pitnou vodou doma: právě teď sice pijete z jedné sklenice, ale je dobré mít zásobu v trubkách nebo studni.\n\nHorních pár centimetrů půdy je extrémně závislých na počasí. Slunce je rychle vysuší, zálivka je hned namočí, a za chvíli jsou zase suché. Pokud kořeny narazí na bariéru a nemohou hlouběji, tráva je plně odkázána na tuto neustále se měnící povrchovou vrstvu.",
                 "side": "image-left",
                 "title": "Třicet centimetrů svobody: proč kořeny potřebují prostor",
                 "number": "02",
@@ -3197,7 +3216,7 @@
                 "body": "",
                 "side": "image-right",
                 "photo": {
-                  "mediaFilename": "soil-fork.avif"
+                  "mediaFilename": "fig-priprava-vidle.avif"
                 },
                 "caption": "Souvislý prostor pro kořeny vzniká odstraněním skutečné překážky, nikoli automatickou výměnou celé ornice.",
                 "surface": "bila",
@@ -3216,7 +3235,26 @@
                         "children": [
                           {
                             "mode": "normal",
-                            "text": "Představte si 1 metr čtvereční vašeho budoucího trávníku. Pokud má půda hloubku jen 10 cm, kořeny žijí v objemu 100 litrů. Pokud jim dáte 30 cm, mají k dispozici objem 300 litrů půdy. Nejde přímo o litry zadržené vody, ale o obrovský využitelný rezervoár zdrojů. Větší hloubka drasticky snižuje závislost vašeho trávníku na tom, zda zrovna praží slunce na vrchní vrstvu. Zlepší se hospodaření s vodou mezi jednotlivými dešti či zálivkami.",
+                            "text": "Představte si 1 metr čtvereční vašeho budoucího trávníku. Pokud má půda hloubku jen 10 cm, kořeny žijí v objemu 100 litrů. Pokud jim dáte 30 cm, mají k dispozici objem 300 litrů půdy.",
+                            "type": "text",
+                            "style": "",
+                            "detail": 0,
+                            "format": 0,
+                            "version": 1
+                          }
+                        ],
+                        "direction": "ltr",
+                        "textFormat": 0
+                      },
+                      {
+                        "type": "paragraph",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "mode": "normal",
+                            "text": "Nejde přímo o litry zadržené vody, ale o obrovský využitelný rezervoár zdrojů. Větší hloubka drasticky snižuje závislost vašeho trávníku na tom, zda zrovna praží slunce na vrchní vrstvu. Zlepší se hospodaření s vodou mezi jednotlivými dešti či zálivkami.",
                             "type": "text",
                             "style": "",
                             "detail": 0,
@@ -3406,18 +3444,8 @@
                 "blockName": "Foto půdy · fork",
                 "blockType": "split",
                 "photoRatio": "4:5",
-                "titleLevel": "h2"
-              },
-              "format": "",
-              "version": 2
-            },
-            {
-              "type": "block",
-              "fields": {
-                "title": "Od poznání půdy k přípravě směsi",
-                "eyebrow": "Kapitola 03",
-                "blockName": "Kapitola 05",
-                "blockType": "chapter"
+                "titleLevel": "h2",
+                "number": "03"
               },
               "format": "",
               "version": 2
@@ -3428,10 +3456,10 @@
                 "body": "",
                 "side": "image-left",
                 "photo": {
-                  "mediaFilename": "soil-finish.avif"
+                  "mediaFilename": "fig-priprava-kontrola-luzka.avif"
                 },
                 "caption": "Před výsevem zkontrolujte připravený povrch, odtok vody a místa, kde může zemina ještě slehnout.",
-                "surface": "bila",
+                "surface": "krem",
                 "richBody": {
                   "root": {
                     "type": "root",
@@ -3447,7 +3475,48 @@
                         "children": [
                           {
                             "mode": "normal",
-                            "text": "Teď už můžete rozhodnout, co zahrada potřebuje. Při pomalém vsakování nejprve odstraňte příčinu a zkoušku zopakujte. Teprve potom vybírejte ",
+                            "text": "Podle výsledků ",
+                            "type": "text",
+                            "style": "",
+                            "detail": 0,
+                            "format": 0,
+                            "version": 1
+                          },
+                          {
+                            "type": "link",
+                            "fields": {
+                              "url": "/magazin/krasny-travnik-zacina-pod-zemi-2",
+                              "newTab": false,
+                              "linkType": "custom"
+                            },
+                            "format": "",
+                            "indent": 0,
+                            "version": 2,
+                            "children": [
+                              {
+                                "mode": "normal",
+                                "text": "tří zkoušek půdy",
+                                "type": "text",
+                                "style": "",
+                                "detail": 0,
+                                "format": 0,
+                                "version": 1
+                              }
+                            ],
+                            "direction": "ltr"
+                          },
+                          {
+                            "mode": "normal",
+                            "text": " rozhodněte, co zahrada potřebuje.",
+                            "type": "text",
+                            "style": "",
+                            "detail": 0,
+                            "format": 0,
+                            "version": 1
+                          },
+                          {
+                            "mode": "normal",
+                            "text": " Při pomalém vsakování nejprve odstraňte příčinu a zkoušku zopakujte. Teprve potom vybírejte ",
                             "type": "text",
                             "style": "",
                             "detail": 0,
@@ -3815,7 +3884,10 @@
                 "blockName": "Foto půdy · finish",
                 "blockType": "split",
                 "photoRatio": "4:5",
-                "titleLevel": "h2"
+                "titleLevel": "h2",
+                "eyebrow": "Kapitola 03",
+                "title": "Od poznání půdy k přípravě směsi",
+                "number": "04"
               },
               "format": "",
               "version": 2
@@ -3829,7 +3901,7 @@
                   "mediaFilename": "fig-ryc-zahon-ctverec.avif"
                 },
                 "title": "Nejdříve poznat a připravit podloží",
-                "number": "03",
+                "number": "05",
                 "caption": "Světlé hroudy jsou vyschlá udusaná vrstva. Oschlá se pod rýčem láme, mokrá by se jen roztírala.",
                 "surface": "bila",
                 "blockName": "Nejdříve poznat a připravit podloží",
@@ -3846,15 +3918,15 @@
                 "body": "Plochu rozdělíme na zvládnutelné pracovní úseky a pro každý vyhradíme jeho podíl objednaných materiálů. Zeminu s pískem promícháme jako první, ostatní příměsi přijdou na řadu postupně podle hloubky. Nemáme-li místo pro všechny hromady, mohou postupně navazovat i dodávky.\n\nObjednávka vychází z objemových poměrů a sypných hustot dodavatele; vážní lístek kontroluje hmotnost. Při práci nemusíme odměřovat kbelík po kbelíku ani dohánět pár kilogramů v mnohatunové směsi. Důležitější je rozptýlit materiál po celé ploše, aby nezůstal v hromádkách či pruzích. Menší příměsi, osivo a přípravky přesto dávkujeme podle jejich účelu a předepsané spotřeby.",
                 "side": "image-left",
                 "photo": {
-                  "mediaFilename": "fig-useky.avif"
+                  "mediaFilename": "fig-useky-siroka.avif"
                 },
                 "title": "Dodávky a míchání přizpůsobit rozsahu zahrady",
-                "number": "04",
+                "number": "06",
                 "caption": "Jeden vyznačený úsek a jeho podíl písku v několika hromádkách. Sousední úseky dostanou svůj.",
                 "surface": "krem",
                 "blockName": "Dodávky a míchání přizpůsobit rozsahu zahrady",
                 "blockType": "split",
-                "photoRatio": "4:5",
+                "photoRatio": "3:2",
                 "titleLevel": "h3"
               },
               "format": "",
@@ -3867,7 +3939,7 @@
                 "body": "Nejprve postupujeme podle [zvoleného režimu](/magazin/kalkulator-na-planovani-pudniho-profilu#udrzet-vysku-zapravit-nebo-vytvorit-novou-vrstvu): při udržení výšky odebereme vypočtené množství původní zeminy, při zapravení ji ponecháme a pro novou vrstvu připravíme dováženou zeminu. Pokud receptura obsahuje písek, rozložíme jej rovnoměrně po pracovních úsecích a promícháme se zeminou v plánované hloubce profilu – u zdejšího modelu přibližně 30 cm.\n\nRotavátor může pomoci, ale běžný zahradní stroj často nepromíchá celých 30 cm jediným průjezdem. Potřebnou hloubku ověříme podle stroje a stavu půdy; při větší hloubce použijeme odpovídající mechanizaci nebo jiný způsob promíchání. Samotné prokypření podloží neznamená, že se do něj písek skutečně dostal.\n\nTeprve po promíchání minerálního základu rozprostřeme zeolit po ploše. Zapravíme jej mělčeji, do hloubky zadané v receptuře: třeba přibližně do horních 20 cm, pokud s nimi výpočet počítá. Výchozí jílovitý příklad kalkulátoru používá 15 cm; rozhodnete-li se pro 20 cm, změňte hloubku v kalkulátoru ještě před objednávkou.\n\nPro mělčí přejezd nastavíme pracovní hloubku rotavátoru podle stroje. Rychlejší pojezd může promíchání omezit, ale sám nezaručí, že zeolit neskončí v celých 30 cm.",
                 "side": "image-right",
                 "title": "Nejprve promíchat minerální základ, potom příměsi mělčeji",
-                "number": "05",
+                "number": "07",
                 "caption": "Každý průchod jde mělčeji: základ promícháme v celých 30 cm, zeolit u výchozího příkladu kalkulátoru do 15 cm, biochar a Actino jen do horních 10 cm.",
                 "drawing": "michani-od-hloubky",
                 "surface": "bila",
@@ -3885,7 +3957,7 @@
                 "alt": "Tři vývrty sondou do 30 cm z téže plochy. V prvním leží biochar a Actino v horních 10 cm a zeolit do 15 cm. Ve druhém zůstala příměs nahromaděná na jednom místě. Ve třetím jsou příměsi po hlubokém frézování rozptýlené až na dno.",
                 "body": "Nakonec rovnoměrně rozprostřeme [předem připravený biochar](/magazin/pisek-biochar-a-dalsi-primesi#co-koupit-a-jak-biochar-pripravit) a případné Actino (dříve Biovin), pokud je receptura řadí do horních 10 cm. Hráběmi je zapravíme do povrchové části; mají-li být promíchané skutečně v celých 10 cm, pomůže mělké ruční prokypření nebo stroj nastavený na tuto hloubku.\n\nHrábě samy deset centimetrů spolehlivě nepromíchají. Po tomto kroku se nevracíme k hlubokému frézování, které by mělčí příměsi rozneslo po celém profilu.\n\nStejný sled platí pro každou zvolenou směs: nejhlouběji promícháme složky jejího minerálního základu, další příměsi přidáváme podle jejich vlastní hloubky od hlubší k mělčí. Rozprostíráme je postupně po úsecích, nikoli v čistých patrech.\n\nRýčem nebo malou sondou na několika místech orientačně zkontrolujeme, zda ve směsi nezůstaly hromádky a zda příměsi nejsou zbytečně rozptýlené až na dno. Přesnost na milimetry nepotřebujeme. Déšť za nás pevná zrnka do potřebné hloubky nepromíchá.",
                 "side": "image-left",
-                "number": "06",
+                "number": "08",
                 "caption": "Sonda na třech místech téže plochy: příměsi ve své hloubce, hromádka, která zůstala na jednom místě, a příměsi roznesené hlubokým frézováním až na dno.",
                 "drawing": "kontrola-sondou",
                 "surface": "bila",
@@ -3907,7 +3979,7 @@
                   "mediaFilename": "fig-louze.avif"
                 },
                 "title": "Čas na slehnutí není prázdné čekání",
-                "number": "07",
+                "number": "09",
                 "caption": "Louže po zálivce prozradí místo, kde povrch ještě klesá. Tam se po ustálení doplní směs.",
                 "surface": "krem",
                 "blockName": "Čas na slehnutí není prázdné čekání",
@@ -3926,21 +3998,10 @@
                 },
                 "panel": false,
                 "layout": "bleed",
-                "number": "08",
+                "number": "10",
                 "caption": "Urovnané a slehlé lůžko před výsevem, na jeho okraji pytel osiva.",
-                "blockName": "Obr. 08",
+                "blockName": "Obr. 10",
                 "blockType": "figure"
-              },
-              "format": "",
-              "version": 2
-            },
-            {
-              "type": "block",
-              "fields": {
-                "title": "Proč se to všechno nakonec vyplatí?",
-                "eyebrow": "Závěr",
-                "blockName": "Závěr",
-                "blockType": "chapter"
               },
               "format": "",
               "version": 2
@@ -3951,7 +4012,7 @@
                 "body": "",
                 "side": "image-left",
                 "photo": {
-                  "mediaFilename": "soil-lawn.avif"
+                  "mediaFilename": "fig-priprava-bosy-travnik.avif"
                 },
                 "caption": "Připravená půda není vidět, ale právě na ní stojí odolnost a každodenní péče o trávník.",
                 "surface": "bila",
@@ -3970,7 +4031,16 @@
                         "children": [
                           {
                             "mode": "normal",
-                            "text": "Před výsevem můžete tu zakopanou udusanou vrstvu snadno rozbít. Srovnáte hlínu a zasejete.",
+                            "text": "Před výsevem můžete utuženou vrstvu snadno rozbít.",
+                            "type": "text",
+                            "style": "",
+                            "detail": 0,
+                            "format": 0,
+                            "version": 1
+                          },
+                          {
+                            "mode": "normal",
+                            "text": " Srovnáte hlínu a zasejete.",
                             "type": "text",
                             "style": "",
                             "detail": 0,
@@ -4045,7 +4115,10 @@
                 "blockName": "Foto půdy · lawn",
                 "blockType": "split",
                 "photoRatio": "1:1",
-                "titleLevel": "h2"
+                "titleLevel": "h2",
+                "eyebrow": "Závěr",
+                "title": "Proč se to všechno nakonec vyplatí?",
+                "number": "11"
               },
               "format": "",
               "version": 2
@@ -4413,7 +4486,7 @@
               "type": "block",
               "fields": {
                 "alt": "Schematický průběh teploty vzduchu a půdy od jara do podzimu: půda se za vzduchem opožďuje, na jaře je chladnější, koncem léta teplejší. Na přelomu léta a podzimu je vyznačené okno pro výsev s šesti až osmi týdny růstu před zimou. Pod grafem tři řádky: jaro, léto a konec léta.",
-                "body": "**Pro výsev anglického trávníku bývají nejlepší podmínky na konci léta a na začátku podzimu.** V tomto období se totiž potkávají dvě výhody: půda je ještě prohřátá po létě, ale vzduch už bývá chladnější.\n\nSemena mají dostatek tepla ke klíčení, zatímco povrch zeminy vysychá pomaleji než za letních veder. Mladá tráva tak dostává příležitost zakořenit, aniž by musela od prvních dnů čelit silnému horku.\n\nVhodným vodítkem jsou mírné dny s **denními teplotami vzduchu přibližně 15–25 °C**, bez dlouhotrvajících veder. Jde o orientaci; rozhodující zůstává naměřená teplota půdy.\n\nS výsevem počítáme tak, aby po něm zbývalo přibližně **šest až osm týdnů počasí příznivého pro růst**. Nemusí být po celou dobu stejně teplo. Důležité je, aby tráva před výrazným zimním útlumem stihla nejen vzejít, ale také rozvinout kořeny a zesílit.\n\nPomalejší složky směsi potřebují větší časovou rezervu, takže časný podzim bývá spolehlivější volbou než čekání na poslední teplé dny před zimou.\n\nJarní výsev je také možný, mladý trávník však čeká první léto dříve, než si vytvoří tak dobře vyvinuté kořeny. Letní výsev zase přináší rychlé vysychání povrchu a větší nároky na zálivku. Pokud si můžeme termín zvolit, konec léta a začátek podzimu obvykle nabídnou příznivější start.\n\n**Před očekávaným přívalovým deštěm výsev raději odložíme.**",
+                "body": "**Pro výsev anglického trávníku bývají nejlepší podmínky na konci léta a na začátku podzimu.** V tomto období se totiž potkávají dvě výhody: půda je ještě prohřátá po létě, ale vzduch už bývá chladnější.\n\nSemena mají dostatek tepla ke klíčení, zatímco povrch zeminy vysychá pomaleji než za letních veder. Mladá tráva tak dostává příležitost zakořenit, aniž by musela od prvních dnů čelit silnému horku.\n\nVhodným vodítkem jsou mírné dny s **denními teplotami vzduchu přibližně 15–25 °C**, bez dlouhotrvajících veder. Jde o orientaci; rozhodující zůstává naměřená teplota půdy.\n\nS výsevem počítáme tak, aby po něm zbývalo přibližně **šest až osm týdnů počasí příznivého pro růst**. Nemusí být po celou dobu stejně teplo. Důležité je, aby tráva před výrazným zimním útlumem stihla nejen vzejít, ale také rozvinout kořeny a zesílit.\n\nPomalejší složky směsi potřebují větší časovou rezervu, takže časný podzim bývá spolehlivější volbou než čekání na poslední teplé dny před zimou.\n\nJarní výsev je také možný, mladý trávník však čeká první léto dříve, než si vytvoří tak dobře vyvinuté kořeny. Letní výsev zase přináší rychlé vysychání povrchu a větší nároky na zálivku. Pokud si můžeme termín zvolit, konec léta a začátek podzimu obvykle nabídnou příznivější start. Před očekávaným přívalovým deštěm výsev raději odložíme, aby voda semena neodplavila.",
                 "side": "image-left",
                 "title": "Semeno nemá kalendář",
                 "number": "02",
@@ -4576,7 +4649,7 @@
             {
               "type": "block",
               "fields": {
-                "body": "Samotné [seťové lůžko](/magazin/jak-pripravit-a-ulozit-smes#cas-na-slehnuti-neni-prazdne-cekani) má být rovné, přiměřeně pevné a na povrchu jemně drobtovité. Přehnaně kyprá zemina se později sesedá, při chůzi vznikají hluboké stopy a semena mohou skončit v nestejné hloubce. Na opačném konci je udusaná deska, do které kořínek obtížně proniká. Mezi oběma krajnostmi potřebujeme povrch, který semeno podrží a současně mu dovolí růst.\n\nPokud je půda suchá i v hloubce, vyplatí se ji navlhčit už před setím. U vyschlého profilu může jít o provlhčení přibližně horních 15–20 cm několik dnů předem, následované oschnutím povrchu do stavu vhodného k práci.\n\nV půdě se tím vytvoří zásoba, kterou pak nemusíme dohánět prudkou zálivkou přes právě vysetá semena. Plochu dostatečně vlhkou po dešti ovšem stejně intenzivně znovu neproléváme.\n\n### Konkurence plevelů\n\nČást této konkurence můžeme omezit ještě před výsevem. Pokud máme čas, necháme připravený povrch zvlhnout a první plevele vzejít. Potom je mělce odstraníme. Půdu znovu zbytečně hluboko nepřevracíme, abychom nevynesli další zásobu semen na povrch. Vytrvalé plevele s kořeny a oddenky potřebují důkladnější řešení už při přípravě plochy.",
+                "body": "Samotné [seťové lůžko](/magazin/jak-pripravit-a-ulozit-smes#cas-na-slehnuti-neni-prazdne-cekani) má být rovné, přiměřeně pevné a na povrchu jemně drobtovité. Přehnaně kyprá zemina se později sesedá, při chůzi vznikají hluboké stopy a semena mohou skončit v nestejné hloubce. Na opačném konci je udusaná deska, do které kořínek obtížně proniká. Mezi oběma krajnostmi potřebujeme povrch, který semeno podrží a současně mu dovolí růst.\n\nPokud je půda suchá i v hloubce, vyplatí se ji navlhčit už před setím. U vyschlého profilu může jít o provlhčení přibližně horních 15–20 cm několik dnů předem, následované oschnutím povrchu do stavu vhodného k práci.\n\nV půdě se tím vytvoří zásoba, kterou pak nemusíme dohánět prudkou zálivkou přes právě vysetá semena. Plochu dostatečně vlhkou po dešti ovšem stejně intenzivně znovu neproléváme.\n\n### Konkurence plevelů\n\nKonkurenci plevelů můžeme zčásti omezit ještě před výsevem. Pokud máme čas, necháme připravený povrch zvlhnout a první plevele vzejít. Potom je mělce odstraníme. Půdu znovu zbytečně hluboko nepřevracíme, abychom nevynesli další zásobu semen na povrch. Vytrvalé plevele s kořeny a oddenky potřebují důkladnější řešení už při přípravě plochy.",
                 "side": "image-right",
                 "photo": {
                   "mediaFilename": "fig-zasit-setove-luzko.avif"
@@ -4597,16 +4670,35 @@
             {
               "type": "block",
               "fields": {
-                "body": "Startovací hnojivo může mladému trávníku pomoci, ale větší dávka neznamená lepší start. **Vybíráme výrobek určený pro nový výsev a dodržujeme dávkování, termín i způsob aplikace uvedený výrobcem.** Některá hnojiva patří už do přípravy půdy; první zelené špičky proto samy o sobě nejsou pokynem k dalšímu hnojení.\n\n**Dobrou volbou je kvalitní startovací hnojivo s podílem postupně uvolňovaného dusíku.** Může spojovat rychle dostupnou část pro počáteční růst s pomalejší zásobou na další týdny. Tím pomáhá omezit prudké růstové výkyvy a snížit riziko poškození vysokou jednorázovou dávkou. Ani postupné uvolňování však nenahrazuje správné dávkování.\n\nZohledníme také hnojivo, kompost nebo obohacený substrát, které jsme do půdy přidali při přípravě. Další výživu nepřidáváme automaticky a množství odměřujeme podle skutečné plochy.\n\n**Přisypávat „pro jistotu“ se u klíčící trávy nevyplácí.** Vysoká koncentrace rozpustných solí ztěžuje příjem vody a může poškodit mladé kořínky. Nadbytek dusíku zase podporuje příliš bujný, měkký růst, náchylnější k některým chorobám.\n\nStřídmost platí i pro organická hnojiva a kompost – přírodní původ neznamená neomezenou dávku. Kompost musí být vyzrálý a vhodný pro mladé rostliny. Mykorhiza a biostimulanty zůstávají volitelnými doplňky; vhodnou půdu, vláhu a čas na zakořenění nenahradí.",
+                "alt": "Zvětšený řez horní vrstvou půdy s milimetrovou stupnicí a třemi semeny: jedno leží volně na povrchu bez kontaktu s půdou, druhé je přitlačené v hloubce 2–5 mm a klíčí nad povrch, třetí leží příliš hluboko a jeho klíček končí pod povrchem. Dole lehký válec přitlačuje semena k půdě.",
+                "body": "S hloubkou je potřeba zacházet citlivě. U mnoha běžných směsí se pohybujeme v řádu několika milimetrů, často přibližně 2–5 mm, podle konkrétního osiva a technologie. Některé výrobky mají jiné doporučení. Drobná semena lipnice bývají k hlubokému zahrabání citlivější než větší semena jílku. Rostlinka má jen omezené zásoby pro cestu ke světlu; další vrstva zeminy tuto cestu prodlužuje.\n\nHrábě proto nemají osivo shromáždit do řádků nebo zahrnout centimetry půdy. Smyslem je mělce je spojit s povrchem podle návodu směsi. Příliš hluboké setí nenapravíme tím, že budeme častěji zalévat.\n\nSemeno potřebuje dobrý kontakt s vlhkou půdou, aby mohlo přijímat vodu a začít klíčit. **Po mělkém zapravení osiva proto plochu přejedeme lehkým zahradním válcem.** Ten semena přitlačí k zemině a pomůže odstranit větší mezery, které by je oddělovaly od vlhkého povrchu. Právě v tom spočívá hlavní účel válcování po výsevu.\n\nPrakticky hledáme tento výsledek: **válec semena přitlačí a povrch lehce zpevní, ale nezanechává hluboké koleje ani nerozmazává zeminu.** Pokud se na něj lepí půda a osivo, je povrch pro válcování příliš mokrý a je potřeba počkat. Příliš těžkým válcem nebo opakovanými přejezdy bychom mohli zeminu nadměrně zhutnit a ztížit růst mladých kořenů.",
                 "side": "image-left",
+                "number": "08",
+                "caption": "Semeno potřebuje kontakt s půdou a jen několik milimetrů zeminy nad sebou. Volně na povrchu nemá odkud brát vodu, z hloubky se klíček ke světlu nedostane.",
+                "drawing": "hloubka-seti",
+                "surface": "krem",
+                "blockName": "Osivo zapravit mělce a přitlačit",
+                "blockType": "split",
+                "continues": true,
+                "photoRatio": "4:5",
+                "titleLevel": "h2"
+              },
+              "format": "",
+              "version": 2
+            },
+            {
+              "type": "block",
+              "fields": {
+                "body": "Startovací hnojivo může mladému trávníku pomoci, ale větší dávka neznamená lepší start. **Vybíráme výrobek určený pro nový výsev a dodržujeme dávkování, termín i způsob aplikace uvedený výrobcem.** Některá hnojiva patří už do přípravy půdy; první zelené špičky proto samy o sobě nejsou pokynem k dalšímu hnojení.\n\n**Dobrou volbou je kvalitní startovací hnojivo s podílem postupně uvolňovaného dusíku.** Může spojovat rychle dostupnou část pro počáteční růst s pomalejší zásobou na další týdny. Tím pomáhá omezit prudké růstové výkyvy a snížit riziko poškození vysokou jednorázovou dávkou. Ani postupné uvolňování však nenahrazuje správné dávkování.\n\nZohledníme také hnojivo, kompost nebo obohacený substrát, které jsme do půdy přidali při přípravě. Další výživu nepřidáváme automaticky a množství odměřujeme podle skutečné plochy.\n\n**Přisypávat „pro jistotu“ se u klíčící trávy nevyplácí.** Vysoká koncentrace rozpustných solí ztěžuje příjem vody a může poškodit mladé kořínky. Nadbytek dusíku zase podporuje příliš bujný, měkký růst, náchylnější k některým chorobám.\n\nStřídmost platí i pro organická hnojiva a kompost – přírodní původ neznamená neomezenou dávku. Kompost musí být vyzrálý a vhodný pro mladé rostliny. Mykorhiza a biostimulanty zůstávají volitelnými doplňky; vhodnou půdu, vláhu a čas na zakořenění nenahradí.",
+                "side": "image-right",
                 "photo": {
                   "mediaFilename": "fig-zasit-hnojivo.avif"
                 },
                 "title": "Hnojivo neumí nahradit čas",
-                "number": "08",
+                "number": "09",
                 "caption": "Startovací hnojivo se odměřuje podle skutečné plochy, ne od oka. Přisypat pro jistotu se u klíčící trávy nevyplácí.",
                 "eyebrow": "Kapitola 06",
-                "surface": "krem",
+                "surface": "bila",
                 "blockName": "Hnojivo neumí nahradit čas",
                 "blockType": "split",
                 "photoRatio": "4:5",
@@ -4620,9 +4712,9 @@
               "fields": {
                 "alt": "Dva řezy půdou do 30 cm se stejnou dávkou mykorhizního přípravku. Vlevo leží přípravek v pásu asi 3 cm pod osivem a první kořínky do něj vrůstají. Vpravo je tatáž dávka rozptýlená do celé hloubky; kořínky dosáhnou jen k nejmělčí značce přípravku a většina dávky leží hlouběji.",
                 "body": "Pokud jsme se [pro mykorhizní přípravek rozhodli](/magazin/pisek-biochar-a-dalsi-primesi#mykorhizni-pripravek-ma-vlastni-pravidla-davkovani), jeho umístění se řídí návodem konkrétního výrobku. Pro přípravek TurfComp výrobce při výsevu popisuje aplikaci přibližně **3 cm pod osivo**.\n\nPři pokládce travního koberce přijde na připravený povrch pod něj. Podstatný je budoucí kontakt s kořeny; rovnoměrné rozptýlení stejné dávky do celých třiceti centimetrů by sledovalo jiný cíl.\n\nPřípravek rozprostřeme rovnoměrně v místě budoucích kořenů a dál postupujeme podle návodu k výsevu nebo pokládce koberce. Při ošetření hotového trávníku použijeme návod pro dodatečnou aplikaci; postup určený pod osivo na povrchu již založeného porostu nenapodobujeme.",
-                "side": "image-right",
+                "side": "image-left",
                 "title": "Mykorhizu umístit tam, kde se setká s mladými kořeny",
-                "number": "09",
+                "number": "10",
                 "caption": "Stejná dávka, jiné místo. Pás zhruba 3 cm pod osivem potká první kořínky hned; rozptýlený do 30 cm leží většinou tam, kam mladé kořeny ještě nedosáhnou.",
                 "drawing": "mykorhiza-pod-osivem",
                 "surface": "bila",
@@ -4639,9 +4731,9 @@
               "fields": {
                 "alt": "Pohled shora na dvě stejné plochy. Na první se první polovina osiva vysévá v rovnoběžných pruzích jedním směrem, na druhé se přes ně seje druhá polovina napříč, kolmo k prvnímu průchodu.",
                 "body": "Podle velikosti plochy odvážíme množství osiva **doporučené výrobcem konkrétní travní směsi** a rozdělíme ho na dvě stejné části. První polovinu vysejeme po celé ploše v jednom směru, druhou polovinu napříč, kolmo k prvnímu průchodu. Tím pomůžeme vyrovnat drobné nepravidelnosti a omezíme vznik hustých ostrůvků a řídkých pruhů.\n\n**Každým směrem vyséváme pouze polovinu doporučené dávky.** Celkové množství osiva tak zůstává stejné, jen ho rovnoměrněji rozložíme. Postup platí pro ruční výsev i rozmetadlo; u něj přizpůsobíme nastavení poloviční dávce. Vyséváme za klidného počasí, aby semena neodnášel vítr.",
-                "side": "image-left",
+                "side": "image-right",
                 "title": "Dva směry pro rovnoměrný výsev",
-                "number": "10",
+                "number": "11",
                 "caption": "Polovina dávky jedním směrem, druhá polovina napříč. Celkové množství osiva se nemění, jen se rovnoměrněji rozloží.",
                 "drawing": "krizovy-vysev",
                 "eyebrow": "Kapitola 07",
@@ -4650,26 +4742,6 @@
                 "blockType": "split",
                 "photoRatio": "4:5",
                 "titleLevel": "h2"
-              },
-              "format": "",
-              "version": 2
-            },
-            {
-              "type": "block",
-              "fields": {
-                "alt": "Zvětšený řez horní vrstvou půdy s milimetrovou stupnicí a třemi semeny: jedno leží volně na povrchu bez kontaktu s půdou, druhé je přitlačené v hloubce 2–5 mm a klíčí nad povrch, třetí leží příliš hluboko a jeho klíček končí pod povrchem. Dole lehký válec přitlačuje semena k půdě.",
-                "body": "S hloubkou je potřeba zacházet citlivě. U mnoha běžných směsí se pohybujeme v řádu několika milimetrů, často přibližně 2–5 mm, podle konkrétního osiva a technologie. Některé výrobky mají jiné doporučení. Drobná semena lipnice bývají k hlubokému zahrabání citlivější než větší semena jílku. Rostlinka má jen omezené zásoby pro cestu ke světlu; další vrstva zeminy tuto cestu prodlužuje.\n\nHrábě proto nemají osivo shromáždit do řádků nebo zahrnout centimetry půdy. Smyslem je mělce je spojit s povrchem podle návodu směsi. Příliš hluboké setí nenapravíme tím, že budeme častěji zalévat.\n\nSemeno potřebuje dobrý kontakt s vlhkou půdou, aby mohlo přijímat vodu a začít klíčit. **Po mělkém zapravení osiva proto plochu přejedeme lehkým zahradním válcem.** Ten semena přitlačí k zemině a pomůže odstranit větší mezery, které by je oddělovaly od vlhkého povrchu. Právě v tom spočívá hlavní účel válcování po výsevu.\n\nPrakticky hledáme tento výsledek: **válec semena přitlačí a povrch lehce zpevní, ale nezanechává hluboké koleje ani nerozmazává zeminu.** Pokud se na něj lepí půda a osivo, je povrch pro válcování příliš mokrý a je potřeba počkat. Příliš těžkým válcem nebo opakovanými přejezdy bychom mohli zeminu nadměrně zhutnit a ztížit růst mladých kořenů.",
-                "side": "image-right",
-                "number": "11",
-                "caption": "Semeno potřebuje kontakt s půdou a jen několik milimetrů zeminy nad sebou. Volně na povrchu nemá odkud brát vodu, z hloubky se klíček ke světlu nedostane.",
-                "drawing": "hloubka-seti",
-                "surface": "krem",
-                "blockName": "Osivo zapravit mělce a přitlačit",
-                "blockType": "split",
-                "continues": false,
-                "photoRatio": "4:5",
-                "titleLevel": "h2",
-                "title": "Osivo zapravit mělce a přitlačit"
               },
               "format": "",
               "version": 2
@@ -4882,7 +4954,7 @@
                     "label": "přibližná výška běžné směsi po první seči"
                   },
                   {
-                    "value": "⅓",
+                    "value": "1/3",
                     "label": "nejvýše tato část výšky pryč při jednom sečení"
                   }
                 ]
@@ -4995,7 +5067,7 @@
                 "body": "Čerstvě připravená zemina nabízí světlo, vláhu a volné místo. Pro zahradníka je to budoucí trávník. Pro semena plevelů v půdě je to příležitost, která nemusela přijít několik let. Když proto mezi trávou vyraší jiné rostliny, neznamená to automaticky, že je přinesl pytel osiva.\n\nPo výsevu pomáhá část jednoletých plevelů omezovat pravidelné sečení. Vytrvalé druhy mohou vyžadovat cílený zásah. Vyšší dávka travního osiva však nenahradí odstranění oddenků ani nevyřeší místo, kde tráva dlouhodobě nemá vhodné podmínky.",
                 "side": "image-left",
                 "photo": {
-                  "mediaFilename": "fig-zasit-plevel-nadhled.avif"
+                  "mediaFilename": "fig-zasit-plevel-nadhled-siroka.avif"
                 },
                 "title": "Na prázdnou plochu nečekala jen tráva",
                 "number": "06",
@@ -5004,7 +5076,7 @@
                 "surface": "krem",
                 "blockName": "Na prázdnou plochu nečekala jen tráva",
                 "blockType": "split",
-                "photoRatio": "1:1",
+                "photoRatio": "3:2",
                 "titleLevel": "h2"
               },
               "format": "",
@@ -5035,7 +5107,7 @@
               "type": "block",
               "fields": {
                 "alt": "Řez mírným svahem v prudkém dešti: nahoře zůstalo holé místo, semena voda odplavila dolů pod svah, kde leží na hromádce; povrch svahu po vyschnutí ztvrdne v krustu.",
-                "body": "**Před očekávaným přívalovým deštěm výsev raději odložíme.** Prudká voda může odplavit semena a narušit povrch půdy, na kterém po vyschnutí vznikne tvrdá krusta ztěžující vzcházení.\n\n**Přemokření, přehnojení a příliš hustý výsev mohou podporovat choroby mladé trávy.** Pokud rostlinky hnědnou nebo polehávají, nejprve zkontrolujeme vlhkost půdy. Další zálivka totiž může místo pomoci poškození zhoršit.",
+                "body": "Prudký déšť může odplavit semena a narušit povrch půdy, na kterém po vyschnutí vznikne tvrdá krusta ztěžující vzcházení.\n\n**Přemokření, přehnojení a příliš hustý výsev mohou podporovat choroby mladé trávy.** Pokud rostlinky hnědnou nebo polehávají, nejprve zkontrolujeme vlhkost půdy. Další zálivka totiž může místo pomoci poškození zhoršit.",
                 "side": "image-left",
                 "title": "Co může ohrozit čerstvý výsev",
                 "number": "08",
@@ -5082,10 +5154,30 @@
                 "caption": "Tvar a poloha řídkého místa napoví příčinu: pravidelné pruhy, prohlubeň s vodou a stopa sekačky ukazují každá jinam.",
                 "drawing": "mapa-chyby",
                 "eyebrow": "Kapitola 07",
-                "surface": "bila",
+                "surface": "krem",
                 "blockName": "Zahrada někdy nakreslí mapu chyby",
                 "blockType": "split",
                 "photoRatio": "4:5",
+                "titleLevel": "h2"
+              },
+              "format": "",
+              "version": 2
+            },
+            {
+              "type": "block",
+              "fields": {
+                "body": "Do poslední skupiny může patřit i moč zvířat, rozlité palivo nebo hnojivo vysypané při plnění rozmetadla. A ptáci na ploše nemusí vždy požírat osivo: pokud vytrhávají již zakořeněné části, mohou hledat půdní larvy. Jejich přítomnost sama ještě není důvodem použít insekticid.\n\nProkazatelně smyté nebo zničené místo potřebuje jiný přístup než zdravý, pomalu vzcházející výsev. Při opravě nejprve odstraníme příčinu, upravíme povrch a zvolíme odpovídající dávku osiva. Zároveň znovu posoudíme zbývající příznivé období. U místa, které pouze čeká na pomalejší složku směsi, může být nejúčinnější péčí zachování vhodné vláhy a trochu trpělivosti.",
+                "side": "image-right",
+                "photo": {
+                  "mediaFilename": "fig-zasit-oprava.avif"
+                },
+                "number": "11",
+                "caption": "Oprava holého místa: nejdřív upravený povrch, potom osivo v dávce pro dané místo.",
+                "surface": "krem",
+                "blockName": "K15b – pokračování",
+                "blockType": "split",
+                "continues": true,
+                "photoRatio": "3:2",
                 "titleLevel": "h2"
               },
               "format": "",
@@ -5188,26 +5280,6 @@
             {
               "type": "block",
               "fields": {
-                "body": "Do poslední skupiny může patřit i moč zvířat, rozlité palivo nebo hnojivo vysypané při plnění rozmetadla. A ptáci na ploše nemusí vždy požírat osivo: pokud vytrhávají již zakořeněné části, mohou hledat půdní larvy. Jejich přítomnost sama ještě není důvodem použít insekticid.\n\nProkazatelně smyté nebo zničené místo potřebuje jiný přístup než zdravý, pomalu vzcházející výsev. Při opravě nejprve odstraníme příčinu, upravíme povrch a zvolíme odpovídající dávku osiva. Zároveň znovu posoudíme zbývající příznivé období. U místa, které pouze čeká na pomalejší složku směsi, může být nejúčinnější péčí zachování vhodné vláhy a trochu trpělivosti.",
-                "side": "image-right",
-                "photo": {
-                  "mediaFilename": "fig-zasit-oprava.avif"
-                },
-                "number": "11",
-                "caption": "Oprava holého místa: nejdřív upravený povrch, potom osivo v dávce pro dané místo.",
-                "surface": "bila",
-                "blockName": "K15b – pokračování",
-                "blockType": "split",
-                "continues": true,
-                "photoRatio": "3:2",
-                "titleLevel": "h2"
-              },
-              "format": "",
-              "version": 2
-            },
-            {
-              "type": "block",
-              "fields": {
                 "body": "Když se konečně objeví první zelené špičky, čekání z úvodu článku skončí. Pod povrchem se ale dál rozhoduje o tom, jak pevný trávník vznikne: zda kořeny nacházejí vodu, vzduch a prostor a zda se příliš mnoho semenáčků nemusí dělit o stejné světlo. Následky rozdílů v péči se mohou naplno projevit až při prvním suchu nebo pravidelném používání.\n\nNejcennější součástí péče proto bývá schopnost všimnout si změny: půda začíná vysychat rychleji, pomalejší trávy právě vzcházejí, kořeny už dosahují hlouběji, povrch konečně unese sekačku. Na každou z těchto situací odpovídáme trochu jinak.\n\nNa začátku jsme do půdy vložili drobná semena. Pevný trávník z nich vznikne postupně, když jednotlivé rostliny dokážou využít vodu, vzduch, světlo a čas, který jsme jim nechali.",
                 "side": "image-left",
                 "photo": {
@@ -5217,7 +5289,7 @@
                 "number": "12",
                 "caption": "Tentýž pohled z terasy o několik týdnů později. Zelená už je vidět; jak pevně drží, ukážou až kořeny.",
                 "eyebrow": "Kapitola 08",
-                "surface": "krem",
+                "surface": "bila",
                 "blockName": "Co z terasy nebylo vidět",
                 "blockType": "split",
                 "photoRatio": "1:1",
@@ -5347,7 +5419,7 @@
                 "blockName": "Od první zálivky k automatické závlaze",
                 "blockType": "ctaBand",
                 "buttonHref": "/magazin/jak-navrhnout-automatickou-zavlahu",
-                "buttonLabel": "Jak navrhnout automatickou závlahu"
+                "buttonLabel": "Navrhnout závlahu"
               },
               "format": "",
               "version": 2
@@ -5357,7 +5429,7 @@
         }
       },
       "heroImage": {
-        "mediaFilename": "fig-zasit-terasa-po.avif"
+        "mediaFilename": "hero-pece-prvni-pruh.avif"
       },
       "relatedSlugs": [
         "jak-zasit-travnik",
@@ -5382,7 +5454,7 @@
             {
               "type": "block",
               "fields": {
-                "lead": "Spolehlivá automatická závlaha začíná třemi kroky: **změříme tlak a průtok vodního zdroje, rozmístíme postřikovače podle pravidla „hlava na hlavu“ a rozdělíme zahradu do logických sektorů**. Dávku vody přizpůsobíme půdě a trávníku. Čidla vlhkosti a využití retenční nádrže pak mohou pomoci omezit zbytečnou zálivku a usnadnit každodenní péči.",
+                "lead": "Spolehlivá automatická závlaha začíná třemi kroky: *změříme tlak a průtok vodního zdroje*, rozmístíme postřikovače podle pravidla „hlava na hlavu“ a rozdělíme zahradu do logických sektorů. Dávku vody přizpůsobíme půdě a trávníku. Čidla vlhkosti a využití retenční nádrže pak mohou pomoci omezit zbytečnou zálivku a usnadnit každodenní péči.",
                 "tiles": [
                   {
                     "unit": "l/m²",
@@ -5415,7 +5487,7 @@
               "type": "block",
               "fields": {
                 "alt": "Řez půdou ve dvou sloupcích: častá malá zálivka zvlhčuje především povrch, vydatnější zálivka může dosáhnout do hlubší kořenové zóny. Vhodný režim závisí také na stáří trávníku.",
-                "body": "Zahrada je fascinující živý organismus a voda představuje její krevní oběh. Obecně se doporučuje dodat trávníku **10 až 15 litrů vody na metr čtvereční, tedy 10–15 mm srážek, přibližně každé 2 až 3 dny v teplém období**, ale reálná potřeba vždy závisí na aktuálních podmínkách. Roli hraje teplota vzduchu, konkrétní druh trávy i celková kondice vašeho zeleného koberce. Uvedenou dávku a interval berme jako výchozí příklad, ne jako pevný program pro každou zahradu. Zdravý trávník s hlubokými kořeny obvykle zvládá období mezi zálivkami lépe než porost s mělkými kořeny. Méně častá, ale vydatnější zálivka může u zakořeněného trávníku podpořit využívání hlubších vrstev půdy.\n\nMladý trávník bez vyspělých kořenů naopak potřebuje pečlivější přístup; režim pro zakořeněný porost nelze jednoduše přenést na čerstvý výsev. Množství vody, které na trávník jednoduše vylijeme, nám ale samo o sobě neřekne, jaká je skutečná vlhkost uvnitř půdy. Proto dává mnohem větší smysl **měřit přímo půdní vlhkost, než jen slepě počítat objem dopadající vody**. Pokud tento základní přírodní princip nerespektujeme a závlahu nenavrhneme správně, nepomohou nám k dokonalé zahradě ani ty nejdražší komponenty.",
+                "body": "Zahrada je fascinující živý organismus a voda představuje její krevní oběh. Obecně se doporučuje dodat trávníku **10 až 15 litrů vody na metr čtvereční, tedy 10–15 mm srážek, přibližně každé 2 až 3 dny v teplém období**, ale reálná potřeba vždy závisí na aktuálních podmínkách. Roli hraje teplota vzduchu, konkrétní druh trávy i celková kondice vašeho zeleného koberce.\n\nUvedenou dávku a interval berme jako výchozí příklad, ne jako pevný program pro každou zahradu. Zdravý trávník s hlubokými kořeny obvykle zvládá období mezi zálivkami lépe než porost s mělkými kořeny. Méně častá, ale vydatnější zálivka může u zakořeněného trávníku podpořit využívání hlubších vrstev půdy.\n\nMladý trávník bez vyspělých kořenů naopak potřebuje pečlivější přístup; režim pro zakořeněný porost nelze jednoduše přenést na čerstvý výsev. Množství vody, které na trávník jednoduše vylijeme, nám ale samo o sobě neřekne, jaká je skutečná vlhkost uvnitř půdy.\n\nProto dává mnohem větší smysl **měřit přímo půdní vlhkost, než jen slepě počítat objem dopadající vody**. Pokud tento základní přírodní princip nerespektujeme a závlahu nenavrhneme správně, nepomohou nám k dokonalé zahradě ani ty nejdražší komponenty.",
                 "side": "image-right",
                 "title": "Jak funguje krevní oběh vaší zahrady?",
                 "number": "01",
@@ -5435,7 +5507,7 @@
               "type": "block",
               "fields": {
                 "alt": "Schéma kbelíkového testu: zdroj se stoupačkou, manometr s ručičkou na 3,5 baru, proud vody plnící desetilitrový kbelík k rysce, stopky na 24 sekundách a pod tím výpočet průtoku se srážkou 20 %.",
-                "body": "Nejčastější a bohužel nejfatálnější chybou je pouhý odhad síly vašeho vodního zdroje. Závlahové systémy totiž zajímá pouze to, jak se voda chová ve chvíli, kdy skutečně proudí potrubím. Jako orientační příklad zdroje zde uvažujeme **průtok kolem 25 litrů za minutu při dynamickém tlaku přibližně 3 bary**. Skutečné požadavky závisejí na zvolených postřikovačích a rozdělení sektorů. Průtok zjistíme kbelíkovým testem, tlak při něm současně sledujeme manometrem. Samotný kbelík tlak nezměří.\n\nPro přesné měření budete potřebovat tlakoměr (manometr), stopky a objemnou nádobu, ideálně desetilitrový kbelík. Tlakoměr připojte přímo k vašemu zdroji vody a velmi pomalu otevírejte ventil. V tomto příkladu otevírání zastavte, když se tlak ustálí na hodnotě 3,5 baru. Podstatné je zaznamenat, při jakém tlaku průtok měříte; výsledek nelze oddělit od podmínek testu.\n\nNásledně vložte pod vytékající proud vody kbelík a pečlivě stopněte čas, za který se naplní po rysku známého objemu. Z naměřených vteřin a objemu snadno vypočítáte váš reálný minutový průtok. Pro návrh v tomto návodu z výsledku odečteme **20 % jako bezpečnostní rezervu** na kolísání zdroje a změny během provozu. Návrh na hranici naměřeného výkonu by byl citlivý na každý pokles tlaku. Rezerva však sama nepotvrzuje, že zbývající tlak u hlavic bude dostatečný; tlakové ztráty v potrubí je stále potřeba zohlednit.",
+                "body": "Nejčastější a bohužel nejfatálnější chybou je pouhý odhad síly vašeho vodního zdroje. Závlahové systémy totiž zajímá pouze to, jak se voda chová ve chvíli, kdy skutečně proudí potrubím.\n\nJako orientační příklad zdroje zde uvažujeme **průtok kolem 25 litrů za minutu při dynamickém tlaku přibližně 3 bary**. Skutečné požadavky závisejí na zvolených postřikovačích a rozdělení sektorů. Průtok zjistíme kbelíkovým testem, tlak při něm současně sledujeme manometrem. Samotný kbelík tlak nezměří.\n\nPro přesné měření budete potřebovat tlakoměr (manometr), stopky a objemnou nádobu, ideálně desetilitrový kbelík. Tlakoměr připojte přímo k vašemu zdroji vody a velmi pomalu otevírejte ventil. V tomto příkladu otevírání zastavte, když se tlak ustálí na hodnotě 3,5 baru. Podstatné je zaznamenat, při jakém tlaku průtok měříte; výsledek nelze oddělit od podmínek testu.\n\n> **Pozor:** Před kbelíkovým testem zavřete ostatní odběry vody v domě — puštěná pračka nebo kohoutek výsledek zkreslí.\n\nNásledně vložte pod vytékající proud vody kbelík a pečlivě stopněte čas, za který se naplní po rysku známého objemu. Z naměřených vteřin a objemu snadno vypočítáte váš reálný minutový průtok. Pro návrh v tomto návodu z výsledku odečteme **20 % jako bezpečnostní rezervu** na kolísání zdroje a změny během provozu.\n\nNávrh na hranici naměřeného výkonu by byl citlivý na každý pokles tlaku. Rezerva však sama nepotvrzuje, že zbývající tlak u hlavic bude dostatečný; tlakové ztráty v potrubí je stále potřeba zohlednit.",
                 "side": "image-left",
                 "title": "Jak změřit skutečnou sílu vašeho vodního zdroje?",
                 "number": "02",
@@ -5447,46 +5519,6 @@
                 "blockType": "split",
                 "photoRatio": "4:5",
                 "titleLevel": "h2"
-              },
-              "format": "",
-              "version": 2
-            },
-            {
-              "type": "block",
-              "fields": {
-                "style": "warning",
-                "content": {
-                  "root": {
-                    "type": "root",
-                    "format": "",
-                    "indent": 0,
-                    "version": 1,
-                    "children": [
-                      {
-                        "type": "paragraph",
-                        "format": "",
-                        "indent": 0,
-                        "version": 1,
-                        "children": [
-                          {
-                            "mode": "normal",
-                            "text": "Pozor: Před kbelíkovým testem zavřete ostatní odběry vody v domě — puštěná pračka nebo kohoutek výsledek zkreslí.",
-                            "type": "text",
-                            "style": "",
-                            "detail": 0,
-                            "format": 0,
-                            "version": 1
-                          }
-                        ],
-                        "direction": "ltr",
-                        "textFormat": 0
-                      }
-                    ],
-                    "direction": "ltr"
-                  }
-                },
-                "blockType": "banner",
-                "blockName": "Před měřením zavřete ostatní odběry"
               },
               "format": "",
               "version": 2
@@ -5507,86 +5539,8 @@
             {
               "type": "block",
               "fields": {
-                "style": "info",
-                "content": {
-                  "root": {
-                    "type": "root",
-                    "format": "",
-                    "indent": 0,
-                    "version": 1,
-                    "direction": "ltr",
-                    "children": [
-                      {
-                        "type": "paragraph",
-                        "format": "",
-                        "indent": 0,
-                        "version": 1,
-                        "direction": "ltr",
-                        "textFormat": 0,
-                        "children": [
-                          {
-                            "mode": "normal",
-                            "text": "Pro zvídavé: proč tlak vody klesá, když otevřete kohoutek? Pokud spěcháte na rýsování plánku, můžete tento fyzikální exkurz přeskočit.",
-                            "type": "text",
-                            "style": "",
-                            "detail": 0,
-                            "format": 0,
-                            "version": 1
-                          }
-                        ]
-                      },
-                      {
-                        "type": "paragraph",
-                        "format": "",
-                        "indent": 0,
-                        "version": 1,
-                        "direction": "ltr",
-                        "textFormat": 0,
-                        "children": [
-                          {
-                            "mode": "normal",
-                            "text": "Tlak v uzavřeném potrubí označujeme jako statický. Jakmile otevřeme ventil a voda proudí, část energie se ztrácí třením o stěny potrubí, v ohybech a filtrech. Tlak naměřený při odběru proto bývá nižší než tlak v klidu. Čím větší průtok se snažíme stejným potrubím vést, tím významnější mohou tyto ztráty být.",
-                            "type": "text",
-                            "style": "",
-                            "detail": 0,
-                            "format": 0,
-                            "version": 1
-                          }
-                        ]
-                      },
-                      {
-                        "type": "paragraph",
-                        "format": "",
-                        "indent": 0,
-                        "version": 1,
-                        "direction": "ltr",
-                        "textFormat": 0,
-                        "children": [
-                          {
-                            "mode": "normal",
-                            "text": "Pro návrh nás zajímá dynamický tlak při požadovaném průtoku a tlak, který zbude přímo u postřikovače. Hodnota 2,8 baru na hlavici rotační trysky je zde orientační příklad; požadavek ověříme u konkrétního výrobku. Při nedostatečném tlaku může být problém s vysunutím, dostřikem i rovnoměrností zálivky. Ze samotného měření u zdroje proto nelze slíbit správnou funkci všech hlavic.",
-                            "type": "text",
-                            "style": "",
-                            "detail": 0,
-                            "format": 0,
-                            "version": 1
-                          }
-                        ]
-                      }
-                    ]
-                  }
-                },
-                "blockName": "Pro zvídavé",
-                "blockType": "banner"
-              },
-              "format": "",
-              "version": 2
-            },
-            {
-              "type": "block",
-              "fields": {
                 "alt": "Půdorys trávníku ve dvou stavech: nahoře oddálené postřikovače se suchým pruhem mezi dostřiky, dole rozestup rovný dostřiku, kde se kruhy protínají ve středech sousedních hlavic.",
-                "body": "Jeden postřikovač obvykle nezajistí stejně vydatnou zálivku po celé ploše svého dostřiku. Rozložení vody závisí na konkrétní trysce, a proto při návrhu pracujeme s překrytím sousedních dostřiků. Pro vyrovnanější pokrytí trávníku musí voda z jednoho postřikovače **dostříknout přesně na tělo toho sousedního**.\n\nTomuto způsobu rozmístění se říká „hlava na hlavu“. Jakmile se pokusíte ušetřit a postřikovače od sebe oddálíte, vytvoříte hluchá místa s nedostatkem vláhy. V horkých letních měsících se pak na trávníku velmi rychle objeví suché a nažloutlé pruhy. Pro pomalejší dávkování vody lze zvažovat rotační paprskové trysky. Postupnější zálivka může pomoci vsakování; i zde záleží na půdě a správném nastavení konkrétní trysky.",
+                "body": "Jeden postřikovač obvykle nezajistí stejně vydatnou zálivku po celé ploše svého dostřiku. Rozložení vody závisí na konkrétní trysce, a proto při návrhu pracujeme s překrytím sousedních dostřiků. Pro vyrovnanější pokrytí trávníku musí voda z jednoho postřikovače **dostříknout přesně na tělo toho sousedního**.\n\nTomuto způsobu rozmístění se říká „hlava na hlavu“. Jakmile se pokusíte ušetřit a postřikovače od sebe oddálíte, vytvoříte hluchá místa s nedostatkem vláhy. V horkých letních měsících se pak na trávníku velmi rychle objeví suché a nažloutlé pruhy.\n\nPro pomalejší dávkování vody lze zvažovat rotační paprskové trysky. Postupnější zálivka může pomoci vsakování; i zde záleží na půdě a správném nastavení konkrétní trysky.\n\n### Jak rozdělit zahradu do sektorů?\n\nRozmístěním postřikovačů návrh nekončí. Zahradu rozdělíme do logických zavlažovacích sektorů, které můžeme řídit samostatně. Při rozdělení zohledníme, zda je daná část na slunci, nebo ve stínu. Dvě plochy mohou ležet vedle sebe, a přesto nemusí potřebovat stejný režim zálivky. Samostatné řízení nám umožní jejich potřeby odlišit, místo abychom celé zahradě vnutili jeden program.\n\nRozdělení sektorů posuzujeme společně s naměřenou kapacitou zdroje a zvolenými postřikovači. Hodnota průtoku po odečtení rezervy je podklad pro návrh, ne důvod připojit co nejvíce hlavic najednou. Nejdříve potřebujeme vědět, jak se bude chovat konkrétní sektor; teprve pak dává smysl nastavovat jeho automatické řízení.",
                 "side": "image-right",
                 "title": "Proč se postřikovače musí vzájemně překrývat?",
                 "number": "03",
@@ -5619,67 +5573,10 @@
               "version": 2
             },
             {
-              "type": "heading",
-              "tag": "h3",
-              "format": "",
-              "indent": 0,
-              "version": 1,
-              "direction": "ltr",
-              "children": [
-                {
-                  "mode": "normal",
-                  "text": "Jak rozdělit zahradu do sektorů?",
-                  "type": "text",
-                  "style": "",
-                  "detail": 0,
-                  "format": 0,
-                  "version": 1
-                }
-              ]
-            },
-            {
-              "type": "paragraph",
-              "format": "",
-              "indent": 0,
-              "version": 1,
-              "direction": "ltr",
-              "textFormat": 0,
-              "children": [
-                {
-                  "mode": "normal",
-                  "text": "Rozmístěním postřikovačů návrh nekončí. Zahradu rozdělíme do logických zavlažovacích sektorů, které můžeme řídit samostatně. Při rozdělení zohledníme, zda je daná část na slunci, nebo ve stínu. Dvě plochy mohou ležet vedle sebe, a přesto nemusí potřebovat stejný režim zálivky. Samostatné řízení nám umožní jejich potřeby odlišit, místo abychom celé zahradě vnutili jeden program.",
-                  "type": "text",
-                  "style": "",
-                  "detail": 0,
-                  "format": 0,
-                  "version": 1
-                }
-              ]
-            },
-            {
-              "type": "paragraph",
-              "format": "",
-              "indent": 0,
-              "version": 1,
-              "direction": "ltr",
-              "textFormat": 0,
-              "children": [
-                {
-                  "mode": "normal",
-                  "text": "Rozdělení sektorů posuzujeme společně s naměřenou kapacitou zdroje a zvolenými postřikovači. Hodnota průtoku po odečtení rezervy je podklad pro návrh, ne důvod připojit co nejvíce hlavic najednou. Nejdříve potřebujeme vědět, jak se bude chovat konkrétní sektor; teprve pak dává smysl nastavovat jeho automatické řízení.",
-                  "type": "text",
-                  "style": "",
-                  "detail": 0,
-                  "format": 0,
-                  "version": 1
-                }
-              ]
-            },
-            {
               "type": "block",
               "fields": {
                 "alt": "Uzavřená rozhodovací smyčka: čidlo vlhkosti v půdě naměří 38 %, hodnota se porovná s cílem 45 %, při nedostatku se přes most otevře ventil a voda se vrací zpět k čidlu; zdrojem je přednostně retenční nádrž, vodovodní řad až jako záloha.",
-                "body": "Když už máte postřikovače rozmístěné a propojené potrubím pod povrchem, přichází na řadu elektronický mozek celé zahrady. Obyčejné časovače spustí vodu klidně i během vydatného deště nebo ve chvíli, kdy má půda vody stále dostatek. Zde vstupuje do hry systém **InteliDome**, který obyčejnou síť trubek promění ve vnímavý a ohleduplný organismus.\n\nČidla vlhkosti průběžně sledují stav půdy a při vhodném umístění a nastavení mohou pomoci rozhodnout, zda daný sektor potřebuje zalít. InteliDome v odpovídajícím zapojení umožňuje řídit spínače také s cílem přednostně využít dešťovou vodu z retenční nádrže a omezit spotřebu vody z řadu. Ze stejného místa lze řídit také večerní zahradní osvětlení a další venkovní spínače. Konkrétní možnosti závisejí na zapojených prvcích a nastavení systému.",
+                "body": "Když už máte postřikovače rozmístěné a propojené potrubím pod povrchem, přichází na řadu elektronický mozek celé zahrady. Obyčejné časovače spustí vodu klidně i během vydatného deště nebo ve chvíli, kdy má půda vody stále dostatek. Zde vstupuje do hry systém **InteliDome**, který obyčejnou síť trubek promění ve vnímavý a ohleduplný organismus.\n\nČidla vlhkosti průběžně sledují stav půdy a při vhodném umístění a nastavení mohou pomoci rozhodnout, zda daný sektor potřebuje zalít. InteliDome v odpovídajícím zapojení umožňuje řídit spínače také s cílem přednostně využít dešťovou vodu z retenční nádrže a omezit spotřebu vody z řadu.\n\nZe stejného místa lze řídit také večerní zahradní osvětlení a další venkovní spínače. Konkrétní možnosti závisejí na zapojených prvcích a nastavení systému.",
                 "side": "image-left",
                 "title": "Jak závlahu chytře řídit a neplýtvat?",
                 "number": "05",
@@ -5969,25 +5866,6 @@
               },
               "format": "",
               "version": 2
-            },
-            {
-              "type": "paragraph",
-              "format": "",
-              "indent": 0,
-              "version": 1,
-              "direction": "ltr",
-              "textFormat": 0,
-              "children": [
-                {
-                  "mode": "normal",
-                  "text": "Další návody k péči o zahradu najdete v našem magazínu.",
-                  "type": "text",
-                  "style": "",
-                  "detail": 0,
-                  "format": 0,
-                  "version": 1
-                }
-              ]
             },
             {
               "type": "block",

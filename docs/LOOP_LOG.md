@@ -4241,3 +4241,84 @@ obrazovkou (novinka s „díl 5 z 5“ v ní stojí); ořez pytlů ve čtverci
 dílu 3 (ohnisko 55 je autorovo, posun na ~61 změní i figuru v článku);
 patička bez `aria-current`; řádek rozpracovaného demo článku (rozhodne
 majitel).
+
+## Kontrola článků po restrukturalizaci magazínu (2026-10-03/04)
+
+Majitel 3. 10. rozdělil a sloučil články (6 upravených, 2 nové: Jak namíchat
+půdu pro trávník, Péče o nový trávník) a požádal o kontrolu designu
+a přístupnosti „jeden po druhém“, potom o opravu všech nálezů v pěti
+krocích (kód → obsah v `scripts/content/magazine.cs.json` → fotky GPT
+Image 2.5 → import a ověření → commit bez pushe).
+
+### Kontrola 1 (kontrolor + skeptik na každý článek, vazby mezi články)
+
+Žádný článek nebyl v pořádku. Kritické: odkaz na cizí web v kartě Actina,
+dva obrazy na téže straně (Písek), hvězdičky v souhrnu, ořezané popisky
+kresby na telefonu, próza ve středovém sloupci a neviditelný štítek hera
+(Závlaha), volný odstavec a kontrast hera (Jak namíchat), kontrast hera
+(Péče). Společné vady: nadpis FAQ bez pevných mezer, souhrn se 3 dlaždicemi
+v mřížce 2×2, bohaté dvousloupce bez míry 33 em, karty Souvisejících
+(poměr, sizes, prázdná buňka), zastaralá sitemapa.
+
+### Opravy
+
+- **Kód:** FAQ nadpis (+ JSON-LD bez U+2060); souhrn 3 dlaždice v řadě;
+  míra a mezera bohatých dvousloupců; karty 3:2 podle ohniska, sizes podle
+  mřížky a ořezu, 3 karty od lg v řadě; kotvený scrim hera pro další 3
+  články; Obr. 01 a Obr. 03 (Závlaha) bez ořezu a kolize; tabulky
+  s přístupným jménem; tlačítko výzvy a drobenka s pevnými mezerami;
+  přesměrování sloučeného článku z jazykových prefixů; mapa přesunutých
+  kotev; kalkulátory vsaku a kbelíkového testu s českou čárkou i v cizím
+  prohlížeči a verdikt bez pevné hranice 25 l/min; karta složek bez
+  ztlumení popisků; šev předělu po krémovém pásu; pokračování a tabulka na
+  krému bez švu; obsah „V článku“ (klávesnice nativní kotvou, myš dává
+  fokus cíli a zápis do historie); Obr. 04 a Obr. 10 (Péče) s radiálními
+  nádechy podle 9.2; pointa Obr. 08 „Liják odplaví semena“.
+- **Obsah:** strany, povrchy, pokračování, nadpisy kapitol a číslování
+  Obr. podle 8.2b; volná próza do dvousloupců; dlouhé odstavce dělené na
+  hranicích vět; ořezy 3:2 skutečnými soubory; minimální textové zásahy
+  (seznam pro majitele ve scratchpadu `kontrola-clanku/zmeny-textu.md`).
+- **Fotky (GPT Image 2.5, max, 4K, s referencemi série):** hero Jak
+  namíchat (míchání písku se zeminou), hero Péče (první pruh sečení, druhé
+  stanoviště — první verze opakovala výřez hera Jak zasít), dokreslený
+  horní okraj ořezu na výšku, 3 náhrady v Jak připravit (vidle, kontrola
+  lůžka, bosá chodidla). Nové skripty `nahraj-media-magazinu.ts`
+  a `nastav-hero-magazinu.ts` (seed-magazine hero existujících článků
+  nemění).
+
+### Ověření a porota nových článků
+
+| Kolo | Jak namíchat | Péče |
+|---|---|---|
+| 01 | 3 · 4 · 4 · 4 · 3 · 4 · 3 | 4 · 4 · 4 · 3 · 4 · 4 · 3 |
+| 02 | **4 · 4 · 4 · 4 · 5 · 4 · 4 — PROŠEL** | 4 · 4 · 3 · 4 · 3 · 4 · 3 |
+| 03 | — | 4 · 4 · 4 · 3 · 4 · 4 · 4 |
+| 04 (Pohyb, Styl, Rozložení) | — | Pohyb 4 · Grafický styl 3 · Rozložení 4 |
+
+(pořadí: Hierarchie, Typografie, Pohyb, Grafický styl, Slop, Výkon
+a přístupnost, Rozložení). Kontrola šesti upravených článků po opravách:
+0 kritických; potvrzené důležité opraveny ve druhé dávce a ověřeny
+měřením (dlaždice 42/42/42 px na 1340–1920, šev 0 px, kalkulátor „1,5“
+v en-US, karty na retině varianta 2048).
+
+Kolo 04 Grafického stylu: jediný potvrzený důležitý nález (na tabletu na
+výšku 561–1024 px se načítá master s ohniskem 50 %, postava mimo záběr —
+i u Jak namíchat) opraven ohniskem na výšku 77 / 76 % a ověřen snímky na
+600×960, 768×1024 a 1024×1366 (postava v záběru), ne dalším kolem poroty.
+Po opravě Péče: všechna hlediska 4/5, 0 kritických.
+
+### Neopraveno (kosmetické / rozhodne autor)
+
+Jak poznat půdu: dvousloupce „Otestujte svou zahradu“ a zkouška vsakování
+delší než fotka na 1130–1280 px (fotky 896 px — dva nové záběry by úseky
+rozdělily); body seznamu nad 380 znaků. Jak namíchat: krátký text vedle
+vysokých kreseb (Obr. 05, 09, 12 — vypustit kresbu, nebo spojit úseky),
+kapitola 03 s pěti podkapitolami bez vlastních položek v obsahu, pointa
+Obr. 05 dole. Péče: perex na telefonu až za fotkou 4:5, kapitola 07 pod
+65 % výšky obrazu, nádech vody v Obr. 04/10 sytější než #2563eb .34 (tint
+#3b82f6 kvůli šedofialové na půdě — kandidát do 9.2 jako „voda na půdě“),
+stopa kol 4 px, čárkování „6 6“. Karty Souvisejících na retině 85–137 kB
+(limit 120). Systémové v koši B: kotvený scrim jako výchozí, dojezd kotvy
+na neodhalenou skupinu (o 24–30 px výš), re-reveal po přepnutí
+reduced-motion, posun kapsle u výzvy (CLS 0,0024), title s příponou.
+

@@ -2,7 +2,7 @@
 
 _Prověřeno 3 adversárními kontrolami: 41 nálezů, 37 zapracováno, 4 zamítnuty jako vkusové. Poté ručně překlopeno na paletu Tech Blue + Emerald (rozhodnutí 22. 8. 2026) s přepočtem všech kontrastů._
 
-**Verze:** 2.14 · **Datum:** 2026-10-03 · **Platí pro:** www.intelidome.com / intelidome.cz (Next.js + Tailwind CSS + GSAP)
+**Verze:** 2.15 · **Datum:** 2026-10-03 · **Platí pro:** www.intelidome.com / intelidome.cz (Next.js + Tailwind CSS + GSAP)
 **Primární reference:** [Sonos](https://styles.refero.design/style/8d315332-6267-4dc0-a14c-e8b49c26b0e1) · **Sekundární:** [Eight Sleep](https://styles.refero.design/style/e4e8fe86-47ed-4ddd-a6c6-2c28eae9aabe), [Samara](https://styles.refero.design/style/934a61aa-50ff-4e90-852b-4ad0b8262d54)
 
 > **Esence:** Teplý papír za dne, obsidian po setmění — a jeden modrý pulz.
@@ -832,7 +832,7 @@ Snippet: viz 7.2.
 
 ### 7.6 Stat-tile `.id-stats` / `.id-stat`
 
-**Role:** Řada čísel oddělená hairliny — žádné boxy ani stíny; tabulární číslo s jednotkou v `<small>`, pod ním popisek; typicky 4 pod leadem na krému.
+**Role:** Řada čísel oddělená hairliny — žádné boxy ani stíny; tabulární číslo s jednotkou v `<small>`, pod ním popisek; typicky 4 pod leadem na krému. Souhrn článku sází 4 dlaždice 2×2, **3 dlaždice v jedné řadě** (na telefonu lichá poslední přes celou šířku) — v mřížce 2×2 nechávaly prázdnou buňku (v2.15).
 
 | Prvek | Spec |
 |---|---|
@@ -1119,7 +1119,7 @@ Prototyp hydraulika-zahrady.html; kapitol 3–5.
 |---|---|---|---|
 | 0 | Header | frosted capsule | prompt 4; odkaz Magazín (7.1), pill-button „Objevit systém" |
 | 1 | Hero | obsidian, min-height 100svh | prompt 1; meta = čas čtení · počet kalkulátorů · Magazín InteliDome |
-| 2 | Souhrn | krém | summary-lead Archivo na velikosti --id-t-subtitle w500 lh 1.38 (role leadu, ne titulku), na ose prózy 700 px (`--id-maxw-prose`; ADR-006 zrušil track `wide`, §15 p. 2), klíčová fráze v `<em>` akcentem --id-accent (na krému 4,74:1 = AA, 11.1); 4 stat-tiles (prompt 3) |
+| 2 | Souhrn | krém | summary-lead Archivo na velikosti --id-t-subtitle w500 lh 1.38 (role leadu, ne titulku), na ose prózy 700 px (`--id-maxw-prose`; ADR-006 zrušil track `wide`, §15 p. 2), klíčová fráze v `<em>` akcentem --id-accent (na krému 4,74:1 = AA, 11.1); 4 stat-tiles (prompt 3; 3 dlaždice v jedné řadě, 7.6) |
 | 3…N | Kapitoly 01–0N | bílá / krém střídavě | eyebrow „Kapitola NN" + sec-title (title škála) **uvnitř prvního dvousloupce**; každý úsek textu = dvousloupec obraz/text dle **8.2b p. 8** (v2.10: žádná próza ve středovém sloupci), kresba s figcaption „Obr. NN" nebo fotka ze série; volitelně kalkulátor (max 2/článek, prompt 2), krémové demo (max 1), step-karty 4× |
 | N+1 | Produktový pás | obsidian | eyebrow + titulek; prose #9ba1a8, `<strong>` bílým; `.id-2col` = `1fr 1fr` (652 | 652, gap `--id-gap-col` 56, zlom v ose 720 — ADR-006); 3 feature karty **pod prózou v levém sloupci**, ne v řadě pod pásem (vyrovnávají výšku diagramu — jinak 42 % prázdna, kolo 05) |
 | N+2 | CTA | bílá, centrovaná | prompt 6 (logo, H2, sub, btn-blue se šipkou, otázka čtenáři) |
@@ -1247,7 +1247,11 @@ Lexicalu se vedle sebe postavit nedají.
    - **Pokračování oddílu** bez titulku (`continues`) dostane modulovou
      mezeru `--id-rhythm` místo pásové; **mezititulek** uvnitř těla je h3
      (řádek „### "), 44 px nad / 14 px pod. Na krémovém pásu pokračování
-     navazuje bez švu (spodní padding předchůdce = `--id-rhythm`).
+     navazuje bez švu (spodní padding předchůdce = `--id-rhythm`); totéž
+     platí pro krémový pás tabulky, který kapitolu na krému uzavírá (v2.15).
+     Mezititulek, ke kterému patří obraz dvousloupce, je jeho **hlavou**
+     (titulek h3), ne řádkem „### “ v těle — na telefonu by obraz předešel
+     svůj nadpis (v2.15).
    - **Tip (callout)** k úseku textu stojí v jeho sloupci jako řádek „> "
      v těle splitu, na svém místě toku textu, ne jako blok na ose
      (porota článku o příměsích, 2026-09-24).
@@ -1806,6 +1810,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 - **(v2.14, magazín)** `html { scroll-padding-top }` chybí: při Shift+Tab prohlížeč srovná zaměřený odkaz pod plovoucí kapsli (na telefonu je titulek kalkulátoru z větší části schovaný). Oprava je systémová (~88 px) a musí se odečíst ze všech `scroll-margin-top` kotev webu; WCAG 2.4.11 stránka splní i dnes.
 - **(v2.14, magazín)** Pojistka `html.js .rv:focus-within { opacity: 1 }` prohrává s inline `opacity: 0` z GSAP; po kliku na kotvu uvnitř stránky běží dva revealy naráz (cíl + pás pod ním) — výjimku `cilKotvy` v Motion.tsx rozšířit i na `a[href^="#"]`.
 - **(v2.14, magazín)** Výchozí og:image (`mergeOpenGraph`) bez width/height/alt; lupa v kapsli je lucide 18 px s tahem ~1,5 místo vlastního SVG 20 px (9.3); v přehledu magazínu vynechat perex u článků, které na téže straně stojí v pásu tématu.
+- **(v2.15, články)** Kotvený scrim hera (gradient přes textový rám, ne 62 % výšky z 9.1) dnes nese seznam slugů v intelidome-ds.css — šest článků z osmi ho potřebovalo, protože text na nízkých oknech a na telefonu leží nad světlou částí fotky. Povýšit na výchozí scrim každého hera článku a pravidlo 9.1 přepsat.
+- **(v2.15, články)** Karty Souvisejících (`Card`) mají od v2.15 jednotný ořez 3:2 podle ohniska, `sizes` podle skutečné šířky a titulek balance; zapsat do 7.5 jako komponentu karty článku (dnes ji 7.5 nepopisuje).
 - **(v2.14, magazín)** `.id-feature__title` má `text-wrap: pretty`, které v Chromiu dvouřádkové nadpisy před sirotkem nechrání; 4.3 p. 3 žádá u nadpisů balance. U řádku 7.15 opraveno, sdílená třída čeká na kontrolu všech výskytů.
 
 Nálezy poroty, které nejsou vadou stránky, ale systému — každý čeká na
