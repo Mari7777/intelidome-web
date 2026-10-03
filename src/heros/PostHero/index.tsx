@@ -10,6 +10,8 @@ import { Media } from '@/components/Media'
 import { formatAuthors } from '@/utilities/formatAuthors'
 import { nezlomitelneMezery } from '@/utilities/czechTypography'
 import { readingTime } from '@/utilities/readingTime'
+import { rozdelTitulek } from '@/utilities/rozdelTitulek'
+import { pocetKalkulatoru } from '@/utilities/kalkulatoryClanku'
 
 /**
  * Filmový hero článku (DESIGN.md 8.2 ř. 1 + prompt 1).
@@ -34,7 +36,7 @@ export const PostHero: React.FC<{ post: Post; locale: Locale }> = ({ post, local
 
   // Titulek po řádcích: každý má VLASTNÍ masku, aby mohl stoupat zvlášť
   // se staggerem (6.3.3). Kvalifikátor za dvojtečkou je druhý hlas.
-  const [headline, qualifier] = splitTitle(title)
+  const [headline, qualifier] = rozdelTitulek(title)
   // 16 znaků: „začíná pod zemí" (15) se vejde na řádek na 1440 i 393 —
   // se 14 vznikal sirotek „zemí" a předložka „pod" na konci řádku.
   const lines = splitLines(headline, 16)
@@ -45,7 +47,7 @@ export const PostHero: React.FC<{ post: Post; locale: Locale }> = ({ post, local
 
   const minutes = readingTime(content)
   // 8.2 ř. 1: ve třísekundové zóně má stát slib interaktivity, ne jen datum.
-  const kalkulatoru = countCalculators(content)
+  const kalkulatoru = pocetKalkulatoru(content)
   const metaItems = [
     minutes ? nezlomitelneMezery(t(locale, 'hero.reading')(minutes)) : null,
     kalkulatoru ? nezlomitelneMezery(t(locale, 'hero.calculators')(kalkulatoru)) : null,
@@ -125,30 +127,10 @@ export const PostHero: React.FC<{ post: Post; locale: Locale }> = ({ post, local
 }
 
 /** Rozdělí titulek na hlavní větu a kvalifikátor za dvojtečkou. */
-function splitTitle(title: string): [string, string | null] {
-  const at = title.indexOf(':')
-  if (at === -1) return [title, null]
-  return [title.slice(0, at).trim(), title.slice(at + 1).trim() || null]
-}
 
 /** Rozdělí titulek na řádky o max. `maxChars` znacích — každý dostane
  *  vlastní masku, takže mohou stoupat se staggerem (DESIGN.md 6.3.3). */
 /** Kolik kalkulátorů článek nese — hledá bloky `calculator` kdekoli ve stromu. */
-function countCalculators(node: unknown, depth = 0): number {
-  if (depth > 8 || node == null || typeof node !== 'object') return 0
-  if (Array.isArray(node)) return node.reduce<number>((n, child) => n + countCalculators(child, depth + 1), 0)
-  const zaznam = node as Record<string, unknown>
-  const fields = zaznam.fields as Record<string, unknown> | undefined
-  // Jen uzel bloku, ne i jeho `fields` — jinak se každý kalkulátor počítá dvakrát.
-  const jeKalkulator = fields?.blockType === 'calculator'
-  return (
-    (jeKalkulator ? 1 : 0) +
-    Object.values(zaznam).reduce<number>(
-      (n, value) => n + (value && typeof value === 'object' ? countCalculators(value, depth + 1) : 0),
-      0,
-    )
-  )
-}
 
 /** Jednopísmenné předložky a spojky, které nesmí zůstat osamocené na
  * konci řádku (stejná sada jako czechTypography.ts PREDLOZKY). */

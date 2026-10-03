@@ -699,7 +699,7 @@ function ProfileDrawing({ calculation, input, onModeChange, uid }: {
   )
 }
 
-export function SoilProfileCalculator({ className, surface }: { className?: string; surface?: string | null }) {
+export function SoilProfileCalculator({ className, kotva, surface }: { className?: string; kotva?: string; surface?: string | null }) {
   const uid = useId().replace(/:/g, '')
   const [raw, setRaw] = useState<RawNumbers>(initialRaw)
   const [mode, setMode] = useState<Mode>(INPUT_DEFAULTS.mode)
@@ -889,6 +889,7 @@ export function SoilProfileCalculator({ className, surface }: { className?: stri
   return (
     <section
       aria-labelledby={uid + '-title'}
+      id={kotva}
       className={['id-profile-calc', 'not-prose', surface === 'band' ? 'id-profile-calc--band id-band' : 'id-edge', className].filter(Boolean).join(' ')}
       ref={panelRef}
     >
