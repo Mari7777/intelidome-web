@@ -2,7 +2,7 @@
 
 _Prověřeno 3 adversárními kontrolami: 41 nálezů, 37 zapracováno, 4 zamítnuty jako vkusové. Poté ručně překlopeno na paletu Tech Blue + Emerald (rozhodnutí 22. 8. 2026) s přepočtem všech kontrastů._
 
-**Verze:** 2.12 · **Datum:** 2026-10-02 · **Platí pro:** www.intelidome.com / intelidome.cz (Next.js + Tailwind CSS + GSAP)
+**Verze:** 2.13 · **Datum:** 2026-10-03 · **Platí pro:** www.intelidome.com / intelidome.cz (Next.js + Tailwind CSS + GSAP)
 **Primární reference:** [Sonos](https://styles.refero.design/style/8d315332-6267-4dc0-a14c-e8b49c26b0e1) · **Sekundární:** [Eight Sleep](https://styles.refero.design/style/e4e8fe86-47ed-4ddd-a6c6-2c28eae9aabe), [Samara](https://styles.refero.design/style/934a61aa-50ff-4e90-852b-4ad0b8262d54)
 
 > **Esence:** Teplý papír za dne, obsidian po setmění — a jeden modrý pulz.
@@ -279,7 +279,7 @@ Vše přes `clamp()` — žádné breakpointové skoky velikostí. Písmo Archiv
 ### 4.3 Pravidla sazby
 
 1. **Váhy:** display role vždy **600 — nikdy víc** (vědomé rozhodnutí InteliDome; předlohy sázejí displaye ještě lehčí, proto je 700+ absolutní zákaz). 500 = subtitle a základní chip; buttony 600 (7.2, `--id-t-btn`). 700 výhradně do 13,5px (zvýraznění v datových tabulkách) — nikdy titulky ani body.
-2. **`tabular-nums` povinné**, kde čísla stojí ve sloupcích nebo se mění: kalkulátory, stat-tiles, tabulky, odpočty, hodnoty sliderů (`font-variant-numeric: tabular-nums`, utilita `.id-tnum`; Archivo `tnum` podporuje).
+2. **`tabular-nums` povinné**, kde čísla stojí ve sloupcích nebo se mění: kalkulátory, stat-tiles, tabulky, odpočty, hodnoty sliderů (`font-variant-numeric: tabular-nums`, utilita `.id-tnum` — definovaná v intelidome-ds.css od v2.13; Archivo `tnum` podporuje).
 3. **`text-wrap: balance`** na `display-xl`, `display`, `title`, `title-sm`, `subtitle` (nadpisy do 4 řádků); **`text-wrap: pretty`** na prose odstavce.
 4. **Sloupec prózy 700px** (`--id-maxw-prose`) je šířka **sloupce v mřížce**, ne míra textu: SF Pro 17 px v něm dává ~87 znaků na řádek (naměřeno u dvou článků), ne 65. **Míra textu je `--id-measure: 33em`** (≈ 70 znaků při jakékoli velikosti písma) a uplatňuje se pravým odsazením uvnitř sloupce, ne zúžením boxu — osy mřížky se tím nehnou (ADR-007). Platí pro odstavce, seznamy, callouty, odpovědi FAQ i prózu pásů; ne pro titulky, lead souhrnu a centrované CTA. Body text se nikdy necentruje — centrují se jen display titulky.
 5. **Tracking:** záporný roste s velikostí (−0.01em u 17px → −0.035em u 112px); kladný **+0.14em u všech uppercase labelů 12px** — eyebrow, label kalkulátoru (7.7) i chip (7.4). Uppercase bez rozšířeného trackingu zakázán. **Jediná výjimka (v2.5): popisky uvnitř kresby `.sv-lbl` mají +0.10em** — kresba je hustá a širší rozpal v ní působí kolize značka × text (ověřeno přejímkou `svg-labels`).
@@ -670,7 +670,7 @@ Na obsidianu focus ring zůstává accent — #2563eb je na #0b0d10 jako obrys z
 | Padding / gap | 10px 12px 10px 24px (vpravo těsněji — mini-CTA) / 26px |
 | Stín | 0 8px 30px rgba(10,12,15,.10) |
 | Logo | maskované SVG, height:21px, color:ink (currentColor) |
-| __cat | f-display 600 12.5px, ls:.1em, uppercase, ink-2; pod 640px display:none |
+| __link Magazín | odkaz sekce (ADR-009), trvale v kapsli hned za logem i pod 640 px; aktivní stav `aria-current` (`page` na /magazin, `true` uvnitř sekce) v ink; dotykový cíl ≥ 24 px pseudo-prvkem `::after` (inset −5px −4px). Pod 640 px je kapsle logo · Magazín · lupa (v2.13) |
 | __go (mini-CTA) | f-display 600 13.5px, padding:9px 18px, radius pill, background:ink, color:#fff |
 
 **Stavy:** mini-CTA hover background:accent (.25s); logo focus-visible kompaktní 2.5px/4px. Capsule sama nemá hover.
@@ -682,7 +682,7 @@ Přepínač jazyků = položky `__link` ve skupině odkazů (kód jazyka upperca
 ```html
 <header class="id-header"><div class="id-capsule">
 <a class="id-capsule__mark" href="/" aria-label="InteliDome"><svg class="id-logo" viewBox="446 2126 4870 1227" aria-hidden="true"><rect x="446" y="2126" width="4870" height="1227" fill="currentColor" mask="url(#idlogo-mask)"/></svg></a>
-<span class="id-capsule__cat">Návody · Závlaha</span><a class="id-capsule__go" href="/">Objevit systém</a>
+<a class="id-capsule__link" href="/magazin">Magazín</a><a class="id-capsule__go" href="/">Objevit systém</a>
 </div></header>
 ```
 
@@ -1056,6 +1056,26 @@ Snippet: viz 7.1/7.14.
 
 ---
 
+### 7.15 Řádek rejstříku `.id-mag-radek` (v2.13)
+
+**Role:** položka seznamu článků bez rámečku a stínu (Povrch mluví, čáry mlčí). Obsahuje náhled, titulek a porovnatelný sloupec metadat. Hairline je uvnitř komponenty jako u stat-tiles (7.6). Server component bez JS.
+
+| Prvek | Spec |
+|---|---|
+| Mřížka | ≥ 900: `120px minmax(0,1fr) 168px`, column-gap 24, padding-block 24; 640–899: `120px 1fr`, meta pod perexem; < 640: `80px 1fr`, gap 16, padding-block 16, bez perexu |
+| Hairline | border-top 1px line-soft (na krému line-cream), poslední řádek i border-bottom |
+| Náhled | varianta `square`, 120 / 80 px, r-sm, object-fit cover, `alt=""` + `aria-hidden` (je to kopie titulku); bez obrazu prázdný čtverec cream (na krému surface) |
+| Kicker | label 12 px Archivo 600 +0,14 em uppercase ink-2; série „Díl 3 z 5“, díl 1 „· Začněte tady“ v ink; v přehledu téma („… · díl 3“) |
+| Titulek | h3, část titulku před dvojtečkou; Archivo 600, `--id-t-lead`, lh 1,25, −0,01 em, ink, text-wrap pretty (precedent `.id-feature__title`) |
+| Perex | meta.description (jinak kvalifikátor za dvojtečkou), body-sm ink-2, míra 33 em, line-clamp 3; < 640 skrytý |
+| Meta | caption ink-2 tabular „17 min čtení“; odznak kalkulátoru = obrysová ikona 20 px + label „Kalkulátor“ / „2 kalkulátory“ v ink (hlas, ne pilulka; §14 p. 6) |
+| `--rejstrik` | místo náhledu `<time>` caption ink-3 nowrap; < 640 jeden sloupec (datum → kicker → titulek → meta) |
+| Odkaz | jediný `<a>` na titulku roztažený `::after { inset: 0 }`: jeden tab stop, bez JS |
+| Hover | (hover: hover) titulek → accent, .25 s; bez transformu a stínu (řádek není karta) |
+| Focus | `.id-mag-radek:has(a:focus-visible)`: outline 3 px accent, offset 4 px, r-sm; na samotném odkazu outline none |
+
+---
+
 ## 8. Rytmus stránky & šablony
 
 ### 8.1 Partitura pásů
@@ -1097,8 +1117,8 @@ Prototyp hydraulika-zahrady.html; kapitol 3–5.
 
 | # | Sekce | Povrch | Obsah |
 |---|---|---|---|
-| 0 | Header | frosted capsule | prompt 4; kategorie uprostřed, pill-button „Objevit systém" |
-| 1 | Hero | obsidian, min-height 100svh | prompt 1; meta = čas čtení · počet kalkulátorů · InteliDome Journal |
+| 0 | Header | frosted capsule | prompt 4; odkaz Magazín (7.1), pill-button „Objevit systém" |
+| 1 | Hero | obsidian, min-height 100svh | prompt 1; meta = čas čtení · počet kalkulátorů · Magazín InteliDome |
 | 2 | Souhrn | krém | summary-lead Archivo na velikosti --id-t-subtitle w500 lh 1.38 (role leadu, ne titulku), na ose prózy 700 px (`--id-maxw-prose`; ADR-006 zrušil track `wide`, §15 p. 2), klíčová fráze v `<em>` akcentem --id-accent (na krému 4,74:1 = AA, 11.1); 4 stat-tiles (prompt 3) |
 | 3…N | Kapitoly 01–0N | bílá / krém střídavě | eyebrow „Kapitola NN" + sec-title (title škála) **uvnitř prvního dvousloupce**; každý úsek textu = dvousloupec obraz/text dle **8.2b p. 8** (v2.10: žádná próza ve středovém sloupci), kresba s figcaption „Obr. NN" nebo fotka ze série; volitelně kalkulátor (max 2/článek, prompt 2), krémové demo (max 1), step-karty 4× |
 | N+1 | Produktový pás | obsidian | eyebrow + titulek; prose #9ba1a8, `<strong>` bílým; `.id-2col` = `1fr 1fr` (652 | 652, gap `--id-gap-col` 56, zlom v ose 720 — ADR-006); 3 feature karty **pod prózou v levém sloupci**, ne v řadě pod pásem (vyrovnávají výšku diagramu — jinak 42 % prázdna, kolo 05) |
@@ -1265,6 +1285,35 @@ Jediná začíná krémem (produktové foto potřebuje světlý pás). Header s 
 | 7 | Příslušenství | bílá (hairline od #6) | 3sloupcový grid karet (bílá s borderem var(--id-line-soft), hover translateY(−3px) + --id-shadow) |
 | 8 | CTA | obsidian | H2 + cena + btn-blue; mezi #4 a #8 3 světlé sekce |
 
+### 8.5 Šablona: Domovská stránka magazínu (v2.13, ADR-009)
+
+Adresa `/magazin`, strany 2+ `/magazin/strana/N` (12 článků na stranu). Magazín je **obsah příručky, ne nástěnka novinek**: témata v pevném pořadí, číslovaná série v pořadí čtení, pod nimi úplný přehled všech článků. Stránkuje se **jen přehled**, takže strana 1 má pevnou délku (záhlaví + nejvýš 3 témata + 12 řádků přehledu) a šablona unese 7 i 100 článků.
+
+| # | Sekce | Povrch | Obsah |
+|---|---|---|---|
+| 0 | Header | frosted capsule | logo · **Magazín** (vždy, i pod 640 px; `aria-current` page/true) · [odkazy a jazyky ≥ 640] · lupa · Objevit systém |
+| 1 | Záhlaví | bílá | H1 „Magazín“ v roli **display** (vnitřní H1, ne display-xl) s maskovaným rise `.id-hline`; lead (`--id-t-lead`, ink-2, 33 em); vpravo, dolní hranou na účaří, kotvy `.id-btn--secondary.id-btn--sm` s počty a „Naposledy přidáno“ (textový odkaz = jediný akcent hlavy). Bez eyebrow, fotky a formuláře hledání. Padding nahoře = kontejner hera `clamp(96px, 14vw, 160px)`, dole `--id-sect-y-sm` |
+| 2…k | Témata (≤ 3) | krém, další střídá bílou | `.id-2col--narrow-left` (322 \| 56 \| 982): hlava (eyebrow „Série · N dílů“ / „Téma · N článků“, H2 role title-sm, popis z CMS, meta) od 1130 px sticky; vpravo řádky 7.15 |
+| k+1 | Všechny články | bílá (vždy) | táž mřížka; hlava bez eyebrow; řádky 7.15 `--rejstrik` (datum místo náhledu); stránkování jako `<a href>` na konci pásu, bez vlastního pásu |
+| k+2 | Kalkulátory | obsidian | jen strana 1 a ≥ 2 kalkulátory; `.id-2col` 652 \| 652; řádky `.id-feature` s roztaženým odkazem na `#kalkulator-<kind>`, nejvýš 6; žádné karty s ikonou v kolečku |
+| k+3 | CTA | bílá | CtaBand (8.2 ř. N+2) bez otázky čtenáři; `.id-cta` schová mini-CTA kapsle |
+| k+4 | Footer | bílá | 7.13 + odkazy Magazín · RSS |
+
+**Pravidla:**
+
+1. **Téma = kategorie** (kolekce Categories). Téma článku je jeho **první** kategorie, takže článek nikdy nestojí ve dvou tématech. Vlastní pás dostane téma s ≥ 2 články v daném jazyce, nejvýš 3 témata na stránce, v pořadí založení kategorie. Téma se nikdy nedělí přes strany.
+2. **Série** (`serie` na kategorii) řadí díly podle `publishedAt` vzestupně a ukáže všechny (strop 12). Kicker „Díl k z N“, díl 1 navíc „Začněte tady“ v ink (ne v akcentu). Nečíslované téma ukáže 6 nejnovějších. Čísla dílů se počítají jen z článků vypsaných v daném jazyce.
+3. **Přehled „Všechny články“** je jediná stránkovaná část magazínu. Články z témat opakuje jen jako textový řádek; obraz se na stránce nikdy neopakuje.
+4. **Povrchy:** záhlaví bílé → témata krém/bílá počínaje krémem → přehled vždy bílý (sekundární pilulky stránkování by na krému zmizely) → obsidian → bílé CTA. Dva sousední pásy téhož povrchu odděluje hairline (bílá `--id-line-soft`, krém `--id-line-cream`; 8.1 p. 1). Na stránce je jediný obsidian a stránka vždy končí bílou výzvou, takže hairline patičky leží mezi bílými povrchy.
+5. **Akcent:** v první obrazovce nejvýš 2 prvky, a to odkaz „Naposledy přidáno“ a eyebrow prvního tématu. Kotvy, čísla stran (ink, aktuální na krémové pilulce), odznak kalkulátoru a řádky v klidu akcent nenesou. Titulek řádku se do akcentu barví jen při najetí (role 2, odkaz).
+6. **Pohyb:** jediná orchestrace první obrazovky je rise H1 (CSS keyframes, 6.3.3). Lead, kotvy a novinka stojí od prvního snímku, žádná opacity 0 (LCP). Každá sekce je `data-rv-group` se dvěma dětmi (hlava, seznam) a řádky se jednotlivě neodhalují. Při najetí na řádek se mění jen barva, žádný transform ani scale. Setrvačníkový scroll ne, výpis není imerzivní obsah (6.5).
+7. **Obraz:** jen čtvercový náhled řádku 7.15 z varianty `square` (500 × 500, ořez podle fokálu), 120 / 80 px, `--id-r-sm`. První dva řádky eager bez fetchpriority, ostatní lazy. LCP je text. Bez obrazu zůstane prázdný čtverec v opačném světlém povrchu, nikdy kresba.
+8. **Strana 2+:** záhlaví jen H1 + „Strana N z M“ → přehled → CTA → patička.
+9. **Mřížka:** tokeny `--id-gap-col`, `--id-col-a` a `--id-rhythm` nese kořen `.id-mag` se stejnými hodnotami jako `.id-article`, jinak má `.id-2col` mezeru 0. Šířky jsou jen 322 / 652 a existující doplněk `--narrow-left`, žádná třísloupcová mřížka karet.
+10. **Přejímka:** `layout-check` je kalibrovaný na článek. Tady se kontrolují osy 40 / 1400 a dělení 322|56|982 a 652|56|652 na 1440 / ≥ 1920 / 1130 / 1024. Na telefonu 320 / 393 se kontroluje kapsle s odkazem Magazín (≤ 288 px) a první odkaz na článek v první obrazovce. Dále Lighthouse LCP < 2,5 s (text), CLS < 0,1 a screenshot akcentového rozpočtu.
+
+---
+
 ## 9. Obraz
 
 ### 9.1 Fotografie
@@ -1430,7 +1479,7 @@ input[type="range"]:focus-visible { outline-offset: 6px; }
 ```
 
 - :focus-visible, nikdy holé :focus, nikdy outline: none bez náhrady.
-- Pořadí tabů = DOM; fixní header v DOM první, max 3 fokusovatelné prvky; setrvačník nesmí zachytávat klávesnici (jen wheel listener).
+- Pořadí tabů = DOM; fixní header v DOM první, max 4 fokusovatelné prvky (logo, Magazín, hledání, výzva) + přepínač jazyků při ≥ 2 živých jazycích (v2.13); setrvačník nesmí zachytávat klávesnici (jen wheel listener).
 
 ### 11.3 ARIA vzory
 
@@ -1752,6 +1801,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 `--id-f-display` začíná `var(--id-f-archivo)` — třída z `next/font` tak dosadí self-hostovaný řez místo výchozího `"Archivo"`. Statické stránky bez build pipeline použijí `<link>` z 4.1 beze změny tokenů.
 
 ## 14. Otevřené body systému (koš B po smyčce článku 2, 2026-09-12)
+
+- **(v2.13, magazín)** `--id-gap-col`, `--id-col-a` a `--id-rhythm` povýšit do `:root` a tokens.css — dnes jsou zdvojené na `.id-article` a `.id-mag`.
 
 Nálezy poroty, které nejsou vadou stránky, ale systému — každý čeká na
 vlastní rozhodnutí (ADR), ne na záplatu v článku:

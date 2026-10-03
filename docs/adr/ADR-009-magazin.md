@@ -78,3 +78,19 @@ Průzkum (7 nezávislých map, 3. 10. 2026) ukázal:
 - Domovská stránka magazínu potřebuje vlastní šablonu v DESIGN.md (kap. 8)
   a odkaz z hlavičky; řeší navazující krok.
 - Po prvním veřejném nasazení se adresy už nemění bez nového ADR.
+
+## Dodatek 1 — domovská stránka a témata (3. 10. 2026)
+
+- **Témata magazínu jsou kategorie** (kolekce Categories, nová pole `popis`
+  a `serie`, migrace `20261003_151145_magazin_temata`). Téma článku je jeho
+  **první** kategorie, takže článek nikdy nestojí ve dvou tématech. Vlastní
+  pás dostane téma s ≥ 2 články, nejvýš 3 témata, v pořadí založení kategorie.
+- **Série** řadí díly podle `publishedAt` vzestupně („Díl k z N“, díl 1
+  „Začněte tady“). Pole „díl“ se zavede až ve chvíli, kdy se poprvé vloží díl
+  doprostřed série nebo se přepíše datum.
+- **Stránkuje se jen přehled „Všechny články“** (12 na stranu); témata se
+  přes strany nedělí. Stránky témat `/magazin/tema/<slug>` přijdou až
+  s novým ADR a vyhrazeným slugem `tema` (kolem 50 článků nebo se čtvrtým
+  tématem).
+- Šablona je v DESIGN.md 8.5, řádek článku 7.15. Témata založil a články
+  přiřadil `scripts/magazin-temata.ts`.
