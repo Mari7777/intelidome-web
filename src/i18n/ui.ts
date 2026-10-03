@@ -97,6 +97,7 @@ const cs = {
   'magazin.zacnete': 'Začněte tady',
   'magazin.kalkulator': (n: number) => (n === 1 ? 'Kalkulátor' : `${n} ${kalkulatorySlovo(n)}`),
   'magazin.vsechny': 'Všechny články',
+  'magazin.vsechnyOdkaz': 'Všechny články v magazínu',
   'magazin.vsechnyPopis': (n: number) => `${n} ${tvar(n, 'článek', 'články', 'článků')}, od nejnovějšího`,
   'magazin.vsechnyRozsah': (od: number, doN: number, celkem: number) => `Články ${od}–${doN} z ${celkem}, od nejnovějšího`,
   'magazin.prazdno': 'Zatím tu nejsou žádné články.',

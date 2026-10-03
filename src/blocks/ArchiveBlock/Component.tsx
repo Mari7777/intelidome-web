@@ -7,6 +7,8 @@ import RichText from '@/components/RichText'
 
 import { CollectionArchive } from '@/components/CollectionArchive'
 import type { Locale } from '@/i18n/config'
+import { cestaMagazinu, lokalizujCestu } from '@/i18n/routing'
+import { t } from '@/i18n/ui'
 
 export const ArchiveBlock: React.FC<
   ArchiveBlockProps & {
@@ -66,6 +68,13 @@ export const ArchiveBlock: React.FC<
         </div>
       )}
       <CollectionArchive locale={locale} posts={posts} />
+      {/* Výběr článků vede do jejich domovské stránky (ADR-009, DESIGN.md 8.5);
+          psané v kódu, ne v CMS, aby odkaz nezmizel s úpravou bloku. */}
+      <div className="container mt-8">
+        <a className="id-mag-odkaz" href={lokalizujCestu(cestaMagazinu(), locale)}>
+          {t(locale, 'magazin.vsechnyOdkaz')} →
+        </a>
+      </div>
     </div>
   )
 }
