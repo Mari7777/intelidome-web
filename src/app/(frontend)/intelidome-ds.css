@@ -2824,7 +2824,15 @@
   padding-bottom: var(--id-sect-y-sm);
 }
 .id-mag-hlava .id-2col {
-  align-items: end;
+  /* Pravý sloupec stojí posledním řádkem na účaří leadu (8.5 ř. 1). */
+  align-items: last baseline;
+}
+/* Složené dvousloupce magazínu dělí hlavu od obsahu touž mírou jako pás
+   kalkulátorů (--id-rhythm), ne mezerou sloupců (porota kola 02). */
+@media (max-width: 1129px) {
+  .id-mag .id-2col {
+    row-gap: var(--id-rhythm);
+  }
 }
 .id-mag-hlava__titulek {
   font-family: var(--id-f-display);
@@ -2894,6 +2902,9 @@
   color: var(--id-accent-deep);
 }
 /* Téma, díl a datum novinky: čtenář pozná pokračování série (porota kola 01). */
+.id-mag-hlava__meta time {
+  white-space: nowrap;
+}
 .id-mag-hlava__meta {
   margin-top: 6px;
   font-size: var(--id-t-caption);
@@ -2949,6 +2960,9 @@
   font-variant-numeric: tabular-nums;
 }
 .id-mag-seznam {
+  /* Řádek se řídí šířkou seznamu, ne okna: na nejužším dvousloupci (1130)
+     má seznam 677 px a třístopý řádek by nechal perexu 341 px. */
+  container-type: inline-size;
   list-style: none;
   margin: 0;
   padding: 0;
@@ -3000,6 +3014,7 @@
   color: var(--id-ink-2);
 }
 .id-mag-radek__start {
+  white-space: nowrap;
   font-weight: 600;
   color: var(--id-ink);
 }
@@ -3086,7 +3101,7 @@
   font-variant-numeric: tabular-nums;
   white-space: nowrap;
 }
-@media (max-width: 899px) {
+@container (max-width: 759px) {
   .id-mag-radek {
     grid-template-columns: 120px minmax(0, 1fr);
   }
@@ -3275,6 +3290,10 @@
   .id-mag-nastroj:hover .id-mag-nastroj__sipka {
     color: var(--id-accent-tint);
   }
+}
+.id-mag-nastroj .id-feature__text,
+.id-mag-nastroj__zdroj {
+  text-wrap: pretty;
 }
 .id-mag-nastroj__zdroj {
   margin-top: 8px;

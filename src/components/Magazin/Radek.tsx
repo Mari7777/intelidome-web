@@ -10,7 +10,7 @@ import type { RadekData } from './data'
 
 /** Obrysová ikona kalkulátoru (9.3: stroke 1,6, currentColor) — „hlas“, ne pilulka (§14 p. 6). */
 const IkonaKalkulatoru = () => (
-  <svg aria-hidden="true" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.6" viewBox="0 0 20 20">
+  <svg aria-hidden="true" fill="none" focusable="false" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.6" viewBox="0 0 20 20">
     <rect height="15" rx="2" width="12" x="4" y="2.5" />
     <path d="M7 6h6M7 10h.01M10 10h.01M13 10h.01M7 13.5h.01M10 13.5h.01M13 13.5h.01" />
   </svg>

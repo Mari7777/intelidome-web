@@ -1062,13 +1062,13 @@ Snippet: viz 7.1/7.14.
 
 | Prvek | Spec |
 |---|---|
-| Mřížka | ≥ 900: `120px minmax(0,1fr) 168px`, column-gap 24, padding-block 24; 640–899: `120px 1fr`, meta pod perexem; < 640: `80px 1fr`, gap 16, padding-block 16, bez perexu |
+| Mřížka | řídí ji **šířka seznamu** (`container-type: inline-size` na `.id-mag-seznam`, v2.14): seznam ≥ 760: `120px minmax(0,1fr) 168px`, column-gap 24, padding-block 24; seznam < 760: `120px 1fr`, náhled přes dva řádky, meta pod perexem (nejužší dvousloupec 1130 má seznam 677 px a třístopý řádek nechal perexu 341 px); okno < 640: `80px 1fr`, gap 16, padding-block 16, bez perexu |
 | Hairline | border-top 1px line-soft (na krému line-cream), poslední řádek i border-bottom |
 | Náhled | varianta `square`, 120 / 80 px, r-sm, object-fit cover, `alt=""` + `aria-hidden` (je to kopie titulku); bez obrazu prázdný čtverec cream (na krému surface) |
-| Kicker | label 12 px Archivo 600 +0,14 em uppercase ink-2; série „Díl 3 z 5“, díl 1 „· Začněte tady“ v ink; v přehledu téma („… · díl 3“) |
+| Kicker | label 12 px Archivo 600 +0,14 em uppercase ink-2; série „Díl 3 z 5“, díl 1 „· Začněte tady“ v ink a nowrap (spojení se nedělí); v přehledu téma („… · díl 3“) |
 | Titulek | h3, část titulku před dvojtečkou; Archivo 600, `--id-t-lead`, lh 1,25, −0,01 em, ink, **text-wrap balance** (4.3 p. 3; v2.14 — pretty v Chromiu nechal sirotky ve 3 z 12 titulků na 320 px) |
 | Perex | meta.description (jinak kvalifikátor za dvojtečkou), body-sm ink-2, míra 33 em, text-wrap pretty, line-clamp 3; < 640 skrytý |
-| Meta | caption ink-2 tabular „17 min čtení“; odznak kalkulátoru = obrysová ikona 20 px + label „Kalkulátor“ / „2 kalkulátory“ v ink (hlas, ne pilulka; §14 p. 6). Sloupec stojí u pravé hrany i za cenu svislého pruhu mezi mírou perexu a metadaty na ≥ 1280 (porovnatelný sloupec je záměr, v2.14) |
+| Meta | caption ink-2 tabular „17 min čtení“; odznak kalkulátoru = obrysová ikona 20 px + label „Kalkulátor“ / „2 kalkulátory“ v ink (hlas, ne pilulka; §14 p. 6). Sloupec stojí u pravé hrany i za cenu svislého pruhu mezi mírou perexu a metadaty, kdykoli je řádek třístopý (porovnatelný sloupec je záměr, v2.14) |
 | `--rejstrik` | místo náhledu `<time>` caption ink-3 nowrap; < 640 jeden sloupec (datum → kicker → titulek → meta) |
 | Odkaz | jediný `<a>` na titulku roztažený `::after { inset: 0 }`: jeden tab stop, bez JS |
 | Hover | (hover: hover) titulek → accent, .25 s; bez transformu a stínu (řádek není karta) |
@@ -1292,7 +1292,7 @@ Adresa `/magazin`, strany 2+ `/magazin/strana/N` (12 článků na stranu). Magaz
 | # | Sekce | Povrch | Obsah |
 |---|---|---|---|
 | 0 | Header | frosted capsule | logo · **Magazín** (vždy, i pod 640 px; `aria-current` page/true) · [odkazy a jazyky ≥ 640] · lupa · Objevit systém |
-| 1 | Záhlaví | bílá | H1 „Magazín“ v roli **display** (vnitřní H1, ne display-xl) s maskovaným rise `.id-hline`; lead (`--id-t-lead`, ink-2, 33 em); vpravo, dolní hranou na účaří, kotvy `.id-btn--secondary.id-btn--sm` s počty v pořadí pásů (témata → Všechny články → Kalkulátory; počet má pro odečítač jednotku `sr-only`, „5 dílů“) a „Naposledy přidáno“ (textový odkaz = jediný akcent hlavy; pod ním caption ink-2 „Téma, díl k z N · datum“, aby novinka nevypadala jako začátek). Bez eyebrow, fotky a formuláře hledání. Padding nahoře = kontejner hera `clamp(96px, 14vw, 160px)`, dole `--id-sect-y-sm` |
+| 1 | Záhlaví | bílá | H1 „Magazín“ v roli **display** (vnitřní H1, ne display-xl) s maskovaným rise `.id-hline`; lead (`--id-t-lead`, ink-2, 33 em); vpravo, posledním řádkem na účaří leadu (`align-items: last baseline`), kotvy bez štítku (nav má jen `aria-label`; štítek „V magazínu“ opakoval H1, v2.14) `.id-btn--secondary.id-btn--sm` s počty v pořadí pásů (témata → Všechny články → Kalkulátory; počet má pro odečítač jednotku `sr-only`, „5 dílů“) a „Naposledy přidáno“ (textový odkaz = jediný akcent hlavy; pod ním caption ink-2 „Téma, díl k z N · datum“, aby novinka nevypadala jako začátek). Bez eyebrow, fotky a formuláře hledání. Padding nahoře = kontejner hera `clamp(96px, 14vw, 160px)`, dole `--id-sect-y-sm` |
 | 2…k | Témata (≤ 3) | krém, další střídá bílou | `.id-2col--narrow-left` (322 \| 56 \| 982): hlava (eyebrow „Série · N dílů“ / „Téma · N článků“, H2 role title-sm, popis z CMS, meta) od 1130 px sticky; vpravo řádky 7.15 |
 | k+1 | Všechny články | bílá (vždy) | táž mřížka; hlava bez eyebrow; řádky 7.15 `--rejstrik` (datum místo náhledu); stránkování jako `<a href>` na konci pásu, bez vlastního pásu |
 | k+2 | Kalkulátory | obsidian | jen strana 1 a ≥ 2 kalkulátory; hlava nad seznamem (eyebrow, H2 role **title-sm** jako ostatní sekce, popis 33 em), pod ní `.id-feature` s roztaženým odkazem na `#kalkulator-<kind>` a šipkou 12 × 10 px: ≥ 900 tři stejné sloupce (`repeat(3, 1fr)`, gap 40 / `--id-gap-col`), < 900 jeden sloupec max 700 px zakončený čarou; nejvýš 6; žádné karty s ikonou v kolečku. Dvousloupec hlava \| seznam (v2.13) nechával 46–51 % levého sloupce prázdných (v2.14) |
@@ -1803,6 +1803,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 ## 14. Otevřené body systému (koš B po smyčce článku 2, 2026-09-12)
 
 - **(v2.13, magazín)** `--id-gap-col`, `--id-col-a` a `--id-rhythm` povýšit do `:root` a tokens.css — dnes jsou zdvojené na `.id-article` a `.id-mag`.
+- **(v2.14, magazín)** `html { scroll-padding-top }` chybí: při Shift+Tab prohlížeč srovná zaměřený odkaz pod plovoucí kapsli (na telefonu je titulek kalkulátoru z větší části schovaný). Oprava je systémová (~88 px) a musí se odečíst ze všech `scroll-margin-top` kotev webu; WCAG 2.4.11 stránka splní i dnes.
+- **(v2.14, magazín)** Pojistka `html.js .rv:focus-within { opacity: 1 }` prohrává s inline `opacity: 0` z GSAP; po kliku na kotvu uvnitř stránky běží dva revealy naráz (cíl + pás pod ním) — výjimku `cilKotvy` v Motion.tsx rozšířit i na `a[href^="#"]`.
+- **(v2.14, magazín)** Výchozí og:image (`mergeOpenGraph`) bez width/height/alt; lupa v kapsli je lucide 18 px s tahem ~1,5 místo vlastního SVG 20 px (9.3); v přehledu magazínu vynechat perex u článků, které na téže straně stojí v pásu tématu.
 - **(v2.14, magazín)** `.id-feature__title` má `text-wrap: pretty`, které v Chromiu dvouřádkové nadpisy před sirotkem nechrání; 4.3 p. 3 žádá u nadpisů balance. U řádku 7.15 opraveno, sdílená třída čeká na kontrolu všech výskytů.
 
 Nálezy poroty, které nejsou vadou stránky, ale systému — každý čeká na

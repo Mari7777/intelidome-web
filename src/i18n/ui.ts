@@ -86,7 +86,6 @@ const cs = {
   'magazin.lead':
     'Půda, trávník a závlaha vysvětlené do hloubky: postupy s čísly, kresbami a kalkulátory, které si přepočítáte pro svou zahradu.',
   'magazin.mapaAria': 'Obsah magazínu',
-  'magazin.mapaLabel': 'V magazínu',
   'magazin.novinkaLabel': 'Naposledy přidáno',
   'magazin.serie': (n: number) => `Série · ${n} ${tvar(n, 'díl', 'díly', 'dílů')}`,
   'magazin.tema': (n: number) => `Téma · ${n} ${tvar(n, 'článek', 'články', 'článků')}`,

@@ -48,7 +48,6 @@ export function Zahlavi({
           <div className="id-mag-hlava__vpravo">
             {kotvy.length >= 2 ? (
               <nav aria-label={t(locale, 'magazin.mapaAria')}>
-                <p className="id-mag-label">{t(locale, 'magazin.mapaLabel')}</p>
                 <ul className="id-mag-hlava__kotvy" role="list">
                   {kotvy.map((k) => (
                     <li key={k.href}>

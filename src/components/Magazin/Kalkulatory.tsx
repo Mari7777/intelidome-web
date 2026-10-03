@@ -37,7 +37,7 @@ export function Kalkulatory({ kalkulatory, locale }: { kalkulatory: KalkulatorDa
               </h3>
               <p className="id-feature__text">{nezlomitelneMezery(k.ucel)}</p>
               <p className="id-mag-nastroj__zdroj">{nezlomitelneMezery(t(locale, 'magazin.kalk.zdroj')(k.clanek))}</p>
-              <svg aria-hidden="true" className="id-mag-nastroj__sipka" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.6" viewBox="0 0 20 20">
+              <svg aria-hidden="true" className="id-mag-nastroj__sipka" fill="none" focusable="false" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.6" viewBox="0 0 20 20">
                 <path d="M4 10h12M11 5l5 5-5 5" />
               </svg>
             </li>

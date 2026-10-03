@@ -4194,3 +4194,50 @@ pro vracejícího se a nového čtenáře); opakovaný kicker tématu v přehled
 (rozředí se s druhým tématem); torzo postavy ve čtverci dílu 5 a podobné
 náhledy dílů 2 a 3 (obsah fotek); rozpracovaný článek bez perexu (rozhodne
 majitel).
+
+## Kolo 02 (2026-10-03) — domovská stránka magazínu — PROŠEL
+
+| Porotce | Známka |
+|---|---|
+| Hierarchie | **4/5** |
+| Typografie | **4/5** |
+| Pohyb | **4/5** |
+| Grafický styl | **4/5** |
+| Slop | **4/5** |
+| Výkon a přístupnost | **4/5** |
+| Rozložení | **4/5** |
+
+**0 kritických.** Skeptik potvrdil 3 důležité (popisy kalkulátorů bez
+pretty; řádek 7.15 na nejužším dvousloupci 1130–1180 s perexem utnutým
+výpustkou; chybějící `scroll-padding-top`) a 1 snížil na kosmetický
+(hlava na 1024 složená do jednoho sloupce — jediný zlom stránky je
+záměr ADR-006, novinka nese „díl 5 z 5“). Hranice průchodu je splněná
+ve druhém kole; další kola se nepouštěla.
+
+### Opravy po kole
+
+- **Řádek 7.15 se řídí šířkou seznamu** (container query 760 px místo
+  media 899): na 1130 má řádek dvě stopy, text 533 px, 0 z 11 perexů
+  utnutých na všech šířkách 320–1920 (předtím 7 z 11 na 1130).
+- Popis kalkulátoru a řádek „V článku …“ `text-wrap: pretty` (žádné
+  osamělé slovo na 320 / 1130 / 1180).
+- „Začněte tady“ a datum novinky nowrap; štítek „V magazínu“ odebrán
+  (opakoval H1, jméno navigace se rozcházelo s viditelným textem);
+  záhlaví `last baseline` (rozdíl účaří 2,9 → 1 px); pod 1130 mezera
+  hlava → seznam `--id-rhythm` jako u kalkulátorů (28 → 40 px na
+  telefonu); dekorativní ikony `focusable="false"`.
+- `scroll-padding-top`, pojistka fokusu v revealu, výchozí og:image,
+  lupa lucide a perexy opakovaných článků → DESIGN koš B (systémové,
+  ne stránka).
+
+Přejímky po opravách: `tsc` čistý, int 136 testů, zlatý snímek zelený po
+vědomé aktualizaci (změna jen odebraný štítek „V MAGAZÍNU“), přesah 0 na
+320–1920. Opravy po kole 02 ověřeny měřením, ne dalším kolem poroty.
+
+### Neopraveno (kosmetické)
+
+Hlava na 1024 v jednom sloupci, „Začněte tady“ na telefonu až pod první
+obrazovkou (novinka s „díl 5 z 5“ v ní stojí); ořez pytlů ve čtverci
+dílu 3 (ohnisko 55 je autorovo, posun na ~61 změní i figuru v článku);
+patička bez `aria-current`; řádek rozpracovaného demo článku (rozhodne
+majitel).
