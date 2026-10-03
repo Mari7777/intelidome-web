@@ -29,10 +29,13 @@ const cs = {
   'nav.aria': 'Hlavní navigace',
   'nav.search': 'Hledat',
   'nav.cta': 'Objevit systém',
+  // Odkaz sekce v kapsli (7.1) a v patičce (7.13), ADR-009
+  'nav.magazin': 'Magazín',
   'logo.aria': 'InteliDome — domovská stránka',
 
   // Patička (7.13)
   'footer.nav': 'Navigace v patičce',
+  'footer.rss': 'RSS',
 
   // Přepínač jazyků (A20)
   'lang.aria': 'Přepínač jazyků',
@@ -81,12 +84,13 @@ const cs = {
   'search.field': 'Hledat',
   'search.empty': 'Nic jsme nenašli.',
 
-  // Výpis článků
-  'posts.title': 'Blog',
-  'posts.page': (n: string) => `Články — strana ${n}`,
-  'posts.metaTitle': 'Články o půdě, trávníku a chytré závlaze',
+  // Domovská stránka článků — ADR-009 bod 6: sekce se jmenuje „Magazín“
+  'posts.title': 'Magazín',
+  'posts.page': (n: string) => `Magazín — strana ${n}`,
+  'posts.metaTitle': 'Magazín o půdě, trávníku a chytré závlaze',
   'posts.metaDescription':
-    'Praktické návody pro přípravu půdy, založení trávníku a chytrou závlahu. Výběr příměsí, kalkulátor množství a postup práce na zahradě.',
+    'Návody k půdě, trávníku a závlaze: rozbor půdy, míchání směsi, setí i automatická závlaha. S kalkulátory, které si přepočítáte na vlastní zahradu.',
+  'magazin.nazev': 'Magazín InteliDome',
 
   // 404
   'notFound.text': 'Tahle stránka neexistuje.',
@@ -99,11 +103,11 @@ const cs = {
   // SEO / metadata / RSS
   'seo.siteTitle': 'InteliDome — chytrá závlaha a automatizace zahrady',
   'seo.siteDescription':
-    'Návody a praxe kolem chytré závlahy: návrh systému, kapková závlaha, zazimování a automatizace zahrady. Blog značky InteliDome.',
+    'Návody a praxe kolem chytré závlahy: návrh systému, kapková závlaha, zazimování a automatizace zahrady. Magazín značky InteliDome.',
   'seo.ogDescription': 'Chytrá závlaha a automatizace zahrady — návody, plánování a praxe.',
   'seo.breadcrumbHome': 'Úvod',
-  'seo.breadcrumbPosts': 'Články',
-  'rss.title': 'InteliDome — blog',
+  'seo.breadcrumbPosts': 'Magazín',
+  'rss.title': 'InteliDome — Magazín',
   'rss.description': 'Návody a praxe kolem chytré závlahy a automatizace zahrady.',
 } satisfies Record<string, Hodnota>
 // `satisfies` místo `as const`: klíče zůstanou přesné, řetězce se rozšíří na

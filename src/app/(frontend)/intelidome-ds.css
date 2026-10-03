@@ -1255,16 +1255,24 @@
   outline-offset: 4px;
 }
 .id-capsule__link {
+  /* Cíl ≥ 24 px přes pseudo-prvek, kapsle se nerozšiřuje (WCAG 2.5.8). */
+  position: relative;
   font-size: 14px;
   color: var(--id-ink-2);
   text-decoration: none;
   transition: color 0.25s;
 }
+.id-capsule__link::after {
+  content: '';
+  position: absolute;
+  inset: -5px -4px;
+}
 .id-capsule__link:hover {
   color: var(--id-ink);
 }
-/* Přepínač jazyků (7.1, A20): aktivní jazyk stojí v ink jako stav, ne jako akce. */
-.id-capsule__link[aria-current='true'] {
+/* Aktivní jazyk (A20) i sekce Magazín (page na /magazin, true uvnitř sekce)
+   stojí v ink jako stav, ne jako akce. */
+.id-capsule__link[aria-current] {
   color: var(--id-ink);
 }
 .id-capsule__icon {

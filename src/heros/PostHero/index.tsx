@@ -52,7 +52,7 @@ export const PostHero: React.FC<{ post: Post; locale: Locale }> = ({ post, local
     minutes ? nezlomitelneMezery(t(locale, 'hero.reading')(minutes)) : null,
     kalkulatoru ? nezlomitelneMezery(t(locale, 'hero.calculators')(kalkulatoru)) : null,
     hasAuthors ? formatAuthors(populatedAuthors, locale) : null,
-    'InteliDome Journal',
+    t(locale, 'magazin.nazev'),
     publishedAt ? <time dateTime={publishedAt}>{formatDateTime(publishedAt, locale)}</time> : null,
   ].filter(Boolean) as React.ReactNode[]
 

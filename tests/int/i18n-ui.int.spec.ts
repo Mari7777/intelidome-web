@@ -48,7 +48,7 @@ describe('slovník UI (A11)', () => {
     expect(t('cs', 'pageRange.posts')(12)).toBe('článků')
     expect(t('cs', 'pageRange.shown')(1, 12, 30, 'článků')).toBe('Zobrazeno 1–12 z 30 článků')
     expect(t('cs', 'pageRange.shown')(0, 0, 3, 'články')).toBe('Zobrazeno 0 z 3 články')
-    expect(t('cs', 'posts.page')('2')).toBe('Články — strana 2')
+    expect(t('cs', 'posts.page')('2')).toBe('Magazín — strana 2')
     expect(t('cs', 'ingredients.item')(3)).toBe('Složka 3')
     expect(t('cs', 'productBand.figureAlt')('čidlo vlhkosti, ventil a retenční nádrž')).toBe(
       'Schéma sítě: most uprostřed, kolem něj čidlo vlhkosti, ventil a retenční nádrž; aktivní spoj vede k ventilu.',
