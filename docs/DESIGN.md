@@ -2,7 +2,7 @@
 
 _Prověřeno 3 adversárními kontrolami: 41 nálezů, 37 zapracováno, 4 zamítnuty jako vkusové. Poté ručně překlopeno na paletu Tech Blue + Emerald (rozhodnutí 22. 8. 2026) s přepočtem všech kontrastů._
 
-**Verze:** 2.13 · **Datum:** 2026-10-03 · **Platí pro:** www.intelidome.com / intelidome.cz (Next.js + Tailwind CSS + GSAP)
+**Verze:** 2.14 · **Datum:** 2026-10-03 · **Platí pro:** www.intelidome.com / intelidome.cz (Next.js + Tailwind CSS + GSAP)
 **Primární reference:** [Sonos](https://styles.refero.design/style/8d315332-6267-4dc0-a14c-e8b49c26b0e1) · **Sekundární:** [Eight Sleep](https://styles.refero.design/style/e4e8fe86-47ed-4ddd-a6c6-2c28eae9aabe), [Samara](https://styles.refero.design/style/934a61aa-50ff-4e90-852b-4ad0b8262d54)
 
 > **Esence:** Teplý papír za dne, obsidian po setmění — a jeden modrý pulz.
@@ -1056,7 +1056,7 @@ Snippet: viz 7.1/7.14.
 
 ---
 
-### 7.15 Řádek rejstříku `.id-mag-radek` (v2.13)
+### 7.15 Řádek rejstříku `.id-mag-radek` (v2.13, upřesněno v2.14)
 
 **Role:** položka seznamu článků bez rámečku a stínu (Povrch mluví, čáry mlčí). Obsahuje náhled, titulek a porovnatelný sloupec metadat. Hairline je uvnitř komponenty jako u stat-tiles (7.6). Server component bez JS.
 
@@ -1066,13 +1066,13 @@ Snippet: viz 7.1/7.14.
 | Hairline | border-top 1px line-soft (na krému line-cream), poslední řádek i border-bottom |
 | Náhled | varianta `square`, 120 / 80 px, r-sm, object-fit cover, `alt=""` + `aria-hidden` (je to kopie titulku); bez obrazu prázdný čtverec cream (na krému surface) |
 | Kicker | label 12 px Archivo 600 +0,14 em uppercase ink-2; série „Díl 3 z 5“, díl 1 „· Začněte tady“ v ink; v přehledu téma („… · díl 3“) |
-| Titulek | h3, část titulku před dvojtečkou; Archivo 600, `--id-t-lead`, lh 1,25, −0,01 em, ink, text-wrap pretty (precedent `.id-feature__title`) |
-| Perex | meta.description (jinak kvalifikátor za dvojtečkou), body-sm ink-2, míra 33 em, line-clamp 3; < 640 skrytý |
-| Meta | caption ink-2 tabular „17 min čtení“; odznak kalkulátoru = obrysová ikona 20 px + label „Kalkulátor“ / „2 kalkulátory“ v ink (hlas, ne pilulka; §14 p. 6) |
+| Titulek | h3, část titulku před dvojtečkou; Archivo 600, `--id-t-lead`, lh 1,25, −0,01 em, ink, **text-wrap balance** (4.3 p. 3; v2.14 — pretty v Chromiu nechal sirotky ve 3 z 12 titulků na 320 px) |
+| Perex | meta.description (jinak kvalifikátor za dvojtečkou), body-sm ink-2, míra 33 em, text-wrap pretty, line-clamp 3; < 640 skrytý |
+| Meta | caption ink-2 tabular „17 min čtení“; odznak kalkulátoru = obrysová ikona 20 px + label „Kalkulátor“ / „2 kalkulátory“ v ink (hlas, ne pilulka; §14 p. 6). Sloupec stojí u pravé hrany i za cenu svislého pruhu mezi mírou perexu a metadaty na ≥ 1280 (porovnatelný sloupec je záměr, v2.14) |
 | `--rejstrik` | místo náhledu `<time>` caption ink-3 nowrap; < 640 jeden sloupec (datum → kicker → titulek → meta) |
 | Odkaz | jediný `<a>` na titulku roztažený `::after { inset: 0 }`: jeden tab stop, bez JS |
 | Hover | (hover: hover) titulek → accent, .25 s; bez transformu a stínu (řádek není karta) |
-| Focus | `.id-mag-radek:has(a:focus-visible)`: outline 3 px accent, offset 4 px, r-sm; na samotném odkazu outline none |
+| Focus | prstenec kreslí roztažená plocha `a:focus-visible::after`: outline 3 px accent, offset 4 px, r-sm; na odkazu samém outline none. Ne na `<li>`: zaoblení by ohnulo hairline do rámečku (v2.14) |
 
 ---
 
@@ -1285,17 +1285,17 @@ Jediná začíná krémem (produktové foto potřebuje světlý pás). Header s 
 | 7 | Příslušenství | bílá (hairline od #6) | 3sloupcový grid karet (bílá s borderem var(--id-line-soft), hover translateY(−3px) + --id-shadow) |
 | 8 | CTA | obsidian | H2 + cena + btn-blue; mezi #4 a #8 3 světlé sekce |
 
-### 8.5 Šablona: Domovská stránka magazínu (v2.13, ADR-009)
+### 8.5 Šablona: Domovská stránka magazínu (v2.13, upřesněno v2.14, ADR-009)
 
 Adresa `/magazin`, strany 2+ `/magazin/strana/N` (12 článků na stranu). Magazín je **obsah příručky, ne nástěnka novinek**: témata v pevném pořadí, číslovaná série v pořadí čtení, pod nimi úplný přehled všech článků. Stránkuje se **jen přehled**, takže strana 1 má pevnou délku (záhlaví + nejvýš 3 témata + 12 řádků přehledu) a šablona unese 7 i 100 článků.
 
 | # | Sekce | Povrch | Obsah |
 |---|---|---|---|
 | 0 | Header | frosted capsule | logo · **Magazín** (vždy, i pod 640 px; `aria-current` page/true) · [odkazy a jazyky ≥ 640] · lupa · Objevit systém |
-| 1 | Záhlaví | bílá | H1 „Magazín“ v roli **display** (vnitřní H1, ne display-xl) s maskovaným rise `.id-hline`; lead (`--id-t-lead`, ink-2, 33 em); vpravo, dolní hranou na účaří, kotvy `.id-btn--secondary.id-btn--sm` s počty a „Naposledy přidáno“ (textový odkaz = jediný akcent hlavy). Bez eyebrow, fotky a formuláře hledání. Padding nahoře = kontejner hera `clamp(96px, 14vw, 160px)`, dole `--id-sect-y-sm` |
+| 1 | Záhlaví | bílá | H1 „Magazín“ v roli **display** (vnitřní H1, ne display-xl) s maskovaným rise `.id-hline`; lead (`--id-t-lead`, ink-2, 33 em); vpravo, dolní hranou na účaří, kotvy `.id-btn--secondary.id-btn--sm` s počty v pořadí pásů (témata → Všechny články → Kalkulátory; počet má pro odečítač jednotku `sr-only`, „5 dílů“) a „Naposledy přidáno“ (textový odkaz = jediný akcent hlavy; pod ním caption ink-2 „Téma, díl k z N · datum“, aby novinka nevypadala jako začátek). Bez eyebrow, fotky a formuláře hledání. Padding nahoře = kontejner hera `clamp(96px, 14vw, 160px)`, dole `--id-sect-y-sm` |
 | 2…k | Témata (≤ 3) | krém, další střídá bílou | `.id-2col--narrow-left` (322 \| 56 \| 982): hlava (eyebrow „Série · N dílů“ / „Téma · N článků“, H2 role title-sm, popis z CMS, meta) od 1130 px sticky; vpravo řádky 7.15 |
 | k+1 | Všechny články | bílá (vždy) | táž mřížka; hlava bez eyebrow; řádky 7.15 `--rejstrik` (datum místo náhledu); stránkování jako `<a href>` na konci pásu, bez vlastního pásu |
-| k+2 | Kalkulátory | obsidian | jen strana 1 a ≥ 2 kalkulátory; `.id-2col` 652 \| 652; řádky `.id-feature` s roztaženým odkazem na `#kalkulator-<kind>`, nejvýš 6; žádné karty s ikonou v kolečku |
+| k+2 | Kalkulátory | obsidian | jen strana 1 a ≥ 2 kalkulátory; hlava nad seznamem (eyebrow, H2 role **title-sm** jako ostatní sekce, popis 33 em), pod ní `.id-feature` s roztaženým odkazem na `#kalkulator-<kind>` a šipkou 12 × 10 px: ≥ 900 tři stejné sloupce (`repeat(3, 1fr)`, gap 40 / `--id-gap-col`), < 900 jeden sloupec max 700 px zakončený čarou; nejvýš 6; žádné karty s ikonou v kolečku. Dvousloupec hlava \| seznam (v2.13) nechával 46–51 % levého sloupce prázdných (v2.14) |
 | k+3 | CTA | bílá | CtaBand (8.2 ř. N+2) bez otázky čtenáři; `.id-cta` schová mini-CTA kapsle |
 | k+4 | Footer | bílá | 7.13 + odkazy Magazín · RSS |
 
@@ -1306,11 +1306,11 @@ Adresa `/magazin`, strany 2+ `/magazin/strana/N` (12 článků na stranu). Magaz
 3. **Přehled „Všechny články“** je jediná stránkovaná část magazínu. Články z témat opakuje jen jako textový řádek; obraz se na stránce nikdy neopakuje.
 4. **Povrchy:** záhlaví bílé → témata krém/bílá počínaje krémem → přehled vždy bílý (sekundární pilulky stránkování by na krému zmizely) → obsidian → bílé CTA. Dva sousední pásy téhož povrchu odděluje hairline (bílá `--id-line-soft`, krém `--id-line-cream`; 8.1 p. 1). Na stránce je jediný obsidian a stránka vždy končí bílou výzvou, takže hairline patičky leží mezi bílými povrchy.
 5. **Akcent:** v první obrazovce nejvýš 2 prvky, a to odkaz „Naposledy přidáno“ a eyebrow prvního tématu. Kotvy, čísla stran (ink, aktuální na krémové pilulce), odznak kalkulátoru a řádky v klidu akcent nenesou. Titulek řádku se do akcentu barví jen při najetí (role 2, odkaz).
-6. **Pohyb:** jediná orchestrace první obrazovky je rise H1 (CSS keyframes, 6.3.3). Lead, kotvy a novinka stojí od prvního snímku, žádná opacity 0 (LCP). Každá sekce je `data-rv-group` se dvěma dětmi (hlava, seznam) a řádky se jednotlivě neodhalují. Při najetí na řádek se mění jen barva, žádný transform ani scale. Setrvačníkový scroll ne, výpis není imerzivní obsah (6.5).
-7. **Obraz:** jen čtvercový náhled řádku 7.15 z varianty `square` (500 × 500, ořez podle fokálu), 120 / 80 px, `--id-r-sm`. První dva řádky eager bez fetchpriority, ostatní lazy. LCP je text. Bez obrazu zůstane prázdný čtverec v opačném světlém povrchu, nikdy kresba.
+6. **Pohyb:** jediná orchestrace první obrazovky je rise H1 (CSS keyframes, 6.3.3). Lead, kotvy a novinka stojí od prvního snímku, žádná opacity 0 (LCP). **První obsahový pás** (první téma, bez témat a na straně 2+ přehled) se neodhaluje a stojí od prvního snímku taky: hlava je nízká (≈ 430 px), pás leží nad spouštěcí čarou 88 % a jeho nástup by běžel současně s rise H1 (6.1 p. 2; v2.14). Každá další sekce je `data-rv-group` se dvěma dětmi (hlava, seznam) a řádky se jednotlivě neodhalují. Při najetí na řádek se mění jen barva, žádný transform ani scale. Setrvačníkový scroll ne, výpis není imerzivní obsah (6.5).
+7. **Obraz:** jen čtvercový náhled řádku 7.15 z varianty `square` (500 × 500, ořez podle fokálu), 120 / 80 px, `--id-r-sm`. Všechny náhledy lazy: eager `<img>` React při SSR sám přednačte v hlavičce, a preload patří jen LCP (9.1), které je tu textové (v2.14). Varianty se musí přegenerovat po každé změně ohniska (`scripts/lib/ohnisko-medii.ts`; prosté `update` čísel nestačí). Bez obrazu zůstane prázdný čtverec v opačném světlém povrchu, nikdy kresba.
 8. **Strana 2+:** záhlaví jen H1 + „Strana N z M“ → přehled → CTA → patička.
-9. **Mřížka:** tokeny `--id-gap-col`, `--id-col-a` a `--id-rhythm` nese kořen `.id-mag` se stejnými hodnotami jako `.id-article`, jinak má `.id-2col` mezeru 0. Šířky jsou jen 322 / 652 a existující doplněk `--narrow-left`, žádná třísloupcová mřížka karet.
-10. **Přejímka:** `layout-check` je kalibrovaný na článek. Tady se kontrolují osy 40 / 1400 a dělení 322|56|982 a 652|56|652 na 1440 / ≥ 1920 / 1130 / 1024. Na telefonu 320 / 393 se kontroluje kapsle s odkazem Magazín (≤ 288 px) a první odkaz na článek v první obrazovce. Dále Lighthouse LCP < 2,5 s (text), CLS < 0,1 a screenshot akcentového rozpočtu.
+9. **Mřížka:** tokeny `--id-gap-col`, `--id-col-a` a `--id-rhythm` nese kořen `.id-mag` se stejnými hodnotami jako `.id-article`, jinak má `.id-2col` mezeru 0. Šířky jsou jen 322 / 652 a existující doplněk `--narrow-left`; jediné tři sloupce jsou řádky `.id-feature` v pásu kalkulátorů (bez rámečků, nejsou to karty).
+10. **Přejímka:** `layout-check` je kalibrovaný na článek. Tady se kontrolují osy 40 / 1400, dělení 322|56|982 (témata, přehled) a 652|56|652 (záhlaví) na 1440 / ≥ 1920 / 1130 / 1024 a trojice kalkulátorů od 900. Stránkování na prostřední straně se na 320 / 393 vejde do jedné řady (krátké popisky „← Novější“ / „Starší →“). Na telefonu 320 / 393 se kontroluje kapsle s odkazem Magazín (≤ 288 px) a první odkaz na článek v první obrazovce. Dále Lighthouse LCP < 2,5 s (text), CLS < 0,1 a screenshot akcentového rozpočtu.
 
 ---
 
@@ -1803,6 +1803,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 ## 14. Otevřené body systému (koš B po smyčce článku 2, 2026-09-12)
 
 - **(v2.13, magazín)** `--id-gap-col`, `--id-col-a` a `--id-rhythm` povýšit do `:root` a tokens.css — dnes jsou zdvojené na `.id-article` a `.id-mag`.
+- **(v2.14, magazín)** `.id-feature__title` má `text-wrap: pretty`, které v Chromiu dvouřádkové nadpisy před sirotkem nechrání; 4.3 p. 3 žádá u nadpisů balance. U řádku 7.15 opraveno, sdílená třída čeká na kontrolu všech výskytů.
 
 Nálezy poroty, které nejsou vadou stránky, ale systému — každý čeká na
 vlastní rozhodnutí (ADR), ne na záplatu v článku:

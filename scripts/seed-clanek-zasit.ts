@@ -20,6 +20,7 @@ import { fileURLToPath } from 'url'
 import { existsSync } from 'fs'
 import { createLocalReq, getPayload } from 'payload'
 import config from '@payload-config'
+import { nastavOhnisko } from './lib/ohnisko-medii'
 import { publikujCs } from './lib/publikuj-cs'
 import { LAWN_SEO, optimizeLawnArticle } from './lib/lawn-seo-content'
 import { block, paragraph, renumberFigures, type ArticleDocument, type ArticleNode } from './lib/lawn-series-helpers'
@@ -244,7 +245,8 @@ const run = async () => {
   for (const item of MEDIA) {
     const existujici = await najdi(item.filename)
     if (existujici) {
-      await payload.update({ collection: 'media', id: existujici.id, data: { alt: item.alt, ...item.focal } })
+      if (item.focal) await nastavOhnisko(payload, existujici.id, item.focal, { alt: item.alt })
+      else await payload.update({ collection: 'media', id: existujici.id, data: { alt: item.alt } })
       continue
     }
     const filePath = path.join(FOTKY, item.filename)

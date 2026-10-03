@@ -51,7 +51,7 @@ export async function generateMetadata({ params: paramsPromise }: Args): Promise
     title,
     description,
     // `alternates` stránky přepíše layout celý: RSS se musí uvést znovu.
-    alternates: { canonical, ...(languages ? { languages } : {}), types: { 'application/rss+xml': rssCesta(locale) } },
+    alternates: { canonical, ...(languages ? { languages } : {}), types: { 'application/rss+xml': [{ url: rssCesta(locale), title: t(locale, 'rss.title') }] } },
     openGraph: mergeOpenGraph({ title, description, url: canonical, type: 'website' }, locale),
   }
 }

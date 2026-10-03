@@ -67,7 +67,7 @@ export async function generateMetadata({ params: paramsPromise }: Args): Promise
   return {
     title,
     description,
-    alternates: { canonical, types: { 'application/rss+xml': rssCesta(locale) } },
+    alternates: { canonical, types: { 'application/rss+xml': [{ url: rssCesta(locale), title: t(locale, 'rss.title') }] } },
     openGraph: mergeOpenGraph({ title, description, url: canonical, type: 'website' }, locale),
   }
 }

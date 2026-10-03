@@ -19,13 +19,32 @@ import { Zahlavi, type Kotva } from './Zahlavi'
  */
 export function MagazinStranka({ data, locale }: { data: MagazinData; locale: Locale }) {
   const prvni = data.strana === 1
+  const kalkulatory = prvni && data.kalkulatory.length >= 2
+  // Mapa kotev v pořadí pásů na stránce.
   const kotvy: Kotva[] = prvni
     ? [
-        ...data.skupiny.map((s) => ({ href: `#tema-${s.slug}`, nazev: s.titulek, pocet: s.pocet })),
-        ...(data.kalkulatory.length >= 2
-          ? [{ href: '#kalkulatory', nazev: t(locale, 'magazin.kalkulatory'), pocet: data.kalkulatory.length }]
+        ...data.skupiny.map((s) => ({
+          href: `#tema-${s.slug}`,
+          nazev: s.titulek,
+          pocet: s.pocet,
+          jednotka: t(locale, s.serie ? 'magazin.jednotkaDilu' : 'magazin.jednotkaClanku')(s.pocet),
+        })),
+        {
+          href: '#vsechny-clanky',
+          nazev: t(locale, 'magazin.vsechny'),
+          pocet: data.celkem,
+          jednotka: t(locale, 'magazin.jednotkaClanku')(data.celkem),
+        },
+        ...(kalkulatory
+          ? [
+              {
+                href: '#kalkulatory',
+                nazev: t(locale, 'magazin.kalkulatory'),
+                pocet: data.kalkulatory.length,
+                jednotka: t(locale, 'magazin.jednotkaKalkulatoru')(data.kalkulatory.length),
+              },
+            ]
           : []),
-        { href: '#vsechny-clanky', nazev: t(locale, 'magazin.vsechny'), pocet: data.celkem },
       ]
     : []
   const jsonLd = magazinJsonLd({
@@ -51,16 +70,17 @@ export function MagazinStranka({ data, locale }: { data: MagazinData; locale: Lo
         strana={data.strana}
       />
       {data.skupiny.map((skupina, i) => (
-        <Skupina key={skupina.slug} krem={i % 2 === 0} locale={locale} prvni={i === 0} skupina={skupina} />
+        <Skupina key={skupina.slug} krem={i % 2 === 0} locale={locale} skupina={skupina} staticky={i === 0} />
       ))}
       <Rejstrik
         celkem={data.celkem}
         locale={locale}
         pocetStran={data.pocetStran}
         rejstrik={data.rejstrik}
+        staticky={data.skupiny.length === 0}
         strana={data.strana}
       />
-      {prvni && data.kalkulatory.length >= 2 ? <Kalkulatory kalkulatory={data.kalkulatory} locale={locale} /> : null}
+      {kalkulatory ? <Kalkulatory kalkulatory={data.kalkulatory} locale={locale} /> : null}
       <CtaBandBlock
         buttonHref="/"
         buttonLabel={t(locale, 'nav.cta')}

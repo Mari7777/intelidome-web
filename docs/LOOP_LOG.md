@@ -4128,3 +4128,69 @@ kresbu; tabulky bez `caption`, karty souvisejících článků `sizes="33vw"`,
 WebP fallback hera nad limitem, mezery kolem předělu a mezi FAQ a výzvou
 (vše celý web); předěl má zdroj 2400 px (na retině 1440 mírně pod plnou
 ostrostí – cena za váhu).
+
+## Kolo 01 (2026-10-03) — domovská stránka magazínu `/magazin`
+
+Šablona DESIGN.md 8.5 / řádek 7.15 (v2.13), ADR-009. Porota 7 lenzů se
+skeptikem na každý kritický a důležitý nález; snímky 1440 / 1024 / telefon.
+
+| Porotce | Známka |
+|---|---|
+| Hierarchie | 4/5 |
+| Typografie | **2/5** |
+| Pohyb | 4/5 |
+| Grafický styl | 4/5 |
+| Slop | 4/5 |
+| Výkon a přístupnost | 4/5 |
+| Rozložení | **3/5** |
+
+**0 kritických po skeptikovi** (2 kritické z typografie sníženy na
+důležité). Potvrzené důležité: sirotci v titulcích řádků (pretty místo
+balance), lead pásu kalkulátorů bez míry (85 znaků), perex bez pretty,
+nástup prvního tématu souběžně s rise H1, čtvercový náhled dílu 4 oříznutý
+na střed proti ohnisku. Na kosmetické sníženy: novinka bez kontextu série,
+eager náhledy přednačtené v hlavičce, prázdná půlka levého sloupce
+kalkulátorů, stránkování na telefonu ve dvou řádcích.
+
+### Opravy (jeden balík)
+
+- **Typografie:** titulek řádku `text-wrap: balance`, perex `pretty`;
+  kicker přes `nezlomitelneMezery`.
+- **Pás kalkulátorů přestavěn:** hlava nad seznamem (eyebrow, H2 title-sm
+  jako ostatní sekce, popis 33 em), pod ní trojice `.id-feature` od 900 px,
+  pod 900 jeden sloupec max 700 zakončený čarou; šipka 12 × 10. Řeší
+  zároveň prázdný levý sloupec, obrácenou hierarchii H2 (kalkulátory 52 px >
+  série 36 px), lead bez míry a šipku daleko od textu na 1024.
+- **Pohyb:** první obsahový pás (první téma; bez témat a na straně 2+
+  přehled) se neodhaluje, v první obrazovce zůstává jediný rise H1.
+- **Ořezy fotek:** příčina byla v seederech — `payload.update` s novým
+  ohniskem mění jen čísla, varianty Payload nepřegeneruje.
+  `scripts/lib/ohnisko-medii.ts` (ohnisko přes `req.query.uploadEdits`),
+  seedery ho používají, `scripts/obnov-orezy-medii.ts --write` přegeneroval
+  14 fotek (záloha v `zdroje-informaci/zalohy/orezy-medii`). Médium 38
+  (díl 4) ohnisko 85 → 66: čtverec vejde zahradníka i rotavátor.
+- **Hlava:** novinka má pod odkazem „Půda a založení trávníku, díl 5 z 5 ·
+  datum“; kotvy v pořadí pásů (témata → Všechny články → Kalkulátory);
+  počet v kotvě má pro odečítač jednotku (`sr-only`, „5 dílů“).
+- **Výkon a přístupnost:** všechny náhledy lazy (0 preloadů v hlavičce);
+  prstenec fokusu na `a::after` místo `<li>` (hairline se neohýbá); RSS
+  alternate s titulkem; JSON-LD bez `hasPart` → ItemListy v `mainEntity`.
+- **Rozložení:** stránkování na telefonu pevná trojice s krátkými popisky
+  (výška 40 px na 320 i 393); eyebrow hlavy tématu jako blok, hlava začíná
+  na hairline seznamu jako hlava přehledu (0 px).
+- DESIGN.md v2.14: 7.15 (balance, pretty, fokus, pruh metadat přijat), 8.5
+  (kalkulátory, první pás statický, lazy, kotvy, novinka, přejímka).
+
+Přejímky: `tsc` čistý, int 17 souborů / 136 testů, zlatý snímek zelený po
+vědomé aktualizaci (změněn jen text `/magazin`: pořadí kotev, jednotky,
+řádek novinky), přesah 0 na 320 / 393 / 1024 / 1440.
+
+### Neopraveno (kosmetické)
+
+Svislý pruh mezi perexem a metadaty na ≥ 1280 (porovnatelný sloupec je
+záměr, zapsáno v 7.15); patička nemá `aria-current` na /magazin; článek
+„Jak zasít trávník“ je na stránce třikrát (novinka, díl 5, přehled — sloty
+pro vracejícího se a nového čtenáře); opakovaný kicker tématu v přehledu
+(rozředí se s druhým tématem); torzo postavy ve čtverci dílu 5 a podobné
+náhledy dílů 2 a 3 (obsah fotek); rozpracovaný článek bez perexu (rozhodne
+majitel).

@@ -2893,12 +2893,12 @@
 .id-mag-odkaz:hover {
   color: var(--id-accent-deep);
 }
-.id-mag-hlava__datum {
-  display: block;
-  margin-top: 4px;
+/* Téma, díl a datum novinky: čtenář pozná pokračování série (porota kola 01). */
+.id-mag-hlava__meta {
+  margin-top: 6px;
   font-size: var(--id-t-caption);
   line-height: 1.45;
-  color: var(--id-ink-3);
+  color: var(--id-ink-2);
   font-variant-numeric: tabular-nums;
 }
 
@@ -2912,6 +2912,12 @@
     top: var(--id-s-96);
     align-self: start;
   }
+}
+/* Eyebrow jako blok: inline-flex v řádkovém boxu odsunul hlavu tématu 8 px
+   pod hairline seznamu, hlava přehledu (bez eyebrow) na ní stála. */
+.id-mag-sekce__hlava > .id-eyebrow,
+.id-mag-kalk__hlava > .id-eyebrow {
+  display: flex;
 }
 .id-mag-sekce__titulek {
   margin-top: 14px;
@@ -3004,7 +3010,8 @@
   line-height: 1.25;
   letter-spacing: -0.01em;
   color: var(--id-ink);
-  text-wrap: pretty;
+  /* Nadpis do 4 řádků: balance (4.3 p. 3); pretty sirotky v Chromiu nechytí. */
+  text-wrap: balance;
   transition: color 0.25s var(--id-ease);
 }
 .id-mag-radek__a {
@@ -3019,7 +3026,10 @@
 .id-mag-radek__a:focus-visible {
   outline: none;
 }
-.id-mag-radek:has(.id-mag-radek__a:focus-visible) {
+/* Prstenec kreslí roztažená plocha odkazu, ne <li>: zaoblení by ohnulo
+   hairline řádku do rámečku (Filozofie 1). */
+.id-mag-radek__a:focus-visible::after,
+.id-mag-nastroj__a:focus-visible::after {
   outline: 3px solid var(--id-accent);
   outline-offset: 4px;
   border-radius: var(--id-r-sm);
@@ -3036,6 +3046,7 @@
   line-height: 1.55;
   letter-spacing: -0.006em;
   color: var(--id-ink-2);
+  text-wrap: pretty;
   display: -webkit-box;
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
@@ -3166,28 +3177,66 @@
   font-size: var(--id-t-caption);
   color: var(--id-ink-2);
 }
+.id-mag-pager__kratky {
+  display: none;
+}
+/* Telefon: pevná trojice „← Novější · Strana N z M · Starší →“ v jedné řadě. */
 @media (max-width: 639px) {
-  .id-mag-pager__cisla {
+  .id-mag-pager {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    gap: 8px;
+  }
+  .id-mag-pager__cisla,
+  .id-mag-pager__dlouhy {
     display: none;
   }
   .id-mag-pager__stav {
+    display: block;
+    text-align: center;
+    font-variant-numeric: tabular-nums;
+  }
+  .id-mag-pager__kratky {
     display: inline;
   }
 }
 
-/* Kalkulátory na obsidianu */
-[data-surface='dark'] .id-section-heading__title {
+/* Kalkulátory na obsidianu: hlava nad seznamem ve stupni ostatních sekcí
+   (title-sm), pod ní trojice. Dvousloupec hlava | seznam nechával půl
+   levého sloupce prázdnou a dával pásu nástrojů větší H2 než sérii
+   (porota kola 01). */
+.id-mag-kalk__hlava {
+  max-width: var(--id-maxw-prose);
+}
+[data-surface='dark'] .id-mag-sekce__titulek {
   color: var(--id-ink-dark);
 }
-[data-surface='dark'] .id-section-heading__lead {
+[data-surface='dark'] .id-mag-sekce__popis {
   color: var(--id-ink-dark-2);
 }
 .id-mag-nastroje {
   display: grid;
   gap: 24px;
+  max-width: var(--id-maxw-prose);
   list-style: none;
-  margin: 0;
+  margin: var(--id-rhythm) 0 0;
   padding: 0;
+}
+/* V jednom sloupci končí seznam čarou jako řádky 7.15. */
+.id-mag-nastroj:last-child {
+  padding-bottom: 18px;
+  border-bottom: 1px solid var(--id-line-dark);
+}
+@media (min-width: 900px) {
+  .id-mag-nastroje {
+    max-width: none;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 40px var(--id-gap-col);
+  }
+  .id-mag-nastroj:last-child {
+    padding-bottom: 0;
+    border-bottom: 0;
+  }
 }
 .id-mag-nastroj {
   position: relative;
@@ -3220,11 +3269,6 @@
 }
 .id-mag-nastroj__a:focus-visible {
   outline: none;
-}
-.id-mag-nastroj:has(.id-mag-nastroj__a:focus-visible) {
-  outline: 3px solid var(--id-accent);
-  outline-offset: 4px;
-  border-radius: var(--id-r-sm);
 }
 @media (hover: hover) {
   .id-mag-nastroj:hover .id-feature__title,

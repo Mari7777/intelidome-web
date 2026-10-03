@@ -138,8 +138,11 @@ export function magazinJsonLd({
         isPartOf: { '@type': 'WebSite', url: base, name: 'InteliDome' },
         publisher: { '@id': `${base}/#organization` },
         breadcrumb: { '@id': `${url}#breadcrumbs` },
-        mainEntity: { '@id': `${url}#clanky` },
-        ...(serie.length ? { hasPart: serie.map((s) => ({ '@id': `${url}#tema-${s.slug}` })) } : {}),
+        // Seznamy (ItemList) stránka popisuje, nejsou to její části: hasPart
+        // čeká CreativeWork, mainEntity bere jakoukoli entitu.
+        mainEntity: serie.length
+          ? [{ '@id': `${url}#clanky` }, ...serie.map((s) => ({ '@id': `${url}#tema-${s.slug}` }))]
+          : { '@id': `${url}#clanky` },
       },
       {
         '@type': 'ItemList',

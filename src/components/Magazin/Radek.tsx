@@ -20,14 +20,14 @@ const IkonaKalkulatoru = () => (
  * Řádek článku (DESIGN.md 7.15): bez rámečku a stínu, hairline uvnitř
  * komponenty. Jediný odkaz na titulku je roztažený přes řádek (jeden tab stop,
  * bez JS). Varianta `skupina` má čtvercový náhled, `rejstrik` datum.
+ * Náhledy jsou vždy lazy: eager by React při SSR přednačetl v hlavičce
+ * a preload patří jen LCP (9.1), který je tu textový.
  */
 export function Radek({
-  eager,
   locale,
   radek,
   varianta,
 }: {
-  eager?: boolean
   locale: Locale
   radek: RadekData
   varianta: 'skupina' | 'rejstrik'
@@ -37,7 +37,7 @@ export function Radek({
       ? radek.dil
         ? (
             <>
-              {t(locale, 'magazin.dil')(radek.dil.k, radek.dil.z)}
+              {nezlomitelneMezery(t(locale, 'magazin.dil')(radek.dil.k, radek.dil.z))}
               {radek.dil.k === 1 ? (
                 <>
                   {' · '}
@@ -48,7 +48,9 @@ export function Radek({
           )
         : null
       : radek.tema
-        ? `${radek.tema.titulek}${radek.dil ? ` · ${t(locale, 'magazin.dilKratce')(radek.dil.k)}` : ''}`
+        ? nezlomitelneMezery(
+            `${radek.tema.titulek}${radek.dil ? ` · ${t(locale, 'magazin.dilKratce')(radek.dil.k)}` : ''}`,
+          )
         : null
 
   return (
@@ -59,7 +61,7 @@ export function Radek({
             <Image
               alt=""
               height={radek.nahled.height}
-              loading={eager ? 'eager' : 'lazy'}
+              loading="lazy"
               quality={72}
               sizes="(min-width: 640px) 120px, 80px"
               src={radek.nahled.src}

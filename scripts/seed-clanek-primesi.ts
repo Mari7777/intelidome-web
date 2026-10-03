@@ -30,6 +30,7 @@ import { fileURLToPath } from 'url'
 import { existsSync } from 'fs'
 import { createLocalReq, getPayload, type RequiredDataFromCollectionSlug } from 'payload'
 import config from '@payload-config'
+import { nastavOhnisko } from './lib/ohnisko-medii'
 import { publikujCs } from './lib/publikuj-cs'
 import { PREPARATION_TITLE, PREPARATION_SLUG } from './lib/split-profile-preparation'
 import { SEEDING_TITLE, SEEDING_SLUG } from './lib/split-preparation-seeding'
@@ -208,7 +209,8 @@ const MEDIA: {
     filename: 'hero-priprava-smesi-higgsfield.avif',
     portret: 'hero-priprava-smesi-higgsfield-portret.avif',
     alt: 'Zahradník v teplém světle podvečerního slunce promíchává písek s ornicí malým rotavátorem na připravované ploše pro nový trávník.',
-    focal: { focalX: 85, focalY: 50, focalPortraitX: 72, focalPortraitY: 50 },
+    /* 66: čtverec v magazínu vejde zahradníka i rotavátor (85 začínalo na zádech). */
+    focal: { focalX: 66, focalY: 50, focalPortraitX: 72, focalPortraitY: 50 },
   },
   /* Rytmus obraz/text článku o přípravě (2026-09-23): ořezy v poměru rámu
      splitu (1:1 / 4:5), zdroje a varianty v kandidati-priprava/rytmus. */
@@ -971,7 +973,8 @@ const run = async () => {
       const zdroj = path.resolve(dirname, '../zdroje-informaci/fotky', item.filename)
       if (ogWebp || !existsSync(zdroj)) {
         /* Alt a ohnisko jsou zdrojem pravdy tady, ne v knihovně médií. */
-        await payload.update({ collection: 'media', id: doc.id, data: { alt: item.alt, ...item.focal } })
+        if (item.focal) await nastavOhnisko(payload, doc.id, item.focal, { alt: item.alt })
+        else await payload.update({ collection: 'media', id: doc.id, data: { alt: item.alt } })
         continue
       }
       await payload.delete({ collection: 'media', id: doc.id })

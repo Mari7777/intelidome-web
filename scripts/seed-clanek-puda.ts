@@ -19,6 +19,7 @@ import config from '@payload-config'
 import { LAWN_SEO, optimizeLawnArticle } from './lib/lawn-seo-content'
 import { reviseSoilGuide } from './lib/lawn-series-puda'
 import { illustrateSoilGuide, SOIL_PHOTOS, type SoilPhotoIds } from './lib/lawn-series-puda-layout'
+import { nastavOhnisko } from './lib/ohnisko-medii'
 import { publikujCs } from './lib/publikuj-cs'
 
 const dirname = path.dirname(fileURLToPath(import.meta.url))
@@ -514,7 +515,7 @@ const run = async () => {
       const zdroj = path.resolve(dirname, '..', item.source ?? `zdroje-informaci/fotky/${item.filename}`)
       if (ogWebp || !existsSync(zdroj)) {
         if (item.focal) {
-          await payload.update({ collection: 'media', id: doc.id, data: item.focal })
+          await nastavOhnisko(payload, doc.id, item.focal)
         }
         continue
       }
