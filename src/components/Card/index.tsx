@@ -19,11 +19,13 @@ export const Card: React.FC<{
   doc?: CardPostData
   relationTo?: 'posts'
   showCategories?: boolean
+  /** `sizes` obrázku podle mřížky, ve které karta stojí (výchozí: tři sloupce od lg). */
+  sizes?: string
   title?: string
 }> = (props) => {
   const { card, link } = useClickableCard({})
   const locale = useLocale()
-  const { className, doc, showCategories, title: titleFromProps } = props
+  const { className, doc, showCategories, sizes, title: titleFromProps } = props
 
   const { slug, categories, meta, title } = doc || {}
   const { description, image: metaImage } = meta || {}
@@ -47,9 +49,18 @@ export const Card: React.FC<{
       )}
       ref={card.ref}
     >
-      <div className="relative w-full">
-        {!metaImage && <div className="aspect-video w-full bg-[var(--id-bg-2)]" />}
-        {metaImage && typeof metaImage !== 'string' && <Media resource={metaImage} size="33vw" />}
+      {/* Jednotný ořez 3:2: čtvercový meta obrázek jinak natáhl kartu na
+          dvojnásobnou výšku a řada se rozjela (kontrola článků 3. 10. 2026).
+          Slot je půlka kontejneru (od md dva sloupce, od lg tři). */}
+      <div className="relative aspect-[3/2] w-full overflow-hidden bg-[var(--id-bg-2)]">
+        {metaImage && typeof metaImage !== 'string' && (
+          <Media
+            fill
+            imgClassName="object-cover [object-position:var(--id-focal,50%_50%)]"
+            resource={metaImage}
+            size={sizes ?? '(min-width: 1024px) 34vw, (min-width: 768px) 50vw, 100vw'}
+          />
+        )}
       </div>
       <div className="p-5">
         {showCategories && hasCategories && (
@@ -78,9 +89,9 @@ export const Card: React.FC<{
              (18 px / lh 1,556) byl mimo škálu 4.2 a nad stropem line-heightu
              1,25 (4.3 p. 7). Roli `title-sm` sem nebereme: je vázaná na vw,
              kdežto karta se v třísloupcové mřížce s rostoucím oknem zužuje. */
-          <h3 className="font-[family-name:var(--id-f-display)] text-[17px] leading-[1.3] font-semibold tracking-[-0.01em] text-[var(--id-ink)]">
+          <h3 className="font-[family-name:var(--id-f-display)] text-[17px] leading-[1.3] font-semibold tracking-[-0.01em] text-[var(--id-ink)] [text-wrap:balance]">
             <Link className="no-underline" href={href} ref={link.ref}>
-              {titleToUse}
+              {nezlomitelneMezery(titleToUse)}
             </Link>
           </h3>
         )}

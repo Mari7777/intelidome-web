@@ -411,14 +411,9 @@
     .id-ingredients__media::after {
     opacity: 1;
   }
-  .id-ingredients__grid:where([data-enhanced]):has(> .id-ingredients__tab:hover)
-    .id-ingredients__tab:not(:hover)
-    figcaption,
-  .id-ingredients__grid:where([data-enhanced]):has(> .id-ingredients__tab:focus-visible)
-    .id-ingredients__tab:not(:focus-visible)
-    figcaption {
-    opacity: 0.48;
-  }
+  /* Popisky ostatních karet se neztlumují: opacity 0,48 srazila popis na
+     2,15:1 i při procházení klávesnicí (11.1; kontrola článků 3. 10. 2026).
+     Ztlumení nese jen fotka (rozostření a bílý závoj ::after). */
 }
 .id-ingredients__text {
   display: block;
@@ -961,22 +956,33 @@
    Článek o přípravě směsi: na nízkých oknech (telefon 393×660, 1280×720)
    stál eyebrow v 58–60 % odspodu, kde scrim 9.1 už mizí (2,6:1).
    Článek o setí: eyebrow na osvícené trávě nad hranou půdy (393×660
-   medián 3,8:1, porota kola 01). */
+   medián 3,8:1, porota kola 01). Závlaha, míchání a péče: eyebrow na
+   světlé obloze, písku a osluněném trávníku (1,05–4,4:1, kontrola článků
+   3. 10. 2026). Koš B: kotvený scrim jako výchozí pro každý hero článku. */
 .id-hero[data-post-slug='kalkulator-na-planovani-pudniho-profilu'] .id-hero__scrim,
 .id-hero[data-post-slug='jak-pripravit-a-ulozit-smes'] .id-hero__scrim,
-.id-hero[data-post-slug='jak-zasit-travnik'] .id-hero__scrim {
+.id-hero[data-post-slug='jak-zasit-travnik'] .id-hero__scrim,
+.id-hero[data-post-slug='jak-navrhnout-automatickou-zavlahu'] .id-hero__scrim,
+.id-hero[data-post-slug='jak-namichat-pudu-pro-travnik'] .id-hero__scrim,
+.id-hero[data-post-slug='pece-o-novy-travnik'] .id-hero__scrim {
   background: none;
 }
 
 .id-hero[data-post-slug='kalkulator-na-planovani-pudniho-profilu'] > .container,
 .id-hero[data-post-slug='jak-pripravit-a-ulozit-smes'] > .container,
-.id-hero[data-post-slug='jak-zasit-travnik'] > .container {
+.id-hero[data-post-slug='jak-zasit-travnik'] > .container,
+.id-hero[data-post-slug='jak-navrhnout-automatickou-zavlahu'] > .container,
+.id-hero[data-post-slug='jak-namichat-pudu-pro-travnik'] > .container,
+.id-hero[data-post-slug='pece-o-novy-travnik'] > .container {
   isolation: isolate;
 }
 
 .id-hero[data-post-slug='kalkulator-na-planovani-pudniho-profilu'] > .container::before,
 .id-hero[data-post-slug='jak-pripravit-a-ulozit-smes'] > .container::before,
-.id-hero[data-post-slug='jak-zasit-travnik'] > .container::before {
+.id-hero[data-post-slug='jak-zasit-travnik'] > .container::before,
+.id-hero[data-post-slug='jak-navrhnout-automatickou-zavlahu'] > .container::before,
+.id-hero[data-post-slug='jak-namichat-pudu-pro-travnik'] > .container::before,
+.id-hero[data-post-slug='pece-o-novy-travnik'] > .container::before {
   content: '';
   position: absolute;
   inset-block: 0;
@@ -2126,6 +2132,12 @@
 .id-figure--bleed > .id-figure-media {
   border-radius: 0;
 }
+/* `<picture>` dostával z `.prose` margin-top 2 em: mezi krémovým pásem
+   a předělem zůstal bílý šev 34 px, ač je má .id-band + .id-figure--bleed
+   potkat bez mezery (kontrola článků 3. 10. 2026). */
+.id-figure--bleed > .id-figure-media > picture {
+  margin-top: 0;
+}
 /* `.prose img { border-radius }` v globals.css má stejnou specificitu
    a stojí později — proto tu musí být `.prose` navíc. */
 .prose .id-figure--bleed img,
@@ -2269,8 +2281,10 @@
   margin-bottom: 0;
 }
 .id-split__richtext > :is(p, ul, ol) {
-  margin-block: 0 18px;
-  padding-right: 0;
+  /* Míra 33 em a mezera 22 px jako u .id-split__p (4.3 p. 4, 8.2a): bez nich
+     běžely řádky přes celý sloupec, 38 em (kontrola článků 3. 10. 2026). */
+  margin-block: 0 22px;
+  padding-right: max(0px, calc(100% - var(--id-measure)));
   letter-spacing: -0.01em;
 }
 .id-split__richtext > :is(ul, ol) {
@@ -2543,6 +2557,16 @@
 .id-article > .id-split.id-band--cream:has(+ .id-split.id-band--cream.id-split--pokracovani) {
   padding-bottom: var(--id-rhythm);
 }
+/* Krémový pás tabulky, který kapitolu na krému uzavírá, navazuje stejně
+   bez švu — dva plné paddingy dávaly uprostřed kapitoly prázdný krém
+   240 px (kontrola článků 3. 10. 2026, Péče kap. 07). */
+.id-article > .id-split.id-band--cream + .id-table-block.id-band--cream {
+  margin-top: 0;
+  padding-top: 0;
+}
+.id-article > .id-split.id-band--cream:has(+ .id-table-block.id-band--cream) {
+  padding-bottom: var(--id-rhythm);
+}
 /* Předěl kapitoly je pásový vždy, ne jen po pásu — jinak má tentýž šev
    dvě míry podle toho, co kapitole předchází. */
 .id-article > * + .id-chapter {
@@ -2624,30 +2648,6 @@
   margin-inline: 0;
   padding-right: max(0px, calc(100% - 30em));
 }
-/* Tři kroky u fungující hlíny tvoří vyšší kresbu než dva odstavce vedle ní.
-   Text proto sedí uprostřed kresby a popisek navazuje na její levou osu. */
-@media (min-width: 1130px) {
-  .id-article > .id-split--hlina-prace {
-    grid-template-rows: auto;
-  }
-  .id-split--hlina-prace > .id-split__figure,
-  .id-split--hlina-prace > .id-split__body {
-    grid-row: 1;
-  }
-  .id-split--hlina-prace > .id-split__body {
-    align-self: center;
-  }
-  .id-split--hlina-prace > .id-split__figure > figcaption {
-    padding-left: calc(34px + 7.7%);
-    padding-right: 0;
-  }
-}
-.id-split--hlina-prace > .id-figure-media {
-  padding-bottom: 12px;
-}
-.id-split--hlina-prace > .id-split__figure > figcaption {
-  margin-top: 8px;
-}
 @media (min-width: 561px) and (max-width: 1129px) {
   /* Složený dvousloupec (tablet, úzký desktop): panel nevyplňuje celý
      sloupec `edge` (944 px @1024 — kresba 520 by plavala v krému), ale
@@ -2723,6 +2723,32 @@
   }
   .id-split__figure > .id-figure-media {
     padding: 8px;
+  }
+}
+/* Kořenová zóna na telefonu má viewBox 600 místo 520 (okraje pro popisky),
+   proto stupně × 600/520 — vykreslená velikost je táž jako u ostatních kreseb. */
+.id-figure-svg .kzm .sv-lbl {
+  font-size: 13.85px;
+}
+.id-figure-svg .kzm .sv-val {
+  font-size: 17.3px;
+}
+@media (max-width: 560px) {
+  .id-figure-svg .kzm .sv-lbl {
+    font-size: 17.3px;
+  }
+  .id-figure-svg .kzm .sv-val {
+    font-size: 20.8px;
+  }
+}
+@media (max-width: 385px) {
+  /* Pod 386 px stačí dorovnat na mez 10 px (0,507 × 19,8), plný poměr by
+     srazil dvojice štítek/hodnota nad sebou. */
+  .id-figure-svg .kzm .sv-lbl {
+    font-size: 19.8px;
+  }
+  .id-figure-svg .kzm .sv-val {
+    font-size: 21px;
   }
 }
 /* The product drawing keeps the prose gutters and therefore needs a

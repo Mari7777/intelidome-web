@@ -53,8 +53,15 @@ const tileClassName = (index: number, count: number, cols: number): string => {
   const opensRowOnDesktop = index % cols === 0
   const isFirstRowOnDesktop = index < cols
   const isLastRowOnDesktop = index >= count - (count % cols || cols)
+  // Lichá poslední dlaždice ve dvou sloupcích (telefon) zabere celou řadu, ať
+  // vedle ní nezůstane prázdná buňka.
+  const spansRowOnTablet = count > 1 && count % 2 === 1 && index === count - 1
+  // Dlaždice, která řadu uzavírá, nemá souseda vpravo: bez pravého paddingu
+  // se „2,5–7,5 cm/h“ ve třech sloupcích vejde na jeden řádek.
+  const closesRowOnDesktop = index % cols === cols - 1 || index === count - 1
 
   return cn(
+    spansRowOnTablet && 'col-span-2 md:col-span-1',
     // padding 22/18/18 while wrapped, 28/26/4 once the tiles stand in one row
     'min-w-0 pt-[22px] pr-[18px] pb-[18px] md:pt-[28px] md:pr-[26px]',
     isLastRowOnDesktop ? 'md:pb-[4px]' : 'md:pb-[22px]',
@@ -65,6 +72,8 @@ const tileClassName = (index: number, count: number, cols: number): string => {
     // desktop rows: vertical hairlines inside a row, the shared top hairline sits on the grid
     opensRowOnDesktop ? 'md:border-l-0 md:pl-0' : 'md:border-l md:pl-[26px]',
     isFirstRowOnDesktop ? 'md:border-t-0' : 'md:border-t',
+    // až za paddingem výš, aby ho tailwind-merge v cn() přebil
+    closesRowOnDesktop && 'md:pr-0',
   )
 }
 

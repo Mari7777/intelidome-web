@@ -90,7 +90,6 @@ export const SplitBlock: React.FC<SplitBlockProps> = ({
         side === 'image-right' && 'id-split--right',
         continues && 'id-split--pokracovani',
         richBody && 'id-split--rich',
-        drawing === 'hlina-prace-misto-materialu' && 'id-split--hlina-prace',
         surface === 'krem' && 'id-band id-band--cream id-band--self',
         className,
       )}

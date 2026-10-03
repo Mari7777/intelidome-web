@@ -82,7 +82,8 @@ export const FaqBlock: React.FC<FaqBlockProps> = ({ className, heading, id, item
   const questions = entries
     .map((item) => ({
       name: item.question.trim(),
-      text: richTextToPlainText(item.answer),
+      // Strojová data bez znaků sazby (U+2060 za pomlčkou rozsahu, U+00A0).
+      text: richTextToPlainText(item.answer).replace(/\u2060/g, '').replace(/\u00a0/g, ' '),
     }))
     .filter((entry) => entry.text !== '')
 
@@ -119,7 +120,7 @@ export const FaqBlock: React.FC<FaqBlockProps> = ({ className, heading, id, item
         className="m-0 font-[family-name:var(--id-f-display)] text-[length:var(--id-t-title)] font-semibold leading-[1.05] tracking-[-0.025em] text-balance text-[var(--id-ink)]"
         id={headingId}
       >
-        {headingText}
+        {nezlomitelneMezery(headingText)}
       </h2>
       {lead ? <p className="id-faq__lead">{nezlomitelneMezery(lead)}</p> : null}
       </div>

@@ -22,6 +22,8 @@ export type SummaryBandBlockProps = {
  * jeden hlas, a to lead. Čísla pod ním jsou tatáž řada jako v těle článku,
  * jen bez vlastního horního odsazení, aby držela na leadu — a 2×2, protože
  * na ose prózy (700 px) se čtyři dlaždice ve stupni stat-num (40 px) nevejdou.
+ * Tři dlaždice stojí v jedné řadě: v mřížce 2×2 nechávaly prázdnou buňku
+ * (kontrola článků 3. 10. 2026, pět článků).
  */
 export const SummaryBandBlock: React.FC<SummaryBandBlockProps> = ({ className, lead, tiles }) => {
   const items = (tiles ?? []).filter((tile) => Boolean(tile?.value || tile?.label))
@@ -30,7 +32,7 @@ export const SummaryBandBlock: React.FC<SummaryBandBlockProps> = ({ className, l
     <section className={cn('not-prose id-band id-band--cream id-band--sm', className)}>
       <div className="id-band__inner id-band__inner--prose-axis">
         <p className="rv id-summary-lead">{renderAccent(lead)}</p>
-        {items.length > 0 && <StatTilesBlock className="mt-[clamp(34px,5vw,54px)] mb-0" columns={2} tiles={items} />}
+        {items.length > 0 && <StatTilesBlock className="mt-[clamp(34px,5vw,54px)] mb-0" columns={items.length === 3 ? 3 : 2} tiles={items} />}
       </div>
     </section>
   )

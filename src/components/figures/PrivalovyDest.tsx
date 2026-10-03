@@ -6,7 +6,7 @@ import React from 'react'
  * místo s jedním dvěma semeny, pod svahem se osivo nahromadí. Povrch nese
  * tmavší pruh — po vyschnutí z něj bude tvrdá krusta.
  *
- * Jediná pointa: před lijákem nesít. Jediný akcent je voda (#2563eb): kapky
+ * Jediná pointa: liják odplaví semena (rada „před lijákem nesít“ patří článku o setí). Jediný akcent je voda (#2563eb): kapky
  * deště a šipky odtoku po svahu jsou týž motiv. Krusta je hlubší odstín
  * zeminy, ne nová barva. Popisky stojí v jedné řadě na krému mezi deštěm
  * a svahem a k místům vedou konstrukční linky. Portrétová sazba 520 px,
@@ -16,7 +16,7 @@ import React from 'react'
 export const PrivalovyDest: React.FC = () => (
   <svg aria-hidden="true" className="block h-auto w-full" viewBox="0 0 520 320">
     {/* Pointa kresby (9.2 p. 3) je jedna. */}
-    <text className="sv-val" x="40" y="38" style={{ fontSize: 24 }}>Před lijákem nesít</text>
+    <text className="sv-val" x="40" y="38" style={{ fontSize: 24 }}>Liják odplaví semena</text>
 
     {/* ── přívalový déšť: husté šikmé kapky ───────────────────── */}
     <g fill="none" stroke="#2563eb" strokeWidth="1.6" strokeLinecap="round" opacity="0.9">

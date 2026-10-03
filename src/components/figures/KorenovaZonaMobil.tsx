@@ -9,8 +9,12 @@ import React from 'react'
 // zůstává: o kořenech nerozhoduje množství vody, ale kam dojde.
 // Pozor: všechna id mají prefix `kzm-`, aby se nesrazila se širokoúhlou variantou,
 // která je v DOM současně.
+// ViewBox má po 40 jednotkách okraje vlevo i vpravo: na ≤ 360 px rostou popisky
+// na 18/21 px (9.2 p. 3) a stupnice „10 cm“ i štítek „Voda“ přetékaly o 6–8 px
+// (kontrola článků 3. 10. 2026). Popisky třídy .kzm jsou proto v CSS o 600/520
+// větší, aby vykreslená velikost zůstala nad 10 px.
 export const KorenovaZonaMobil: React.FC = () => (
-  <svg aria-hidden="true" className="block h-auto w-full" viewBox="0 0 520 670">
+  <svg aria-hidden="true" className="kzm block h-auto w-full" viewBox="-40 0 600 670">
     <defs>
       <radialGradient id="kzm-voda" cx="0.5" cy="0" r="0.9">
         <stop offset="0" stopColor="#2563eb" stopOpacity="0.34" />
@@ -27,7 +31,7 @@ export const KorenovaZonaMobil: React.FC = () => (
     <text className="sv-lbl" x="263" y="20" textAnchor="middle">
       Často a málo
     </text>
-    <text className="sv-val" x="263" y="43" textAnchor="middle">
+    <text className="sv-val" x="263" y="46" textAnchor="middle">
       4 l/m² každý den
     </text>
 
@@ -116,7 +120,7 @@ export const KorenovaZonaMobil: React.FC = () => (
     <text className="sv-lbl" x="474" y="139">
       Voda
     </text>
-    <text className="sv-val" x="474" y="160">
+    <text className="sv-val" x="474" y="163">
       5 cm
     </text>
 
@@ -191,7 +195,7 @@ export const KorenovaZonaMobil: React.FC = () => (
     <text className="sv-lbl" x="263" y="356" textAnchor="middle">
       Vydatně a méně často
     </text>
-    <text className="sv-val" x="263" y="379" textAnchor="middle">
+    <text className="sv-val" x="263" y="382" textAnchor="middle">
       12 l/m² každý 3. den
     </text>
 
@@ -272,7 +276,7 @@ export const KorenovaZonaMobil: React.FC = () => (
     <text className="sv-lbl" x="474" y="599">
       Voda
     </text>
-    <text className="sv-val" x="474" y="620">
+    <text className="sv-val" x="474" y="623">
       25 cm
     </text>
 

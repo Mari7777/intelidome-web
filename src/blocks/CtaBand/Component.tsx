@@ -48,7 +48,7 @@ export const CtaBandBlock: React.FC<CtaBandBlockProps> = ({
       {!hideButton ? (
         <p className="mt-[30px]">
           <Link className="id-btn id-btn--primary" href={lokalizujCestu(buttonHref, locale)}>
-            {buttonLabel}
+            {nezlomitelneMezery(buttonLabel)}
             <svg aria-hidden="true" fill="none" height="16" viewBox="0 0 16 16" width="16">
               <path
                 d="M3 8h10M9 4l4 4-4 4"

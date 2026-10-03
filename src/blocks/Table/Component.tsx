@@ -72,7 +72,9 @@ export const TableBlock: React.FC<TableBlockProps> = ({
     >
       {heading ? <h3 className={cn('id-table__h', jePas && 'rv')}>{nezlomitelneMezery(heading)}</h3> : null}
       <TableWrap className={jePas ? 'rv' : undefined} label={heading ?? `Tabulka: ${sloupce[0]?.label ?? ''}`}>
-        <table className="id-table">
+        {/* Přístupné jméno tabulky = její nadpis (11.3); seznam tabulek
+            v odečítači jinak ukázal jen „tabulka“. */}
+        <table aria-label={heading ? nezlomitelneMezery(heading) : undefined} className="id-table">
           <thead>
             <tr>
               {sloupce.map((col, i) => (

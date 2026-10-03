@@ -8,8 +8,10 @@ import React from 'react'
  * něj dřív, než se něco koupí.
  *
  * Pointa je jedna: tvar a poloha problému napoví příčinu. Jediný akcent je
- * modrá voda v prohlubni; řídká a poškozená místa nesou suchou #c2a052,
- * prohlubeň hlubší zelenou #2e6440. Popisky stojí pod trávníkem na krému
+ * modrá voda v prohlubni (radiální nádech vodního tintu, ne plná akcentní
+ * plocha); řídká a poškozená místa nesou radiální nádech sucha #c2a052
+ * (9.2), stopa sekačky jsou dvě souběžné stopy kol v otočce, prohlubeň
+ * hlubší zelenou #2e6440 (kontrola článků 3. 10. 2026). Popisky stojí pod trávníkem na krému
  * a ke svému tvaru vedou krátkou konstrukční linkou — žádný text přes
  * zelenou plochu.
  *
@@ -18,6 +20,17 @@ import React from 'react'
  */
 export const MapaChyby: React.FC = () => (
   <svg aria-hidden="true" className="block h-auto w-full" viewBox="0 0 520 300">
+    <defs>
+      <radialGradient id="mc-sucho" cx="0.5" cy="0.5" r="0.5">
+        <stop offset="0" stopColor="#c2a052" stopOpacity="0.95" />
+        <stop offset="1" stopColor="#c2a052" stopOpacity="0" />
+      </radialGradient>
+      <radialGradient id="mc-voda" cx="0.5" cy="0.45" r="0.55">
+        <stop offset="0" stopColor="#60a5fa" stopOpacity="0.85" />
+        <stop offset="0.6" stopColor="#3b82f6" stopOpacity="0.55" />
+        <stop offset="1" stopColor="#3b82f6" stopOpacity="0.2" />
+      </radialGradient>
+    </defs>
     {/* Pointa kresby (9.2 p. 3) je jedna: tvar problému napoví příčinu. */}
     <text className="sv-val" x="40" y="38" style={{ fontSize: 24 }}>Tvar napoví</text>
 
@@ -25,20 +38,23 @@ export const MapaChyby: React.FC = () => (
     <rect x="40" y="58" width="440" height="142" fill="#3f7d4e" />
 
     {/* 1 — pravidelné rovnoběžné pruhy řídkého porostu */}
-    <g fill="#c2a052">
-      <rect x="64" y="72" width="10" height="114" />
-      <rect x="86" y="72" width="10" height="114" />
-      <rect x="108" y="72" width="10" height="114" />
-      <rect x="130" y="72" width="10" height="114" />
-      <rect x="152" y="72" width="10" height="114" />
+    <g fill="url(#mc-sucho)">
+      <rect x="61" y="66" width="16" height="126" />
+      <rect x="83" y="66" width="16" height="126" />
+      <rect x="105" y="66" width="16" height="126" />
+      <rect x="127" y="66" width="16" height="126" />
+      <rect x="149" y="66" width="16" height="126" />
     </g>
 
     {/* 2 — prohlubeň plná vody */}
     <ellipse cx="260" cy="129" rx="58" ry="40" fill="#2e6440" />
-    <ellipse cx="260" cy="129" rx="42" ry="27" fill="#2563eb" opacity="0.9" />
+    <ellipse cx="260" cy="129" rx="42" ry="27" fill="url(#mc-voda)" />
 
     {/* 3 — trasa sekačky s otočkou, poškození přesně v otočce */}
-    <path d="M381 142 a26 26 0 0 0 52 0" fill="none" stroke="#c2a052" strokeWidth="12" strokeLinecap="round" />
+    <g fill="none" stroke="#c2a052" strokeWidth="4" strokeLinecap="round" opacity="0.95">
+      <path d="M386 136 V142 a21 21 0 0 0 42 0 V136" />
+      <path d="M376 136 V142 a31 31 0 0 0 62 0 V136" />
+    </g>
     <path d="M381 58 V142 a26 26 0 0 0 52 0 V58" fill="none" stroke="#232830" strokeWidth="1.6" strokeDasharray="6 6" strokeLinecap="round" />
 
     <rect x="40" y="58" width="440" height="142" fill="none" stroke="#232830" strokeWidth="1.6" strokeLinejoin="round" />

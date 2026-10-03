@@ -23,13 +23,21 @@ export function presmerovaniMagazinu(): Pravidlo[] {
     { source: `${zdroj}/posts/:path+`, destination: `${cil}/magazin/:path+`, permanent: true },
     { source: `${zdroj}/magazin/strana/1`, destination: `${cil}/magazin`, permanent: true },
   ]
-  const sloucenyClanek: Pravidlo[] = ['', '/cs'].flatMap((prefix) =>
-    ['posts', 'magazin'].map((sekce) => ({
-      source: `${prefix}/${sekce}/zazimovani-zavlahy-krok-za-krokem`,
-      destination: '/magazin/jak-navrhnout-automatickou-zavlahu',
+  // Sloučený článek vede jedním skokem i z jazykových prefixů (jinak 3 skoky).
+  const sloucenyClanek: Pravidlo[] = [
+    ...['', '/cs'].flatMap((prefix) =>
+      ['posts', 'magazin'].map((sekce) => ({
+        source: `${prefix}/${sekce}/zazimovani-zavlahy-krok-za-krokem`,
+        destination: '/magazin/jak-navrhnout-automatickou-zavlahu',
+        permanent: true as const,
+      })),
+    ),
+    ...['posts', 'magazin'].map((sekce) => ({
+      source: `/:locale(${cizi})/${sekce}/zazimovani-zavlahy-krok-za-krokem`,
+      destination: '/:locale/magazin/jak-navrhnout-automatickou-zavlahu',
       permanent: true as const,
     })),
-  )
+  ]
   return [...sloucenyClanek, ...sada('', ''), ...sada('/cs', ''), ...sada(`/:locale(${cizi})`, '/:locale')]
 }
 

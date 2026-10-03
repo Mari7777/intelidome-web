@@ -8,7 +8,9 @@ import React from 'react'
  * oschl, ale vrstva s kořeny je vlhká: to je v pořádku.
  *
  * Pointa je jedna: nerozhoduje, jak vypadá povrch, ale kam sahá voda vůči
- * kořenům. Jediný akcent je modrý překryv vlhké půdy (vodní tint #3b82f6 op .55 – #2563eb op .28 dával na zemině šedofialovou, porota kola 01).
+ * kořenům. Jediný akcent je modrý nádech vlhké půdy: vodní tint #3b82f6 (#2563eb op .28 dával na zemině
+ * šedofialovou, porota kola 01) jako radiální gradient s měkkou hranou „kam došla voda“ (9.2 p. 9 — plochý
+ * obdélník s tvrdou hranou porota kontroly článků 3. 10. 2026 vrátila).
  * Řezy jsou záměrně bez centimetrové stupnice, text článku čísla neuvádí.
  * Horní hranu nenese drn (mladý porost), obrys řezu je proto uzavřený.
  * Kořeny na krému nejsou vidět, v legendě proto leží na políčku půdy.
@@ -20,6 +22,18 @@ import React from 'react'
 export const KorenyAVlaha: React.FC = () => (
   <svg aria-hidden="true" className="block h-auto w-full" viewBox="0 0 520 480">
     <defs>
+      {/* vlhko od povrchu dolů: nejsytější nahoře, k hranici „kam došla voda“ mizí */}
+      <radialGradient id="kav-voda-povrch" cx="0.5" cy="0" r="1">
+        <stop offset="0" stopColor="#3b82f6" stopOpacity="0.6" />
+        <stop offset="0.55" stopColor="#3b82f6" stopOpacity="0.38" />
+        <stop offset="1" stopColor="#3b82f6" stopOpacity="0.04" />
+      </radialGradient>
+      {/* vlhká vrstva u kořenů pod oschlým povrchem: měkká hrana nahoře i dole */}
+      <radialGradient id="kav-voda-vrstva" cx="0.5" cy="0.5" r="0.62">
+        <stop offset="0" stopColor="#3b82f6" stopOpacity="0.6" />
+        <stop offset="0.6" stopColor="#3b82f6" stopOpacity="0.4" />
+        <stop offset="1" stopColor="#3b82f6" stopOpacity="0.02" />
+      </radialGradient>
       {/* kořeny čtyř rostlin levého řezu: sahají 94–104 jednotek pod povrch */}
       <g id="kav-koreny" fill="none" stroke="#d8c9b4" strokeWidth="1.6" strokeLinecap="round" opacity="0.9">
         <path d="M66 124 c-2 26 3 62 0 98 M66 140 q-6 5 -9 14 M66 154 q7 6 10 16 M66 176 q-7 6 -10 16 M66 194 q6 6 8 14" />
@@ -45,7 +59,7 @@ export const KorenyAVlaha: React.FC = () => (
 
     {/* ── levý řez: vlhká jen tenká vrstva u povrchu ──────────── */}
     <rect x="40" y="124" width="190" height="212" fill="#6b5138" opacity="0.9" />
-    <rect x="40" y="124" width="190" height="30" fill="#3b82f6" opacity="0.55" />
+    <rect x="40" y="124" width="190" height="44" fill="url(#kav-voda-povrch)" />
     <use href="#kav-koreny" />
     <path d="M40 124 V336 H230 V124 Z" fill="none" stroke="#232830" strokeWidth="1.6" strokeLinejoin="round" />
     <use href="#kav-stebla" />
@@ -53,7 +67,7 @@ export const KorenyAVlaha: React.FC = () => (
     {/* ── pravý řez: povrch suchý, vlhká vrstva s kořeny (končí kousek pod
         jejich špičkami — voda hlouběji by byla mimo dosah) ───── */}
     <rect x="290" y="124" width="190" height="212" fill="#6b5138" opacity="0.9" />
-    <rect x="290" y="154" width="190" height="96" fill="#3b82f6" opacity="0.55" />
+    <rect x="290" y="140" width="190" height="124" fill="url(#kav-voda-vrstva)" />
     <use href="#kav-koreny" x="250" />
     <path d="M290 124 V336 H480 V124 Z" fill="none" stroke="#232830" strokeWidth="1.6" strokeLinejoin="round" />
     <use href="#kav-stebla" x="250" />
@@ -69,7 +83,7 @@ export const KorenyAVlaha: React.FC = () => (
     {/* ── legenda: značky shodné s kresbou (9.2 p. 10) ────────── */}
     <line x1="40" y1="426" x2="480" y2="426" stroke="#d5d3cc" strokeWidth="1.6" strokeDasharray="3 7" strokeLinecap="round" />
     <rect x="40" y="442" width="28" height="14" rx="3" fill="#6b5138" opacity="0.9" />
-    <rect x="40" y="442" width="28" height="14" rx="3" fill="#3b82f6" opacity="0.55" />
+    <rect x="40" y="442" width="28" height="14" rx="3" fill="url(#kav-voda-vrstva)" />
     <text className="sv-val" x="76" y="454">vlhká půda</text>
     <rect x="200" y="442" width="28" height="14" rx="3" fill="#6b5138" opacity="0.9" />
     <text className="sv-val" x="236" y="454">suchá půda</text>

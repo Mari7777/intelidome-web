@@ -126,10 +126,15 @@ const fmtHmota = (kg: number): string =>
  * Mezi 7,5 a 10 článek pásmo nepojmenovává – kalkulátor to říká poctivě.
  */
 const Vsak = ({ className, kotva, skupina, uid }: PanelProps) => {
-  const [pokles, setPokles] = useState(1)
-  const [doba, setDoba] = useState(15)
+  // Rozepsané řetězce jako u sypné hustoty: type=number v anglickém
+  // prohlížeči desetinnou čárku tiše zahodil („1,5“ → 15) a po smazání
+  // vepsal 0 (kontrola článků 3. 10. 2026).
+  const [poklesRaw, setPoklesRaw] = useState('1')
+  const [dobaRaw, setDobaRaw] = useState('15')
+  const pokles = cislo(poklesRaw)
+  const doba = cislo(dobaRaw)
 
-  const platne = pokles >= 0 && doba > 0
+  const platne = Number.isFinite(pokles) && Number.isFinite(doba) && pokles >= 0 && doba > 0
   const rychlost = platne ? (pokles / doba) * 60 : NaN
   const pasmo = !platne
     ? 'nic'
@@ -170,11 +175,9 @@ const Vsak = ({ className, kotva, skupina, uid }: PanelProps) => {
               aria-describedby={`${uid}-pokles-u`}
               id={`${uid}-pokles`}
               inputMode="decimal"
-              min={0}
-              onChange={(e) => setPokles(Number(e.target.value))}
-              step="0.5"
-              type="number"
-              value={pokles}
+              onChange={(e) => setPoklesRaw(pisChislo(e.target.value))}
+              type="text"
+              value={poklesRaw}
             />
             <span className="unit" id={`${uid}-pokles-u`}>cm</span>
           </div>
@@ -187,11 +190,9 @@ const Vsak = ({ className, kotva, skupina, uid }: PanelProps) => {
               aria-describedby={`${uid}-doba-u`}
               id={`${uid}-doba`}
               inputMode="decimal"
-              min={0}
-              onChange={(e) => setDoba(Number(e.target.value))}
-              step="5"
-              type="number"
-              value={doba}
+              onChange={(e) => setDobaRaw(pisChislo(e.target.value))}
+              type="text"
+              value={dobaRaw}
             />
             <span className="unit" id={`${uid}-doba-u`}>minut</span>
           </div>
@@ -384,15 +385,21 @@ const Primesi = ({ className, kotva, skupina, uid }: PanelProps) => {
 }
 
 
-/** Kbelíkový test: objem a čas → průtok, mínus 20 % rezervy, verdikt proti 25 l/min. */
+/**
+ * Kbelíkový test: objem a čas → průtok, mínus 20 % rezervy. Verdikt neměří
+ * proti pevné hranici „běžného systému“: článek říká, že potřeba závisí na
+ * tryskách a rozdělení sektorů, a výchozí příklad (25 → 20 l/min) by jinak
+ * hned hlásil, že nestačí (kontrola článků 3. 10. 2026).
+ */
 const Prutok = ({ className, kotva, skupina, uid }: PanelProps) => {
-  const [objem, setObjem] = useState(10)
-  const [cas, setCas] = useState(24)
+  const [objemRaw, setObjemRaw] = useState('10')
+  const [casRaw, setCasRaw] = useState('24')
+  const objem = cislo(objemRaw)
+  const cas = cislo(casRaw)
 
-  const platne = objem > 0 && cas > 0
+  const platne = Number.isFinite(objem) && Number.isFinite(cas) && objem > 0 && cas > 0
   const namereny = platne ? (objem / cas) * 60 : NaN
   const navrhovy = namereny * 0.8
-  const staci = navrhovy >= 25
 
   return (
     <div
@@ -415,11 +422,9 @@ const Prutok = ({ className, kotva, skupina, uid }: PanelProps) => {
               aria-describedby={`${uid}-objem-u`}
               id={`${uid}-objem`}
               inputMode="decimal"
-              min={0}
-              onChange={(e) => setObjem(Number(e.target.value))}
-              step="0.5"
-              type="number"
-              value={objem}
+              onChange={(e) => setObjemRaw(pisChislo(e.target.value))}
+              type="text"
+              value={objemRaw}
             />
             <span className="unit" id={`${uid}-objem-u`}>litrů</span>
           </div>
@@ -432,11 +437,9 @@ const Prutok = ({ className, kotva, skupina, uid }: PanelProps) => {
               aria-describedby={`${uid}-cas-u`}
               id={`${uid}-cas`}
               inputMode="decimal"
-              min={0}
-              onChange={(e) => setCas(Number(e.target.value))}
-              step="1"
-              type="number"
-              value={cas}
+              onChange={(e) => setCasRaw(pisChislo(e.target.value))}
+              type="text"
+              value={casRaw}
             />
             <span className="unit" id={`${uid}-cas-u`}>sekund</span>
           </div>
@@ -457,16 +460,14 @@ const Prutok = ({ className, kotva, skupina, uid }: PanelProps) => {
         </div>
 
         <div
-          className={cn('id-verdict', staci && platne ? 'id-verdict--ok' : 'id-verdict--warn')}
+          className={cn('id-verdict', platne ? 'id-verdict--ok' : 'id-verdict--warn')}
         >
-          {staci && platne ? <Ok /> : <Warn />}
+          {platne ? <Ok /> : <Warn />}
           <span>
             {nezlomitelneMezery(
               !platne
               ? 'Doplňte objem nádoby a čas, za který se naplnila.'
-              : staci
-                ? `Zdroj na běžný systém stačí – návrhový průtok ${fmt(navrhovy)} l/min je nad hranicí 25 l/min.`
-                : `Na běžný systém to zatím nestačí: ${fmt(navrhovy)} l/min proti potřebným 25 l/min. Rozdělte zahradu na víc sektorů, nebo posilte zdroj.`,
+              : `Pro návrh počítejte s ${fmt(navrhovy)} l/min. Do jednoho sektoru připojte jen tolik postřikovačů, kolik jejich spotřeba v součtu nepřekročí tento průtok; spotřebu a tlak trysek ověřte u výrobce.`,
             )}
           </span>
         </div>

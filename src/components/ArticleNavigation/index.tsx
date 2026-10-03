@@ -4,6 +4,7 @@ import { formatDateTime } from '@/utilities/formatDateTime'
 import type { Locale } from '@/i18n/config'
 import { cestaMagazinu, lokalizujCestu } from '@/i18n/routing'
 import { t } from '@/i18n/ui'
+import { nezlomitelneMezery } from '@/utilities/czechTypography'
 
 export function ArticleNavigation({ locale, post }: { locale: Locale; post: Post }) {
   const sections = getArticleSections(post.content)
@@ -22,7 +23,7 @@ export function ArticleNavigation({ locale, post }: { locale: Locale; post: Post
             <li aria-hidden="true">/</li>
             <li><a className="underline underline-offset-4" href={lokalizujCestu(cestaMagazinu(), locale)}>{t(locale, 'seo.breadcrumbPosts')}</a></li>
             <li aria-hidden="true">/</li>
-            <li aria-current="page">{post.title}</li>
+            <li aria-current="page">{nezlomitelneMezery(post.title ?? '')}</li>
           </ol>
         </nav>
         <p className="mt-3 flex flex-wrap gap-x-5 gap-y-1 text-[var(--id-ink-3)]">

@@ -113,6 +113,10 @@ export const InertiaScroll = ({ enabled = false }: { enabled?: boolean }) => {
     */
     const onAnchorClick = (event: MouseEvent) => {
       if (event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey) return
+      // Aktivace z klávesnice (detail 0) jde nativní kotvou: jen ta přesune
+      // výchozí bod tabulátoru na cíl, jinak by další Tab vrátil čtenáře
+      // k obsahu „V článku“ (11.2; kontrola článků 3. 10. 2026).
+      if (event.detail === 0) return
       const link = (event.target as Element | null)?.closest?.('a[href^="#"]')
       if (!(link instanceof HTMLAnchorElement)) return
       const id = decodeURIComponent(link.hash.slice(1))
@@ -124,8 +128,14 @@ export const InertiaScroll = ({ enabled = false }: { enabled?: boolean }) => {
       target = Math.round(
         Math.min(Math.max(cil.getBoundingClientRect().top + window.scrollY - odsazeni, 0), max()),
       )
-      history.replaceState(null, '', link.hash)
+      // pushState jako nativní kotva: Zpět vrátí čtenáře k obsahu, ne pryč z článku.
+      history.pushState(null, '', link.hash)
       start()
+      // preventDefault ruší i přesun výchozího bodu tabulátoru na cíl: bez
+      // fokusu vrátil další Tab čtenáře k obsahu „V článku“. tabindex -1
+      // prstenec nevykreslí (11.2; kontrola článků 3. 10. 2026).
+      if (!cil.hasAttribute('tabindex')) cil.setAttribute('tabindex', '-1')
+      cil.focus({ preventScroll: true })
     }
 
     const root = document.documentElement

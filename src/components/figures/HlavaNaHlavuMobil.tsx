@@ -97,8 +97,8 @@ export const HlavaNaHlavuMobil: React.FC = () => (
     <line x1="172" y1="488" x2="254" y2="488" stroke="#2563eb" strokeWidth="1.8" strokeLinecap="round" />
     <path d="M249 483 L256 488 L249 493" fill="none" stroke="#2563eb" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
     <circle cx="260" cy="488" r="18" fill="none" stroke="#2563eb" strokeWidth="1.6" opacity="0.75" />
-    <text className="sv-lbl" x="212" y="472" textAnchor="end">Dostřik</text>
-    <text className="sv-val" x="222" y="472" textAnchor="start">5 m</text>
+    <text className="sv-lbl" x="212" y="462" textAnchor="end">Dostřik</text>
+    <text className="sv-val" x="222" y="462" textAnchor="start">5 m</text>
 
     {/* štítek rovnoměrnosti */}
     <path d="M198 585 L203 591 L212 579" fill="none" stroke="#047857" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" />
