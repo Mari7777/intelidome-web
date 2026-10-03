@@ -1,36 +1,11 @@
-import { block, cloneDocument, paragraph, type ArticleDocument, type ArticleNode } from './lawn-series-helpers'
+import { cloneDocument, paragraph, type ArticleDocument, type ArticleNode } from './lawn-series-helpers'
 
 const SOIL = 'krasny-travnik-zacina-pod-zemi-2'
 const AMENDMENTS = 'pisek-biochar-a-dalsi-primesi'
-const CALCULATOR = 'kalkulator-na-planovani-pudniho-profilu'
-const PREPARATION = 'jak-pripravit-a-ulozit-smes'
-const SEEDING = 'jak-zasit-travnik'
 const MARKER = 'Zdroje a metodika – SEO'
-const WSU = 'https://extension.wsu.edu/pnw-gardeners-handbook/chapter-5-urban-soil-management/'
-const UMD = 'https://extension.umd.edu/resource/soil-health-drainage-and-improving-soil'
 const PSU = 'https://extension.psu.edu/lawn-establishment'
-const USU = 'https://extension.usu.edu/vegetableguide/management/biochar'
 const BROCKHOFF = 'https://doi.org/10.2134/agronj2010.0188'
 
-const sectionText: Record<string, string[]> = {
-  [SOIL]: [
-    `[Průvodce WSU](${WSU}) vysvětluje hodnocení kořenových překážek a zachování ornice. [University of Maryland](${UMD}) popisuje orientační zkoušku odtoku v předem navlhčené jámě a možné příčiny pomalého vsakování.`,
-    'Domácí zkoušky pomáhají rozhodnout o dalším postupu; nenahrazují laboratorní rozbor ani návrh odvodnění. Uvedená pásma vsakování jsou orientační a 30 cm je pracovní cíl tohoto návodu, nikoli univerzální norma pro každou zahradu.',
-  ],
-  [AMENDMENTS]: [
-    `[Penn State](${PSU}) vysvětluje, proč úprava jílovité půdy pískem vyžaduje velký podíl materiálu. [Utah State](${USU}) popisuje rozdílné účinky biocharu a jeho přípravu s živinami; konkrétní trávníkový pokus je odkázán u jeho karty.`,
-    'Poměry a hloubky v tabulkách jsou modelové návrhy pro popsané zahrady, nikoli univerzitní doporučení platná pro každou půdu. Dávku přizpůsobte sondě, chování zkušební směsi a vlastnostem výrobku; u přípravků respektujte jeho návod.',
-  ],
-  [CALCULATOR]: [
-    `[Washington State University](${WSU}) popisuje vztah plochy, hloubky a objemu při plánování půdy v zahradě. Kalkulátor tento geometrický vztah používá a jednotlivé příměsi počítá podle jejich vlastní hloubky zapravení.`,
-    'Výchozí receptury, hustoty a rezerva jsou nastavitelné modelové vstupy. Výpočet nezměří skutečnou půdu ani nesleduje slehnutí. Pro objednávku použijte sypnou hustotu a balení konkrétní dodávky; zdroj nepotvrzuje hustoty zdejších výrobků ani univerzální dávky příměsí.',
-  ],
-  [PREPARATION]: [
-    `[Penn State](${PSU}) popisuje práci s vlhkou, nikoli mokrou půdou, promíchání příměsí a ustálení povrchu deštěm či zálivkou. [Průvodce WSU](${WSU}) zdůrazňuje oddělení použitelné ornice od nevhodného podloží.`,
-    'Hloubky zapravení a čas na slehnutí v tomto článku jsou pracovní předpoklady pro popsanou směs. Rozhoduje stav půdy a použitý stroj. Dávku konkrétních příměsí volte podle receptury a návodu výrobku.',
-  ],
-  // [SEEDING]: článek o setí oddíl „Zdroje a metodika“ nemá (rozhodnutí autora 3. 10. 2026).
-}
 
 function nodeText(node: any): string {
   if (!node || typeof node !== 'object') return ''
@@ -103,31 +78,24 @@ function reviseAmendmentClaims(doc: ArticleDocument): void {
   clayFigure.fields.caption = 'Poloha vzorku na škále ilustruje podíl písku. Poměr 65/35 patří k našemu modelu; vhodné složení pro konkrétní jíl ověřte zkouškou před velkou objednávkou.'
 }
 
-function insertSources(doc: ArticleDocument, paragraphs: string[]): void {
+/**
+ * Oddíl „Zdroje a metodika“ články nemají (rozhodnutí autora 3. 10. 2026).
+ * Odstraní blok kapitoly se značkou MARKER a odstavce za ním až po další blok.
+ */
+export function stripSources(doc: ArticleDocument): ArticleDocument {
   const nodes = doc.root.children
-  const existing = nodes.findIndex((node) => node.fields?.blockName === MARKER)
-  if (existing >= 0) {
-    const nextBlock = nodes.findIndex((node, index) => index > existing && node.type === 'block')
-    if (nextBlock < 0 || nodes[nextBlock].fields?.blockType !== 'faq') {
-      throw new Error('Evidence: sources must immediately precede FAQ')
-    }
-    if (nodes.slice(existing + 1, nextBlock).some((node) => node.type !== 'paragraph')) {
-      throw new Error('Evidence: unexpected content in sources section')
-    }
-    nodes.splice(existing, nextBlock - existing)
-  }
-  const faq = nodes.findIndex((node) => node.fields?.blockType === 'faq')
-  if (faq < 0) throw new Error('Evidence: expected FAQ boundary')
-  nodes.splice(faq, 0, block({ blockType: 'chapter', blockName: MARKER, title: 'Zdroje a metodika', eyebrow: 'Podklady' }), ...paragraphs.map(paragraph))
+  const start = nodes.findIndex((node) => node.fields?.blockName === MARKER)
+  if (start < 0) return doc
+  let end = start + 1
+  while (end < nodes.length && nodes[end].type === 'paragraph') end++
+  nodes.splice(start, end - start)
+  return doc
 }
 
-/** Add scoped sources and temper only the claims covered by this evidence pass. */
+/** Temper only the claims covered by this evidence pass; the sources section is removed. */
 export function enrichLawnEvidence(slug: string, content: unknown): ArticleDocument {
   const doc = cloneDocument(content)
-  const paragraphs = sectionText[slug]
-  if (!paragraphs) return doc
   if (slug === SOIL) reviseSoilClaims(doc)
   if (slug === AMENDMENTS) reviseAmendmentClaims(doc)
-  insertSources(doc, paragraphs)
-  return doc
+  return stripSources(doc)
 }

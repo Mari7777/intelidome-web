@@ -59,6 +59,10 @@ Ověřeno: text shodný s předlohou (22 300 znaků), `tsc` čistý, `layout-che
 
 Při kontrole se ukázalo, že `optimize-lawn-series.ts` a `revise-lawn-series.ts` nyní končí chybou „Evidence: expected soil infiltration results“ u průvodce půdou (ID 5). Nesouvisí to s článkem o setí; je potřeba to vyřešit před příštím použitím těchto skriptů.
 
+### Bez oddílu Zdroje a metodika (3. 10. 2026)
+
+Na rozhodnutí autora žádný článek série oddíl „Zdroje a metodika“ nemá. `enrichLawnEvidence` ho nevkládá a existující odstraní (`stripSources`); hranicí setí a fotky trávníku v průvodci půdou je místo něj FAQ. Ze čtyř článků v místním CMS ho odstranil jednorázový `scripts/remove-lawn-sources.ts`. Odkazy jinam zůstávají jen tři v textu článku o příměsích (biovin.at, pokus Brockhoff a kol. na doi.org, Penn State u písku). Odstavce výše, které popisují zdroje s vymezením modelových předpokladů, jsou historické.
+
 ## Co zbývá pro veřejnou návštěvnost
 
 Při historické kontrole 25. 9. 2026 se u https://www.intelidome.com nepodařilo ověřit HTTPS: server vrací certifikát, jehož jméno neodpovídá www.intelidome.com (curl 60). Certifikát nebyl obcházen. Dokumentace projektu zatím uvádí veřejné nasazení F1 jako nedokončené.

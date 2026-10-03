@@ -111,7 +111,8 @@ const sections: {
   {
     key: 'lawn',
     after: chapterTitle('Proč se to všechno nakonec vyplatí?'),
-    before: named('Zdroje a metodika – SEO'),
+    // Oddíl zdrojů už článek nemá (3. 10. 2026); hranicí je pak FAQ.
+    before: (node) => named('Zdroje a metodika – SEO')(node) || node.fields?.blockType === 'faq',
     side: 'image-right',
     ratio: '1:1',
     caption:

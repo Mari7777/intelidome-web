@@ -64,7 +64,8 @@ export function splitPreparationAndSeeding(input: unknown): { preparation: Artic
   const nodes = doc.root.children
   const mycorrhiza = nodes.findIndex((node) => node.fields?.title === mycorrhizaTitle)
   const seeds = nodes.findIndex((node) => node.fields?.title === seedTitle)
-  const sources = nodes.findIndex((node) => node.fields?.blockName === 'Zdroje a metodika – SEO')
+  // Konec setí: oddíl zdrojů, a když už není (od 3. 10. 2026), FAQ.
+  const sources = nodes.findIndex((node) => node.fields?.blockName === 'Zdroje a metodika – SEO' || node.fields?.blockType === 'faq')
   const faq = nodes.find((node) => node.fields?.blockType === 'faq')
   const summary = nodes.find((node) => node.fields?.blockType === 'summaryBand')
   if (mycorrhiza < 1 || seeds <= mycorrhiza || sources <= seeds || !faq || !summary) {
