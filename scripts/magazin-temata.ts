@@ -28,9 +28,11 @@ const TEMATA = [
     clanky: [
       'krasny-travnik-zacina-pod-zemi-2',
       'pisek-biochar-a-dalsi-primesi',
+      'jak-namichat-pudu-pro-travnik',
       'kalkulator-na-planovani-pudniho-profilu',
       'jak-pripravit-a-ulozit-smes',
       'jak-zasit-travnik',
+      'pece-o-novy-travnik',
     ],
   },
   {

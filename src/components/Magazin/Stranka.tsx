@@ -85,6 +85,7 @@ export function MagazinStranka({ data, locale }: { data: MagazinData; locale: Lo
         buttonHref="/"
         buttonLabel={t(locale, 'nav.cta')}
         className="id-mag-pas--bila"
+        hideButton
         locale={locale}
         sub={t(locale, 'magazin.cta.sub')}
         title={t(locale, 'magazin.cta.titulek')}

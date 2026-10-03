@@ -12,6 +12,7 @@ export type CtaBandBlockProps = {
   sub: string
   buttonLabel: string
   buttonHref: string
+  hideButton?: boolean
   ask?: string | null
   id?: string | null
   blockName?: string | null
@@ -32,6 +33,7 @@ export const CtaBandBlock: React.FC<CtaBandBlockProps> = ({
   buttonHref,
   buttonLabel,
   className,
+  hideButton = false,
   locale,
   sub,
   title,
@@ -43,20 +45,22 @@ export const CtaBandBlock: React.FC<CtaBandBlockProps> = ({
       <h2 className="id-cta__title">{nezlomitelneMezery(title)}</h2>
       <p className="id-cta__sub">{nezlomitelneMezery(sub)}</p>
 
-      <p className="mt-[30px]">
-        <Link className="id-btn id-btn--primary" href={lokalizujCestu(buttonHref, locale)}>
-          {buttonLabel}
-          <svg aria-hidden="true" fill="none" height="16" viewBox="0 0 16 16" width="16">
-            <path
-              d="M3 8h10M9 4l4 4-4 4"
-              stroke="currentColor"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="1.6"
-            />
-          </svg>
-        </Link>
-      </p>
+      {!hideButton ? (
+        <p className="mt-[30px]">
+          <Link className="id-btn id-btn--primary" href={lokalizujCestu(buttonHref, locale)}>
+            {buttonLabel}
+            <svg aria-hidden="true" fill="none" height="16" viewBox="0 0 16 16" width="16">
+              <path
+                d="M3 8h10M9 4l4 4-4 4"
+                stroke="currentColor"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="1.6"
+              />
+            </svg>
+          </Link>
+        </p>
+      ) : null}
 
       {ask ? <p className="id-cta__ask">{nezlomitelneMezery(ask)}</p> : null}
     </div>

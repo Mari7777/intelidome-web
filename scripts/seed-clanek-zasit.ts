@@ -1,3 +1,6 @@
+import { stopLegacyMagazineWrite } from './lib/legacy-magazine-source'
+stopLegacyMagazineWrite()
+
 /**
  * Článek „Jak zasít trávník: od prvního zalití k pevným kořenům" do LOKÁLNÍ
  * databáze (stabilní adresa /magazin/jak-zasit-travnik).

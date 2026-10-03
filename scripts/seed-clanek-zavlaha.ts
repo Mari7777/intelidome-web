@@ -1,3 +1,6 @@
+import { stopLegacyMagazineWrite } from './lib/legacy-magazine-source'
+stopLegacyMagazineWrite()
+
 /**
  * Vloží článek „Jak navrhnout automatickou závlahu" jako KONCEPT.
  * Spuštění:  npm run payload -- run scripts/seed-clanek-zavlaha.ts

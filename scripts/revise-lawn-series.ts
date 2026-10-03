@@ -1,3 +1,6 @@
+import { stopLegacyMagazineWrite } from './lib/legacy-magazine-source'
+stopLegacyMagazineWrite()
+
 /**
  * Approved shortening and crosslinking of the five Czech lawn articles.
  * Preview: node --import tsx scripts/revise-lawn-series.ts

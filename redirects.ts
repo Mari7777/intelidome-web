@@ -23,7 +23,14 @@ export function presmerovaniMagazinu(): Pravidlo[] {
     { source: `${zdroj}/posts/:path+`, destination: `${cil}/magazin/:path+`, permanent: true },
     { source: `${zdroj}/magazin/strana/1`, destination: `${cil}/magazin`, permanent: true },
   ]
-  return [...sada('', ''), ...sada('/cs', ''), ...sada(`/:locale(${cizi})`, '/:locale')]
+  const sloucenyClanek: Pravidlo[] = ['', '/cs'].flatMap((prefix) =>
+    ['posts', 'magazin'].map((sekce) => ({
+      source: `${prefix}/${sekce}/zazimovani-zavlahy-krok-za-krokem`,
+      destination: '/magazin/jak-navrhnout-automatickou-zavlahu',
+      permanent: true as const,
+    })),
+  )
+  return [...sloucenyClanek, ...sada('', ''), ...sada('/cs', ''), ...sada(`/:locale(${cizi})`, '/:locale')]
 }
 
 export const redirects: NextConfig['redirects'] = async () => {

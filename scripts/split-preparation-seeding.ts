@@ -1,3 +1,6 @@
+import { stopLegacyMagazineWrite } from './lib/legacy-magazine-source'
+stopLegacyMagazineWrite()
+
 /**
  * Split the current Czech article in the local CMS without rebuilding its authored text.
  * Preview: node --import tsx scripts/split-preparation-seeding.ts

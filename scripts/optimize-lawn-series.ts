@@ -1,3 +1,6 @@
+import { stopLegacyMagazineWrite } from './lib/legacy-magazine-source'
+stopLegacyMagazineWrite()
+
 /**
  * Search metadata, evidence links and direct summaries for the five Czech lawn articles.
  * Preview: node --import tsx scripts/optimize-lawn-series.ts

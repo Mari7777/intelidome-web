@@ -1,3 +1,6 @@
+import { stopLegacyMagazineWrite } from './lib/legacy-magazine-source'
+stopLegacyMagazineWrite()
+
 /**
  * Vloží článek „Krásný trávník začíná pod zemí" do LOKÁLNÍ databáze.
  * Spuštění:  npm run payload -- run scripts/seed-clanek-puda.ts

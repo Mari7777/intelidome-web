@@ -1,8 +1,10 @@
+import { LAWN_SERIES_ORDER } from './seriesOrder'
+
 /**
  * Skladba domovské stránky magazínu (DESIGN.md 8.5) — čisté funkce bez
  * Payloadu, aby šly testovat. Téma článku je jeho PRVNÍ kategorie platná
  * v daném jazyce; vlastní pás dostane téma s aspoň MIN_CLANKU_TEMATU články,
- * nejvýš MAX_TEMAT témat v pořadí založení kategorie. Série řadí díly od
+ * nejvýš MAX_TEMAT témat v pořadí založení kategorie. Série půdy má redakční pořadí; ostatní série řadí díly od
  * nejstaršího, nečíslované téma ukáže MAX_TEMA nejnovějších.
  */
 export const NA_STRANU = 12
@@ -12,12 +14,21 @@ export const MAX_DILU = 12
 export const MAX_TEMA = 6
 export const MAX_KALKULATORU = 6
 
-export type LehkyClanek = { id: number; kategorie: number[]; publishedAt: string | null }
+export type LehkyClanek = { id: number; slug?: string; kategorie: number[]; publishedAt: string | null }
 export type Tema = { id: number; slug: string; titulek: string; popis: string | null; serie: boolean }
 export type Dil = { k: number; z: number }
 export type SkupinaPlan = { tema: Tema; clanky: number[]; pocet: number; vsechnyDily: boolean }
 
 const cas = (c: LehkyClanek) => (c.publishedAt ? Date.parse(c.publishedAt) : 0)
+const poradiDilů = new Map<string, number>(LAWN_SERIES_ORDER.map((slug, index) => [slug, index]))
+const podleSerie = (tema: Tema) => (a: LehkyClanek, b: LehkyClanek) => {
+  if (tema.slug === 'puda-a-zalozeni-travniku') {
+    const ai = poradiDilů.get(a.slug ?? '')
+    const bi = poradiDilů.get(b.slug ?? '')
+    if (ai !== undefined || bi !== undefined) return (ai ?? Infinity) - (bi ?? Infinity)
+  }
+  return vzestupne(a, b)
+}
 const vzestupne = (a: LehkyClanek, b: LehkyClanek) => cas(a) - cas(b) || a.id - b.id
 
 /** Témata, díly a téma každého článku z lehkého seznamu (bez obsahu) celého jazyka. */
@@ -38,14 +49,14 @@ export function sestavSkupiny(
   const dily = new Map<number, Dil>()
   for (const [id, clanky] of podleTematu) {
     if (!platna.get(id)!.serie) continue
-    const serazene = [...clanky].sort(vzestupne)
+    const serazene = [...clanky].sort(podleSerie(platna.get(id)!))
     serazene.forEach((c, i) => dily.set(c.id, { k: i + 1, z: serazene.length }))
   }
   const skupiny: SkupinaPlan[] = []
   for (const t of temata) {
     const clanky = podleTematu.get(t.id) ?? []
     if (clanky.length < min || skupiny.length >= max) continue
-    const serazene = t.serie ? [...clanky].sort(vzestupne).slice(0, dilu) : [...clanky].sort(vzestupne).reverse().slice(0, tema)
+    const serazene = t.serie ? [...clanky].sort(podleSerie(t)).slice(0, dilu) : [...clanky].sort(vzestupne).reverse().slice(0, tema)
     skupiny.push({ tema: t, clanky: serazene.map((c) => c.id), pocet: clanky.length, vsechnyDily: t.serie && clanky.length <= dilu })
   }
   return { skupiny, dily, temaClanku }

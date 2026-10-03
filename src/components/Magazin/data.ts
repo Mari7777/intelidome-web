@@ -114,7 +114,7 @@ export async function nactiMagazin({ locale, strana }: { locale: Locale; strana:
     }),
     payload.find({
       collection: 'posts', locale, depth: 0, pagination: false, sort: ['publishedAt', 'id'],
-      overrideAccess: false, select: { categories: true, publishedAt: true }, ...jazyk,
+      overrideAccess: false, select: { slug: true, categories: true, publishedAt: true }, ...jazyk,
     }),
   ])
 
@@ -123,7 +123,7 @@ export async function nactiMagazin({ locale, strana }: { locale: Locale; strana:
     .filter((k) => k.title && k.slug)
     .map((k) => ({ id: k.id, slug: k.slug!, titulek: k.title, popis: k.popis?.trim() || null, serie: Boolean(k.serie) }))
   const lehkeClanky: LehkyClanek[] = lehke.docs.map((p) => ({
-    id: p.id, kategorie: (p.categories ?? []).map(idKategorie), publishedAt: p.publishedAt ?? null,
+    id: p.id, slug: p.slug, kategorie: (p.categories ?? []).map(idKategorie), publishedAt: p.publishedAt ?? null,
   }))
   const { skupiny: plan, dily, temaClanku } = sestavSkupiny(lehkeClanky, temata)
 

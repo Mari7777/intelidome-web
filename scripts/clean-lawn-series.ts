@@ -1,3 +1,6 @@
+import { stopLegacyMagazineWrite } from './lib/legacy-magazine-source'
+stopLegacyMagazineWrite()
+
 /**
  * Úklid českých článků v LOKÁLNÍ databázi podle rozhodnutí autora 3. 10. 2026:
  * bez oddílu „Zdroje a metodika“, bez odkazů jinam a se střídáním stran

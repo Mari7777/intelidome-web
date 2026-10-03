@@ -1,0 +1,3788 @@
+[
+  {
+    "rowType": "source-node",
+    "sourcePostID": 2,
+    "sourceSlug": "zazimovani-zavlahy-krok-za-krokem",
+    "sourceBlockIndex": 0,
+    "sourceBlockType": "paragraph",
+    "sourceTitle": "Základem spolehlivé automatické závlahy jsou tři kroky: přesně změřit kapacitu vodního zdroje, rozmístit postřikovače tak, aby se dostřiky stoprocentně překrývaly (pravidlo „hlava na hlavu“), a rozdělit zahradu do logických zavlažovacích sektorů. Správně navržený systém pak dodá trávníku přesně 10 až 15 litrů na metr čtvereční každé 2 až 3 dny — ani o kapku víc. Chytré řízení navíc propojí závlahu s retenční nádrží a čidly vlhkosti, takže šetří vodu i váš čas.",
+    "action": "merged-with-qualification",
+    "targets": [
+      {
+        "slug": "jak-navrhnout-automatickou-zavlahu",
+        "blockIndex": 0,
+        "nodeType": "summaryBand",
+        "title": "Souhrn",
+        "path": "root.children[0].fields.lead"
+      },
+      {
+        "slug": "jak-navrhnout-automatickou-zavlahu",
+        "blockIndex": 1,
+        "nodeType": "split",
+        "title": "Jak funguje krevní oběh vaší zahrady?",
+        "path": "root.children[1].fields.body"
+      },
+      {
+        "slug": "jak-navrhnout-automatickou-zavlahu",
+        "blockIndex": 11,
+        "nodeType": "split",
+        "title": "Jak závlahu chytře řídit a neplýtvat?",
+        "path": "root.children[11].fields.body"
+      }
+    ],
+    "note": "Tři návrhové kroky zachovány; dávka a interval jsou výchozí příklad, ne slib přesné potřeby každé zahrady."
+  },
+  {
+    "rowType": "source-node",
+    "sourcePostID": 2,
+    "sourceSlug": "zazimovani-zavlahy-krok-za-krokem",
+    "sourceBlockIndex": 1,
+    "sourceBlockType": "heading",
+    "sourceTitle": "Jak funguje hydraulika vaší zahrady?",
+    "action": "semantic-overlap",
+    "targets": [
+      {
+        "slug": "jak-navrhnout-automatickou-zavlahu",
+        "blockIndex": 1,
+        "nodeType": "split",
+        "title": "Jak funguje krevní oběh vaší zahrady?",
+        "path": "root.children[1].fields.title",
+        "identicalAfterIdAndMediaNormalization": false,
+        "differentFields": [
+          "alt",
+          "blockName",
+          "blockType",
+          "body",
+          "caption",
+          "children",
+          "direction",
+          "drawing",
+          "eyebrow",
+          "format",
+          "indent",
+          "number",
+          "photoRatio",
+          "side",
+          "surface",
+          "tag",
+          "title",
+          "titleLevel",
+          "type",
+          "version"
+        ]
+      }
+    ],
+    "note": "Téma úvodní kapitoly je již v dlouhém článku; samostatný opakovaný nadpis se nepřidává."
+  },
+  {
+    "rowType": "source-node",
+    "sourcePostID": 2,
+    "sourceSlug": "zazimovani-zavlahy-krok-za-krokem",
+    "sourceBlockIndex": 2,
+    "sourceBlockType": "paragraph",
+    "sourceTitle": "Zahrada je živý organismus a voda je její krevní oběh. Abychom rostlinám dodali vláhu efektivně, musíme respektovat základní fyzikální zákony. Trávník v teplých dnech odpaří překvapivé množství vody, a proto standardní zavlažovací dávka činí 10 až 15 mm srážek (tedy 10–15 litrů na m²) každé 2 až 3 dny. Pokud systém nenavrhnete správně od začátku, nepomohou vám k zelenému koberci ani nejdražší komponenty na trhu.",
+    "action": "merged-with-qualification",
+    "targets": [
+      {
+        "slug": "jak-navrhnout-automatickou-zavlahu",
+        "blockIndex": 1,
+        "nodeType": "split",
+        "title": "Jak funguje krevní oběh vaší zahrady?",
+        "path": "root.children[1].fields.body",
+        "identicalAfterIdAndMediaNormalization": false,
+        "differentFields": [
+          "alt",
+          "blockName",
+          "blockType",
+          "body",
+          "caption",
+          "children",
+          "direction",
+          "drawing",
+          "eyebrow",
+          "format",
+          "indent",
+          "number",
+          "photoRatio",
+          "side",
+          "surface",
+          "textFormat",
+          "title",
+          "titleLevel",
+          "type",
+          "version"
+        ]
+      }
+    ],
+    "note": "Zachována potřeba vody v teple, převod mm na l/m² a důležitost návrhu; pevný univerzální interval změněn na příklad."
+  },
+  {
+    "rowType": "source-node",
+    "sourcePostID": 2,
+    "sourceSlug": "zazimovani-zavlahy-krok-za-krokem",
+    "sourceBlockIndex": 3,
+    "sourceBlockType": "heading",
+    "sourceTitle": "Jak správně změřit tlak a průtok vody?",
+    "action": "semantic-overlap",
+    "targets": [
+      {
+        "slug": "jak-navrhnout-automatickou-zavlahu",
+        "blockIndex": 2,
+        "nodeType": "split",
+        "title": "Jak změřit skutečnou sílu vašeho vodního zdroje?",
+        "path": "root.children[2].fields.title",
+        "identicalAfterIdAndMediaNormalization": false,
+        "differentFields": [
+          "alt",
+          "blockName",
+          "blockType",
+          "body",
+          "caption",
+          "children",
+          "direction",
+          "drawing",
+          "eyebrow",
+          "format",
+          "indent",
+          "number",
+          "photoRatio",
+          "side",
+          "surface",
+          "tag",
+          "title",
+          "titleLevel",
+          "type",
+          "version"
+        ]
+      }
+    ],
+    "note": "Nadpis měření je významově obsažen v kapitole 02."
+  },
+  {
+    "rowType": "source-node",
+    "sourcePostID": 2,
+    "sourceSlug": "zazimovani-zavlahy-krok-za-krokem",
+    "sourceBlockIndex": 4,
+    "sourceBlockType": "paragraph",
+    "sourceTitle": "Nejčastější chybou při stavbě závlahy je pouhý odhad síly vodního zdroje. Nezajímá nás přitom statický tlak (v klidu), ale tlak dynamický — tedy jak se voda chová, když skutečně proudí potrubím. Běžný systém potřebuje dynamický tlak alespoň 3 bary a průtok kolem 25 l/min.",
+    "action": "merged-with-qualification",
+    "targets": [
+      {
+        "slug": "jak-navrhnout-automatickou-zavlahu",
+        "blockIndex": 2,
+        "nodeType": "split",
+        "title": "Jak změřit skutečnou sílu vašeho vodního zdroje?",
+        "path": "root.children[2].fields.body"
+      },
+      {
+        "slug": "jak-navrhnout-automatickou-zavlahu",
+        "blockIndex": 5,
+        "nodeType": "banner",
+        "title": "Pro zvídavé",
+        "path": "root.children[5].fields.content"
+      }
+    ],
+    "note": "Statický a dynamický tlak i 3 bary / 25 l/min zachovány; hodnoty označeny jako orientační příklad."
+  },
+  {
+    "rowType": "source-node",
+    "sourcePostID": 2,
+    "sourceSlug": "zazimovani-zavlahy-krok-za-krokem",
+    "sourceBlockIndex": 5,
+    "sourceBlockType": "paragraph",
+    "sourceTitle": "Obě hodnoty zjistíte takzvaným kbelíkovým testem:",
+    "action": "merged-with-qualification",
+    "targets": [
+      {
+        "slug": "jak-navrhnout-automatickou-zavlahu",
+        "blockIndex": 2,
+        "nodeType": "split",
+        "title": "Jak změřit skutečnou sílu vašeho vodního zdroje?",
+        "path": "root.children[2].fields.body",
+        "identicalAfterIdAndMediaNormalization": false,
+        "differentFields": [
+          "alt",
+          "blockName",
+          "blockType",
+          "body",
+          "caption",
+          "children",
+          "direction",
+          "drawing",
+          "eyebrow",
+          "format",
+          "indent",
+          "number",
+          "photoRatio",
+          "side",
+          "surface",
+          "textFormat",
+          "title",
+          "titleLevel",
+          "type",
+          "version"
+        ]
+      }
+    ],
+    "note": "Kbelíkový test zachován; výslovně odlišeno měření průtoku kbelíkem od měření tlaku manometrem."
+  },
+  {
+    "rowType": "source-node",
+    "sourcePostID": 2,
+    "sourceSlug": "zazimovani-zavlahy-krok-za-krokem",
+    "sourceBlockIndex": 6,
+    "sourceBlockType": "list",
+    "sourceTitle": "",
+    "action": "semantic-overlap",
+    "targets": [
+      {
+        "slug": "jak-navrhnout-automatickou-zavlahu",
+        "blockIndex": 2,
+        "nodeType": "split",
+        "title": "Jak změřit skutečnou sílu vašeho vodního zdroje?",
+        "path": "root.children[2].fields.body"
+      },
+      {
+        "slug": "jak-navrhnout-automatickou-zavlahu",
+        "blockIndex": 4,
+        "nodeType": "calculator",
+        "title": "Kalkulátor prutok",
+        "path": "root.children[4].fields.kind"
+      }
+    ],
+    "note": "Všechny čtyři kroky jsou v kapitole 02: manometr, ventil / 3,5 baru, 10l nádoba a čas, průtok a 20% rezerva."
+  },
+  {
+    "rowType": "source-node",
+    "sourcePostID": 2,
+    "sourceSlug": "zazimovani-zavlahy-krok-za-krokem",
+    "sourceBlockIndex": 7,
+    "sourceBlockType": "heading",
+    "sourceTitle": "Proč se postřikovače musí vzájemně překrývat?",
+    "action": "exact-heading-duplicate",
+    "targets": [
+      {
+        "slug": "jak-navrhnout-automatickou-zavlahu",
+        "blockIndex": 6,
+        "nodeType": "split",
+        "title": "Proč se postřikovače musí vzájemně překrývat?",
+        "path": "root.children[6].fields.title",
+        "identicalAfterIdAndMediaNormalization": false,
+        "differentFields": [
+          "alt",
+          "blockName",
+          "blockType",
+          "body",
+          "caption",
+          "children",
+          "direction",
+          "drawing",
+          "eyebrow",
+          "format",
+          "indent",
+          "number",
+          "photoRatio",
+          "side",
+          "surface",
+          "tag",
+          "title",
+          "titleLevel",
+          "type",
+          "version"
+        ]
+      }
+    ],
+    "note": "Stejný nadpis je již u zachovaného splitu kapitoly 03."
+  },
+  {
+    "rowType": "source-node",
+    "sourcePostID": 2,
+    "sourceSlug": "zazimovani-zavlahy-krok-za-krokem",
+    "sourceBlockIndex": 8,
+    "sourceBlockType": "paragraph",
+    "sourceTitle": "Představte si kapky dopadající na zem: nejblíž trysce jich je vždy nejvíc a se vzdáleností jejich množství klesá. Aby byla zálivka rovnoměrná na každém centimetru, musí voda z jednoho postřikovače dostříknout přesně na tělo postřikovače sousedního. Tomuto pravidlu se říká „hlava na hlavu“. Nikdy nešetřete tím, že postřikovače od sebe oddálíte — v létě by na trávníku rychle vznikla suchá, vypálená místa. Pro šetrné vsakování do hlubších vrstev půdy jsou ideální moderní rotační paprskové trysky.",
+    "action": "merged-with-qualification",
+    "targets": [
+      {
+        "slug": "jak-navrhnout-automatickou-zavlahu",
+        "blockIndex": 6,
+        "nodeType": "split",
+        "title": "Proč se postřikovače musí vzájemně překrývat?",
+        "path": "root.children[6].fields.body",
+        "identicalAfterIdAndMediaNormalization": false,
+        "differentFields": [
+          "alt",
+          "blockName",
+          "blockType",
+          "body",
+          "caption",
+          "children",
+          "direction",
+          "drawing",
+          "eyebrow",
+          "format",
+          "indent",
+          "number",
+          "photoRatio",
+          "side",
+          "surface",
+          "textFormat",
+          "title",
+          "titleLevel",
+          "type",
+          "version"
+        ]
+      }
+    ],
+    "note": "Překrytí, riziko suchých míst a pomalé rotační trysky zachovány; obecná charakteristika všech trysek a záruka úplné rovnoměrnosti kvalifikovány."
+  },
+  {
+    "rowType": "source-node",
+    "sourcePostID": 2,
+    "sourceSlug": "zazimovani-zavlahy-krok-za-krokem",
+    "sourceBlockIndex": 9,
+    "sourceBlockType": "banner",
+    "sourceTitle": "",
+    "action": "retained-verbatim",
+    "targets": [
+      {
+        "slug": "jak-navrhnout-automatickou-zavlahu",
+        "blockIndex": 3,
+        "nodeType": "banner",
+        "title": "Před měřením zavřete ostatní odběry",
+        "path": "root.children[3].fields.content",
+        "identicalAfterIdAndMediaNormalization": false,
+        "differentFields": [
+          "blockName"
+        ]
+      }
+    ],
+    "note": "Původní upozornění přesunuto ke kbelíkovému testu; text beze změny.",
+    "sourceBlockID": "6ac13201c67530065d5c64cb"
+  },
+  {
+    "rowType": "source-node",
+    "sourcePostID": 2,
+    "sourceSlug": "zazimovani-zavlahy-krok-za-krokem",
+    "sourceBlockIndex": 10,
+    "sourceBlockType": "heading",
+    "sourceTitle": "Jak automatizovat zálivku a šetřit vodou?",
+    "action": "semantic-overlap",
+    "targets": [
+      {
+        "slug": "jak-navrhnout-automatickou-zavlahu",
+        "blockIndex": 11,
+        "nodeType": "split",
+        "title": "Jak závlahu chytře řídit a neplýtvat?",
+        "path": "root.children[11].fields.title",
+        "identicalAfterIdAndMediaNormalization": false,
+        "differentFields": [
+          "alt",
+          "blockName",
+          "blockType",
+          "body",
+          "caption",
+          "children",
+          "direction",
+          "drawing",
+          "eyebrow",
+          "format",
+          "indent",
+          "number",
+          "photoRatio",
+          "side",
+          "surface",
+          "tag",
+          "title",
+          "titleLevel",
+          "type",
+          "version"
+        ]
+      }
+    ],
+    "note": "Téma chytrého řízení je již v kapitole 04."
+  },
+  {
+    "rowType": "source-node",
+    "sourcePostID": 2,
+    "sourceSlug": "zazimovani-zavlahy-krok-za-krokem",
+    "sourceBlockIndex": 11,
+    "sourceBlockType": "paragraph",
+    "sourceTitle": "Když máte postřikovače rozmístěné a propojené potrubím pod povrchem, přichází na řadu elektronický mozek systému. Tady vstupuje do hry InteliDome, který síť trubek promění v chytrou a vnímavou zahradu. Každý sektor řídíte zvlášť podle toho, jestli je na slunci nebo ve stínu, a systém přitom nepřetržitě sleduje reálné podmínky:",
+    "action": "merged-with-qualification",
+    "targets": [
+      {
+        "slug": "jak-navrhnout-automatickou-zavlahu",
+        "blockIndex": 8,
+        "nodeType": "heading",
+        "title": "Jak rozdělit zahradu do sektorů?",
+        "path": "root.children[8].children"
+      },
+      {
+        "slug": "jak-navrhnout-automatickou-zavlahu",
+        "blockIndex": 9,
+        "nodeType": "paragraph",
+        "title": "Rozmístěním postřikovačů návrh nekončí. Zahradu rozdělíme do logických zavlažovacích sektorů, které můžeme řídit samostatně. Při rozdělení zohledníme, zda je daná část na slunci, nebo ve stínu. Dvě plochy mohou ležet vedle sebe, a přesto nemusí potřebovat stejný režim zálivky. Samostatné řízení nám umožní jejich potřeby odlišit, místo abychom celé zahradě vnutili jeden program.",
+        "path": "root.children[9].children"
+      },
+      {
+        "slug": "jak-navrhnout-automatickou-zavlahu",
+        "blockIndex": 11,
+        "nodeType": "split",
+        "title": "Jak závlahu chytře řídit a neplýtvat?",
+        "path": "root.children[11].fields.body"
+      }
+    ],
+    "note": "Podzemní potrubí, samostatné sektory podle slunce/stínu a průběžné měření zachovány; doplněna samostatná podkapitola sektorů."
+  },
+  {
+    "rowType": "source-node",
+    "sourcePostID": 2,
+    "sourceSlug": "zazimovani-zavlahy-krok-za-krokem",
+    "sourceBlockIndex": 12,
+    "sourceBlockType": "list",
+    "sourceTitle": "",
+    "action": "merged-with-qualification",
+    "targets": [
+      {
+        "slug": "jak-navrhnout-automatickou-zavlahu",
+        "blockIndex": 11,
+        "nodeType": "split",
+        "title": "Jak závlahu chytře řídit a neplýtvat?",
+        "path": "root.children[11].fields.body"
+      },
+      {
+        "slug": "jak-navrhnout-automatickou-zavlahu",
+        "blockIndex": 12,
+        "nodeType": "productBand",
+        "title": "Když závlahu neřídí kalendář, ale půda",
+        "path": "root.children[12].fields.features"
+      }
+    ],
+    "note": "Všechny tři přínosy zachovány: čidla, přednost nádrže, osvětlení i další spínače. Funkce kvalifikovány zapojením a nastavením."
+  },
+  {
+    "rowType": "source-node",
+    "sourcePostID": 2,
+    "sourceSlug": "zazimovani-zavlahy-krok-za-krokem",
+    "sourceBlockIndex": 13,
+    "sourceBlockType": "heading",
+    "sourceTitle": "Časté otázky",
+    "action": "exact-heading-duplicate",
+    "targets": [
+      {
+        "slug": "jak-navrhnout-automatickou-zavlahu",
+        "blockIndex": 13,
+        "nodeType": "faq",
+        "title": "Časté otázky",
+        "path": "root.children[13].fields.heading",
+        "identicalAfterIdAndMediaNormalization": false,
+        "differentFields": [
+          "blockName",
+          "blockType",
+          "children",
+          "direction",
+          "format",
+          "heading",
+          "indent",
+          "items",
+          "tag",
+          "type",
+          "version"
+        ]
+      }
+    ],
+    "note": "Stejný nadpis již označuje zachovaný FAQ blok."
+  },
+  {
+    "rowType": "source-node",
+    "sourcePostID": 2,
+    "sourceSlug": "zazimovani-zavlahy-krok-za-krokem",
+    "sourceBlockIndex": 14,
+    "sourceBlockType": "heading",
+    "sourceTitle": "Kolik vody trávník opravdu potřebuje?",
+    "action": "semantic-overlap",
+    "targets": [
+      {
+        "slug": "jak-navrhnout-automatickou-zavlahu",
+        "blockIndex": 13,
+        "nodeType": "faq",
+        "title": "Časté otázky",
+        "questionIndex": 0,
+        "question": "Kolik vody potřebuje trávník za jednu zálivku?",
+        "path": "root.children[13].fields.items[0]"
+      }
+    ],
+    "note": "Otázka o potřebě vody sloučena s odpovídající FAQ dlouhého článku."
+  },
+  {
+    "rowType": "source-node",
+    "sourcePostID": 2,
+    "sourceSlug": "zazimovani-zavlahy-krok-za-krokem",
+    "sourceBlockIndex": 15,
+    "sourceBlockType": "paragraph",
+    "sourceTitle": "V teplém období 10 až 15 litrů na metr čtvereční každé 2 až 3 dny. Méně častá, ale vydatnější zálivka vede kořeny do hloubky a trávník je odolnější.",
+    "action": "merged-with-qualification",
+    "targets": [
+      {
+        "slug": "jak-navrhnout-automatickou-zavlahu",
+        "blockIndex": 13,
+        "nodeType": "faq",
+        "title": "Časté otázky",
+        "questionIndex": 0,
+        "question": "Kolik vody potřebuje trávník za jednu zálivku?",
+        "path": "root.children[13].fields.items[0]"
+      },
+      {
+        "slug": "jak-navrhnout-automatickou-zavlahu",
+        "blockIndex": 1,
+        "nodeType": "split",
+        "title": "Jak funguje krevní oběh vaší zahrady?",
+        "path": "root.children[1].fields.body"
+      }
+    ],
+    "note": "10–15 l/m², interval 2–3 dny a méně častá vydatnější zálivka zachovány s odlišením zakořeněného trávníku a výsevu."
+  },
+  {
+    "rowType": "source-node",
+    "sourcePostID": 2,
+    "sourceSlug": "zazimovani-zavlahy-krok-za-krokem",
+    "sourceBlockIndex": 16,
+    "sourceBlockType": "heading",
+    "sourceTitle": "Jaký tlak a průtok potřebuji pro automatickou závlahu?",
+    "action": "merged-faq",
+    "targets": [
+      {
+        "slug": "jak-navrhnout-automatickou-zavlahu",
+        "blockIndex": 13,
+        "nodeType": "faq",
+        "title": "Časté otázky",
+        "questionIndex": 5,
+        "question": "Jaký tlak a průtok potřebuji u zdroje a u trysek?",
+        "path": "root.children[13].fields.items[5]"
+      }
+    ],
+    "note": "Původní otázka a odstavec o tlaku/průtoku zdroje jsou sloučeny do současné FAQ 5, která rozlišuje zdroj a tlak na hlavici; nejde už o samostatnou FAQ 6."
+  },
+  {
+    "rowType": "source-node",
+    "sourcePostID": 2,
+    "sourceSlug": "zazimovani-zavlahy-krok-za-krokem",
+    "sourceBlockIndex": 17,
+    "sourceBlockType": "paragraph",
+    "sourceTitle": "Dynamický tlak alespoň 3 bary a průtok kolem 25 l/min. Měřte vždy pod zátěží (kbelíkovým testem), ne v klidu — statický tlak o skutečné kapacitě zdroje nic neříká.",
+    "action": "merged-faq",
+    "targets": [
+      {
+        "slug": "jak-navrhnout-automatickou-zavlahu",
+        "blockIndex": 13,
+        "nodeType": "faq",
+        "title": "Časté otázky",
+        "questionIndex": 5,
+        "question": "Jaký tlak a průtok potřebuji u zdroje a u trysek?",
+        "path": "root.children[13].fields.items[5]"
+      }
+    ],
+    "note": "Původní otázka a odstavec o tlaku/průtoku zdroje jsou sloučeny do současné FAQ 5, která rozlišuje zdroj a tlak na hlavici; nejde už o samostatnou FAQ 6."
+  },
+  {
+    "rowType": "source-node",
+    "sourcePostID": 2,
+    "sourceSlug": "zazimovani-zavlahy-krok-za-krokem",
+    "sourceBlockIndex": 18,
+    "sourceBlockType": "heading",
+    "sourceTitle": "Co znamená pravidlo „hlava na hlavu“?",
+    "action": "retained-heading",
+    "targets": [
+      {
+        "slug": "jak-navrhnout-automatickou-zavlahu",
+        "blockIndex": 13,
+        "nodeType": "faq",
+        "title": "Časté otázky",
+        "questionIndex": 3,
+        "question": "Co znamená pravidlo „hlava na hlavu“?",
+        "path": "root.children[13].fields.items[3]"
+      }
+    ],
+    "note": "Otázka zachována, zároveň opravena chybná závěrečná uvozovka v dlouhém článku."
+  },
+  {
+    "rowType": "source-node",
+    "sourcePostID": 2,
+    "sourceSlug": "zazimovani-zavlahy-krok-za-krokem",
+    "sourceBlockIndex": 19,
+    "sourceBlockType": "paragraph",
+    "sourceTitle": "Dostřik každého postřikovače musí dosáhnout až na tělo postřikovače sousedního. Jen tak se nerovnoměrnost jednotlivých trysek vzájemně vykryje a trávník dostane všude stejnou dávku.",
+    "action": "merged-with-qualification",
+    "targets": [
+      {
+        "slug": "jak-navrhnout-automatickou-zavlahu",
+        "blockIndex": 13,
+        "nodeType": "faq",
+        "title": "Časté otázky",
+        "questionIndex": 3,
+        "question": "Co znamená pravidlo „hlava na hlavu“?",
+        "path": "root.children[13].fields.items[3]"
+      }
+    ],
+    "note": "Dostřik k sousední hlavici a vyrovnávání nerovnoměrnosti zachovány; odstraněna záruka stejné dávky všude."
+  },
+  {
+    "rowType": "source-node",
+    "sourcePostID": 2,
+    "sourceSlug": "zazimovani-zavlahy-krok-za-krokem",
+    "sourceBlockIndex": 20,
+    "sourceBlockType": "heading",
+    "sourceTitle": "Proč odečítat 20 % z naměřeného průtoku?",
+    "action": "merged-faq",
+    "targets": [
+      {
+        "slug": "jak-navrhnout-automatickou-zavlahu",
+        "blockIndex": 13,
+        "nodeType": "faq",
+        "title": "Časté otázky",
+        "questionIndex": 2,
+        "question": "Jak změřím tlak a průtok a proč odečítám rezervu?",
+        "path": "root.children[13].fields.items[2]"
+      }
+    ],
+    "note": "Původní otázka a odstavec o 20% rezervě jsou sloučeny do současné FAQ 2 o měření a rezervě; nejde už o samostatnou FAQ 7."
+  },
+  {
+    "rowType": "source-node",
+    "sourcePostID": 2,
+    "sourceSlug": "zazimovani-zavlahy-krok-za-krokem",
+    "sourceBlockIndex": 21,
+    "sourceBlockType": "paragraph",
+    "sourceTitle": "Je to bezpečnostní rezerva na kolísání tlaku v síti, ztráty v potrubí a stárnutí systému. Sektor navržený na doraz by při každém poklesu tlaku kropil nerovnoměrně.",
+    "action": "merged-faq",
+    "targets": [
+      {
+        "slug": "jak-navrhnout-automatickou-zavlahu",
+        "blockIndex": 13,
+        "nodeType": "faq",
+        "title": "Časté otázky",
+        "questionIndex": 2,
+        "question": "Jak změřím tlak a průtok a proč odečítám rezervu?",
+        "path": "root.children[13].fields.items[2]"
+      },
+      {
+        "slug": "jak-navrhnout-automatickou-zavlahu",
+        "blockIndex": 2,
+        "nodeType": "split",
+        "title": "Jak změřit skutečnou sílu vašeho vodního zdroje?",
+        "path": "root.children[2].fields.body"
+      }
+    ],
+    "note": "Původní otázka a odstavec o 20% rezervě jsou sloučeny do současné FAQ 2 o měření a rezervě; nejde už o samostatnou FAQ 7."
+  },
+  {
+    "rowType": "source-node",
+    "sourcePostID": 2,
+    "sourceSlug": "zazimovani-zavlahy-krok-za-krokem",
+    "sourceBlockIndex": 22,
+    "sourceBlockType": "paragraph",
+    "sourceTitle": "Chcete mít jistotu, že vaše zahrada dostane přesně to, co potřebuje, bez zbytečného plýtvání? InteliDome propojí závlahu, retenční nádrž i osvětlení do jednoho spolehlivého celku. Další návody najdete na našem blogu.",
+    "action": "merged-with-qualification",
+    "targets": [
+      {
+        "slug": "jak-navrhnout-automatickou-zavlahu",
+        "blockIndex": 12,
+        "nodeType": "productBand",
+        "title": "Když závlahu neřídí kalendář, ale půda",
+        "path": "root.children[12].fields.body"
+      },
+      {
+        "slug": "jak-navrhnout-automatickou-zavlahu",
+        "blockIndex": 15,
+        "nodeType": "ctaBand",
+        "title": "Zahrada, která si sama řekne o vodu",
+        "path": "root.children[15].fields.sub"
+      },
+      {
+        "slug": "jak-navrhnout-automatickou-zavlahu",
+        "blockIndex": 14,
+        "nodeType": "paragraph",
+        "title": "Další návody k péči o zahradu najdete v našem magazínu.",
+        "path": "root.children[14].children"
+      }
+    ],
+    "note": "Zachováno propojení závlahy, nádrže a osvětlení, výzva k InteliDome i odkaz slovem na další návody. Neověřené sliby jistoty nahrazeny účelem systému."
+  },
+  {
+    "rowType": "source-node",
+    "sourcePostID": 4,
+    "sourceSlug": "jak-navrhnout-automatickou-zavlahu",
+    "sourceBlockIndex": 0,
+    "sourceBlockType": "summaryBand",
+    "sourceTitle": "Souhrn",
+    "action": "retain-and-integrate-short-irrigation-article",
+    "targets": [
+      {
+        "slug": "jak-navrhnout-automatickou-zavlahu",
+        "blockIndex": 0,
+        "nodeType": "summaryBand",
+        "title": "Souhrn",
+        "identicalAfterIdAndMediaNormalization": false,
+        "differentFields": [
+          "lead",
+          "tiles"
+        ]
+      }
+    ],
+    "note": "Zachovaný blok původního hlavního článku; některé části byly rozšířeny nebo zpřesněny při sloučení krátkého článku. Individuální FAQ jsou mapovány samostatně.",
+    "sourceBlockID": "6aa63c4e8f1eb76f6e161de6"
+  },
+  {
+    "rowType": "source-node",
+    "sourcePostID": 4,
+    "sourceSlug": "jak-navrhnout-automatickou-zavlahu",
+    "sourceBlockIndex": 1,
+    "sourceBlockType": "split",
+    "sourceTitle": "Jak funguje krevní oběh vaší zahrady?",
+    "action": "retain-and-integrate-short-irrigation-article",
+    "targets": [
+      {
+        "slug": "jak-navrhnout-automatickou-zavlahu",
+        "blockIndex": 1,
+        "nodeType": "split",
+        "title": "Jak funguje krevní oběh vaší zahrady?",
+        "identicalAfterIdAndMediaNormalization": false,
+        "differentFields": [
+          "alt",
+          "body",
+          "caption"
+        ]
+      }
+    ],
+    "note": "Zachovaný blok původního hlavního článku; některé části byly rozšířeny nebo zpřesněny při sloučení krátkého článku. Individuální FAQ jsou mapovány samostatně.",
+    "sourceBlockID": "6aa63c4e8f1eb76f6e161de7"
+  },
+  {
+    "rowType": "source-node",
+    "sourcePostID": 4,
+    "sourceSlug": "jak-navrhnout-automatickou-zavlahu",
+    "sourceBlockIndex": 2,
+    "sourceBlockType": "split",
+    "sourceTitle": "Jak změřit skutečnou sílu vašeho vodního zdroje?",
+    "action": "retain-and-integrate-short-irrigation-article",
+    "targets": [
+      {
+        "slug": "jak-navrhnout-automatickou-zavlahu",
+        "blockIndex": 2,
+        "nodeType": "split",
+        "title": "Jak změřit skutečnou sílu vašeho vodního zdroje?",
+        "identicalAfterIdAndMediaNormalization": false,
+        "differentFields": [
+          "body",
+          "caption"
+        ]
+      }
+    ],
+    "note": "Zachovaný blok původního hlavního článku; některé části byly rozšířeny nebo zpřesněny při sloučení krátkého článku. Individuální FAQ jsou mapovány samostatně.",
+    "sourceBlockID": "6aa63c4e8f1eb76f6e161de8"
+  },
+  {
+    "rowType": "source-node",
+    "sourcePostID": 4,
+    "sourceSlug": "jak-navrhnout-automatickou-zavlahu",
+    "sourceBlockIndex": 3,
+    "sourceBlockType": "calculator",
+    "sourceTitle": "Kalkulátor prutok",
+    "action": "retain-and-integrate-short-irrigation-article",
+    "targets": [
+      {
+        "slug": "jak-navrhnout-automatickou-zavlahu",
+        "blockIndex": 4,
+        "nodeType": "calculator",
+        "title": "Kalkulátor prutok",
+        "identicalAfterIdAndMediaNormalization": true,
+        "differentFields": []
+      }
+    ],
+    "note": "Zachovaný blok původního hlavního článku; některé části byly rozšířeny nebo zpřesněny při sloučení krátkého článku. Individuální FAQ jsou mapovány samostatně.",
+    "sourceBlockID": "6aa63c4e8f1eb76f6e161de9"
+  },
+  {
+    "rowType": "source-node",
+    "sourcePostID": 4,
+    "sourceSlug": "jak-navrhnout-automatickou-zavlahu",
+    "sourceBlockIndex": 4,
+    "sourceBlockType": "banner",
+    "sourceTitle": "Pro zvídavé",
+    "action": "retain-and-integrate-short-irrigation-article",
+    "targets": [
+      {
+        "slug": "jak-navrhnout-automatickou-zavlahu",
+        "blockIndex": 5,
+        "nodeType": "banner",
+        "title": "Pro zvídavé",
+        "identicalAfterIdAndMediaNormalization": false,
+        "differentFields": [
+          "content"
+        ]
+      }
+    ],
+    "note": "Zachovaný blok původního hlavního článku; některé části byly rozšířeny nebo zpřesněny při sloučení krátkého článku. Individuální FAQ jsou mapovány samostatně.",
+    "sourceBlockID": "6aa63c4e8f1eb76f6e161dea"
+  },
+  {
+    "rowType": "source-node",
+    "sourcePostID": 4,
+    "sourceSlug": "jak-navrhnout-automatickou-zavlahu",
+    "sourceBlockIndex": 5,
+    "sourceBlockType": "split",
+    "sourceTitle": "Proč se postřikovače musí vzájemně překrývat?",
+    "action": "retain-and-integrate-short-irrigation-article",
+    "targets": [
+      {
+        "slug": "jak-navrhnout-automatickou-zavlahu",
+        "blockIndex": 6,
+        "nodeType": "split",
+        "title": "Proč se postřikovače musí vzájemně překrývat?",
+        "identicalAfterIdAndMediaNormalization": false,
+        "differentFields": [
+          "body",
+          "caption"
+        ]
+      }
+    ],
+    "note": "Zachovaný blok původního hlavního článku; některé části byly rozšířeny nebo zpřesněny při sloučení krátkého článku. Individuální FAQ jsou mapovány samostatně.",
+    "sourceBlockID": "6aa63c4e8f1eb76f6e161deb"
+  },
+  {
+    "rowType": "source-node",
+    "sourcePostID": 4,
+    "sourceSlug": "jak-navrhnout-automatickou-zavlahu",
+    "sourceBlockIndex": 6,
+    "sourceBlockType": "figure",
+    "sourceTitle": "Obr. 04",
+    "action": "retain-and-integrate-short-irrigation-article",
+    "targets": [
+      {
+        "slug": "jak-navrhnout-automatickou-zavlahu",
+        "blockIndex": 7,
+        "nodeType": "figure",
+        "title": "Obr. 04",
+        "identicalAfterIdAndMediaNormalization": true,
+        "differentFields": []
+      }
+    ],
+    "note": "Zachovaný blok původního hlavního článku; některé části byly rozšířeny nebo zpřesněny při sloučení krátkého článku. Individuální FAQ jsou mapovány samostatně.",
+    "sourceBlockID": "6aa63c4e8f1eb76f6e161dec"
+  },
+  {
+    "rowType": "source-node",
+    "sourcePostID": 4,
+    "sourceSlug": "jak-navrhnout-automatickou-zavlahu",
+    "sourceBlockIndex": 7,
+    "sourceBlockType": "split",
+    "sourceTitle": "Jak závlahu chytře řídit a neplýtvat?",
+    "action": "retain-and-integrate-short-irrigation-article",
+    "targets": [
+      {
+        "slug": "jak-navrhnout-automatickou-zavlahu",
+        "blockIndex": 11,
+        "nodeType": "split",
+        "title": "Jak závlahu chytře řídit a neplýtvat?",
+        "identicalAfterIdAndMediaNormalization": false,
+        "differentFields": [
+          "body",
+          "caption"
+        ]
+      }
+    ],
+    "note": "Zachovaný blok původního hlavního článku; některé části byly rozšířeny nebo zpřesněny při sloučení krátkého článku. Individuální FAQ jsou mapovány samostatně.",
+    "sourceBlockID": "6aa63c4e8f1eb76f6e161ded"
+  },
+  {
+    "rowType": "source-node",
+    "sourcePostID": 4,
+    "sourceSlug": "jak-navrhnout-automatickou-zavlahu",
+    "sourceBlockIndex": 8,
+    "sourceBlockType": "productBand",
+    "sourceTitle": "Když závlahu neřídí kalendář, ale půda",
+    "action": "retain-and-integrate-short-irrigation-article",
+    "targets": [
+      {
+        "slug": "jak-navrhnout-automatickou-zavlahu",
+        "blockIndex": 12,
+        "nodeType": "productBand",
+        "title": "Když závlahu neřídí kalendář, ale půda",
+        "identicalAfterIdAndMediaNormalization": false,
+        "differentFields": [
+          "body",
+          "features"
+        ]
+      }
+    ],
+    "note": "Zachovaný blok původního hlavního článku; některé části byly rozšířeny nebo zpřesněny při sloučení krátkého článku. Individuální FAQ jsou mapovány samostatně.",
+    "sourceBlockID": "6aa63c4e8f1eb76f6e161dee"
+  },
+  {
+    "rowType": "source-node",
+    "sourcePostID": 4,
+    "sourceSlug": "jak-navrhnout-automatickou-zavlahu",
+    "sourceBlockIndex": 9,
+    "sourceBlockType": "faq",
+    "sourceTitle": "Časté otázky",
+    "action": "retain-and-integrate-short-irrigation-article",
+    "targets": [
+      {
+        "slug": "jak-navrhnout-automatickou-zavlahu",
+        "blockIndex": 13,
+        "nodeType": "faq",
+        "title": "Časté otázky",
+        "identicalAfterIdAndMediaNormalization": false,
+        "differentFields": [
+          "items"
+        ]
+      }
+    ],
+    "note": "Zachovaný blok původního hlavního článku; některé části byly rozšířeny nebo zpřesněny při sloučení krátkého článku. Individuální FAQ jsou mapovány samostatně.",
+    "sourceBlockID": "6aa63c4e8f1eb76f6e161def"
+  },
+  {
+    "rowType": "source-node",
+    "sourcePostID": 4,
+    "sourceSlug": "jak-navrhnout-automatickou-zavlahu",
+    "sourceBlockIndex": 10,
+    "sourceBlockType": "ctaBand",
+    "sourceTitle": "Zahrada, která si sama řekne o vodu",
+    "action": "retain-and-integrate-short-irrigation-article",
+    "targets": [
+      {
+        "slug": "jak-navrhnout-automatickou-zavlahu",
+        "blockIndex": 15,
+        "nodeType": "ctaBand",
+        "title": "Zahrada, která si sama řekne o vodu",
+        "identicalAfterIdAndMediaNormalization": false,
+        "differentFields": [
+          "sub"
+        ]
+      }
+    ],
+    "note": "Zachovaný blok původního hlavního článku; některé části byly rozšířeny nebo zpřesněny při sloučení krátkého článku. Individuální FAQ jsou mapovány samostatně.",
+    "sourceBlockID": "6aa63c4e8f1eb76f6e161df0"
+  },
+  {
+    "rowType": "source-node",
+    "sourcePostID": 5,
+    "sourceSlug": "krasny-travnik-zacina-pod-zemi-2",
+    "sourceBlockIndex": 0,
+    "sourceBlockType": "summaryBand",
+    "sourceTitle": "Souhrn",
+    "action": "adapt-summary-and-move-volume-tile",
+    "targets": [
+      {
+        "slug": "krasny-travnik-zacina-pod-zemi-2",
+        "blockIndex": 0,
+        "nodeType": "summaryBand",
+        "title": "Souhrn"
+      },
+      {
+        "slug": "jak-pripravit-a-ulozit-smes",
+        "blockIndex": 0,
+        "nodeType": "summaryBand",
+        "title": "Od podloží po připravené seťové lůžko",
+        "part": "pole lead, tiles"
+      }
+    ],
+    "note": "",
+    "sourceBlockID": "6abf601369afa880620babcd"
+  },
+  {
+    "rowType": "source-node",
+    "sourcePostID": 5,
+    "sourceSlug": "krasny-travnik-zacina-pod-zemi-2",
+    "sourceBlockIndex": 1,
+    "sourceBlockType": "split",
+    "sourceTitle": "Foto půdy · intro",
+    "action": "retain",
+    "targets": [
+      {
+        "slug": "krasny-travnik-zacina-pod-zemi-2",
+        "blockIndex": 1,
+        "nodeType": "split",
+        "title": "Foto půdy · intro",
+        "identicalAfterIdAndMediaNormalization": true,
+        "differentFields": []
+      }
+    ],
+    "note": "",
+    "sourceBlockID": "6abf601369afa880620babce"
+  },
+  {
+    "rowType": "source-node",
+    "sourcePostID": 5,
+    "sourceSlug": "krasny-travnik-zacina-pod-zemi-2",
+    "sourceBlockIndex": 2,
+    "sourceBlockType": "split",
+    "sourceTitle": "Písek, jíl, nebo hlína? Prozradí to vaše dlaň",
+    "action": "retain",
+    "targets": [
+      {
+        "slug": "krasny-travnik-zacina-pod-zemi-2",
+        "blockIndex": 2,
+        "nodeType": "split",
+        "title": "Písek, jíl, nebo hlína? Prozradí to vaše dlaň",
+        "identicalAfterIdAndMediaNormalization": true,
+        "differentFields": []
+      }
+    ],
+    "note": "",
+    "sourceBlockID": "6abf601369afa880620babcf"
+  },
+  {
+    "rowType": "source-node",
+    "sourcePostID": 5,
+    "sourceSlug": "krasny-travnik-zacina-pod-zemi-2",
+    "sourceBlockIndex": 3,
+    "sourceBlockType": "split",
+    "sourceTitle": "Otestujte svou zahradu bez laboratoře",
+    "action": "retain",
+    "targets": [
+      {
+        "slug": "krasny-travnik-zacina-pod-zemi-2",
+        "blockIndex": 3,
+        "nodeType": "split",
+        "title": "Otestujte svou zahradu bez laboratoře",
+        "identicalAfterIdAndMediaNormalization": true,
+        "differentFields": []
+      }
+    ],
+    "note": "",
+    "sourceBlockID": "6abf601369afa880620babd0"
+  },
+  {
+    "rowType": "source-node",
+    "sourcePostID": 5,
+    "sourceSlug": "krasny-travnik-zacina-pod-zemi-2",
+    "sourceBlockIndex": 4,
+    "sourceBlockType": "split",
+    "sourceTitle": "Pohled do hlubin: co čeká kořeny o dvacet centimetrů níž?",
+    "action": "retain",
+    "targets": [
+      {
+        "slug": "krasny-travnik-zacina-pod-zemi-2",
+        "blockIndex": 4,
+        "nodeType": "split",
+        "title": "Pohled do hlubin: co čeká kořeny o dvacet centimetrů níž?",
+        "identicalAfterIdAndMediaNormalization": true,
+        "differentFields": []
+      }
+    ],
+    "note": "",
+    "sourceBlockID": "6abf601369afa880620babd1"
+  },
+  {
+    "rowType": "source-node",
+    "sourcePostID": 5,
+    "sourceSlug": "krasny-travnik-zacina-pod-zemi-2",
+    "sourceBlockIndex": 5,
+    "sourceBlockType": "split",
+    "sourceTitle": "Foto půdy · profile",
+    "action": "retain",
+    "targets": [
+      {
+        "slug": "krasny-travnik-zacina-pod-zemi-2",
+        "blockIndex": 5,
+        "nodeType": "split",
+        "title": "Foto půdy · profile",
+        "identicalAfterIdAndMediaNormalization": true,
+        "differentFields": []
+      }
+    ],
+    "note": "",
+    "sourceBlockID": "6abf601369afa880620babd2"
+  },
+  {
+    "rowType": "source-node",
+    "sourcePostID": 5,
+    "sourceSlug": "krasny-travnik-zacina-pod-zemi-2",
+    "sourceBlockIndex": 6,
+    "sourceBlockType": "split",
+    "sourceTitle": "Kam mizí voda? Proč i tráva může uschnout z přemokření",
+    "action": "retain",
+    "targets": [
+      {
+        "slug": "krasny-travnik-zacina-pod-zemi-2",
+        "blockIndex": 6,
+        "nodeType": "split",
+        "title": "Kam mizí voda? Proč i tráva může uschnout z přemokření",
+        "identicalAfterIdAndMediaNormalization": true,
+        "differentFields": []
+      }
+    ],
+    "note": "",
+    "sourceBlockID": "6abf601369afa880620babd3"
+  },
+  {
+    "rowType": "source-node",
+    "sourcePostID": 5,
+    "sourceSlug": "krasny-travnik-zacina-pod-zemi-2",
+    "sourceBlockIndex": 7,
+    "sourceBlockType": "split",
+    "sourceTitle": "Foto půdy · drain",
+    "action": "retain",
+    "targets": [
+      {
+        "slug": "krasny-travnik-zacina-pod-zemi-2",
+        "blockIndex": 7,
+        "nodeType": "split",
+        "title": "Foto půdy · drain",
+        "identicalAfterIdAndMediaNormalization": true,
+        "differentFields": []
+      }
+    ],
+    "note": "",
+    "sourceBlockID": "6abf601369afa880620babd4"
+  },
+  {
+    "rowType": "source-node",
+    "sourcePostID": 5,
+    "sourceSlug": "krasny-travnik-zacina-pod-zemi-2",
+    "sourceBlockIndex": 8,
+    "sourceBlockType": "calculator",
+    "sourceTitle": "Kalkulátor vsak",
+    "action": "retain",
+    "targets": [
+      {
+        "slug": "krasny-travnik-zacina-pod-zemi-2",
+        "blockIndex": 8,
+        "nodeType": "calculator",
+        "title": "Kalkulátor vsak",
+        "identicalAfterIdAndMediaNormalization": true,
+        "differentFields": []
+      }
+    ],
+    "note": "",
+    "sourceBlockID": "6abf601369afa880620babd5"
+  },
+  {
+    "rowType": "source-node",
+    "sourcePostID": 5,
+    "sourceSlug": "krasny-travnik-zacina-pod-zemi-2",
+    "sourceBlockIndex": 9,
+    "sourceBlockType": "split",
+    "sourceTitle": "Třicet centimetrů svobody: proč kořeny potřebují prostor",
+    "action": "move",
+    "targets": [
+      {
+        "slug": "jak-pripravit-a-ulozit-smes",
+        "blockIndex": 2,
+        "nodeType": "split",
+        "title": "Třicet centimetrů svobody: proč kořeny potřebují prostor",
+        "identicalAfterIdAndMediaNormalization": false,
+        "differentFields": [
+          "eyebrow",
+          "number"
+        ]
+      }
+    ],
+    "note": "",
+    "sourceBlockID": "6abf601369afa880620babd6"
+  },
+  {
+    "rowType": "source-node",
+    "sourcePostID": 5,
+    "sourceSlug": "krasny-travnik-zacina-pod-zemi-2",
+    "sourceBlockIndex": 10,
+    "sourceBlockType": "split",
+    "sourceTitle": "Foto půdy · fork",
+    "action": "move",
+    "targets": [
+      {
+        "slug": "jak-pripravit-a-ulozit-smes",
+        "blockIndex": 3,
+        "nodeType": "split",
+        "title": "Foto půdy · fork",
+        "identicalAfterIdAndMediaNormalization": true,
+        "differentFields": []
+      }
+    ],
+    "note": "",
+    "sourceBlockID": "6abf601369afa880620babd7"
+  },
+  {
+    "rowType": "source-node",
+    "sourcePostID": 5,
+    "sourceSlug": "krasny-travnik-zacina-pod-zemi-2",
+    "sourceBlockIndex": 11,
+    "sourceBlockType": "chapter",
+    "sourceTitle": "Od poznání půdy k přípravě směsi",
+    "action": "move",
+    "targets": [
+      {
+        "slug": "jak-pripravit-a-ulozit-smes",
+        "blockIndex": 4,
+        "nodeType": "chapter",
+        "title": "Od poznání půdy k přípravě směsi",
+        "identicalAfterIdAndMediaNormalization": false,
+        "differentFields": [
+          "eyebrow"
+        ]
+      }
+    ],
+    "note": "",
+    "sourceBlockID": "6abf601369afa880620babd8"
+  },
+  {
+    "rowType": "source-node",
+    "sourcePostID": 5,
+    "sourceSlug": "krasny-travnik-zacina-pod-zemi-2",
+    "sourceBlockIndex": 12,
+    "sourceBlockType": "split",
+    "sourceTitle": "Foto půdy · finish",
+    "action": "move",
+    "targets": [
+      {
+        "slug": "jak-pripravit-a-ulozit-smes",
+        "blockIndex": 5,
+        "nodeType": "split",
+        "title": "Foto půdy · finish",
+        "identicalAfterIdAndMediaNormalization": false,
+        "differentFields": [
+          "richBody"
+        ]
+      }
+    ],
+    "note": "",
+    "sourceBlockID": "6abf601369afa880620babd9"
+  },
+  {
+    "rowType": "source-node",
+    "sourcePostID": 5,
+    "sourceSlug": "krasny-travnik-zacina-pod-zemi-2",
+    "sourceBlockIndex": 13,
+    "sourceBlockType": "chapter",
+    "sourceTitle": "Proč se to všechno nakonec vyplatí?",
+    "action": "move",
+    "targets": [
+      {
+        "slug": "jak-pripravit-a-ulozit-smes",
+        "blockIndex": 12,
+        "nodeType": "chapter",
+        "title": "Proč se to všechno nakonec vyplatí?",
+        "identicalAfterIdAndMediaNormalization": true,
+        "differentFields": []
+      }
+    ],
+    "note": "",
+    "sourceBlockID": "6abf601369afa880620babda"
+  },
+  {
+    "rowType": "source-node",
+    "sourcePostID": 5,
+    "sourceSlug": "krasny-travnik-zacina-pod-zemi-2",
+    "sourceBlockIndex": 14,
+    "sourceBlockType": "split",
+    "sourceTitle": "Foto půdy · lawn",
+    "action": "move",
+    "targets": [
+      {
+        "slug": "jak-pripravit-a-ulozit-smes",
+        "blockIndex": 13,
+        "nodeType": "split",
+        "title": "Foto půdy · lawn",
+        "identicalAfterIdAndMediaNormalization": false,
+        "differentFields": [
+          "richBody",
+          "side"
+        ]
+      }
+    ],
+    "note": "Only anaphoric opening “Vzpomeňte si na začátek.” removed; all remaining prose and image retained.",
+    "sourceBlockID": "6abf601369afa880620babdb"
+  },
+  {
+    "rowType": "source-node",
+    "sourcePostID": 5,
+    "sourceSlug": "krasny-travnik-zacina-pod-zemi-2",
+    "sourceBlockIndex": 15,
+    "sourceBlockType": "faq",
+    "sourceTitle": "Časté otázky",
+    "action": "split-faq",
+    "targets": [
+      {
+        "slug": "krasny-travnik-zacina-pod-zemi-2",
+        "blockIndex": 9,
+        "nodeType": "faq",
+        "title": "Časté otázky k průzkumu půdy"
+      },
+      {
+        "slug": "jak-pripravit-a-ulozit-smes",
+        "blockIndex": 14,
+        "nodeType": "faq",
+        "title": "Časté otázky k úpravě a přípravě půdy"
+      }
+    ],
+    "note": "Original FAQ lead is a recap: soil-type priorities remain in soil block 3; 30 cm root-space principle remains in preparation blocks derived from soil 9–10. Individual questions mapped below.",
+    "sourceBlockID": "6abf601369afa880620babdd"
+  },
+  {
+    "rowType": "source-node",
+    "sourcePostID": 5,
+    "sourceSlug": "krasny-travnik-zacina-pod-zemi-2",
+    "sourceBlockIndex": 16,
+    "sourceBlockType": "productBand",
+    "sourceTitle": "Když závlahu řídí půda, ne kalendář",
+    "action": "move",
+    "targets": [
+      {
+        "slug": "jak-pripravit-a-ulozit-smes",
+        "blockIndex": 15,
+        "nodeType": "productBand",
+        "title": "Když závlahu řídí půda, ne kalendář",
+        "identicalAfterIdAndMediaNormalization": false,
+        "differentFields": [
+          "body",
+          "features"
+        ]
+      }
+    ],
+    "note": "Move the only product band to the completed preparation where its “právě připravili” wording is valid.",
+    "sourceBlockID": "6abf601369afa880620babde"
+  },
+  {
+    "rowType": "source-node",
+    "sourcePostID": 5,
+    "sourceSlug": "krasny-travnik-zacina-pod-zemi-2",
+    "sourceBlockIndex": 17,
+    "sourceBlockType": "ctaBand",
+    "sourceTitle": "Trávník, který začíná pod zemí",
+    "action": "adapt-next-step-cta",
+    "targets": [
+      {
+        "slug": "krasny-travnik-zacina-pod-zemi-2",
+        "blockIndex": 10,
+        "nodeType": "ctaBand",
+        "title": "Víte, co je pod povrchem. Co s tím dál?",
+        "identicalAfterIdAndMediaNormalization": false,
+        "differentFields": [
+          "ask",
+          "blockName",
+          "buttonHref",
+          "buttonLabel",
+          "sub",
+          "title"
+        ]
+      }
+    ],
+    "note": "Rhetorical ending adapted to diagnostic outcome; original product CTA is consolidated with the retained product band and preparation’s next-step CTA.",
+    "sourceBlockID": "6abf601369afa880620babdf"
+  },
+  {
+    "rowType": "source-node",
+    "sourcePostID": 6,
+    "sourceSlug": "pisek-biochar-a-dalsi-primesi",
+    "sourceBlockIndex": 0,
+    "sourceBlockType": "summaryBand",
+    "sourceTitle": "Souhrn",
+    "action": "split-materials-and-recipes",
+    "targets": [
+      {
+        "slug": "pisek-biochar-a-dalsi-primesi",
+        "blockIndex": 0,
+        "nodeType": "summaryBand",
+        "title": "Souhrn",
+        "part": "nový souhrn materiálů"
+      },
+      {
+        "slug": "jak-namichat-pudu-pro-travnik",
+        "blockIndex": 0,
+        "nodeType": "summaryBand",
+        "title": "Poměry podle výchozí půdy",
+        "part": "původní souhrn receptur"
+      }
+    ],
+    "note": "Rozdělení materiálů a receptur ověřeno proti finálnímu zdroji; původní FAQ jsou jednotlivě mapovány a nové rekapitulace označeny samostatně. Strukturální shoda je uvedena u jednoznačného cíle.",
+    "sourceBlockID": "6ab4ad64a9d69c28de3eb37c"
+  },
+  {
+    "rowType": "source-node",
+    "sourcePostID": 6,
+    "sourceSlug": "pisek-biochar-a-dalsi-primesi",
+    "sourceBlockIndex": 1,
+    "sourceBlockType": "split",
+    "sourceTitle": "Z čeho půdu skládáme a co která složka umí",
+    "action": "split-materials-and-recipes",
+    "targets": [
+      {
+        "slug": "pisek-biochar-a-dalsi-primesi",
+        "blockIndex": 1,
+        "nodeType": "split",
+        "title": "Z čeho půdu skládáme a co která složka umí",
+        "identicalAfterIdAndMediaNormalization": false,
+        "differentFields": [
+          "body",
+          "side"
+        ]
+      }
+    ],
+    "note": "Rozdělení materiálů a receptur ověřeno proti finálnímu zdroji; původní FAQ jsou jednotlivě mapovány a nové rekapitulace označeny samostatně. Strukturální shoda je uvedena u jednoznačného cíle.",
+    "sourceBlockID": "6ab4ad64a9d69c28de3eb37d"
+  },
+  {
+    "rowType": "source-node",
+    "sourcePostID": 6,
+    "sourceSlug": "pisek-biochar-a-dalsi-primesi",
+    "sourceBlockIndex": 2,
+    "sourceBlockType": "split",
+    "sourceTitle": "A2 – pokračování",
+    "action": "split-materials-and-recipes",
+    "targets": [
+      {
+        "slug": "pisek-biochar-a-dalsi-primesi",
+        "blockIndex": 2,
+        "nodeType": "split",
+        "title": "A2 – pokračování",
+        "identicalAfterIdAndMediaNormalization": false,
+        "differentFields": [
+          "side"
+        ]
+      }
+    ],
+    "note": "Rozdělení materiálů a receptur ověřeno proti finálnímu zdroji; původní FAQ jsou jednotlivě mapovány a nové rekapitulace označeny samostatně. Strukturální shoda je uvedena u jednoznačného cíle.",
+    "sourceBlockID": "6ab4ad64a9d69c28de3eb37e"
+  },
+  {
+    "rowType": "source-node",
+    "sourcePostID": 6,
+    "sourceSlug": "pisek-biochar-a-dalsi-primesi",
+    "sourceBlockIndex": 3,
+    "sourceBlockType": "split",
+    "sourceTitle": "A3 – pokračování",
+    "action": "split-materials-and-recipes",
+    "targets": [
+      {
+        "slug": "pisek-biochar-a-dalsi-primesi",
+        "blockIndex": 3,
+        "nodeType": "split",
+        "title": "A3 – pokračování",
+        "identicalAfterIdAndMediaNormalization": false,
+        "differentFields": [
+          "body",
+          "side"
+        ]
+      }
+    ],
+    "note": "Rozdělení materiálů a receptur ověřeno proti finálnímu zdroji; původní FAQ jsou jednotlivě mapovány a nové rekapitulace označeny samostatně. Strukturální shoda je uvedena u jednoznačného cíle.",
+    "sourceBlockID": "6ab4ad64a9d69c28de3eb37f"
+  },
+  {
+    "rowType": "source-node",
+    "sourcePostID": 6,
+    "sourceSlug": "pisek-biochar-a-dalsi-primesi",
+    "sourceBlockIndex": 4,
+    "sourceBlockType": "ingredients",
+    "sourceTitle": "Čtyři pomocníci pohromadě",
+    "action": "split-materials-and-recipes",
+    "targets": [
+      {
+        "slug": "pisek-biochar-a-dalsi-primesi",
+        "blockIndex": 4,
+        "nodeType": "ingredients",
+        "title": "Čtyři pomocníci pohromadě",
+        "identicalAfterIdAndMediaNormalization": false,
+        "differentFields": [
+          "items"
+        ]
+      }
+    ],
+    "note": "Rozdělení materiálů a receptur ověřeno proti finálnímu zdroji; původní FAQ jsou jednotlivě mapovány a nové rekapitulace označeny samostatně. Strukturální shoda je uvedena u jednoznačného cíle.",
+    "sourceBlockID": "6ab4ad64a9d69c28de3eb380"
+  },
+  {
+    "rowType": "source-node",
+    "sourcePostID": 6,
+    "sourceSlug": "pisek-biochar-a-dalsi-primesi",
+    "sourceBlockIndex": 5,
+    "sourceBlockType": "split",
+    "sourceTitle": "Co koupit a jak biochar připravit",
+    "action": "split-materials-and-recipes",
+    "targets": [
+      {
+        "slug": "pisek-biochar-a-dalsi-primesi",
+        "blockIndex": 5,
+        "nodeType": "split",
+        "title": "Co koupit a jak biochar připravit",
+        "identicalAfterIdAndMediaNormalization": true,
+        "differentFields": []
+      }
+    ],
+    "note": "Rozdělení materiálů a receptur ověřeno proti finálnímu zdroji; původní FAQ jsou jednotlivě mapovány a nové rekapitulace označeny samostatně. Strukturální shoda je uvedena u jednoznačného cíle.",
+    "sourceBlockID": "6ab4ad64a9d69c28de3eb381"
+  },
+  {
+    "rowType": "source-node",
+    "sourcePostID": 6,
+    "sourceSlug": "pisek-biochar-a-dalsi-primesi",
+    "sourceBlockIndex": 6,
+    "sourceBlockType": "split",
+    "sourceTitle": "Proč směs mícháme podle objemu, ne podle tun",
+    "action": "split-materials-and-recipes",
+    "targets": [
+      {
+        "slug": "jak-namichat-pudu-pro-travnik",
+        "blockIndex": 2,
+        "nodeType": "split",
+        "title": "Proč směs mícháme podle objemu, ne podle tun",
+        "identicalAfterIdAndMediaNormalization": false,
+        "differentFields": [
+          "eyebrow",
+          "number"
+        ]
+      }
+    ],
+    "note": "Rozdělení materiálů a receptur ověřeno proti finálnímu zdroji; původní FAQ jsou jednotlivě mapovány a nové rekapitulace označeny samostatně. Strukturální shoda je uvedena u jednoznačného cíle.",
+    "sourceBlockID": "6ab4ad64a9d69c28de3eb382"
+  },
+  {
+    "rowType": "source-node",
+    "sourcePostID": 6,
+    "sourceSlug": "pisek-biochar-a-dalsi-primesi",
+    "sourceBlockIndex": 7,
+    "sourceBlockType": "split",
+    "sourceTitle": "Třicet centimetrů půdy jako prostor pro život",
+    "action": "split-materials-and-recipes",
+    "targets": [
+      {
+        "slug": "jak-namichat-pudu-pro-travnik",
+        "blockIndex": 3,
+        "nodeType": "split",
+        "title": "Třicet centimetrů půdy jako prostor pro život",
+        "identicalAfterIdAndMediaNormalization": false,
+        "differentFields": [
+          "body",
+          "eyebrow",
+          "number",
+          "side"
+        ]
+      }
+    ],
+    "note": "Rozdělení materiálů a receptur ověřeno proti finálnímu zdroji; původní FAQ jsou jednotlivě mapovány a nové rekapitulace označeny samostatně. Strukturální shoda je uvedena u jednoznačného cíle.",
+    "sourceBlockID": "6ab4ad64a9d69c28de3eb384"
+  },
+  {
+    "rowType": "source-node",
+    "sourcePostID": 6,
+    "sourceSlug": "pisek-biochar-a-dalsi-primesi",
+    "sourceBlockIndex": 8,
+    "sourceBlockType": "split",
+    "sourceTitle": "Horní část pomáhá začátku, hlubší umožní kořenům pokračovat",
+    "action": "split-materials-and-recipes",
+    "targets": [
+      {
+        "slug": "jak-namichat-pudu-pro-travnik",
+        "blockIndex": 4,
+        "nodeType": "split",
+        "title": "Horní část pomáhá začátku, hlubší umožní kořenům pokračovat",
+        "identicalAfterIdAndMediaNormalization": false,
+        "differentFields": [
+          "number",
+          "side"
+        ]
+      }
+    ],
+    "note": "Rozdělení materiálů a receptur ověřeno proti finálnímu zdroji; původní FAQ jsou jednotlivě mapovány a nové rekapitulace označeny samostatně. Strukturální shoda je uvedena u jednoznačného cíle.",
+    "sourceBlockID": "6ab4ad64a9d69c28de3eb385"
+  },
+  {
+    "rowType": "source-node",
+    "sourcePostID": 6,
+    "sourceSlug": "pisek-biochar-a-dalsi-primesi",
+    "sourceBlockIndex": 9,
+    "sourceBlockType": "split",
+    "sourceTitle": "Tři zahrady: jaké poměry pro ně zvolit",
+    "action": "split-materials-and-recipes",
+    "targets": [
+      {
+        "slug": "jak-namichat-pudu-pro-travnik",
+        "blockIndex": 5,
+        "nodeType": "split",
+        "title": "Tři zahrady: jaké poměry pro ně zvolit",
+        "identicalAfterIdAndMediaNormalization": false,
+        "differentFields": [
+          "eyebrow",
+          "number",
+          "side"
+        ]
+      }
+    ],
+    "note": "Rozdělení materiálů a receptur ověřeno proti finálnímu zdroji; původní FAQ jsou jednotlivě mapovány a nové rekapitulace označeny samostatně. Strukturální shoda je uvedena u jednoznačného cíle.",
+    "sourceBlockID": "6ab4ad64a9d69c28de3eb386"
+  },
+  {
+    "rowType": "source-node",
+    "sourcePostID": 6,
+    "sourceSlug": "pisek-biochar-a-dalsi-primesi",
+    "sourceBlockIndex": 10,
+    "sourceBlockType": "split",
+    "sourceTitle": "E1b – pokračování",
+    "action": "split-materials-and-recipes",
+    "targets": [
+      {
+        "slug": "jak-namichat-pudu-pro-travnik",
+        "blockIndex": 6,
+        "nodeType": "split",
+        "title": "E1b – pokračování",
+        "identicalAfterIdAndMediaNormalization": false,
+        "differentFields": [
+          "number",
+          "side"
+        ]
+      }
+    ],
+    "note": "Rozdělení materiálů a receptur ověřeno proti finálnímu zdroji; původní FAQ jsou jednotlivě mapovány a nové rekapitulace označeny samostatně. Strukturální shoda je uvedena u jednoznačného cíle.",
+    "sourceBlockID": "6ab4ad64a9d69c28de3eb387"
+  },
+  {
+    "rowType": "source-node",
+    "sourcePostID": 6,
+    "sourceSlug": "pisek-biochar-a-dalsi-primesi",
+    "sourceBlockIndex": 11,
+    "sourceBlockType": "table",
+    "sourceTitle": "Dávky příměsí pro tři modelové zahrady",
+    "action": "split-materials-and-recipes",
+    "targets": [
+      {
+        "slug": "jak-namichat-pudu-pro-travnik",
+        "blockIndex": 7,
+        "nodeType": "table",
+        "title": "Dávky příměsí pro tři modelové zahrady",
+        "identicalAfterIdAndMediaNormalization": true,
+        "differentFields": []
+      }
+    ],
+    "note": "Rozdělení materiálů a receptur ověřeno proti finálnímu zdroji; původní FAQ jsou jednotlivě mapovány a nové rekapitulace označeny samostatně. Strukturální shoda je uvedena u jednoznačného cíle.",
+    "sourceBlockID": "6ab4ad64a9d69c28de3eb388"
+  },
+  {
+    "rowType": "source-node",
+    "sourcePostID": 6,
+    "sourceSlug": "pisek-biochar-a-dalsi-primesi",
+    "sourceBlockIndex": 12,
+    "sourceBlockType": "split",
+    "sourceTitle": "Těžká jílovitá půda: kořeny potřebují vedle vody také vzduch",
+    "action": "split-materials-and-recipes",
+    "targets": [
+      {
+        "slug": "jak-namichat-pudu-pro-travnik",
+        "blockIndex": 8,
+        "nodeType": "split",
+        "title": "Těžká jílovitá půda: kořeny potřebují vedle vody také vzduch",
+        "identicalAfterIdAndMediaNormalization": false,
+        "differentFields": [
+          "number",
+          "side"
+        ]
+      }
+    ],
+    "note": "Rozdělení materiálů a receptur ověřeno proti finálnímu zdroji; původní FAQ jsou jednotlivě mapovány a nové rekapitulace označeny samostatně. Strukturální shoda je uvedena u jednoznačného cíle.",
+    "sourceBlockID": "6ab4ad64a9d69c28de3eb389"
+  },
+  {
+    "rowType": "source-node",
+    "sourcePostID": 6,
+    "sourceSlug": "pisek-biochar-a-dalsi-primesi",
+    "sourceBlockIndex": 13,
+    "sourceBlockType": "split",
+    "sourceTitle": "E3 – pokračování",
+    "action": "split-materials-and-recipes",
+    "targets": [
+      {
+        "slug": "jak-namichat-pudu-pro-travnik",
+        "blockIndex": 9,
+        "nodeType": "split",
+        "title": "E3 – pokračování",
+        "identicalAfterIdAndMediaNormalization": false,
+        "differentFields": [
+          "body",
+          "number",
+          "side"
+        ]
+      }
+    ],
+    "note": "Rozdělení materiálů a receptur ověřeno proti finálnímu zdroji; původní FAQ jsou jednotlivě mapovány a nové rekapitulace označeny samostatně. Strukturální shoda je uvedena u jednoznačného cíle.",
+    "sourceBlockID": "6ab4ad64a9d69c28de3eb38a"
+  },
+  {
+    "rowType": "source-node",
+    "sourcePostID": 6,
+    "sourceSlug": "pisek-biochar-a-dalsi-primesi",
+    "sourceBlockIndex": 14,
+    "sourceBlockType": "split",
+    "sourceTitle": "Střední hlinitá půda: zachovat vyvážený základ",
+    "action": "split-materials-and-recipes",
+    "targets": [
+      {
+        "slug": "jak-namichat-pudu-pro-travnik",
+        "blockIndex": 10,
+        "nodeType": "split",
+        "title": "Střední hlinitá půda: zachovat vyvážený základ",
+        "identicalAfterIdAndMediaNormalization": false,
+        "differentFields": [
+          "number",
+          "side"
+        ]
+      }
+    ],
+    "note": "Rozdělení materiálů a receptur ověřeno proti finálnímu zdroji; původní FAQ jsou jednotlivě mapovány a nové rekapitulace označeny samostatně. Strukturální shoda je uvedena u jednoznačného cíle.",
+    "sourceBlockID": "6ab4ad64a9d69c28de3eb38b"
+  },
+  {
+    "rowType": "source-node",
+    "sourcePostID": 6,
+    "sourceSlug": "pisek-biochar-a-dalsi-primesi",
+    "sourceBlockIndex": 15,
+    "sourceBlockType": "split",
+    "sourceTitle": "E5 – pokračování",
+    "action": "split-materials-and-recipes",
+    "targets": [
+      {
+        "slug": "jak-namichat-pudu-pro-travnik",
+        "blockIndex": 11,
+        "nodeType": "split",
+        "title": "E5 – pokračování",
+        "identicalAfterIdAndMediaNormalization": false,
+        "differentFields": [
+          "number",
+          "side"
+        ]
+      }
+    ],
+    "note": "Rozdělení materiálů a receptur ověřeno proti finálnímu zdroji; původní FAQ jsou jednotlivě mapovány a nové rekapitulace označeny samostatně. Strukturální shoda je uvedena u jednoznačného cíle.",
+    "sourceBlockID": "6ab4ad64a9d69c28de3eb38c"
+  },
+  {
+    "rowType": "source-node",
+    "sourcePostID": 6,
+    "sourceSlug": "pisek-biochar-a-dalsi-primesi",
+    "sourceBlockIndex": 16,
+    "sourceBlockType": "split",
+    "sourceTitle": "Lehká písčitá půda: prodloužit dobu, po kterou mají kořeny z čeho čerpat",
+    "action": "split-materials-and-recipes",
+    "targets": [
+      {
+        "slug": "jak-namichat-pudu-pro-travnik",
+        "blockIndex": 12,
+        "nodeType": "split",
+        "title": "Lehká písčitá půda: prodloužit dobu, po kterou mají kořeny z čeho čerpat",
+        "identicalAfterIdAndMediaNormalization": false,
+        "differentFields": [
+          "number",
+          "side"
+        ]
+      }
+    ],
+    "note": "Rozdělení materiálů a receptur ověřeno proti finálnímu zdroji; původní FAQ jsou jednotlivě mapovány a nové rekapitulace označeny samostatně. Strukturální shoda je uvedena u jednoznačného cíle.",
+    "sourceBlockID": "6ab4ad64a9d69c28de3eb38d"
+  },
+  {
+    "rowType": "source-node",
+    "sourcePostID": 6,
+    "sourceSlug": "pisek-biochar-a-dalsi-primesi",
+    "sourceBlockIndex": 17,
+    "sourceBlockType": "split",
+    "sourceTitle": "E7 – pokračování",
+    "action": "split-materials-and-recipes",
+    "targets": [
+      {
+        "slug": "jak-namichat-pudu-pro-travnik",
+        "blockIndex": 13,
+        "nodeType": "split",
+        "title": "E7 – pokračování",
+        "identicalAfterIdAndMediaNormalization": false,
+        "differentFields": [
+          "number",
+          "side"
+        ]
+      }
+    ],
+    "note": "Rozdělení materiálů a receptur ověřeno proti finálnímu zdroji; původní FAQ jsou jednotlivě mapovány a nové rekapitulace označeny samostatně. Strukturální shoda je uvedena u jednoznačného cíle.",
+    "sourceBlockID": "6ab4ad64a9d69c28de3eb38e"
+  },
+  {
+    "rowType": "source-node",
+    "sourcePostID": 6,
+    "sourceSlug": "pisek-biochar-a-dalsi-primesi",
+    "sourceBlockIndex": 18,
+    "sourceBlockType": "table",
+    "sourceTitle": "Poměry složek v zónách 0–10, 10–15 a 15–30 cm",
+    "action": "split-materials-and-recipes",
+    "targets": [
+      {
+        "slug": "jak-namichat-pudu-pro-travnik",
+        "blockIndex": 14,
+        "nodeType": "table",
+        "title": "Poměry složek v zónách 0–10, 10–15 a 15–30 cm",
+        "identicalAfterIdAndMediaNormalization": true,
+        "differentFields": []
+      }
+    ],
+    "note": "Rozdělení materiálů a receptur ověřeno proti finálnímu zdroji; původní FAQ jsou jednotlivě mapovány a nové rekapitulace označeny samostatně. Strukturální shoda je uvedena u jednoznačného cíle.",
+    "sourceBlockID": "6ab4ad64a9d69c28de3eb38f"
+  },
+  {
+    "rowType": "source-node",
+    "sourcePostID": 6,
+    "sourceSlug": "pisek-biochar-a-dalsi-primesi",
+    "sourceBlockIndex": 19,
+    "sourceBlockType": "split",
+    "sourceTitle": "Kdy dávku upravit a kdy příměs vynechat",
+    "action": "split-materials-and-recipes",
+    "targets": [
+      {
+        "slug": "jak-namichat-pudu-pro-travnik",
+        "blockIndex": 15,
+        "nodeType": "split",
+        "title": "Kdy dávku upravit a kdy příměs vynechat",
+        "identicalAfterIdAndMediaNormalization": false,
+        "differentFields": [
+          "number",
+          "side"
+        ]
+      }
+    ],
+    "note": "Rozdělení materiálů a receptur ověřeno proti finálnímu zdroji; původní FAQ jsou jednotlivě mapovány a nové rekapitulace označeny samostatně. Strukturální shoda je uvedena u jednoznačného cíle.",
+    "sourceBlockID": "6ab4ad64a9d69c28de3eb390"
+  },
+  {
+    "rowType": "source-node",
+    "sourcePostID": 6,
+    "sourceSlug": "pisek-biochar-a-dalsi-primesi",
+    "sourceBlockIndex": 20,
+    "sourceBlockType": "split",
+    "sourceTitle": "Mykorhizní přípravek má vlastní pravidla dávkování",
+    "action": "split-materials-and-recipes",
+    "targets": [
+      {
+        "slug": "pisek-biochar-a-dalsi-primesi",
+        "blockIndex": 6,
+        "nodeType": "split",
+        "title": "Mykorhizní přípravek má vlastní pravidla dávkování",
+        "identicalAfterIdAndMediaNormalization": false,
+        "differentFields": [
+          "body",
+          "number",
+          "side"
+        ]
+      }
+    ],
+    "note": "Rozdělení materiálů a receptur ověřeno proti finálnímu zdroji; původní FAQ jsou jednotlivě mapovány a nové rekapitulace označeny samostatně. Strukturální shoda je uvedena u jednoznačného cíle.",
+    "sourceBlockID": "6ab4ad64a9d69c28de3eb391"
+  },
+  {
+    "rowType": "source-node",
+    "sourcePostID": 6,
+    "sourceSlug": "pisek-biochar-a-dalsi-primesi",
+    "sourceBlockIndex": 21,
+    "sourceBlockType": "faq",
+    "sourceTitle": "Časté otázky",
+    "action": "split-materials-and-recipes",
+    "targets": [
+      {
+        "slug": "pisek-biochar-a-dalsi-primesi",
+        "blockIndex": 7,
+        "nodeType": "faq",
+        "title": "Časté otázky",
+        "part": "původní FAQ 1 a 3 plus doplněná rekapitulace"
+      },
+      {
+        "slug": "jak-namichat-pudu-pro-travnik",
+        "blockIndex": 16,
+        "nodeType": "faq",
+        "title": "Časté otázky",
+        "part": "původní FAQ 0 a 2 plus doplněná rekapitulace"
+      }
+    ],
+    "note": "Rozdělení materiálů a receptur ověřeno proti finálnímu zdroji; původní FAQ jsou jednotlivě mapovány a nové rekapitulace označeny samostatně. Strukturální shoda je uvedena u jednoznačného cíle.",
+    "sourceBlockID": "6ab4ad64a9d69c28de3eb392"
+  },
+  {
+    "rowType": "source-node",
+    "sourcePostID": 6,
+    "sourceSlug": "pisek-biochar-a-dalsi-primesi",
+    "sourceBlockIndex": 22,
+    "sourceBlockType": "ctaBand",
+    "sourceTitle": "Poměr už znáte. Kolik materiálu připravit?",
+    "action": "split-materials-and-recipes",
+    "targets": [
+      {
+        "slug": "jak-namichat-pudu-pro-travnik",
+        "blockIndex": 17,
+        "nodeType": "ctaBand",
+        "title": "Poměr už znáte. Kolik materiálu připravit?",
+        "identicalAfterIdAndMediaNormalization": true,
+        "differentFields": []
+      }
+    ],
+    "note": "Rozdělení materiálů a receptur ověřeno proti finálnímu zdroji; původní FAQ jsou jednotlivě mapovány a nové rekapitulace označeny samostatně. Strukturální shoda je uvedena u jednoznačného cíle.",
+    "sourceBlockID": "6ab4ad64a9d69c28de3eb393"
+  },
+  {
+    "rowType": "source-node",
+    "sourcePostID": 7,
+    "sourceSlug": "kalkulator-na-planovani-pudniho-profilu",
+    "sourceBlockIndex": 0,
+    "sourceBlockType": "summaryBand",
+    "sourceTitle": "Od plochy k objednávce",
+    "action": "retain-with-current-links",
+    "targets": [
+      {
+        "slug": "kalkulator-na-planovani-pudniho-profilu",
+        "blockIndex": 0,
+        "nodeType": "summaryBand",
+        "title": "Od plochy k objednávce",
+        "identicalAfterIdAndMediaNormalization": true,
+        "differentFields": []
+      }
+    ],
+    "note": "Stejný uzel na stejném místě; změny interních odkazů a orientačních údajů se mohou lišit od zálohy. Samotná shoda obsahu je uvedena u cíle.",
+    "sourceBlockID": "6ab4ad64a9d69c28de3eb394"
+  },
+  {
+    "rowType": "source-node",
+    "sourcePostID": 7,
+    "sourceSlug": "kalkulator-na-planovani-pudniho-profilu",
+    "sourceBlockIndex": 1,
+    "sourceBlockType": "split",
+    "sourceTitle": "Co zadat do kalkulátoru půdy pod trávník",
+    "action": "retain-with-current-links",
+    "targets": [
+      {
+        "slug": "kalkulator-na-planovani-pudniho-profilu",
+        "blockIndex": 1,
+        "nodeType": "split",
+        "title": "Co zadat do kalkulátoru půdy pod trávník",
+        "identicalAfterIdAndMediaNormalization": false,
+        "differentFields": [
+          "body"
+        ]
+      }
+    ],
+    "note": "Stejný uzel na stejném místě; změny interních odkazů a orientačních údajů se mohou lišit od zálohy. Samotná shoda obsahu je uvedena u cíle.",
+    "sourceBlockID": "6ab4ad64a9d69c28de3eb395"
+  },
+  {
+    "rowType": "source-node",
+    "sourcePostID": 7,
+    "sourceSlug": "kalkulator-na-planovani-pudniho-profilu",
+    "sourceBlockIndex": 2,
+    "sourceBlockType": "calculator",
+    "sourceTitle": "Kalkulátor půdy pod trávník: kolik písku, zeminy a příměsí potřebujete",
+    "action": "retain-with-current-links",
+    "targets": [
+      {
+        "slug": "kalkulator-na-planovani-pudniho-profilu",
+        "blockIndex": 2,
+        "nodeType": "calculator",
+        "title": "Kalkulátor půdy pod trávník: kolik písku, zeminy a příměsí potřebujete",
+        "identicalAfterIdAndMediaNormalization": true,
+        "differentFields": []
+      }
+    ],
+    "note": "Stejný uzel na stejném místě; změny interních odkazů a orientačních údajů se mohou lišit od zálohy. Samotná shoda obsahu je uvedena u cíle.",
+    "sourceBlockID": "6ab4ad64a9d69c28de3eb396"
+  },
+  {
+    "rowType": "source-node",
+    "sourcePostID": 7,
+    "sourceSlug": "kalkulator-na-planovani-pudniho-profilu",
+    "sourceBlockIndex": 3,
+    "sourceBlockType": "split",
+    "sourceTitle": "Udržet výšku, zapravit, nebo vytvořit novou vrstvu?",
+    "action": "retain-with-current-links",
+    "targets": [
+      {
+        "slug": "kalkulator-na-planovani-pudniho-profilu",
+        "blockIndex": 3,
+        "nodeType": "split",
+        "title": "Udržet výšku, zapravit, nebo vytvořit novou vrstvu?",
+        "identicalAfterIdAndMediaNormalization": false,
+        "differentFields": [
+          "side"
+        ]
+      }
+    ],
+    "note": "Stejný uzel na stejném místě; změny interních odkazů a orientačních údajů se mohou lišit od zálohy. Samotná shoda obsahu je uvedena u cíle.",
+    "sourceBlockID": "6ab4ad64a9d69c28de3eb397"
+  },
+  {
+    "rowType": "source-node",
+    "sourcePostID": 7,
+    "sourceSlug": "kalkulator-na-planovani-pudniho-profilu",
+    "sourceBlockIndex": 4,
+    "sourceBlockType": "split",
+    "sourceTitle": "Jak se počítá objem půdy a jednotlivých příměsí",
+    "action": "retain-with-current-links",
+    "targets": [
+      {
+        "slug": "kalkulator-na-planovani-pudniho-profilu",
+        "blockIndex": 4,
+        "nodeType": "split",
+        "title": "Jak se počítá objem půdy a jednotlivých příměsí",
+        "identicalAfterIdAndMediaNormalization": false,
+        "differentFields": [
+          "side"
+        ]
+      }
+    ],
+    "note": "Stejný uzel na stejném místě; změny interních odkazů a orientačních údajů se mohou lišit od zálohy. Samotná shoda obsahu je uvedena u cíle.",
+    "sourceBlockID": "6ab4ad64a9d69c28de3eb398"
+  },
+  {
+    "rowType": "source-node",
+    "sourcePostID": 7,
+    "sourceSlug": "kalkulator-na-planovani-pudniho-profilu",
+    "sourceBlockIndex": 5,
+    "sourceBlockType": "split",
+    "sourceTitle": "K03b – pokračování",
+    "action": "retain-with-current-links",
+    "targets": [
+      {
+        "slug": "kalkulator-na-planovani-pudniho-profilu",
+        "blockIndex": 5,
+        "nodeType": "split",
+        "title": "K03b – pokračování",
+        "identicalAfterIdAndMediaNormalization": false,
+        "differentFields": [
+          "side"
+        ]
+      }
+    ],
+    "note": "Stejný uzel na stejném místě; změny interních odkazů a orientačních údajů se mohou lišit od zálohy. Samotná shoda obsahu je uvedena u cíle.",
+    "sourceBlockID": "6ab4ad64a9d69c28de3eb399"
+  },
+  {
+    "rowType": "source-node",
+    "sourcePostID": 7,
+    "sourceSlug": "kalkulator-na-planovani-pudniho-profilu",
+    "sourceBlockIndex": 6,
+    "sourceBlockType": "split",
+    "sourceTitle": "Příklad: kolik materiálu potřebujete pro 100 m² jílovité zahrady",
+    "action": "retain-with-current-links",
+    "targets": [
+      {
+        "slug": "kalkulator-na-planovani-pudniho-profilu",
+        "blockIndex": 6,
+        "nodeType": "split",
+        "title": "Příklad: kolik materiálu potřebujete pro 100 m² jílovité zahrady",
+        "identicalAfterIdAndMediaNormalization": false,
+        "differentFields": [
+          "side"
+        ]
+      }
+    ],
+    "note": "Stejný uzel na stejném místě; změny interních odkazů a orientačních údajů se mohou lišit od zálohy. Samotná shoda obsahu je uvedena u cíle.",
+    "sourceBlockID": "6ab4ad64a9d69c28de3eb39a"
+  },
+  {
+    "rowType": "source-node",
+    "sourcePostID": 7,
+    "sourceSlug": "kalkulator-na-planovani-pudniho-profilu",
+    "sourceBlockIndex": 7,
+    "sourceBlockType": "table",
+    "sourceTitle": "Jedna směs, tři různé úkoly: dovézt, ponechat, odvézt",
+    "action": "retain-with-current-links",
+    "targets": [
+      {
+        "slug": "kalkulator-na-planovani-pudniho-profilu",
+        "blockIndex": 7,
+        "nodeType": "table",
+        "title": "Jedna směs, tři různé úkoly: dovézt, ponechat, odvézt",
+        "identicalAfterIdAndMediaNormalization": true,
+        "differentFields": []
+      }
+    ],
+    "note": "Stejný uzel na stejném místě; změny interních odkazů a orientačních údajů se mohou lišit od zálohy. Samotná shoda obsahu je uvedena u cíle.",
+    "sourceBlockID": "6ab4ad64a9d69c28de3eb39b"
+  },
+  {
+    "rowType": "source-node",
+    "sourcePostID": 7,
+    "sourceSlug": "kalkulator-na-planovani-pudniho-profilu",
+    "sourceBlockIndex": 8,
+    "sourceBlockType": "split",
+    "sourceTitle": "Těžší hlinitá zahrada: menší podíl písku",
+    "action": "retain-with-current-links",
+    "targets": [
+      {
+        "slug": "kalkulator-na-planovani-pudniho-profilu",
+        "blockIndex": 8,
+        "nodeType": "split",
+        "title": "Těžší hlinitá zahrada: menší podíl písku",
+        "identicalAfterIdAndMediaNormalization": false,
+        "differentFields": [
+          "body",
+          "side"
+        ]
+      }
+    ],
+    "note": "Stejný uzel na stejném místě; změny interních odkazů a orientačních údajů se mohou lišit od zálohy. Samotná shoda obsahu je uvedena u cíle.",
+    "sourceBlockID": "6ab4ad64a9d69c28de3eb39c"
+  },
+  {
+    "rowType": "source-node",
+    "sourcePostID": 7,
+    "sourceSlug": "kalkulator-na-planovani-pudniho-profilu",
+    "sourceBlockIndex": 9,
+    "sourceBlockType": "figure",
+    "sourceTitle": "Obr. 07",
+    "action": "retain-with-current-links",
+    "targets": [
+      {
+        "slug": "kalkulator-na-planovani-pudniho-profilu",
+        "blockIndex": 9,
+        "nodeType": "figure",
+        "title": "Obr. 07",
+        "identicalAfterIdAndMediaNormalization": true,
+        "differentFields": []
+      }
+    ],
+    "note": "Stejný uzel na stejném místě; změny interních odkazů a orientačních údajů se mohou lišit od zálohy. Samotná shoda obsahu je uvedena u cíle.",
+    "sourceBlockID": "6ab4ad64a9d69c28de3eb39d"
+  },
+  {
+    "rowType": "source-node",
+    "sourcePostID": 7,
+    "sourceSlug": "kalkulator-na-planovani-pudniho-profilu",
+    "sourceBlockIndex": 10,
+    "sourceBlockType": "split",
+    "sourceTitle": "Od kubíků k tunám, litrům a balením",
+    "action": "retain-with-current-links",
+    "targets": [
+      {
+        "slug": "kalkulator-na-planovani-pudniho-profilu",
+        "blockIndex": 10,
+        "nodeType": "split",
+        "title": "Od kubíků k tunám, litrům a balením",
+        "identicalAfterIdAndMediaNormalization": false,
+        "differentFields": [
+          "side"
+        ]
+      }
+    ],
+    "note": "Stejný uzel na stejném místě; změny interních odkazů a orientačních údajů se mohou lišit od zálohy. Samotná shoda obsahu je uvedena u cíle.",
+    "sourceBlockID": "6ab4ad64a9d69c28de3eb39e"
+  },
+  {
+    "rowType": "source-node",
+    "sourcePostID": 7,
+    "sourceSlug": "kalkulator-na-planovani-pudniho-profilu",
+    "sourceBlockIndex": 11,
+    "sourceBlockType": "split",
+    "sourceTitle": "K05b – pokračování",
+    "action": "retain-with-current-links",
+    "targets": [
+      {
+        "slug": "kalkulator-na-planovani-pudniho-profilu",
+        "blockIndex": 11,
+        "nodeType": "split",
+        "title": "K05b – pokračování",
+        "identicalAfterIdAndMediaNormalization": false,
+        "differentFields": [
+          "body",
+          "side"
+        ]
+      }
+    ],
+    "note": "Stejný uzel na stejném místě; změny interních odkazů a orientačních údajů se mohou lišit od zálohy. Samotná shoda obsahu je uvedena u cíle.",
+    "sourceBlockID": "6ab4ad64a9d69c28de3eb39f"
+  },
+  {
+    "rowType": "source-node",
+    "sourcePostID": 7,
+    "sourceSlug": "kalkulator-na-planovani-pudniho-profilu",
+    "sourceBlockIndex": 12,
+    "sourceBlockType": "faq",
+    "sourceTitle": "Časté otázky k výpočtu půdy pod trávník",
+    "action": "retain-with-current-links",
+    "targets": [
+      {
+        "slug": "kalkulator-na-planovani-pudniho-profilu",
+        "blockIndex": 12,
+        "nodeType": "faq",
+        "title": "Časté otázky k výpočtu půdy pod trávník",
+        "identicalAfterIdAndMediaNormalization": true,
+        "differentFields": []
+      }
+    ],
+    "note": "Stejný uzel na stejném místě; změny interních odkazů a orientačních údajů se mohou lišit od zálohy. Samotná shoda obsahu je uvedena u cíle.",
+    "sourceBlockID": "6ab4ad64a9d69c28de3eb3a0"
+  },
+  {
+    "rowType": "source-node",
+    "sourcePostID": 7,
+    "sourceSlug": "kalkulator-na-planovani-pudniho-profilu",
+    "sourceBlockIndex": 13,
+    "sourceBlockType": "ctaBand",
+    "sourceTitle": "Na přípravu půdy navazuje plán závlahy.",
+    "action": "retain-with-current-links",
+    "targets": [
+      {
+        "slug": "kalkulator-na-planovani-pudniho-profilu",
+        "blockIndex": 13,
+        "nodeType": "ctaBand",
+        "title": "Na přípravu půdy navazuje plán závlahy.",
+        "identicalAfterIdAndMediaNormalization": true,
+        "differentFields": []
+      }
+    ],
+    "note": "Stejný uzel na stejném místě; změny interních odkazů a orientačních údajů se mohou lišit od zálohy. Samotná shoda obsahu je uvedena u cíle.",
+    "sourceBlockID": "6ab4ad64a9d69c28de3eb3a1"
+  },
+  {
+    "rowType": "source-node",
+    "sourcePostID": 8,
+    "sourceSlug": "jak-pripravit-a-ulozit-smes",
+    "sourceBlockIndex": 0,
+    "sourceBlockType": "summaryBand",
+    "sourceTitle": "Od podloží po připravené seťové lůžko",
+    "action": "expand-summary",
+    "targets": [
+      {
+        "slug": "jak-pripravit-a-ulozit-smes",
+        "blockIndex": 0,
+        "nodeType": "summaryBand",
+        "title": "Od podloží po připravené seťové lůžko",
+        "identicalAfterIdAndMediaNormalization": false,
+        "differentFields": [
+          "lead",
+          "tiles"
+        ]
+      }
+    ],
+    "note": "Retains original mixing/settlement advice and 30 cm / 2–6 week tiles; adds scope-of-intervention summary and original 300-litre tile.",
+    "sourceBlockID": "6ab4ad64a9d69c28de3eb3a2"
+  },
+  {
+    "rowType": "source-node",
+    "sourcePostID": 8,
+    "sourceSlug": "jak-pripravit-a-ulozit-smes",
+    "sourceBlockIndex": 1,
+    "sourceBlockType": "split",
+    "sourceTitle": "Jak směs připravit a uložit při skutečné práci",
+    "action": "merge-introduction",
+    "targets": [
+      {
+        "slug": "jak-pripravit-a-ulozit-smes",
+        "blockIndex": 1,
+        "nodeType": "split",
+        "title": "Jak směs připravit a uložit při skutečné práci",
+        "identicalAfterIdAndMediaNormalization": false,
+        "differentFields": [
+          "body"
+        ]
+      }
+    ],
+    "note": "Original recipe/calculator destinations and their factual role retained in moved soil block 12; photo/caption retained here. Adds diagnostic entry context.",
+    "sourceBlockID": "6ab4ad64a9d69c28de3eb3a3"
+  },
+  {
+    "rowType": "source-node",
+    "sourcePostID": 8,
+    "sourceSlug": "jak-pripravit-a-ulozit-smes",
+    "sourceBlockIndex": 2,
+    "sourceBlockType": "split",
+    "sourceTitle": "Nejdříve poznat a připravit podloží",
+    "action": "deduplicate-overview",
+    "targets": [
+      {
+        "slug": "jak-pripravit-a-ulozit-smes",
+        "blockIndex": 6,
+        "nodeType": "split",
+        "title": "Nejdříve poznat a připravit podloží",
+        "identicalAfterIdAndMediaNormalization": false,
+        "differentFields": [
+          "body",
+          "number",
+          "side"
+        ]
+      }
+    ],
+    "note": "First two paragraphs consolidated: separate usable soil and pre-close drainage/irrigation pipes in moved soil block 12 checklist; survey compaction/rubble/drainage before fill and diagnostic link in preparation introduction. All subsequent operational paragraphs and photo/caption retained.",
+    "sourceBlockID": "6ab4ad64a9d69c28de3eb3a4"
+  },
+  {
+    "rowType": "source-node",
+    "sourcePostID": 8,
+    "sourceSlug": "jak-pripravit-a-ulozit-smes",
+    "sourceBlockIndex": 3,
+    "sourceBlockType": "split",
+    "sourceTitle": "Dodávky a míchání přizpůsobit rozsahu zahrady",
+    "action": "retain",
+    "targets": [
+      {
+        "slug": "jak-pripravit-a-ulozit-smes",
+        "blockIndex": 7,
+        "nodeType": "split",
+        "title": "Dodávky a míchání přizpůsobit rozsahu zahrady",
+        "identicalAfterIdAndMediaNormalization": false,
+        "differentFields": [
+          "number",
+          "side"
+        ]
+      }
+    ],
+    "note": "",
+    "sourceBlockID": "6ab4ad64a9d69c28de3eb3a5"
+  },
+  {
+    "rowType": "source-node",
+    "sourcePostID": 8,
+    "sourceSlug": "jak-pripravit-a-ulozit-smes",
+    "sourceBlockIndex": 4,
+    "sourceBlockType": "split",
+    "sourceTitle": "Nejprve promíchat minerální základ, potom příměsi mělčeji",
+    "action": "retain",
+    "targets": [
+      {
+        "slug": "jak-pripravit-a-ulozit-smes",
+        "blockIndex": 8,
+        "nodeType": "split",
+        "title": "Nejprve promíchat minerální základ, potom příměsi mělčeji",
+        "identicalAfterIdAndMediaNormalization": false,
+        "differentFields": [
+          "number",
+          "side"
+        ]
+      }
+    ],
+    "note": "",
+    "sourceBlockID": "6ab4ad64a9d69c28de3eb3a6"
+  },
+  {
+    "rowType": "source-node",
+    "sourcePostID": 8,
+    "sourceSlug": "jak-pripravit-a-ulozit-smes",
+    "sourceBlockIndex": 5,
+    "sourceBlockType": "split",
+    "sourceTitle": "S4b – pokračování",
+    "action": "retain",
+    "targets": [
+      {
+        "slug": "jak-pripravit-a-ulozit-smes",
+        "blockIndex": 9,
+        "nodeType": "split",
+        "title": "S4b – pokračování",
+        "identicalAfterIdAndMediaNormalization": false,
+        "differentFields": [
+          "number",
+          "side"
+        ]
+      }
+    ],
+    "note": "",
+    "sourceBlockID": "6ab4ad64a9d69c28de3eb3a7"
+  },
+  {
+    "rowType": "source-node",
+    "sourcePostID": 8,
+    "sourceSlug": "jak-pripravit-a-ulozit-smes",
+    "sourceBlockIndex": 6,
+    "sourceBlockType": "split",
+    "sourceTitle": "Čas na slehnutí není prázdné čekání",
+    "action": "retain",
+    "targets": [
+      {
+        "slug": "jak-pripravit-a-ulozit-smes",
+        "blockIndex": 10,
+        "nodeType": "split",
+        "title": "Čas na slehnutí není prázdné čekání",
+        "identicalAfterIdAndMediaNormalization": false,
+        "differentFields": [
+          "number",
+          "side"
+        ]
+      }
+    ],
+    "note": "",
+    "sourceBlockID": "6ab4ad64a9d69c28de3eb3a8"
+  },
+  {
+    "rowType": "source-node",
+    "sourcePostID": 8,
+    "sourceSlug": "jak-pripravit-a-ulozit-smes",
+    "sourceBlockIndex": 7,
+    "sourceBlockType": "figure",
+    "sourceTitle": "Obr. 07",
+    "action": "retain",
+    "targets": [
+      {
+        "slug": "jak-pripravit-a-ulozit-smes",
+        "blockIndex": 11,
+        "nodeType": "figure",
+        "title": "Obr. 08",
+        "identicalAfterIdAndMediaNormalization": false,
+        "differentFields": [
+          "blockName",
+          "number"
+        ]
+      }
+    ],
+    "note": "",
+    "sourceBlockID": "6ab4ad64a9d69c28de3eb3aa"
+  },
+  {
+    "rowType": "source-node",
+    "sourcePostID": 8,
+    "sourceSlug": "jak-pripravit-a-ulozit-smes",
+    "sourceBlockIndex": 8,
+    "sourceBlockType": "faq",
+    "sourceTitle": "Časté otázky",
+    "action": "merge-faq",
+    "targets": [
+      {
+        "slug": "jak-pripravit-a-ulozit-smes",
+        "blockIndex": 14,
+        "nodeType": "faq",
+        "title": "Časté otázky k úpravě a přípravě půdy",
+        "identicalAfterIdAndMediaNormalization": false,
+        "differentFields": [
+          "heading",
+          "items",
+          "lead"
+        ]
+      }
+    ],
+    "note": "All three original questions/answers retained after the three preparation-related soil questions.",
+    "sourceBlockID": "6ab4ad64a9d69c28de3eb3ae"
+  },
+  {
+    "rowType": "source-node",
+    "sourcePostID": 8,
+    "sourceSlug": "jak-pripravit-a-ulozit-smes",
+    "sourceBlockIndex": 9,
+    "sourceBlockType": "ctaBand",
+    "sourceTitle": "Půda je připravená. Co přijde při setí?",
+    "action": "adapt-next-step-cta",
+    "targets": [
+      {
+        "slug": "jak-pripravit-a-ulozit-smes",
+        "blockIndex": 16,
+        "nodeType": "ctaBand",
+        "title": "Půda je připravená. Co přijde při setí?",
+        "identicalAfterIdAndMediaNormalization": false,
+        "differentFields": [
+          "sub"
+        ]
+      }
+    ],
+    "note": "Removes first mowing from the next article promise because it belongs to the new aftercare article. Existing title, ask, button URL and label retained.",
+    "sourceBlockID": "6abf60e65a19c08289aac5bd"
+  },
+  {
+    "rowType": "source-node",
+    "sourcePostID": 9,
+    "sourceSlug": "jak-zasit-travnik",
+    "sourceBlockIndex": 0,
+    "sourceBlockType": "summaryBand",
+    "sourceTitle": "Od výsevu k zakořeněnému trávníku",
+    "action": "split-sowing-and-aftercare",
+    "targets": [
+      {
+        "slug": "jak-zasit-travnik",
+        "blockIndex": 0,
+        "nodeType": "summaryBand",
+        "title": "Výsev od termínu po první zálivku",
+        "part": "sowing summary and original tiles 0–2"
+      },
+      {
+        "slug": "pece-o-novy-travnik",
+        "blockIndex": 0,
+        "nodeType": "summaryBand",
+        "title": "Od klíčení k prvnímu sečení",
+        "part": "care summary, original tile 3 and source-23 mowing values"
+      }
+    ],
+    "note": "Cílové umístění a vymezené části jsou ověřeny proti finálnímu zdroji. Mapa tím netvrdí doslovnou shodu upravených souhrnů, návazností nebo odkazů; u nerozdělených uzlů je strukturální porovnání uvedeno u cíle.",
+    "sourceBlockID": "6ac10dcd1885d3eb99d0e36f"
+  },
+  {
+    "rowType": "source-node",
+    "sourcePostID": 9,
+    "sourceSlug": "jak-zasit-travnik",
+    "sourceBlockIndex": 1,
+    "sourceBlockType": "split",
+    "sourceTitle": "U – pokračování",
+    "action": "split-sowing-and-aftercare",
+    "targets": [
+      {
+        "slug": "pece-o-novy-travnik",
+        "blockIndex": 1,
+        "nodeType": "split",
+        "title": "U – pokračování",
+        "part": "whole block"
+      }
+    ],
+    "note": "Cílové umístění a vymezené části jsou ověřeny proti finálnímu zdroji. Mapa tím netvrdí doslovnou shodu upravených souhrnů, návazností nebo odkazů; u nerozdělených uzlů je strukturální porovnání uvedeno u cíle.",
+    "sourceBlockID": "6ac10dcd1885d3eb99d0e370"
+  },
+  {
+    "rowType": "source-node",
+    "sourcePostID": 9,
+    "sourceSlug": "jak-zasit-travnik",
+    "sourceBlockIndex": 2,
+    "sourceBlockType": "split",
+    "sourceTitle": "V malém semeni začíná velká změna",
+    "action": "split-sowing-and-aftercare",
+    "targets": [
+      {
+        "slug": "pece-o-novy-travnik",
+        "blockIndex": 2,
+        "nodeType": "split",
+        "title": "V malém semeni začíná velká změna",
+        "part": "whole block"
+      }
+    ],
+    "note": "Cílové umístění a vymezené části jsou ověřeny proti finálnímu zdroji. Mapa tím netvrdí doslovnou shodu upravených souhrnů, návazností nebo odkazů; u nerozdělených uzlů je strukturální porovnání uvedeno u cíle.",
+    "sourceBlockID": "6ac10dcd1885d3eb99d0e371"
+  },
+  {
+    "rowType": "source-node",
+    "sourcePostID": 9,
+    "sourceSlug": "jak-zasit-travnik",
+    "sourceBlockIndex": 3,
+    "sourceBlockType": "split",
+    "sourceTitle": "Teploměr patří do země",
+    "action": "split-sowing-and-aftercare",
+    "targets": [
+      {
+        "slug": "jak-zasit-travnik",
+        "blockIndex": 1,
+        "nodeType": "split",
+        "title": "Teploměr patří do země",
+        "part": "whole block"
+      }
+    ],
+    "note": "Cílové umístění a vymezené části jsou ověřeny proti finálnímu zdroji. Mapa tím netvrdí doslovnou shodu upravených souhrnů, návazností nebo odkazů; u nerozdělených uzlů je strukturální porovnání uvedeno u cíle.",
+    "sourceBlockID": "6ac10dcd1885d3eb99d0e372"
+  },
+  {
+    "rowType": "source-node",
+    "sourcePostID": 9,
+    "sourceSlug": "jak-zasit-travnik",
+    "sourceBlockIndex": 4,
+    "sourceBlockType": "split",
+    "sourceTitle": "Semeno nemá kalendář",
+    "action": "split-sowing-and-aftercare",
+    "targets": [
+      {
+        "slug": "jak-zasit-travnik",
+        "blockIndex": 2,
+        "nodeType": "split",
+        "title": "Semeno nemá kalendář",
+        "part": "whole block plus one source-22 reminder"
+      }
+    ],
+    "note": "Cílové umístění a vymezené části jsou ověřeny proti finálnímu zdroji. Mapa tím netvrdí doslovnou shodu upravených souhrnů, návazností nebo odkazů; u nerozdělených uzlů je strukturální porovnání uvedeno u cíle.",
+    "sourceBlockID": "6ac10dcd1885d3eb99d0e373"
+  },
+  {
+    "rowType": "source-node",
+    "sourcePostID": 9,
+    "sourceSlug": "jak-zasit-travnik",
+    "sourceBlockIndex": 5,
+    "sourceBlockType": "split",
+    "sourceTitle": "Zajímavost: semena, která čekají na jaro",
+    "action": "split-sowing-and-aftercare",
+    "targets": [
+      {
+        "slug": "jak-zasit-travnik",
+        "blockIndex": 3,
+        "nodeType": "split",
+        "title": "Zajímavost: semena, která čekají na jaro",
+        "part": "whole block"
+      }
+    ],
+    "note": "Cílové umístění a vymezené části jsou ověřeny proti finálnímu zdroji. Mapa tím netvrdí doslovnou shodu upravených souhrnů, návazností nebo odkazů; u nerozdělených uzlů je strukturální porovnání uvedeno u cíle.",
+    "sourceBlockID": "6ac10dcd1885d3eb99d0e374"
+  },
+  {
+    "rowType": "source-node",
+    "sourcePostID": 9,
+    "sourceSlug": "jak-zasit-travnik",
+    "sourceBlockIndex": 6,
+    "sourceBlockType": "split",
+    "sourceTitle": "Jeden pytel, několik různých rychlostí",
+    "action": "split-sowing-and-aftercare",
+    "targets": [
+      {
+        "slug": "jak-zasit-travnik",
+        "blockIndex": 4,
+        "nodeType": "split",
+        "title": "Jeden pytel, několik různých rychlostí",
+        "part": "whole block"
+      }
+    ],
+    "note": "Cílové umístění a vymezené části jsou ověřeny proti finálnímu zdroji. Mapa tím netvrdí doslovnou shodu upravených souhrnů, návazností nebo odkazů; u nerozdělených uzlů je strukturální porovnání uvedeno u cíle.",
+    "sourceBlockID": "6ac10dcd1885d3eb99d0e375"
+  },
+  {
+    "rowType": "source-node",
+    "sourcePostID": 9,
+    "sourceSlug": "jak-zasit-travnik",
+    "sourceBlockIndex": 7,
+    "sourceBlockType": "table",
+    "sourceTitle": "Přibližná doba do viditelného vzejití za příznivých podmínek",
+    "action": "split-sowing-and-aftercare",
+    "targets": [
+      {
+        "slug": "jak-zasit-travnik",
+        "blockIndex": 5,
+        "nodeType": "table",
+        "title": "Přibližná doba do viditelného vzejití za příznivých podmínek",
+        "part": "whole block"
+      }
+    ],
+    "note": "Cílové umístění a vymezené části jsou ověřeny proti finálnímu zdroji. Mapa tím netvrdí doslovnou shodu upravených souhrnů, návazností nebo odkazů; u nerozdělených uzlů je strukturální porovnání uvedeno u cíle.",
+    "sourceBlockID": "6ac10dcd1885d3eb99d0e376"
+  },
+  {
+    "rowType": "source-node",
+    "sourcePostID": 9,
+    "sourceSlug": "jak-zasit-travnik",
+    "sourceBlockIndex": 8,
+    "sourceBlockType": "split",
+    "sourceTitle": "Proč další hrst nemusí pomoci",
+    "action": "split-sowing-and-aftercare",
+    "targets": [
+      {
+        "slug": "jak-zasit-travnik",
+        "blockIndex": 6,
+        "nodeType": "split",
+        "title": "Proč další hrst nemusí pomoci",
+        "part": "whole block"
+      }
+    ],
+    "note": "Cílové umístění a vymezené části jsou ověřeny proti finálnímu zdroji. Mapa tím netvrdí doslovnou shodu upravených souhrnů, návazností nebo odkazů; u nerozdělených uzlů je strukturální porovnání uvedeno u cíle.",
+    "sourceBlockID": "6ac10dcd1885d3eb99d0e377"
+  },
+  {
+    "rowType": "source-node",
+    "sourcePostID": 9,
+    "sourceSlug": "jak-zasit-travnik",
+    "sourceBlockIndex": 9,
+    "sourceBlockType": "split",
+    "sourceTitle": "K05b – pokračování",
+    "action": "split-sowing-and-aftercare",
+    "targets": [
+      {
+        "slug": "jak-zasit-travnik",
+        "blockIndex": 7,
+        "nodeType": "split",
+        "title": "K05b – pokračování",
+        "part": "whole block"
+      }
+    ],
+    "note": "Cílové umístění a vymezené části jsou ověřeny proti finálnímu zdroji. Mapa tím netvrdí doslovnou shodu upravených souhrnů, návazností nebo odkazů; u nerozdělených uzlů je strukturální porovnání uvedeno u cíle.",
+    "sourceBlockID": "6ac10dcd1885d3eb99d0e378"
+  },
+  {
+    "rowType": "source-node",
+    "sourcePostID": 9,
+    "sourceSlug": "jak-zasit-travnik",
+    "sourceBlockIndex": 10,
+    "sourceBlockType": "split",
+    "sourceTitle": "Několik milimetrů, na kterých záleží",
+    "action": "split-sowing-and-aftercare",
+    "targets": [
+      {
+        "slug": "jak-zasit-travnik",
+        "blockIndex": 8,
+        "nodeType": "split",
+        "title": "Několik milimetrů, na kterých záleží",
+        "part": "whole block plus source-20 preparation paragraph"
+      }
+    ],
+    "note": "Cílové umístění a vymezené části jsou ověřeny proti finálnímu zdroji. Mapa tím netvrdí doslovnou shodu upravených souhrnů, návazností nebo odkazů; u nerozdělených uzlů je strukturální porovnání uvedeno u cíle.",
+    "sourceBlockID": "6ac10dcd1885d3eb99d0e379"
+  },
+  {
+    "rowType": "source-node",
+    "sourcePostID": 9,
+    "sourceSlug": "jak-zasit-travnik",
+    "sourceBlockIndex": 11,
+    "sourceBlockType": "split",
+    "sourceTitle": "K06b – pokračování",
+    "action": "split-sowing-and-aftercare",
+    "targets": [
+      {
+        "slug": "jak-zasit-travnik",
+        "blockIndex": 12,
+        "nodeType": "split",
+        "title": "Osivo zapravit mělce a přitlačit",
+        "part": "all four body paragraphs, caption, alt and drawing"
+      }
+    ],
+    "note": "Cílové umístění a vymezené části jsou ověřeny proti finálnímu zdroji. Mapa tím netvrdí doslovnou shodu upravených souhrnů, návazností nebo odkazů; u nerozdělených uzlů je strukturální porovnání uvedeno u cíle.",
+    "sourceBlockID": "6ac10dcd1885d3eb99d0e37a"
+  },
+  {
+    "rowType": "source-node",
+    "sourcePostID": 9,
+    "sourceSlug": "jak-zasit-travnik",
+    "sourceBlockIndex": 12,
+    "sourceBlockType": "split",
+    "sourceTitle": "Dva směry pro rovnoměrný výsev",
+    "action": "split-sowing-and-aftercare",
+    "targets": [
+      {
+        "slug": "jak-zasit-travnik",
+        "blockIndex": 11,
+        "nodeType": "split",
+        "title": "Dva směry pro rovnoměrný výsev",
+        "part": "whole block"
+      }
+    ],
+    "note": "Cílové umístění a vymezené části jsou ověřeny proti finálnímu zdroji. Mapa tím netvrdí doslovnou shodu upravených souhrnů, návazností nebo odkazů; u nerozdělených uzlů je strukturální porovnání uvedeno u cíle.",
+    "sourceBlockID": "6ac10dcd1885d3eb99d0e37b"
+  },
+  {
+    "rowType": "source-node",
+    "sourcePostID": 9,
+    "sourceSlug": "jak-zasit-travnik",
+    "sourceBlockIndex": 13,
+    "sourceBlockType": "figure",
+    "sourceTitle": "Obr. 12",
+    "action": "split-sowing-and-aftercare",
+    "targets": [
+      {
+        "slug": "jak-zasit-travnik",
+        "blockIndex": 13,
+        "nodeType": "figure",
+        "title": "Obr. 12",
+        "part": "whole block"
+      }
+    ],
+    "note": "Cílové umístění a vymezené části jsou ověřeny proti finálnímu zdroji. Mapa tím netvrdí doslovnou shodu upravených souhrnů, návazností nebo odkazů; u nerozdělených uzlů je strukturální porovnání uvedeno u cíle.",
+    "sourceBlockID": "6ac10dcd1885d3eb99d0e37c"
+  },
+  {
+    "rowType": "source-node",
+    "sourcePostID": 9,
+    "sourceSlug": "jak-zasit-travnik",
+    "sourceBlockIndex": 14,
+    "sourceBlockType": "split",
+    "sourceTitle": "Semena potřebují stálou vláhu",
+    "action": "split-sowing-and-aftercare",
+    "targets": [
+      {
+        "slug": "jak-zasit-travnik",
+        "blockIndex": 14,
+        "nodeType": "split",
+        "title": "Semena potřebují stálou vláhu",
+        "part": "whole block"
+      }
+    ],
+    "note": "Cílové umístění a vymezené části jsou ověřeny proti finálnímu zdroji. Mapa tím netvrdí doslovnou shodu upravených souhrnů, návazností nebo odkazů; u nerozdělených uzlů je strukturální porovnání uvedeno u cíle.",
+    "sourceBlockID": "6ac10dcd1885d3eb99d0e37d"
+  },
+  {
+    "rowType": "source-node",
+    "sourcePostID": 9,
+    "sourceSlug": "jak-zasit-travnik",
+    "sourceBlockIndex": 15,
+    "sourceBlockType": "split",
+    "sourceTitle": "Kořeny rostou a zálivka se mění s nimi",
+    "action": "split-sowing-and-aftercare",
+    "targets": [
+      {
+        "slug": "pece-o-novy-travnik",
+        "blockIndex": 3,
+        "nodeType": "split",
+        "title": "Kořeny rostou a zálivka se mění s nimi",
+        "part": "whole block"
+      }
+    ],
+    "note": "Cílové umístění a vymezené části jsou ověřeny proti finálnímu zdroji. Mapa tím netvrdí doslovnou shodu upravených souhrnů, návazností nebo odkazů; u nerozdělených uzlů je strukturální porovnání uvedeno u cíle.",
+    "sourceBlockID": "6ac10dcd1885d3eb99d0e37e"
+  },
+  {
+    "rowType": "source-node",
+    "sourcePostID": 9,
+    "sourceSlug": "jak-zasit-travnik",
+    "sourceBlockIndex": 16,
+    "sourceBlockType": "split",
+    "sourceTitle": "K09b – pokračování",
+    "action": "split-sowing-and-aftercare",
+    "targets": [
+      {
+        "slug": "pece-o-novy-travnik",
+        "blockIndex": 4,
+        "nodeType": "split",
+        "title": "K09b – pokračování",
+        "part": "whole block"
+      }
+    ],
+    "note": "Cílové umístění a vymezené části jsou ověřeny proti finálnímu zdroji. Mapa tím netvrdí doslovnou shodu upravených souhrnů, návazností nebo odkazů; u nerozdělených uzlů je strukturální porovnání uvedeno u cíle.",
+    "sourceBlockID": "6ac10dcd1885d3eb99d0e37f"
+  },
+  {
+    "rowType": "source-node",
+    "sourcePostID": 9,
+    "sourceSlug": "jak-zasit-travnik",
+    "sourceBlockIndex": 17,
+    "sourceBlockType": "split",
+    "sourceTitle": "K09c – pokračování",
+    "action": "split-sowing-and-aftercare",
+    "targets": [
+      {
+        "slug": "pece-o-novy-travnik",
+        "blockIndex": 5,
+        "nodeType": "split",
+        "title": "K09c – pokračování",
+        "part": "whole block"
+      }
+    ],
+    "note": "Cílové umístění a vymezené části jsou ověřeny proti finálnímu zdroji. Mapa tím netvrdí doslovnou shodu upravených souhrnů, návazností nebo odkazů; u nerozdělených uzlů je strukturální porovnání uvedeno u cíle.",
+    "sourceBlockID": "6ac10dcd1885d3eb99d0e380"
+  },
+  {
+    "rowType": "source-node",
+    "sourcePostID": 9,
+    "sourceSlug": "jak-zasit-travnik",
+    "sourceBlockIndex": 18,
+    "sourceBlockType": "split",
+    "sourceTitle": "Hnojivo neumí nahradit čas",
+    "action": "split-sowing-and-aftercare",
+    "targets": [
+      {
+        "slug": "jak-zasit-travnik",
+        "blockIndex": 9,
+        "nodeType": "split",
+        "title": "Hnojivo neumí nahradit čas",
+        "part": "whole block"
+      }
+    ],
+    "note": "Cílové umístění a vymezené části jsou ověřeny proti finálnímu zdroji. Mapa tím netvrdí doslovnou shodu upravených souhrnů, návazností nebo odkazů; u nerozdělených uzlů je strukturální porovnání uvedeno u cíle.",
+    "sourceBlockID": "6ac10dcd1885d3eb99d0e381"
+  },
+  {
+    "rowType": "source-node",
+    "sourcePostID": 9,
+    "sourceSlug": "jak-zasit-travnik",
+    "sourceBlockIndex": 19,
+    "sourceBlockType": "split",
+    "sourceTitle": "Mykorhizu umístit tam, kde se setká s mladými kořeny",
+    "action": "split-sowing-and-aftercare",
+    "targets": [
+      {
+        "slug": "jak-zasit-travnik",
+        "blockIndex": 10,
+        "nodeType": "split",
+        "title": "Mykorhizu umístit tam, kde se setká s mladými kořeny",
+        "part": "whole block"
+      }
+    ],
+    "note": "Cílové umístění a vymezené části jsou ověřeny proti finálnímu zdroji. Mapa tím netvrdí doslovnou shodu upravených souhrnů, návazností nebo odkazů; u nerozdělených uzlů je strukturální porovnání uvedeno u cíle.",
+    "sourceBlockID": "6ac10dcd1885d3eb99d0e382"
+  },
+  {
+    "rowType": "source-node",
+    "sourcePostID": 9,
+    "sourceSlug": "jak-zasit-travnik",
+    "sourceBlockIndex": 20,
+    "sourceBlockType": "split",
+    "sourceTitle": "Na prázdnou plochu nečekala jen tráva",
+    "action": "split-sowing-and-aftercare",
+    "targets": [
+      {
+        "slug": "jak-zasit-travnik",
+        "blockIndex": 8,
+        "nodeType": "split",
+        "title": "Několik milimetrů, na kterých záleží",
+        "part": "body paragraph 1"
+      },
+      {
+        "slug": "pece-o-novy-travnik",
+        "blockIndex": 6,
+        "nodeType": "split",
+        "title": "Na prázdnou plochu nečekala jen tráva",
+        "part": "body paragraphs 0,2 and all original media/caption/heading"
+      }
+    ],
+    "note": "Cílové umístění a vymezené části jsou ověřeny proti finálnímu zdroji. Mapa tím netvrdí doslovnou shodu upravených souhrnů, návazností nebo odkazů; u nerozdělených uzlů je strukturální porovnání uvedeno u cíle.",
+    "sourceBlockID": "6ac10dcd1885d3eb99d0e383"
+  },
+  {
+    "rowType": "source-node",
+    "sourcePostID": 9,
+    "sourceSlug": "jak-zasit-travnik",
+    "sourceBlockIndex": 21,
+    "sourceBlockType": "split",
+    "sourceTitle": "Hustý trávník bere plevelům prostor",
+    "action": "split-sowing-and-aftercare",
+    "targets": [
+      {
+        "slug": "pece-o-novy-travnik",
+        "blockIndex": 7,
+        "nodeType": "split",
+        "title": "Hustý trávník bere plevelům prostor",
+        "part": "whole block"
+      }
+    ],
+    "note": "Cílové umístění a vymezené části jsou ověřeny proti finálnímu zdroji. Mapa tím netvrdí doslovnou shodu upravených souhrnů, návazností nebo odkazů; u nerozdělených uzlů je strukturální porovnání uvedeno u cíle.",
+    "sourceBlockID": "6ac10dcd1885d3eb99d0e384"
+  },
+  {
+    "rowType": "source-node",
+    "sourcePostID": 9,
+    "sourceSlug": "jak-zasit-travnik",
+    "sourceBlockIndex": 22,
+    "sourceBlockType": "split",
+    "sourceTitle": "Co může ohrozit čerstvý výsev",
+    "action": "split-sowing-and-aftercare",
+    "targets": [
+      {
+        "slug": "jak-zasit-travnik",
+        "blockIndex": 2,
+        "nodeType": "split",
+        "title": "Semeno nemá kalendář",
+        "part": "body paragraph 0, first sentence"
+      },
+      {
+        "slug": "pece-o-novy-travnik",
+        "blockIndex": 8,
+        "nodeType": "split",
+        "title": "Co může ohrozit čerstvý výsev",
+        "part": "whole block"
+      }
+    ],
+    "note": "Cílové umístění a vymezené části jsou ověřeny proti finálnímu zdroji. Mapa tím netvrdí doslovnou shodu upravených souhrnů, návazností nebo odkazů; u nerozdělených uzlů je strukturální porovnání uvedeno u cíle.",
+    "sourceBlockID": "6ac10dcd1885d3eb99d0e385"
+  },
+  {
+    "rowType": "source-node",
+    "sourcePostID": 9,
+    "sourceSlug": "jak-zasit-travnik",
+    "sourceBlockIndex": 23,
+    "sourceBlockType": "split",
+    "sourceTitle": "Kdy poprvé posekat nový trávník",
+    "action": "split-sowing-and-aftercare",
+    "targets": [
+      {
+        "slug": "pece-o-novy-travnik",
+        "blockIndex": 9,
+        "nodeType": "split",
+        "title": "Kdy poprvé posekat nový trávník",
+        "part": "whole block"
+      }
+    ],
+    "note": "Cílové umístění a vymezené části jsou ověřeny proti finálnímu zdroji. Mapa tím netvrdí doslovnou shodu upravených souhrnů, návazností nebo odkazů; u nerozdělených uzlů je strukturální porovnání uvedeno u cíle.",
+    "sourceBlockID": "6ac10dcd1885d3eb99d0e386"
+  },
+  {
+    "rowType": "source-node",
+    "sourcePostID": 9,
+    "sourceSlug": "jak-zasit-travnik",
+    "sourceBlockIndex": 24,
+    "sourceBlockType": "split",
+    "sourceTitle": "Zahrada někdy nakreslí mapu chyby",
+    "action": "split-sowing-and-aftercare",
+    "targets": [
+      {
+        "slug": "pece-o-novy-travnik",
+        "blockIndex": 10,
+        "nodeType": "split",
+        "title": "Zahrada někdy nakreslí mapu chyby",
+        "part": "whole block"
+      }
+    ],
+    "note": "Cílové umístění a vymezené části jsou ověřeny proti finálnímu zdroji. Mapa tím netvrdí doslovnou shodu upravených souhrnů, návazností nebo odkazů; u nerozdělených uzlů je strukturální porovnání uvedeno u cíle.",
+    "sourceBlockID": "6ac10dcd1885d3eb99d0e387"
+  },
+  {
+    "rowType": "source-node",
+    "sourcePostID": 9,
+    "sourceSlug": "jak-zasit-travnik",
+    "sourceBlockIndex": 25,
+    "sourceBlockType": "table",
+    "sourceTitle": "Co může napovědět a co ověřit dál",
+    "action": "split-sowing-and-aftercare",
+    "targets": [
+      {
+        "slug": "pece-o-novy-travnik",
+        "blockIndex": 11,
+        "nodeType": "table",
+        "title": "Co může napovědět a co ověřit dál",
+        "part": "whole block"
+      }
+    ],
+    "note": "Cílové umístění a vymezené části jsou ověřeny proti finálnímu zdroji. Mapa tím netvrdí doslovnou shodu upravených souhrnů, návazností nebo odkazů; u nerozdělených uzlů je strukturální porovnání uvedeno u cíle.",
+    "sourceBlockID": "6ac10dcd1885d3eb99d0e388"
+  },
+  {
+    "rowType": "source-node",
+    "sourcePostID": 9,
+    "sourceSlug": "jak-zasit-travnik",
+    "sourceBlockIndex": 26,
+    "sourceBlockType": "split",
+    "sourceTitle": "K15b – pokračování",
+    "action": "split-sowing-and-aftercare",
+    "targets": [
+      {
+        "slug": "pece-o-novy-travnik",
+        "blockIndex": 12,
+        "nodeType": "split",
+        "title": "K15b – pokračování",
+        "part": "whole block"
+      }
+    ],
+    "note": "Cílové umístění a vymezené části jsou ověřeny proti finálnímu zdroji. Mapa tím netvrdí doslovnou shodu upravených souhrnů, návazností nebo odkazů; u nerozdělených uzlů je strukturální porovnání uvedeno u cíle.",
+    "sourceBlockID": "6ac10dcd1885d3eb99d0e389"
+  },
+  {
+    "rowType": "source-node",
+    "sourcePostID": 9,
+    "sourceSlug": "jak-zasit-travnik",
+    "sourceBlockIndex": 27,
+    "sourceBlockType": "split",
+    "sourceTitle": "Co z terasy nebylo vidět",
+    "action": "split-sowing-and-aftercare",
+    "targets": [
+      {
+        "slug": "pece-o-novy-travnik",
+        "blockIndex": 13,
+        "nodeType": "split",
+        "title": "Co z terasy nebylo vidět",
+        "part": "whole block"
+      }
+    ],
+    "note": "Cílové umístění a vymezené části jsou ověřeny proti finálnímu zdroji. Mapa tím netvrdí doslovnou shodu upravených souhrnů, návazností nebo odkazů; u nerozdělených uzlů je strukturální porovnání uvedeno u cíle.",
+    "sourceBlockID": "6ac10dcd1885d3eb99d0e38a"
+  },
+  {
+    "rowType": "source-node",
+    "sourcePostID": 9,
+    "sourceSlug": "jak-zasit-travnik",
+    "sourceBlockIndex": 28,
+    "sourceBlockType": "faq",
+    "sourceTitle": "Časté otázky",
+    "action": "split-sowing-and-aftercare",
+    "targets": [
+      {
+        "slug": "jak-zasit-travnik",
+        "blockIndex": 15,
+        "nodeType": "faq",
+        "title": "Časté otázky k výsevu",
+        "part": "original lead and FAQ items 0,1,4"
+      },
+      {
+        "slug": "pece-o-novy-travnik",
+        "blockIndex": 14,
+        "nodeType": "faq",
+        "title": "Časté otázky k mladému trávníku",
+        "part": "FAQ items 2,3,5"
+      }
+    ],
+    "note": "Cílové umístění a vymezené části jsou ověřeny proti finálnímu zdroji. Mapa tím netvrdí doslovnou shodu upravených souhrnů, návazností nebo odkazů; u nerozdělených uzlů je strukturální porovnání uvedeno u cíle.",
+    "sourceBlockID": "6ac10dcd1885d3eb99d0e38b"
+  },
+  {
+    "rowType": "source-node",
+    "sourcePostID": 9,
+    "sourceSlug": "jak-zasit-travnik",
+    "sourceBlockIndex": 29,
+    "sourceBlockType": "ctaBand",
+    "sourceTitle": "Od první zálivky k závlaze, která se řídí půdou",
+    "action": "split-sowing-and-aftercare",
+    "targets": [
+      {
+        "slug": "pece-o-novy-travnik",
+        "blockIndex": 15,
+        "nodeType": "ctaBand",
+        "title": "Od první zálivky k závlaze, která se řídí půdou",
+        "part": "whole block"
+      }
+    ],
+    "note": "Cílové umístění a vymezené části jsou ověřeny proti finálnímu zdroji. Mapa tím netvrdí doslovnou shodu upravených souhrnů, návazností nebo odkazů; u nerozdělených uzlů je strukturální porovnání uvedeno u cíle.",
+    "sourceBlockID": "6ac10dcd1885d3eb99d0e38c"
+  },
+  {
+    "rowType": "source-faq-item",
+    "sourcePostID": 4,
+    "sourceSlug": "jak-navrhnout-automatickou-zavlahu",
+    "sourceBlockIndex": 9,
+    "sourceQuestionIndex": 0,
+    "sourceQuestion": "Kolik vody potřebuje trávník za jednu zálivku?",
+    "action": "edit-or-merge-question",
+    "identicalAfterIdRemoval": false,
+    "targets": [
+      {
+        "slug": "jak-navrhnout-automatickou-zavlahu",
+        "blockIndex": 13,
+        "nodeType": "faq",
+        "title": "Časté otázky",
+        "questionIndex": 0,
+        "question": "Kolik vody potřebuje trávník za jednu zálivku?"
+      }
+    ],
+    "note": "Otázka nebo struktura odpovědi se od zálohy liší; mapa netvrdí doslovnou shodu. Cíl byl určen podle skutečné otázky a umístění."
+  },
+  {
+    "rowType": "source-faq-item",
+    "sourcePostID": 4,
+    "sourceSlug": "jak-navrhnout-automatickou-zavlahu",
+    "sourceBlockIndex": 9,
+    "sourceQuestionIndex": 1,
+    "sourceQuestion": "Proč nestačí počítat vylité litry a je lepší měřit vlhkost půdy?",
+    "action": "edit-or-merge-question",
+    "identicalAfterIdRemoval": false,
+    "targets": [
+      {
+        "slug": "jak-navrhnout-automatickou-zavlahu",
+        "blockIndex": 13,
+        "nodeType": "faq",
+        "title": "Časté otázky",
+        "questionIndex": 1,
+        "question": "Proč nestačí počítat vylité litry a je lepší měřit vlhkost půdy?"
+      }
+    ],
+    "note": "Otázka nebo struktura odpovědi se od zálohy liší; mapa netvrdí doslovnou shodu. Cíl byl určen podle skutečné otázky a umístění."
+  },
+  {
+    "rowType": "source-faq-item",
+    "sourcePostID": 4,
+    "sourceSlug": "jak-navrhnout-automatickou-zavlahu",
+    "sourceBlockIndex": 9,
+    "sourceQuestionIndex": 2,
+    "sourceQuestion": "Jak si doma změřím tlak a průtok vody?",
+    "action": "edit-or-merge-question",
+    "identicalAfterIdRemoval": false,
+    "targets": [
+      {
+        "slug": "jak-navrhnout-automatickou-zavlahu",
+        "blockIndex": 13,
+        "nodeType": "faq",
+        "title": "Časté otázky",
+        "questionIndex": 2,
+        "question": "Jak změřím tlak a průtok a proč odečítám rezervu?"
+      }
+    ],
+    "note": "Sloučeno s otázkou/odpovědí krátkého článku id2, uzly20–21, o 20% rezervě; výsledek má jedinou FAQ o měření i rezervě."
+  },
+  {
+    "rowType": "source-faq-item",
+    "sourcePostID": 4,
+    "sourceSlug": "jak-navrhnout-automatickou-zavlahu",
+    "sourceBlockIndex": 9,
+    "sourceQuestionIndex": 3,
+    "sourceQuestion": "Co znamená pravidlo „hlava na hlavu\"?",
+    "action": "edit-or-merge-question",
+    "identicalAfterIdRemoval": false,
+    "targets": [
+      {
+        "slug": "jak-navrhnout-automatickou-zavlahu",
+        "blockIndex": 13,
+        "nodeType": "faq",
+        "title": "Časté otázky",
+        "questionIndex": 3,
+        "question": "Co znamená pravidlo „hlava na hlavu“?"
+      }
+    ],
+    "note": "Otázka nebo struktura odpovědi se od zálohy liší; mapa netvrdí doslovnou shodu. Cíl byl určen podle skutečné otázky a umístění."
+  },
+  {
+    "rowType": "source-faq-item",
+    "sourcePostID": 4,
+    "sourceSlug": "jak-navrhnout-automatickou-zavlahu",
+    "sourceBlockIndex": 9,
+    "sourceQuestionIndex": 4,
+    "sourceQuestion": "Můžu automatickou závlahu napojit na retenční nádrž s dešťovou vodou?",
+    "action": "edit-or-merge-question",
+    "identicalAfterIdRemoval": false,
+    "targets": [
+      {
+        "slug": "jak-navrhnout-automatickou-zavlahu",
+        "blockIndex": 13,
+        "nodeType": "faq",
+        "title": "Časté otázky",
+        "questionIndex": 4,
+        "question": "Můžu automatickou závlahu napojit na retenční nádrž s dešťovou vodou?"
+      }
+    ],
+    "note": "Otázka nebo struktura odpovědi se od zálohy liší; mapa netvrdí doslovnou shodu. Cíl byl určen podle skutečné otázky a umístění."
+  },
+  {
+    "rowType": "source-faq-item",
+    "sourcePostID": 4,
+    "sourceSlug": "jak-navrhnout-automatickou-zavlahu",
+    "sourceBlockIndex": 9,
+    "sourceQuestionIndex": 5,
+    "sourceQuestion": "Jaký tlak potřebují rotační paprskové trysky?",
+    "action": "edit-or-merge-question",
+    "identicalAfterIdRemoval": false,
+    "targets": [
+      {
+        "slug": "jak-navrhnout-automatickou-zavlahu",
+        "blockIndex": 13,
+        "nodeType": "faq",
+        "title": "Časté otázky",
+        "questionIndex": 5,
+        "question": "Jaký tlak a průtok potřebuji u zdroje a u trysek?"
+      }
+    ],
+    "note": "Sloučeno s otázkou/odpovědí krátkého článku id2, uzly16–17, o tlaku a průtoku zdroje; výsledek rozlišuje zdroj a tlak u trysek."
+  },
+  {
+    "rowType": "source-faq-item",
+    "sourcePostID": 5,
+    "sourceSlug": "krasny-travnik-zacina-pod-zemi-2",
+    "sourceBlockIndex": 15,
+    "sourceQuestionIndex": 0,
+    "sourceQuestion": "Jak poznám, jestli mám jíl, hlínu, nebo písek?",
+    "action": "retain-question",
+    "identicalAfterIdRemoval": true,
+    "targets": [
+      {
+        "slug": "krasny-travnik-zacina-pod-zemi-2",
+        "blockIndex": 9,
+        "nodeType": "faq",
+        "title": "Časté otázky k průzkumu půdy",
+        "questionIndex": 0,
+        "question": "Jak poznám, jestli mám jíl, hlínu, nebo písek?"
+      }
+    ],
+    "note": ""
+  },
+  {
+    "rowType": "source-faq-item",
+    "sourcePostID": 5,
+    "sourceSlug": "krasny-travnik-zacina-pod-zemi-2",
+    "sourceBlockIndex": 15,
+    "sourceQuestionIndex": 1,
+    "sourceQuestion": "Co je zkouška vsakování a jaký výsledek je dobrý?",
+    "action": "retain-question",
+    "identicalAfterIdRemoval": true,
+    "targets": [
+      {
+        "slug": "krasny-travnik-zacina-pod-zemi-2",
+        "blockIndex": 9,
+        "nodeType": "faq",
+        "title": "Časté otázky k průzkumu půdy",
+        "questionIndex": 1,
+        "question": "Co je zkouška vsakování a jaký výsledek je dobrý?"
+      }
+    ],
+    "note": ""
+  },
+  {
+    "rowType": "source-faq-item",
+    "sourcePostID": 5,
+    "sourceSlug": "krasny-travnik-zacina-pod-zemi-2",
+    "sourceBlockIndex": 15,
+    "sourceQuestionIndex": 2,
+    "sourceQuestion": "Proč zrovna 30 centimetrů, když má tráva mělké kořeny?",
+    "action": "retain-question",
+    "identicalAfterIdRemoval": true,
+    "targets": [
+      {
+        "slug": "jak-pripravit-a-ulozit-smes",
+        "blockIndex": 14,
+        "nodeType": "faq",
+        "title": "Časté otázky k úpravě a přípravě půdy",
+        "questionIndex": 0,
+        "question": "Proč zrovna 30 centimetrů, když má tráva mělké kořeny?"
+      }
+    ],
+    "note": ""
+  },
+  {
+    "rowType": "source-faq-item",
+    "sourcePostID": 5,
+    "sourceSlug": "krasny-travnik-zacina-pod-zemi-2",
+    "sourceBlockIndex": 15,
+    "sourceQuestionIndex": 3,
+    "sourceQuestion": "Musím vybagrovat 30 cm zeminy a koupit novou?",
+    "action": "retain-question",
+    "identicalAfterIdRemoval": true,
+    "targets": [
+      {
+        "slug": "jak-pripravit-a-ulozit-smes",
+        "blockIndex": 14,
+        "nodeType": "faq",
+        "title": "Časté otázky k úpravě a přípravě půdy",
+        "questionIndex": 1,
+        "question": "Musím vybagrovat 30 cm zeminy a koupit novou?"
+      }
+    ],
+    "note": ""
+  },
+  {
+    "rowType": "source-faq-item",
+    "sourcePostID": 5,
+    "sourceSlug": "krasny-travnik-zacina-pod-zemi-2",
+    "sourceBlockIndex": 15,
+    "sourceQuestionIndex": 4,
+    "sourceQuestion": "Jak spočítám, kolik příměsi (třeba zeolitu) koupit?",
+    "action": "retain-question",
+    "identicalAfterIdRemoval": true,
+    "targets": [
+      {
+        "slug": "jak-pripravit-a-ulozit-smes",
+        "blockIndex": 14,
+        "nodeType": "faq",
+        "title": "Časté otázky k úpravě a přípravě půdy",
+        "questionIndex": 2,
+        "question": "Jak spočítám, kolik příměsi (třeba zeolitu) koupit?"
+      }
+    ],
+    "note": ""
+  },
+  {
+    "rowType": "source-faq-item",
+    "sourcePostID": 6,
+    "sourceSlug": "pisek-biochar-a-dalsi-primesi",
+    "sourceBlockIndex": 21,
+    "sourceQuestionIndex": 0,
+    "sourceQuestion": "Proč se směs míchá podle objemu, a ne podle kilogramů?",
+    "action": "retain-question",
+    "identicalAfterIdRemoval": true,
+    "targets": [
+      {
+        "slug": "jak-namichat-pudu-pro-travnik",
+        "blockIndex": 16,
+        "nodeType": "faq",
+        "title": "Časté otázky",
+        "questionIndex": 0,
+        "question": "Proč se směs míchá podle objemu, a ne podle kilogramů?"
+      }
+    ],
+    "note": ""
+  },
+  {
+    "rowType": "source-faq-item",
+    "sourcePostID": 6,
+    "sourceSlug": "pisek-biochar-a-dalsi-primesi",
+    "sourceBlockIndex": 21,
+    "sourceQuestionIndex": 1,
+    "sourceQuestion": "Co znamená „nabitý“ biochar a proč nekupovat nenabitý?",
+    "action": "retain-question",
+    "identicalAfterIdRemoval": true,
+    "targets": [
+      {
+        "slug": "pisek-biochar-a-dalsi-primesi",
+        "blockIndex": 7,
+        "nodeType": "faq",
+        "title": "Časté otázky",
+        "questionIndex": 0,
+        "question": "Co znamená „nabitý“ biochar a proč nekupovat nenabitý?"
+      }
+    ],
+    "note": ""
+  },
+  {
+    "rowType": "source-faq-item",
+    "sourcePostID": 6,
+    "sourceSlug": "pisek-biochar-a-dalsi-primesi",
+    "sourceBlockIndex": 21,
+    "sourceQuestionIndex": 2,
+    "sourceQuestion": "Do jaké hloubky patří jednotlivé příměsi?",
+    "action": "retain-question",
+    "identicalAfterIdRemoval": true,
+    "targets": [
+      {
+        "slug": "jak-namichat-pudu-pro-travnik",
+        "blockIndex": 16,
+        "nodeType": "faq",
+        "title": "Časté otázky",
+        "questionIndex": 1,
+        "question": "Do jaké hloubky patří jednotlivé příměsi?"
+      }
+    ],
+    "note": ""
+  },
+  {
+    "rowType": "source-faq-item",
+    "sourcePostID": 6,
+    "sourceSlug": "pisek-biochar-a-dalsi-primesi",
+    "sourceBlockIndex": 21,
+    "sourceQuestionIndex": 3,
+    "sourceQuestion": "Řídí se dávka mykorhizního přípravku typem půdy?",
+    "action": "retain-question",
+    "identicalAfterIdRemoval": true,
+    "targets": [
+      {
+        "slug": "pisek-biochar-a-dalsi-primesi",
+        "blockIndex": 7,
+        "nodeType": "faq",
+        "title": "Časté otázky",
+        "questionIndex": 1,
+        "question": "Řídí se dávka mykorhizního přípravku typem půdy?"
+      }
+    ],
+    "note": ""
+  },
+  {
+    "rowType": "source-faq-item",
+    "sourcePostID": 7,
+    "sourceSlug": "kalkulator-na-planovani-pudniho-profilu",
+    "sourceBlockIndex": 12,
+    "sourceQuestionIndex": 0,
+    "sourceQuestion": "Musím koupit zeminu uvedenou ve výsledku?",
+    "action": "retain-question",
+    "identicalAfterIdRemoval": true,
+    "targets": [
+      {
+        "slug": "kalkulator-na-planovani-pudniho-profilu",
+        "blockIndex": 12,
+        "nodeType": "faq",
+        "title": "Časté otázky k výpočtu půdy pod trávník",
+        "questionIndex": 0,
+        "question": "Musím koupit zeminu uvedenou ve výsledku?"
+      }
+    ],
+    "note": ""
+  },
+  {
+    "rowType": "source-faq-item",
+    "sourcePostID": 7,
+    "sourceSlug": "kalkulator-na-planovani-pudniho-profilu",
+    "sourceBlockIndex": 12,
+    "sourceQuestionIndex": 1,
+    "sourceQuestion": "Musí být půda pod trávníkem hluboká právě 30 cm?",
+    "action": "retain-question",
+    "identicalAfterIdRemoval": true,
+    "targets": [
+      {
+        "slug": "kalkulator-na-planovani-pudniho-profilu",
+        "blockIndex": 12,
+        "nodeType": "faq",
+        "title": "Časté otázky k výpočtu půdy pod trávník",
+        "questionIndex": 1,
+        "question": "Musí být půda pod trávníkem hluboká právě 30 cm?"
+      }
+    ],
+    "note": ""
+  },
+  {
+    "rowType": "source-faq-item",
+    "sourcePostID": 7,
+    "sourceSlug": "kalkulator-na-planovani-pudniho-profilu",
+    "sourceBlockIndex": 12,
+    "sourceQuestionIndex": 2,
+    "sourceQuestion": "Proč se vypočtené kilogramy mohou lišit od dodávky?",
+    "action": "retain-question",
+    "identicalAfterIdRemoval": true,
+    "targets": [
+      {
+        "slug": "kalkulator-na-planovani-pudniho-profilu",
+        "blockIndex": 12,
+        "nodeType": "faq",
+        "title": "Časté otázky k výpočtu půdy pod trávník",
+        "questionIndex": 2,
+        "question": "Proč se vypočtené kilogramy mohou lišit od dodávky?"
+      }
+    ],
+    "note": ""
+  },
+  {
+    "rowType": "source-faq-item",
+    "sourcePostID": 7,
+    "sourceSlug": "kalkulator-na-planovani-pudniho-profilu",
+    "sourceBlockIndex": 12,
+    "sourceQuestionIndex": 3,
+    "sourceQuestion": "Mám vždy přidat deset procent na slehnutí?",
+    "action": "retain-question",
+    "identicalAfterIdRemoval": true,
+    "targets": [
+      {
+        "slug": "kalkulator-na-planovani-pudniho-profilu",
+        "blockIndex": 12,
+        "nodeType": "faq",
+        "title": "Časté otázky k výpočtu půdy pod trávník",
+        "questionIndex": 3,
+        "question": "Mám vždy přidat deset procent na slehnutí?"
+      }
+    ],
+    "note": ""
+  },
+  {
+    "rowType": "source-faq-item",
+    "sourcePostID": 8,
+    "sourceSlug": "jak-pripravit-a-ulozit-smes",
+    "sourceBlockIndex": 8,
+    "sourceQuestionIndex": 0,
+    "sourceQuestion": "Musím půdní profil stavět z přesných vrstev?",
+    "action": "retain-question",
+    "identicalAfterIdRemoval": true,
+    "targets": [
+      {
+        "slug": "jak-pripravit-a-ulozit-smes",
+        "blockIndex": 14,
+        "nodeType": "faq",
+        "title": "Časté otázky k úpravě a přípravě půdy",
+        "questionIndex": 3,
+        "question": "Musím půdní profil stavět z přesných vrstev?"
+      }
+    ],
+    "note": ""
+  },
+  {
+    "rowType": "source-faq-item",
+    "sourcePostID": 8,
+    "sourceSlug": "jak-pripravit-a-ulozit-smes",
+    "sourceBlockIndex": 8,
+    "sourceQuestionIndex": 1,
+    "sourceQuestion": "Dokončí rovnoměrné promíchání déšť?",
+    "action": "retain-question",
+    "identicalAfterIdRemoval": true,
+    "targets": [
+      {
+        "slug": "jak-pripravit-a-ulozit-smes",
+        "blockIndex": 14,
+        "nodeType": "faq",
+        "title": "Časté otázky k úpravě a přípravě půdy",
+        "questionIndex": 4,
+        "question": "Dokončí rovnoměrné promíchání déšť?"
+      }
+    ],
+    "note": ""
+  },
+  {
+    "rowType": "source-faq-item",
+    "sourcePostID": 8,
+    "sourceSlug": "jak-pripravit-a-ulozit-smes",
+    "sourceBlockIndex": 8,
+    "sourceQuestionIndex": 2,
+    "sourceQuestion": "Jak dlouho nechat směs slehnout?",
+    "action": "retain-question",
+    "identicalAfterIdRemoval": true,
+    "targets": [
+      {
+        "slug": "jak-pripravit-a-ulozit-smes",
+        "blockIndex": 14,
+        "nodeType": "faq",
+        "title": "Časté otázky k úpravě a přípravě půdy",
+        "questionIndex": 5,
+        "question": "Jak dlouho nechat směs slehnout?"
+      }
+    ],
+    "note": ""
+  },
+  {
+    "rowType": "source-faq-item",
+    "sourcePostID": 9,
+    "sourceSlug": "jak-zasit-travnik",
+    "sourceBlockIndex": 28,
+    "sourceQuestionIndex": 0,
+    "sourceQuestion": "Kdy je nejlepší zasít trávník?",
+    "action": "retain-question",
+    "identicalAfterIdRemoval": true,
+    "targets": [
+      {
+        "slug": "jak-zasit-travnik",
+        "blockIndex": 15,
+        "nodeType": "faq",
+        "title": "Časté otázky k výsevu",
+        "questionIndex": 0,
+        "question": "Kdy je nejlepší zasít trávník?"
+      }
+    ],
+    "note": ""
+  },
+  {
+    "rowType": "source-faq-item",
+    "sourcePostID": 9,
+    "sourceSlug": "jak-zasit-travnik",
+    "sourceBlockIndex": 28,
+    "sourceQuestionIndex": 1,
+    "sourceQuestion": "Při jaké teplotě travní semeno klíčí?",
+    "action": "retain-question",
+    "identicalAfterIdRemoval": true,
+    "targets": [
+      {
+        "slug": "jak-zasit-travnik",
+        "blockIndex": 15,
+        "nodeType": "faq",
+        "title": "Časté otázky k výsevu",
+        "questionIndex": 1,
+        "question": "Při jaké teplotě travní semeno klíčí?"
+      }
+    ],
+    "note": ""
+  },
+  {
+    "rowType": "source-faq-item",
+    "sourcePostID": 9,
+    "sourceSlug": "jak-zasit-travnik",
+    "sourceBlockIndex": 28,
+    "sourceQuestionIndex": 2,
+    "sourceQuestion": "Za jak dlouho tráva vzejde?",
+    "action": "retain-question",
+    "identicalAfterIdRemoval": true,
+    "targets": [
+      {
+        "slug": "pece-o-novy-travnik",
+        "blockIndex": 14,
+        "nodeType": "faq",
+        "title": "Časté otázky k mladému trávníku",
+        "questionIndex": 0,
+        "question": "Za jak dlouho tráva vzejde?"
+      }
+    ],
+    "note": ""
+  },
+  {
+    "rowType": "source-faq-item",
+    "sourcePostID": 9,
+    "sourceSlug": "jak-zasit-travnik",
+    "sourceBlockIndex": 28,
+    "sourceQuestionIndex": 3,
+    "sourceQuestion": "Jak často zalévat čerstvě zasetý trávník?",
+    "action": "retain-question",
+    "identicalAfterIdRemoval": true,
+    "targets": [
+      {
+        "slug": "pece-o-novy-travnik",
+        "blockIndex": 14,
+        "nodeType": "faq",
+        "title": "Časté otázky k mladému trávníku",
+        "questionIndex": 1,
+        "question": "Jak často zalévat čerstvě zasetý trávník?"
+      }
+    ],
+    "note": ""
+  },
+  {
+    "rowType": "source-faq-item",
+    "sourcePostID": 9,
+    "sourceSlug": "jak-zasit-travnik",
+    "sourceBlockIndex": 28,
+    "sourceQuestionIndex": 4,
+    "sourceQuestion": "Pomůže vysít víc osiva, než doporučuje výrobce?",
+    "action": "retain-question",
+    "identicalAfterIdRemoval": true,
+    "targets": [
+      {
+        "slug": "jak-zasit-travnik",
+        "blockIndex": 15,
+        "nodeType": "faq",
+        "title": "Časté otázky k výsevu",
+        "questionIndex": 2,
+        "question": "Pomůže vysít víc osiva, než doporučuje výrobce?"
+      }
+    ],
+    "note": ""
+  },
+  {
+    "rowType": "source-faq-item",
+    "sourcePostID": 9,
+    "sourceSlug": "jak-zasit-travnik",
+    "sourceBlockIndex": 28,
+    "sourceQuestionIndex": 5,
+    "sourceQuestion": "Kdy nový trávník poprvé posekat?",
+    "action": "retain-question",
+    "identicalAfterIdRemoval": true,
+    "targets": [
+      {
+        "slug": "pece-o-novy-travnik",
+        "blockIndex": 14,
+        "nodeType": "faq",
+        "title": "Časté otázky k mladému trávníku",
+        "questionIndex": 2,
+        "question": "Kdy nový trávník poprvé posekat?"
+      }
+    ],
+    "note": ""
+  },
+  {
+    "rowType": "added-recap",
+    "sourcePostID": null,
+    "action": "added-faq-recap",
+    "targets": [
+      {
+        "slug": "krasny-travnik-zacina-pod-zemi-2",
+        "blockIndex": 9,
+        "nodeType": "faq",
+        "title": "Časté otázky k průzkumu půdy",
+        "questionIndex": 2,
+        "question": "Co když se voda v půdě dlouho drží?"
+      }
+    ],
+    "basedOn": [
+      {
+        "postID": 5,
+        "slug": "krasny-travnik-zacina-pod-zemi-2",
+        "blockIndex": 5,
+        "title": "Foto půdy · profile"
+      },
+      {
+        "postID": 5,
+        "slug": "krasny-travnik-zacina-pod-zemi-2",
+        "blockIndex": 7,
+        "title": "Foto půdy · drain"
+      }
+    ],
+    "note": "Nová rekapitulační otázka ve finálním obsahu; není vydávána za doslovně přesunutou původní FAQ. Shrnuje uvedené původní pasáže."
+  },
+  {
+    "rowType": "added-recap",
+    "sourcePostID": null,
+    "action": "added-faq-recap",
+    "targets": [
+      {
+        "slug": "pisek-biochar-a-dalsi-primesi",
+        "blockIndex": 7,
+        "nodeType": "faq",
+        "title": "Časté otázky",
+        "questionIndex": 2,
+        "question": "Potřebuje každá zahrada všechny příměsi?"
+      }
+    ],
+    "basedOn": [
+      {
+        "postID": 6,
+        "slug": "pisek-biochar-a-dalsi-primesi",
+        "blockIndex": 10,
+        "title": "E1b – pokračování"
+      },
+      {
+        "postID": 6,
+        "slug": "pisek-biochar-a-dalsi-primesi",
+        "blockIndex": 15,
+        "title": "E5 – pokračování"
+      },
+      {
+        "postID": 6,
+        "slug": "pisek-biochar-a-dalsi-primesi",
+        "blockIndex": 19,
+        "title": "Kdy dávku upravit a kdy příměs vynechat"
+      }
+    ],
+    "note": "Nová rekapitulační otázka ve finálním obsahu; není vydávána za doslovně přesunutou původní FAQ. Shrnuje uvedené původní pasáže."
+  },
+  {
+    "rowType": "added-recap",
+    "sourcePostID": null,
+    "action": "added-faq-recap",
+    "targets": [
+      {
+        "slug": "jak-namichat-pudu-pro-travnik",
+        "blockIndex": 16,
+        "nodeType": "faq",
+        "title": "Časté otázky",
+        "questionIndex": 2,
+        "question": "Přičítají se příměsi ke sto procentům základu?"
+      }
+    ],
+    "basedOn": [
+      {
+        "postID": 6,
+        "slug": "pisek-biochar-a-dalsi-primesi",
+        "blockIndex": 17,
+        "title": "E7 – pokračování"
+      },
+      {
+        "postID": 6,
+        "slug": "pisek-biochar-a-dalsi-primesi",
+        "blockIndex": 19,
+        "title": "Kdy dávku upravit a kdy příměs vynechat"
+      }
+    ],
+    "note": "Nová rekapitulační otázka ve finálním obsahu; není vydávána za doslovně přesunutou původní FAQ. Shrnuje uvedené původní pasáže."
+  }
+]

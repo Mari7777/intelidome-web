@@ -19,6 +19,10 @@ describe('trvalá přesměrování starých adres na magazín (ADR-009)', () => 
   })
 
   it.each([
+    ['/magazin/zazimovani-zavlahy-krok-za-krokem', '/magazin/jak-navrhnout-automatickou-zavlahu'],
+    ['/posts/zazimovani-zavlahy-krok-za-krokem', '/magazin/jak-navrhnout-automatickou-zavlahu'],
+    ['/cs/magazin/zazimovani-zavlahy-krok-za-krokem', '/magazin/jak-navrhnout-automatickou-zavlahu'],
+    ['/cs/posts/zazimovani-zavlahy-krok-za-krokem', '/magazin/jak-navrhnout-automatickou-zavlahu'],
     ['/posts', '/magazin'],
     ['/posts/jak-zasit-travnik', '/magazin/jak-zasit-travnik'],
     ['/posts/page/1', '/magazin'],

@@ -1,3 +1,6 @@
+import { stopLegacyMagazineWrite } from './lib/legacy-magazine-source'
+stopLegacyMagazineWrite()
+
 import { LAWN_SEO } from './lib/lawn-seo-content'
 /**
  * Vloží čtyři navazující články o příměsích, plánování, přípravě půdní směsi a setí
@@ -395,27 +398,27 @@ const body = root([
       {
         __filename: 'slozka-biovin.avif',
         name: 'Actino',
-        text: 'Hroznový kompost z matoliny. Přináší organickou hmotu a živiny, které se uvolňují postupně.',
+        text: 'Organická hmota a postupně uvolňované živiny pro dobrý start trávníku. Pomůže doplnit to, co chudé půdě chybí.',
         note: '0–10 cm · 0 nebo 2,5–10 % objemu',
-        title: 'Actino: cesta z vinice do kořenové vrstvy',
+        title: 'Actino: organická výživa pro dobrý start trávníku',
         __panelFilename: 'panel-biovin.avif',
         detail: root([
-          p('U další složky bychom původ pod trávníkem hledali těžko. ', ['Actino je hroznový kompost', BOLD], ', organická příměs vyráběná z matoliny, která zůstává po zpracování hroznů. Řízenou přeměnou za přístupu vzduchu, označovanou jako aerobní humifikace, z ní vzniká materiál pro zlepšení půdy. Původ a způsob výroby popisuje ', link('https://www.biovin.at/', 'výrobce'), '.'),
-          p('Do směsi přináší zpracovanou organickou hmotu a živiny. Představme si rozdíl mezi minerální kostrou půdy a jejím průběžným zásobováním: písek upravuje uspořádání částic, zatímco Actino doplňuje organickou složku, se kterou dál pracují půdní organismy. Při jejím rozkladu se postupně uvolňují živiny dostupné rostlinám. Actino proto využijeme nejen při přípravě půdy, ale v budoucnu také při hnojení trávníku.'),
-          p('V našich třech zahradách mu vyhradíme jednoduchou úlohu. V těžké půdě s málo doplňovanou organickou hmotou použijeme menší podíl. V dobře udržované hlinité zahradě ho do základní směsi nepřidáváme. V chudém, rychle vysychajícím písku dostane větší prostor. Konkrétní dávky najdeme pohromadě u příkladů zahrad.'),
+          p('Při zakládání trávníku máme příležitost připravit kořenům dobré podmínky hned od začátku. ', ['Actino doplní do půdy organickou hmotu a živiny, které se postupně uvolňují.', BOLD], ' Největší smysl má tam, kde je zemina chudá a organickou hmotu jsme jí dlouho nedoplňovali. Vedle písku a zeminy tak do směsi přidáme i materiál, se kterým mohou dál pracovat půdní organismy.'),
+          p('Actino je hroznový kompost vyráběný z matoliny, která zůstává po zpracování hroznů. Řízenou přeměnou za přístupu vzduchu, označovanou jako aerobní humifikace, z ní vzniká příměs pro zlepšení půdy. Původ a způsob výroby popisuje ', link('https://www.biovin.at/', 'výrobce'), '. Zatímco písek upravuje uspořádání půdních částic, Actino přináší organickou složku a výživu. Využijeme ho při přípravě půdy i později při hnojení trávníku podle návodu výrobku.'),
+          p('V našich příkladech mu vyhradíme nejvíce prostoru v chudém, rychle vysychajícím písku. V těžké půdě s nedostatkem organické hmoty použijeme menší podíl; v dobře udržované hlinité zahradě ho do základní směsi nepřidáváme. Konkrétní dávky najdeme u jednotlivých zahrad. ', ['Pokud půdě organická hmota chybí, zařaďme Actino už do přípravy před výsevem', BOLD], ', kdy ho snadno promícháme s budoucí kořenovou vrstvou. Přinesené živiny přitom započítáme do plánu hnojení.'),
         ]),
       },
       {
         __filename: 'slozka-biochar.avif',
         name: 'Biochar',
-        text: 'Porézní zásobárna vody a živin. Před zapravením se „nabíjí“ kompostem – jinak živiny nejdřív bere.',
+        text: 'Pomáhá uchovat část vláhy a živin v dosahu kořenů. Zvlášť zajímavý pro lehkou půdu, která po zálivce rychle vysychá.',
         note: '0–10 cm · 2–10 % objemu',
-        title: 'Biochar: drobné póry jako zásoba pro kořeny',
+        title: 'Biochar: zásoba vláhy a živin přímo u kořenů',
         __panelFilename: 'panel-biochar.avif',
         detail: root([
-          p('Při běžném spálení dřeva odchází velká část jeho uhlíku do ovzduší. Biochar vzniká jinak: surovina se zahřívá za omezeného přístupu kyslíku a část uhlíku zůstává v pevném porézním materiálu. Právě množství drobných prostorů uvnitř vysvětluje, proč může být zajímavou půdní příměsí. Jeho působení nespočívá jen v chemickém složení, ale také v této vnitřní stavbě.'),
-          p('Můžeme si ho představit jako drobnou porézní zásobárnu rozptýlenou mezi zrnky zeminy. Jeho póry mohou zadržovat část vody a povrchy pomáhat s uchováním některých živin. V lehké písčité půdě se tato úloha hodí zvlášť: voda, která by jinak rychle prošla dál, může zčásti zůstat v kořenové vrstvě.'),
-          p('Kořeny ale potřebují vedle vody také vzduch. Proto biochar nepřisypáváme bez omezení. V pokusu s kořenovou zónou se při podílu nad 10 % objemu snížila hloubka zakořenění psinečku. Pro náš návod z toho plyne konkrétní krok: držíme se rozmezí uvedených u tří zahrad a dávku svévolně nezvyšujeme jen proto, že chceme zadržet více vody.'),
+          p('Zaléváme, ale lehká půda brzy znovu vysychá. Právě v takové zahradě stojí biochar za pozornost. ', ['Jeho drobné póry mohou zadržet část vody a povrchy pomáhat s uchováním některých živin.', BOLD], ' Část zásoby tak může zůstat v kořenové vrstvě déle. Pro trávník na chudém písku je to dobrý důvod věnovat pozornost i tomu, co do půdy přimícháme při zakládání.'),
+          p('Biochar vzniká zahříváním organické suroviny za omezeného přístupu kyslíku. Část uhlíku zůstává v pevném porézním materiálu s množstvím drobných prostorů. Po rovnoměrném promíchání si ho můžeme představit jako malé zásobárny rozptýlené mezi zrnky zeminy. Jak dobře budou fungovat, závisí na půdě, vlastnostech konkrétního biocharu i zvolené dávce.'),
+          p(['Pro snadnou přípravu vyberme biochar určený do půdy, už obohacený živinami a připravený k zapravení.', BOLD], ' Nenabitý biochar může část živin z půdy zpočátku zachytávat; před použitím ho proto připravíme například s vlhkým kompostem. Samotná voda toto obohacení nenahradí. Co ověřit při nákupu a jak započítat kompost obsažený ve výrobku, ukazuje následující část článku.'),
         ]),
       },
       {
@@ -435,15 +438,15 @@ const body = root([
       {
         __filename: 'slozka-mykorhiza.avif',
         name: 'Mykorhiza',
-        text: 'Živé houby pro soužití s kořeny – vlákna rozšíří dosah příjmu živin. Volitelná, hlavně do převážně nové směsi.',
+        text: 'Jemná houbová vlákna mohou rozšířit dosah kořenů za živinami. Cílená podpora při zakládání trávníku do převážně nové směsi.',
         note: 'pod osivo · dávka dle návodu',
-        title: 'Mykorhiza: živí pomocníci potřebují vhodné podmínky',
+        title: 'Mykorhiza: více půdy v dosahu kořenů',
         drawing: 'mykorhizni-vlakna',
         drawingAlt: 'Kořen rostliny v řezu půdou s malou čárkovanou kružnicí vlastního dosahu; z kořene vybíhá jemná síť mykorhizních vláken k větší kružnici. Živiny na okraji velké kružnice jsou pro samotný kořen nedosažitelné – dosáhne na ně jen síť houby.',
         detail: root([
-          p('Vedle minerálních a organických složek ovlivňují půdu také živé organismy. Jedním z příkladů jsou ', ['arbuskulární mykorhizní houby', BOLD], ', tedy houby schopné vytvářet soužití s kořeny rostlin. Jejich vlákna mohou rozšířit prostor, ze kterého rostlina získává živiny. Houba na oplátku čerpá uhlík vytvořený rostlinou.'),
-          p('Příjem živin tak může pokračovat i za hranicí, kam dosahuje samotný kořen. Představa širšího dosahu je užitečná, ale sama ještě neříká, zda konkrétní zahrada získá přidáním přípravku očekávaný prospěch.'),
-          p(['Mykorhizní přípravek nedávkujeme jako zeolit.', BOLD], ' Zeolitem doplňujeme minerál, který pomáhá půdě zadržovat některé živiny. Jeho podíl proto přizpůsobujeme tomu, co výsledné směsi chybí. Mykorhizním přípravkem naopak přidáváme živé houby, které mají navázat soužití s kořeny. Nejde tedy o to nahradit určité procento půdy, ale dostat vhodný přípravek ve správné dávce do místa, kde se s ním mladé kořeny setkají. Rozhoduje složení výrobku, jeho návod a podmínky pro fungování hub – nikoli samotný podíl písku nebo jílu.'),
+          p('Mladý trávník má zpočátku drobné kořeny a jen omezený dosah. ', ['Mykorhizní houby s nimi mohou vytvořit soužití, při kterém jejich jemná vlákna rozšíří prostor pro získávání živin.', BOLD], ' Rostlina tak může využít i část zásoby, ke které by samotné kořeny ještě nedosáhly. Právě v této spolupráci spočívá přínos mykorhizy.'),
+          p('Pro trávník vybíráme vhodný přípravek s arbuskulárními mykorhizními houbami. Houba pomáhá rostlině s příjmem živin a na oplátku od ní získává uhlík. O přidání přípravku uvažujeme především po výrazné rekonstrukci nebo při zakládání do převážně nové směsi s malým podílem biologicky aktivní půdy. V zavedené zahradní půdě už mohou vhodné houby žít, takže další přípravek nemusí přinést stejný užitek. Výsledek závisí na konkrétní půdě, výrobku a podmínkách pro soužití.'),
+          p(['Při zakládání do nové směsi si vhodný přípravek připravme už před výsevem', BOLD], ', abychom ho podle návodu dostali tam, kde se s ním setkají mladé kořeny. Mykorhizu nedávkujeme procentem objemu jako zeolit: přidáváme živé houby, nikoli další podíl minerální směsi. Rozhoduje složení výrobku, jeho doporučená dávka a správné umístění, ne samotný podíl písku nebo jílu. Tak má nákup jasný účel: podpořit vznik spolupráce právě v nové kořenové vrstvě.'),
         ]),
       },
     ],
