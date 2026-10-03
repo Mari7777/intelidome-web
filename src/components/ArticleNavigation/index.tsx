@@ -30,9 +30,10 @@ export function ArticleNavigation({ locale, post }: { locale: Locale; post: Post
           <span>{t(locale, 'article.updated')} <time dateTime={post.updatedAt}>{formatDateTime(post.updatedAt, locale)}</time></span>
         </p>
         {sections.length > 0 && (
-          /* Dlouhý článek (kapitoly mají skupiny) má obsah otevřený a členěný;
-             číslování běží průběžně přes skupiny (DESIGN.md 8.2, v2.12). */
-          <details className={skupiny ? 'mt-4' : 'mt-4 max-w-[700px]'} open={skupiny}>
+          /* Dlouhý článek (kapitoly mají skupiny) má obsah členěný; po načtení
+             je sbalený jako u ostatních článků (rozhodnutí autora 3. 10. 2026).
+             Číslování běží průběžně přes skupiny (DESIGN.md 8.2, v2.12). */
+          <details className={skupiny ? 'mt-4' : 'mt-4 max-w-[700px]'}>
             <summary className="w-fit cursor-pointer py-2 font-medium text-[var(--id-ink)]">{t(locale, 'article.toc')}</summary>
             <nav aria-label={t(locale, 'article.tocAria')}>
               {skupiny ? (

@@ -1093,7 +1093,7 @@ Full-bleed pásy tří povrchů; „rytmus dne na zahradě": obsidian = noc, kr�
 
 Prototyp hydraulika-zahrady.html; kapitol 3–5.
 
-**Dlouhý článek (víc než ~8 kapitol, v2.12):** autorovo členění se nemění, ale obsah „V článku“ je otevřený a dělí kapitoly do 3–5 skupin (pole `tocGroup` u první kapitoly skupiny), aby čtenář hned viděl, kde ve stránce je. Autorův perex v prvním dvousloupci se sází rolí lead (`--id-t-lead`, bez kurzivy).
+**Dlouhý článek (víc než ~8 kapitol, v2.12):** autorovo členění se nemění, ale obsah „V článku“ dělí kapitoly do 3–5 skupin; po načtení zůstává sbalený (rozhodnutí majitele 3. 10. 2026) (pole `tocGroup` u první kapitoly skupiny), aby čtenář hned viděl, kde ve stránce je. Autorův perex v prvním dvousloupci se sází rolí lead (`--id-t-lead`, bez kurzivy).
 
 | # | Sekce | Povrch | Obsah |
 |---|---|---|---|
