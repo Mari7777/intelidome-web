@@ -68,17 +68,6 @@ const cs = {
   'productBand.figureAlt': (vycet: string) =>
     `Schéma sítě: most uprostřed, kolem něj ${vycet}; aktivní spoj vede k ventilu.`,
 
-  // Stránkování a rozsah výpisu
-  'pagination.prev': 'Předchozí',
-  'pagination.prevAria': 'Přejít na předchozí stranu',
-  'pagination.next': 'Další',
-  'pagination.nextAria': 'Přejít na další stranu',
-  'pagination.more': 'Další strany',
-  'pageRange.shown': (start: number, end: number, total: number, noun: string) =>
-    `Zobrazeno ${start}${start > 0 ? `–${end}` : ''} z ${total} ${noun}`,
-  'pageRange.posts': (n: number) => tvar(n, 'článek', 'články', 'článků'),
-  'pageRange.items': (n: number) => tvar(n, 'záznam', 'záznamy', 'záznamů'),
-
   // Hledání
   'search.heading': 'Hledání',
   'search.field': 'Hledat',
@@ -90,7 +79,39 @@ const cs = {
   'posts.metaTitle': 'Magazín o půdě, trávníku a chytré závlaze',
   'posts.metaDescription':
     'Návody k půdě, trávníku a závlaze: rozbor půdy, míchání směsi, setí i automatická závlaha. S kalkulátory, které si přepočítáte na vlastní zahradu.',
+  'posts.pageDescription': (n: string) =>
+    `Všechny články magazínu InteliDome o půdě, trávníku a chytré závlaze, od nejnovějšího. Strana ${n}.`,
   'magazin.nazev': 'Magazín InteliDome',
+  // Domovská stránka magazínu (DESIGN.md 8.5)
+  'magazin.lead':
+    'Půda, trávník a závlaha vysvětlené do hloubky: postupy s čísly, kresbami a kalkulátory, které si přepočítáte pro svou zahradu.',
+  'magazin.mapaAria': 'Obsah magazínu',
+  'magazin.mapaLabel': 'V magazínu',
+  'magazin.novinkaLabel': 'Naposledy přidáno',
+  'magazin.serie': (n: number) => `Série · ${n} ${tvar(n, 'díl', 'díly', 'dílů')}`,
+  'magazin.tema': (n: number) => `Téma · ${n} ${tvar(n, 'článek', 'články', 'článků')}`,
+  'magazin.cteniCelkem': (min: number) =>
+    min < 60 ? `${min} min čtení` : `${Math.floor(min / 60)} h${min % 60 ? ` ${min % 60} min` : ''} čtení`,
+  'magazin.dil': (k: number, z: number) => `Díl ${k} z ${z}`,
+  'magazin.dilKratce': (k: number) => `díl ${k}`,
+  'magazin.zacnete': 'Začněte tady',
+  'magazin.kalkulator': (n: number) => (n === 1 ? 'Kalkulátor' : `${n} ${kalkulatorySlovo(n)}`),
+  'magazin.vsechny': 'Všechny články',
+  'magazin.vsechnyPopis': (n: number) => `${n} ${tvar(n, 'článek', 'články', 'článků')}, od nejnovějšího`,
+  'magazin.vsechnyRozsah': (od: number, doN: number, celkem: number) => `Články ${od}–${doN} z ${celkem}, od nejnovějšího`,
+  'magazin.prazdno': 'Zatím tu nejsou žádné články.',
+  'magazin.strana': (n: number, z: number) => `Strana ${n} z ${z}`,
+  'magazin.strankovaniAria': 'Stránkování magazínu',
+  'magazin.novejsi': 'Novější články',
+  'magazin.starsi': 'Starší články',
+  'magazin.stranaAria': (n: number) => `Strana ${n}`,
+  'magazin.kalkulatory': 'Kalkulátory',
+  'magazin.kalk.titulek': 'Spočítejte si to pro svou zahradu',
+  'magazin.kalk.lead': 'Každý kalkulátor se otevře přímo v článku, vedle textu, který vysvětluje, co výsledek znamená.',
+  'magazin.kalk.zdroj': (titulek: string) => `V článku ${titulek}`,
+  'magazin.cta.titulek': 'Trávník založíte jednou. Zalévat ho budete roky.',
+  'magazin.cta.sub':
+    'InteliDome zalévá podle vlhkosti půdy, ne podle hodin: čidla měří u kořenů a ventil pustí vodu jen do zóny, která ji potřebuje.',
 
   // 404
   'notFound.text': 'Tahle stránka neexistuje.',

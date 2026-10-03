@@ -2796,3 +2796,448 @@
     margin-inline: calc(8px - var(--id-gutter));
   }
 }
+
+/* ══ Magazín — domovská stránka článků (DESIGN.md 8.5, 7.15; ADR-009) ══════
+   Obsah příručky, ne nástěnka novinek: typografická hlava, témata, úplný
+   přehled, kalkulátory, výzva. Hierarchii nese velikost, povrch a pořadí. */
+.id-tnum {
+  font-variant-numeric: tabular-nums; /* 4.3 p. 2 */
+}
+/* Tokeny mřížky žijí jinak jen na .id-article: bez nich má .id-2col mezeru 0
+   (koš B: povýšit do :root). Hodnoty shodné s článkem. */
+.id-mag {
+  --id-gap-col: clamp(28px, 4vw, 56px);
+  --id-col-a: calc((var(--id-maxw-prose) - var(--id-gap-col)) / 2);
+  --id-rhythm: clamp(40px, 5vw, 72px);
+}
+/* Dva sousední pásy téhož povrchu odděluje hairline (8.1 p. 1). */
+.id-mag-pas--bila + .id-mag-pas--bila {
+  border-top: 1px solid var(--id-line-soft);
+}
+.id-mag-pas--krem + .id-mag-pas--krem {
+  border-top: 1px solid var(--id-line-cream);
+}
+
+/* Hlava */
+.id-mag-hlava {
+  padding-top: clamp(96px, 14vw, 160px);
+  padding-bottom: var(--id-sect-y-sm);
+}
+.id-mag-hlava .id-2col {
+  align-items: end;
+}
+.id-mag-hlava__titulek {
+  font-family: var(--id-f-display);
+  font-size: var(--id-t-display);
+  font-weight: 600;
+  line-height: 1.02;
+  letter-spacing: -0.03em;
+  text-wrap: balance;
+  color: var(--id-ink);
+}
+.id-mag-hlava__lead {
+  margin-top: 24px;
+  max-width: var(--id-measure);
+  font-size: var(--id-t-lead);
+  line-height: 1.5;
+  letter-spacing: -0.012em;
+  color: var(--id-ink-2);
+  text-wrap: pretty;
+}
+.id-mag-hlava__stav {
+  margin-top: 16px;
+  font-size: var(--id-t-caption);
+  line-height: 1.45;
+  color: var(--id-ink-2);
+  font-variant-numeric: tabular-nums;
+}
+.id-mag-label {
+  margin-bottom: 12px;
+  font-family: var(--id-f-display);
+  font-size: var(--id-t-label);
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--id-ink-2);
+}
+.id-mag-hlava__kotvy {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.id-mag-hlava__kotvy .id-btn {
+  gap: 8px;
+}
+.id-mag-hlava__pocet {
+  color: var(--id-ink-2);
+}
+.id-mag-hlava__novinka {
+  margin-top: 32px;
+}
+.id-mag-odkaz {
+  font-family: var(--id-f-display);
+  font-size: var(--id-t-lead);
+  font-weight: 600;
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+  color: var(--id-accent);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+  transition: color 0.25s var(--id-ease);
+}
+.id-mag-odkaz:hover {
+  color: var(--id-accent-deep);
+}
+.id-mag-hlava__datum {
+  display: block;
+  margin-top: 4px;
+  font-size: var(--id-t-caption);
+  line-height: 1.45;
+  color: var(--id-ink-3);
+  font-variant-numeric: tabular-nums;
+}
+
+/* Sekce (témata, přehled) */
+.id-mag-sekce {
+  scroll-margin-top: max(0px, calc(var(--id-anchor-offset) - var(--id-sect-y)));
+}
+@media (min-width: 1130px) {
+  .id-mag-sekce__hlava {
+    position: sticky;
+    top: var(--id-s-96);
+    align-self: start;
+  }
+}
+.id-mag-sekce__titulek {
+  margin-top: 14px;
+  font-family: var(--id-f-display);
+  font-size: var(--id-t-title-sm);
+  font-weight: 600;
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+  color: var(--id-ink);
+}
+.id-mag-sekce__hlava > .id-mag-sekce__titulek:first-child {
+  margin-top: 0;
+}
+.id-mag-sekce__popis {
+  margin-top: 16px;
+  max-width: var(--id-measure);
+  font-size: var(--id-t-body);
+  line-height: 1.65;
+  letter-spacing: -0.01em;
+  color: var(--id-ink-2);
+  text-wrap: pretty;
+}
+.id-mag-sekce__meta {
+  margin-top: 16px;
+  font-size: var(--id-t-caption);
+  line-height: 1.45;
+  color: var(--id-ink-3);
+  font-variant-numeric: tabular-nums;
+}
+.id-mag-seznam {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* Řádek článku (7.15) */
+.id-mag-radek {
+  position: relative;
+  display: grid;
+  grid-template-columns: 120px minmax(0, 1fr) 168px;
+  column-gap: 24px;
+  align-items: start;
+  padding-block: 24px;
+  border-top: 1px solid var(--id-line-soft);
+}
+.id-mag-radek:last-child {
+  border-bottom: 1px solid var(--id-line-soft);
+}
+.id-mag-pas--krem .id-mag-radek {
+  border-color: var(--id-line-cream);
+}
+.id-mag-radek__nahled {
+  width: 120px;
+  aspect-ratio: 1;
+  overflow: hidden;
+  border-radius: var(--id-r-sm);
+  background: var(--id-cream);
+}
+.id-mag-pas--krem .id-mag-radek__nahled {
+  background: var(--id-surface);
+}
+.id-mag-radek__nahled img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.id-mag-radek__text {
+  min-width: 0;
+}
+.id-mag-radek__kicker {
+  margin-bottom: 8px;
+  font-family: var(--id-f-display);
+  font-size: var(--id-t-label);
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--id-ink-2);
+}
+.id-mag-radek__start {
+  font-weight: 600;
+  color: var(--id-ink);
+}
+.id-mag-radek__titulek {
+  font-family: var(--id-f-display);
+  font-size: var(--id-t-lead);
+  font-weight: 600;
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+  color: var(--id-ink);
+  text-wrap: pretty;
+  transition: color 0.25s var(--id-ease);
+}
+.id-mag-radek__a {
+  color: inherit;
+  text-decoration: none;
+}
+.id-mag-radek__a::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+}
+.id-mag-radek__a:focus-visible {
+  outline: none;
+}
+.id-mag-radek:has(.id-mag-radek__a:focus-visible) {
+  outline: 3px solid var(--id-accent);
+  outline-offset: 4px;
+  border-radius: var(--id-r-sm);
+}
+@media (hover: hover) {
+  .id-mag-radek:hover .id-mag-radek__titulek {
+    color: var(--id-accent);
+  }
+}
+.id-mag-radek__perex {
+  margin-top: 8px;
+  max-width: var(--id-measure);
+  font-size: var(--id-t-body-sm);
+  line-height: 1.55;
+  letter-spacing: -0.006em;
+  color: var(--id-ink-2);
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.id-mag-radek__meta {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: var(--id-t-caption);
+  line-height: 1.45;
+  color: var(--id-ink-2);
+  font-variant-numeric: tabular-nums;
+}
+.id-mag-radek__kalk {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--id-f-display);
+  font-size: var(--id-t-label);
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--id-ink);
+}
+.id-mag-radek__kalk svg {
+  width: 20px;
+  height: 20px;
+  flex: none;
+}
+.id-mag-radek__datum {
+  padding-top: 2px;
+  font-size: var(--id-t-caption);
+  line-height: 1.45;
+  color: var(--id-ink-3);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+@media (max-width: 899px) {
+  .id-mag-radek {
+    grid-template-columns: 120px minmax(0, 1fr);
+  }
+  /* Náhled přes oba řádky: meta pak stojí hned pod titulkem, ne pod obrázkem. */
+  .id-mag-radek__nahled {
+    grid-row: span 2;
+  }
+  .id-mag-radek__meta {
+    grid-column: 2;
+    flex-direction: row;
+    flex-wrap: wrap;
+    column-gap: 12px;
+    margin-top: 12px;
+  }
+}
+@media (max-width: 639px) {
+  .id-mag-radek {
+    grid-template-columns: 80px minmax(0, 1fr);
+    column-gap: 16px;
+    padding-block: 16px;
+  }
+  .id-mag-radek__nahled {
+    width: 80px;
+  }
+  .id-mag-radek__perex {
+    display: none;
+  }
+  .id-mag-radek__meta {
+    margin-top: 8px;
+  }
+  .id-mag-radek--rejstrik {
+    grid-template-columns: minmax(0, 1fr);
+    row-gap: 6px;
+  }
+  .id-mag-radek--rejstrik .id-mag-radek__meta {
+    grid-column: 1;
+    margin-top: 6px;
+  }
+}
+
+/* Stránkování přehledu */
+.id-mag-pager {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-top: var(--id-rhythm);
+}
+.id-mag-pager__cisla {
+  display: flex;
+  gap: 4px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.id-mag-pager__n {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 40px;
+  height: 40px;
+  padding-inline: 8px;
+  border-radius: var(--id-r-pill);
+  font-family: var(--id-f-display);
+  font-size: var(--id-t-btn-sm);
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  color: var(--id-ink-2);
+  text-decoration: none;
+  transition: color 0.25s var(--id-ease), background-color 0.25s var(--id-ease);
+}
+.id-mag-pager__n:hover {
+  color: var(--id-ink);
+}
+.id-mag-pager__n[aria-current='page'] {
+  color: var(--id-ink);
+  background: var(--id-cream);
+}
+.id-mag-pager__mezera {
+  display: inline-flex;
+  align-items: center;
+  min-width: 24px;
+  color: var(--id-ink-3);
+}
+.id-mag-pager__stav {
+  display: none;
+  font-size: var(--id-t-caption);
+  color: var(--id-ink-2);
+}
+@media (max-width: 639px) {
+  .id-mag-pager__cisla {
+    display: none;
+  }
+  .id-mag-pager__stav {
+    display: inline;
+  }
+}
+
+/* Kalkulátory na obsidianu */
+[data-surface='dark'] .id-section-heading__title {
+  color: var(--id-ink-dark);
+}
+[data-surface='dark'] .id-section-heading__lead {
+  color: var(--id-ink-dark-2);
+}
+.id-mag-nastroje {
+  display: grid;
+  gap: 24px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.id-mag-nastroj {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 20px;
+  column-gap: 16px;
+}
+.id-mag-nastroj > :not(.id-mag-nastroj__sipka) {
+  grid-column: 1;
+}
+.id-mag-nastroj__sipka {
+  grid-column: 2;
+  grid-row: 1;
+  width: 20px;
+  height: 20px;
+  color: var(--id-ink-dark-2);
+  transition: color 0.25s var(--id-ease);
+}
+.id-mag-nastroj .id-feature__title {
+  transition: color 0.25s var(--id-ease);
+}
+.id-mag-nastroj__a {
+  color: inherit;
+  text-decoration: none;
+}
+.id-mag-nastroj__a::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+}
+.id-mag-nastroj__a:focus-visible {
+  outline: none;
+}
+.id-mag-nastroj:has(.id-mag-nastroj__a:focus-visible) {
+  outline: 3px solid var(--id-accent);
+  outline-offset: 4px;
+  border-radius: var(--id-r-sm);
+}
+@media (hover: hover) {
+  .id-mag-nastroj:hover .id-feature__title,
+  .id-mag-nastroj:hover .id-mag-nastroj__sipka {
+    color: var(--id-accent-tint);
+  }
+}
+.id-mag-nastroj__zdroj {
+  margin-top: 8px;
+  font-size: var(--id-t-caption);
+  line-height: 1.45;
+  color: var(--id-ink-dark-3);
+}
+[id^='kalkulator-'] {
+  scroll-margin-top: var(--id-anchor-offset);
+}

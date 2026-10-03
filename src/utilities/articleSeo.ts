@@ -97,3 +97,75 @@ export function articleJsonLd(
     ],
   }
 }
+
+/** Řádek článku pro JSON-LD magazínu — jen to, co strukturovaná data potřebují. */
+type MagazinPolozka = { cesta: string; celyTitulek: string }
+
+/**
+ * JSON-LD domovské stránky magazínu (DESIGN.md 8.5): CollectionPage, ItemList
+ * přehledu (pozice posunuté podle strany), ItemList každé zobrazené série
+ * (pořadí čtení), Organization a BreadcrumbList shodný s drobenkou článku.
+ */
+export function magazinJsonLd({
+  locale,
+  strana,
+  naStranu,
+  rejstrik,
+  serie,
+}: {
+  locale: Locale
+  strana: number
+  naStranu: number
+  rejstrik: readonly MagazinPolozka[]
+  serie: readonly { slug: string; titulek: string; radky: readonly MagazinPolozka[] }[]
+}) {
+  const base = getServerSideURL()
+  const url = absoluteSiteURL(lokalizujCestu(cestaMagazinu(strana), locale))
+  const magazin = absoluteSiteURL(lokalizujCestu(cestaMagazinu(), locale))
+  const nazev = strana > 1 ? t(locale, 'posts.page')(String(strana)) : t(locale, 'posts.title')
+  const polozky = (radky: readonly MagazinPolozka[], posun = 0) =>
+    radky.map((r, i) => ({ '@type': 'ListItem', position: posun + i + 1, url: absoluteSiteURL(lokalizujCestu(r.cesta, locale)), name: r.celyTitulek }))
+  return {
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type': 'CollectionPage',
+        '@id': `${url}#page`,
+        url,
+        name: nazev,
+        description: strana > 1 ? t(locale, 'posts.pageDescription')(String(strana)) : t(locale, 'posts.metaDescription'),
+        inLanguage: locale,
+        isPartOf: { '@type': 'WebSite', url: base, name: 'InteliDome' },
+        publisher: { '@id': `${base}/#organization` },
+        breadcrumb: { '@id': `${url}#breadcrumbs` },
+        mainEntity: { '@id': `${url}#clanky` },
+        ...(serie.length ? { hasPart: serie.map((s) => ({ '@id': `${url}#tema-${s.slug}` })) } : {}),
+      },
+      {
+        '@type': 'ItemList',
+        '@id': `${url}#clanky`,
+        itemListOrder: 'https://schema.org/ItemListOrderDescending',
+        numberOfItems: rejstrik.length,
+        itemListElement: polozky(rejstrik, (strana - 1) * naStranu),
+      },
+      ...serie.map((s) => ({
+        '@type': 'ItemList',
+        '@id': `${url}#tema-${s.slug}`,
+        name: s.titulek,
+        itemListOrder: 'https://schema.org/ItemListOrderAscending',
+        numberOfItems: s.radky.length,
+        itemListElement: polozky(s.radky),
+      })),
+      { '@type': 'Organization', '@id': `${base}/#organization`, name: 'InteliDome', url: base },
+      {
+        '@type': 'BreadcrumbList',
+        '@id': `${url}#breadcrumbs`,
+        itemListElement: [
+          { '@type': 'ListItem', position: 1, name: t(locale, 'seo.breadcrumbHome'), item: absoluteSiteURL(lokalizujCestu('/', locale)) },
+          { '@type': 'ListItem', position: 2, name: t(locale, 'seo.breadcrumbPosts'), item: magazin },
+          ...(strana > 1 ? [{ '@type': 'ListItem', position: 3, name: nazev, item: url }] : []),
+        ],
+      },
+    ],
+  }
+}
