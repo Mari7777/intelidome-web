@@ -630,7 +630,7 @@ const run = async () => {
   if (existing.docs.length > 0) {
     const id = existing.docs[0].id
     await publikujCs(payload, { collection: 'posts', id, data })
-    payload.logger.info(`Článek aktualizován (id ${id}) – /posts/${SLUG}`)
+    payload.logger.info(`Článek aktualizován (id ${id}) – /magazin/${SLUG}`)
   } else {
     const created = await payload.create({
       collection: 'posts',
@@ -638,7 +638,7 @@ const run = async () => {
       draft: false,
       context: { disableRevalidate: true },
     })
-    payload.logger.info(`Článek vytvořen (id ${created.id}) – /posts/${SLUG}`)
+    payload.logger.info(`Článek vytvořen (id ${created.id}) – /magazin/${SLUG}`)
   }
 
   process.exit(0)

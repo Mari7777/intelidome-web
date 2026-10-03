@@ -2,9 +2,9 @@
 // Použití:
 //   node shot.mjs <url> <out.png> [desktop|mobile] [scrolls] [full]
 // Příklady:
-//   node shot.mjs http://localhost:3100/posts/hydraulika-zahrady out/nas-d-00.png desktop 0
+//   node shot.mjs http://localhost:3100/magazin/hydraulika-zahrady out/nas-d-00.png desktop 0
 //   node shot.mjs https://www.sonos.com out/sonos-m-02.png mobile 2
-//   node shot.mjs http://localhost:3100/posts/x out/nas-full.png desktop 0 full
+//   node shot.mjs http://localhost:3100/magazin/x out/nas-full.png desktop 0 full
 import { chromium, devices } from '@playwright/test'
 
 const [, , url, out, mode = 'desktop', scrolls = '0', full = ''] = process.argv

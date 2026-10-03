@@ -75,9 +75,9 @@ function splitParagraph(text) {
 
 /* ── odkazy na sesterské články: jen obalení autorovy fráze ───────── */
 const LINKS = [
-  ['Samotné seťové lůžko', '/posts/jak-pripravit-a-ulozit-smes#cas-na-slehnuti-neni-prazdne-cekani', 'seťové lůžko', 'Samotné [seťové lůžko]'],
-  ['Na lehčí písčité půdě', '/posts/krasny-travnik-zacina-pod-zemi-2', 'lehčí písčité půdě', 'Na [lehčí písčité půdě]'],
-  ['Jeden program pro všechny části zahrady', '/posts/jak-navrhnout-automatickou-zavlahu', 'Jeden program pro všechny části zahrady', '[Jeden program pro všechny části zahrady]'],
+  ['Samotné seťové lůžko', '/magazin/jak-pripravit-a-ulozit-smes#cas-na-slehnuti-neni-prazdne-cekani', 'seťové lůžko', 'Samotné [seťové lůžko]'],
+  ['Na lehčí písčité půdě', '/magazin/krasny-travnik-zacina-pod-zemi-2', 'lehčí písčité půdě', 'Na [lehčí písčité půdě]'],
+  ['Jeden program pro všechny části zahrady', '/magazin/jak-navrhnout-automatickou-zavlahu', 'Jeden program pro všechny části zahrady', '[Jeden program pro všechny části zahrady]'],
 ]
 const linkify = (text) => {
   for (const [phrase, url, , wrapped] of LINKS) {
@@ -110,7 +110,7 @@ const kap = (n) => `Kapitola ${String(n).padStart(2, '0')}`
 
 const MYKO_TITLE = 'Mykorhizu umístit tam, kde se setká s mladými kořeny'
 const MYKO_BODY = [
-  'Pokud jsme se [pro mykorhizní přípravek rozhodli](/posts/pisek-biochar-a-dalsi-primesi#mykorhizni-pripravek-ma-vlastni-pravidla-davkovani), jeho umístění se řídí návodem konkrétního výrobku. Pro přípravek TurfComp výrobce při výsevu popisuje aplikaci přibližně **3 cm pod osivo**.',
+  'Pokud jsme se [pro mykorhizní přípravek rozhodli](/magazin/pisek-biochar-a-dalsi-primesi#mykorhizni-pripravek-ma-vlastni-pravidla-davkovani), jeho umístění se řídí návodem konkrétního výrobku. Pro přípravek TurfComp výrobce při výsevu popisuje aplikaci přibližně **3 cm pod osivo**.',
   'Při pokládce travního koberce přijde na připravený povrch pod něj. Podstatný je budoucí kontakt s kořeny; rovnoměrné rozptýlení stejné dávky do celých třiceti centimetrů by sledovalo jiný cíl.',
   'Přípravek rozprostřeme rovnoměrně v místě budoucích kořenů a dál postupujeme podle návodu k výsevu nebo pokládce koberce. Při ošetření hotového trávníku použijeme návod pro dodatečnou aplikaci; postup určený pod osivo na povrchu již založeného porostu nenapodobujeme.',
 ]

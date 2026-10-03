@@ -37,7 +37,7 @@ test.describe('zlatý snímek', () => {
     expect(clanky.length).toBeGreaterThanOrEqual(6)
 
     const zaznamy: Record<string, unknown> = {}
-    for (const cesta of ['/', '/posts', '/search', ...clanky]) {
+    for (const cesta of ['/', '/magazin', '/search', ...clanky]) {
       const odpoved = await page.goto(cesta, { waitUntil: 'networkidle' })
       expect(odpoved?.status(), cesta).toBe(200)
       /* Chromium po `Critical-CH` požadavek opakuje jako interní 307 na TUTÉŽ
@@ -77,6 +77,36 @@ test.describe('zlatý snímek', () => {
       }
     }
     expect(JSON.stringify(zaznamy, null, 1)).toMatchSnapshot('soubory.json')
+  })
+
+  test('žádný výstup neodkazuje na starou adresu /posts (ADR-009)', async ({ request }) => {
+    const sitemap = await (await request.get('/posts-sitemap.xml')).text()
+    const clanky = [...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map((m) => new URL(m[1]).pathname)
+    for (const cesta of ['/', '/magazin', '/search', ...clanky, ...SOUBORY]) {
+      const telo = await (await request.get(cesta)).text()
+      // Surové HTML včetně JSON-LD, og:url a odkazů; `posts-sitemap.xml` je jméno souboru, ne adresa článku.
+      expect(telo.match(/\/posts(?!-sitemap)(?=[\/"'<#?\s)]|$)/g) ?? [], cesta).toEqual([])
+    }
+  })
+
+  test('staré adresy /posts vedou jedním trvalým skokem na /magazin (ADR-009)', async ({ request }) => {
+    const sitemap = await (await request.get('/posts-sitemap.xml')).text()
+    const slugy = [...sitemap.matchAll(/<loc>[^<]*\/magazin\/([^<]+)<\/loc>/g)].map((m) => m[1])
+    expect(slugy.length).toBeGreaterThanOrEqual(6)
+    const pripady: [string, string][] = [
+      ['/posts', '/magazin'],
+      ['/cs/posts', '/magazin'],
+      ['/posts/page/1', '/magazin'],
+      ['/posts/page/2', '/magazin/strana/2'],
+      ['/posts?utm_source=x', '/magazin?utm_source=x'],
+      ...slugy.map((slug): [string, string] => [`/posts/${slug}`, `/magazin/${slug}`]),
+      ...slugy.map((slug): [string, string] => [`/cs/posts/${slug}`, `/magazin/${slug}`]),
+    ]
+    for (const [stara, nova] of pripady) {
+      const odpoved = await request.get(stara, { maxRedirects: 0 })
+      expect(odpoved.status(), stara).toBe(308)
+      expect(new URL(odpoved.headers()['location'], 'http://x').pathname + new URL(odpoved.headers()['location'], 'http://x').search, stara).toBe(nova)
+    }
   })
 
   test('statické soubory z public/ se servírují', async ({ request }) => {

@@ -6,11 +6,11 @@ Aktualizováno 2. 10. 2026. Úpravy jsou uložené v místním projektu a místn
 
 | Stálá adresa | Hlavní potřeba čtenáře | SEO titulek |
 |---|---|---|
-| /posts/krasny-travnik-zacina-pod-zemi-2 | typ půdy, utužení, propustnost před založením trávníku | Půda pro trávník: jak poznat její typ a propustnost |
-| /posts/pisek-biochar-a-dalsi-primesi | výběr písku, biocharu, zeolitu a modelových poměrů | Směs pro trávník: písek, biochar, zeolit a jejich poměry |
-| /posts/kalkulator-na-planovani-pudniho-profilu | množství písku, zeminy a příměsí, objem, dovoz a odvoz | Kalkulátor půdy pod trávník: písek, zemina a příměsi |
-| /posts/jak-pripravit-a-ulozit-smes | příprava podloží, promíchání a uložení směsi, slehnutí a urovnání povrchu | Příprava půdy pro trávník: míchání a uložení směsi |
-| /posts/jak-zasit-travnik | klíčení, teplota půdy a termín, dávka a hloubka výsevu, zálivka podle kořenů, první sečení, příčiny neúspěchu | Jak zasít trávník: od prvního zalití k pevným kořenům |
+| /magazin/krasny-travnik-zacina-pod-zemi-2 | typ půdy, utužení, propustnost před založením trávníku | Půda pro trávník: jak poznat její typ a propustnost |
+| /magazin/pisek-biochar-a-dalsi-primesi | výběr písku, biocharu, zeolitu a modelových poměrů | Směs pro trávník: písek, biochar, zeolit a jejich poměry |
+| /magazin/kalkulator-na-planovani-pudniho-profilu | množství písku, zeminy a příměsí, objem, dovoz a odvoz | Kalkulátor půdy pod trávník: písek, zemina a příměsi |
+| /magazin/jak-pripravit-a-ulozit-smes | příprava podloží, promíchání a uložení směsi, slehnutí a urovnání povrchu | Příprava půdy pro trávník: míchání a uložení směsi |
+| /magazin/jak-zasit-travnik | klíčení, teplota půdy a termín, dávka a hloubka výsevu, zálivka podle kořenů, první sečení, příčiny neúspěchu | Jak zasít trávník: od prvního zalití k pevným kořenům |
 
 Rozdělení vychází z obsahu a potřeby čtenáře, nikoli z naměřených objemů vyhledávání. Stávající adresy jsou zachované. Článek na adrese /posts/jak-pripravit-a-ulozit-smes se nyní jmenuje „Jak připravit půdu a uložit směs“ a končí přípravou seťového lůžka. Mykorhiza, výsev a první péče jsou od 2. 10. 2026 v samostatném článku „Jak zasít trávník“ na adrese /posts/jak-zasit-travnik. Každá stránka má vlastní description, krátký přímý souhrn, zdroje s vymezením modelových předpokladů, kontextové propojení a rozbalovací obsah se skutečnými odkazy na kapitoly. Žádný autor, kvalifikace ani odborná recenze nebyli vymyšleni; viditelně je uveden vydavatel InteliDome a datum aktualizace.
 
@@ -62,6 +62,10 @@ Při kontrole se ukázalo, že `optimize-lawn-series.ts` a `revise-lawn-series.t
 ### Bez oddílu Zdroje a metodika (3. 10. 2026)
 
 Na rozhodnutí autora žádný článek série oddíl „Zdroje a metodika“ nemá. `enrichLawnEvidence` ho nevkládá a existující odstraní (`stripSources`); hranicí setí a fotky trávníku v průvodci půdou je místo něj FAQ. Ze čtyř článků v místním CMS ho odstranil jednorázový `scripts/remove-lawn-sources.ts`. Téhož dne zmizely i poslední tři odkazy jinam (článek o příměsích: biovin.at, pokus Brockhoff a kol., Penn State) – `stripExternalLinks` ponechá jen jejich text; odkazy mezi vlastními články zůstávají. Průvodce půdou má od téhož dne střídání stran dvousloupců bez výjimky (`alternateSplitSides` v `illustrateSoilGuide`). Uložené články srovnal `scripts/clean-lawn-series.ts`. Odstavce výše, které popisují zdroje s vymezením modelových předpokladů, jsou historické.
+
+### Přesun na /magazin (3. 10. 2026, ADR-009)
+
+Všechny články mají adresu `/magazin/<slug>` a domovskou stránku `/magazin`; stránkování je `/magazin/strana/N`. Staré adresy `/posts…` (i s prefixem `/cs` a jazykovým) vedou jedním trvalým přesměrováním 308 (`redirects.ts`). Natvrdo zapsaných 45 odkazů v obsahu (33 markdown, 9 Lexical, 3 tlačítka výzvy) přepsal `scripts/presun-magazin.ts`; seedery píšou `/magazin` samy a `publikujCs` odmítne zápis s `/posts/`. Sitemapy mají nový klíč datové cache. Odstavce výše, které uvádějí `/posts`, jsou historické.
 
 ## Co zbývá pro veřejnou návštěvnost
 

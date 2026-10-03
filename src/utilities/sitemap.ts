@@ -1,7 +1,7 @@
 import type { ISitemapField } from 'next-sitemap'
 
 import { DEFAULT_LOCALE, LOCALES, type Locale } from '@/i18n/config'
-import { lokalizujCestu, verejnaCesta } from '@/i18n/routing'
+import { cestaMagazinu, lokalizujCestu, verejnaCesta } from '@/i18n/routing'
 
 /**
  * Sitemapy po jazycích (A19). Čistý modul bez Payloadu: dokumenty přicházejí
@@ -60,16 +60,16 @@ export function sitemapZaznamy(
   return zaznamy
 }
 
-/** Jazyky, ve kterých výpis `/posts` existuje: cs + živé jazyky s ≥ 1 přeloženým článkem. */
+/** Jazyky, ve kterých výpis `/magazin` existuje: cs + živé jazyky s ≥ 1 přeloženým článkem. */
 export function jazykyVypisu(posts: readonly SitemapDokument[], zive: readonly Locale[]): Locale[] {
   return LOCALES.filter(
     (kod) => zive.includes(kod) && (kod === DEFAULT_LOCALE || posts.some((p) => jazykyDokumentu(p.prelozeno, zive).includes(kod))),
   )
 }
 
-/** Záznamy výpisu článků (`/posts`, `/en/posts`, …) bez lastmod, s hreflang při ≥ 2. */
+/** Záznamy výpisu článků (`/magazin`, `/en/magazin`, …) bez lastmod, s hreflang při ≥ 2. */
 export function sitemapVypisu(posts: readonly SitemapDokument[], siteUrl: string, zive: readonly Locale[]): ISitemapField[] {
   const jazyky = jazykyVypisu(posts, zive)
-  const cesta = (kod: Locale) => lokalizujCestu('/posts', kod)
+  const cesta = (kod: Locale) => lokalizujCestu(cestaMagazinu(), kod)
   return jazyky.map((kod) => ({ loc: siteUrl + cesta(kod), ...alternates(siteUrl, cesta, jazyky) }))
 }

@@ -7,14 +7,14 @@ Obsah je v češtině. Poměry a hloubky v příkladech jsou modelové; konkrét
 
 ## Půda a založení trávníku
 
-- [Krásný trávník začíná pod zemí](https://www.intelidome.com/posts/krasny-travnik-zacina-pod-zemi-2): Jak poznat jíl, hlínu a písek, zkontrolovat půdní profil a vsakování a rozhodnout, zda je nutná úprava půdy.
-- [Písek, biochar a další příměsi: jak namíchat půdu pro trávník](https://www.intelidome.com/posts/pisek-biochar-a-dalsi-primesi): Úloha písku, biocharu, Actina, zeolitu a mykorhizy; modelové rozsahy objemových podílů a hloubky zapravení pro tři typy zahrad.
-- [Kalkulátor půdy pod trávník: kolik písku, zeminy a příměsí potřebujete](https://www.intelidome.com/posts/kalkulator-na-planovani-pudniho-profilu): Výpočet dovozu, ponechané zeminy a odvozu podle plochy, hloubky a receptury. Rozlišuje udržení výšky, zapravení a novou vrstvu; vysvětluje litry, kilogramy, tuny a rezervu.
-- [Jak připravit půdu a uložit směs](https://www.intelidome.com/posts/jak-pripravit-a-ulozit-smes): Příprava podloží, promíchání minerálního základu, následné mělčí zapravení příměsí a kontrola slehnutí. Končí urovnáním povrchu a přípravou seťového lůžka.
-- [Jak zasít trávník: od prvního zalití k pevným kořenům](https://www.intelidome.com/posts/jak-zasit-travnik): Co potřebuje semeno ke klíčení, teplota půdy a termín výsevu, doby vzejití jednotlivých trav, proč nesít hustěji, hloubka 2–5 mm a křížový výsev, zálivka od klíčení po zakořenění, hnojení, plevele, první sečení a hledání příčin neúspěchu.
+- [Krásný trávník začíná pod zemí](https://www.intelidome.com/magazin/krasny-travnik-zacina-pod-zemi-2): Jak poznat jíl, hlínu a písek, zkontrolovat půdní profil a vsakování a rozhodnout, zda je nutná úprava půdy.
+- [Písek, biochar a další příměsi: jak namíchat půdu pro trávník](https://www.intelidome.com/magazin/pisek-biochar-a-dalsi-primesi): Úloha písku, biocharu, Actina, zeolitu a mykorhizy; modelové rozsahy objemových podílů a hloubky zapravení pro tři typy zahrad.
+- [Kalkulátor půdy pod trávník: kolik písku, zeminy a příměsí potřebujete](https://www.intelidome.com/magazin/kalkulator-na-planovani-pudniho-profilu): Výpočet dovozu, ponechané zeminy a odvozu podle plochy, hloubky a receptury. Rozlišuje udržení výšky, zapravení a novou vrstvu; vysvětluje litry, kilogramy, tuny a rezervu.
+- [Jak připravit půdu a uložit směs](https://www.intelidome.com/magazin/jak-pripravit-a-ulozit-smes): Příprava podloží, promíchání minerálního základu, následné mělčí zapravení příměsí a kontrola slehnutí. Končí urovnáním povrchu a přípravou seťového lůžka.
+- [Jak zasít trávník: od prvního zalití k pevným kořenům](https://www.intelidome.com/magazin/jak-zasit-travnik): Co potřebuje semeno ke klíčení, teplota půdy a termín výsevu, doby vzejití jednotlivých trav, proč nesít hustěji, hloubka 2–5 mm a křížový výsev, zálivka od klíčení po zakořenění, hnojení, plevele, první sečení a hledání příčin neúspěchu.
 
 ## Další obsah
 
-- [Všechny články](https://www.intelidome.com/posts)
+- [Všechny články](https://www.intelidome.com/magazin)
 - [RSS](https://www.intelidome.com/feed.xml)
 - [InteliDome](https://www.intelidome.com)

@@ -11,28 +11,29 @@ import { draftMode } from 'next/headers'
 import { notFound, redirect } from 'next/navigation'
 import { DEFAULT_LOCALE, jeLocale } from '@/i18n/config'
 import { vynutZivost } from '@/i18n/zivost'
-import { lokalizujCestu } from '@/i18n/routing'
+import { cestaMagazinu, lokalizujCestu } from '@/i18n/routing'
 import { t } from '@/i18n/ui'
-import { hreflangVypisu } from '@/i18n/vypis'
 
 export const revalidate = 600
 
 type Args = {
   params: Promise<{
     locale: string
-    pageNumber: string
+    cislo: string
   }>
 }
 
 export default async function Page({ params: paramsPromise }: Args) {
-  const { locale, pageNumber } = await paramsPromise
+  const { locale, cislo } = await paramsPromise
   if (!jeLocale(locale)) notFound()
-  vynutZivost(locale, `/posts/page/${pageNumber}`, (await draftMode()).isEnabled)
+  // Strana 1 je `/magazin` (vede na ni trvalé přesměrování v redirects.ts);
+  // tady jen strany 2+ v kanonickém tvaru (ne 02, 2.0, 1e1) a s rozumnou délkou —
+  // obří číslo by Postgres odmítl jako OFFSET (500). Mimo rozsah 404 (ADR-009 bod 3).
+  if (!/^[1-9]\d{0,5}$/.test(cislo)) notFound()
+  const sanitizedPageNumber = Number(cislo)
+  if (sanitizedPageNumber < 2) notFound()
+  vynutZivost(locale, cestaMagazinu(sanitizedPageNumber), (await draftMode()).isEnabled)
   const payload = await getPayload({ config: configPromise })
-
-  const sanitizedPageNumber = Number(pageNumber)
-
-  if (!Number.isInteger(sanitizedPageNumber)) notFound()
 
   const posts = await payload.find({
     collection: 'posts',
@@ -46,7 +47,13 @@ export default async function Page({ params: paramsPromise }: Args) {
   })
 
   // Bez jediného přeloženého článku výpis v cizím jazyce neexistuje → česká verze.
-  if (locale !== 'cs' && posts.totalDocs === 0) redirect(lokalizujCestu('/posts', 'cs'))
+  if (locale !== 'cs' && posts.totalDocs === 0) redirect(lokalizujCestu(cestaMagazinu(), 'cs'))
+  if (sanitizedPageNumber > posts.totalPages) {
+    // Cizí jazyk má méně přeložených článků: přepínač jazyků vede na stejnou
+    // stranu, která v něm nemusí existovat → domovská stránka magazínu jazyka.
+    if (locale !== 'cs') redirect(lokalizujCestu(cestaMagazinu(), locale))
+    notFound()
+  }
 
   return (
     <div className="pt-24 pb-24">
@@ -79,21 +86,18 @@ export default async function Page({ params: paramsPromise }: Args) {
 }
 
 export async function generateMetadata({ params: paramsPromise }: Args): Promise<Metadata> {
-  const { locale: param, pageNumber } = await paramsPromise
+  const { locale: param, cislo } = await paramsPromise
   const locale = jeLocale(param) ? param : DEFAULT_LOCALE
-  const prvni = Number(pageNumber) === 1
-  const cesta = prvni ? '/posts' : `/posts/page/${pageNumber}`
-  // hreflang jen pro `/posts` (sekce 6, táž množina jako sitemapa). Stránka N
+  // hreflang nese jen `/magazin` (sekce 6, táž množina jako sitemapa). Stránka N
   // v cizím jazyce nemusí existovat (méně přeložených článků → prázdný výpis),
   // a jazykový odkaz na neexistující obsah nesmí vzniknout (seo-lawn-series).
-  const languages = prvni ? await hreflangVypisu(cesta) : undefined
   return {
-    title: t(locale, 'posts.page')(pageNumber || ''),
-    alternates: { canonical: lokalizujCestu(cesta, locale), ...(languages ? { languages } : {}) },
+    title: t(locale, 'posts.page')(String(Number(cislo) || '')),
+    alternates: { canonical: lokalizujCestu(cestaMagazinu(Number(cislo)), locale) },
   }
 }
 
-// Jen `{ pageNumber }` — jazyk dává nadřazený `[locale]`. Dělitel = limit výpisu (12).
+// Jen `{ cislo }` od 2 — jazyk dává nadřazený `[locale]`. Dělitel = limit výpisu (12).
 export async function generateStaticParams() {
   const payload = await getPayload({ config: configPromise })
   const { totalDocs } = await payload.count({
@@ -103,10 +107,10 @@ export async function generateStaticParams() {
 
   const totalPages = Math.ceil(totalDocs / 12)
 
-  const pages: { pageNumber: string }[] = []
+  const pages: { cislo: string }[] = []
 
-  for (let i = 1; i <= totalPages; i++) {
-    pages.push({ pageNumber: String(i) })
+  for (let i = 2; i <= totalPages; i++) {
+    pages.push({ cislo: String(i) })
   }
 
   return pages

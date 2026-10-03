@@ -1,8 +1,8 @@
 import { cloneDocument, renumberFigures, setFaq } from './lawn-series-helpers'
 
-const soil = '/posts/krasny-travnik-zacina-pod-zemi-2'
-const calculator = '/posts/kalkulator-na-planovani-pudniho-profilu'
-const preparation = '/posts/jak-pripravit-a-ulozit-smes'
+const soil = '/magazin/krasny-travnik-zacina-pod-zemi-2'
+const calculator = '/magazin/kalkulator-na-planovani-pudniho-profilu'
+const preparation = '/magazin/jak-pripravit-a-ulozit-smes'
 
 /** Apply the approved series edit without touching dose tables or ingredient details. */
 export function reviseAmendments(input: unknown): any {

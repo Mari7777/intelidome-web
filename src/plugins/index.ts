@@ -13,6 +13,7 @@ import { beforeSyncWithSearch } from '@/search/beforeSync'
 
 import { Page, Post } from '@/payload-types'
 import { getServerSideURL } from '@/utilities/getURL'
+import { zakladniCesta } from '@/i18n/routing'
 
 // The "| InteliDome" suffix is applied globally by the metadata title template
 // in (frontend)/layout.tsx — the SEO field holds the bare title.
@@ -23,9 +24,8 @@ const generateTitle: GenerateTitle<Post | Page> = ({ doc }) => {
 const generateURL: GenerateURL<Post | Page> = ({ doc, collectionSlug }) => {
   const url = getServerSideURL()
 
-  return doc?.slug && doc.slug !== 'home'
-    ? `${url}/${collectionSlug === 'posts' ? 'posts/' : ''}${doc.slug}`
-    : url
+  if (!doc?.slug) return url
+  return `${url}${zakladniCesta(collectionSlug === 'posts' ? 'posts' : 'pages', doc.slug)}`.replace(/\/$/, '') || url
 }
 
 export const plugins: Plugin[] = [
@@ -39,7 +39,8 @@ export const plugins: Plugin[] = [
             return {
               ...field,
               admin: {
-                description: 'You will need to rebuild the website when changing this field.',
+                description:
+                  'Cesta bez jazykového prefixu; články se zapisují jako /magazin/<slug> (ADR-009). Staré /posts/… sem nepatří — vede je trvalé přesměrování v redirects.ts.',
               },
             }
           }

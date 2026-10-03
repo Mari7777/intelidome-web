@@ -36,7 +36,9 @@ const getPostsSitemap = unstable_cache(
 
     return sitemapZaznamy('posts', results.docs ?? [], siteUrl, LIVE_LOCALES)
   },
-  ['posts-sitemap'],
+  // Klíč nese segment magazínu: po přesunu z /posts (ADR-009) by se jinak
+  // rok servírovala zastaralá adresa z datové cache.
+  ['posts-sitemap', 'magazin'],
   {
     tags: ['posts-sitemap'],
   },

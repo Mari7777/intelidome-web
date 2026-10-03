@@ -13,7 +13,7 @@ const block = (fields: Record<string, unknown>): Node => ({ type: 'block', field
 const root = (children: Node[]): Document => ({ root: { type: 'root', children, direction: 'ltr', format: '', indent: 0, version: 1 } })
 const chapter = (number: number, title: string) => block({ blockType: 'chapter', blockName: `Kapitola ${number}`, eyebrow: `Kapitola ${String(number).padStart(2, '0')}`, title })
 const faq = (question: string, answer: string) => ({ question, answer: root([p(answer)]) })
-const soilGuide = '/posts/krasny-travnik-zacina-pod-zemi-2#pisek-jil-nebo-hlina-prozradi-to-vase-dlan'
+const soilGuide = '/magazin/krasny-travnik-zacina-pod-zemi-2#pisek-jil-nebo-hlina-prozradi-to-vase-dlan'
 
 export function buildProfilePlanningContent(input: unknown): Document {
   const source = structuredClone(input) as Document
@@ -39,7 +39,7 @@ export function buildProfilePlanningContent(input: unknown): Document {
       { value: '30', unit: 'm³', label: 'celý modelový profil včetně ponechané zeminy' },
       { value: '3', unit: 'režimy', label: 'podle práce s původní půdou a výškou' },
     ] }),
-    p('Nejprve rozhodněte, co vaše půda potřebuje změnit. Výchozí předvolby slouží k porovnání možností, nejsou univerzálním doporučením pro každou zahradu. Účel surovin a rozsahy jejich podílů vysvětluje článek ', link('/posts/pisek-biochar-a-dalsi-primesi', 'Písek, biochar a další příměsi: jak namíchat půdu pro trávník'), '.'),
+    p('Nejprve rozhodněte, co vaše půda potřebuje změnit. Výchozí předvolby slouží k porovnání možností, nejsou univerzálním doporučením pro každou zahradu. Účel surovin a rozsahy jejich podílů vysvětluje článek ', link('/magazin/pisek-biochar-a-dalsi-primesi', 'Písek, biochar a další příměsi: jak namíchat půdu pro trávník'), '.'),
     p('Pro vlastní výpočet zadejte plochu v m², hloubku profilu v cm a způsob úpravy terénu. U každé příměsi nastavte podíl i hloubku zapravení. Výsledky níže v článku ukazují jeden konkrétní příklad bez rezervy; kalkulátor je přepočítá podle vašich vstupů.'),
     calculators[0],
     chapter(1, 'Co zadat do kalkulátoru půdy pod trávník'),
@@ -78,7 +78,7 @@ export function buildProfilePlanningContent(input: unknown): Document {
     p('Vlhkost, zrnitost a složení výrobku mohou převod změnit. U biocharu je modelových 0,2 kg/l pouze výpočetní předpoklad; stejných 200 litrů navlhčeného nebo obohaceného výrobku může vážit jinak. Ověřte také, zda kupujete samotný biochar, nebo směs s kompostem. Kompost a jiné pevné nosiče mají vlastní objem, který je třeba do receptury započítat zvlášť. Kalkulátor složení takového výrobku sám nerozpozná.'),
     p('Rezerva navyšuje jen dovážené množství a nemění čistý poměr směsi, ponechanou zeminu ani odvoz. Kalkulátor používá vztah objednávka = čisté množství ÷ (1 − rezerva/100). Při 10 % tedy 200 litrů vyžaduje přibližně 222 litrů k objednání. Tato volba není prosté přičtení 10 %; umožňuje pokrýt uvažovaný úbytek z dodaného množství.'),
     p('Cenu zadávejte v jednotkách uvedených u příslušného pole a podle skutečné nabídky. Orientační součet materiálů není rozpočtem celé realizace: zvlášť připočtěte dopravu, vykládku, odvoz a uložení zeminy i práci. Mykorhizní přípravek a případné startovací hnojení řešte podle výrobku a receptury. Při hnojení zohledněte také živiny dodané Actinem a kompostem; plné dávky těchto vstupů nekombinujte automaticky.'),
-    p('Po naplánování dodávky pokračujte návodem ', link('/posts/jak-pripravit-a-ulozit-smes', 'Jak připravit a uložit směs'), '. Navazuje promícháním, kontrolou slehnutí, výsevem a první péčí o trávník.'),
+    p('Po naplánování dodávky pokračujte návodem ', link('/magazin/jak-pripravit-a-ulozit-smes', 'Jak připravit a uložit směs'), '. Navazuje promícháním, kontrolou slehnutí, výsevem a první péčí o trávník.'),
     block({ blockType: 'faq', blockName: 'Časté otázky k výpočtu půdy', heading: 'Časté otázky k výpočtu půdy pod trávník', lead: 'Před objednávkou zkontrolujte režim, jednotky a předpoklady, které mají na množství největší vliv.', items: [
       faq('Musím koupit zeminu uvedenou ve výsledku?', 'Záleží na režimu. Při udržení výšky a zapravení jde o využitou původní zeminu, pokud je vhodná. V režimu nové vrstvy kalkulátor počítá s jejím dovozem. Rozlišujte proto ponechání, dovoz a odvoz, ne jen celkový objem profilu.'),
       faq('Musí být půda pod trávníkem hluboká právě 30 cm?', 'Ne. Třicet centimetrů je hloubka zdejšího modelu. Do kalkulátoru zadejte skutečně navrženou hloubku úpravy podle stavu zahrady a podloží. Výchozí číslo nenahrazuje posouzení půdy ani automaticky neurčuje hloubku výkopu.'),

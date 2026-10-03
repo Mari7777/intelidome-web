@@ -3,9 +3,9 @@ import { block, cloneDocument, paragraph, renumberFigures, setFaq } from './lawn
 const HANDOFF_TITLE = 'Od poznání půdy k přípravě směsi'
 const OLD_CHAPTER = 'Půdní alchymie: biochar, Actino, zeolit a správné počty'
 const CONCLUSION_TITLE = 'Proč se to všechno nakonec vyplatí?'
-const AMENDMENTS = '/posts/pisek-biochar-a-dalsi-primesi'
-const CALCULATOR = '/posts/kalkulator-na-planovani-pudniho-profilu'
-const PREPARATION = '/posts/jak-pripravit-a-ulozit-smes'
+const AMENDMENTS = '/magazin/pisek-biochar-a-dalsi-primesi'
+const CALCULATOR = '/magazin/kalkulator-na-planovani-pudniho-profilu'
+const PREPARATION = '/magazin/jak-pripravit-a-ulozit-smes'
 
 const checklist = (items: string[]) => ({
   type: 'list',

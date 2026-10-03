@@ -37,10 +37,10 @@ const ctiJazykyVypisu = unstable_cache(
 )
 
 /**
- * hreflang výpisu článků (`/posts`; A19): HTML musí souhlasit se sitemapou,
+ * hreflang výpisu článků (`/magazin`; A19): HTML musí souhlasit se sitemapou,
  * která reciproční `xhtml:link` emituje už dnes. Při jediném živém jazyce
  * nic — a bez čtení DB, takže dnešní český výstup zůstává. Stránkování
- * (`/posts/page/N`) hreflang nenese: stránka N v cizím jazyce nemusí
+ * (`/magazin/strana/N`) hreflang nenese: stránka N v cizím jazyce nemusí
  * existovat a sitemapa stránkování neobsahuje.
  */
 export async function hreflangVypisu(cesta: string): Promise<Hreflang | undefined> {

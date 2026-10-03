@@ -20,6 +20,8 @@
 - [ ] Payload admin: účet majitele, první skutečný článek publikovaný
 - [x] Základ SEO: OG obrázky, RSS, analytika (jednoduchá, bez cookies lišty)
       — robots.txt povoluje AI crawlery, `llms.txt`, favicon InteliDome
+- [ ] Magazín na `/magazin` (ADR-009): adresa článků a trvalé přesměrování
+      `/posts` hotové; přehledná domovská stránka magazínu a odkaz z hlavičky
 
 **Hotovo znamená:** majitel napíše a publikuje článek v produkční
 administraci a článek je veřejně na doméně.

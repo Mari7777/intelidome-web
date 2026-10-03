@@ -40,7 +40,9 @@ export const AdminBar: React.FC<{
   const segments = useSelectedLayoutSegments()
   const [show, setShow] = useState(false)
   // Kolekce podle názvu segmentu, ne indexu: pod `[locale]` se pozice posouvá (A21).
-  const collection = (segments?.find((s) => Object.hasOwn(collectionLabels, s)) ?? 'pages') as keyof typeof collectionLabels
+  // Veřejný segment článků je `magazin`, kolekce se dál jmenuje `posts` (ADR-009).
+  const kolekceSegmentu = (s: string) => (s === 'magazin' ? 'posts' : s)
+  const collection = (segments?.map(kolekceSegmentu).find((s) => Object.hasOwn(collectionLabels, s)) ?? 'pages') as keyof typeof collectionLabels
   const router = useRouter()
   const locale = useLocale()
 

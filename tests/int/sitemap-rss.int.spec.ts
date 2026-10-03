@@ -24,8 +24,8 @@ describe('sitemapy po jazycích (A19)', () => {
   it('jediný živý jazyk = dnešní záznamy bez xhtml:link', async () => {
     const zaznamy = sitemapZaznamy('posts', docs, ORIGIN, ['cs'])
     expect(zaznamy).toEqual([
-      { loc: `${ORIGIN}/posts/puda`, lastmod: '2026-09-25T08:00:00.000Z' },
-      { loc: `${ORIGIN}/posts/pisek` },
+      { loc: `${ORIGIN}/magazin/puda`, lastmod: '2026-09-25T08:00:00.000Z' },
+      { loc: `${ORIGIN}/magazin/pisek` },
     ])
     expect(sitemapZaznamy('pages', [{ slug: 'home', updatedAt: 'X' }, { slug: 'o-nas' }], ORIGIN, ['cs'])).toEqual([
       { loc: `${ORIGIN}/`, lastmod: 'X' },
@@ -33,37 +33,37 @@ describe('sitemapy po jazycích (A19)', () => {
     ])
     const xml = await (await getServerSideSitemap(zaznamy)).text()
     expect(xml).not.toContain('<xhtml:link')
-    expect(xml).toContain(`<url><loc>${ORIGIN}/posts/puda</loc><lastmod>2026-09-25T08:00:00.000Z</lastmod></url>`)
-    expect(sitemapVypisu(docs, ORIGIN, ['cs'])).toEqual([{ loc: `${ORIGIN}/posts` }])
+    expect(xml).toContain(`<url><loc>${ORIGIN}/magazin/puda</loc><lastmod>2026-09-25T08:00:00.000Z</lastmod></url>`)
+    expect(sitemapVypisu(docs, ORIGIN, ['cs'])).toEqual([{ loc: `${ORIGIN}/magazin` }])
   })
 
   it('dva živé jazyky: záznam pro každý, reciproční hreflang z jedné množiny + x-default', async () => {
     const zaznamy = sitemapZaznamy('posts', docs, ORIGIN, ['cs', 'de'])
     const alternates = [
-      { href: `${ORIGIN}/posts/puda`, hreflang: 'cs' },
-      { href: `${ORIGIN}/de/posts/puda`, hreflang: 'de' },
-      { href: `${ORIGIN}/posts/puda`, hreflang: 'x-default' },
+      { href: `${ORIGIN}/magazin/puda`, hreflang: 'cs' },
+      { href: `${ORIGIN}/de/magazin/puda`, hreflang: 'de' },
+      { href: `${ORIGIN}/magazin/puda`, hreflang: 'x-default' },
     ]
     expect(zaznamy).toEqual([
-      { loc: `${ORIGIN}/posts/puda`, lastmod: '2026-09-25T08:00:00.000Z', alternateRefs: alternates },
-      { loc: `${ORIGIN}/de/posts/puda`, lastmod: '2026-09-25T08:00:00.000Z', alternateRefs: alternates },
-      { loc: `${ORIGIN}/posts/pisek` },
+      { loc: `${ORIGIN}/magazin/puda`, lastmod: '2026-09-25T08:00:00.000Z', alternateRefs: alternates },
+      { loc: `${ORIGIN}/de/magazin/puda`, lastmod: '2026-09-25T08:00:00.000Z', alternateRefs: alternates },
+      { loc: `${ORIGIN}/magazin/pisek` },
     ])
     const xml = await (await getServerSideSitemap(zaznamy)).text()
     expect(xml).toContain('xmlns:xhtml="http://www.w3.org/1999/xhtml"')
-    expect(xml.match(/<xhtml:link rel="alternate" hreflang="x-default" href="https:\/\/www\.intelidome\.com\/posts\/puda"\/>/g)).toHaveLength(2)
-    expect(xml).toContain(`<url><loc>${ORIGIN}/posts/pisek</loc></url>`)
+    expect(xml.match(/<xhtml:link rel="alternate" hreflang="x-default" href="https:\/\/www\.intelidome\.com\/magazin\/puda"\/>/g)).toHaveLength(2)
+    expect(xml).toContain(`<url><loc>${ORIGIN}/magazin/pisek</loc></url>`)
   })
 
-  it('výpis /posts existuje v cizím jazyce jen s ≥ 1 přeloženým článkem', () => {
+  it('výpis /magazin existuje v cizím jazyce jen s ≥ 1 přeloženým článkem', () => {
     expect(jazykyVypisu(docs, ['cs', 'en', 'de'])).toEqual(['cs', 'en', 'de'])
     expect(jazykyVypisu([docs[1]], ['cs', 'en', 'de'])).toEqual(['cs'])
     expect(sitemapVypisu(docs, ORIGIN, ['cs', 'en'])).toEqual([
-      { loc: `${ORIGIN}/posts`, alternateRefs: [
-        { href: `${ORIGIN}/posts`, hreflang: 'cs' }, { href: `${ORIGIN}/en/posts`, hreflang: 'en' }, { href: `${ORIGIN}/posts`, hreflang: 'x-default' },
+      { loc: `${ORIGIN}/magazin`, alternateRefs: [
+        { href: `${ORIGIN}/magazin`, hreflang: 'cs' }, { href: `${ORIGIN}/en/magazin`, hreflang: 'en' }, { href: `${ORIGIN}/magazin`, hreflang: 'x-default' },
       ] },
-      { loc: `${ORIGIN}/en/posts`, alternateRefs: [
-        { href: `${ORIGIN}/posts`, hreflang: 'cs' }, { href: `${ORIGIN}/en/posts`, hreflang: 'en' }, { href: `${ORIGIN}/posts`, hreflang: 'x-default' },
+      { loc: `${ORIGIN}/en/magazin`, alternateRefs: [
+        { href: `${ORIGIN}/magazin`, hreflang: 'cs' }, { href: `${ORIGIN}/en/magazin`, hreflang: 'en' }, { href: `${ORIGIN}/magazin`, hreflang: 'x-default' },
       ] },
     ])
   })
@@ -82,7 +82,7 @@ describe('RSS generátor (A19)', () => {
     expect(xml).toContain('<language>cs</language>')
     expect(xml).toContain('<title>Půda &amp; &lt;trávník&gt;</title>')
     expect(xml).toContain('<description>Jak &quot;připravit&quot; půdu.</description>')
-    expect(xml).toContain(`<guid isPermaLink="true">${ORIGIN}/posts/puda</guid>`)
+    expect(xml).toContain(`<guid isPermaLink="true">${ORIGIN}/magazin/puda</guid>`)
     expect(xml).toContain('<pubDate>Sat, 12 Sep 2026 08:00:00 GMT</pubDate>')
     expect(xml).toBe(rssXml({ siteUrl: ORIGIN, posts }))
     expect(xml).not.toContain('/cs/')
@@ -93,7 +93,7 @@ describe('RSS generátor (A19)', () => {
     expect(xml).toContain(`<link>${ORIGIN}/en</link>`)
     expect(xml).toContain(`<atom:link href="${ORIGIN}/en/feed.xml" rel="self" type="application/rss+xml" />`)
     expect(xml).toContain('<language>en</language>')
-    expect(xml).toContain(`<link>${ORIGIN}/en/posts/puda</link>`)
-    expect(xml).toContain(`<guid isPermaLink="true">${ORIGIN}/en/posts/pisek</guid>`)
+    expect(xml).toContain(`<link>${ORIGIN}/en/magazin/puda</link>`)
+    expect(xml).toContain(`<guid isPermaLink="true">${ORIGIN}/en/magazin/pisek</guid>`)
   })
 })

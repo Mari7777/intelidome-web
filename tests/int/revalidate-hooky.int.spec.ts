@@ -18,12 +18,15 @@ beforeEach(() => {
 })
 
 describe('revalidace po publikaci (A14)', () => {
-  it('článek revaliduje /cs/posts/x, nikdy /posts/x', () => {
+  it('článek revaliduje /cs/magazin/x, nikdy /magazin/x', () => {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     revalidatePost({ doc: { slug: 'x', _status: 'published' }, previousDoc: {}, req: req() } as any)
-    expect(volane()).toContain('/cs/posts/x')
-    expect(volane()).toContain('/en/posts/x')
-    expect(volane()).not.toContain('/posts/x')
+    expect(volane()).toContain('/cs/magazin/x')
+    expect(volane()).toContain('/en/magazin/x')
+    expect(volane()).not.toContain('/magazin/x')
+    // S článkem i domovská stránka magazínu a RSS (ADR-009), jinak ISR až 600 s.
+    expect(volane()).toContain('/cs/magazin')
+    expect(volane()).toContain('/feed.xml')
   })
 
   it('home revaliduje /cs, nikdy /', () => {
@@ -40,11 +43,11 @@ describe('revalidace po publikaci (A14)', () => {
       req: req(),
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } as any)
-    expect(volane()).toContain('/cs/posts/stary')
-    expect(volane()).not.toContain('/posts/stary')
+    expect(volane()).toContain('/cs/magazin/stary')
+    expect(volane()).not.toContain('/magazin/stary')
   })
 
-  it('článek invaliduje posts-sitemap i pages-sitemap (výpis /{l}/posts závisí na článcích, A19)', () => {
+  it('článek invaliduje posts-sitemap i pages-sitemap (výpis /{l}/magazin závisí na článcích, A19)', () => {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     revalidatePost({ doc: { slug: 'x', _status: 'published' }, previousDoc: {}, req: req() } as any)
     expect(tagy()).toEqual(expect.arrayContaining(['posts-sitemap', 'pages-sitemap']))

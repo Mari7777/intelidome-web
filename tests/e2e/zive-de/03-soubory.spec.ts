@@ -17,21 +17,21 @@ const zaznamy = (xml: string) =>
 
 test.describe('sitemapy, RSS, náhled', () => {
   test('11: sitemapy nesou jen přeložené de adresy s recipročním xhtml:link', async ({ request }) => {
-    const cs = `/posts/${SLUG_PRELOZENY}`
-    const de = `/de/posts/${SLUG_PRELOZENY}`
+    const cs = `/magazin/${SLUG_PRELOZENY}`
+    const de = `/de/magazin/${SLUG_PRELOZENY}`
     const posts = zaznamy(await (await request.get('/posts-sitemap.xml')).text())
     const najdi = (loc: string) => posts.find((z) => z.loc === loc)
     expect(najdi(de)?.hreflang).toEqual({ cs, de, 'x-default': cs })
     expect(najdi(cs)?.hreflang).toEqual({ cs, de, 'x-default': cs })
-    expect(najdi(`/de/posts/${SLUG_NEPRELOZENY}`)).toBeUndefined()
-    expect(najdi(`/posts/${SLUG_NEPRELOZENY}`)?.hreflang).toEqual({})
+    expect(najdi(`/de/magazin/${SLUG_NEPRELOZENY}`)).toBeUndefined()
+    expect(najdi(`/magazin/${SLUG_NEPRELOZENY}`)?.hreflang).toEqual({})
     expect(posts.filter((z) => z.loc.startsWith('/de/'))).toHaveLength(1)
 
     const pages = zaznamy(await (await request.get('/pages-sitemap.xml')).text())
     const cesty = pages.map((z) => z.loc)
-    expect(cesty).toContain('/de/posts')
+    expect(cesty).toContain('/de/magazin')
     expect(cesty).toContain('/de')
-    expect(pages.find((z) => z.loc === '/posts')?.hreflang).toEqual({ cs: '/posts', de: '/de/posts', 'x-default': '/posts' })
+    expect(pages.find((z) => z.loc === '/magazin')?.hreflang).toEqual({ cs: '/magazin', de: '/de/magazin', 'x-default': '/magazin' })
     expect(pages.find((z) => z.loc === '/')?.hreflang).toEqual({ cs: '/', de: '/de', 'x-default': '/' })
   })
 
@@ -42,7 +42,7 @@ test.describe('sitemapy, RSS, náhled', () => {
     const xml = await de.text()
     expect(xml.match(/<item>/g)).toHaveLength(1)
     expect(xml).toContain('<language>de</language>')
-    expect(xml).toContain(`/de/posts/${SLUG_PRELOZENY}</link>`)
+    expect(xml).toContain(`/de/magazin/${SLUG_PRELOZENY}</link>`)
     expect(xml).toContain('/de/feed.xml" rel="self"')
 
     const cs = await request.get('/cs/feed.xml', { maxRedirects: 0 })

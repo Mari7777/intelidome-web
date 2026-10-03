@@ -10,7 +10,7 @@ import {
 } from '@/components/ui/pagination'
 import { cn } from '@/utilities/ui'
 import { useLocale } from '@/i18n/LocaleProvider'
-import { lokalizujCestu } from '@/i18n/routing'
+import { cestaMagazinu, lokalizujCestu } from '@/i18n/routing'
 import { t } from '@/i18n/ui'
 import { useRouter } from 'next/navigation'
 import React from 'react'
@@ -22,7 +22,7 @@ export const Pagination: React.FC<{
 }> = (props) => {
   const router = useRouter()
   const locale = useLocale()
-  const jdiNa = (cislo: number) => router.push(lokalizujCestu(`/posts/page/${cislo}`, locale))
+  const jdiNa = (cislo: number) => router.push(lokalizujCestu(cestaMagazinu(cislo), locale))
 
   const { className, page, totalPages } = props
   const hasNextPage = page < totalPages

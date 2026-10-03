@@ -3,7 +3,7 @@ import { execFileSync } from 'node:child_process'
 
 /**
  * Brána živého běhu: překlad musí být v DB UŽ PŘED buildem (cs stránky
- * a `/posts` se pečou při buildu i s recipročním hreflang), proto tu
+ * a `/magazin` se pečou při buildu i s recipročním hreflang), proto tu
  * `nastavit` jen potvrdí stav — bez něj skončí s návodem. Server 3102
  * spouští volající (`spustit.sh`), ne Playwright.
  */

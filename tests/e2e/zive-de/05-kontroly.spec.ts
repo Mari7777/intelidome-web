@@ -10,8 +10,8 @@ const spust = (skript: string, ...args: string[]) =>
 test.describe('přejímky na /de', () => {
   test('17: layout-check (1440) shodný s cs; svg-labels (393) bez kolizí a ořezů', async ({ baseURL }) => {
     test.setTimeout(300_000)
-    const de = `${baseURL}/de/posts/${SLUG_PRELOZENY}`
-    const cs = `${baseURL}/posts/${SLUG_PRELOZENY}`
+    const de = `${baseURL}/de/magazin/${SLUG_PRELOZENY}`
+    const cs = `${baseURL}/magazin/${SLUG_PRELOZENY}`
 
     const mrizkaDe = spust('layout-check.mjs', de, '1440')
     const mrizkaCs = spust('layout-check.mjs', cs, '1440')
@@ -29,9 +29,9 @@ test.describe('přejímky na /de', () => {
     test.info().annotations.push({ type: 'poznámka', description: `kreseb: ${kresby} (kresby zůstávají česky)` })
   })
 
-  test('18: kotva #obsah na /de/posts/… dojede na 124 px (stejně jako cs)', async ({ page }) => {
+  test('18: kotva #obsah na /de/magazin/… dojede na 124 px (stejně jako cs)', async ({ page }) => {
     await page.setViewportSize({ width: 1440, height: 900 })
-    for (const cesta of [`/posts/${SLUG_PRELOZENY}#obsah`, `/de/posts/${SLUG_PRELOZENY}#obsah`]) {
+    for (const cesta of [`/magazin/${SLUG_PRELOZENY}#obsah`, `/de/magazin/${SLUG_PRELOZENY}#obsah`]) {
       await page.goto(cesta, { waitUntil: 'networkidle' })
       await page.waitForTimeout(1500)
       const top = await page.evaluate(() => document.getElementById('obsah')?.getBoundingClientRect().top ?? NaN)

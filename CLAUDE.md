@@ -39,6 +39,9 @@ DNS spravuje Active24. GitHub účet: `Mari7777` (repa privátní).
 
 - **Next.js (App Router) + Payload CMS 3** v jedné aplikaci
   (šablona `website`: stránky, blog, média, SEO, koncepty).
+- **Adresy:** články `/magazin/<slug>`, domovská stránka článků `/magazin`
+  (ADR-009; kolekce Payloadu se dál jmenuje `posts`); čeština bez prefixu,
+  ostatní jazyky `/en/…` (ADR-008).
 - **Hosting Vercel** (serverless, žádný vlastní server pro web).
 - **Postgres pro Payload:** lokálně Docker na portu **5433**
   (⚠️ 5432 drží ERP dev!), produkčně **Neon** (free tier).

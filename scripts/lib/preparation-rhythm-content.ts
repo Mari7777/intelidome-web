@@ -36,7 +36,7 @@ export const RHYTHM_SECTIONS: RhythmSection[] = [
     "photoRatio": "1:1",
     "caption": "Dodávka na plachtě: písek, zemina a pytle s příměsemi. Každá surovina má ve směsi jiné místo a jinou hloubku.",
     "body": [
-      "Výběr složek a modelové hloubky od povrchu dolů popisuje článek [Písek, biochar a další příměsi: jak namíchat půdu pro trávník](/posts/pisek-biochar-a-dalsi-primesi). Potřebné množství pro vlastní plochu spočítá [Kalkulátor půdy pod trávník](/posts/kalkulator-na-planovani-pudniho-profilu). Zde navazujeme přípravou podloží, skutečnou prací se směsí, výsevem a první péčí o trávník.",
+      "Výběr složek a modelové hloubky od povrchu dolů popisuje článek [Písek, biochar a další příměsi: jak namíchat půdu pro trávník](/magazin/pisek-biochar-a-dalsi-primesi). Potřebné množství pro vlastní plochu spočítá [Kalkulátor půdy pod trávník](/magazin/kalkulator-na-planovani-pudniho-profilu). Zde navazujeme přípravou podloží, skutečnou prací se směsí, výsevem a první péčí o trávník.",
       "Správně vybrané materiály a vhodné poměry ještě nejsou hotovým prostředím pro kořeny. Rozhoduje i zacházení se zeminou a způsob uložení směsi.",
       "Průjezd po mokrém jílu může zanechat utuženou vrstvu, kterou několik centimetrů pěkné navážky před vodou ani kořeny neschová."
     ]

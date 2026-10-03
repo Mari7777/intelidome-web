@@ -25,7 +25,7 @@ export function lokalizujCestu(href: string, locale: Locale): string {
   return '/' + locale + (cesta === '/' ? '' : cesta) + zbytek
 }
 
-/** `/en/posts/x` → `{ en, '/posts/x' }`; neprefixovaná cesta je česká. */
+/** `/en/magazin/x` → `{ en, '/magazin/x' }`; neprefixovaná cesta je česká. */
 export function odstranPrefix(pathname: string): { locale: Locale; path: string } {
   const prvni = pathname.split('/')[1]
   if (jeLocale(prvni)) {
@@ -37,23 +37,33 @@ export function odstranPrefix(pathname: string): { locale: Locale; path: string 
 
 type Kolekce = 'posts' | 'pages'
 
-/** Neprefixovaná cesta dokumentu (`/posts/x`, `/x`, home `/`) — jediný zdroj adresy dokumentu. */
+/**
+ * Veřejný segment článků (ADR-009). Kolekce Payloadu se dál jmenuje `posts`,
+ * mění se jen adresa: článek `/magazin/x`, domovská stránka článků `/magazin`.
+ */
+export const CESTA_MAGAZINU = '/magazin'
+
+/** Neprefixovaná cesta dokumentu (`/magazin/x`, `/x`, home `/`) — jediný zdroj adresy dokumentu. */
 export const zakladniCesta = (collection: Kolekce, slug: string): string => {
-  if (collection === 'posts') return `/posts/${slug}`
+  if (collection === 'posts') return `${CESTA_MAGAZINU}/${slug}`
   return slug === 'home' ? '/' : `/${slug}`
 }
+
+/** Neprefixovaná cesta domovské stránky magazínu; strana 2+ je `/magazin/strana/N` (ADR-009 bod 3). */
+export const cestaMagazinu = (strana = 1): string =>
+  strana > 1 ? `${CESTA_MAGAZINU}/strana/${strana}` : CESTA_MAGAZINU
 
 /**
  * Cesty ROUTE STROMU pro revalidaci — vždy s `/cs`, i když veřejná česká
  * adresa prefix nemá: `revalidatePath` s rewritem cílí na cílovou cestu
- * (`/cs/posts/x`), `/posts/x` by cache netrefilo.
+ * (`/cs/magazin/x`), `/magazin/x` by cache netrefilo.
  */
 export function interniCesty(collection: Kolekce, slug: string): string[] {
   const zaklad = zakladniCesta(collection, slug)
   return LOCALES.map((kod) => '/' + kod + (zaklad === '/' ? '' : zaklad))
 }
 
-/** Veřejná adresa dokumentu (`/posts/x`, `/en/posts/x`, home `/` | `/en`). */
+/** Veřejná adresa dokumentu (`/magazin/x`, `/en/magazin/x`, home `/` | `/en`). */
 export function verejnaCesta(collection: Kolekce, slug: string, locale: Locale): string {
   return lokalizujCestu(zakladniCesta(collection, slug), locale)
 }

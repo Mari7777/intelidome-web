@@ -186,7 +186,7 @@ export const SEEDING_SECTIONS: SeedingSection[] = [
     "photoRatio": "1:1",
     "caption": "Seťové lůžko před výsevem: rovné, jemně drobtovité a pevné. Bota v něm nechá jen mělký otisk.",
     "body": [
-      "Samotné [seťové lůžko](/posts/jak-pripravit-a-ulozit-smes#cas-na-slehnuti-neni-prazdne-cekani) má být rovné, přiměřeně pevné a na povrchu jemně drobtovité. Přehnaně kyprá zemina se později sesedá, při chůzi vznikají hluboké stopy a semena mohou skončit v nestejné hloubce. Na opačném konci je udusaná deska, do které kořínek obtížně proniká. Mezi oběma krajnostmi potřebujeme povrch, který semeno podrží a současně mu dovolí růst.",
+      "Samotné [seťové lůžko](/magazin/jak-pripravit-a-ulozit-smes#cas-na-slehnuti-neni-prazdne-cekani) má být rovné, přiměřeně pevné a na povrchu jemně drobtovité. Přehnaně kyprá zemina se později sesedá, při chůzi vznikají hluboké stopy a semena mohou skončit v nestejné hloubce. Na opačném konci je udusaná deska, do které kořínek obtížně proniká. Mezi oběma krajnostmi potřebujeme povrch, který semeno podrží a současně mu dovolí růst.",
       "Pokud je půda suchá i v hloubce, vyplatí se ji navlhčit už před setím. U vyschlého profilu může jít o provlhčení přibližně horních 15–20 cm několik dnů předem, následované oschnutím povrchu do stavu vhodného k práci.",
       "V půdě se tím vytvoří zásoba, kterou pak nemusíme dohánět prudkou zálivkou přes právě vysetá semena. Plochu dostatečně vlhkou po dešti ovšem stejně intenzivně znovu neproléváme."
     ]
@@ -280,7 +280,7 @@ export const SEEDING_SECTIONS: SeedingSection[] = [
     "caption": "Pod stromem a na slunci rostou dva různé trávníky. Stejný program zálivky nemusí vyhovovat oběma.",
     "body": [
       "Po zakořenění může dlouhodobé udržování vody pouze těsně u povrchu podporovat mělké kořenění a menší odolnost vůči suchu. Ani opačný extrém ale nepomůže: velká dávka, která odteče pod dosah kořenů nebo po svahu pryč, není rostlině k dispozici. Zálivka má sledovat rozvoj kořenové soustavy i schopnost půdy vodu zadržet.",
-      "Na [lehčí písčité půdě](/posts/krasny-travnik-zacina-pod-zemi-2) se zásoba obvykle vyčerpává rychleji. Těžší nebo zhutněná půda může vodu přijímat pomalu. Pod stromem se přidává konkurence jeho kořenů a zachytávání deště korunou. Stín proto automaticky neznamená dostatek vláhy. V jiné zastíněné části naopak voda zůstává dlouho. [Jeden program pro všechny části zahrady](/posts/jak-navrhnout-automatickou-zavlahu) může být pohodlný pro ovladač, ale obtížný pro rostliny."
+      "Na [lehčí písčité půdě](/magazin/krasny-travnik-zacina-pod-zemi-2) se zásoba obvykle vyčerpává rychleji. Těžší nebo zhutněná půda může vodu přijímat pomalu. Pod stromem se přidává konkurence jeho kořenů a zachytávání deště korunou. Stín proto automaticky neznamená dostatek vláhy. V jiné zastíněné části naopak voda zůstává dlouho. [Jeden program pro všechny části zahrady](/magazin/jak-navrhnout-automatickou-zavlahu) může být pohodlný pro ovladač, ale obtížný pro rostliny."
     ]
   },
   {
@@ -311,7 +311,7 @@ export const SEEDING_SECTIONS: SeedingSection[] = [
     "alt": "Dva řezy půdou do 30 cm se stejnou dávkou mykorhizního přípravku. Vlevo leží přípravek v pásu asi 3 cm pod osivem a první kořínky do něj vrůstají. Vpravo je tatáž dávka rozptýlená do celé hloubky; kořínky dosáhnou jen k nejmělčí značce přípravku a většina dávky leží hlouběji.",
     "caption": "Stejná dávka, jiné místo. Pás zhruba 3 cm pod osivem potká první kořínky hned; rozptýlený do 30 cm leží většinou tam, kam mladé kořeny ještě nedosáhnou.",
     "body": [
-      "Pokud jsme se [pro mykorhizní přípravek rozhodli](/posts/pisek-biochar-a-dalsi-primesi#mykorhizni-pripravek-ma-vlastni-pravidla-davkovani), jeho umístění se řídí návodem konkrétního výrobku. Pro přípravek TurfComp výrobce při výsevu popisuje aplikaci přibližně **3 cm pod osivo**.",
+      "Pokud jsme se [pro mykorhizní přípravek rozhodli](/magazin/pisek-biochar-a-dalsi-primesi#mykorhizni-pripravek-ma-vlastni-pravidla-davkovani), jeho umístění se řídí návodem konkrétního výrobku. Pro přípravek TurfComp výrobce při výsevu popisuje aplikaci přibližně **3 cm pod osivo**.",
       "Při pokládce travního koberce přijde na připravený povrch pod něj. Podstatný je budoucí kontakt s kořeny; rovnoměrné rozptýlení stejné dávky do celých třiceti centimetrů by sledovalo jiný cíl.",
       "Přípravek rozprostřeme rovnoměrně v místě budoucích kořenů a dál postupujeme podle návodu k výsevu nebo pokládce koberce. Při ošetření hotového trávníku použijeme návod pro dodatečnou aplikaci; postup určený pod osivo na povrchu již založeného porostu nenapodobujeme."
     ]

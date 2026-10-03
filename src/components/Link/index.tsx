@@ -5,7 +5,7 @@ import React from 'react'
 
 import type { Page, Post } from '@/payload-types'
 import type { Locale } from '@/i18n/config'
-import { lokalizujCestu } from '@/i18n/routing'
+import { lokalizujCestu, zakladniCesta } from '@/i18n/routing'
 
 type CMSLinkType = {
   appearance?: 'inline' | ButtonProps['variant']
@@ -40,9 +40,7 @@ export const CMSLink: React.FC<CMSLinkType> = (props) => {
 
   const cil =
     type === 'reference' && typeof reference?.value === 'object' && reference.value.slug
-      ? `${reference?.relationTo !== 'pages' ? `/${reference?.relationTo}` : ''}/${
-          reference.value.slug
-        }`
+      ? zakladniCesta(reference.relationTo, reference.value.slug)
       : url
 
   if (!cil) return null

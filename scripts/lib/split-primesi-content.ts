@@ -55,17 +55,17 @@ export function splitPrimesiContent(input: unknown) {
 
   const original = nodes.slice(0, boundary).filter((n) => n.fields?.blockType !== 'calculator' && !textOf(n).startsWith('Abyste nemuseli potřebné množství materiálu počítat ručně'))
   const originalIntro = paragraphStarting(original, 'V tomto článku si nejprve')
-  originalIntro.children = p('V tomto článku si představíme jednotlivé složky a vysvětlíme, co mohou v půdě změnit. Podíváme se, proč o směsi rozhoduje objem, přestože dodávka přijíždí v tunách, a jak příměsi rozmístit v kořenové vrstvě. Na třech modelových zahradách ukážeme vhodné rozsahy dávek. Výpočet materiálu pro vlastní plochu a navazující postup práce najdete v článku ', link(`/posts/${PROFILE_SLUG}`, PROFILE_TITLE), '.').children
+  originalIntro.children = p('V tomto článku si představíme jednotlivé složky a vysvětlíme, co mohou v půdě změnit. Podíváme se, proč o směsi rozhoduje objem, přestože dodávka přijíždí v tunách, a jak příměsi rozmístit v kořenové vrstvě. Na třech modelových zahradách ukážeme vhodné rozsahy dávek. Výpočet materiálu pro vlastní plochu a navazující postup práce najdete v článku ', link(`/magazin/${PROFILE_SLUG}`, PROFILE_TITLE), '.').children
   const charge = original.find((n) => n.fields?.drawing === 'nabity-biochar')!
-  replaceText(charge, 'Přesný postup ukážeme až při plánování potřebného množství.', `Přesný postup najdete v navazujícím článku [${PROFILE_TITLE}](/posts/${PROFILE_SLUG}).`)
+  replaceText(charge, 'Přesný postup ukážeme až při plánování potřebného množství.', `Přesný postup najdete v navazujícím článku [${PROFILE_TITLE}](/magazin/${PROFILE_SLUG}).`)
   const myco = paragraphStarting(original, 'Mykorhizní přípravek má vlastní dávku podle plochy.')
   replaceText(myco, 'Tu uvedeme na konci této kapitoly; celkovou spotřebu spočítáme v další části.', 'Pravidla pro její volbu shrnujeme na konci této kapitoly; spotřebu pro vlastní plochu pak spočítáte v navazujícím kalkulátoru půdního profilu.')
   const finalOriginal = paragraphStarting(original, 'Tím máme rozhodnuto o složení:')
-  finalOriginal.children = p('Tím máme rozhodnuto o složení: které materiály použít, v jakých podílech a do jaké hloubky. Potřebné množství pro vlastní zahradu, plán dodávky i postup míchání a uložení navazuje v článku ', link(`/posts/${PROFILE_SLUG}`, PROFILE_TITLE), '.').children
+  finalOriginal.children = p('Tím máme rozhodnuto o složení: které materiály použít, v jakých podílech a do jaké hloubky. Potřebné množství pro vlastní zahradu, plán dodávky i postup míchání a uložení navazuje v článku ', link(`/magazin/${PROFILE_SLUG}`, PROFILE_TITLE), '.').children
   const originalFaq = clone(oldFaq)
   originalFaq.fields.items = [0, 1, 2, 4].map((i) => clone(oldFaq.fields.items[i]))
   originalFaq.fields.lead = 'Poměr volíme podle konkrétní půdy a jednotlivé příměsi rozmisťujeme podle jejich úlohy. Biochar předem obohatíme živinami; mykorhizní přípravek dávkujeme podle jeho návodu.'
-  original.push(originalFaq, block({ blockType: 'ctaBand', blockName: 'Od receptury k vlastní ploše', title: 'Poměr už znáte. Kolik materiálu připravit?', sub: 'Převeďte zvolené složení na svou plochu a hloubku. Navazující kalkulátor připraví přehled materiálů a článek provede mícháním, uložením i výsevem.', buttonLabel: 'Otevřít kalkulátor půdního profilu', buttonHref: `/posts/${PROFILE_SLUG}`, ask: 'Kterou vlastnost vaší půdy má navržená směs zlepšit?' }))
+  original.push(originalFaq, block({ blockType: 'ctaBand', blockName: 'Od receptury k vlastní ploše', title: 'Poměr už znáte. Kolik materiálu připravit?', sub: 'Převeďte zvolené složení na svou plochu a hloubku. Navazující kalkulátor připraví přehled materiálů a článek provede mícháním, uložením i výsevem.', buttonLabel: 'Otevřít kalkulátor půdního profilu', buttonHref: `/magazin/${PROFILE_SLUG}`, ask: 'Kterou vlastnost vaší půdy má navržená směs zlepšit?' }))
 
   const moved = nodes.slice(boundary)
   let chapterNumber = 0
@@ -107,7 +107,7 @@ export function splitPrimesiContent(input: unknown) {
      povrchy článku řadí, a nese i lepší výklad: odstavce nástroj uvedou. */
   const profile = [
     block({ blockType: 'summaryBand', blockName: 'Plán od objemu po výsev', lead: 'Nejdříve zvolíme, jakou půdu chceme připravit. Kalkulátor pak převede plochu, hloubky a podíly na množství materiálů. *Při práci hlídáme také skutečné promíchání, odtok vody a slehnutí povrchu.*', tiles: [{ value: '30', unit: 'm³', label: 'objem profilu 100 m² při 30 cm' }, { value: '27,5–28,5', unit: 't', label: 'písku u jílovité varianty' }, { value: '3', unit: 'zóny', label: 'navazující kořenové prostředí' }, { value: '2–6', unit: 'týdnů', label: 'orientační čas na slehnutí' }] }),
-    p('Kalkulátor slouží k plánování založení nebo výraznější obnovy trávníku. Výklad níže navazuje na článek ', link(`/posts/${ORIGINAL_SLUG}`, 'Písek, biochar a další příměsi: jak namíchat půdu pro trávník'), ', kde najdete účel materiálů, modelové rozsahy dávek a podmínky pro jílovitou, hlinitou a písčitou zahradu. Nejprve vybereme vhodné složení; čísla ve výpočtu pak pomáhají naplánovat dodávku a práci.'),
+    p('Kalkulátor slouží k plánování založení nebo výraznější obnovy trávníku. Výklad níže navazuje na článek ', link(`/magazin/${ORIGINAL_SLUG}`, 'Písek, biochar a další příměsi: jak namíchat půdu pro trávník'), ', kde najdete účel materiálů, modelové rozsahy dávek a podmínky pro jílovitou, hlinitou a písčitou zahradu. Nejprve vybereme vhodné složení; čísla ve výpočtu pak pomáhají naplánovat dodávku a práci.'),
     p('Příklady v článku počítají s profilem 30 cm: horních 10 cm obsahuje plnou směs, v zóně 10–15 cm zůstává zeolit a spodních 15 cm tvoří minerální základ. U jílovité varianty dělíme tento základ objemově 65/35 mezi písek a původní zeminu, u hlinité 30/70 a u písčité další písek nepřidáváme. Jde o modely k porovnání, nikoli povinnou hloubku výkopu nebo univerzální recept. Kalkulátor umožňuje přizpůsobit zvolenou hloubku a poměry skutečné zahradě.'),
     block({ blockType: 'calculator', blockName: PROFILE_TITLE, kind: 'pudni-profil', surface: 'band', layout: 'axis' }),
     ...moved,

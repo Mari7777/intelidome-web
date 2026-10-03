@@ -796,7 +796,7 @@ export interface Form {
 export interface Redirect {
   id: number;
   /**
-   * You will need to rebuild the website when changing this field.
+   * Cesta bez jazykového prefixu; články se zapisují jako /magazin/<slug> (ADR-009). Staré /posts/… sem nepatří — vede je trvalé přesměrování v redirects.ts.
    */
   from: string;
   to?: {

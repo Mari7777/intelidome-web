@@ -34,10 +34,15 @@ describe('matcher proxy', () => {
   it('chytá běžné stránky včetně slugů začínajících na vyhrazený prefix', () => {
     for (const cesta of [
       '/',
+      '/magazin',
+      '/magazin/pisek-biochar-a-dalsi-primesi',
+      '/magazin/strana/2',
+      // Staré adresy přesměrují redirects z next.config ještě před proxy (ADR-009).
       '/posts',
       '/posts/pisek-biochar-a-dalsi-primesi',
       '/search',
       '/en',
+      '/en/magazin/x',
       '/en/posts/x',
       '/nextgen-zavlaha',
       '/apiary',

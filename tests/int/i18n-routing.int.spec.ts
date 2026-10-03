@@ -2,7 +2,7 @@
 import { describe, expect, it } from 'vitest'
 
 import { LOCALES } from '../../src/i18n/config'
-import { interniCesty, lokalizujCestu, odstranPrefix, rssCesta, verejnaCesta, zakladniCesta } from '../../src/i18n/routing'
+import { cestaMagazinu, interniCesty, lokalizujCestu, odstranPrefix, rssCesta, verejnaCesta, zakladniCesta } from '../../src/i18n/routing'
 
 describe('lokalizujCestu', () => {
   it('nechává externí, kotvy, `//` a prázdný řetězec', () => {
@@ -18,9 +18,9 @@ describe('lokalizujCestu', () => {
   })
 
   it('je idempotentní a pro cs beze změny', () => {
-    expect(lokalizujCestu('/en/posts/x', 'en')).toBe('/en/posts/x')
+    expect(lokalizujCestu('/en/magazin/x', 'en')).toBe('/en/magazin/x')
     expect(lokalizujCestu('/de', 'en')).toBe('/de')
-    expect(lokalizujCestu('/posts/x', 'cs')).toBe('/posts/x')
+    expect(lokalizujCestu('/magazin/x', 'cs')).toBe('/magazin/x')
     expect(lokalizujCestu('/', 'cs')).toBe('/')
     // `/enx` není jazyk
     expect(lokalizujCestu('/enx', 'de')).toBe('/de/enx')
@@ -28,16 +28,16 @@ describe('lokalizujCestu', () => {
 
   it('prefixuje a zachová query i hash', () => {
     expect(lokalizujCestu('/', 'en')).toBe('/en')
-    expect(lokalizujCestu('/posts/x?a=1#k', 'en')).toBe('/en/posts/x?a=1#k')
+    expect(lokalizujCestu('/magazin/x?a=1#k', 'en')).toBe('/en/magazin/x?a=1#k')
     expect(lokalizujCestu('/search?q=puda', 'de')).toBe('/de/search?q=puda')
   })
 })
 
 describe('odstranPrefix', () => {
   it('rozpozná prefix a vrátí cestu bez něj', () => {
-    expect(odstranPrefix('/en/posts/x')).toEqual({ locale: 'en', path: '/posts/x' })
+    expect(odstranPrefix('/en/magazin/x')).toEqual({ locale: 'en', path: '/magazin/x' })
     expect(odstranPrefix('/en')).toEqual({ locale: 'en', path: '/' })
-    expect(odstranPrefix('/posts/x')).toEqual({ locale: 'cs', path: '/posts/x' })
+    expect(odstranPrefix('/magazin/x')).toEqual({ locale: 'cs', path: '/magazin/x' })
     expect(odstranPrefix('/enx')).toEqual({ locale: 'cs', path: '/enx' })
     expect(odstranPrefix('/')).toEqual({ locale: 'cs', path: '/' })
   })
@@ -47,9 +47,9 @@ describe('interniCesty', () => {
   it('vrací cestu route stromu pro každý jazyk, vždy i /cs', () => {
     const posts = interniCesty('posts', 'x')
     expect(posts).toHaveLength(LOCALES.length)
-    expect(posts).toContain('/cs/posts/x')
-    expect(posts).toContain('/en/posts/x')
-    expect(posts).not.toContain('/posts/x')
+    expect(posts).toContain('/cs/magazin/x')
+    expect(posts).toContain('/en/magazin/x')
+    expect(posts).not.toContain('/magazin/x')
 
     expect(interniCesty('pages', 'home')).toContain('/cs')
     expect(interniCesty('pages', 'home')).not.toContain('/')
@@ -59,16 +59,25 @@ describe('interniCesty', () => {
 
 describe('zakladniCesta', () => {
   it('jediný zdroj neprefixované adresy dokumentu', () => {
-    expect(zakladniCesta('posts', 'x')).toBe('/posts/x')
+    expect(zakladniCesta('posts', 'x')).toBe('/magazin/x')
     expect(zakladniCesta('pages', 'home')).toBe('/')
     expect(zakladniCesta('pages', 'o-nas')).toBe('/o-nas')
   })
 })
 
+describe('cestaMagazinu', () => {
+  it('domovská stránka magazínu a stránkování česky (ADR-009)', () => {
+    expect(cestaMagazinu()).toBe('/magazin')
+    expect(cestaMagazinu(1)).toBe('/magazin')
+    expect(cestaMagazinu(2)).toBe('/magazin/strana/2')
+    expect(lokalizujCestu(cestaMagazinu(3), 'en')).toBe('/en/magazin/strana/3')
+  })
+})
+
 describe('verejnaCesta', () => {
   it('skládá veřejnou adresu dokumentu', () => {
-    expect(verejnaCesta('posts', 'x', 'cs')).toBe('/posts/x')
-    expect(verejnaCesta('posts', 'x', 'en')).toBe('/en/posts/x')
+    expect(verejnaCesta('posts', 'x', 'cs')).toBe('/magazin/x')
+    expect(verejnaCesta('posts', 'x', 'en')).toBe('/en/magazin/x')
     expect(verejnaCesta('pages', 'home', 'cs')).toBe('/')
     expect(verejnaCesta('pages', 'home', 'en')).toBe('/en')
     expect(verejnaCesta('pages', 'o-nas', 'de')).toBe('/de/o-nas')

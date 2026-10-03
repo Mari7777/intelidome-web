@@ -55,13 +55,13 @@ describe('dokumenty a jazyk (A4–A6)', () => {
   })
 
   it('rozhodniDokument: chybí → 404, nepřeložený → 307 na cs, náhled projde, cs projde', () => {
-    expect(digest(() => rozhodniDokument({ doc: null, locale: 'de', draft: false, csCesta: '/posts/x' }))).toMatch(/404/)
+    expect(digest(() => rozhodniDokument({ doc: null, locale: 'de', draft: false, csCesta: '/magazin/x' }))).toMatch(/404/)
     expect(
-      digest(() => rozhodniDokument({ doc: { prelozeno: false }, locale: 'de', draft: false, csCesta: '/posts/x' })),
-    ).toMatch(/NEXT_REDIRECT;replace;\/posts\/x;307/)
-    expect(digest(() => rozhodniDokument({ doc: { prelozeno: false }, locale: 'de', draft: true, csCesta: '/posts/x' }))).toBe('nic')
-    expect(digest(() => rozhodniDokument({ doc: { prelozeno: true }, locale: 'de', draft: false, csCesta: '/posts/x' }))).toBe('nic')
-    expect(digest(() => rozhodniDokument({ doc: { prelozeno: false }, locale: 'cs', draft: false, csCesta: '/posts/x' }))).toBe('nic')
+      digest(() => rozhodniDokument({ doc: { prelozeno: false }, locale: 'de', draft: false, csCesta: '/magazin/x' })),
+    ).toMatch(/NEXT_REDIRECT;replace;\/magazin\/x;307/)
+    expect(digest(() => rozhodniDokument({ doc: { prelozeno: false }, locale: 'de', draft: true, csCesta: '/magazin/x' }))).toBe('nic')
+    expect(digest(() => rozhodniDokument({ doc: { prelozeno: true }, locale: 'de', draft: false, csCesta: '/magazin/x' }))).toBe('nic')
+    expect(digest(() => rozhodniDokument({ doc: { prelozeno: false }, locale: 'cs', draft: false, csCesta: '/magazin/x' }))).toBe('nic')
   })
 
   it('najdiDokument vrátí český článek, neexistující slug → null', async () => {

@@ -66,7 +66,7 @@ type NodeTypes =
     >
 
 import type { Locale } from '@/i18n/config'
-import { lokalizujCestu } from '@/i18n/routing'
+import { lokalizujCestu, zakladniCesta } from '@/i18n/routing'
 
 const internalDocToHref = ({ linkNode }: { linkNode: SerializedLinkNode }) => {
   const { value, relationTo } = linkNode.fields.doc!
@@ -74,7 +74,7 @@ const internalDocToHref = ({ linkNode }: { linkNode: SerializedLinkNode }) => {
     throw new Error('Expected value to be an object')
   }
   const slug = value.slug
-  return relationTo === 'posts' ? `/posts/${slug}` : `/${slug}`
+  return zakladniCesta(relationTo === 'posts' ? 'posts' : 'pages', String(slug))
 }
 
 /**

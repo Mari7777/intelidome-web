@@ -3,7 +3,7 @@ import { absoluteSiteURL, getServerSideURL } from './getURL'
 import { readingTime } from './readingTime'
 import { slugify } from './slugify'
 import { DEFAULT_LOCALE, type Locale } from '@/i18n/config'
-import { lokalizujCestu, verejnaCesta } from '@/i18n/routing'
+import { cestaMagazinu, lokalizujCestu, verejnaCesta } from '@/i18n/routing'
 import { t } from '@/i18n/ui'
 
 /** Only headings rendered with stable anchors by Chapter/Split enter navigation. */
@@ -29,7 +29,7 @@ export function getArticleSections(content: Post['content']) {
 
 /**
  * Schema mirrors the article, visible dates, publisher and breadcrumb navigation.
- * `locale` řídí adresu (`/en/posts/x`), `inLanguage` a lokalizovanou drobenku;
+ * `locale` řídí adresu (`/en/magazin/x`), `inLanguage` a lokalizovanou drobenku;
  * `preklady` (≥ 2, s aktuálním jazykem) přidá u cs `workTranslation` na překlady,
  * u překladu `translationOfWork` na český originál. Texty drobenky ze
  * slovníku UI (`t`). Organization @id je globální.
@@ -90,7 +90,7 @@ export function articleJsonLd(
         '@type': 'BreadcrumbList', '@id': `${url}#breadcrumbs`,
         itemListElement: [
           { '@type': 'ListItem', position: 1, name: t(locale, 'seo.breadcrumbHome'), item: absoluteSiteURL(lokalizujCestu('/', locale)) },
-          { '@type': 'ListItem', position: 2, name: t(locale, 'seo.breadcrumbPosts'), item: absoluteSiteURL(lokalizujCestu('/posts', locale)) },
+          { '@type': 'ListItem', position: 2, name: t(locale, 'seo.breadcrumbPosts'), item: absoluteSiteURL(lokalizujCestu(cestaMagazinu(), locale)) },
           { '@type': 'ListItem', position: 3, name: post.title, item: url },
         ],
       },

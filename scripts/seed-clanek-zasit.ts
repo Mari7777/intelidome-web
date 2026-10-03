@@ -1,6 +1,6 @@
 /**
  * Článek „Jak zasít trávník: od prvního zalití k pevným kořenům" do LOKÁLNÍ
- * databáze (stabilní adresa /posts/jak-zasit-travnik).
+ * databáze (stabilní adresa /magazin/jak-zasit-travnik).
  * Spuštění:  npm run payload -- run scripts/seed-clanek-zasit.ts
  *
  * Idempotentní: článek najde podle slugu a přepíše jen češtinu
@@ -209,7 +209,7 @@ function buildContent(): ArticleDocument {
       title: 'Od první zálivky k závlaze, která se řídí půdou',
       sub: 'Mladý trávník potřebuje jiný režim na slunci, ve stínu i pod stromem. Průvodce návrhem automatické závlahy ukáže, jak zahradu rozdělit na sektory a každému dát vlastní dávku.',
       buttonLabel: 'Jak navrhnout automatickou závlahu',
-      buttonHref: '/posts/jak-navrhnout-automatickou-zavlahu',
+      buttonHref: '/magazin/jak-navrhnout-automatickou-zavlahu',
       ask: 'A otázka na závěr: víte, kam až dnes sahají kořeny vašeho trávníku?',
     }),
   )
@@ -312,7 +312,7 @@ const run = async () => {
       await publikujCs(payload, { collection: 'posts', id: created.id, data: { relatedPosts: serie.docs.map((post) => post.id) }, req })
     }
     await payload.db.commitTransaction(transactionID)
-    payload.logger.info(`Článek aktualizován: /posts/${SLUG}`)
+    payload.logger.info(`Článek aktualizován: /magazin/${SLUG}`)
   } catch (error) {
     await payload.db.rollbackTransaction(transactionID)
     throw error

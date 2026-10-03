@@ -22,6 +22,13 @@ type Args<K extends Kolekce> = {
 export async function publikujCs<K extends Kolekce>(payload: Payload, args: Args<K>) {
   const { collection, id, data, req, depth = 0 } = args
 
+  // Články mají adresu /magazin (ADR-009). Průchozí převodníky odkazů ve skriptech
+  // kopírují adresu doslova, takže by revize nad starým obsahem vrátila /posts.
+  const zapis = JSON.stringify(data)
+  if (/(\]\(|"|')\/posts(\/|["')?#]|$)/.test(zapis)) {
+    throw new Error(`Zápis ${collection} ${id} obsahuje starou adresu /posts/…; články jsou na /magazin (ADR-009).`)
+  }
+
   const doc = await payload.update({
     collection,
     id,

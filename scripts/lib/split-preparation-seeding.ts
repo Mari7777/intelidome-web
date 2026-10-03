@@ -15,8 +15,8 @@ export const SEEDING_META = {
   title: 'Setí trávníku: výsev, první zálivka a sečení',
   description: 'Jak zasít trávník do připravené půdy: volba osiva, dávka, mělké zapravení, mykorhiza a jemná zálivka. Kdy začít s prvním sečením mladého porostu.',
 }
-const preparationPath = `/posts/${PREPARATION_SLUG}`
-const seedingPath = `/posts/${SEEDING_SLUG}`
+const preparationPath = `/magazin/${PREPARATION_SLUG}`
+const seedingPath = `/magazin/${SEEDING_SLUG}`
 const mycorrhizaTitle = 'Mykorhizu umístit tam, kde se setká s mladými kořeny'
 const seedTitle = 'Několik kilogramů semen nad desítkami tun připravené půdy'
 const movedAnchors = [

@@ -3,10 +3,10 @@ import { cloneDocument, setFaq } from './lawn-series-helpers'
 type Fields = Record<string, any>
 
 const paths = {
-  soil: '/posts/krasny-travnik-zacina-pod-zemi-2',
-  ingredients: '/posts/pisek-biochar-a-dalsi-primesi',
-  profile: '/posts/kalkulator-na-planovani-pudniho-profilu',
-  preparation: '/posts/jak-pripravit-a-ulozit-smes',
+  soil: '/magazin/krasny-travnik-zacina-pod-zemi-2',
+  ingredients: '/magazin/pisek-biochar-a-dalsi-primesi',
+  profile: '/magazin/kalkulator-na-planovani-pudniho-profilu',
+  preparation: '/magazin/jak-pripravit-a-ulozit-smes',
 }
 
 function findFields(doc: any, blockType: string, title?: string): Fields {

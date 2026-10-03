@@ -23,7 +23,7 @@ export const PROFILE_RHYTHM_SECTIONS: RhythmSection[] = [
     "photoRatio": "2:3",
     "caption": "Do výpočtu patří jen plocha, kterou skutečně upravíte; cesta a záhon zůstávají mimo pásmo.",
     "body": [
-      "Nejprve rozhodněte, co vaše půda potřebuje změnit. Výchozí předvolby slouží k porovnání možností, nejsou univerzálním doporučením pro každou zahradu. Účel surovin a rozsahy jejich podílů vysvětluje článek [Písek, biochar a další příměsi: jak namíchat půdu pro trávník](/posts/pisek-biochar-a-dalsi-primesi).",
+      "Nejprve rozhodněte, co vaše půda potřebuje změnit. Výchozí předvolby slouží k porovnání možností, nejsou univerzálním doporučením pro každou zahradu. Účel surovin a rozsahy jejich podílů vysvětluje článek [Písek, biochar a další příměsi: jak namíchat půdu pro trávník](/magazin/pisek-biochar-a-dalsi-primesi).",
       "Pro vlastní výpočet zadejte plochu v m², hloubku profilu v cm a způsob úpravy terénu. U každé příměsi nastavte podíl i hloubku zapravení. Výsledky níže v článku ukazují jeden konkrétní příklad bez rezervy; kalkulátor je přepočítá podle vašich vstupů.",
       "Plochu měřte jen tam, kde budete půdu skutečně upravovat. Odečtěte cesty, terasu a záhony. Má-li zahrada výrazně odlišné části, spočítejte je jednotlivě: stejná receptura nemusí dávat smysl u vlhkého jílovitého kouta a na rychle vysychajícím svahu. Objednávky pak sečtěte po materiálech.",
       "Hloubka profilu znamená tloušťku půdy, se kterou ve výpočtu pracujete. Výchozích 30 cm je model, nikoli pokyn celou zahradu tak hluboko vykopat. U Actina (dříve Biovin), zeolitu a biocharu zadáváte vlastní hloubku od povrchu: například 10 cm znamená zapravení do celé vrstvy 0–10 cm. Žádná příměs nemá sahat pod zvolený profil.",
@@ -104,10 +104,10 @@ export const PROFILE_RHYTHM_SECTIONS: RhythmSection[] = [
     "caption": "Stejných 100 m² a 30 cm: výchozí předvolby počítají u jílovité zahrady s dovozem 19,01 m³ písku, u hlinité s 8,78 m³ a u písčité bez dalšího písku.",
     "body": [
       "U těžší hlinité zahrady s udržovanou ornicí vychází model z poměru písku a zeminy 30/70 v minerálním základu. Výchozí varianta Actino nepřidává; ostatní podíly přizpůsobte potřebám půdy.",
-      "Pokud půda dobře přijímá vodu a kořeny jí prorůstají, nevyplývá z předvolby povinnost ji přestavovat. Než tento model použijete, ověřte, zda odpovídá vaší zahradě. Rozpoznáním půdy vás provede článek [Krásný trávník začíná pod zemí](/posts/krasny-travnik-zacina-pod-zemi-2#pisek-jil-nebo-hlina-prozradi-to-vase-dlan).",
+      "Pokud půda dobře přijímá vodu a kořeny jí prorůstají, nevyplývá z předvolby povinnost ji přestavovat. Než tento model použijete, ověřte, zda odpovídá vaší zahradě. Rozpoznáním půdy vás provede článek [Krásný trávník začíná pod zemí](/magazin/krasny-travnik-zacina-pod-zemi-2#pisek-jil-nebo-hlina-prozradi-to-vase-dlan).",
       "### Písčitá zahrada: bez dalšího písku",
       "U chudé, rychle vysychající písčité zahrady model další písek nepřidává. Pozornost směřuje k zadržení vody a živin pomocí vhodně zvolených příměsí. Nestačí však jen zvýšit jejich procenta: zohledněte současnou organickou hmotu, hloubku úpravy i konkrétní materiál.",
-      "Vyšší dávka není automaticky lepší a dvě písčité zahrady nemusí potřebovat stejnou směs. Jak písčitou půdu poznat a co sledovat, vysvětluje článek [Krásný trávník začíná pod zemí](/posts/krasny-travnik-zacina-pod-zemi-2#pisek-jil-nebo-hlina-prozradi-to-vase-dlan)."
+      "Vyšší dávka není automaticky lepší a dvě písčité zahrady nemusí potřebovat stejnou směs. Jak písčitou půdu poznat a co sledovat, vysvětluje článek [Krásný trávník začíná pod zemí](/magazin/krasny-travnik-zacina-pod-zemi-2#pisek-jil-nebo-hlina-prozradi-to-vase-dlan)."
     ]
   },
   {
@@ -139,7 +139,7 @@ export const PROFILE_RHYTHM_SECTIONS: RhythmSection[] = [
       "Rezerva navyšuje jen dovážené množství a nemění čistý poměr směsi, ponechanou zeminu ani odvoz. Kalkulátor používá vztah objednávka = čisté množství ÷ (1 − rezerva/100). Při 10 % tedy 200 litrů vyžaduje přibližně 222 litrů k objednání. Tato volba není prosté přičtení 10 %; umožňuje pokrýt uvažovaný úbytek z dodaného množství.",
       "Cenu zadávejte v jednotkách uvedených u příslušného pole a podle skutečné nabídky. Orientační součet materiálů není rozpočtem celé realizace: zvlášť připočtěte dopravu, vykládku, odvoz a uložení zeminy i práci.",
       "Mykorhizní přípravek a případné startovací hnojení řešte podle výrobku a receptury. Při hnojení zohledněte také živiny dodané Actinem a kompostem; plné dávky těchto vstupů nekombinujte automaticky.",
-      "Po naplánování dodávky pokračujte návodem [Jak připravit a uložit směs](/posts/jak-pripravit-a-ulozit-smes). Navazuje promícháním, kontrolou slehnutí, výsevem a první péčí o trávník."
+      "Po naplánování dodávky pokračujte návodem [Jak připravit a uložit směs](/magazin/jak-pripravit-a-ulozit-smes). Navazuje promícháním, kontrolou slehnutí, výsevem a první péčí o trávník."
     ]
   }
 ]

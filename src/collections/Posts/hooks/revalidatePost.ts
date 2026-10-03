@@ -3,15 +3,23 @@ import type { CollectionAfterChangeHook, CollectionAfterDeleteHook } from 'paylo
 import { revalidatePath, revalidateTag } from 'next/cache'
 
 import type { Post } from '../../../payload-types'
-import { interniCesty } from '@/i18n/routing'
+import { LOCALES } from '@/i18n/config'
+import { cestaMagazinu, interniCesty } from '@/i18n/routing'
 
-// Revaliduje se cesta ROUTE STROMU (`/cs/posts/x`, `/en/posts/x`, …), ne veřejná
-// `/posts/x`: po rewritu z proxy by ta cache netrefila (A14).
+// Revaliduje se cesta ROUTE STROMU (`/cs/magazin/x`, `/en/magazin/x`, …), ne veřejná
+// `/magazin/x`: po rewritu z proxy by ta cache netrefila (A14). Spolu s článkem
+// domovská stránka magazínu a RSS, jinak by čekaly na ISR až 600 s (ADR-009).
 const revaliduj = (slug: string) => {
   for (const cesta of interniCesty('posts', slug)) revalidatePath(cesta)
+  for (const kod of LOCALES) {
+    // 'layout' = celý podstrom /{l}/magazin: domovská stránka i stránkování.
+    revalidatePath('/' + kod + cestaMagazinu(), 'layout')
+    revalidatePath('/' + kod + '/feed.xml')
+  }
+  revalidatePath('/feed.xml')
 }
 
-// pages-sitemap nese i výpis `/{l}/posts` (jen pro jazyky s ≥ 1 přeloženým
+// pages-sitemap nese i výpis `/{l}/magazin` (jen pro jazyky s ≥ 1 přeloženým
 // článkem, A19), proto ho změna článku invaliduje spolu s posts-sitemap.
 const revalidujSitemapy = () => {
   revalidateTag('posts-sitemap', 'max')

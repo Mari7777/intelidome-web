@@ -33,8 +33,8 @@ const getPagesSitemap = unstable_cache(
       },
     })
 
-    // Výpis `/posts` je i v cizím jazyce jen s ≥ 1 přeloženým článkem (A6);
-    // s jediným živým jazykem se články nečtou (dnešní záznam `/posts`).
+    // Výpis `/magazin` je i v cizím jazyce jen s ≥ 1 přeloženým článkem (A6);
+    // s jediným živým jazykem se články nečtou (dnešní záznam `/magazin`).
     const posts =
       LIVE_LOCALES.length >= 2
         ? (
@@ -53,13 +53,15 @@ const getPagesSitemap = unstable_cache(
           ).docs
         : []
 
-    const pages = (results.docs ?? []).filter((page) => page.slug !== 'search')
+    const pages = (results.docs ?? []).filter((page) => !['search', 'magazin', 'posts'].includes(page.slug ?? ''))
 
     return [...sitemapVypisu(posts, siteUrl, LIVE_LOCALES), ...sitemapZaznamy('pages', pages, siteUrl, LIVE_LOCALES)]
   },
-  ['pages-sitemap'],
+  // Klíč nese segment magazínu: po přesunu z /posts (ADR-009) by se jinak
+  // rok servírovala zastaralá adresa z datové cache.
+  ['pages-sitemap', 'magazin'],
   {
-    // Obsah závisí i na kolekci posts (výpis `/{l}/posts`), proto tag
+    // Obsah závisí i na kolekci posts (výpis `/{l}/magazin`), proto tag
     // `pages-sitemap` revalidují i hooky Posts (revalidatePost/revalidateDelete).
     tags: ['pages-sitemap'],
   },

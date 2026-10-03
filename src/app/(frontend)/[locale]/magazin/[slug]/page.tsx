@@ -19,7 +19,7 @@ import { ArticleNavigation } from '@/components/ArticleNavigation'
 import PageClient from './page.client'
 import { LivePreviewListener } from '@/components/LivePreviewListener'
 import { jeLocale } from '@/i18n/config'
-import { verejnaCesta } from '@/i18n/routing'
+import { verejnaCesta, zakladniCesta } from '@/i18n/routing'
 import { vynutZivost } from '@/i18n/zivost'
 import { najdiDokument, prekladyDokumentu, rozhodniDokument } from '@/i18n/dokumenty'
 
@@ -60,7 +60,7 @@ export default async function Post({ params: paramsPromise }: Args) {
   const csCesta = verejnaCesta('posts', encodeURIComponent(decodedSlug), 'cs')
   vynutZivost(locale, csCesta, draft)
   // Cesta bez jazykového prefixu: CMS přesměrování (`from`) se zapisují česky.
-  const url = '/posts/' + decodedSlug
+  const url = zakladniCesta('posts', decodedSlug)
   const post = await najdiDokument({ collection: 'posts', slug: decodedSlug, locale, draft })
 
   // Chybí → CMS přesměrování má přednost, jinak 404 (A6).

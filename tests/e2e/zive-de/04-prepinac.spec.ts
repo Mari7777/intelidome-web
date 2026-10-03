@@ -6,10 +6,10 @@ import { SLUG_PRELOZENY } from './konstanty'
 const cookie = async (page: Page) => (await page.context().cookies()).find((c) => c.name === 'NEXT_LOCALE')?.value
 
 test.describe('přepínač jazyků', () => {
-  test('13: hlavička i patička ≥ 640 px; klik de → /de/… (měkká navigace, cookie de až po plném načtení); klik cs → /posts/… (cookie cs po načtení)', async ({ page }) => {
+  test('13: hlavička i patička ≥ 640 px; klik de → /de/… (měkká navigace, cookie de až po plném načtení); klik cs → /magazin/… (cookie cs po načtení)', async ({ page }) => {
     await page.setViewportSize({ width: 1440, height: 900 })
-    const cs = `/posts/${SLUG_PRELOZENY}`
-    const de = `/de/posts/${SLUG_PRELOZENY}`
+    const cs = `/magazin/${SLUG_PRELOZENY}`
+    const de = `/de/magazin/${SLUG_PRELOZENY}`
     await page.goto(cs)
     expect(await cookie(page)).toBe('cs')
 
@@ -48,7 +48,7 @@ test.describe('přepínač jazyků', () => {
     test.use({ viewport: { width: 393, height: 852 }, hasTouch: true, isMobile: true })
 
     test('13b: přepínač jen v patičce, odkazy s dotykovým cílem ≥ 24 px', async ({ page }) => {
-      await page.goto(`/posts/${SLUG_PRELOZENY}`)
+      await page.goto(`/magazin/${SLUG_PRELOZENY}`)
       await expect(page.locator('header .id-capsule a[lang="de"]')).toBeHidden()
       const paticka = page.locator('footer a[lang="de"]')
       await paticka.scrollIntoViewIfNeeded()
@@ -61,7 +61,7 @@ test.describe('přepínač jazyků', () => {
   })
 
   test('14: každý odkaz v kapsli a patičce má jméno, žádný img[alt=""]; UI česky (fallback zaznamenán)', async ({ page }) => {
-    for (const cesta of ['/de', `/de/posts/${SLUG_PRELOZENY}`]) {
+    for (const cesta of ['/de', `/de/magazin/${SLUG_PRELOZENY}`]) {
       await page.goto(cesta)
       const nalez = await page.evaluate(() => {
         const jmeno = (a: Element) => (a.textContent?.trim() || a.getAttribute('aria-label') || '').trim()

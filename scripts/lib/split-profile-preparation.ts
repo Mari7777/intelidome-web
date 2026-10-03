@@ -18,7 +18,7 @@ type Node = { type: string; version: number; [key: string]: any }
 type Document = { root: { type: string; children: Node[]; direction: 'ltr' | 'rtl' | null; format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | ''; indent: number; version: number; [key: string]: any }; [key: string]: any }
 const txt = (text: string): Node => ({ type: 'text', text, format: 0, detail: 0, mode: 'normal', style: '', version: 1 })
 const p = (...children: (string | Node)[]): Node => ({ type: 'paragraph', children: children.map((v) => typeof v === 'string' ? txt(v) : v), format: '', indent: 0, direction: 'ltr', textFormat: 0, version: 1 })
-const link = (slug: string, label: string): Node => ({ type: 'link', children: [txt(label)], direction: 'ltr', format: '', indent: 0, version: 2, fields: { linkType: 'custom', newTab: false, url: `/posts/${slug}` } })
+const link = (slug: string, label: string): Node => ({ type: 'link', children: [txt(label)], direction: 'ltr', format: '', indent: 0, version: 2, fields: { linkType: 'custom', newTab: false, url: `/magazin/${slug}` } })
 const block = (fields: Record<string, unknown>): Node => ({ type: 'block', fields, format: '', version: 2 })
 const root = (children: Node[]): Document => ({ root: { type: 'root', children, direction: 'ltr', format: '', indent: 0, version: 1 } })
 const textOf = (node: Node): string => node.text ?? (node.children ?? []).map(textOf).join('')
@@ -84,14 +84,14 @@ export function revisePracticalSoilMixing(input: unknown): Document {
   faq.fields.items[0] = faqItem('Musím půdní profil stavět z přesných vrstev?', 'Ne. Zeminu a případný písek promíchejte v plánované hloubce; na modelových 30 cm může být potřeba odpovídající stroj nebo jiný postup než jeden přejezd běžným rotavátorem. Pak zapravte zeolit jen do hloubky zvolené v kalkulátoru a biochar či Actino do mělké horní části. Materiál rozprostírejte po pracovních úsecích přibližně rovnoměrně, bez odměřování po kbelících.')
   faq.fields.items[1] = faqItem('Dokončí rovnoměrné promíchání déšť?', 'Ne. Déšť může přesouvat rozpuštěné látky, ale pevná zrnka zeolitu nebo biocharu rovnoměrně nepromíchá do zadané hloubky. Po práci zkontrolujte několik míst malou sondou.')
   for (const node of nodes) for (const child of node.children ?? []) {
-    if (child.type === 'link' && child.fields?.url === `/posts/${PROFILE_SLUG}` && child.children?.[0]?.text === PROFILE_TITLE) {
+    if (child.type === 'link' && child.fields?.url === `/magazin/${PROFILE_SLUG}` && child.children?.[0]?.text === PROFILE_TITLE) {
       child.children[0].text = 'Kalkulátor půdy pod trávník'
     }
   }
   /* Závěr série je CTA pás (8.2 ř. N+2), ne osiřelý odstavec mezi FAQ
      a Souvisejícími články. */
   const closing = findParagraph(nodes, 'Než naplánujete jednotlivé pracovní dávky')
-  nodes.splice(nodes.indexOf(closing), 1, block({ blockType: 'ctaBand', blockName: 'Od postupu k vlastní ploše', title: 'Kolik materiálu objednat na vaši plochu?', sub: 'Kalkulátor půdy převede plochu, hloubku a zvolenou směs na množství zeminy, písku a příměsí. S výsledkem naplánujete dodávky i pracovní úseky.', buttonLabel: 'Otevřít kalkulátor půdy', buttonHref: `/posts/${PROFILE_SLUG}`, ask: 'A otázka na závěr: víte, jak hluboko váš stroj skutečně promíchá?' }))
+  nodes.splice(nodes.indexOf(closing), 1, block({ blockType: 'ctaBand', blockName: 'Od postupu k vlastní ploše', title: 'Kolik materiálu objednat na vaši plochu?', sub: 'Kalkulátor půdy převede plochu, hloubku a zvolenou směs na množství zeminy, písku a příměsí. S výsledkem naplánujete dodávky i pracovní úseky.', buttonLabel: 'Otevřít kalkulátor půdy', buttonHref: `/magazin/${PROFILE_SLUG}`, ask: 'A otázka na závěr: víte, jak hluboko váš stroj skutečně promíchá?' }))
   renumberFigures(nodes)
   return preparation
 }
@@ -204,7 +204,7 @@ export function splitProfilePreparationContent(profileContent: unknown, original
   intro.children = p('V tomto článku si představíme jednotlivé složky a vysvětlíme, co mohou v půdě změnit. Podíváme se, proč o směsi rozhoduje objem, přestože dodávka přijíždí v tunách, a jak příměsi rozmístit v kořenové vrstvě. Na třech modelových zahradách ukážeme vhodné rozsahy dávek. Výpočet materiálu pro vlastní plochu najdete v článku ', link(PROFILE_SLUG, PROFILE_TITLE), '; práci s připravenou směsí popisuje návod ', link(SLUG, TITLE), '.').children
   const conclusion = findParagraph(originalNodes, 'Tím máme rozhodnuto o složení:')
   conclusion.children = p('Tím máme rozhodnuto o složení: které materiály použít, v jakých podílech a do jaké hloubky. Potřebné množství pro vlastní zahradu a plán dodávky připravíte v článku ', link(PROFILE_SLUG, PROFILE_TITLE), '. Samotným mícháním a ukládáním směsi provede návod ', link(SLUG, TITLE), '.').children
-  const cta = originalNodes.find((n) => n.fields?.blockType === 'ctaBand' && n.fields.buttonHref === `/posts/${PROFILE_SLUG}`)
+  const cta = originalNodes.find((n) => n.fields?.blockType === 'ctaBand' && n.fields.buttonHref === `/magazin/${PROFILE_SLUG}`)
   if (!cta) throw new Error('Expected original article calculator link')
   cta.fields.sub = 'Převeďte zvolené složení na svou plochu a hloubku. Navazující kalkulátor připraví přehled objemů, hmotností a balení pro objednávku materiálů.'
 

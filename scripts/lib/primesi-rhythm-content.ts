@@ -26,7 +26,7 @@ export const PRIMESI_RHYTHM_SECTIONS: RhythmSection[] = [
     "caption": "Vlevo jíl s převahou písku, tečky jsou původní zemina; příměsí je málo a čárkovaná linka se šipkou ukazuje, kudy voda odchází dolů. Vpravo písčitá zemina, příměsí víc: kapka zůstává mezi nimi.",
     "body": [
       "V tomto článku si představíme jednotlivé složky a vysvětlíme, co mohou v půdě změnit. Podíváme se, proč o směsi rozhoduje objem, přestože dodávka přijíždí v tunách, a jak příměsi rozmístit v kořenové vrstvě. Na třech modelových zahradách ukážeme vhodné rozsahy dávek.",
-      "Výpočet materiálu pro vlastní plochu najdete v článku [Kalkulátor na plánování půdního profilu](/posts/kalkulator-na-planovani-pudniho-profilu); práci s připravenou směsí popisuje návod [Jak připravit a uložit směs](/posts/jak-pripravit-a-ulozit-smes).",
+      "Výpočet materiálu pro vlastní plochu najdete v článku [Kalkulátor na plánování půdního profilu](/magazin/kalkulator-na-planovani-pudniho-profilu); práci s připravenou směsí popisuje návod [Jak připravit a uložit směs](/magazin/jak-pripravit-a-ulozit-smes).",
       "Představme si dvě sousední zahrady po stejném dešti. Na první se zemina lepí na boty a voda dlouho neodchází. Na druhé se po chvíli dá pohodlně chodit, jenže o několik suchých dnů později už tráva začíná strádat. Oběma zahradám chceme pomoci. Kdybychom ale na obě navezli stejnou směs ve stejném poměru, řešili bychom dva různé problémy jednou odpovědí."
     ]
   },
@@ -80,7 +80,7 @@ export const PRIMESI_RHYTHM_SECTIONS: RhythmSection[] = [
       "Také mikroorganismy, které rozkládají snadno rozložitelné zbytky uhlíku v biocharu, mohou pro svou činnost dočasně spotřebovat část dostupného dusíku. Proto biochar před zapravením do půdy „nabijeme“ – tedy **předem obohatíme živinami, například přípravou s vlhkým kompostem**.",
       "Voda pomáhá živinám proniknout do jeho drobných pórů a část se zachytí na jeho povrchu. Kompost zároveň pomáhá biochar osídlit mikroorganismy. Samotná čistá voda ale nestačí: biochar navlhčí, nikoli vyživí.",
       "Ještě jedna otázka při nákupu ušetří chybu v množství: **kolik samotného biocharu dodávka obsahuje?** Naše recepty počítají s objemem biocharu, nikoli celé směsi s kompostem.",
-      "Kompost dodaný spolu s ním nebo použitý při domácím nabíjení proto započítáme zvlášť, stejně jako přinesené živiny při plánování hnojení. Přesný postup najdete v navazujícím článku [Kalkulátor půdy pod trávník: kolik písku, zeminy a příměsí potřebujete](/posts/kalkulator-na-planovani-pudniho-profilu)."
+      "Kompost dodaný spolu s ním nebo použitý při domácím nabíjení proto započítáme zvlášť, stejně jako přinesené živiny při plánování hnojení. Přesný postup najdete v navazujícím článku [Kalkulátor půdy pod trávník: kolik písku, zeminy a příměsí potřebujete](/magazin/kalkulator-na-planovani-pudniho-profilu)."
     ]
   },
   {
@@ -131,7 +131,7 @@ export const PRIMESI_RHYTHM_SECTIONS: RhythmSection[] = [
     "body": [
       "Materiály i rozdíl mezi jejich hmotností a objemem už známe. Teď jim potřebujeme vyhradit místo – nejen vedle sebe ve směsi, ale také v různých hloubkách.",
       "Pro naše příklady zvolíme **30 cm hluboký profil určený pro nově zakládaný nebo kompletně rekonstruovaný trávník**. Profil zde znamená připravovanou vrstvu půdy od povrchu do této hloubky. Třicet centimetrů je model, nikoli předpis platný pro každou zahradu ani pokyn všude automaticky odvézt třicet centimetrů půdy.",
-      "Proč záleží na souvislém prostoru pro kořeny, jak půda hospodaří s vodou a vzduchem a proč samotná výška navážky nestačí, podrobně vysvětluje článek [Krásný trávník začíná pod zemí](/posts/krasny-travnik-zacina-pod-zemi-2). Zde na něj navazujeme volbou složek a jejich rozmístěním v připravované vrstvě."
+      "Proč záleží na souvislém prostoru pro kořeny, jak půda hospodaří s vodou a vzduchem a proč samotná výška navážky nestačí, podrobně vysvětluje článek [Krásný trávník začíná pod zemí](/magazin/krasny-travnik-zacina-pod-zemi-2). Zde na něj navazujeme volbou složek a jejich rozmístěním v připravované vrstvě."
     ]
   },
   {
@@ -164,7 +164,7 @@ export const PRIMESI_RHYTHM_SECTIONS: RhythmSection[] = [
     "body": [
       "Tři půdní typy nám dávají dobrý začátek: **těžkou půdu potřebujeme zpřístupnit vodě a vzduchu, u hlinité zachovat vyvážený základ a písčité pomoci s uchováním vláhy**.",
       "Níže jsou **tři modelové receptury pro založení nebo výraznější obnovu trávníku**. Poskytují rozsahy podílů pro popsané situace, nikoli jeden univerzální recept. Základní postup je jednoduchý: vybereme odpovídající příklad, zkontrolujeme jeho podmínky, zvolíme konkrétní podíly v uvedených rozmezích a teprve potom spočítáme množství.",
-      "Pokud si nejsme jistí, jakou půdu na zahradě máme, pomůže nám ji rozpoznat článek [Krásný trávník začíná pod zemí](/posts/krasny-travnik-zacina-pod-zemi-2). Podle toho vybereme nejbližší příklad."
+      "Pokud si nejsme jistí, jakou půdu na zahradě máme, pomůže nám ji rozpoznat článek [Krásný trávník začíná pod zemí](/magazin/krasny-travnik-zacina-pod-zemi-2). Podle toho vybereme nejbližší příklad."
     ]
   },
   {
@@ -313,7 +313,7 @@ export const PRIMESI_RHYTHM_SECTIONS: RhythmSection[] = [
       "Ve fungující hlinité půdě samostatný přípravek není automatickou nákupní položkou. Nulová dávka znamená, že nic nepřikupujeme, nikoli že v půdě žádné mykorhizní houby nejsou. Po výrazné rekonstrukci nebo při vytváření převážně nové směsi lze inokulaci zvážit. Sucho samo neprokazuje nedostatek vhodných hub.",
       "**Dávku mykorhizního přípravku volíme podle návodu konkrétního výrobku a účelu použití, nikoli podle typu půdy.** Pokud návod rozlišuje běžné založení trávníku a náročnější podmínky, držíme se dávky pro odpovídající použití.",
       "Samotná písčitá půda není důvodem k jejímu zvýšení. Jestliže tentýž přípravek použijeme ve všech třech zahradách za stejným účelem a za podmínek odpovídajících návodu, jeho dávka může zůstat stejná.",
-      "Tím máme rozhodnuto o složení: které materiály použít, v jakých podílech a do jaké hloubky. Potřebné množství pro vlastní zahradu a plán dodávky připravíte v článku [Kalkulátor na plánování půdního profilu](/posts/kalkulator-na-planovani-pudniho-profilu). Samotným mícháním a ukládáním směsi provede návod [Jak připravit a uložit směs](/posts/jak-pripravit-a-ulozit-smes)."
+      "Tím máme rozhodnuto o složení: které materiály použít, v jakých podílech a do jaké hloubky. Potřebné množství pro vlastní zahradu a plán dodávky připravíte v článku [Kalkulátor na plánování půdního profilu](/magazin/kalkulator-na-planovani-pudniho-profilu). Samotným mícháním a ukládáním směsi provede návod [Jak připravit a uložit směs](/magazin/jak-pripravit-a-ulozit-smes)."
     ]
   }
 ]

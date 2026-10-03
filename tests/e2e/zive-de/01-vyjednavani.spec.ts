@@ -24,7 +24,7 @@ test.describe('vyjednávání jazyka na kořeni', () => {
   })
 
   test('2: hluboký odkaz s Accept-Language de → 200 cs, žádné přesměrování', async ({ playwright, baseURL }) => {
-    for (const cesta of [`/posts/${SLUG_PRELOZENY}`, `/posts/${SLUG_NEPRELOZENY}`]) {
+    for (const cesta of [`/magazin/${SLUG_PRELOZENY}`, `/magazin/${SLUG_NEPRELOZENY}`]) {
       // Čerstvý kontext: bez cookie z předchozí odpovědi.
       const kontext = await playwright.request.newContext({ baseURL })
       const res = await kontext.get(cesta, { headers: { ...DOKUMENT, 'Accept-Language': 'de' }, maxRedirects: 0 })
@@ -91,10 +91,10 @@ test.describe('vyjednávání jazyka na kořeni', () => {
     expect(cookieJazyka(koren)).toBeNull()
   })
 
-  test('16: /cs/posts/x → 308 na /posts/x; /search?q=puda přežije rewrite', async ({ page, request }) => {
-    const res = await request.get(`/cs/posts/${SLUG_NEPRELOZENY}`, { headers: DOKUMENT, maxRedirects: 0 })
+  test('16: /cs/magazin/x → 308 na /magazin/x; /search?q=puda přežije rewrite', async ({ page, request }) => {
+    const res = await request.get(`/cs/magazin/${SLUG_NEPRELOZENY}`, { headers: DOKUMENT, maxRedirects: 0 })
     expect(res.status()).toBe(308)
-    expect(cilPresmerovani(res)).toBe(`/posts/${SLUG_NEPRELOZENY}`)
+    expect(cilPresmerovani(res)).toBe(`/magazin/${SLUG_NEPRELOZENY}`)
 
     // Dotaz musí dojít až k serverovému hledání (rewrite přes `nextUrl.clone()`):
     // hledaný výraz vrátí karty, nesmysl „Nic jsme nenašli“. Pole hledání se
@@ -102,7 +102,7 @@ test.describe('vyjednávání jazyka na kořeni', () => {
     const odpoved = await page.goto('/search?q=z%C3%A1vlah')
     expect(odpoved?.status()).toBe(200)
     expect(new URL(page.url()).search).toBe('?q=z%C3%A1vlah')
-    expect(await page.locator('a[href^="/posts/"]').count()).toBeGreaterThan(0)
+    expect(await page.locator('a[href^="/magazin/"]').count()).toBeGreaterThan(0)
     await expect(page.getByText('Nic jsme nenašli.')).toHaveCount(0)
 
     await page.goto('/search?q=puda')

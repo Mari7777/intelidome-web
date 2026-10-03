@@ -7,7 +7,7 @@ import { LanguageSwitcher } from '../../src/components/LanguageSwitcher'
 import { LocaleProvider } from '../../src/i18n/LocaleProvider'
 import type { Locale } from '../../src/i18n/config'
 
-const cesta = { hodnota: '/posts/x' }
+const cesta = { hodnota: '/magazin/x' }
 vi.mock('next/navigation', () => ({ usePathname: () => cesta.hodnota }))
 
 const vykresli = (liveLocales: Locale[], varianta: 'hlavicka' | 'paticka', locale: Locale = 'cs') =>
@@ -37,11 +37,11 @@ describe('LanguageSwitcher (A20)', () => {
     const de = odkaz(html, 'de')
     expect(cs).toContain('aria-current="true"')
     expect(cs).toContain('id-capsule__link')
-    expect(cs).toContain('href="/posts/x"')
+    expect(cs).toContain('href="/magazin/x"')
     expect(cs).toMatch(/>cs<\/a>$/)
     expect(de).not.toContain('aria-current')
     expect(de).toContain('id-capsule__link')
-    expect(de).toContain('href="/de/posts/x"')
+    expect(de).toContain('href="/de/magazin/x"')
     expect(de).toMatch(/>de<\/a>$/)
     expect(html).not.toContain('hreflang')
     expect(html).not.toContain('<nav')
@@ -49,21 +49,21 @@ describe('LanguageSwitcher (A20)', () => {
   })
 
   it('patička: nav s aria-label, odkaz z cesty bez prefixu (de → cs)', () => {
-    cesta.hodnota = '/de/posts/x'
+    cesta.hodnota = '/de/magazin/x'
     const html = vykresli(['cs', 'de', 'en'], 'paticka', 'de')
     expect(html).toContain('aria-label="Přepínač jazyků"')
     expect(html.match(/<a /g)?.length).toBe(3)
     const cs = odkaz(html, 'cs')
     const de = odkaz(html, 'de')
     const en = odkaz(html, 'en')
-    expect(cs).toContain('href="/posts/x"')
+    expect(cs).toContain('href="/magazin/x"')
     expect(cs).not.toContain('aria-current')
     expect(cs).not.toContain('id-capsule__link')
     expect(de).toContain('aria-current="true"')
-    expect(de).toContain('href="/de/posts/x"')
-    expect(en).toContain('href="/en/posts/x"')
+    expect(de).toContain('href="/de/magazin/x"')
+    expect(en).toContain('href="/en/magazin/x"')
     expect(en).not.toContain('aria-current')
     expect(html).not.toContain('hreflang')
-    cesta.hodnota = '/posts/x'
+    cesta.hodnota = '/magazin/x'
   })
 })

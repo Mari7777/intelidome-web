@@ -22,14 +22,14 @@ describe('hreflangVypisu (sekce 6)', () => {
 
   it('jediný živý jazyk → nic, bez čtení DB (dnešní výstup)', async () => {
     zive.hodnota = ['cs']
-    expect(await hreflangVypisu('/posts')).toBeUndefined()
+    expect(await hreflangVypisu('/magazin')).toBeUndefined()
     expect(find).not.toHaveBeenCalled()
   })
 
   it('dva živé jazyky bez přeloženého článku → nic', async () => {
     zive.hodnota = ['cs', 'de']
     find.mockResolvedValue({ docs: [{ slug: 'a', prelozeno: { cs: false } }] })
-    expect(await hreflangVypisu('/posts')).toBeUndefined()
+    expect(await hreflangVypisu('/magazin')).toBeUndefined()
     expect(find).toHaveBeenCalledTimes(1)
     expect(find.mock.calls[0][0]).toMatchObject({ collection: 'posts', locale: 'all', fallbackLocale: false, select: { slug: true, prelozeno: true } })
   })
@@ -37,6 +37,6 @@ describe('hreflangVypisu (sekce 6)', () => {
   it('přeložený článek → reciproční množina + x-default (jen živé jazyky s překladem)', async () => {
     zive.hodnota = ['cs', 'de']
     find.mockResolvedValue({ docs: [{ slug: 'a', prelozeno: { de: true } }, { slug: 'b', prelozeno: { en: true } }] })
-    expect(await hreflangVypisu('/posts')).toEqual({ cs: '/posts', de: '/de/posts', 'x-default': '/posts' })
+    expect(await hreflangVypisu('/magazin')).toEqual({ cs: '/magazin', de: '/de/magazin', 'x-default': '/magazin' })
   })
 })

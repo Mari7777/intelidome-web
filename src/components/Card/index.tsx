@@ -9,7 +9,7 @@ import type { Post } from '@/payload-types'
 
 import { Media } from '@/components/Media'
 import { useLocale } from '@/i18n/LocaleProvider'
-import { lokalizujCestu } from '@/i18n/routing'
+import { lokalizujCestu, zakladniCesta } from '@/i18n/routing'
 
 export type CardPostData = Pick<Post, 'slug' | 'categories' | 'meta' | 'title' | 'prelozeno'>
 
@@ -23,7 +23,7 @@ export const Card: React.FC<{
 }> = (props) => {
   const { card, link } = useClickableCard({})
   const locale = useLocale()
-  const { className, doc, relationTo, showCategories, title: titleFromProps } = props
+  const { className, doc, showCategories, title: titleFromProps } = props
 
   const { slug, categories, meta, title } = doc || {}
   const { description, image: metaImage } = meta || {}
@@ -35,7 +35,8 @@ export const Card: React.FC<{
      takže pevné mezery MAZAL a na 320 px visely v obou kartách jednopísmenné
      spojky na konci řádku. */
   const sanitizedDescription = description ? nezlomitelneMezery(description) : description
-  const href = lokalizujCestu(`/${relationTo}/${slug}`, locale)
+  // Adresu skládá jen routing.ts (ADR-009), ne název kolekce.
+  const href = lokalizujCestu(zakladniCesta('posts', slug ?? ''), locale)
 
   return (
     <article

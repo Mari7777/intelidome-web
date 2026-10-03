@@ -6,9 +6,9 @@ import { DOKUMENT, blogPosting, cestaZUrl, cilPresmerovani, hlavicky, hlavickyLo
 /** Dokumenty pod `/de/…` (A6) a SEO po jazycích (A19) s jedním přeloženým článkem a přeloženou home. */
 test.describe('dokumenty a SEO s živou němčinou', () => {
   test('7: nepřeložený článek pod /de → právě jedno 307 na cs; neexistující → 404 přímo', async ({ request }) => {
-    const prvni = await request.get(`/de/posts/${SLUG_NEPRELOZENY}`, { headers: DOKUMENT, maxRedirects: 0 })
+    const prvni = await request.get(`/de/magazin/${SLUG_NEPRELOZENY}`, { headers: DOKUMENT, maxRedirects: 0 })
     expect(prvni.status()).toBe(307)
-    expect(cilPresmerovani(prvni)).toBe(`/posts/${SLUG_NEPRELOZENY}`)
+    expect(cilPresmerovani(prvni)).toBe(`/magazin/${SLUG_NEPRELOZENY}`)
     // `Location` u 307 ze stránky: v jednom běhu prod buildu dvakrát (shodné hodnoty), jindy jednou — jen záznam, hodnoty se musí shodovat.
     const location = hlavickyLocation(prvni)
     expect(new Set(location).size).toBe(1)
@@ -16,13 +16,13 @@ test.describe('dokumenty a SEO s živou němčinou', () => {
     const druhy = await request.get(cilPresmerovani(prvni), { headers: DOKUMENT, maxRedirects: 0 })
     expect(druhy.status()).toBe(200)
 
-    const chybi = await request.get('/de/posts/neexistuje', { headers: DOKUMENT, maxRedirects: 0 })
+    const chybi = await request.get('/de/magazin/neexistuje', { headers: DOKUMENT, maxRedirects: 0 })
     expect(chybi.status()).toBe(404)
   })
 
   test('8: přeložený článek pod /de → 200, lang de, canonical, reciproční hreflang, og:locale, JSON-LD', async ({ page }) => {
-    const cs = `/posts/${SLUG_PRELOZENY}`
-    const de = `/de/posts/${SLUG_PRELOZENY}`
+    const cs = `/magazin/${SLUG_PRELOZENY}`
+    const de = `/de/magazin/${SLUG_PRELOZENY}`
 
     const odpoved = await page.goto(de)
     expect(odpoved?.status()).toBe(200)
@@ -54,14 +54,14 @@ test.describe('dokumenty a SEO s živou němčinou', () => {
   })
 
   test('9: nepřeložený článek → žádný hreflang (jediný jazyk dokumentu)', async ({ page }) => {
-    await page.goto(`/posts/${SLUG_NEPRELOZENY}`)
+    await page.goto(`/magazin/${SLUG_NEPRELOZENY}`)
     const h = await hlavicky(page)
     expect(h.hreflang).toEqual({})
     expect(h.ogAlternate).toEqual([])
-    expect(h.canonical).toBe(`/posts/${SLUG_NEPRELOZENY}`)
+    expect(h.canonical).toBe(`/magazin/${SLUG_NEPRELOZENY}`)
   })
 
-  test('10: /de home 200; /de/posts právě jedna karta + hreflang výpisu; /de/search jen přeložené', async ({ page }) => {
+  test('10: /de home 200; /de/magazin právě jedna karta + hreflang výpisu; /de/search jen přeložené', async ({ page }) => {
     const home = await page.goto('/de')
     expect(home?.status()).toBe(200)
     expect(new URL(page.url()).pathname).toBe('/de')
@@ -70,22 +70,22 @@ test.describe('dokumenty a SEO s živou němčinou', () => {
     expect(hh.title).toContain(DE_TITUL_HOME)
     expect(hh.hreflang).toEqual({ cs: '/', de: '/de', 'x-default': '/' })
 
-    const vypis = await page.goto('/de/posts')
+    const vypis = await page.goto('/de/magazin')
     expect(vypis?.status()).toBe(200)
-    expect(new URL(page.url()).pathname).toBe('/de/posts')
+    expect(new URL(page.url()).pathname).toBe('/de/magazin')
     await expect(page.locator('article')).toHaveCount(1)
-    await expect(page.locator(`a[href="/de/posts/${SLUG_PRELOZENY}"]`).first()).toBeVisible()
-    await expect(page.locator(`a[href*="/posts/${SLUG_NEPRELOZENY}"]`)).toHaveCount(0)
+    await expect(page.locator(`a[href="/de/magazin/${SLUG_PRELOZENY}"]`).first()).toBeVisible()
+    await expect(page.locator(`a[href*="/${SLUG_NEPRELOZENY}"]`)).toHaveCount(0)
     // Sekce 6: HTML výpisu souhlasí se sitemapou (reciproční hreflang cs/de/x-default).
-    expect((await hlavicky(page)).hreflang).toEqual({ cs: '/posts', de: '/de/posts', 'x-default': '/posts' })
-    await page.goto('/posts')
-    expect((await hlavicky(page)).hreflang).toEqual({ cs: '/posts', de: '/de/posts', 'x-default': '/posts' })
+    expect((await hlavicky(page)).hreflang).toEqual({ cs: '/magazin', de: '/de/magazin', 'x-default': '/magazin' })
+    await page.goto('/magazin')
+    expect((await hlavicky(page)).hreflang).toEqual({ cs: '/magazin', de: '/de/magazin', 'x-default': '/magazin' })
 
     await page.goto('/de/search?q=Zazimov%C3%A1n%C3%AD')
-    await expect(page.locator(`a[href="/de/posts/${SLUG_PRELOZENY}"]`).first()).toBeVisible()
-    await expect(page.locator(`a[href*="/posts/${SLUG_NEPRELOZENY}"]`)).toHaveCount(0)
+    await expect(page.locator(`a[href="/de/magazin/${SLUG_PRELOZENY}"]`).first()).toBeVisible()
+    await expect(page.locator(`a[href*="/${SLUG_NEPRELOZENY}"]`)).toHaveCount(0)
     // Dotaz, který sedí jen na české titulky nepřeložených článků: v de nic.
     await page.goto('/de/search?q=z%C3%A1vlahu')
-    await expect(page.locator('a[href^="/de/posts/"]')).toHaveCount(0)
+    await expect(page.locator('a[href^="/de/magazin/"]')).toHaveCount(0)
   })
 })
