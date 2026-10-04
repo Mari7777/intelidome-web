@@ -54,6 +54,8 @@ const FOTKY: Foto[] = [
     // GPT Image 2.5: kolečko opraveno (obě ruce, rám k ose kola), záběr oddálen (temeno
     // 24 % výšky, tablet na výšku načítá master a hlava jinak lezla pod kapsli). Ořez na
     // výšku = širší výřez masteru dokreslený dolů: děj v horních 13–44 %, pod titulkem zemina.
+    // Dokresleno lokálními záplatami (majitel, 4. 10.): kolečko bez vzpěry do země, s oběma
+    // nohama a ramenem k ose; rýha se dvěma stěnami a trubkou souvisle podél celého záhonu.
     filename: 'hero-priprava-ukladani.avif',
     portret: 'hero-priprava-ukladani-portret.avif',
     // Děj v horních 13–44 % ořezu: na tabletu ořez nahoře (Y 0), dole ubude jen zemina.
@@ -66,6 +68,14 @@ const FOTKY: Foto[] = [
     filename: 'fig-priprava-vidle.avif',
     alt: 'Rycí vidle zapíchnuté do půdy lámou světlou, vyschlou udusanou vrstvu pod tmavou drobivou ornicí; ploché hroudy praskají podél hrotů.',
     focal: { focalX: 50, focalY: 55 },
+  },
+  {
+    // Obr. 03 přípravy místo vidlí (majitel 4. 10. 2026; udusaná vrstva působila jako zeď
+    // z bloků a námět se kryl s Obr. 05): ornice stranou, rozrušená jen překážka — jako popisek.
+    filename: 'fig-priprava-ornice-stranou.avif',
+    // Ověřeno: pruh ~24–28 cm podle hrotů vidlí, hromada odpovídá objemu výkopu.
+    alt: 'Mělký odkrytý pruh v trávníku: tmavá ornice z něj leží stranou na plachtě, ve stěně je pod ní tenká světlejší vrstva a dno pokrývají rozrušené hroudy a ploché destičky utužené zeminy, v nichž stojí rycí vidle.',
+    focal: { focalX: 55, focalY: 55 },
   },
   {
     filename: 'fig-priprava-kontrola-luzka.avif',

@@ -4500,3 +4500,14 @@ temeno Jak namíchat 35 / 41 px od horní hrany, ale vedle kapsle.
   v metařádku; větší spodní padding kontejneru platí až ≤ 560 (existovalo
   před touto změnou).
 - Na šířku master Jak namíchat a Péče s temenem 35–89 px (DESIGN §14, v2.16).
+
+Dodatek 4. 10. (4): úvodní fotka přípravy dokreslena podle majitele lokálními
+záplatami z GPT Image 2.5 vloženými maskou do jinak nezměněného masteru:
+kolečko bez vzpěry do země, s oběma nohama a ramenem k ose; rýha se dvěma
+stěnami a trubkou souvisle podél záhonu (duch staré trubky u spodní hrany
+zakryt). Ořez na výšku složen znovu z opraveného masteru. Dvě ověření
+fotorealismu, poslední bez blokujících i důležitých vad; hero-check OK.
+Obr. 03 (vidle lámou „zeď z bloků“, majitel chtěl jinou) nahrazen fotkou
+mělkého pruhu s ornicí stranou na plachtě a rozrušenými destičkami na dně
+(`fig-priprava-ornice-stranou.avif`); ze šesti variant vybrána ta s hloubkou
+24–28 cm podle hrotů vidlí a hromadou odpovídající výkopu, bez záplat.
