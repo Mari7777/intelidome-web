@@ -4527,3 +4527,15 @@ chybí šlápoty, hrábě nevrhají stín, podél záhonu schod s trubkou místo
 rýhy, krajková textura po upscaleru v půdě a trávníku (celá série). Systémové
 (samostatný úkol): na reálné výšce okna Safari (629–739 px) zakryje 442px
 textový blok hera činnost u všech článků; hero-check měří jen 375×812/393×852.
+
+Dodatek 4. 10. (6): úvodní fotka přípravy s nivelační bránou. Majitel vybral
+variantu z Nano Banana Pro podle vlastní předlohy brány (proporce brány vůči
+člověku) a chtěl hladkou zem tam, kde brána prošla. První zapojená verze měla
+na širokém záběru artefakty (síťovaný trávník, krajková zemina, rozpité cihly):
+zdědila je z řetězu předchozích úprav téhož obrázku, každá úprava je zesílila.
+Řešení: scéna vygenerována NAČISTO (kompozice jen jako malá rozmazaná předloha,
+styl ze dvou čistých referencí série), otisky bot v hladkém pruhu vyretušovány.
+Ořez na výšku: dokreslené okolí s vloženým přesným výřezem masteru (temeno
+12 %). Ověření po dlaždicích 6×3 ve 100 %: bez artefaktů, 0 blokujících;
+hero-check OK, zlatý snímek beze změny. Zbývá (kosmetika): chybí dlouhý stín
+postavy, násada o 20–45 px mimo střed rámu.

@@ -49,20 +49,21 @@ const FOTKY: Foto[] = [
     focal: { focalX: 71, focalY: 55, focalPortraitX: 77, focalPortraitY: 50 },
   },
   {
-    // Nové hero přípravy (majiteli se nelíbil rotavátor, 4. 10. 2026): rozprostřená směs,
-    // potrubí v otevřené rýze a odložená ornice v jednom záběru (GPT Image 2.5, reference
-    // série). Vysypávání kolečka model neumí (majitel: hlína ze špatného místa, nepřirozený
-    // úchop) → zahradník zády srovnává směs širokými hráběmi: hlava hrábí napříč, kolmo
-    // k násadě; vybráno porotou tří lenzů a skeptiky ze 14 variant. Ořez na výšku = p1
-    // (GPT) s vloženým přesným výřezem masteru, 8 % oblohy oříznuto: temeno 13,5 %, hrábě 41 %.
+    // Nové hero přípravy (majiteli se nelíbil rotavátor, 4. 10. 2026). Po kolečku (fyzika)
+    // a hráběmi zvolil majitel nivelační bránu podle vlastní předlohy (proporce brány vůči
+    // člověku), pruh za bránou hladký (majitel: „kde je půda upravena nivelační bránou, je zem
+    // hladká“), neupravená zemina vlevo hrudovitá. Vygenerováno NAČISTO v Nano Banana Pro
+    // (kompozice n0 jen jako malá rozmazaná předloha): řetěz úprav předchozích verzí zesílil
+    // krajkovou texturu (síťovaný trávník, rozpité cihly), kterou majitel viděl na širokém.
+    // Otisky bot v hladkém pruhu vyretušovány. Ořez na výšku = dokreslené okolí s vloženým
+    // přesným výřezem masteru: temeno 12 %.
     filename: 'hero-priprava-ukladani.avif',
     portret: 'hero-priprava-ukladani-portret.avif',
     // Na tabletu ořez nahoře (Y 0), dole ubude jen zemina.
     portretFocal: { focalX: 50, focalY: 0 },
-    alt: 'Zahradník v podvečerním slunci srovnává širokými hráběmi rozprostřenou směs zeminy a písku na ploše pro nový trávník; podél plotu leží v otevřené rýze černé potrubí závlahy, vzadu odložená ornice na plachtě a terasa domu.',
-    // Ohnisko masteru: hrábě a postava na 48–71 % šířky; X 50 = postava vpravo od perexu
-    // na 1280 × 720 a zároveň celá ve čtvercovém náhledu /magazin (výřez 28–72 %).
-    focal: { focalX: 50, focalY: 42, focalPortraitX: 64, focalPortraitY: 50 },
+    alt: 'Zahradník v podvečerním slunci táhne nivelační bránu po rozprostřené směsi zeminy a písku; za bránou zůstává hladký urovnaný pruh, vlevo ještě hrudovitá zemina. Podél plotu leží černé potrubí závlahy, vzadu odložená ornice na plachtě a terasa domu.',
+    // Ohnisko masteru: brána a postava na 40–72 % šířky (X 50 = celé ve čtvercovém náhledu).
+    focal: { focalX: 50, focalY: 42, focalPortraitX: 60, focalPortraitY: 50 },
   },
   {
     filename: 'fig-priprava-vidle.avif',
