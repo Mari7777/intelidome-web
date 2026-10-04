@@ -90,6 +90,13 @@ const FOTKY: Foto[] = [
     alt: 'Malá půdní sonda v trávníku, hluboká asi jako list rýče, odhaluje tmavou ornici nad světlejší hutnou zeminou; rýč leží vedle jámy.',
     focal: { focalX: 50, focalY: 62 },
   },
+  {
+    // Sonda s rukou v témže článku: stěna působila jako 45–55 cm (majitel 4. 10. 2026);
+    // varianta z GPT Image 2.5 vybraná třemi hodnotiteli podle měřítka ruky (~30 cm, celá jáma v záběru).
+    filename: 'soil-profile-v2.avif',
+    alt: 'Ruka ukazuje do malé půdní sondy v trávníku na světlejší utuženou vrstvu pod tmavou ornicí; jáma je hluboká asi jako jeden a půl dlaně.',
+    focal: { focalX: 50, focalY: 55 },
+  },
 ]
 
 const localConfig = await config
