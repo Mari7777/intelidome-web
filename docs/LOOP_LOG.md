@@ -4551,3 +4551,14 @@ tmavší) — jen stěny vloženy maskou, texty zůstaly z ověřené varianty. 
 16:9 doplněná stejným pozadím na rám splitu 3:2 (bez ořezu textu), všechny
 texty i v altu. Omezení: v půlce šířky (645 px) jsou popisky spodních řezů
 malé, na telefonu téměř nečitelné; obsah opakuje text vedle a částečně Obr. 02.
+
+Dodatek 4. 10. (8): Obr. 03 znovu, podle nového zadání majitele zcela bez textu
+(ilustrace s nápisy byla v půlce šířky na telefonu nečitelná). Volně generované
+varianty (Nano Banana Pro ×2, GPT Image 2.5 ×2) nedržely geometrii: různé
+půdorysy, horní plochy v jiné výšce, poměr hloubek 2,4–2,5 : 1. Řešení: vlastní
+konstrukční předloha (PIL, ortogonální pohled, půdorys 1 × 1 m, hloubky 0,1 a
+0,3 m, horní plochy v jedné výšce) a Nano Banana Pro ji vykreslil realisticky —
+stěny 40 a 113 px (poměr 2,8 : 1, tráva zakrývá horní hranu mělkého bloku).
+Úpravou zkrácena tráva a odstraněn modrošedý nádech u dna (aby nepůsobil jako
+voda), vyvážení bílé na pozadí webu, ořez na obsah a doplnění pozadím na 3:2.
+Alt popisuje obsah včetně hloubek. Zlatý snímek beze změny.

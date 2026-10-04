@@ -79,12 +79,12 @@ const FOTKY: Foto[] = [
     focal: { focalX: 55, focalY: 55 },
   },
   {
-    // Obr. 03 přípravy od 4. 10. 2026 večer: naučná ilustrace podle zadání majitele
-    // (Nano Banana Pro, 16:9, doplněná nahoře a dole stejným pozadím na rám 3:2, aby se
-    // neořízl žádný text). Texty ověřeny písmeno po písmenu, poměr hloubek 2,9 : 1; tón stěn
-    // bloků otočen podle zadání (nahoře světlejší a sušší, dole tmavší). Texty jsou i v altu.
+    // Obr. 03 přípravy (majitel 4. 10. 2026, 2. zadání): naučná ilustrace ZCELA BEZ TEXTU.
+    // Geometrie z vlastní konstrukční předlohy (stejný půdorys 1 × 1 m, horní plochy v jedné
+    // výšce, hloubka 10 a 30 cm = poměr 3 : 1), vykresleno v Nano Banana Pro; tráva zkrácena,
+    // spodek bez modrého nádechu, vyvážení bílé na pozadí webu. 16:9 doplněno pozadím na 3:2.
     filename: 'fig-priprava-objem-korenu.avif',
-    alt: 'Naučná ilustrace. Nahoře dva bloky půdy s trávníkem se stejným půdorysem 1 × 1 m: vlevo hloubka 10 cm s nápisem „100 litrů půdy“, vpravo třikrát hlubší blok 30 cm s nápisem „300 litrů půdy“; jemné kořeny jsou nejhustší nahoře a dolů řídnou. Pod nimi věta „Větší prostor pro kořeny. Ne údaj o litrech zadržené vody.“ Dole tři řezy půdou: „Funkční půda: připravit povrch“ (souvislá drobtovitá půda, jen srovnaný povrch), „Zhutněná vrstva: rozrušit překážku“ (vidle rozrušují hutnou vrstvu pod zachovanou svrchní hlínou) a „Suť a nevhodná navážka: vyměnit materiál“ (cihly a suť, šipky odvozu a doplnění půdy) s poznámkou „Při zamokření nejprve vyřešit odtok.“',
+    alt: 'Naučná ilustrace bez popisků. Nahoře dva výřezy půdy s trávníkem se stejnou čtvercovou horní plochou jednoho metru čtverečního: vlevo mělký blok hluboký asi 10 cm, ve kterém se kořeny tísní u povrchu, vpravo třikrát hlubší blok asi 30 cm, kde se jemné kořeny větví do hloubky – nahoře jsou nejhustší, dolů řídnou a jen některé sahají skoro ke dnu; půda je nahoře světlejší a sušší, dole tmavší a vlhčí. Dole tři menší výjevy: drobtovitá půda, ve které hrábě upravují jen povrch; svrchní hlína odhrnutá stranou a rycí vidle rozrušující zhutněnou vrstvu pod ní; navážka s úlomky cihel a sutí, kterou lopata odstraňuje, a vedle hromádka vhodné zeminy k doplnění.',
     focal: { focalX: 50, focalY: 50 },
   },
   {
