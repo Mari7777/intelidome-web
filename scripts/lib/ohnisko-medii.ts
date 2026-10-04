@@ -14,12 +14,18 @@ type MediaDoc = { id: number | string; filename?: string | null; url?: string | 
  * stejnými jmény.
  *
  * `vynutit` přegeneruje varianty i beze změny čísel (oprava starých ořezů).
+ *
+ * Past: s `uploadEdits` Payload zakóduje znovu i ORIGINÁL — z už jednou
+ * zakódovaného souboru v public/media, takže každá změna ohniska fotku
+ * o generaci zhorší (4. 10. 2026: ořezy na výšku Jak připravit a Péče,
+ * průměrná odchylka 3–5 úrovní). S `zdroj` (cesta k fotce v
+ * zdroje-informaci/fotky) se originál i varianty kódují jednou ze zdroje.
  */
 export async function nastavOhnisko(
   payload: Payload,
   id: number | string,
   ohnisko: Ohnisko,
-  { alt, vynutit = false }: { alt?: string; vynutit?: boolean } = {},
+  { alt, vynutit = false, zdroj }: { alt?: string; vynutit?: boolean; zdroj?: string } = {},
 ): Promise<'prerezano' | 'beze-zmeny'> {
   const doc = (await payload.findByID({ collection: 'media', id, depth: 0 })) as MediaDoc
   const { focalX, focalY, ...portret } = ohnisko
@@ -28,6 +34,17 @@ export async function nastavOhnisko(
   if (!zmena && !vynutit) {
     if (Object.keys(data).length) await payload.update({ collection: 'media', id, data })
     return 'beze-zmeny'
+  }
+  if (zdroj) {
+    await payload.update({
+      collection: 'media',
+      id,
+      data,
+      filePath: zdroj,
+      overwriteExistingFiles: true,
+      req: { query: { uploadEdits: { focalPoint: { x: focalX, y: focalY } } } },
+    })
+    return 'prerezano'
   }
   if (!doc.filename || !doc.url) throw new Error(`médium ${id} nemá soubor, ořez nejde přegenerovat`)
   await payload.update({

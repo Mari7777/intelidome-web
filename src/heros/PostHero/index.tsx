@@ -70,8 +70,10 @@ export const PostHero: React.FC<{ post: Post; locale: Locale }> = ({ post, local
             priority
             resource={heroImage}
             pictureClassName="h-full w-full"
-            // Na výšku (telefon) se z 21:9 masteru zobrazí jen ~22 % šířky —
-            // požadovaná šířka obrázku se proto odvíjí od výšky viewportu.
+            // Portrétový ořez (≥ 1080 px) slouží telefonu i tabletu na výšku
+            // (9.1); master zbývá na šířku a na výšku nad 1024 px, kde se
+            // z 21:9 zobrazí jen ~22 % šířky — šířka se odvíjí od výšky.
+            portraitTablet
             size="(orientation: portrait) 236vh, 100vw"
           />
           <div className="id-hero__scrim absolute inset-0" />

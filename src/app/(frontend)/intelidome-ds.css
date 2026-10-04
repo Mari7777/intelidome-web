@@ -1063,9 +1063,17 @@
     object-position: var(--id-focal-portrait, var(--id-focal, 70% 36%));
   }
 }
+@media (orientation: portrait) and (max-width: 1024px) {
+  /* Tablet na výšku: načítá-li portrétový ořez (≥ 1080 px, ImageMedia),
+     platí jeho vlastní ohnisko — 9:16 na 3:4 přečnívá o čtvrtinu výšky
+     a Y drží hlavu postavy pod plovoucí kapslí (9.1). Jinak fokál masteru. */
+  .id-hero__img {
+    object-position: var(--id-focal-portrait-tablet, var(--id-focal-portrait, var(--id-focal, 70% 36%)));
+  }
+}
 @media (orientation: portrait) and (max-width: 560px) {
-  /* Samostatný svislý zdroj už je oříznutý; jeho střed použijeme jen tam,
-     kde se skutečně načítá. Na širší výšku platí fokální bod masteru. */
+  /* Samostatný svislý zdroj už je oříznutý; jeho ohnisko (výchozí střed)
+     použijeme jen tam, kde se skutečně načítá. */
   .id-hero__img {
     object-position: var(--id-focal-portrait-asset, var(--id-focal-portrait, var(--id-focal, 70% 36%)));
   }

@@ -1118,7 +1118,7 @@ Prototyp hydraulika-zahrady.html; kapitol 3–5.
 | # | Sekce | Povrch | Obsah |
 |---|---|---|---|
 | 0 | Header | frosted capsule | prompt 4; odkaz Magazín (7.1), pill-button „Objevit systém" |
-| 1 | Hero | obsidian, min-height 100svh | prompt 1; meta = čas čtení · počet kalkulátorů · Magazín InteliDome |
+| 1 | Hero | obsidian, min-height 100svh | prompt 1; meta = čas čtení · počet kalkulátorů · Magazín InteliDome; fotka na šířku = master 21:9, na výšku do 1024 px portrétový ořez s vlastním ohniskem (art direction 9.1, v2.16) |
 | 2 | Souhrn | krém | summary-lead Archivo na velikosti --id-t-subtitle w500 lh 1.38 (role leadu, ne titulku), na ose prózy 700 px (`--id-maxw-prose`; ADR-006 zrušil track `wide`, §15 p. 2), klíčová fráze v `<em>` akcentem --id-accent (na krému 4,74:1 = AA, 11.1); 4 stat-tiles (prompt 3; 3 dlaždice v jedné řadě, 7.6) |
 | 3…N | Kapitoly 01–0N | bílá / krém střídavě | eyebrow „Kapitola NN" + sec-title (title škála) **uvnitř prvního dvousloupce**; každý úsek textu = dvousloupec obraz/text dle **8.2b p. 8** (v2.10: žádná próza ve středovém sloupci), kresba s figcaption „Obr. NN" nebo fotka ze série; volitelně kalkulátor (max 2/článek, prompt 2), krémové demo (max 1), step-karty 4× |
 | N+1 | Produktový pás | obsidian | eyebrow + titulek; prose #9ba1a8, `<strong>` bílým; `.id-2col` = `1fr 1fr` (652 | 652, gap `--id-gap-col` 56, zlom v ose 720 — ADR-006); 3 feature karty **pod prózou v levém sloupci**, ne v řadě pod pásem (vyrovnávají výšku diagramu — jinak 42 % prázdna, kolo 05) |
@@ -1334,6 +1334,22 @@ Adresa `/magazin`, strany 2+ `/magazin/strana/N` (12 článků na stranu). Magaz
 | Formát | AVIF + WebP fallback; LCP/hero ≤260 kB, karty ≤120 kB; srcset+sizes povinné; LCP fetchpriority="high" + preload, ostatní loading="lazy" |
 | Podíl | landing a produktová 30–40 % plochy; článek smí být bez fotografií (obraz nesou SVG figury) |
 | Alt | povinný, obsahový, česky; nikdy prázdný u informačního obrazu |
+| Hero na výšku (v2.16) | viz art direction hera níže |
+
+**Art direction hera článku (v2.16).** Hero má dva zdroje a každý se pozicuje svým ohniskem z knihovny médií:
+
+| Okno | Zdroj | Pozice |
+|---|---|---|
+| na šířku (desktop, tablet na šířku) | master 21:9 | `focalX/Y` masteru |
+| na výšku do 1024 px (telefon **i tablet**) | portrétový ořez (pole `portrait`, 9:16, **≥ 1080 px** na šířku) | **vlastní** `focalX/Y` ořezu (X vždy 50) |
+| na výšku do 560 px s užším ořezem (starší 620 px) | portrétový ořez | totéž; tablet bere master — ořez by se na 1024@2x zvětšoval 3,3× |
+| na výšku nad 1024 px, nebo fotka bez ořezu | master 21:9 | `focalPortraitX/Y` masteru |
+
+1. **Proč tablet nebere master:** na výšku se master 21:9 vejde výškou, takže hlava postavy stojí přesně tam, kde ji má master — ohnisko svisle nic nezmění. Jak namíchat (temeno 4,6 % masteru) mělo hlavu pod plovoucí kapslí (spodní hrana 74 px) na 768–1024 px; tablet navíc stahoval variantu w = 3840 (207–323 kB, Jak připravit nad limitem 260 kB).
+2. **Ohnisko ořezu = svislý výřez na tabletu.** 9:16 na okně 3:4 přečnívá o čtvrtinu výšky (820 × 1180 o pětinu); Y = 0 drží horní okraj, 100 dolní. Na telefonu (≤ 9:16) se ořez vejde celý a Y nic nedělá — výchozí 50/50 je proto beze změny proti dřívějšímu `center`.
+3. **Kompozice ořezu na výšku:** temeno (vršek předmětu) **≥ 18 % výšky**, děj do ~58 %, pod ním klidná plocha pro text (zemina, trávník). Chybí-li nad hlavou obraz, ořez se staví jako **výřez masteru bez zvětšení dokreslený nahoru i dolů**, ne nová generace. Ohnisko Y se volí podle toho, kde děj leží: nahoře → 0, uprostřed → 30, dole → 100.
+4. **Přejímka:** `node scripts/hero-check.mjs [slugy] [--vse]` — temeno ≥ 24 px pod spodní hranou kapsle (leží-li ve sloupci kapsle, jinak ≥ 24 px od horní hrany) na 600 × 960, 768 × 1024, 820 × 1180, 1024 × 1366, 375 × 812 a 393 × 852; bod předmětu se přepočítá přes `object-fit: cover`, ne odhadem ze snímku. Nová fotka hera i ořez patří do tabulky `PREDMET` ve skriptu. Kde končí děj vůči nadtitulku, se posuzuje na snímku (Péče má nohy za nadtitulkem na telefonu i tabletu 768 — kompozice ořezu).
+5. Zdroj a ohniska drží `scripts/nahraj-media-magazinu.ts` (`portret`, `portretFocal`); ohnisko vždy přes `nastavOhnisko` (8.5 p. 7), u fotek ze `zdroje-informaci/fotky` s volbou `zdroj` — změna ohniska jinak Payload přiměje zakódovat znovu i originál z už zakódovaného souboru a fotka s každou změnou ztratí generaci.
 
 ### 9.2 SVG ilustrace
 
@@ -1812,6 +1828,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 - **(v2.14, magazín)** Pojistka `html.js .rv:focus-within { opacity: 1 }` prohrává s inline `opacity: 0` z GSAP; po kliku na kotvu uvnitř stránky běží dva revealy naráz (cíl + pás pod ním) — výjimku `cilKotvy` v Motion.tsx rozšířit i na `a[href^="#"]`.
 - **(v2.14, magazín)** Výchozí og:image (`mergeOpenGraph`) bez width/height/alt; lupa v kapsli je lucide 18 px s tahem ~1,5 místo vlastního SVG 20 px (9.3); v přehledu magazínu vynechat perex u článků, které na téže straně stojí v pásu tématu.
 - **(v2.15, články)** Kotvený scrim hera (gradient přes textový rám, ne 62 % výšky z 9.1) dnes nese seznam slugů v intelidome-ds.css — šest článků z osmi ho potřebovalo, protože text na nízkých oknech a na telefonu leží nad světlou částí fotky. Povýšit na výchozí scrim každého hera článku a pravidlo 9.1 přepsat. **v2.16:** na šířku od 1024 px je vodorovně omezený na textový sloupec a kruh kolem scroll-cue (9.1, Scrim hera na šířku) — výchozí scrim převezme i tuto masku.
+- **(v2.16, hero)** Master na šířku má temeno postavy blízko horní hrany i tam, kde ho tablet na výšku už nenačítá: Jak namíchat 35 px na 1024 × 768 a 41 px na 1440 × 900, Péče 76 / 89 px — vedle kapsle, ne pod ní, ale bez vzduchu. Na šířku se pravidlo ≥ 18 % (9.1 p. 3) zatím neuplatňuje; rozhodne autor, zda master dokreslit nahoru, nebo pravidlo pro šířku zapsat jako „mimo sloupec kapsle“.
 - **(v2.15, články)** Karty Souvisejících (`Card`) mají od v2.15 jednotný ořez 3:2 podle ohniska, `sizes` podle skutečné šířky a titulek balance; zapsat do 7.5 jako komponentu karty článku (dnes ji 7.5 nepopisuje).
 - **(v2.14, magazín)** `.id-feature__title` má `text-wrap: pretty`, které v Chromiu dvouřádkové nadpisy před sirotkem nechrání; 4.3 p. 3 žádá u nadpisů balance. U řádku 7.15 opraveno, sdílená třída čeká na kontrolu všech výskytů.
 
@@ -1833,6 +1850,8 @@ vlastní rozhodnutí (ADR), ne na záplatu v článku:
    Past: `priority` u `next/image` preloaduje SVŮJ src, takže s `<source>`
    stáhne telefon obojí — preload se proto skládá ručně, po jednom
    pro každou větev `<picture>`, a šířky musí být z `deviceSizes`.
+   **v2.16:** ořez ≥ 1080 px slouží i tabletu na výšku (do 1024 px) a stojí
+   na vlastním ohnisku (9.1, art direction hera); tablet na retině 207–323 → 97–213 kB.
 4. ~~Maska řádků H1 ořezává descender~~ — **vyřešeno** (kolo 09):
    `.id-hline` má `padding-bottom: .12em` + záporný margin, rezerva 8,2 px.
 5. ~~Produktový pás sdílí figuru sítě s uzlem Osvětlení~~ — **vyřešeno

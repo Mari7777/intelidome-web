@@ -20,22 +20,32 @@ if (!['localhost', '127.0.0.1', '[::1]'].includes(database.hostname) || database
   throw new Error('This script is restricted to the local intelidome_web database')
 }
 
-type Foto = { filename: string; alt: string; focal: Ohnisko; portret?: string }
+/* `portretFocal` = vlastní ohnisko ořezu na výšku. Ořez slouží telefonu i tabletu
+   na výšku (≤ 1024 px, je-li ≥ 1080 px široký); na tabletu 9:16 přečnívá o čtvrtinu
+   výšky a Y určuje, kolik nebe nad hlavou zůstane pod plovoucí kapslí (DESIGN 9.1).
+   X nech 50 — na telefonu by posunulo už oříznutý záběr. */
+type Foto = { filename: string; alt: string; focal: Ohnisko; portret?: string; portretFocal?: { focalX: number; focalY: number } }
 
 const FOTKY: Foto[] = [
   {
     filename: 'hero-namichat-michani.avif',
-    portret: 'hero-namichat-michani-portret.avif',
+    // v2 (4. 10. 2026): v1 měl temeno 4 % výšky jako master (pod kapslí i na tabletu).
+    // Výřez masteru 1080 × 1236 bez zvětšení, dokreslený nahoru (vršek plotu, nebe)
+    // a dolů (zemina) a oříznutý na 9:16: temeno 19 %, postava 19–58 %, hromada do 66 %.
+    portret: 'hero-namichat-michani-portret-v2.avif',
+    portretFocal: { focalX: 50, focalY: 30 },
     alt: 'Zahradník v podvečerním slunci promíchává rýčem světlý praný písek s tmavou prosátou zeminou přímo na připravené ploše; vedle stojí kolečko s pískem a papírové pytle, vzadu dřevěný plot a levandule.',
-    // Ohnisko na výšku pro tablet (561–1024 px načítá master, ne ořez): postava 63–74 % šířky.
+    // Ohnisko masteru na výšku platí jen nad 1024 px (tablet má ořez): postava 63–74 % šířky.
     focal: { focalX: 64, focalY: 50, focalPortraitX: 76, focalPortraitY: 50 },
   },
   {
     filename: 'hero-pece-prvni-pruh.avif',
     // v2: dokreslený horní okraj (GPT Image 2.5), temeno 36 % výšky místo 10 % — pod plovoucí kapslí
     portret: 'hero-pece-prvni-pruh-portret-v2.avif',
+    // Postava v 36–80 % ořezu: na tabletu ořez dole (Y 100), temeno 148–245 px pod horní hranou.
+    portretFocal: { focalX: 50, focalY: 100 },
     alt: 'Zahradník odchází s ruční vřetenovou sekačkou po mladém hustém trávníku a seká první pruh; vpravo dřevěný plot se záhonem levandule, vzadu mladý strom v nízkém večerním slunci.',
-    // Ohnisko na výšku pro tablet: postava na 64–74 % šířky masteru.
+    // Ohnisko masteru na výšku (jen nad 1024 px): postava na 64–74 % šířky.
     focal: { focalX: 71, focalY: 55, focalPortraitX: 77, focalPortraitY: 50 },
   },
   {
@@ -46,8 +56,10 @@ const FOTKY: Foto[] = [
     // výšku = širší výřez masteru dokreslený dolů: děj v horních 13–44 %, pod titulkem zemina.
     filename: 'hero-priprava-ukladani.avif',
     portret: 'hero-priprava-ukladani-portret.avif',
+    // Děj v horních 13–44 % ořezu: na tabletu ořez nahoře (Y 0), dole ubude jen zemina.
+    portretFocal: { focalX: 50, focalY: 0 },
     alt: 'Zahradník v podvečerním slunci vysypává z kolečka směs zeminy a písku na nakypřenou plochu pro nový trávník; podél plotu leží v otevřené rýze černé potrubí závlahy, vzadu odložená ornice na plachtě a terasa domu.',
-    // Ohnisko na výšku pro tablet: kolečko a postava na 55–75 % šířky masteru.
+    // Ohnisko masteru na výšku (jen nad 1024 px): kolečko a postava na 55–75 % šířky.
     focal: { focalX: 64, focalY: 40, focalPortraitX: 72, focalPortraitY: 50 },
   },
   {
@@ -138,11 +150,12 @@ try {
     plan.push({ soubor: foto.filename, akce: existujici ? 'srovnat alt a ohnisko' : 'nahrát' })
     if (!zapis) continue
     if (existujici) {
-      await nastavOhnisko(payload, existujici.id, foto.focal, { alt: foto.alt })
+      await nastavOhnisko(payload, existujici.id, foto.focal, { alt: foto.alt, zdroj: path.join(ZDROJ, foto.filename) })
       // Nový ořez na výšku u existující fotky: nahrát a napojit (pole `portrait`).
       if (foto.portret) {
         const portret = (await najdi(foto.portret))?.id ??
-          Number((await payload.create({ collection: 'media', data: { alt: `${foto.alt} Svislý ořez pro telefon.` }, filePath: path.join(ZDROJ, foto.portret) })).id)
+          Number((await payload.create({ collection: 'media', data: { alt: `${foto.alt} Svislý ořez pro telefon a tablet na výšku.` }, filePath: path.join(ZDROJ, foto.portret) })).id)
+        if (foto.portretFocal) await nastavOhnisko(payload, portret, foto.portretFocal, { zdroj: path.join(ZDROJ, foto.portret) })
         const aktualni = (await payload.findByID({ collection: 'media', id: existujici.id, depth: 0 })) as { portrait?: number | null }
         if (aktualni.portrait !== portret) await payload.update({ collection: 'media', id: existujici.id, data: { portrait: portret } })
       }
@@ -151,7 +164,8 @@ try {
     let portretId: number | undefined
     if (foto.portret) {
       portretId = (await najdi(foto.portret))?.id ??
-        Number((await payload.create({ collection: 'media', data: { alt: `${foto.alt} Svislý ořez pro telefon.` }, filePath: path.join(ZDROJ, foto.portret) })).id)
+        Number((await payload.create({ collection: 'media', data: { alt: `${foto.alt} Svislý ořez pro telefon a tablet na výšku.` }, filePath: path.join(ZDROJ, foto.portret) })).id)
+      if (foto.portretFocal) await nastavOhnisko(payload, portretId, foto.portretFocal, { zdroj: path.join(ZDROJ, foto.portret) })
     }
     await payload.create({
       collection: 'media',

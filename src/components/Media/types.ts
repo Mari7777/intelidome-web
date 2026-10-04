@@ -14,6 +14,8 @@ export interface Props {
   onLoad?: () => void
   loading?: 'lazy' | 'eager' // for NextImage only
   priority?: boolean // for NextImage only
+  /** Hero only: serve the portrait crop up to portrait tablets (1024 px), not just phones. */
+  portraitTablet?: boolean
   ref?: Ref<HTMLImageElement | HTMLVideoElement | null>
   resource?: MediaType | string | number | null // for Payload media
   size?: string // for NextImage only

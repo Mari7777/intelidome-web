@@ -14,6 +14,12 @@ import { getMediaUrl } from '@/utilities/getMediaUrl'
 const placeholderBlur =
   'data:image/png;base64,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'
 
+/* Kde <picture> podává portrétový ořez místo masteru. Tablet jen u hera
+   (prop `portraitTablet`) a jen s ořezem aspoň 1080 px na šířku. */
+const PORTRET_TELEFON = '(orientation: portrait) and (max-width: 560px)'
+const PORTRET_TABLET = '(orientation: portrait) and (max-width: 1024px)'
+const PORTRET_TABLET_MIN_SIRKA = 1080
+
 /**
  * ImageMedia
  *
@@ -48,6 +54,7 @@ export const ImageMedia: React.FC<MediaProps> = (props) => {
     fill,
     pictureClassName,
     imgClassName,
+    portraitTablet = false,
     priority,
     resource,
     size: sizeFromProps,
@@ -65,6 +72,7 @@ export const ImageMedia: React.FC<MediaProps> = (props) => {
   // chtělo 62 %, sonda článku 2 chce 30 %, aby titulek neležel přes rýč).
   const focal: Record<string, string> = {}
   let portretSrc: string | undefined
+  let portretMedia = PORTRET_TELEFON
 
   if (!src && resource && typeof resource === 'object') {
     const { alt: altFromResource, height: fullHeight, url, width: fullWidth } = resource
@@ -90,15 +98,36 @@ export const ImageMedia: React.FC<MediaProps> = (props) => {
     src = getMediaUrl(url, cacheTag)
 
     // Portrétový ořez: telefon na výšku jinak stahuje celý 21:9 master
-    // a přes 75 % plochy zahodí (koš B). Zdroj je už oříznutý na fokál,
-    // takže se NESMÍ ořezávat podruhé. Střed svislého zdroje se použije
-    // jen pod breakpointem, ve kterém jej <picture> skutečně načítá.
+    // a přes 75 % plochy zahodí (koš B). Zdroj je už oříznutý, takže se
+    // nepozicuje fokálem masteru, ale VLASTNÍM ohniskem (výchozí 50/50 =
+    // střed). Na telefonu (≤ 9:16) se vejde na výšku a ohnisko skoro nic
+    // nedělá; na tabletu na výšku (3:4) přečnívá o čtvrtinu výšky a jeho
+    // Y rozhoduje, jak vysoko pod plovoucí kapslí stojí hlava (9.1).
     const portrait = (resource as { portrait?: unknown }).portrait
     if (portrait && typeof portrait === 'object' && 'url' in portrait) {
-      const p = portrait as { url?: string | null; updatedAt?: string | null }
+      const p = portrait as {
+        url?: string | null
+        updatedAt?: string | null
+        width?: number | null
+        focalX?: number | null
+        focalY?: number | null
+      }
       if (p.url) {
         portretSrc = getMediaUrl(p.url, p.updatedAt ?? cacheTag)
-        focal['--id-focal-portrait-asset'] = 'center'
+        const ohnisko =
+          typeof p.focalX === 'number' && typeof p.focalY === 'number'
+            ? `${p.focalX}% ${p.focalY}%`
+            : 'center'
+        focal['--id-focal-portrait-asset'] = ohnisko
+        /* Tablet na výšku (561–1024) načítal master 21:9 na výšku: hlava
+           postavy zůstala tam, kde ji má master (Jak namíchat 4,6 % → pod
+           kapslí) a stahovala se varianta w=3840 (207–323 kB). Ořez slouží
+           i tabletu, jen je-li dost velký — starší 620 px by se na 1024@2x
+           zvětšoval 3,3× (master 2,2×). */
+        if (portraitTablet && (p.width ?? 0) >= PORTRET_TABLET_MIN_SIRKA) {
+          portretMedia = PORTRET_TABLET
+          focal['--id-focal-portrait-tablet'] = ohnisko
+        }
       }
     }
   }
@@ -162,7 +191,7 @@ export const ImageMedia: React.FC<MediaProps> = (props) => {
           <link
             rel="preload"
             as="image"
-            media="(orientation: portrait) and (max-width: 560px)"
+            media={portretMedia}
             imageSizes="100vw"
             imageSrcSet={portretSrcSet}
             fetchPriority="high"
@@ -170,7 +199,7 @@ export const ImageMedia: React.FC<MediaProps> = (props) => {
           <link
             rel="preload"
             as="image"
-            media="not all and (orientation: portrait) and (max-width: 560px)"
+            media={`not all and ${portretMedia}`}
             imageSizes={sizes}
             imageSrcSet={hlavniSrcSet}
             fetchPriority="high"
@@ -180,7 +209,7 @@ export const ImageMedia: React.FC<MediaProps> = (props) => {
       <picture className={cn(pictureClassName)}>
         {portretSrcSet ? (
           <source
-            media="(orientation: portrait) and (max-width: 560px)"
+            media={portretMedia}
             sizes="100vw"
             srcSet={portretSrcSet}
           />

@@ -4423,3 +4423,80 @@ Zlatý snímek 5/5 beze změny snímků. Zbytky (rozhodne autor): u Závlahy
 na 1920 je přechod tmavého sloupce do osvíceného trávníku vidět jako měkká
 svislá hrana (čte se jako stín); nový článek v seznamu slugů se před
 zařazením měří stejně (ocas titulku v doznívání).
+
+## Hero na tabletu na výšku — portrétový ořez a jeho ohnisko (2026-10-04, DESIGN v2.16)
+
+Systémový úkol z kontroly článků: tablet na výšku (561–1024 px) načítal
+master 21:9. Ten se na výšku vejde výškou, takže ohnisko svisle nic nezmění
+a temeno postavy stojí tam, kde ho má master.
+
+### Audit před opravou (temeno / vršek předmětu, y v px; kapsle dole 74 px)
+
+| Článek | Zdroj | 768 × 1024 | 820 × 1180 | 1024 × 1366 | 1024 × 768 | Telefon 375 × 812 |
+|---|---|---|---|---|---|---|
+| Jak namíchat | master, temeno 4,6 % | **47 pod kapslí** | **54 pod kapslí** | **63 pod kapslí** | 35 vedle kapsle | 36 vedle kapsle (ořez v1 má temeno 4,4 %, ne ≥ 18 %) |
+| Péče | master, temeno 9,9 % | 101 (27 px vzduchu) | 117 | 135 | 76 | 291 |
+| Jak připravit | master, temeno 23,7 % | 243 | 280 | 324 | 182 | 110 |
+| Závlaha | master (bez ořezu) | vějíř 143 | 165 | 191 | 108 | 114 |
+| Jak zasít | master | postava mimo záběr (x 828) | mimo | mimo | 192 | tryska 235 |
+| Písek / Kalkulátor / Jak poznat půdu | master | násada 72 vpravo / hromada / násada z rámu úmyslně | — | — | — | — |
+
+Tablet navíc stahoval variantu w = 3840: 207–323 kB jen za hero (Jak
+připravit nad limitem 9.1 260 kB). Na šířku (1024 × 768, 1440 × 900) leží
+temeno Jak namíchat 35 / 41 px od horní hrany, ale vedle kapsle.
+
+### Oprava
+
+- `ImageMedia`: prop `portraitTablet` (jen `PostHero`) — ořez na výšku
+  ≥ 1080 px slouží až do `(orientation: portrait) and (max-width: 1024px)`;
+  starší ořezy 620 px (Jak poznat půdu, Písek) zůstávají telefonu, na
+  1024@2x by se zvětšovaly 3,3× (master 2,2×). Preloady i `<source>` sdílí
+  jeden media query, takže se stahuje jen jeden zdroj (ověřeno: 1 požadavek).
+- Ořez se pozicuje **vlastním** ohniskem z knihovny médií
+  (`--id-focal-portrait-asset`, na tabletu `--id-focal-portrait-tablet`);
+  dřív pevně `center`. Všechny ořezy měly 50/50, telefon se tedy nemění.
+- Ohniska Y: Jak připravit 0 (děj nahoře), Péče 100 (postava v 36–80 %),
+  Jak namíchat 30; Jak zasít a Kalkulátor 50. Zapsáno v
+  `scripts/nahraj-media-magazinu.ts` (`portretFocal`).
+- **Jak namíchat, ořez v2:** ořez v1 neměl nad hlavou ani pixel (temeno
+  4,4 %), žádné ohnisko ho pod kapsli nedostane. Výřez masteru 1080 × 1236
+  bez zvětšení dokreslen nahoru (vršek plotu, nebe) a dolů (zemina) nástrojem
+  outpaint (Higgsfield, 2 kredity) a oříznut na 9:16: temeno 18,7 %, postava
+  19–58 %, hromada do 66 %. Nezávislé ověření fotorealismu 4/5, 0 blokujících
+  (švy, plot, světlo OK; drobné: horních ~11 % nebe přepálených, postava je
+  věrně překreslená, ne pixel původního souboru — vlasy, prsty rukavice,
+  obrys listu rýče se mírně liší; zemina dole bez perspektivního zvětšení
+  hrud). Zdroje: `zdroje-informaci/fotky/kandidati-namichat/`.
+- Past (opraveno v `nastavOhnisko`, volba `zdroj`): změna ohniska přes
+  `uploadEdits` přiměla Payload zakódovat znovu i originál z už zakódovaného
+  souboru (ořezy Jak připravit a Péče, průměrná odchylka 3–5 úrovní). Oba
+  ořezy znovu nahrány ze zdroje — bajtově shodné se stavem před úpravou.
+- Přejímka `scripts/hero-check.mjs` (tabulka bodů předmětu; DESIGN 9.1 p. 4).
+
+### Ověření
+
+| Článek | 600 × 960 | 768 × 1024 | 820 × 1180 | 1024 × 1366 | 375 × 812 | 393 × 852 |
+|---|---|---|---|---|---|---|
+| Jak namíchat (ořez v2, Y 30) | 167 | 153 | 189 | 204 | 152 | 159 |
+| Péče (ořez, Y 100) | 274 | 148 | 245 | 198 | 291 | 305 |
+| Jak připravit (ořez, Y 0) | 145 | 186 | 198 | 248 | 110 | 116 |
+
+- Na šířku (1024 × 768, 1440 × 900) geometrie všech osmi herů beze změny
+  a snímky shodné až na šipku výzvy (animace); telefon beze změny kromě
+  nového ořezu Jak namíchat (temeno 36 → 152 px).
+- Hero na retině tabletu jen za fotku: 207–323 → **97–213 kB** (Kalkulátor
+  97, Jak zasít 100, Jak namíchat 103, Péče 166, Jak připravit 213).
+- Kontrast bílého textu (5. percentil, text skrytý, pozadí pod rámem
+  nadtitulku, H1, leadu s alfou 0,84 a mety s 0,78) na 600 × 960 až
+  1024 × 1366 a 375 × 812 / 393 × 660: **6,9–16,8:1** (nejnižší nadtitulek
+  Kalkulátoru 768 × 1024; kotvený scrim beze změny).
+- `tsc` bez chyb, zlatý snímek 5/5 beze změny snímku, konzole bez chyb
+  (varování Nextu „fill + static parent“ u `<picture>` existovalo už dřív).
+  ESLint v repu padá na konfiguraci u každého souboru (nezávislé).
+
+### Neopraveno
+
+- Mezi 561 a 640 px stojí šipka výzvy na středu (pravidlo ≤ 640) přes datum
+  v metařádku; větší spodní padding kontejneru platí až ≤ 560 (existovalo
+  před touto změnou).
+- Na šířku master Jak namíchat a Péče s temenem 35–89 px (DESIGN §14, v2.16).
