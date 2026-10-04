@@ -83,6 +83,13 @@ const FOTKY: Foto[] = [
     alt: 'Rozkypřená plocha zahrady vyznačená provázkem na nízkých kolících; v pruhu stojí v pravidelných rozestupech tři stejné hromádky světlého písku.',
     focal: { focalX: 50, focalY: 50 },
   },
+  {
+    // Úvodní sonda v článku o půdě: jáma v původní fotce působila mnohem hlubší než 30 cm
+    // (majitel 4. 10. 2026); GPT Image 2.5 ji zmenšil na hloubku listu rýče.
+    filename: 'soil-intro-v2.avif',
+    alt: 'Malá půdní sonda v trávníku, hluboká asi jako list rýče, odhaluje tmavou ornici nad světlejší hutnou zeminou; rýč leží vedle jámy.',
+    focal: { focalX: 50, focalY: 62 },
+  },
 ]
 
 const localConfig = await config

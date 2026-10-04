@@ -4322,3 +4322,9 @@ stopa kol 4 px, čárkování „6 6“. Karty Souvisejících na retině 85–1
 na neodhalenou skupinu (o 24–30 px výš), re-reveal po přepnutí
 reduced-motion, posun kapsle u výzvy (CLS 0,0024), title s příponou.
 
+Dodatek 4. 10.: úvodní fotka článku Jak poznat půdu (sonda v trávníku)
+působila mnohem hlubší než 30 cm (majitel). GPT Image 2.5 zmenšil jámu na
+hloubku a šířku listu rýče se zachovanou zahradou, rýčem i světlem
+(`soil-intro-v2.avif`, ze tří variant vybrána ta, která drží původní
+kompozici).
+
