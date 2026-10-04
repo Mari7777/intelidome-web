@@ -79,6 +79,15 @@ const FOTKY: Foto[] = [
     focal: { focalX: 55, focalY: 55 },
   },
   {
+    // Obr. 03 přípravy od 4. 10. 2026 večer: naučná ilustrace podle zadání majitele
+    // (Nano Banana Pro, 16:9, doplněná nahoře a dole stejným pozadím na rám 3:2, aby se
+    // neořízl žádný text). Texty ověřeny písmeno po písmenu, poměr hloubek 2,9 : 1; tón stěn
+    // bloků otočen podle zadání (nahoře světlejší a sušší, dole tmavší). Texty jsou i v altu.
+    filename: 'fig-priprava-objem-korenu.avif',
+    alt: 'Naučná ilustrace. Nahoře dva bloky půdy s trávníkem se stejným půdorysem 1 × 1 m: vlevo hloubka 10 cm s nápisem „100 litrů půdy“, vpravo třikrát hlubší blok 30 cm s nápisem „300 litrů půdy“; jemné kořeny jsou nejhustší nahoře a dolů řídnou. Pod nimi věta „Větší prostor pro kořeny. Ne údaj o litrech zadržené vody.“ Dole tři řezy půdou: „Funkční půda: připravit povrch“ (souvislá drobtovitá půda, jen srovnaný povrch), „Zhutněná vrstva: rozrušit překážku“ (vidle rozrušují hutnou vrstvu pod zachovanou svrchní hlínou) a „Suť a nevhodná navážka: vyměnit materiál“ (cihly a suť, šipky odvozu a doplnění půdy) s poznámkou „Při zamokření nejprve vyřešit odtok.“',
+    focal: { focalX: 50, focalY: 50 },
+  },
+  {
     filename: 'fig-priprava-kontrola-luzka.avif',
     alt: 'Kontrola lůžka před výsevem: rovná lať leží přes jemně uhrabaný povrch, ruka v rukavici zkouší pevnost zeminy a mělký otisk boty ukazuje, že povrch už nekypří.',
     focal: { focalX: 50, focalY: 50 },

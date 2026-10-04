@@ -4539,3 +4539,15 @@ Ořez na výšku: dokreslené okolí s vloženým přesným výřezem masteru (t
 12 %). Ověření po dlaždicích 6×3 ve 100 %: bez artefaktů, 0 blokujících;
 hero-check OK, zlatý snímek beze změny. Zbývá (kosmetika): chybí dlouhý stín
 postavy, násada o 20–45 px mimo střed rámu.
+
+Dodatek 4. 10. (7): Obr. 03 přípravy (fotka s vidlemi) nahrazena naučnou
+ilustrací podle zadání majitele: dva bloky půdy 1 × 1 m hluboké 10 a 30 cm
+(„100 litrů půdy“, „300 litrů půdy“), věta „Větší prostor pro kořeny. Ne údaj
+o litrech zadržené vody.“ a tři řezy (funkční půda / zhutněná vrstva / suť).
+Ze čtyř variant (Nano Banana Pro ×2, GPT Image 2.5 ×2) vybrána Banana Pro:
+texty ověřeny písmeno po písmenu bez odchylek, poměr hloubek 2,9 : 1, stejné
+půdorysy. Tón stěn bloků otočen podle zadání (nahoře světlejší a sušší, dole
+tmavší) — jen stěny vloženy maskou, texty zůstaly z ověřené varianty. Ilustrace
+16:9 doplněná stejným pozadím na rám splitu 3:2 (bez ořezu textu), všechny
+texty i v altu. Omezení: v půlce šířky (645 px) jsou popisky spodních řezů
+malé, na telefonu téměř nečitelné; obsah opakuje text vedle a částečně Obr. 02.

@@ -3216,7 +3216,7 @@
                 "body": "",
                 "side": "image-right",
                 "photo": {
-                  "mediaFilename": "fig-priprava-ornice-stranou.avif"
+                  "mediaFilename": "fig-priprava-objem-korenu.avif"
                 },
                 "caption": "Souvislý prostor pro kořeny vzniká odstraněním skutečné překážky, nikoli automatickou výměnou celé ornice.",
                 "surface": "bila",
@@ -3443,7 +3443,7 @@
                 },
                 "blockName": "Foto půdy · fork",
                 "blockType": "split",
-                "photoRatio": "4:5",
+                "photoRatio": "3:2",
                 "titleLevel": "h2",
                 "number": "03"
               },
