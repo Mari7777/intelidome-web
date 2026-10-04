@@ -39,6 +39,18 @@ const FOTKY: Foto[] = [
     focal: { focalX: 71, focalY: 55, focalPortraitX: 77, focalPortraitY: 50 },
   },
   {
+    // Nové hero přípravy (majiteli se nelíbil rotavátor, 4. 10. 2026): ukládání směsi,
+    // potrubí v otevřené rýze a odložená ornice v jednom záběru; vybráno porotou ze čtyř.
+    // GPT Image 2.5: kolečko opraveno (obě ruce, rám k ose kola), záběr oddálen (temeno
+    // 24 % výšky, tablet na výšku načítá master a hlava jinak lezla pod kapsli). Ořez na
+    // výšku = širší výřez masteru dokreslený dolů: děj v horních 13–44 %, pod titulkem zemina.
+    filename: 'hero-priprava-ukladani.avif',
+    portret: 'hero-priprava-ukladani-portret.avif',
+    alt: 'Zahradník v podvečerním slunci vysypává z kolečka směs zeminy a písku na nakypřenou plochu pro nový trávník; podél plotu leží v otevřené rýze černé potrubí závlahy, vzadu odložená ornice na plachtě a terasa domu.',
+    // Ohnisko na výšku pro tablet: kolečko a postava na 55–75 % šířky masteru.
+    focal: { focalX: 64, focalY: 40, focalPortraitX: 72, focalPortraitY: 50 },
+  },
+  {
     filename: 'fig-priprava-vidle.avif',
     alt: 'Rycí vidle zapíchnuté do půdy lámou světlou, vyschlou udusanou vrstvu pod tmavou drobivou ornicí; ploché hroudy praskají podél hrotů.',
     focal: { focalX: 50, focalY: 55 },

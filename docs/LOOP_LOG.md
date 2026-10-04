@@ -4328,3 +4328,27 @@ hloubku a šířku listu rýče se zachovanou zahradou, rýčem i světlem
 (`soil-intro-v2.avif`, ze tří variant vybrána ta, která drží původní
 kompozici).
 
+
+Dodatek 4. 10. (2): sonda s rukou v témže článku působila jako 45–55 cm.
+Ze čtyř variant GPT Image 2.5 tři nezávislí hodnotitelé shodně vybrali
+tu s celou malou jámou v trávníku a dnem; podle měřítka ruky 30–31 cm
+(`soil-profile-v2.avif`).
+
+Dodatek 4. 10. (3): nová úvodní fotka článku Jak připravit půdu a uložit
+směs (majiteli se nelíbil rotavátor). Dvě kola po 3–4 variantách (GPT
+Image 2.5, reference série); první kolo opakovalo výřez Jak namíchat nebo
+fotku kontroly lůžka. Porota tří lenzů (redakce a série, art direction
+a ořezy, fotorealismus) vybrala „vysypávání kolečka, potrubí v otevřené
+rýze, odložená ornice“ (`hero-priprava-ukladani.avif`). Úpravy po dvou
+ověřeních: kolečko oběma rukama a s rámem k ose kola, vržené stíny, rýha,
+záběr oddálen (temeno 24 % výšky — tablet na výšku načítá master a hlava
+lezla pod kapsli), ořez na výšku = širší výřez masteru dokreslený dolů
+(děj v horních 13–44 %, na 375×812 celý nad nadtitulkem). Kontrast bílého
+textu (5. percentil) 8,6–17,6:1 na 375×812, 393×660, 768×1024, 1024×1366,
+1280×720 a 1440×900. Závěrečné ověření fotorealismu 4/5, 0 blokujících.
+Zbytky (rozhodne autor): svislá vzpěra pod nábojem kolečka zčásti za
+padající zeminou, bližší madlo bez nohy, rýha jen s jednou stěnou, na
+393×660 kolo a proud pod nadtitulkem. Systémové (navrženo jako samostatné
+úkoly): tablet na výšku načítá desktopový master (u Jak namíchat je hlava
+celá pod kapslí), kotvený scrim přes celou šířku desktopu ztlumí
+protagonistu 6–9×.
