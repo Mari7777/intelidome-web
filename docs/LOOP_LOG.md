@@ -4511,3 +4511,19 @@ Obr. 03 (vidle lámou „zeď z bloků“, majitel chtěl jinou) nahrazen fotkou
 mělkého pruhu s ornicí stranou na plachtě a rozrušenými destičkami na dně
 (`fig-priprava-ornice-stranou.avif`); ze šesti variant vybrána ta s hloubkou
 24–28 cm podle hrotů vidlí a hromadou odpovídající výkopu, bez záplat.
+
+Dodatek 4. 10. (5): úvodní fotka přípravy znovu — majitel u verze s kolečkem
+vytkl fyziku („hlína se sype ze špatného místa, postava drží kolečka
+nepřirozeně“). Vysypávání ani tlačení kolečka GPT Image 2.5 neumí (kolečko
+bokem vedle postavy, madla svisle), hrábě z boku mají hlavu rovnoběžně
+s násadou. Ze 14 variant (porota fyzika / AI vady / art direction + skeptici)
+vybrán zahradník zády, který srovnává směs širokými hráběmi (hlava napříč,
+kolmo k násadě, násada uprostřed). Ořez na výšku: generované okolí s vloženým
+přesným výřezem masteru, temeno 13,5 %, hrábě 41 % (na 375×812 celý pohyb nad
+nadtitulkem); ohnisko masteru X 50 (hrábě vpravo od perexu na 1280×720,
+postava celá ve čtvercovém náhledu). hero-check OK, zlatý snímek beze změny.
+Ověření: 0 blokujících na fotce. Zbývá (rozhodne autor): v uhrabané půdě
+chybí šlápoty, hrábě nevrhají stín, podél záhonu schod s trubkou místo úzké
+rýhy, krajková textura po upscaleru v půdě a trávníku (celá série). Systémové
+(samostatný úkol): na reálné výšce okna Safari (629–739 px) zakryje 442px
+textový blok hera činnost u všech článků; hero-check měří jen 375×812/393×852.

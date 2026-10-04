@@ -49,20 +49,20 @@ const FOTKY: Foto[] = [
     focal: { focalX: 71, focalY: 55, focalPortraitX: 77, focalPortraitY: 50 },
   },
   {
-    // Nové hero přípravy (majiteli se nelíbil rotavátor, 4. 10. 2026): ukládání směsi,
-    // potrubí v otevřené rýze a odložená ornice v jednom záběru; vybráno porotou ze čtyř.
-    // GPT Image 2.5: kolečko opraveno (obě ruce, rám k ose kola), záběr oddálen (temeno
-    // 24 % výšky, tablet na výšku načítá master a hlava jinak lezla pod kapsli). Ořez na
-    // výšku = širší výřez masteru dokreslený dolů: děj v horních 13–44 %, pod titulkem zemina.
-    // Dokresleno lokálními záplatami (majitel, 4. 10.): kolečko bez vzpěry do země, s oběma
-    // nohama a ramenem k ose; rýha se dvěma stěnami a trubkou souvisle podél celého záhonu.
+    // Nové hero přípravy (majiteli se nelíbil rotavátor, 4. 10. 2026): rozprostřená směs,
+    // potrubí v otevřené rýze a odložená ornice v jednom záběru (GPT Image 2.5, reference
+    // série). Vysypávání kolečka model neumí (majitel: hlína ze špatného místa, nepřirozený
+    // úchop) → zahradník zády srovnává směs širokými hráběmi: hlava hrábí napříč, kolmo
+    // k násadě; vybráno porotou tří lenzů a skeptiky ze 14 variant. Ořez na výšku = p1
+    // (GPT) s vloženým přesným výřezem masteru, 8 % oblohy oříznuto: temeno 13,5 %, hrábě 41 %.
     filename: 'hero-priprava-ukladani.avif',
     portret: 'hero-priprava-ukladani-portret.avif',
-    // Děj v horních 13–44 % ořezu: na tabletu ořez nahoře (Y 0), dole ubude jen zemina.
+    // Na tabletu ořez nahoře (Y 0), dole ubude jen zemina.
     portretFocal: { focalX: 50, focalY: 0 },
-    alt: 'Zahradník v podvečerním slunci vysypává z kolečka směs zeminy a písku na nakypřenou plochu pro nový trávník; podél plotu leží v otevřené rýze černé potrubí závlahy, vzadu odložená ornice na plachtě a terasa domu.',
-    // Ohnisko masteru na výšku (jen nad 1024 px): kolečko a postava na 55–75 % šířky.
-    focal: { focalX: 64, focalY: 40, focalPortraitX: 72, focalPortraitY: 50 },
+    alt: 'Zahradník v podvečerním slunci srovnává širokými hráběmi rozprostřenou směs zeminy a písku na ploše pro nový trávník; podél plotu leží v otevřené rýze černé potrubí závlahy, vzadu odložená ornice na plachtě a terasa domu.',
+    // Ohnisko masteru: hrábě a postava na 48–71 % šířky; X 50 = postava vpravo od perexu
+    // na 1280 × 720 a zároveň celá ve čtvercovém náhledu /magazin (výřez 28–72 %).
+    focal: { focalX: 50, focalY: 42, focalPortraitX: 64, focalPortraitY: 50 },
   },
   {
     filename: 'fig-priprava-vidle.avif',
