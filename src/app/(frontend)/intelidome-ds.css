@@ -999,6 +999,52 @@
   );
 }
 
+/* 9.1 v2.16: na šířku kryje kotvený scrim jen textový sloupec. Na oknech
+   1280–2560 končí text u 41–61 % šířky, ale gradient přes 100vw ztlumil
+   i protagonistu vpravo 5–10× (holá fotka : se scrimem), přestože bílý
+   text měl rezervu (H1 p5 ≥ 6,7:1, eyebrow p5 ≥ 6,2:1).
+   Maska je plná do konce sloupce perexu (levá hrana obsahu + 600 px =
+   max-width `.id-hero__lead`) a doznívá přes 12vw po čtvrtinách
+   1 → .84 → .5 → .16 → 0 (smoothstep: jas bez zlomu na začátku i konci
+   doznívání). Ocas dlouhého titulku za perexem leží v doznívání;
+   box titulku (13ch) jako kotva by na 1280 končil v 66 % šířky a postavu
+   by nechal ve stínu. Pozor: `ch` na pseudo-prvku bez textu vycházel
+   v Chromiu nestabilně (13ch i pod 600 px), proto kotva není z titulku.
+   Druhá vrstva drží scrim kolem scroll-cue (střed = jeho right/bottom
+   + 26 px) — bílá šipka by jinak na osvíceném trávníku klesla na 2:1
+   (1.4.11 žádá 3:1). Na výšku a pod 1024 px zůstává scrim přes celou
+   šířku: text tam zabírá skoro celou šířku okna. */
+@media (min-width: 1024px) and (orientation: landscape) {
+  .id-hero[data-post-slug='kalkulator-na-planovani-pudniho-profilu'] > .container::before,
+  .id-hero[data-post-slug='jak-pripravit-a-ulozit-smes'] > .container::before,
+  .id-hero[data-post-slug='jak-zasit-travnik'] > .container::before,
+  .id-hero[data-post-slug='jak-navrhnout-automatickou-zavlahu'] > .container::before,
+  .id-hero[data-post-slug='jak-namichat-pudu-pro-travnik'] > .container::before,
+  .id-hero[data-post-slug='pece-o-novy-travnik'] > .container::before {
+    --id-hero-copy-end: calc(max(var(--id-gutter), 50vw - var(--id-maxw-edge) / 2) + 600px);
+    --id-hero-cue: calc(100% - clamp(20px, 4vw, 44px) - 26px) calc(100% - clamp(20px, 4vw, 38px) - 26px);
+    --id-hero-scrim-mask:
+      linear-gradient(
+        to right,
+        #000 var(--id-hero-copy-end),
+        rgb(0 0 0 / 0.84) calc(var(--id-hero-copy-end) + 3vw),
+        rgb(0 0 0 / 0.5) calc(var(--id-hero-copy-end) + 6vw),
+        rgb(0 0 0 / 0.16) calc(var(--id-hero-copy-end) + 9vw),
+        transparent calc(var(--id-hero-copy-end) + 12vw)
+      ),
+      radial-gradient(
+        circle at var(--id-hero-cue),
+        #000 0 36px,
+        rgb(0 0 0 / 0.84) 64px,
+        rgb(0 0 0 / 0.5) 92px,
+        rgb(0 0 0 / 0.16) 120px,
+        transparent 148px
+      );
+    -webkit-mask-image: var(--id-hero-scrim-mask);
+    mask-image: var(--id-hero-scrim-mask);
+  }
+}
+
 /* Art direction ořezu. Master je 21:9 se světlou oblohou nahoře vlevo —
    přesně tam, kde začíná textový blok. Posunem rámu dolů se pod text
    dostane tráva ve stínu, takže čitelnost vzniká z obrazu, ne z tmavení.

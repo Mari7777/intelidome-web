@@ -2,7 +2,7 @@
 
 _Prověřeno 3 adversárními kontrolami: 41 nálezů, 37 zapracováno, 4 zamítnuty jako vkusové. Poté ručně překlopeno na paletu Tech Blue + Emerald (rozhodnutí 22. 8. 2026) s přepočtem všech kontrastů._
 
-**Verze:** 2.15 · **Datum:** 2026-10-03 · **Platí pro:** www.intelidome.com / intelidome.cz (Next.js + Tailwind CSS + GSAP)
+**Verze:** 2.16 · **Datum:** 2026-10-04 · **Platí pro:** www.intelidome.com / intelidome.cz (Next.js + Tailwind CSS + GSAP)
 **Primární reference:** [Sonos](https://styles.refero.design/style/8d315332-6267-4dc0-a14c-e8b49c26b0e1) · **Sekundární:** [Eight Sleep](https://styles.refero.design/style/e4e8fe86-47ed-4ddd-a6c6-2c28eae9aabe), [Samara](https://styles.refero.design/style/934a61aa-50ff-4e90-852b-4ad0b8262d54)
 
 > **Esence:** Teplý papír za dne, obsidian po setmění — a jeden modrý pulz.
@@ -1330,6 +1330,7 @@ Adresa `/magazin`, strany 2+ `/magazin/strana/N` (12 článků na stranu). Magaz
 | Poměry stran | 3:2 editorial, 4:5 product hero/portrét, 21:9 full-bleed |
 | Ořez | v obsahu radius 20px; full-bleed bez radiusu |
 | Text přes foto | jen bílý při lokálním kontrastu ≥4.5:1; jinak scrim linear-gradient(rgba(11,13,16,.55), transparent) max do 62 % výšky |
+| Scrim hera na šířku (v2.16) | okno na šířku od 1024 px: kotvený scrim článku kryje jen textový sloupec — maska plná do konce sloupce perexu (levá hrana obsahu + 600 px = max-width leadu), pak doznívá přes 12vw po čtvrtinách 1 → .84 → .5 → .16 → 0; druhá vrstva masky drží scrim v kruhu kolem scroll-cue (plný do 36 px, nula ve 148 px). Fotka vpravo od sloupce zůstává bez scrimu (dřív ztlumená 5–10×). Na výšku a pod 1024 px platí scrim přes celou šířku. Přejímka pod glyfy na 1024 × 768, 1280 × 720, 1440 × 900, 1920 × 1080 a 2560 × 1080: eyebrow i perex p5 ≥ 4,5:1, H1 p5 ≥ 3:1, šipka cue p5 ≥ 3:1 (1.4.11). Kotvou není box titulku (13ch končí na 1280 px v 66 % šířky, postava by zůstala ve stínu) ani `ch` na pseudo-prvku (v Chromiu nestabilní). Naměřeno: LOOP_LOG, 4. 10. |
 | Formát | AVIF + WebP fallback; LCP/hero ≤260 kB, karty ≤120 kB; srcset+sizes povinné; LCP fetchpriority="high" + preload, ostatní loading="lazy" |
 | Podíl | landing a produktová 30–40 % plochy; článek smí být bez fotografií (obraz nesou SVG figury) |
 | Alt | povinný, obsahový, česky; nikdy prázdný u informačního obrazu |
@@ -1810,7 +1811,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 - **(v2.14, magazín)** `html { scroll-padding-top }` chybí: při Shift+Tab prohlížeč srovná zaměřený odkaz pod plovoucí kapsli (na telefonu je titulek kalkulátoru z větší části schovaný). Oprava je systémová (~88 px) a musí se odečíst ze všech `scroll-margin-top` kotev webu; WCAG 2.4.11 stránka splní i dnes.
 - **(v2.14, magazín)** Pojistka `html.js .rv:focus-within { opacity: 1 }` prohrává s inline `opacity: 0` z GSAP; po kliku na kotvu uvnitř stránky běží dva revealy naráz (cíl + pás pod ním) — výjimku `cilKotvy` v Motion.tsx rozšířit i na `a[href^="#"]`.
 - **(v2.14, magazín)** Výchozí og:image (`mergeOpenGraph`) bez width/height/alt; lupa v kapsli je lucide 18 px s tahem ~1,5 místo vlastního SVG 20 px (9.3); v přehledu magazínu vynechat perex u článků, které na téže straně stojí v pásu tématu.
-- **(v2.15, články)** Kotvený scrim hera (gradient přes textový rám, ne 62 % výšky z 9.1) dnes nese seznam slugů v intelidome-ds.css — šest článků z osmi ho potřebovalo, protože text na nízkých oknech a na telefonu leží nad světlou částí fotky. Povýšit na výchozí scrim každého hera článku a pravidlo 9.1 přepsat.
+- **(v2.15, články)** Kotvený scrim hera (gradient přes textový rám, ne 62 % výšky z 9.1) dnes nese seznam slugů v intelidome-ds.css — šest článků z osmi ho potřebovalo, protože text na nízkých oknech a na telefonu leží nad světlou částí fotky. Povýšit na výchozí scrim každého hera článku a pravidlo 9.1 přepsat. **v2.16:** na šířku od 1024 px je vodorovně omezený na textový sloupec a kruh kolem scroll-cue (9.1, Scrim hera na šířku) — výchozí scrim převezme i tuto masku.
 - **(v2.15, články)** Karty Souvisejících (`Card`) mají od v2.15 jednotný ořez 3:2 podle ohniska, `sizes` podle skutečné šířky a titulek balance; zapsat do 7.5 jako komponentu karty článku (dnes ji 7.5 nepopisuje).
 - **(v2.14, magazín)** `.id-feature__title` má `text-wrap: pretty`, které v Chromiu dvouřádkové nadpisy před sirotkem nechrání; 4.3 p. 3 žádá u nadpisů balance. U řádku 7.15 opraveno, sdílená třída čeká na kontrolu všech výskytů.
 

@@ -4352,3 +4352,74 @@ padající zeminou, bližší madlo bez nohy, rýha jen s jednou stěnou, na
 úkoly): tablet na výšku načítá desktopový master (u Jak namíchat je hlava
 celá pod kapslí), kotvený scrim přes celou šířku desktopu ztlumí
 protagonistu 6–9×.
+
+Dodatek 4. 10. (scrim hera na šířku): kotvený scrim šesti článků
+(`::before` přes 100vw, 0 → .64 → .85) ztlumil na oknech na šířku
+i protagonistu vpravo od textu, přestože text končí u 41–61 % šířky
+a kontrast měl rezervu. Ztlumení = poměr středního jasu holé fotky a fotky
+se scrimem vpravo od boxu titulku, svisle od horní hrany textu dolů:
+**5,5–10,4×**. Od v2.16 (9.1, řádek Scrim hera na šířku) maska na šířku
+od 1024 px drží scrim jen pod textovým sloupcem (plná do levé hrany obsahu
+\+ 600 px, doznívá přes 12vw po čtvrtinách 1 → .84 → .5 → .16 → 0)
+a v kruhu kolem scroll-cue; na výšku a pod 1024 px beze změny (ověřeno
+computed `mask-image: none` na 1023 × 768, 844 × 390, 393 × 852,
+768 × 1024 a 1024 × 1366).
+
+Ověřené varianty (vložené CSS, stejné měření):
+- **Pevná maska 50 → 64 % šířky** (návrh): na 1024 × 768 končí text
+  u 62 % a perex Kalkulátoru spadl na p5 4,67:1 (z 9,1) — bez rezervy.
+- **Kotva na box titulku** (13ch, na 1280 px končí v 66 % šířky): text beze
+  změny, ale postava v Jak připravit a Jak namíchat na 1280 zůstala ve stínu
+  (pás hned za boxem 2,0–2,9×).
+- **Kotva na sloupec perexu, doznívání 12vw** (zvoleno): postavy vidět,
+  ocas dlouhého titulku leží v doznívání — H1 p5 klesne nejvýš o 1,4
+  (Jak namíchat 1280: 15,2 → 13,8), u nejslabšího hera (Závlaha) o 0–0,4.
+  Doznívání 16vw dalo prakticky stejná čísla a méně světla na postavě.
+- Past: `13ch` na pseudo-prvku bez textu vycházel v Chromiu nestabilně
+  (jednou 803 px, jindy pod 600 px — maska tak potichu končila u perexu).
+  Kotva je proto z délek, ne z `ch`.
+- **Scroll-cue:** bez scrimu klesla bílá šipka na osvíceném trávníku na p5
+  2,0:1 (Jak zasít, Péče; 1.4.11 žádá 3:1). Druhá vrstva masky (radiální,
+  plná do 36 px od středu cue, nula ve 148 px) ji vrací na 14,2–18,0:1;
+  na snímcích působí jako stín v rohu, ne jako kruh.
+
+Měření: Playwright, DPR 1, reduced-motion; podklad pod řádky textu
+(Range rects textových uzlů) ze snímku s průhledným textem, bílá s alfou
+prvku složená přes každý pixel, medián / 5. percentil poměru. Před = tentýž
+strom s `mask-image: none`. Medián / p5 (:1):
+
+| Článek | Okno | Eyebrow před → po | H1 před → po | Perex před → po | Ztlumení vpravo před → po | Cue p5 před → po |
+|---|---|---|---|---|---|---|
+| Kalkulátor | 1280 × 720 | 6,9 / 6,5 → 6,9 / 6,5 | 10,1 / 7,2 → 9,8 / 7,1 | 11,1 / 8,7 → 11,1 / 8,7 | 10,3× → 1,2× | 16,9 → 16,9 |
+| Kalkulátor | 1440 × 900 | 6,8 / 6,5 → 6,8 / 6,5 | 10,6 / 7,2 → 10,1 / 6,9 | 11,8 / 10,4 → 11,8 / 10,4 | 9,7× → 1,1× | 18,0 → 18,0 |
+| Kalkulátor | 1920 × 1080 | 6,9 / 6,6 → 6,9 / 6,6 | 11,6 / 7,5 → 11,4 / 7,4 | 12,3 / 10,6 → 12,3 / 10,6 | 9,1× → 1,0× | 17,6 → 17,6 |
+| Kalkulátor | 2560 × 1080 | 7,0 / 6,6 → 7,0 / 6,6 | 11,4 / 7,5 → 11,2 / 7,4 | 12,1 / 10,5 → 12,1 / 10,5 | 9,1× → 1,0× | 17,8 → 17,8 |
+| Jak připravit | 1280 × 720 | 14,5 / 9,6 → 14,5 / 9,6 | 16,1 / 11,3 → 16,1 / 11,3 | 13,2 / 12,5 → 13,2 / 12,5 | 8,7× → 1,0× | 16,8 → 16,8 |
+| Jak připravit | 1440 × 900 | 15,5 / 12,4 → 15,5 / 12,4 | 16,7 / 10,5 → 16,7 / 10,5 | 13,2 / 12,7 → 13,2 / 12,7 | 7,7× → 1,0× | 16,6 → 16,6 |
+| Jak připravit | 1920 × 1080 | 11,3 / 8,8 → 11,3 / 8,8 | 17,6 / 11,0 → 17,6 / 11,0 | 13,2 / 12,7 → 13,2 / 12,7 | 7,0× → 1,0× | 14,7 → 14,8 |
+| Jak připravit | 2560 × 1080 | 10,8 / 8,4 → 10,8 / 8,4 | 17,7 / 11,8 → 17,7 / 11,8 | 13,2 / 12,6 → 13,2 / 12,6 | 7,5× → 1,0× | 17,7 → 17,8 |
+| Jak zasít | 1280 × 720 | 16,1 / 12,2 → 16,1 / 12,2 | 17,8 / 14,9 → 17,8 / 14,9 | 13,2 / 12,3 → 13,2 / 12,3 | 8,5× → 1,5× | 15,4 → 15,3 |
+| Jak zasít | 1440 × 900 | 16,6 / 13,9 → 16,6 / 13,9 | 17,8 / 15,6 → 17,8 / 15,7 | 13,3 / 12,3 → 13,3 / 12,3 | 8,2× → 1,4× | 14,3 → 14,3 |
+| Jak zasít | 1920 × 1080 | 17,3 / 15,8 → 17,3 / 15,7 | 17,9 / 15,9 → 17,9 / 15,9 | 13,3 / 12,3 → 13,3 / 12,3 | 8,3× → 1,2× | 14,9 → 14,9 |
+| Jak zasít | 2560 × 1080 | 17,6 / 16,0 → 17,6 / 16,0 | 18,2 / 16,3 → 18,2 / 16,3 | 13,3 / 12,3 → 13,3 / 12,3 | 8,3× → 1,1× | 14,4 → 14,5 |
+| Závlaha | 1280 × 720 | 6,3 / 6,2 → 6,3 / 6,2 | 13,0 / 6,7 → 12,9 / 6,7 | 12,2 / 11,2 → 12,2 / 11,2 | 9,4× → 1,2× | 16,4 → 16,4 |
+| Závlaha | 1440 × 900 | 6,3 / 6,2 → 6,3 / 6,2 | 13,2 / 8,9 → 13,1 / 8,4 | 12,3 / 11,2 → 12,3 / 11,2 | 9,0× → 1,1× | 16,4 → 16,4 |
+| Závlaha | 1920 × 1080 | 13,6 / 11,1 → 13,6 / 11,2 | 13,4 / 9,7 → 13,4 / 9,4 | 12,3 / 11,3 → 12,3 / 11,3 | 8,9× → 1,1× | 17,3 → 17,3 |
+| Závlaha | 2560 × 1080 | 11,8 / 9,6 → 11,8 / 9,6 | 13,8 / 9,7 → 13,8 / 9,4 | 12,4 / 11,2 → 12,4 / 11,2 | 8,8× → 1,0× | 18,0 → 17,9 |
+| Jak namíchat | 1280 × 720 | 17,0 / 14,2 → 17,0 / 14,2 | 18,4 / 15,2 → 18,4 / 13,8 | 13,4 / 13,1 → 13,4 / 13,1 | 6,6× → 1,1× | 17,4 → 17,4 |
+| Jak namíchat | 1440 × 900 | 18,3 / 14,9 → 18,3 / 14,9 | 18,6 / 16,5 → 18,5 / 15,4 | 13,4 / 13,1 → 13,4 / 13,1 | 5,8× → 1,1× | 18,0 → 18,0 |
+| Jak namíchat | 1920 × 1080 | 18,3 / 17,6 → 18,3 / 17,6 | 18,7 / 16,8 → 18,6 / 16,1 | 13,5 / 13,1 → 13,5 / 13,1 | 5,5× → 1,1× | 17,7 → 17,7 |
+| Jak namíchat | 2560 × 1080 | 18,4 / 17,6 → 18,4 / 17,6 | 18,8 / 17,1 → 18,7 / 16,7 | 13,5 / 13,2 → 13,5 / 13,2 | 6,0× → 1,1× | 16,4 → 16,4 |
+| Péče | 1280 × 720 | 18,5 / 17,1 → 18,5 / 17,1 | 17,2 / 14,2 → 17,2 / 14,2 | 13,2 / 12,7 → 13,2 / 12,7 | 9,4× → 1,5× | 14,2 → 14,2 |
+| Péče | 1440 × 900 | 16,8 / 15,3 → 16,8 / 15,3 | 17,4 / 13,8 → 17,4 / 13,8 | 13,2 / 12,6 → 13,2 / 12,6 | 9,4× → 1,2× | 15,4 → 15,4 |
+| Péče | 1920 × 1080 | 17,1 / 15,7 → 17,1 / 15,6 | 17,9 / 15,5 → 17,9 / 15,5 | 13,2 / 12,6 → 13,2 / 12,6 | 9,2× → 1,1× | 15,6 → 15,8 |
+| Péče | 2560 × 1080 | 17,2 / 15,4 → 17,2 / 15,4 | 18,1 / 16,0 → 18,1 / 16,1 | 13,3 / 12,9 → 13,3 / 12,9 | 9,2× → 1,1× | 15,2 → 15,2 |
+
+Minima po (všech 6 článků, 1024 × 768 až 2560 × 1080, včetně 1130 × 800):
+eyebrow p5 **6,19** (Závlaha 1280; limit 4,5), H1 p5 **6,69** (Závlaha 1280;
+limit 3), perex p5 **8,69** (Kalkulátor 1280), šipka cue p5 **14,2**.
+Ztlumení vpravo po: 1,0–1,9× (nejvíc 1024 × 768 u Jak zasít — kruh cue).
+Zlatý snímek 5/5 beze změny snímků. Zbytky (rozhodne autor): u Závlahy
+na 1920 je přechod tmavého sloupce do osvíceného trávníku vidět jako měkká
+svislá hrana (čte se jako stín); nový článek v seznamu slugů se před
+zařazením měří stejně (ocas titulku v doznívání).
